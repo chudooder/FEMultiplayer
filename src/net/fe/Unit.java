@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import chu.engine.Entity;
 
-public class Unit extends Entity {
+public class Unit extends GriddedEntity {
 	private HashMap<String, Float> stats;
 	private int hp;
 	private Clazz clazz;
@@ -15,11 +15,14 @@ public class Unit extends Entity {
 	private HashMap<String, Integer> tempMods;
 	//TODO Rescue
 
-	public Unit(float x, float y, HashMap<String, Float> startingStats,
+	public Unit(int x, int y, HashMap<String, Float> startingStats,
 			HashMap<String, Integer> growths) {
 		super(x, y);
 		stats = startingStats;
+		hp = (int)(startingStats.get("HP").floatValue());
 		this.growths = growths;
+		inventory = new ArrayList<Item>();
+		tempMods = new HashMap<String, Integer>();
 	}
 	
 	@Override
@@ -98,6 +101,10 @@ public class Unit extends Entity {
 	
 	public Weapon getWeapon(){
 		return weapon;
+	}
+	
+	public void addToInventory(Item item) {
+		inventory.add(item);
 	}
 
 }

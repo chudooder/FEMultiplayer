@@ -9,6 +9,26 @@ public class Weapon extends Item{
 	public Type type;
 	public ArrayList<Clazz> effective;
 	
+	public Weapon() {
+		// Initialize modifiers to 0
+		modifiers = new HashMap<String, Integer>();
+		modifiers.put("Skl", 0);
+		modifiers.put("Luk", 0);
+		modifiers.put("HP",  0);
+		modifiers.put("Str", 0);
+		modifiers.put("Mag", 0);
+		modifiers.put("Def", 0);
+		modifiers.put("Res", 0);
+		modifiers.put("Spd", 0);
+		modifiers.put("Lvl", 0);
+		modifiers.put("Mov", 0);
+		mt = 0;
+		hit = 0;
+		crit = 0;
+		type = null;
+		effective = new ArrayList<Clazz>();
+	}
+	
 	public enum Type{
 		SWORD, LANCE, AXE, BOW, LIGHT, ANIMA, DARK, STAFF;
 		public int triangleModifier(Type other){
@@ -56,4 +76,17 @@ public class Weapon extends Item{
 		return type.isMagic();
 	}
 	//TODO: Trigger
+	
+	public static Weapon createWeapon(String name) {
+		Weapon weapon = new Weapon();
+		if(name.equals("sord")) {
+			weapon.type = Weapon.Type.SWORD;
+			weapon.mt = 3;
+			weapon.hit = 70;
+			weapon.crit = 30;
+			weapon.range = new int[]{1};
+			return weapon;
+		}
+		return null;
+	}
 }
