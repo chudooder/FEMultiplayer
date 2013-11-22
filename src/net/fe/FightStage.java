@@ -73,6 +73,8 @@ public class FightStage extends Stage {
 			if(skills){
 				//Run Post Triggers (Sol, Nosferatu, Astra, Brave, Stun)
 			}
+			a.clearTempMods();
+			d.clearTempMods();
 		}
 		return d.getHp() == 0;
 	}

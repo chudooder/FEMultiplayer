@@ -43,6 +43,10 @@ public class Unit extends Entity {
 		weapon = (Weapon) inventory.get(index);
 	}
 	
+	public void clearTempMods(){
+		tempMods.clear();
+	}
+	
 	//TODO: getTriggers
 
 	
