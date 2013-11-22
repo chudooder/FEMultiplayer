@@ -41,7 +41,7 @@ public abstract class Stage {
 
 	public void render() {
 		SortByRender comparator = new SortByRender();
-		PriorityQueue<Entity> renderQueue = new PriorityQueue<Entity>(entities.size(), comparator);
+		PriorityQueue<Entity> renderQueue = new PriorityQueue<Entity>(entities.size()+1, comparator);
 		renderQueue.addAll(entities);
 		while(!renderQueue.isEmpty()) {
 			renderQueue.poll().render();

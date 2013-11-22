@@ -4,6 +4,12 @@ import java.util.HashMap;
 
 import org.newdawn.slick.opengl.Texture;
 
+/**
+ * Manages a set of animations, and allows
+ * the user to switch between animations.
+ * @author Shawn
+ *
+ */
 public class Sprite {
 	
 	private HashMap<String, Animation> animations;
@@ -13,43 +19,88 @@ public class Sprite {
 		animations = new HashMap<String, Animation>();
 	}
 	
-	public void addAnimation(String s, Texture t, int width, int height, int frames, int speed) {
-		Animation anim = new Animation(t, width, height, frames, speed);
-		animations.put(s, anim);
+	/**
+	 * Add a new animation to the sprite by creating an animation with the given parameters.
+	 * @param name Name of the animation
+	 * @param tex Texture to use as the spritesheet
+	 * @param width Width of a single frame in pixels
+	 * @param height Height of a single frame in pixels
+	 * @param frames Number of frames in the animation
+	 * @param speed Speed of the animation in frames per second
+	 */
+	public void addAnimation(String name, Texture tex, int width, int height, int frames, int speed) {
+		Animation anim = new Animation(tex, width, height, frames, speed);
+		animations.put(name, anim);
 		currentAnimation = anim;
 	}
 	
-	public void addAnimation(String s, Texture t) {
-		Animation anim = new Animation(t);
-		animations.put(s, anim);
+	/**
+	 * Add a new single-image animation.
+	 * @param name Name of the animation
+	 * @param tex Texture to use as the static image
+	 */
+	public void addAnimation(String name, Texture tex) {
+		Animation anim = new Animation(tex);
+		animations.put(name, anim);
 		currentAnimation = anim;
 	}
 	
-	public void addAnimation(String s, Animation a) {
-		animations.put(s, a);
-		currentAnimation = a;
+	/**
+	 * Add an existing animation to the sprite
+	 * @param name Name of the animation
+	 * @param anim Existing animation to add
+	 */
+	public void addAnimation(String name, Animation anim) {
+		animations.put(name, anim);
+		currentAnimation = anim;
 	}
 	
-	public Animation getAnimation(String s) {
-		return animations.get(s);
+	/**
+	 * Gets the animation with the given name.
+	 * @param name Name of the animation
+	 * @return Animation that corresponds with that name
+	 */
+	public Animation getAnimation(String name) {
+		return animations.get(name);
 	}
 	
-	public void setAnimation(String s) {
-		currentAnimation = animations.get(s);
+	/**
+	 * Sets the current, rendering animation to the animation with the
+	 * given name.
+	 * @param name Name of the animation
+	 */
+	public void setAnimation(String name) {
+		currentAnimation = animations.get(name);
 	}
 	
+	/**
+	 * @return Frame the current animation is on
+	 */
 	public int getFrame() {
 		return currentAnimation.getFrame();
 	}
 	
-	public void setFrame(int i) {
-		currentAnimation.setFrame(i % currentAnimation.getLength());
+	/**
+	 * Sets the current animation to the given frame
+	 * @param frame Frame to set the current animation to
+	 */
+	public void setFrame(int frame) {
+		currentAnimation.setFrame(frame % currentAnimation.getLength());
 	}
 	
+	/**
+	 * @return Number of animations in the sprite
+	 */
 	public int size() {
 		return animations.size();
 	}
 	
+	/**
+	 * Draws the sprite at the specified coordinates.
+	 * @param x 
+	 * @param y
+	 * @param depth
+	 */
 	public void render(float x, float y, float depth) {
 		if(currentAnimation == null) return;
 		
@@ -63,29 +114,23 @@ public class Sprite {
 		Renderer.render(texture, x0, 0, x1, 1, (int)x, (int)y, (int)(x+width), (int)(y+height), depth);
 		
 	}
-	
-	public void renderRotated(int x, int y, float depth, float angle) {
-		if(currentAnimation == null) return;
-		
-		int width = currentAnimation.getWidth();
-		int height = currentAnimation.getHeight();
-		int fakelength = currentAnimation.getImageWidth()/width;
-		float x0 = (float)(currentAnimation.getFrame())/(float)(fakelength);
-		float x1 = (float)(currentAnimation.getFrame()+1)/(float)(fakelength);
-		
-		Texture texture = currentAnimation.getTexture();
-		
-		Transform t = new Transform();
-		t.setRotation(angle);
-		Renderer.renderTransformed(texture, x0, 0, x1, 1, x, y, x+width, y+height, depth, t);
-	}
 
+	/**
+	 * Updates the current animation
+	 */
 	public void update() {
 		if(currentAnimation == null) return;
 		currentAnimation.update();
 	}
 
-	public void renderTransformed(float x, float y, float depth, Transform t) {
+	/**
+	 * Draws the sprite 
+	 * @param x
+	 * @param y
+	 * @param depth
+	 * @param transform
+	 */
+	public void renderTransformed(float x, float y, float depth, Transform transform) {
 		if(currentAnimation == null) return;
 		
 		int width = currentAnimation.getWidth();
@@ -95,7 +140,7 @@ public class Sprite {
 		float x1 = (float)(currentAnimation.getFrame()+1)/(float)(fakelength);
 		
 		Texture texture = currentAnimation.getTexture();
-		Renderer.renderTransformed(texture, x0, 0, x1, 1, (int)x, (int)y, (int)x+width, (int)y+height, depth, t);
+		Renderer.renderTransformed(texture, x0, 0, x1, 1, (int)x, (int)y, (int)x+width, (int)y+height, depth, transform);
 	}
 
 	public void setSpeed(int i) {

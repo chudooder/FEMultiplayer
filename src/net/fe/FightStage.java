@@ -2,6 +2,7 @@ package net.fe;
 
 import java.util.ArrayList;
 
+import chu.engine.Entity;
 import chu.engine.Stage;
 
 public class FightStage extends Stage {
@@ -86,20 +87,29 @@ public class FightStage extends Stage {
 
 	@Override
 	public void beginStep() {
-		// TODO Auto-generated method stub
-
+		for(Entity e : entities) {
+			e.beginStep();
+		}
+		processAddStack();
+		processRemoveStack();
 	}
 
 	@Override
 	public void onStep() {
-		// TODO Auto-generated method stub
-
+		for(Entity e : entities) {
+			e.onStep();
+		}
+		processAddStack();
+		processRemoveStack();
 	}
 
 	@Override
 	public void endStep() {
-		// TODO Auto-generated method stub
-
+		for(Entity e : entities) {
+			e.endStep();
+		}
+		processAddStack();
+		processRemoveStack();
 	}
 
 }
