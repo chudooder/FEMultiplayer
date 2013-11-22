@@ -3,6 +3,7 @@ package net.fe;
 public abstract class Trigger<E> {
 	private int chance;
 	protected boolean success;
+	protected Type type;
 	public Trigger(int chance){
 		this.chance = chance;
 	}
@@ -18,4 +19,8 @@ public abstract class Trigger<E> {
 		}
 	}
 	public abstract E run(Object[] args);
+	
+	public enum Type{
+		PRE_ATTACK, DAMAGE_MOD, POST_ATTACK, TURN_START, TURN_END
+	}
 }

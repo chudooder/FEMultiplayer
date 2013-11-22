@@ -13,6 +13,7 @@ public class Unit extends Entity {
 	private Weapon weapon;
 	private ArrayList<Item> inventory;
 	private HashMap<String, Integer> tempMods;
+	//TODO Rescue
 
 	public Unit(float x, float y, HashMap<String, Float> startingStats,
 			HashMap<String, Integer> growths) {
