@@ -8,21 +8,22 @@ import chu.engine.Entity;
 public class Unit extends GriddedEntity {
 	private HashMap<String, Float> stats;
 	private int hp;
-	private Clazz clazz;
+	private Class clazz;
 	private HashMap<String, Integer> growths;
 	private Weapon weapon;
 	private ArrayList<Item> inventory;
 	private HashMap<String, Integer> tempMods;
 	//TODO Rescue
 
-	public Unit(int x, int y, HashMap<String, Float> startingStats,
+	public Unit(HashMap<String, Float> startingStats,
 			HashMap<String, Integer> growths) {
-		super(x, y);
+		super(0, 0);
 		stats = startingStats;
 		hp = (int)(startingStats.get("HP").floatValue());
 		this.growths = growths;
 		inventory = new ArrayList<Item>();
 		tempMods = new HashMap<String, Integer>();
+		
 	}
 	
 	@Override
@@ -56,12 +57,12 @@ public class Unit extends GriddedEntity {
 	
 	//Combat statistics
 	public int hit(){
-		return weapon.hit + get("Skl") + get("Luk")/2 +
+		return weapon.hit + get("Skl") + get("Lck")/2 +
 				(tempMods.get("Hit")!=null?tempMods.get("Hit"):0);
 	}
 	
 	public int avoid(){
-		return get("Spd") + get("Luk")/2 +
+		return get("Spd") + get("Lck")/2 +
 				(tempMods.get("Avo")!=null?tempMods.get("Avo"):0);
 		//TODO: terrain bonus
 	}
@@ -72,17 +73,17 @@ public class Unit extends GriddedEntity {
 	}
 	
 	public int dodge(){ //Critical avoid
-		return get("Luk")+
+		return get("Lck")+
 				(tempMods.get("Dodge")!=null?tempMods.get("Dodge"):0);
 	}
 
 	
 	//Getter/Setter
-	public Clazz getClazz() {
+	public Class getTheClass() {
 		return clazz;
 	}
 
-	public void setClazz(Clazz clazz) {
+	public void setClass(Class clazz) {
 		this.clazz = clazz;
 	}
 

@@ -7,13 +7,13 @@ public class Weapon extends Item{
 	public int mt, hit, crit;
 	public int[] range;
 	public Type type;
-	public ArrayList<Clazz> effective;
+	public ArrayList<Class> effective;
 	
 	public Weapon() {
 		// Initialize modifiers to 0
 		modifiers = new HashMap<String, Integer>();
 		modifiers.put("Skl", 0);
-		modifiers.put("Luk", 0);
+		modifiers.put("Lck", 0);
 		modifiers.put("HP",  0);
 		modifiers.put("Str", 0);
 		modifiers.put("Mag", 0);
@@ -26,7 +26,7 @@ public class Weapon extends Item{
 		hit = 0;
 		crit = 0;
 		type = null;
-		effective = new ArrayList<Clazz>();
+		effective = new ArrayList<Class>();
 	}
 	
 	public enum Type{
@@ -84,6 +84,15 @@ public class Weapon extends Item{
 			weapon.mt = 3;
 			weapon.hit = 70;
 			weapon.crit = 30;
+			weapon.range = new int[]{1};
+			return weapon;
+		}
+		
+		if(name.equals("lunce")) {
+			weapon.type = Weapon.Type.LANCE;
+			weapon.mt = 10;
+			weapon.hit = 20;
+			weapon.crit = 100;
 			weapon.range = new int[]{1};
 			return weapon;
 		}

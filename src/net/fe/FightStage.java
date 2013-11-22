@@ -14,7 +14,7 @@ public class FightStage extends Stage {
 		// TODO: Beta testing stuff, delete later
 		HashMap<String, Float> stats1 = new HashMap<String, Float>();
 		stats1.put("Skl", 10f);
-		stats1.put("Luk", 1f);
+		stats1.put("Lck", 1f);
 		stats1.put("HP", 15f);
 		stats1.put("Str", 10f);
 		stats1.put("Mag", 10f);
@@ -25,7 +25,7 @@ public class FightStage extends Stage {
 		stats1.put("Mov", 3f);
 		HashMap<String, Float> stats2 = new HashMap<String, Float>();
 		stats2.put("Skl", 10f);
-		stats2.put("Luk", 3f);
+		stats2.put("Lck", 3f);
 		stats2.put("HP", 15f);
 		stats2.put("Str", 10f);
 		stats2.put("Mag", 10f);
@@ -34,14 +34,14 @@ public class FightStage extends Stage {
 		stats2.put("Spd", 8f);
 		stats2.put("Lvl", 10f);
 		stats2.put("Mov", 3f);
-		left = new Unit(0, 0, stats1, null);
+		left = new Unit(stats1, null);
 		left.addToInventory(Weapon.createWeapon("sord"));
 		left.equip(0);
-		left.setClazz(new Clazz());
-		right = new Unit(0, 0, stats2, null);
-		right.addToInventory(Weapon.createWeapon("sord"));
+		left.setClass(new Class());
+		right = new Unit(stats2, null);
+		right.addToInventory(Weapon.createWeapon("lunce"));
 		right.equip(0);
-		right.setClazz(new Clazz());
+		right.setClass(new Class());
 		calculate();
 	}
 
@@ -100,12 +100,12 @@ public class FightStage extends Stage {
 			int damage;
 			if(a.getWeapon().isMagic()){
 				damage = a.get("Mag") + (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon())) 
-						*(a.getWeapon().effective.contains(d.getClazz())?3:1)
+						*(a.getWeapon().effective.contains(d.getTheClass())?3:1)
 						- d.get("Res");
 				//TODO Terrain modifier
 			} else {
 				damage = a.get("Str") + (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon())) 
-						*(a.getWeapon().effective.contains(d.getClazz())?3:1)
+						*(a.getWeapon().effective.contains(d.getTheClass())?3:1)
 						- d.get("Res");
 			}
 			damage *= crit;
