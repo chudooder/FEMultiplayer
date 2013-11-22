@@ -38,6 +38,7 @@ public class FightStage extends Stage {
 			if(skills){
 				boolean cancel = false;
 				//Run Pre Triggers (Aether, Colossus, Luna, Deadeye, Lethality)
+				//FIXME Make sure all triggers are processed in the same order
 				if(cancel) break;
 			}
 			if (RNG.get() >= a.hit() - d.avoid()
