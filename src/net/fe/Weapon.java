@@ -90,7 +90,7 @@ public class Weapon extends Item{
 		
 		if(name.equals("lunce")) {
 			weapon.type = Weapon.Type.LANCE;
-			weapon.mt = 8;
+			weapon.mt = 4;
 			weapon.hit = 80;
 			weapon.crit = 10;
 			weapon.range = Arrays.asList(1);
@@ -103,6 +103,15 @@ public class Weapon extends Item{
 			weapon.hit = 100;
 			weapon.crit = 0;
 			weapon.range = Arrays.asList(2);
+			return weapon;
+		}
+		
+		if(name.equals("axe")){
+			weapon.type = Weapon.Type.AXE;
+			weapon.mt = 6;
+			weapon.hit = 75;
+			weapon.crit = 10;
+			weapon.range = Arrays.asList(1);
 			return weapon;
 		}
 		return null;

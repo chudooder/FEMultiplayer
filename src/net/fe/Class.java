@@ -24,6 +24,8 @@ public class Class {
 			return new Class("Sniper",10, new Deadeye(), Weapon.Type.BOW);
 		if(name.equals("Hero"))
 			return new Class("Hero",0, new Colossus(), Weapon.Type.SWORD, Weapon.Type.AXE);
+		if(name.equals("Berserker"))
+			return new Class("Berserker", 10, new Luna(), Weapon.Type.AXE);
 		return null;
 		
 	}

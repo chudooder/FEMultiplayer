@@ -21,8 +21,19 @@ public class FightStage extends Stage {
 		stats1.put("Def", 10f);
 		stats1.put("Res", 10f);
 		stats1.put("Spd", 12f);
-		stats1.put("Lvl", 10f);
+		stats1.put("Lvl", 1f);
 		stats1.put("Mov", 3f);
+		
+		HashMap<String, Integer> growths1 = new HashMap<String, Integer>();
+		growths1.put("HP", 70);
+		growths1.put("Str", 50);
+		growths1.put("Mag", 10);
+		growths1.put("Skl", 70);
+		growths1.put("Spd", 70);
+		growths1.put("Def", 40);
+		growths1.put("Res", 30);
+		growths1.put("Lck", 60);
+		
 		HashMap<String, Float> stats2 = new HashMap<String, Float>();
 		stats2.put("Skl", 10f);
 		stats2.put("Lck", 3f);
@@ -32,15 +43,31 @@ public class FightStage extends Stage {
 		stats2.put("Def", 10f);
 		stats2.put("Res", 10f);
 		stats2.put("Spd", 8f);
-		stats2.put("Lvl", 10f);
+		stats2.put("Lvl", 1f);
 		stats2.put("Mov", 3f);
-		left = new Unit("Marth",Class.createClass("Hero"), stats1, null);
-		left.addToInventory(Weapon.createWeapon("sord"));
+		
+		HashMap<String, Integer> growths2 = new HashMap<String, Integer>();
+		growths2.put("HP", 70);
+		growths2.put("Str", 60);
+		growths2.put("Mag", 10);
+		growths2.put("Skl", 60);
+		growths2.put("Spd", 50);
+		growths2.put("Def", 40);
+		growths2.put("Res", 30);
+		growths2.put("Lck", 60);
+		
+		left = new Unit("Marth",Class.createClass("Berserker"), stats1, growths1);
+		left.addToInventory(Weapon.createWeapon("axe"));
 		left.equip(0);
 		
-		right = new Unit("Roy",Class.createClass(null), stats2, null);
+		right = new Unit("Roy",Class.createClass(null), stats2, growths2);
 		right.addToInventory(Weapon.createWeapon("lunce"));
 		right.equip(0);
+		
+		for(int i = 0; i < 15; i++){
+			left.levelUp();
+			right.levelUp();
+		}
 		
 		calculate(1);
 	}
@@ -59,13 +86,14 @@ public class FightStage extends Stage {
 			attackOrder.add(false);
 		}
 		
-		System.out.println("Starting health | Left: "+left.getHp()
-				+" | Right: "+right.getHp());
+		System.out.println("Battle!\n" + left + "\n" + right);
+		System.out.println("Starting health | "+left.name+": "+left.getHp()
+				+" | "+right.name+": "+right.getHp());
 		for (Boolean i : attackOrder) {
 			attack(i, true);
 		}
-		System.out.println("Ending health | Left: "+left.getHp()
-				+" | Right: "+right.getHp());
+		System.out.println("Ending health | "+left.name+": "+left.getHp()
+				+" | "+right.name+": "+right.getHp());
 	}
 
 	public void attack(boolean dir, boolean skills) {
@@ -92,7 +120,15 @@ public class FightStage extends Stage {
 			t.attempt(a);
 		}
 		
-		String animation = null;
+		String animation = "Attack";
+		if (!(RNG.get() < a.hit() - d.avoid()
+				+ a.getWeapon().triMod(d.getWeapon()) * 10)) {
+			// Miss
+			addToAttackQueue(a, d, "Miss", 0);
+			if(a.getWeapon().isMagic()) a.getWeapon().use(a);
+			return;
+		}
+		
 		if(skills){
 			boolean cancel = false;
 			for(Trigger t: aTriggers){
@@ -103,13 +139,7 @@ public class FightStage extends Stage {
 			}
 			if(cancel) return;
 		}
-		if (!(RNG.get() < a.hit() - d.avoid()
-				+ a.getWeapon().triMod(d.getWeapon()) * 10)) {
-			// Miss
-			addToAttackQueue(a, d, "Miss", 0);
-			if(a.getWeapon().isMagic()) a.getWeapon().use(a);
-			return;
-		}
+		
 		int crit = 1;
 		if (RNG.get() < a.crit() - d.dodge()) {
 			crit = 3;
@@ -123,7 +153,7 @@ public class FightStage extends Stage {
 		} else {
 			damage = a.get("Str") + (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon())) 
 					*(a.getWeapon().effective.contains(d.getTheClass())?3:1)
-					- d.get("Res");
+					- d.get("Def");
 		}
 		damage *= crit;
 		
@@ -133,8 +163,8 @@ public class FightStage extends Stage {
 			}
 		}
 		
-		if(animation == null){
-			animation = crit == 1? "Attack" : "Critical";
+		if(crit == 3){
+			animation += " Critical";
 		}
 		addToAttackQueue(a, d, animation, damage);
 		d.setHp(d.getHp()-damage);

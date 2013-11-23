@@ -41,7 +41,9 @@ public class Unit extends GriddedEntity {
 	public void levelUp(){
 		stats.put("Lvl", stats.get("Lvl") + 1);
 		for(String stat: growths.keySet()){
+			int hpOld = get("HP");
 			stats.put(stat, stats.get(stat) + (float)(growths.get(stat)/100.0));
+			hp += get("HP") - hpOld;
 		}
 	}
 	
@@ -63,8 +65,6 @@ public class Unit extends GriddedEntity {
 	public void clearTempMods(){
 		tempMods.clear();
 	}
-	
-	//TODO: getTriggers
 	
 	public ArrayList<Trigger> getTriggers(){
 		ArrayList<Trigger> triggers = new ArrayList<Trigger>();
@@ -126,5 +126,10 @@ public class Unit extends GriddedEntity {
 	public void addToInventory(Item item) {
 		inventory.add(item);
 	}
-
+	
+	
+	//Debugging
+	public String toString(){
+		return name + " HP" + hp + "\n" + stats + "\n" + weapon.type;
+	}
 }
