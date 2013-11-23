@@ -9,6 +9,7 @@ import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 
 import java.awt.Font;
+import java.util.ArrayList;
 
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
@@ -19,12 +20,15 @@ import org.newdawn.slick.util.ResourceLoader;
 import chu.engine.Game;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
+import chu.engine.network.Client;
+import chu.engine.network.Message;
 
 public class FEMultiplayer extends Game{
 	private static Stage currentStage;
+	private static Client client;
+	private static ArrayList<Message> serverMessages;
 	
 	public static void main(String[] args) {
-		//TODO: Start a client
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(10, 10, "Entanglement");
 		game.loop();
@@ -32,9 +36,11 @@ public class FEMultiplayer extends Game{
 	
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
+		client = new Client();
 		/* OpenGL final setup */
 		GL11.glEnable(GL11.GL_LINE_SMOOTH);
 		currentStage = new FightStage();
+		serverMessages = new ArrayList<Message>();
 	}
 
 	@Override
@@ -46,6 +52,10 @@ public class FEMultiplayer extends Game{
 			        GL_STENCIL_BUFFER_BIT);
 			glClearDepth(1.0f);
 			getInput();
+			serverMessages.clear();
+			serverMessages.addAll(client.getMessages());
+			for(Message m : serverMessages)
+				client.messages.remove(m);
 			SoundStore.get().poll(0);
 			glPushMatrix();
 			if(!paused) {
@@ -61,6 +71,7 @@ public class FEMultiplayer extends Game{
 		}
 		AL.destroy();
 		Display.destroy();
+		client.close();
 	}
 	
 	public static void setCurrentStage(Stage stage) {

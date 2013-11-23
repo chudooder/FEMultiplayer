@@ -10,8 +10,8 @@ public class Message {
 	public byte[] message;
 	private static final byte[] BEGIN = new byte[]{0x42,0x45,0x47,0x49,0x4e};
 	
-	public Message(byte origin, byte type, byte[] message) {
-		this.origin = origin;
+	public Message(int origin, byte type, byte[] message) {
+		this.origin = (byte)origin;
 		this.length = message.length;
 		this.type = type;
 		this.message = message;

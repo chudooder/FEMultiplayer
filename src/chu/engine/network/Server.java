@@ -68,9 +68,9 @@ public class Server {
 	 * Sends a message to all clients
 	 * @param line
 	 */
-	public void sendMessage(byte[] line) {
+	public void sendMessage(Message message) {
 		for(ServerListener out : clients) {
-			out.sendMessage(line);
+			out.sendMessage(message);
 		}
 	}
 	
@@ -79,8 +79,8 @@ public class Server {
 	 * @param client
 	 * @param line
 	 */
-	public void sendMessage(ServerListener client, byte[] line) {
-		client.sendMessage(line);
+	public void sendMessage(ServerListener client, Message message) {
+		client.sendMessage(message);
 	}
 	
 	public byte getCount() {

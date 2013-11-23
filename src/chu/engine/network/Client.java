@@ -13,14 +13,14 @@ public class Client {
 	OutputStream out;
 	InputStream in;
 	boolean open = true;
-	public volatile ArrayList<byte[]> messages;
+	public volatile ArrayList<Message> messages;
 	
 	public static void main(String[] args) {
 		new Client();
 	}
 	
 	public Client() {
-		messages = new ArrayList<byte[]>();
+		messages = new ArrayList<Message>();
 		try {
 			System.out.println("CLIENT: CONNECTING TO SERVER");
 			serverSocket = new Socket(
@@ -45,8 +45,9 @@ public class Client {
 							byte origin = header[5];
 							byte type = header[6];
 							byte length = header[7];
-							byte[] message = new byte[length];
-							in.read(message);
+							byte[] data = new byte[length];
+							in.read(data);
+							Message message = new Message(origin, type, data);
 							processInput(type, message);
 						}
 						
@@ -66,14 +67,14 @@ public class Client {
 		}
 	}
 	
-	private void processInput(byte type, byte[] message) {
+	private void processInput(byte type, Message message) {
 		if(message.length > 0) {
 			messages.add(message);
 			System.out.println("Got a message!");
 		}
 	}
 	
-	public ArrayList<byte[]> getMessages() {
+	public ArrayList<Message> getMessages() {
 		return messages;
 	}
 	

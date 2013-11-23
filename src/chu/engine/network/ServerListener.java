@@ -20,8 +20,8 @@ public class ServerListener extends Thread {
 			this.main = main;
 			in = socket.getInputStream();
 			out = socket.getOutputStream();
-			sendMessage(new Message((byte)0, Message.INIT,
-					new byte[]{main.getCount()}).getBytes());
+			sendMessage(new Message(0, Message.INIT,
+					new byte[]{main.getCount()}));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -60,9 +60,9 @@ public class ServerListener extends Thread {
 		
 	}
 	
-	public void sendMessage(byte[] message) {
+	public void sendMessage(Message message) {
 		try {
-			out.write(message);
+			out.write(message.getBytes());
 		} catch (IOException e) {
 			System.err.println("SERVER Unable to send message!");
 		}
