@@ -3,7 +3,6 @@ package net.fe;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import chu.engine.Entity;
 
 public class Unit extends GriddedEntity {
 	private HashMap<String, Float> stats;
@@ -53,6 +52,12 @@ public class Unit extends GriddedEntity {
 	}
 	
 	//TODO: getTriggers
+	
+	public ArrayList<Trigger> getTriggers(){
+		ArrayList<Trigger> triggers = new ArrayList<Trigger>();
+		triggers.add(clazz.masterSkill);
+		return triggers;
+	}
 
 	
 	//Combat statistics

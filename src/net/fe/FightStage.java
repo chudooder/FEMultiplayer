@@ -77,12 +77,25 @@ public class FightStage extends Stage {
 			d = left;
 			System.out.print("Right attacks: ");
 		}
+		
+		ArrayList<Trigger> triggers = new ArrayList<Trigger>();
+		triggers.addAll(a.getTriggers());
+		triggers.addAll(d.getTriggers());
+		
+		for(Trigger t: triggers){
+			t.attempt();
+		}
+		
 		for (int i = 0; i < times; i++) {
 			String animation = null;
 			if(skills){
 				boolean cancel = false;
-				//Run Pre Triggers (Aether, Colossus, Luna, Deadeye, Lethality)
-				//FIXME Make sure all triggers are processed in the same order
+				for(Trigger t: triggers){
+					if(t.success && t.type == Trigger.Type.PRE_ATTACK){
+						cancel = t.run(this, a, d) != 0;
+						animation = t.getClass().getSimpleName();
+					}
+				}
 				if(cancel) break;
 			}
 			if (!(RNG.get() < a.hit() - d.avoid()
@@ -110,15 +123,16 @@ public class FightStage extends Stage {
 			}
 			damage *= crit;
 			
-			//Run Passive Triggers (Great Shield, Miracle)
+			for(Trigger t: triggers){
+				if(t.success && t.type == Trigger.Type.DAMAGE_MOD){
+					damage = t.run(damage);
+				}
+			}
 			
 			if(animation == null){
 				animation = crit == 1? "Attack" : "Critical";
 			}
 			addToAttackQueue(dir, animation, damage);
-			if(skills){
-				//Run Post Triggers (Sol, Nosferatu, Astra, Brave, Stun)
-			}
 			
 			if(crit == 3) {
 				System.out.print("Crit for ");
@@ -127,6 +141,13 @@ public class FightStage extends Stage {
 			d.setHp(d.getHp()-damage);
 			a.clearTempMods();
 			d.clearTempMods();
+			if(skills){
+				for(Trigger t: triggers){
+					if(t.success && t.type == Trigger.Type.POST_ATTACK){
+						t.run(this, a, d);
+					}
+				}
+			}
 		}
 		return d.getHp() == 0;
 	}

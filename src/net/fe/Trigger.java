@@ -1,6 +1,6 @@
 package net.fe;
 
-public abstract class Trigger<E> {
+public abstract class Trigger {
 	private int chance;
 	protected boolean success;
 	protected Type type;
@@ -18,7 +18,7 @@ public abstract class Trigger<E> {
 			success = true;
 		}
 	}
-	public abstract E run(Object[] args);
+	public abstract int run(Object... args);
 	
 	public enum Type{
 		PRE_ATTACK, DAMAGE_MOD, POST_ATTACK, TURN_START, TURN_END
