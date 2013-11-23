@@ -45,10 +45,6 @@ public class Server {
 	volatile ArrayList<ServerListener> clients; 
 	byte counter = 0;
 	
-	public static void main(String[] args) {
-		new Server(21255);
-	}
-	
 	public Server(int port) {
 		clients = new ArrayList<ServerListener>();
 		try {

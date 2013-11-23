@@ -15,6 +15,10 @@ public class Client {
 	boolean open = true;
 	public volatile ArrayList<byte[]> messages;
 	
+	public static void main(String[] args) {
+		new Client();
+	}
+	
 	public Client() {
 		messages = new ArrayList<byte[]>();
 		try {
@@ -29,10 +33,23 @@ public class Client {
 			Thread serverIn = new Thread() {
 				public void run() {
 					try {
-						byte[] line = new byte[16];
-						while(in.read(line) != -1) {
-							processInput(line);
+						byte[] header = new byte[8];
+						while(in.read(header) != -1) {
+							// MSGBEGINx5 ORIGIN TYPE LENGTH
+							byte[] begin = new byte[]{0x42,0x45,0x47,0x49,0x4e};
+							for(int i=0; i<5; i++) {
+								if(!(header[i] == begin[i])) {
+									continue;
+								}
+							}
+							byte origin = header[5];
+							byte type = header[6];
+							byte length = header[7];
+							byte[] message = new byte[length];
+							in.read(message);
+							processInput(type, message);
 						}
+						
 					
 						in.close();
 						out.close();
@@ -49,9 +66,11 @@ public class Client {
 		}
 	}
 	
-	private void processInput(byte[] line) {
-		if(line.length > 0)
-			messages.add(line);
+	private void processInput(byte type, byte[] message) {
+		if(message.length > 0) {
+			messages.add(message);
+			System.out.println("Got a message!");
+		}
 	}
 	
 	public ArrayList<byte[]> getMessages() {
