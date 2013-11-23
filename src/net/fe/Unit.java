@@ -12,9 +12,10 @@ public class Unit extends GriddedEntity {
 	private Weapon weapon;
 	private ArrayList<Item> inventory;
 	private HashMap<String, Integer> tempMods;
+	public final String name;
 	//TODO Rescue
 
-	public Unit(HashMap<String, Float> startingStats,
+	public Unit(String name, Class c, HashMap<String, Float> startingStats,
 			HashMap<String, Integer> growths) {
 		super(0, 0);
 		stats = startingStats;
@@ -22,7 +23,8 @@ public class Unit extends GriddedEntity {
 		this.growths = growths;
 		inventory = new ArrayList<Item>();
 		tempMods = new HashMap<String, Integer>();
-		
+		this.name = name;
+		clazz = c;
 	}
 	
 	@Override
@@ -44,7 +46,18 @@ public class Unit extends GriddedEntity {
 	}
 	
 	public void equip(int index){
-		weapon = (Weapon) inventory.get(index);
+		if(equippable(index))
+			weapon = (Weapon) inventory.get(index);
+		else
+			throw new IllegalArgumentException("Cannot equip that item");
+			
+	}
+	
+	public boolean equippable(int index){
+		if(inventory.get(index) instanceof Weapon){
+			return clazz.usableWeapon.contains(((Weapon) inventory.get(index)).type);
+		}
+		return false;
 	}
 	
 	public void clearTempMods(){
@@ -55,7 +68,8 @@ public class Unit extends GriddedEntity {
 	
 	public ArrayList<Trigger> getTriggers(){
 		ArrayList<Trigger> triggers = new ArrayList<Trigger>();
-		triggers.add(clazz.masterSkill);
+		if(clazz.masterSkill!=null)
+			triggers.add(clazz.masterSkill);
 		return triggers;
 	}
 
@@ -88,16 +102,12 @@ public class Unit extends GriddedEntity {
 		return clazz;
 	}
 
-	public void setClass(Class clazz) {
-		this.clazz = clazz;
-	}
-
 	public int getHp() {
 		return hp;
 	}
 
 	public void setHp(int hp) {
-		this.hp = hp;
+		this.hp = Math.max(hp,0);
 	}
 	
 	public int get(String stat){

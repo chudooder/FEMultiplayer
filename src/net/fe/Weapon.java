@@ -82,7 +82,7 @@ public class Weapon extends Item{
 		if(name.equals("sord")) {
 			weapon.type = Weapon.Type.SWORD;
 			weapon.mt = 3;
-			weapon.hit = 70;
+			weapon.hit = 90;
 			weapon.crit = 30;
 			weapon.range = new int[]{1};
 			return weapon;
@@ -90,9 +90,9 @@ public class Weapon extends Item{
 		
 		if(name.equals("lunce")) {
 			weapon.type = Weapon.Type.LANCE;
-			weapon.mt = 10;
-			weapon.hit = 20;
-			weapon.crit = 100;
+			weapon.mt = 8;
+			weapon.hit = 80;
+			weapon.crit = 10;
 			weapon.range = new int[]{1};
 			return weapon;
 		}
