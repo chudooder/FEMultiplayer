@@ -69,6 +69,7 @@ public class Weapon extends Item{
 	}
 	//Returns 1 if advantage, -1 if disadvantage
 	public int triMod(Weapon other){ 
+		if(other == null) return 0;
 		return type.triangleModifier(other.type);
 	}
 	

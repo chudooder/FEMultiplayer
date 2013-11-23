@@ -75,14 +75,16 @@ public class FightStage extends Stage {
 	public void calculate(int range) {
 		// Determine turn order
 		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
-		if(left.getWeapon().range.contains(range))
+		if(left.getWeapon()!= null && left.getWeapon().range.contains(range))
 			attackOrder.add(true);
-		if(right.getWeapon().range.contains(range))
+		if(right.getWeapon()!= null && right.getWeapon().range.contains(range))
 			attackOrder.add(false);
-		if (left.get("Spd") >= right.get("Spd") + 4 && left.getWeapon().range.contains(range)) {
+		if (left.get("Spd") >= right.get("Spd") + 4 && 
+				left.getWeapon()!= null && left.getWeapon().range.contains(range)) {
 			attackOrder.add(true);
 		}
-		if (right.get("Spd") >= left.get("Spd") + 4 && right.getWeapon().range.contains(range)) {
+		if (right.get("Spd") >= left.get("Spd") + 4 && 
+				right.getWeapon()!= null && right.getWeapon().range.contains(range)) {
 			attackOrder.add(false);
 		}
 		

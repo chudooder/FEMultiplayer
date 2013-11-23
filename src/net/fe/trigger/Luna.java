@@ -10,7 +10,7 @@ public class Luna extends Trigger {
 	}
 	@Override
 	public void attempt(Unit user) {
-		success = RNG.get() < 50;// user.get("Skl")/2;
+		success = RNG.get() < user.get("Skl")/2;
 	}
 
 	@Override

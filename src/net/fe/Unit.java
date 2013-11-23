@@ -111,7 +111,7 @@ public class Unit extends GriddedEntity {
 	}
 	
 	public int get(String stat){
-		return stats.get(stat).intValue() + weapon.modifiers.get(stat) +
+		return stats.get(stat).intValue() + (weapon!=null?weapon.modifiers.get(stat):0) +
 				(tempMods.get(stat)!=null?tempMods.get(stat):0);
 	}
 	
@@ -130,6 +130,6 @@ public class Unit extends GriddedEntity {
 	
 	//Debugging
 	public String toString(){
-		return name + " HP" + hp + "\n" + stats + "\n" + weapon.type;
+		return name + " HP" + hp + "\n" + stats;
 	}
 }
