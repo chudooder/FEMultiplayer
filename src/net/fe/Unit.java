@@ -126,5 +126,4 @@ public class Unit extends GriddedEntity {
 	public void addToInventory(Item item) {
 		inventory.add(item);
 	}
-
 }

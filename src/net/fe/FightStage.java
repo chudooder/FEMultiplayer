@@ -59,13 +59,13 @@ public class FightStage extends Stage {
 			attackOrder.add(false);
 		}
 		
-		System.out.println("Starting health | Left: "+left.getHp()
-				+" | Right: "+right.getHp());
+		System.out.println("Starting health | "+left.name+": "+left.getHp()
+				+" | "+right.name+": "+right.getHp());
 		for (Boolean i : attackOrder) {
 			attack(i, true);
 		}
-		System.out.println("Ending health | Left: "+left.getHp()
-				+" | Right: "+right.getHp());
+		System.out.println("Ending health | "+left.name+": "+left.getHp()
+				+" | "+right.name+": "+right.getHp());
 	}
 
 	public void attack(boolean dir, boolean skills) {
