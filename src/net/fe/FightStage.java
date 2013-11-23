@@ -34,15 +34,15 @@ public class FightStage extends Stage {
 		stats2.put("Spd", 8f);
 		stats2.put("Lvl", 10f);
 		stats2.put("Mov", 3f);
-		left = new Unit("Marth",Class.createClass("Sniper"), stats1, null);
-		left.addToInventory(Weapon.createWeapon("bow"));
+		left = new Unit("Marth",Class.createClass("Hero"), stats1, null);
+		left.addToInventory(Weapon.createWeapon("sord"));
 		left.equip(0);
 		
 		right = new Unit("Roy",Class.createClass(null), stats2, null);
 		right.addToInventory(Weapon.createWeapon("lunce"));
 		right.equip(0);
 		
-		calculate(2);
+		calculate(1);
 	}
 
 	public void calculate(int range) {
