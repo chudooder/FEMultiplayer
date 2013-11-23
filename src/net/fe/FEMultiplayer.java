@@ -24,6 +24,7 @@ public class FEMultiplayer extends Game{
 	private static Stage currentStage;
 	
 	public static void main(String[] args) {
+		//TODO: Start a client
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(10, 10, "Entanglement");
 		game.loop();

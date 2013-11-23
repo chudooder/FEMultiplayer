@@ -64,10 +64,23 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * Sends a message to all clients
+	 * @param line
+	 */
 	public void sendMessage(byte[] line) {
 		for(ServerListener out : clients) {
 			out.sendMessage(line);
 		}
+	}
+	
+	/**
+	 * Sends a message only to the given client
+	 * @param client
+	 * @param line
+	 */
+	public void sendMessage(ServerListener client, byte[] line) {
+		client.sendMessage(line);
 	}
 	
 	public byte getCount() {
