@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.fe.Weapon.Type;
+import net.fe.trigger.Deadeye;
 
 public class Class {
 	public final int crit;
@@ -15,6 +16,12 @@ public class Class {
 		usableWeapon = Arrays.asList(types);
 	}
 	public static Class createClass(String name){
-		return new Class(0, null, Weapon.Type.SWORD, Weapon.Type.LANCE);
+		if(name == null)
+			return new Class(0, null, Weapon.Type.SWORD, Weapon.Type.LANCE);
+		if(name.equals("Sniper"))
+			return new Class(10, new Deadeye(), Weapon.Type.BOW);
+		
+		return null;
+		
 	}
 }

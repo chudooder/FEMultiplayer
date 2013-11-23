@@ -1,23 +1,18 @@
 package net.fe;
 
+import java.util.Arrays;
+import java.util.List;
+
 public abstract class Trigger {
-	private int chance;
-	protected boolean success;
-	protected Type type;
-	public Trigger(int chance){
-		this.chance = chance;
-	}
-	public Trigger(){
-		this(100);
+	public boolean success;
+	public final List<Type> type;
+	public Trigger(Type... t){
+		type = Arrays.asList(t);
 	}
 	public void clear(){
 		success = false;
 	}
-	public void attempt(){
-		if(RNG.get() < chance){
-			success = true;
-		}
-	}
+	public abstract void attempt(Unit user);
 	public abstract int run(Object... args);
 	
 	public enum Type{

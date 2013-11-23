@@ -115,6 +115,10 @@ public class Unit extends GriddedEntity {
 				(tempMods.get(stat)!=null?tempMods.get(stat):0);
 	}
 	
+	public void setTempMod(String stat, int val){
+		tempMods.put(stat, val);
+	}
+	
 	public Weapon getWeapon(){
 		return weapon;
 	}

@@ -5,7 +5,7 @@ import java.util.*;
 public class Weapon extends Item{
 	public HashMap<String, Integer> modifiers;
 	public int mt, hit, crit;
-	public int[] range;
+	public List<Integer> range;
 	public Type type;
 	public ArrayList<Class> effective;
 	
@@ -84,7 +84,7 @@ public class Weapon extends Item{
 			weapon.mt = 3;
 			weapon.hit = 90;
 			weapon.crit = 30;
-			weapon.range = new int[]{1};
+			weapon.range = Arrays.asList(1);
 			return weapon;
 		}
 		
@@ -93,7 +93,16 @@ public class Weapon extends Item{
 			weapon.mt = 8;
 			weapon.hit = 80;
 			weapon.crit = 10;
-			weapon.range = new int[]{1};
+			weapon.range = Arrays.asList(1);
+			return weapon;
+		}
+		
+		if(name.equals("bow")){
+			weapon.type = Weapon.Type.BOW;
+			weapon.mt = 4;
+			weapon.hit = 100;
+			weapon.crit = 0;
+			weapon.range = Arrays.asList(2);
 			return weapon;
 		}
 		return null;

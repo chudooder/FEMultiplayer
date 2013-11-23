@@ -34,26 +34,28 @@ public class FightStage extends Stage {
 		stats2.put("Spd", 8f);
 		stats2.put("Lvl", 10f);
 		stats2.put("Mov", 3f);
-		left = new Unit("Marth",Class.createClass(null), stats1, null);
-		left.addToInventory(Weapon.createWeapon("sord"));
+		left = new Unit("Marth",Class.createClass("Sniper"), stats1, null);
+		left.addToInventory(Weapon.createWeapon("bow"));
 		left.equip(0);
 		
 		right = new Unit("Roy",Class.createClass(null), stats2, null);
 		right.addToInventory(Weapon.createWeapon("lunce"));
 		right.equip(0);
 		
-		calculate();
+		calculate(2);
 	}
 
-	public void calculate() {
+	public void calculate(int range) {
 		// Determine turn order
 		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
-		attackOrder.add(true);
-		attackOrder.add(false);
-		if (left.get("Spd") >= right.get("Spd") + 4) {
+		if(left.getWeapon().range.contains(range))
+			attackOrder.add(true);
+		if(right.getWeapon().range.contains(range))
+			attackOrder.add(false);
+		if (left.get("Spd") >= right.get("Spd") + 4 && left.getWeapon().range.contains(range)) {
 			attackOrder.add(true);
 		}
-		if (right.get("Spd") >= left.get("Spd") + 4) {
+		if (right.get("Spd") >= left.get("Spd") + 4 && right.getWeapon().range.contains(range)) {
 			attackOrder.add(false);
 		}
 		
@@ -80,18 +82,21 @@ public class FightStage extends Stage {
 			return;
 		}
 		
-		ArrayList<Trigger> triggers = new ArrayList<Trigger>();
-		triggers.addAll(a.getTriggers());
-		triggers.addAll(d.getTriggers());
+		ArrayList<Trigger> aTriggers = a.getTriggers();
+		ArrayList<Trigger> dTriggers = d.getTriggers();
 		
-		for(Trigger t: triggers){
-			t.attempt();
+		for(Trigger t: aTriggers){
+			t.attempt(a);
 		}
+		for(Trigger t: dTriggers){
+			t.attempt(a);
+		}
+		
 		String animation = null;
 		if(skills){
 			boolean cancel = false;
-			for(Trigger t: triggers){
-				if(t.success && t.type == Trigger.Type.PRE_ATTACK){
+			for(Trigger t: aTriggers){
+				if(t.success && t.type.contains(Trigger.Type.PRE_ATTACK)){
 					cancel = t.run(this, a, d) != 0;
 					animation = t.getClass().getSimpleName();
 				}
@@ -122,8 +127,8 @@ public class FightStage extends Stage {
 		}
 		damage *= crit;
 		
-		for(Trigger t: triggers){
-			if(t.success && t.type == Trigger.Type.DAMAGE_MOD){
+		for(Trigger t: dTriggers){
+			if(t.success && t.type.contains(Trigger.Type.DAMAGE_MOD)){
 				damage = t.run(damage);
 			}
 		}
@@ -136,8 +141,8 @@ public class FightStage extends Stage {
 		a.clearTempMods();
 		d.clearTempMods();
 		if(skills){
-			for(Trigger t: triggers){
-				if(t.success && t.type == Trigger.Type.POST_ATTACK){
+			for(Trigger t: aTriggers){
+				if(t.success && t.type.contains(Trigger.Type.POST_ATTACK)){
 					t.run(this, a, d);
 				}
 			}
