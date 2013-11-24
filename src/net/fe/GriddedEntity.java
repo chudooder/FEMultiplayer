@@ -7,15 +7,15 @@ public class GriddedEntity extends Entity {
 	public int ycoord;
 
 	public GriddedEntity(int xx, int yy) {
-		super(xx * 32, yy * 32);
+		super(xx * 16, yy * 16);
 		xcoord = xx;
 		ycoord = yy;
 	}
 
 	@Override
 	public void beginStep() {
-		x = xcoord * 32;
-		y = ycoord * 32;
+		x = xcoord * 16;
+		y = ycoord * 16;
 	}
 
 	@Override

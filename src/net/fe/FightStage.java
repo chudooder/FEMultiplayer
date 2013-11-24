@@ -56,7 +56,7 @@ public class FightStage extends Stage {
 		growths2.put("Res", 30);
 		growths2.put("Lck", 60);
 		
-		left = new Unit("Marth",Class.createClass("Assasin"), stats1, growths1);
+		left = new Unit("Marth",Class.createClass("Assassin"), stats1, growths1);
 		left.addToInventory(Weapon.createWeapon("sord"));
 		left.equip(0);
 		
@@ -69,6 +69,12 @@ public class FightStage extends Stage {
 			right.levelUp();
 		}
 		
+		calculate(1);
+	}
+	
+	public FightStage(Unit u1, Unit u2) {
+		left = u1;
+		right = u2;
 		calculate(1);
 	}
 

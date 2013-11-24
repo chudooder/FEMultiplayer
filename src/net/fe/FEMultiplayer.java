@@ -36,7 +36,8 @@ public class FEMultiplayer extends Game{
 	
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
-		client = new Client();
+		//TODO: Implement client
+//		client = new Client();
 		/* OpenGL final setup */
 		GL11.glEnable(GL11.GL_LINE_SMOOTH);
 		currentStage = new FightStage();
@@ -52,10 +53,11 @@ public class FEMultiplayer extends Game{
 			        GL_STENCIL_BUFFER_BIT);
 			glClearDepth(1.0f);
 			getInput();
-			serverMessages.clear();
-			serverMessages.addAll(client.getMessages());
-			for(Message m : serverMessages)
-				client.messages.remove(m);
+			//TODO: Client
+//			serverMessages.clear();
+//			serverMessages.addAll(client.getMessages());
+//			for(Message m : serverMessages)
+//				client.messages.remove(m);
 			SoundStore.get().poll(0);
 			glPushMatrix();
 			if(!paused) {
@@ -71,7 +73,7 @@ public class FEMultiplayer extends Game{
 		}
 		AL.destroy();
 		Display.destroy();
-		client.close();
+//		client.close();
 	}
 	
 	public static void setCurrentStage(Stage stage) {
