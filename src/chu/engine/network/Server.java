@@ -45,10 +45,6 @@ public class Server {
 	volatile ArrayList<ServerListener> clients; 
 	byte counter = 0;
 	
-	public static void main(String[] args) {
-		new Server(21255);
-	}
-	
 	public Server(int port) {
 		clients = new ArrayList<ServerListener>();
 		try {
@@ -68,10 +64,23 @@ public class Server {
 		}
 	}
 	
-	public void sendMessage(byte[] line) {
+	/**
+	 * Sends a message to all clients
+	 * @param line
+	 */
+	public void sendMessage(Message message) {
 		for(ServerListener out : clients) {
-			out.sendMessage(line);
+			out.sendMessage(message);
 		}
+	}
+	
+	/**
+	 * Sends a message only to the given client
+	 * @param client
+	 * @param line
+	 */
+	public void sendMessage(ServerListener client, Message message) {
+		client.sendMessage(message);
 	}
 	
 	public byte getCount() {
