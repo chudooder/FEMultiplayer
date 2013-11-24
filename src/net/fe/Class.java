@@ -26,6 +26,8 @@ public class Class {
 			return new Class("Hero",0, new Colossus(), Weapon.Type.SWORD, Weapon.Type.AXE);
 		if(name.equals("Berserker"))
 			return new Class("Berserker", 10, new Luna(), Weapon.Type.AXE);
+		if(name.equals("Assasin"))
+			return new Class("Assasin", 10, new Lethality(), Weapon.Type.BOW, Weapon.Type.SWORD);
 		return null;
 		
 	}

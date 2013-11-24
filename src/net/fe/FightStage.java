@@ -56,8 +56,8 @@ public class FightStage extends Stage {
 		growths2.put("Res", 30);
 		growths2.put("Lck", 60);
 		
-		left = new Unit("Marth",Class.createClass("Berserker"), stats1, growths1);
-		left.addToInventory(Weapon.createWeapon("axe"));
+		left = new Unit("Marth",Class.createClass("Assasin"), stats1, growths1);
+		left.addToInventory(Weapon.createWeapon("sord"));
 		left.equip(0);
 		
 		right = new Unit("Roy",Class.createClass(null), stats2, growths2);
@@ -146,6 +146,7 @@ public class FightStage extends Stage {
 		if (RNG.get() < a.crit() - d.dodge()) {
 			crit = 3;
 		}
+		
 		int damage;
 		if(a.getWeapon().isMagic()){
 			damage = a.get("Mag") + (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon())) 
@@ -164,6 +165,8 @@ public class FightStage extends Stage {
 				damage = t.run(damage);
 			}
 		}
+		damage = Math.min(damage, d.getHp());
+
 		
 		if(crit == 3){
 			animation += " Critical";
@@ -175,7 +178,7 @@ public class FightStage extends Stage {
 		if(skills){
 			for(Trigger t: aTriggers){
 				if(t.success && t.type.contains(Trigger.Type.POST_ATTACK)){
-					t.run(this, a, d);
+					t.run(this, a, d, damage);
 				}
 			}
 		}
