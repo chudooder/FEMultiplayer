@@ -74,7 +74,9 @@ public class Grid {
 				int f = g + heuristic(n, goal);
 				if(closed.contains(n) && f >= n.f) {
 					continue;
-				} else {
+				} else if(!closed.contains(n) || f < n.f) {
+					if(g > move)
+						continue;
 					n.parent = cur;
 					n.g = g;
 					n.f = f;
