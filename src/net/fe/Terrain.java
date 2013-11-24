@@ -10,7 +10,6 @@ public enum Terrain {
 	GATE(2), 
 	FORT(2), 
 	SEA(127), 
-	RIVER(127), 
 	DESERT(2),
 	WALL(127);
 
@@ -50,56 +49,39 @@ public enum Terrain {
 		if (c == null)
 			return baseMoveCost;
 		String name = c.name;
-		if (this == RIVER) {
-			if (name.equals("Berserker") || name.equals("Chameleon")
-					|| name.equals("Pirate")) {
-				return 2;
-			}
-			else if (name.equals("Sniper")) {
-				return 4;
-			}
-			else if (name.equals("Lord") || name.equals("Hero")
-					|| name.equals("Swordmaster") || name.equals("Thief")) {
-				return 5;
-			}
+		if(c.equals("Falcon Knight")){
+			return 1;
 		}
 		
 		else if (this == SEA) {
-			if (name.equals("Berserker") || name.equals("Chameleon")
-					|| name.equals("Pirate")) {
+			if (name.equals("Berserker")) {
 				return 2;
 			}
 		}
 		
 		else if (this == FOREST || this == PILLAR) {
-			if (name.equals("Archer") || name.equals("Ballistician")
-					|| name.equals("Cavalier") || name.equals("Horseman")
-					|| name.equals("Paladin")) {
+			if (name.equals("Sniper") || name.equals("Paladin")) {
 				return 3;
 			}
 		}
 		
 		else if (this == DESERT) {
-			if (name.equals("Archer") || name.equals("Ballistician")
-					|| name.equals("General") || name.equals("Paladin")) {
+			if (name.equals("Sniper") || name.equals("General")) {
 				return 3;
 			}
-			else if (name.equals("Cavalier")) {
+			else if (name.equals("Paladin")) {
 				return 4;
-			}
-			else if (name.equals("Horseman")) {
-				return 5;
 			}
 		}
 		
 		else if (this == MOUNTAIN) {
-			if (name.equals("Berserker") || name.equals("Chameleon")
-					|| name.equals("Fighter") || name.equals("Hero")
-					|| name.equals("Hunter") || name.equals("Sniper")
+			if (name.equals("Berserker")
+					|| name.equals("Hero")
+					|| name.equals("Sniper")
 					|| name.equals("Swordmaster")) {
 				return 3;
 			}
-			else if(name.equals("Horseman") || name.equals("Paladin")) {
+			else if(name.equals("Paladin")) {
 				return 6;
 			}
 		}
