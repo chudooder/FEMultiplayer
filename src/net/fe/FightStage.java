@@ -145,7 +145,15 @@ public class FightStage extends Stage {
 					animation = t.getClass().getSimpleName();
 				}
 			}
-			if(cancel) return;
+			if(cancel){
+				for(Trigger t: aTriggers){
+					t.clear();
+				}
+				for(Trigger t: dTriggers){
+					t.clear();
+				}
+				return;
+			}
 		}
 		
 		int crit = 1;
@@ -186,6 +194,12 @@ public class FightStage extends Stage {
 					t.run(this, a, d, damage);
 				}
 			}
+		}
+		for(Trigger t: aTriggers){
+			t.clear();
+		}
+		for(Trigger t: dTriggers){
+			t.clear();
 		}
 	}
 

@@ -15,4 +15,8 @@ public class Path {
 	public void add(int pos, Node n) {
 		path.add(pos, n);
 	}
+	
+	public void render() {
+		//TODO: Draw an arrow
+	}
 }

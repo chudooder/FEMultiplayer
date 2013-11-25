@@ -26,8 +26,10 @@ public abstract class Stage {
 	
 	
 	public void removeEntity(Entity e) {
-		e.flagForRemoval();
-		if(e != null) removeStack.push(e);
+		if(e != null) {
+			e.flagForRemoval();
+			removeStack.push(e);
+		}
 	}
 	
 	public void update() {
