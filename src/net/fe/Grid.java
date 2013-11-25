@@ -98,6 +98,31 @@ public class Grid {
 		return null;
 	}
 	
+	public Set<Node> getPossibleMoves(Unit u, int x, int y) {
+		Set<Node> set = new HashSet<Node>();
+		set.add(new Node(x, y));
+		int w = 0;
+		getPossibleMoves(u, x+1, y, w, set);
+		getPossibleMoves(u, x-1, y, w, set);
+		getPossibleMoves(u, x, y+1, w, set);
+		getPossibleMoves(u, x, y-1, w, set);
+		return set;
+	}
+	
+	private void getPossibleMoves(Unit u, int x, int y, int w, Set<Node> set) {
+		Node n = new Node(x, y);
+		if(set.contains(n))
+			return;
+		w += terrain[y][x].getMoveCost(u.getTheClass());
+		if(w > u.get("Mov"))
+			return;
+		set.add(n);
+		getPossibleMoves(u, x+1, y, w, set);
+		getPossibleMoves(u, x-1, y, w, set);
+		getPossibleMoves(u, x, y+1, w, set);
+		getPossibleMoves(u, x, y-1, w, set);
+	}
+	
 	private Path getPath(Node goal) {
 		Path path = new Path();
 		Node cur = goal;
