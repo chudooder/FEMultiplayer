@@ -9,7 +9,8 @@ public class Weapon extends Item{
 	public Type type;
 	public ArrayList<Class> effective;
 	
-	public Weapon() {
+	public Weapon(String name) {
+		super(name);
 		// Initialize modifiers to 0
 		modifiers = new HashMap<String, Integer>();
 		modifiers.put("Skl", 0);
@@ -79,7 +80,7 @@ public class Weapon extends Item{
 	//TODO: Trigger
 	
 	public static Weapon createWeapon(String name) {
-		Weapon weapon = new Weapon();
+		Weapon weapon = new Weapon(name);
 		if(name.equals("sord")) {
 			weapon.type = Weapon.Type.SWORD;
 			weapon.mt = 3;

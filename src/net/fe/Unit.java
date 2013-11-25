@@ -40,6 +40,9 @@ public class Unit extends GriddedEntity {
 	}
 	
 	public void levelUp(){
+		if(stats.get("Lvl") == 20){
+			return;
+		}
 		stats.put("Lvl", stats.get("Lvl") + 1);
 		for(String stat: growths.keySet()){
 			int hpOld = get("HP");
