@@ -1,6 +1,7 @@
 package net.fe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 
@@ -82,8 +83,8 @@ public class Unit extends GriddedEntity {
 	
 	public int avoid(){
 		return get("Spd") + get("Lck")/2 +
-				(tempMods.get("Avo")!=null?tempMods.get("Avo"):0);
-		//TODO: terrain bonus
+				(tempMods.get("Avo")!=null?tempMods.get("Avo"):0) +
+				getTerrain().avoidBonus;
 	}
 	
 	public int crit(){
@@ -111,8 +112,16 @@ public class Unit extends GriddedEntity {
 	}
 	
 	public int get(String stat){
-		return stats.get(stat).intValue() + (weapon!=null?weapon.modifiers.get(stat):0) +
+		int ans = stats.get(stat).intValue() + (weapon!=null?weapon.modifiers.get(stat):0) +
 				(tempMods.get(stat)!=null?tempMods.get(stat):0);
+		if(Arrays.asList("Def","Res").contains(stat)){
+			ans += getTerrain().defenseBonus;
+		}
+		return ans;
+	}
+	
+	public int getBase(String stat){
+		return stats.get(stat).intValue();
 	}
 	
 	public void setTempMod(String stat, int val){
@@ -127,6 +136,9 @@ public class Unit extends GriddedEntity {
 		inventory.add(item);
 	}
 	
+	public Terrain getTerrain(){
+		return ((OverworldStage) stage).getTerrain(xcoord, ycoord);
+	}
 	
 	//Debugging
 	public String toString(){

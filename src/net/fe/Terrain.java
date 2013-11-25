@@ -1,48 +1,27 @@
 package net.fe;
 
 public enum Terrain {
-	PLAIN(1), 
-	FOREST(2), 
-	FLOOR(1), 
-	PILLAR(2), 
-	MOUNTAIN(4), 
-	PEAK(127), 
-	GATE(2), 
-	FORT(2), 
-	SEA(127), 
-	DESERT(2),
-	WALL(127);
+	PLAIN(1,0,0,0), 
+	FOREST(2,1,20,0), 
+	FLOOR(1,0,0,0), 
+	PILLAR(2,1,20,0), 
+	MOUNTAIN(4,2,30,0), 
+	PEAK(127,2,40,0), 
+	FORT(2,1,15,10), 
+	SEA(127,0,10,0), 
+	DESERT(2,0,5,0),
+	WALL(127,0,0,0);
 
 	private int baseMoveCost;
+	public final int avoidBonus;
+	public final int defenseBonus;
+	public final int healthBonus;
 
-	Terrain(int baseMoveCost) {
+	Terrain(int baseMoveCost, int avo, int def, int health) {
 		this.baseMoveCost = baseMoveCost;
-	}
-
-	/**
-	 * Applies stat modifiers to the target unit
-	 * 
-	 * @param u
-	 */
-	public void applyBonuses(Unit u) {
-		if (this == FOREST || this == PILLAR) {
-			u.setTempMod("Def", 1);
-			u.setTempMod("Avo", 20);
-		} else if (this == MOUNTAIN) {
-			u.setTempMod("Def", 2);
-			u.setTempMod("Avo", 30);
-		} else if (this == PEAK) {
-			u.setTempMod("Def", 2);
-			u.setTempMod("Avo", 40);
-		} else if (this == FORT) {
-			u.setTempMod("Def", 1);
-			u.setTempMod("Avo", 15);
-			// TODO: Forts have variable bonuses? End of turn HP regen?
-		} else if (this == SEA) {
-			u.setTempMod("Avo", 10);
-		} else if (this == DESERT) {
-			u.setTempMod("Avo", 5);
-		}
+		avoidBonus = avo;
+		defenseBonus = def;
+		healthBonus = health;
 	}
 
 	public int getMoveCost(Class c) {

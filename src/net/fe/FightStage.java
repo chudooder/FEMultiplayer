@@ -158,7 +158,6 @@ public class FightStage extends Stage {
 			damage = a.get("Mag") + (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon())) 
 					*(a.getWeapon().effective.contains(d.getTheClass())?3:1)
 					- d.get("Res");
-			//TODO Terrain modifier
 		} else {
 			damage = a.get("Str") + (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon())) 
 					*(a.getWeapon().effective.contains(d.getTheClass())?3:1)

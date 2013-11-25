@@ -5,11 +5,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Grid {
-	private GriddedEntity[][] grid;
+	private Unit[][] grid;
 	private Terrain[][] terrain;
 	
 	public Grid(int width, int height) {
-		grid = new GriddedEntity[height][width];
+		grid = new Unit[height][width];
 		terrain = new Terrain[height][width];
 	}
 	
@@ -38,11 +38,20 @@ public class Grid {
 		return true;
 	}
 	
-	public boolean removeUnit(int x, int y) {
+	public Unit removeUnit(int x, int y) {
 		if(grid[y][x] == null)
-			return false;
+			return null;
+		Unit ans = grid[y][x];
 		grid[y][x] = null;
-		return true;
+		return ans;
+	}
+	
+	public Terrain getTerrain(int x, int y){
+		return terrain[y][x];
+	}
+	
+	public Unit getUnit(int x, int y){
+		return grid[y][x];
 	}
 	
 	public Path getShortestPath(Unit unit, int x, int y) {
