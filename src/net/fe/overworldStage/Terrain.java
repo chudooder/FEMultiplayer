@@ -1,6 +1,11 @@
 package net.fe.overworldStage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import net.fe.unit.Class;
+import net.fe.unit.Unit;
 
 public enum Terrain {
 	PLAIN(1,0,0,0), 
@@ -18,12 +23,17 @@ public enum Terrain {
 	public final int avoidBonus;
 	public final int defenseBonus;
 	public final int healthBonus;
+	private CopyOnWriteArrayList<TerrainTrigger> triggers;
 
 	Terrain(int baseMoveCost, int avo, int def, int health) {
 		this.baseMoveCost = baseMoveCost;
 		avoidBonus = avo;
 		defenseBonus = def;
 		healthBonus = health;
+		triggers = new CopyOnWriteArrayList<TerrainTrigger>();
+		if(healthBonus > 0){
+			triggers.add(new Healing(healthBonus));
+		}
 	}
 
 	public int getMoveCost(Class c) {
@@ -68,5 +78,28 @@ public enum Terrain {
 		}
 		
 		return baseMoveCost;
+	}
+	
+	public void addTrigger(TerrainTrigger e){
+		triggers.add(e);
+	}
+	
+	public void removeTrigger(TerrainTrigger e){
+		triggers.remove(e);
+	}
+	
+	public List<TerrainTrigger> getTriggers(){
+		return triggers;
+	}
+	
+	public class Healing extends TerrainTrigger{
+		private int percent;
+		public Healing(int percent){
+			this.percent = percent;
+		}
+		public void startOfTurn(Grid g, int x, int y){
+			Unit u = g.getUnit(x, y);
+			u.setHp(u.getHp() + u.get("HP")*percent/100);
+		}
 	}
 }
