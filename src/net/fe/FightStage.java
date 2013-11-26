@@ -8,9 +8,11 @@ import chu.engine.Stage;
 
 public class FightStage extends Stage {
 	private Unit left, right;
-	
+	private ArrayList<AttackRecord> attackQueue;
+
 	public FightStage() {
 		super();
+		attackQueue = new ArrayList<AttackRecord>();
 		// TODO: Beta testing stuff, delete later
 		HashMap<String, Float> stats1 = new HashMap<String, Float>();
 		stats1.put("Skl", 10f);
@@ -23,7 +25,7 @@ public class FightStage extends Stage {
 		stats1.put("Spd", 12f);
 		stats1.put("Lvl", 1f);
 		stats1.put("Mov", 3f);
-		
+
 		HashMap<String, Integer> growths1 = new HashMap<String, Integer>();
 		growths1.put("HP", 70);
 		growths1.put("Str", 50);
@@ -33,7 +35,7 @@ public class FightStage extends Stage {
 		growths1.put("Def", 40);
 		growths1.put("Res", 30);
 		growths1.put("Lck", 60);
-		
+
 		HashMap<String, Float> stats2 = new HashMap<String, Float>();
 		stats2.put("Skl", 10f);
 		stats2.put("Lck", 3f);
@@ -45,7 +47,7 @@ public class FightStage extends Stage {
 		stats2.put("Spd", 8f);
 		stats2.put("Lvl", 1f);
 		stats2.put("Mov", 3f);
-		
+
 		HashMap<String, Integer> growths2 = new HashMap<String, Integer>();
 		growths2.put("HP", 70);
 		growths2.put("Str", 60);
@@ -55,23 +57,24 @@ public class FightStage extends Stage {
 		growths2.put("Def", 40);
 		growths2.put("Res", 30);
 		growths2.put("Lck", 60);
-		
-		left = new Unit("Marth",Class.createClass("Assassin"), stats1, growths1);
+
+		left = new Unit("Marth", Class.createClass("Assassin"), stats1,
+				growths1);
 		left.addToInventory(Weapon.createWeapon("sord"));
 		left.equip(0);
-		
-		right = new Unit("Roy",Class.createClass(null), stats2, growths2);
+
+		right = new Unit("Roy", Class.createClass(null), stats2, growths2);
 		right.addToInventory(Weapon.createWeapon("lunce"));
 		right.equip(0);
-		
-		for(int i = 0; i < 15; i++){
+
+		for (int i = 0; i < 15; i++) {
 			left.levelUp();
 			right.levelUp();
 		}
-		
+
 		calculate(1);
 	}
-	
+
 	public FightStage(Unit u1, Unit u2) {
 		left = u1;
 		right = u2;
@@ -81,31 +84,36 @@ public class FightStage extends Stage {
 	public void calculate(int range) {
 		// Determine turn order
 		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
-		if(left.getWeapon()!= null && left.getWeapon().range.contains(range))
+		if (left.getWeapon() != null && left.getWeapon().range.contains(range))
 			attackOrder.add(true);
-		if(right.getWeapon()!= null && right.getWeapon().range.contains(range))
+		if (right.getWeapon() != null
+				&& right.getWeapon().range.contains(range))
 			attackOrder.add(false);
-		if (left.get("Spd") >= right.get("Spd") + 4 && 
-				left.getWeapon()!= null && left.getWeapon().range.contains(range)) {
+		if (left.get("Spd") >= right.get("Spd") + 4 && left.getWeapon() != null
+				&& left.getWeapon().range.contains(range)) {
 			attackOrder.add(true);
 		}
-		if (right.get("Spd") >= left.get("Spd") + 4 && 
-				right.getWeapon()!= null && right.getWeapon().range.contains(range)) {
+		if (right.get("Spd") >= left.get("Spd") + 4
+				&& right.getWeapon() != null
+				&& right.getWeapon().range.contains(range)) {
 			attackOrder.add(false);
 		}
-		
+
 		System.out.println("Battle!\n" + left + "\n" + right);
-		System.out.println("Starting health | "+left.name+": "+left.getHp()
-				+" | "+right.name+": "+right.getHp());
+		System.out.println("Starting health | " + left.name + ": "
+				+ left.getHp() + " | " + right.name + ": " + right.getHp());
 		for (Boolean i : attackOrder) {
 			attack(i, true);
 		}
-		System.out.println("Ending health | "+left.name+": "+left.getHp()
-				+" | "+right.name+": "+right.getHp());
+		System.out.println("Ending health | " + left.name + ": " + left.getHp()
+				+ " | " + right.name + ": " + right.getHp());
 	}
 
 	public void attack(boolean dir, boolean skills) {
 		Unit a, d;
+		int consume = 1;
+		int damage = 0;
+		String animation = "Attack";
 		if (dir) {
 			a = left;
 			d = right;
@@ -113,90 +121,114 @@ public class FightStage extends Stage {
 			a = right;
 			d = left;
 		}
-		
-		if(a.getHp() == 0 || d.getHp() == 0){
+
+		if (a.getHp() == 0 || d.getHp() == 0) {
 			return;
 		}
-		
+
 		ArrayList<Trigger> aTriggers = a.getTriggers();
 		ArrayList<Trigger> dTriggers = d.getTriggers();
-		
-		for(Trigger t: aTriggers){
+
+		for (Trigger t : aTriggers) {
 			t.attempt(a);
 		}
-		for(Trigger t: dTriggers){
+		for (Trigger t : dTriggers) {
 			t.attempt(a);
 		}
-		
-		String animation = "Attack";
+
 		if (!(RNG.get() < a.hit() - d.avoid()
 				+ a.getWeapon().triMod(d.getWeapon()) * 10)) {
 			// Miss
-			addToAttackQueue(a, d, "Miss", 0);
-			if(a.getWeapon().isMagic()) a.getWeapon().use(a);
+			addToAttackQueue(a, d, "Miss", 0, 1);
+			if (a.getWeapon().isMagic())
+				a.getWeapon().use(a);
 			return;
 		}
-		
-		if(skills){
-			boolean cancel = false;
-			for(Trigger t: aTriggers){
-				if(t.success && t.type.contains(Trigger.Type.PRE_ATTACK)){
-					cancel = t.run(this, a, d) != 0;
+
+		if (skills) {
+			for (Trigger t : aTriggers) {
+				if (t.success && t.type.contains(Trigger.Type.PRE_ATTACK)) {
+					consume = t.run(this, a, d);
 					animation = t.getClass().getSimpleName();
 				}
 			}
-			if(cancel) return;
+			if (consume == 0)
+				return;
 		}
-		
+
 		int crit = 1;
 		if (RNG.get() < a.crit() - d.dodge()) {
 			crit = 3;
 		}
-		
-		int damage;
-		if(a.getWeapon().isMagic()){
-			damage = a.get("Mag") + (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon())) 
-					*(a.getWeapon().effective.contains(d.getTheClass())?3:1)
-					- d.get("Res");
+
+		if (a.getWeapon().isMagic()) {
+			damage = a.get("Mag")
+					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
+					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
+							: 1) - d.get("Res");
 		} else {
-			damage = a.get("Str") + (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon())) 
-					*(a.getWeapon().effective.contains(d.getTheClass())?3:1)
-					- d.get("Def");
+			damage = a.get("Str")
+					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
+					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
+							: 1) - d.get("Def");
 		}
 		damage *= crit;
-		
-		for(Trigger t: dTriggers){
-			if(t.success && t.type.contains(Trigger.Type.DAMAGE_MOD)){
+
+		for (Trigger t : dTriggers) {
+			if (t.success && t.type.contains(Trigger.Type.DAMAGE_MOD)) {
 				damage = t.run(damage);
 			}
 		}
 		damage = Math.min(damage, d.getHp());
 
-		
-		if(crit == 3){
+		if (crit == 3) {
 			animation += " Critical";
 		}
-		addToAttackQueue(a, d, animation, damage);
-		d.setHp(d.getHp()-damage);
+		addToAttackQueue(a, d, animation, damage, consume);
+		d.setHp(d.getHp() - damage);
 		a.clearTempMods();
 		d.clearTempMods();
-		if(skills){
-			for(Trigger t: aTriggers){
-				if(t.success && t.type.contains(Trigger.Type.POST_ATTACK)){
+		if (skills) {
+			for (Trigger t : aTriggers) {
+				if (t.success && t.type.contains(Trigger.Type.POST_ATTACK)) {
 					t.run(this, a, d, damage);
 				}
 			}
 		}
 	}
 
-	public void addToAttackQueue(Unit a, Unit d, String animation, int damage) {
+	/**
+	 * Adds an attack to the Attack Queue
+	 * 
+	 * @param a
+	 *            The attacking unit
+	 * @param d
+	 *            The defending unit
+	 * @param animation
+	 *            The name of the animation to play
+	 * @param damage
+	 *            The damage of the attack on the defending unit
+	 * @param consume
+	 *            The number of attacks in the animation. If consume > 1, it
+	 *            will get the next (consume - 1) AttackRecords in the
+	 *            attackQueue.
+	 */
+	public void addToAttackQueue(Unit a, Unit d, String animation, int damage,
+			int consume) {
 		System.out.print(animation + "! ");
-		System.out.println(a.name + " hit " + d.name + " for " + damage + " damage!");
+		System.out.println(a.name + " hit " + d.name + " for " + damage
+				+ " damage!");
+		AttackRecord rec = new AttackRecord();
+		rec.attacker = a;
+		rec.defender = d;
+		rec.animation = animation;
+		rec.damage = damage;
+		rec.consume = consume;
 	}
 
 	@Override
 	public void beginStep() {
-		for(Entity e : entities) {
+		for (Entity e : entities) {
 			e.beginStep();
 		}
 		processAddStack();
@@ -205,7 +237,7 @@ public class FightStage extends Stage {
 
 	@Override
 	public void onStep() {
-		for(Entity e : entities) {
+		for (Entity e : entities) {
 			e.onStep();
 		}
 		processAddStack();
@@ -214,11 +246,17 @@ public class FightStage extends Stage {
 
 	@Override
 	public void endStep() {
-		for(Entity e : entities) {
+		for (Entity e : entities) {
 			e.endStep();
 		}
 		processAddStack();
 		processRemoveStack();
+	}
+
+	private class AttackRecord {
+		public String animation;
+		public Unit attacker, defender;
+		public int damage, consume;
 	}
 
 }
