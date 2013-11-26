@@ -13,6 +13,7 @@ import chu.engine.Stage;
 
 public class FightStage extends Stage {
 	private Unit left, right;
+	private FightUnit fl, fr;
 	private ArrayList<AttackRecord> attackQueue;
 	private int currentEvent;
 	
@@ -199,27 +200,18 @@ public class FightStage extends Stage {
 	
 	private void processAttackQueue(){
 		final AttackRecord rec = attackQueue.get(0);
+		FightUnit a, d;
+		if(rec.attacker == right) {
+			a = fr;
+			d = fl;
+		} else {
+			a = fl;
+			d = fr;
+		}
 		if(currentEvent == START){
 			System.out.println("\n" + rec.attacker.name + "'s turn!");
 			currentEvent = ATTACKING;
-			//TODO Start the next animation
-			//Debugging: should be called by animation
-			Timer t1 = new Timer();
-			t1.schedule(new TimerTask(){
-				@Override
-				public void run() {
-					currentEvent = ATTACKED;
-				}
-			}, 1000);
-			
-			Timer t2 = new Timer();
-			t2.schedule(new TimerTask(){
-				@Override
-				public void run() {
-					currentEvent = DONE;
-				}
-				
-			}, 2000);
+			a.sprite.setSpeed(50);
 		} else if (currentEvent == ATTACKING){
 			//Let the animation play
 		} else if (currentEvent == ATTACKED){
@@ -253,6 +245,10 @@ public class FightStage extends Stage {
 		public String animation;
 		public Unit attacker, defender;
 		public int damage;
+	}
+
+	public void setCurrentEvent(int event) {
+		currentEvent = event;
 	}
 
 }

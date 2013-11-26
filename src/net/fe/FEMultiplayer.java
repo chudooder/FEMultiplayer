@@ -39,7 +39,7 @@ public class FEMultiplayer extends Game{
 	
 	public static void main(String[] args) {
 		FEMultiplayer game = new FEMultiplayer();
-		game.init(10, 10, "Entanglement");
+		game.init(640, 480, "ice baadgee");
 		game.loop();
 	}
 	

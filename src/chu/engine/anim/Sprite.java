@@ -28,8 +28,8 @@ public class Sprite {
 	 * @param frames Number of frames in the animation
 	 * @param speed Speed of the animation in frames per second
 	 */
-	public void addAnimation(String name, Texture tex, int width, int height, int frames, int speed) {
-		Animation anim = new Animation(tex, width, height, frames, speed);
+	public void addAnimation(String name, Texture tex, int width, int height, int rows, int columns, int speed) {
+		Animation anim = new Animation(tex, width, height, rows, columns, speed);
 		animations.put(name, anim);
 		currentAnimation = anim;
 	}
@@ -106,14 +106,15 @@ public class Sprite {
 		
 		int width = currentAnimation.getWidth();
 		int height = currentAnimation.getHeight();
-		int fakelength = currentAnimation.getImageWidth()/width;
-		float x0 = (float)(currentAnimation.getFrame())/(float)(fakelength);
-		float x1 = (float)(currentAnimation.getFrame()+1)/(float)(fakelength);
+		int frameX = currentAnimation.getFrame() % currentAnimation.getColumns();
+		int frameY = currentAnimation.getFrame() % currentAnimation.getRows();
+		float x0 = ((float)frameX * width)/currentAnimation.getImageWidth();
+		float x1 = ((float)(frameX+1) * width)/currentAnimation.getImageWidth();
+		float y0 = ((float)frameY * height)/currentAnimation.getImageHeight();
+		float y1 = ((float)(frameY+1) * height)/currentAnimation.getImageWidth();
 		Texture texture = currentAnimation.getTexture();
-		int xx = (int) (x + currentAnimation.getOffsetX(currentAnimation.getFrame()));
-		int yy = (int) (y + currentAnimation.getOffsetY(currentAnimation.getFrame()));
 		
-		Renderer.render(texture, x0, 0, x1, 1, xx, yy, xx+width, yy+height, depth);
+		Renderer.render(texture, x0, y0, x1, y1, x, y, x+width, y+height, depth);
 		
 	}
 
@@ -137,14 +138,14 @@ public class Sprite {
 		
 		int width = currentAnimation.getWidth();
 		int height = currentAnimation.getHeight();
-		int fakelength = currentAnimation.getImageWidth()/width;
-		float x0 = (float)(currentAnimation.getFrame())/(float)(fakelength);
-		float x1 = (float)(currentAnimation.getFrame()+1)/(float)(fakelength);
-		int xx = (int) (x + currentAnimation.getOffsetX(currentAnimation.getFrame()));
-		int yy = (int) (y + currentAnimation.getOffsetY(currentAnimation.getFrame()));
-		
+		int frameX = currentAnimation.getFrame() % currentAnimation.getColumns();
+		int frameY = currentAnimation.getFrame() % currentAnimation.getRows();
+		float x0 = ((float)frameX * width)/currentAnimation.getImageWidth();
+		float x1 = ((float)(frameX+1) * width)/currentAnimation.getImageWidth();
+		float y0 = ((float)frameY * height)/currentAnimation.getImageHeight();
+		float y1 = ((float)(frameY+1) * height)/currentAnimation.getImageWidth();
 		Texture texture = currentAnimation.getTexture();
-		Renderer.renderTransformed(texture, x0, 0, x1, 1, xx, yy, xx+width, yy+height, depth, transform);
+		Renderer.renderTransformed(texture, x0, y0, x1, y1, x, y, x+width, y+height, depth, transform);
 	}
 
 	public void setSpeed(int i) {
