@@ -8,16 +8,12 @@ public class Grid {
 	private Unit[][] grid;
 	private Terrain[][] terrain;
 	
-	public Grid(int width, int height) {
+	public Grid(int width, int height, Terrain defaultTerrain) {
 		grid = new Unit[height][width];
 		terrain = new Terrain[height][width];
-	}
-	
-	private void makeTestGrid() {
-		terrain = new Terrain[10][10];
 		for(int i=0; i<10; i++) {
 			for(int j=0; j<10; j++) {
-				terrain[j][i] = Terrain.PLAIN;
+				terrain[j][i] = defaultTerrain;
 			}
 		}
 	}
@@ -138,4 +134,11 @@ public class Grid {
 		return Math.abs(b.x-a.x) + Math.abs(b.y-a.y);
 	}
 	
+	public static int getDistance(int x1, int y1, int x2, int y2){
+		return Math.abs(x1 - x2) + Math.abs(y1 - y2);
+	}
+	
+	public static int getDistance(Unit a, Unit b){
+		return getDistance(a.xcoord, a.ycoord, b.xcoord, b.ycoord);
+	}
 }
