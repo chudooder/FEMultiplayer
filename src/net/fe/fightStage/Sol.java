@@ -1,10 +1,9 @@
 package net.fe.fightStage;
 
 import net.fe.RNG;
-import net.fe.Trigger;
 import net.fe.unit.Unit;
 
-public class Sol extends Trigger {
+public class Sol extends CombatTrigger {
 	public Sol(){
 		super(true);
 	}

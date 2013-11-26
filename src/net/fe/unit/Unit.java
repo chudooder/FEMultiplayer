@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import chu.engine.GriddedEntity;
-import net.fe.Trigger;
+import net.fe.fightStage.CombatTrigger;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
 
@@ -75,8 +75,8 @@ public class Unit extends GriddedEntity {
 		tempMods.clear();
 	}
 	
-	public ArrayList<Trigger> getTriggers(){
-		ArrayList<Trigger> triggers = new ArrayList<Trigger>();
+	public ArrayList<CombatTrigger> getTriggers(){
+		ArrayList<CombatTrigger> triggers = new ArrayList<CombatTrigger>();
 		if(clazz.masterSkill!=null)
 			triggers.add(clazz.masterSkill);
 		return triggers;

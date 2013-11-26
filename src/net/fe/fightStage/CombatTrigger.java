@@ -1,15 +1,14 @@
-package net.fe;
+package net.fe.fightStage;
 
 import java.util.Arrays;
 import java.util.List;
 
-import net.fe.fightStage.FightStage;
 import net.fe.unit.Unit;
 
-public abstract class Trigger {
+public abstract class CombatTrigger {
 	public boolean success;
 	public final boolean overridesName;
-	public Trigger(boolean override){
+	public CombatTrigger(boolean override){
 		overridesName = override;
 	}
 	public void clear(){

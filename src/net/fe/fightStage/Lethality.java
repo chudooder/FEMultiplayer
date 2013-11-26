@@ -1,10 +1,9 @@
 package net.fe.fightStage;
 
 import net.fe.RNG;
-import net.fe.Trigger;
 import net.fe.unit.Unit;
 
-public class Lethality extends Trigger {
+public class Lethality extends CombatTrigger {
 	public Lethality(){
 		super(true);
 	}

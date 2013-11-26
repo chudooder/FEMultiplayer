@@ -1,10 +1,9 @@
 package net.fe.fightStage;
 
 import net.fe.RNG;
-import net.fe.Trigger;
 import net.fe.unit.Unit;
 
-public class Luna extends Trigger {
+public class Luna extends CombatTrigger {
 	public Luna(){
 		super(true);
 	}

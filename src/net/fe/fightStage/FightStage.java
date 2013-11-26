@@ -6,7 +6,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import net.fe.RNG;
-import net.fe.Trigger;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
 import chu.engine.Entity;
@@ -70,13 +69,13 @@ public class FightStage extends Stage {
 			return;
 		}
 
-		ArrayList<Trigger> aTriggers = a.getTriggers();
-		ArrayList<Trigger> dTriggers = d.getTriggers();
+		ArrayList<CombatTrigger> aTriggers = a.getTriggers();
+		ArrayList<CombatTrigger> dTriggers = d.getTriggers();
 
-		for (Trigger t : aTriggers) {
+		for (CombatTrigger t : aTriggers) {
 			t.attempt(a);
 		}
-		for (Trigger t : dTriggers) {
+		for (CombatTrigger t : dTriggers) {
 			t.attempt(a);
 		}
 
@@ -90,13 +89,13 @@ public class FightStage extends Stage {
 		}
 
 		if (skills) {
-			for (Trigger t : aTriggers) {
+			for (CombatTrigger t : aTriggers) {
 				if (t.success) {
 					if(!t.runPreAttack(this, a, d)){
-						for (Trigger t2 : aTriggers) {
+						for (CombatTrigger t2 : aTriggers) {
 							t2.clear();
 						}
-						for (Trigger t2 : dTriggers) {
+						for (CombatTrigger t2 : dTriggers) {
 							t2.clear();
 						}
 						return;
@@ -124,7 +123,7 @@ public class FightStage extends Stage {
 		}
 		damage *= crit;
 
-		for (Trigger t : dTriggers) {
+		for (CombatTrigger t : dTriggers) {
 			if (t.success) {
 				damage = t.runDamageMod(damage);
 			}
@@ -139,7 +138,7 @@ public class FightStage extends Stage {
 		a.clearTempMods();
 		d.clearTempMods();
 		if (skills) {
-			for (Trigger t : aTriggers) {
+			for (CombatTrigger t : aTriggers) {
 				if (t.success) {
 					t.runPostAttack(this, a, d, damage);
 				}

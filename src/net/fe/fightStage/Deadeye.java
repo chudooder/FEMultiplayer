@@ -1,10 +1,9 @@
 package net.fe.fightStage;
 
 import net.fe.RNG;
-import net.fe.Trigger;
 import net.fe.unit.Unit;
 
-public class Deadeye extends Trigger {
+public class Deadeye extends CombatTrigger {
 	public Deadeye(){
 		super(true);
 	}

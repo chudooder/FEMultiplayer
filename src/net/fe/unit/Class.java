@@ -3,15 +3,14 @@ package net.fe.unit;
 import java.util.Arrays;
 import java.util.List;
 
-import net.fe.Trigger;
 import net.fe.fightStage.*;
 
 public class Class {
 	public final int crit;
-	public final Trigger masterSkill;
+	public final CombatTrigger masterSkill;
 	public final List<Weapon.Type> usableWeapon;
 	public final String name;
-	private Class(String name, int c, Trigger m, Weapon.Type... types){
+	private Class(String name, int c, CombatTrigger m, Weapon.Type... types){
 		crit = c;
 		masterSkill = m;
 		usableWeapon = Arrays.asList(types);
