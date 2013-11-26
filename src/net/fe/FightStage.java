@@ -152,8 +152,15 @@ public class FightStage extends Stage {
 					animation = t.getClass().getSimpleName();
 				}
 			}
-			if (consume == 0)
+			if (consume == 0) {
+				for(Trigger t: aTriggers){
+					t.clear();
+				}
+				for(Trigger t: dTriggers){
+					t.clear();
+				}
 				return;
+			}
 		}
 
 		int crit = 1;

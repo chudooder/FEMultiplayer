@@ -1,6 +1,8 @@
 package net.fe;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Node{
 	int x, y, f, g, h;
@@ -21,8 +23,8 @@ public class Node{
 		return false;
 	}
 	
-	public ArrayList<Node> getNeighbors() {
-		ArrayList<Node> neighbors = new ArrayList<Node>();
+	public Set<Node> getNeighbors() {
+		Set<Node> neighbors = new HashSet<Node>(4);
 		neighbors.add(new Node(x+1, y));
 		neighbors.add(new Node(x, y+1));
 		neighbors.add(new Node(x-1, y));

@@ -11,12 +11,14 @@ public class Animation {
 	private int length;
 	private int currentFrame;
 	private int counter;
+	private int[][] offset;
 	protected int speed;			//Time for each frame in milliseconds
 	
 	public Animation(Texture t) {
 		texture = t;
 		width = t.getImageWidth();
 		height = t.getImageHeight();
+		offset = new int[2][length];
 		length = 1;
 		speed = 0;
 	}
@@ -35,6 +37,17 @@ public class Animation {
 	public int getHeight() { return height; }
 	public int getImageWidth() { return texture.getImageWidth(); }
 	public Texture getTexture() { return texture; }
+	public int getOffsetX(int frame) {
+		return offset[0][frame];
+	}
+	public int getOffsetY(int frame) {
+		return offset[1][frame];
+	}
+	
+	public void setOffset(int frame, int x, int y) {
+		offset[0][frame] = x;
+		offset[1][frame] = y;
+	}
 	
 	
 	public void update() {

@@ -110,8 +110,10 @@ public class Sprite {
 		float x0 = (float)(currentAnimation.getFrame())/(float)(fakelength);
 		float x1 = (float)(currentAnimation.getFrame()+1)/(float)(fakelength);
 		Texture texture = currentAnimation.getTexture();
+		int xx = (int) (x + currentAnimation.getOffsetX(currentAnimation.getFrame()));
+		int yy = (int) (y + currentAnimation.getOffsetY(currentAnimation.getFrame()));
 		
-		Renderer.render(texture, x0, 0, x1, 1, (int)x, (int)y, (int)(x+width), (int)(y+height), depth);
+		Renderer.render(texture, x0, 0, x1, 1, xx, yy, xx+width, yy+height, depth);
 		
 	}
 
@@ -138,9 +140,11 @@ public class Sprite {
 		int fakelength = currentAnimation.getImageWidth()/width;
 		float x0 = (float)(currentAnimation.getFrame())/(float)(fakelength);
 		float x1 = (float)(currentAnimation.getFrame()+1)/(float)(fakelength);
+		int xx = (int) (x + currentAnimation.getOffsetX(currentAnimation.getFrame()));
+		int yy = (int) (y + currentAnimation.getOffsetY(currentAnimation.getFrame()));
 		
 		Texture texture = currentAnimation.getTexture();
-		Renderer.renderTransformed(texture, x0, 0, x1, 1, (int)x, (int)y, (int)x+width, (int)y+height, depth, transform);
+		Renderer.renderTransformed(texture, x0, 0, x1, 1, xx, yy, xx+width, yy+height, depth, transform);
 	}
 
 	public void setSpeed(int i) {
