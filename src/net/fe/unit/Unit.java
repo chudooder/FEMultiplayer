@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import chu.engine.GriddedEntity;
 import net.fe.fightStage.CombatTrigger;
+import net.fe.fightStage.FightUnit;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
 
@@ -151,5 +152,9 @@ public class Unit extends GriddedEntity {
 	//Debugging
 	public String toString(){
 		return name + " HP" + hp + "\n" + stats;
+	}
+
+	public FightUnit getFightUnit(boolean b) {
+		return new FightUnit(b);
 	}
 }

@@ -12,12 +12,15 @@ public class Animation {
 	private int columns;
 	private int currentFrame;
 	private int counter;
+	private int length;
 	protected int speed;			//Time for each frame in milliseconds
 	
 	public Animation(Texture t) {
 		texture = t;
 		width = t.getImageWidth();
 		height = t.getImageHeight();
+		length = 1;
+		rows = 1;
 		columns = 1;
 		speed = 0;
 	}
@@ -28,10 +31,11 @@ public class Animation {
 		this.height = height;
 		this.rows = rows;
 		this.columns = columns;
+		this.length = rows*columns;
 		this.speed = speed;
 	}
 	
-	public int getLength() { return rows*columns; }
+	public int getLength() { return length; }
 	public int getFrame() { return currentFrame; }
 	public int getWidth() { return width; }
 	public int getHeight() { return height; }
@@ -53,7 +57,7 @@ public class Animation {
 	public void increment() {
 		if(speed > 0) {
 			currentFrame += 1;
-			if(currentFrame >= columns) done();
+			if(currentFrame >= length) done();
 		} else {
 			currentFrame -= 1;
 			if(currentFrame < 0) done();

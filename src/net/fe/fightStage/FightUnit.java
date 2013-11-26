@@ -36,9 +36,9 @@ public class FightUnit extends Entity {
 		Transform t = new Transform();
 		if(!left) t.flipHorizontal();
 		if(left) {
-			sprite.renderTransformed(x, y, renderDepth, t);
-		} else {
 			sprite.renderTransformed(x+60, y, renderDepth, t);
+		} else {
+			sprite.renderTransformed(x, y, renderDepth, t);
 		}
 	}
 

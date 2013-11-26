@@ -27,6 +27,10 @@ public class FightStage extends Stage {
 		attackQueue = new ArrayList<AttackRecord>();
 		left = u1;
 		right = u2;
+		fl = left.getFightUnit(true);
+		fr = right.getFightUnit(false);
+		addEntity(fl);
+		addEntity(fr);
 		calculate(Grid.getDistance(u1, u2));
 	}
 

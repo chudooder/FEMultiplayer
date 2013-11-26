@@ -107,11 +107,11 @@ public class Sprite {
 		int width = currentAnimation.getWidth();
 		int height = currentAnimation.getHeight();
 		int frameX = currentAnimation.getFrame() % currentAnimation.getColumns();
-		int frameY = currentAnimation.getFrame() % currentAnimation.getRows();
+		int frameY = currentAnimation.getFrame() / currentAnimation.getColumns();
 		float x0 = ((float)frameX * width)/currentAnimation.getImageWidth();
 		float x1 = ((float)(frameX+1) * width)/currentAnimation.getImageWidth();
 		float y0 = ((float)frameY * height)/currentAnimation.getImageHeight();
-		float y1 = ((float)(frameY+1) * height)/currentAnimation.getImageWidth();
+		float y1 = ((float)(frameY+1) * height)/currentAnimation.getImageHeight();
 		Texture texture = currentAnimation.getTexture();
 		
 		Renderer.render(texture, x0, y0, x1, y1, x, y, x+width, y+height, depth);
@@ -139,11 +139,11 @@ public class Sprite {
 		int width = currentAnimation.getWidth();
 		int height = currentAnimation.getHeight();
 		int frameX = currentAnimation.getFrame() % currentAnimation.getColumns();
-		int frameY = currentAnimation.getFrame() % currentAnimation.getRows();
+		int frameY = currentAnimation.getFrame() / currentAnimation.getColumns();
 		float x0 = ((float)frameX * width)/currentAnimation.getImageWidth();
 		float x1 = ((float)(frameX+1) * width)/currentAnimation.getImageWidth();
 		float y0 = ((float)frameY * height)/currentAnimation.getImageHeight();
-		float y1 = ((float)(frameY+1) * height)/currentAnimation.getImageWidth();
+		float y1 = ((float)(frameY+1) * height)/currentAnimation.getImageHeight();
 		Texture texture = currentAnimation.getTexture();
 		Renderer.renderTransformed(texture, x0, y0, x1, y1, x, y, x+width, y+height, depth, transform);
 	}
