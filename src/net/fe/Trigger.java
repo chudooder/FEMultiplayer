@@ -5,6 +5,10 @@ import java.util.List;
 
 public abstract class Trigger {
 	public boolean success;
+	public final boolean overridesName;
+	public Trigger(boolean override){
+		overridesName = override;
+	}
 	public void clear(){
 		success = false;
 	}

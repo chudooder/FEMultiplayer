@@ -6,6 +6,9 @@ import net.fe.Trigger;
 import net.fe.Unit;
 
 public class Colossus extends Trigger{
+	public Colossus(){
+		super(true);
+	}
 	@Override
 	public void attempt(Unit user) {
 		success = RNG.get() < user.get("Skl")/2;

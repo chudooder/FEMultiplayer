@@ -28,6 +28,8 @@ public class Class {
 			return new Class("Berserker", 10, new Luna(), Weapon.Type.AXE);
 		if(name.equals("Assassin"))
 			return new Class("Assassin", 10, new Lethality(), Weapon.Type.BOW, Weapon.Type.SWORD);
+		if(name.equals("Paladin"))
+			return new Class("Paladin", 0, new Sol(), Weapon.Type.LANCE, Weapon.Type.SWORD);
 		return null;
 		
 	}

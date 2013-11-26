@@ -91,8 +91,8 @@ public class FEMultiplayer extends Game{
 		marth.addToInventory(Weapon.createWeapon("sord"));
 		marth.equip(0);
 
-		Unit roy = new Unit("Roy", Class.createClass("Berserker"), stats2, growths2);
-		roy.addToInventory(Weapon.createWeapon("axe"));
+		Unit roy = new Unit("Roy", Class.createClass("Paladin"), stats2, growths2);
+		roy.addToInventory(Weapon.createWeapon("lunce"));
 		roy.equip(0);
 
 		for (int i = 0; i < 15; i++) {
