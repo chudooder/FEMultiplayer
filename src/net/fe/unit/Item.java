@@ -1,4 +1,5 @@
-package net.fe;
+package net.fe.unit;
+
 
 public abstract class Item {
 	protected String name;

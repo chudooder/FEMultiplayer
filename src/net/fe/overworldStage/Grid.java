@@ -1,8 +1,10 @@
-package net.fe;
+package net.fe.overworldStage;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import net.fe.unit.Unit;
 
 public class Grid {
 	private Unit[][] grid;

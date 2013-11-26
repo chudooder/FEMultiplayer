@@ -3,6 +3,9 @@ package net.fe;
 import java.util.Arrays;
 import java.util.List;
 
+import net.fe.fightStage.FightStage;
+import net.fe.unit.Unit;
+
 public abstract class Trigger {
 	public boolean success;
 	public final boolean overridesName;

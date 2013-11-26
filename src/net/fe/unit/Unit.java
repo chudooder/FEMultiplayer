@@ -1,8 +1,13 @@
-package net.fe;
+package net.fe.unit;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import chu.engine.GriddedEntity;
+import net.fe.Trigger;
+import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.Terrain;
 
 
 public class Unit extends GriddedEntity {

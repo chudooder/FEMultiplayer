@@ -1,9 +1,8 @@
-package net.fe.trigger;
+package net.fe.fightStage;
 
-import net.fe.FightStage;
 import net.fe.RNG;
 import net.fe.Trigger;
-import net.fe.Unit;
+import net.fe.unit.Unit;
 
 public class Sol extends Trigger {
 	public Sol(){

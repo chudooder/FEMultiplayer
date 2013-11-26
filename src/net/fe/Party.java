@@ -2,6 +2,8 @@ package net.fe;
 
 import java.util.ArrayList;
 
+import net.fe.unit.Unit;
+
 public class Party {
 	
 	private ArrayList<Unit> units;

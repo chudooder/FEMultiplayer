@@ -1,4 +1,4 @@
-package net.fe;
+package net.fe.overworldStage;
 
 import java.util.ArrayList;
 import java.util.HashSet;

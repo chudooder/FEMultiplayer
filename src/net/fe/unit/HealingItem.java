@@ -1,4 +1,5 @@
-package net.fe;
+package net.fe.unit;
+
 
 public class HealingItem extends Item {
 	public static HealingItem VULNERARY = new HealingItem("Vulnerary", 10);

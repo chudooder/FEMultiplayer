@@ -1,4 +1,6 @@
-package net.fe;
+package net.fe.overworldStage;
+
+import net.fe.unit.Class;
 
 public enum Terrain {
 	PLAIN(1,0,0,0), 

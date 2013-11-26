@@ -1,5 +1,6 @@
-package net.fe;
+package net.fe.overworldStage;
 
+import net.fe.unit.Unit;
 import chu.engine.Stage;
 
 public class OverworldStage extends Stage{

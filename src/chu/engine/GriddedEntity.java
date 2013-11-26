@@ -1,5 +1,4 @@
-package net.fe;
-import chu.engine.Entity;
+package chu.engine;
 
 public class GriddedEntity extends Entity {
 
