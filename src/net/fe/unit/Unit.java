@@ -1,5 +1,6 @@
 package net.fe.unit;
 
+import org.newdawn.slick.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -185,5 +186,9 @@ public class Unit extends GriddedEntity {
 	
 	public Healthbar getHealthbar(boolean b){
 		return new Healthbar(get("HP"), getHp(), b);
+	}
+	
+	public Color getTeamColor(){
+		return Color.red;
 	}
 }

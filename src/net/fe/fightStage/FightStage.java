@@ -1,7 +1,9 @@
 package net.fe.fightStage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -300,20 +302,42 @@ public class FightStage extends Stage {
 	}
 
 	public void render() {
-		Renderer.drawRectangle(CENTRAL_AXIS - 120, FLOOR + 16, CENTRAL_AXIS, 
-				FLOOR + 56, 0, new Color(0,0,128));
-		Renderer.drawRectangle(CENTRAL_AXIS - 120, FLOOR + 6,
-				CENTRAL_AXIS - 78, FLOOR + 32, 0, new Color(0, 0, 255));
-		Renderer.drawRectangle(CENTRAL_AXIS - 120, FLOOR -99, CENTRAL_AXIS-65, 
-				FLOOR-79, 0, new Color(0,0,255));
+		Color borderDark = new Color(0x483828);
+		Color borderLight = new Color(0xf8f0c8);
 		
-		Renderer.drawRectangle(CENTRAL_AXIS + 120, FLOOR + 16, CENTRAL_AXIS, 
-				FLOOR + 56, 0, new Color(128,0,0));
-		Renderer.drawRectangle(CENTRAL_AXIS + 120, FLOOR + 6,
-				CENTRAL_AXIS + 78, FLOOR + 32, 0, new Color(255,0,0));
-		Renderer.drawRectangle(CENTRAL_AXIS + 120, FLOOR -99, CENTRAL_AXIS+65, 
-				FLOOR-79, 0, new Color(255,0,0));
-		
+		List<Unit> units = Arrays.asList(left, right);
+		for(int i = 0; i < units.size(); i++){
+			int sign = i*2-1;
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR + 14, 
+					CENTRAL_AXIS, FLOOR + 56, 0, borderDark);
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 15, 
+					CENTRAL_AXIS + sign, FLOOR + 55, 0, borderLight);
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 16, 
+					CENTRAL_AXIS + sign*2, FLOOR + 54, 0, 
+					units.get(i).getTeamColor().darker(0.5f));
+			
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 15, 
+					CENTRAL_AXIS + sign, FLOOR+31, 0, borderLight);
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 16, 
+					CENTRAL_AXIS + sign*2, FLOOR+30, 0, new Color(0xb0a878));
+			
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR + 4,
+					CENTRAL_AXIS + sign*76, FLOOR + 32, 0, borderDark);
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 5,
+					CENTRAL_AXIS + sign*77, FLOOR + 31, 0, borderLight);
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 6,
+					CENTRAL_AXIS + sign*78, FLOOR + 30, 0, 
+					units.get(i).getTeamColor());
+			
+			
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -99, 
+					CENTRAL_AXIS + sign*63, FLOOR-77, 0, borderDark);
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -98, 
+					CENTRAL_AXIS + sign*64, FLOOR-78, 0, borderLight);
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -97, 
+					CENTRAL_AXIS + sign*65, FLOOR-79, 0, 
+					units.get(i).getTeamColor());
+		}
 		
 		super.render();
 	}
