@@ -31,6 +31,11 @@ public class Healthbar extends Entity {
 	public void render() {
 		int offY = 0;
 		int offX = 0;
+		if(totalHealth <= 40) {
+			Renderer.drawString("number", (int)displayedHealth + "", x - 17, y-4);
+		} else {
+			Renderer.drawString("number", (int)displayedHealth + "", x - 17, y);
+		}
 		for (int hp = 1; hp <= totalHealth; hp++) {
 			Texture t = Resources
 					.getTexture(hp <= displayedHealth ? "gui_tickFilled"

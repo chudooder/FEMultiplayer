@@ -22,6 +22,7 @@ public class FightStage extends Stage {
 	private Healthbar hp1, hp2;
 	private ArrayList<AttackRecord> attackQueue;
 	private int currentEvent;
+	private int range;
 
 	// Config
 	public static final int CENTRAL_AXIS = 120;
@@ -34,7 +35,7 @@ public class FightStage extends Stage {
 	public static final int DONE = 4;
 
 	public FightStage(Unit u1, Unit u2) {
-		int range = Grid.getDistance(u1, u2);
+		range = Grid.getDistance(u1, u2);
 		attackQueue = new ArrayList<AttackRecord>();
 		left = u1;
 		right = u2;
@@ -134,17 +135,7 @@ public class FightStage extends Stage {
 			animation += " Critical";
 		}
 
-		if (a.getWeapon().isMagic()) {
-			damage = a.get("Mag")
-					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
-					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
-							: 1) - d.get("Res");
-		} else {
-			damage = a.get("Str")
-					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
-					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
-							: 1) - d.get("Def");
-		}
+		damage = calculateBaseDamage(a, d);
 		damage *= crit;
 
 		for (CombatTrigger t : dTriggers) {
@@ -308,40 +299,79 @@ public class FightStage extends Stage {
 		List<Unit> units = Arrays.asList(left, right);
 		for(int i = 0; i < units.size(); i++){
 			int sign = i*2-1;
+			
+			Unit u1 = units.get(i);
+			Unit u2 = units.get((i + 1) %2);
+			
+			//Main status
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR + 14, 
 					CENTRAL_AXIS, FLOOR + 56, 0, borderDark);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 15, 
 					CENTRAL_AXIS + sign, FLOOR + 55, 0, borderLight);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 16, 
 					CENTRAL_AXIS + sign*2, FLOOR + 54, 0, 
-					units.get(i).getTeamColor().darker(0.5f));
+					u1.getTeamColor().darker(0.5f));
 			
+			//Weapon
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 15, 
 					CENTRAL_AXIS + sign, FLOOR+31, 0, borderLight);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 16, 
 					CENTRAL_AXIS + sign*2, FLOOR+30, 0, new Color(0xb0a878));
+			Renderer.drawString("default" , u1.getWeapon().name,
+					CENTRAL_AXIS + sign*40 - 18, FLOOR + 16);
 			
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR + 4,
+			//Attack Stats
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR + 0,
 					CENTRAL_AXIS + sign*76, FLOOR + 32, 0, borderDark);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 5,
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 1,
 					CENTRAL_AXIS + sign*77, FLOOR + 31, 0, borderLight);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 6,
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 2,
 					CENTRAL_AXIS + sign*78, FLOOR + 30, 0, 
-					units.get(i).getTeamColor());
+					u1.getTeamColor());
+			Renderer.drawString("default_small", "HIT", 
+					CENTRAL_AXIS + sign*98 - 17, FLOOR + 2);
+			Renderer.drawString("number", String.format("%3d", 
+					Math.min(100, Math.max(u1.hit()-u2.avoid(),0))), 
+					CENTRAL_AXIS + sign*98, FLOOR + 1);
 			
+			Renderer.drawString("default_small", "CRT", 
+					CENTRAL_AXIS + sign*98 - 17, FLOOR + 10);
+			Renderer.drawString("number", String.format("%3d", 
+					Math.min(100, Math.max(u1.crit()-u2.dodge(),0))), 
+					CENTRAL_AXIS + sign*98, FLOOR + 9);
 			
+			Renderer.drawString("default_small", "DMG", 
+					CENTRAL_AXIS + sign*98 - 17, FLOOR + 19);
+			Renderer.drawString("number", String.format("%3d", 
+					Math.min(100, Math.max(calculateBaseDamage(u1,u2),0))), 
+					CENTRAL_AXIS + sign*98, FLOOR + 18);
+			
+			//Name
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -99, 
 					CENTRAL_AXIS + sign*63, FLOOR-77, 0, borderDark);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -98, 
 					CENTRAL_AXIS + sign*64, FLOOR-78, 0, borderLight);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -97, 
 					CENTRAL_AXIS + sign*65, FLOOR-79, 0, 
-					units.get(i).getTeamColor());
+					u1.getTeamColor());
+			Renderer.drawString("default", units.get(i).name, 
+					CENTRAL_AXIS + sign*94 - 16, FLOOR - 95);
 		}
 		
-		Renderer.drawString("default", "test", 500, 300, Color.white);
-		Renderer.drawString("default", "hi young!!!", 500, 350, Color.red);
 		super.render();
 	}
 
+	public static int calculateBaseDamage(Unit a, Unit d){
+		if (a.getWeapon().isMagic()) {
+			return a.get("Mag")
+					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
+					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
+							: 1) - d.get("Res");
+		} else {
+			return  a.get("Str")
+					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
+					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
+							: 1) - d.get("Def");
+		}
+	}
 }

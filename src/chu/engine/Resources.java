@@ -42,7 +42,9 @@ public class Resources {
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_gui/tickFilled.png"))));
 			// Fonts
-			fonts.put("default", createFont("Arial", Font.PLAIN, 10));
+			fonts.put("default", createFont("Verdana", Font.PLAIN, 10));
+			fonts.put("default_small", createFont("Verdana", Font.PLAIN, 8));
+			fonts.put("number", createFont("Consolas", Font.BOLD, 10));
 		} catch (IOException e) {
 			int max = GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE);
 			System.out.println(max);

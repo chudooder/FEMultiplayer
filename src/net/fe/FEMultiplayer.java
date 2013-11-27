@@ -51,16 +51,16 @@ public class FEMultiplayer extends Game{
 		GL11.glEnable(GL11.GL_LINE_SMOOTH);
 		// TODO: Beta testing stuff, delete later
 		HashMap<String, Float> stats1 = new HashMap<String, Float>();
-		stats1.put("Skl", 10f);
-		stats1.put("Lck", 1f);
-		stats1.put("HP", 15f);
-		stats1.put("Str", 10f);
-		stats1.put("Mag", 10f);
-		stats1.put("Def", 10f);
-		stats1.put("Res", 10f);
-		stats1.put("Spd", 12f);
+		stats1.put("Skl", 22f);
+		stats1.put("Lck", 13f);
+		stats1.put("HP", 32f);
+		stats1.put("Str", 16f);
+		stats1.put("Mag", 3f);
+		stats1.put("Def", 12f);
+		stats1.put("Res", 12f);
+		stats1.put("Spd", 24f);
 		stats1.put("Lvl", 1f);
-		stats1.put("Mov", 3f);
+		stats1.put("Mov", 6f);
 
 		HashMap<String, Integer> growths1 = new HashMap<String, Integer>();
 		growths1.put("HP", 70);
@@ -73,16 +73,16 @@ public class FEMultiplayer extends Game{
 		growths1.put("Lck", 60);
 
 		HashMap<String, Float> stats2 = new HashMap<String, Float>();
-		stats2.put("Skl", 10f);
-		stats2.put("Lck", 3f);
-		stats2.put("HP", 15f);
-		stats2.put("Str", 10f);
-		stats2.put("Mag", 10f);
-		stats2.put("Def", 10f);
-		stats2.put("Res", 10f);
-		stats2.put("Spd", 8f);
+		stats2.put("Skl", 18f);
+		stats2.put("Lck", 16f);
+		stats2.put("HP", 38f);
+		stats2.put("Str", 23f);
+		stats2.put("Mag", 2f);
+		stats2.put("Def", 16f);
+		stats2.put("Res", 11f);
+		stats2.put("Spd", 18f);
 		stats2.put("Lvl", 1f);
-		stats2.put("Mov", 3f);
+		stats2.put("Mov", 6f);
 
 		HashMap<String, Integer> growths2 = new HashMap<String, Integer>();
 		growths2.put("HP", 70);
