@@ -42,7 +42,7 @@ public class Renderer {
 		
 		// Compensation for non power of 2 images
 		float txi = tx0*t.getImageWidth()/t.getTextureWidth();
-		float tyi = ty0*t.getImageWidth()/t.getTextureWidth();
+		float tyi = ty0*t.getImageHeight()/t.getTextureHeight();
 		float txf = tx1*t.getImageWidth()/t.getTextureWidth();
 		float tyf = ty1*t.getImageHeight()/t.getTextureHeight();
 
@@ -88,7 +88,7 @@ public class Renderer {
 		
 		// Compensation for non power of 2 images
 		float txi = tx0*t.getImageWidth()/t.getTextureWidth();
-		float tyi = ty0*t.getImageWidth()/t.getTextureWidth();
+		float tyi = ty0*t.getImageHeight()/t.getTextureHeight();
 		float txf = tx1*t.getImageWidth()/t.getTextureWidth();
 		float tyf = ty1*t.getImageHeight()/t.getTextureHeight();
 
