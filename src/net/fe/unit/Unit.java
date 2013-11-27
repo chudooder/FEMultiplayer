@@ -7,6 +7,7 @@ import java.util.HashMap;
 import chu.engine.GriddedEntity;
 import net.fe.fightStage.CombatTrigger;
 import net.fe.fightStage.FightUnit;
+import net.fe.fightStage.Healthbar;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
 
@@ -156,5 +157,9 @@ public class Unit extends GriddedEntity {
 
 	public FightUnit getFightUnit(boolean b) {
 		return new FightUnit(b);
+	}
+	
+	public Healthbar getHealthbar(boolean b){
+		return new Healthbar(get("HP"), getHp(), b);
 	}
 }

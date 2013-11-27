@@ -19,6 +19,10 @@ public class Resources {
 		try {
 			textures.put("ROY_ATTACK", TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/ROY_ATTACK.png")));
+			textures.put("gui_tickEmpty", TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/battle_gui/tickEmpty.png")));
+			textures.put("gui_tickFilled", TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/battle_gui/tickFilled.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

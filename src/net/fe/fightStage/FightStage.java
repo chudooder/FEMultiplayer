@@ -14,6 +14,7 @@ import chu.engine.Stage;
 public class FightStage extends Stage {
 	private Unit left, right;
 	private FightUnit fl, fr;
+	private Healthbar hp1, hp2;
 	private ArrayList<AttackRecord> attackQueue;
 	private int currentEvent;
 	
@@ -29,8 +30,12 @@ public class FightStage extends Stage {
 		right = u2;
 		fl = left.getFightUnit(true);
 		fr = right.getFightUnit(false);
+		hp1 = left.getHealthbar(true);
+		hp2 = right.getHealthbar(false);
 		addEntity(fl);
 		addEntity(fr);
+		addEntity(hp1);
+		addEntity(hp2);
 		calculate(Grid.getDistance(u1, u2));
 	}
 
@@ -149,6 +154,14 @@ public class FightStage extends Stage {
 				}
 			}
 		}
+		
+		//clear triggers
+		for (CombatTrigger t2 : aTriggers) {
+			t2.clear();
+		}
+		for (CombatTrigger t2 : dTriggers) {
+			t2.clear();
+		}
 	}
 
 	/**
@@ -204,13 +217,14 @@ public class FightStage extends Stage {
 	
 	private void processAttackQueue(){
 		final AttackRecord rec = attackQueue.get(0);
-		FightUnit a, d;
+		FightUnit a;
+		Healthbar dhp;
 		if(rec.attacker == right) {
 			a = fr;
-			d = fl;
+			dhp = hp1;
 		} else {
 			a = fl;
-			d = fr;
+			dhp = hp2;
 		}
 		if(currentEvent == START){
 			System.out.println("\n" + rec.attacker.name + "'s turn!");
@@ -223,9 +237,12 @@ public class FightStage extends Stage {
 				//TODO Play defenders dodge animation
 				System.out.println("Miss! " + rec.defender.name + " dodged the attack!");
 			} else {
-				//TODO Play healthbar going down/up animation
+				dhp.setHp(dhp.getHp() - rec.damage);
 				System.out.println(rec.animation + "! " + rec.defender.name + 
 						" took " + rec.damage +	" damage!");
+			}
+			if(dhp.getHp() == 0){
+				//TODO Play defender's fading away animation
 			}
 			currentEvent = RETURNING;
 		} else if (currentEvent == RETURNING){
