@@ -24,7 +24,7 @@ public class Resources {
 			textures.put("roy_sword_crit", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/roy_sword_crit.png")),
-					142, 102, 1, 96, 47));
+					142, 102, 2, 48, 47));
 			textures.put("roy_sword_attack", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/roy_sword_attack.png")),
