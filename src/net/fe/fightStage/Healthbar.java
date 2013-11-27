@@ -28,7 +28,7 @@ public class Healthbar extends Entity {
 					.getTexture(hp <= displayedHealth ? "gui_tickFilled"
 							: "gui_tickEmpty");
 			Renderer.render(t, 0, 0, 1, 1, x + offX, y + offY, x + offX + 2, y
-					+ offY + 8, renderDepth);
+					+ offY + 6, renderDepth);
 			
 			if(hp == 40){
 				offY = 8;

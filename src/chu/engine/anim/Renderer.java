@@ -39,16 +39,22 @@ public class Renderer {
 			float ty1, float x0, float y0, float x1, float y1, float depth) {
 		Color.white.bind();
 		t.bind();
+		
+		// Compensation for non power of 2 images
+		float txi = tx0*t.getImageWidth()/t.getTextureWidth();
+		float tyi = ty0*t.getImageWidth()/t.getTextureWidth();
+		float txf = tx1*t.getImageWidth()/t.getTextureWidth();
+		float tyf = ty1*t.getImageHeight()/t.getTextureHeight();
 
 		// draw quad
 		glBegin(GL_QUADS);
-		glTexCoord2f(tx0, ty0);
+		glTexCoord2f(txi, tyi);
 		glVertex3f(x0, y0, depth);
-		glTexCoord2f(tx1, ty0);
+		glTexCoord2f(txf, tyi);
 		glVertex3f(x1, y0, depth);
-		glTexCoord2f(tx1, ty1);
+		glTexCoord2f(txf, tyf);
 		glVertex3f(x1, y1, depth);
-		glTexCoord2f(tx0, ty1);
+		glTexCoord2f(txi, tyf);
 		glVertex3f(x0, y1, depth);
 		glEnd();
 	}
@@ -79,16 +85,22 @@ public class Renderer {
 			ty0 = ty1;
 			ty1 = temp;
 		}
+		
+		// Compensation for non power of 2 images
+		float txi = tx0*t.getImageWidth()/t.getTextureWidth();
+		float tyi = ty0*t.getImageWidth()/t.getTextureWidth();
+		float txf = tx1*t.getImageWidth()/t.getTextureWidth();
+		float tyf = ty1*t.getImageHeight()/t.getTextureHeight();
 
 		// draw quad
 		glBegin(GL_QUADS);
-		glTexCoord2f(tx0, ty0);
+		glTexCoord2f(txi, tyi);
 		glVertex3f(x0, y0, depth);
-		glTexCoord2f(tx1, ty0);
+		glTexCoord2f(txf, tyi);
 		glVertex3f(x1, y0, depth);
-		glTexCoord2f(tx1, ty1);
+		glTexCoord2f(txf, tyf);
 		glVertex3f(x1, y1, depth);
-		glTexCoord2f(tx0, ty1);
+		glTexCoord2f(txi, tyf);
 		glVertex3f(x0, y1, depth);
 		glEnd();
 
@@ -199,5 +211,13 @@ public class Renderer {
 	public static Camera getCamera() {
 		return camera;
 	}
+	
+    public static int get2Fold(int fold) {
+        int ret = 2;
+        while (ret < fold) {
+            ret *= 2;
+        }
+        return ret;
+    }
 
 }
