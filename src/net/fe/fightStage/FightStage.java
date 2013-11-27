@@ -5,11 +5,14 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.newdawn.slick.Color;
+
 import net.fe.RNG;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
 import chu.engine.Entity;
 import chu.engine.Stage;
+import chu.engine.anim.Renderer;
 
 public class FightStage extends Stage {
 	private Unit left, right;
@@ -17,7 +20,11 @@ public class FightStage extends Stage {
 	private Healthbar hp1, hp2;
 	private ArrayList<AttackRecord> attackQueue;
 	private int currentEvent;
-	
+
+	// Config
+	public static final int CENTRAL_AXIS = 120;
+	public static final int FLOOR = 104;
+
 	public static final int START = 0;
 	public static final int ATTACKING = 1;
 	public static final int ATTACKED = 2;
@@ -25,11 +32,12 @@ public class FightStage extends Stage {
 	public static final int DONE = 4;
 
 	public FightStage(Unit u1, Unit u2) {
+		int range = Grid.getDistance(u1, u2);
 		attackQueue = new ArrayList<AttackRecord>();
 		left = u1;
 		right = u2;
-		fl = left.getFightUnit(true, this);
-		fr = right.getFightUnit(false, this);
+		fl = left.getFightUnit(true, this, rangeToHeadDistance(range));
+		fr = right.getFightUnit(false, this, rangeToHeadDistance(range));
 		hp1 = left.getHealthbar(true);
 		hp2 = right.getHealthbar(false);
 		addEntity(fl);
@@ -59,7 +67,6 @@ public class FightStage extends Stage {
 			attackOrder.add(false);
 		}
 
-		
 		for (Boolean i : attackOrder) {
 			attack(i, true, "Attack");
 		}
@@ -103,7 +110,7 @@ public class FightStage extends Stage {
 		if (skills) {
 			for (CombatTrigger t : aTriggers) {
 				if (t.success) {
-					if(!t.runPreAttack(this, a, d)){
+					if (!t.runPreAttack(this, a, d)) {
 						for (CombatTrigger t2 : aTriggers) {
 							t2.clear();
 						}
@@ -112,7 +119,7 @@ public class FightStage extends Stage {
 						}
 						return;
 					}
-					if(t.nameModification == CombatTrigger.REPLACE_NAME){
+					if (t.nameModification == CombatTrigger.REPLACE_NAME) {
 						animation = t.getClass().getSimpleName();
 					}
 				}
@@ -141,14 +148,13 @@ public class FightStage extends Stage {
 		for (CombatTrigger t : dTriggers) {
 			if (t.success) {
 				damage = t.runDamageMod(damage);
-				if(t.nameModification == CombatTrigger.APPEND_NAME){
+				if (t.nameModification == CombatTrigger.APPEND_NAME) {
 					animation += " " + t.getClass().getSimpleName();
 				}
 			}
 		}
 		damage = Math.min(damage, d.getHp());
 
-		
 		addToAttackQueue(a, d, animation, damage);
 		d.setHp(d.getHp() - damage);
 		a.clearTempMods();
@@ -160,8 +166,8 @@ public class FightStage extends Stage {
 				}
 			}
 		}
-		
-		//clear triggers
+
+		// clear triggers
 		for (CombatTrigger t2 : aTriggers) {
 			t2.clear();
 		}
@@ -193,9 +199,9 @@ public class FightStage extends Stage {
 		rec.animation = animation;
 		rec.damage = damage;
 		attackQueue.add(rec);
-		
-		System.out.println(animation + ": " + a.name + ", " +
-				d.name + ", " + damage);
+
+		System.out.println(animation + ": " + a.name + ", " + d.name + ", "
+				+ damage);
 	}
 
 	@Override
@@ -214,53 +220,54 @@ public class FightStage extends Stage {
 		}
 		processAddStack();
 		processRemoveStack();
-		if(attackQueue.size()!=0){
+		if (attackQueue.size() != 0) {
 			processAttackQueue();
 		} else {
-			//TODO switch back to the other stage
-			System.out.println(left.name + " HP:" + left.getHp() + " | " + right.name + 
-					" HP:" + right.getHp());
+			// TODO switch back to the other stage
+			System.out.println(left.name + " HP:" + left.getHp() + " | "
+					+ right.name + " HP:" + right.getHp());
 			System.exit(0);
 		}
 	}
-	
-	private void processAttackQueue(){
+
+	private void processAttackQueue() {
 		final AttackRecord rec = attackQueue.get(0);
 		FightUnit a;
 		Healthbar dhp;
-		if(rec.attacker == right) {
+		if (rec.attacker == right) {
 			a = fr;
 			dhp = hp1;
 		} else {
 			a = fl;
 			dhp = hp2;
 		}
-		if(currentEvent == START){
+		if (currentEvent == START) {
 			System.out.println("\n" + rec.attacker.name + "'s turn!");
 			currentEvent = ATTACKING;
-			if(rec.animation.contains("Critical"))
+			if (rec.animation.contains("Critical"))
 				a.sprite.setAnimation("CRIT");
 			else
 				a.sprite.setAnimation("ATTACK");
 			a.sprite.setSpeed(50);
-		} else if (currentEvent == ATTACKING){
-			//Let the animation play
-		} else if (currentEvent == ATTACKED){
-			if(rec.animation.equals("Miss")){
-				//TODO Play defenders dodge animation
-				System.out.println("Miss! " + rec.defender.name + " dodged the attack!");
+		} else if (currentEvent == ATTACKING) {
+			// Let the animation play
+		} else if (currentEvent == ATTACKED) {
+			if (rec.animation.equals("Miss")) {
+				// TODO Play defenders dodge animation
+				System.out.println("Miss! " + rec.defender.name
+						+ " dodged the attack!");
 			} else {
 				dhp.setHp(dhp.getHp() - rec.damage);
-				System.out.println(rec.animation + "! " + rec.defender.name + 
-						" took " + rec.damage +	" damage!");
+				System.out.println(rec.animation + "! " + rec.defender.name
+						+ " took " + rec.damage + " damage!");
 			}
-			if(dhp.getHp() == 0){
-				//TODO Play defender's fading away animation
+			if (dhp.getHp() == 0) {
+				// TODO Play defender's fading away animation
 			}
 			currentEvent = RETURNING;
-		} else if (currentEvent == RETURNING){
-			//Let animation play
-		} else if (currentEvent == DONE){
+		} else if (currentEvent == RETURNING) {
+			// Let animation play
+		} else if (currentEvent == DONE) {
 			currentEvent = START;
 			attackQueue.remove(0);
 		}
@@ -283,6 +290,32 @@ public class FightStage extends Stage {
 
 	public void setCurrentEvent(int event) {
 		currentEvent = event;
+	}
+
+	public static int rangeToHeadDistance(int range) {
+		if (range == 1) {
+			return 48;
+		}
+		return 0;
+	}
+
+	public void render() {
+		Renderer.drawRectangle(CENTRAL_AXIS - 120, FLOOR + 16, CENTRAL_AXIS, 
+				FLOOR + 56, 0, new Color(0,0,128));
+		Renderer.drawRectangle(CENTRAL_AXIS - 120, FLOOR + 6,
+				CENTRAL_AXIS - 78, FLOOR + 32, 0, new Color(0, 0, 255));
+		Renderer.drawRectangle(CENTRAL_AXIS - 120, FLOOR -99, CENTRAL_AXIS-65, 
+				FLOOR-79, 0, new Color(0,0,255));
+		
+		Renderer.drawRectangle(CENTRAL_AXIS + 120, FLOOR + 16, CENTRAL_AXIS, 
+				FLOOR + 56, 0, new Color(128,0,0));
+		Renderer.drawRectangle(CENTRAL_AXIS + 120, FLOOR + 6,
+				CENTRAL_AXIS + 78, FLOOR + 32, 0, new Color(255,0,0));
+		Renderer.drawRectangle(CENTRAL_AXIS + 120, FLOOR -99, CENTRAL_AXIS+65, 
+				FLOOR-79, 0, new Color(255,0,0));
+		
+		
+		super.render();
 	}
 
 }

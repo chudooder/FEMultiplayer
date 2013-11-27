@@ -13,8 +13,16 @@ public class Healthbar extends Entity {
 
 	public Healthbar(int hpMax, int hp, boolean left) {
 		super(0, 0);
-		x = 20 + (left ? 0 : 100);
-		y = hpMax > 40 ? 120 : 116;
+		if(left){
+			x = FightStage.CENTRAL_AXIS - 91;
+		} else {
+			x = FightStage.CENTRAL_AXIS + 30;
+		}
+		if(hp > 40){
+			y = FightStage.FLOOR + 38;
+		} else {
+			y = FightStage.FLOOR + 42;
+		}
 		totalHealth = hpMax;
 		currentHealth = hp;
 		displayedHealth = hp;

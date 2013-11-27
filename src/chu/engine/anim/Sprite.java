@@ -64,6 +64,10 @@ public class Sprite {
 		return animations.get(name);
 	}
 	
+	public Animation getCurrentAnimation(){
+		return currentAnimation;
+	}
+	
 	/**
 	 * Sets the current, rendering animation to the animation with the
 	 * given name.

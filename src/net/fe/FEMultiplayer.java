@@ -94,7 +94,7 @@ public class FEMultiplayer extends Game{
 		growths2.put("Res", 30);
 		growths2.put("Lck", 60);
 
-		Unit marth = new Unit("Marth", Class.createClass("Assassin"), stats1,
+		Unit marth = new Unit("Roy", Class.createClass("Roy"), stats1,
 				growths1);
 		marth.addToInventory(Weapon.createWeapon("sord"));
 		marth.equip(0);

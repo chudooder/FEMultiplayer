@@ -160,8 +160,8 @@ public class Unit extends GriddedEntity {
 		return name + " HP" + hp + "\n" + stats;
 	}
 
-	public FightUnit getFightUnit(boolean b, FightStage s) {
-		FightUnit unit = new FightUnit(b);
+	public FightUnit getFightUnit(boolean b, FightStage s, int range) {
+		FightUnit unit = new FightUnit(b, range);
 		StringBuilder filename = new StringBuilder();
 		if(clazz.name.contains("Lord")) {
 			filename.append(name);
