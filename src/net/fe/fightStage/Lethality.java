@@ -5,11 +5,11 @@ import net.fe.unit.Unit;
 
 public class Lethality extends CombatTrigger {
 	public Lethality(){
-		super(REPLACE_NAME);
+		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE);
 	}
 	@Override
-	public void attempt(Unit user) {
-		success = RNG.get() < user.get("Skl") / 4;
+	public boolean attempt(Unit user) {
+		return RNG.get() < user.get("Skl") / 4;
 	}
 
 	@Override

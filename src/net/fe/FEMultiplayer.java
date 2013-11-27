@@ -94,7 +94,7 @@ public class FEMultiplayer extends Game{
 		growths2.put("Res", 30);
 		growths2.put("Lck", 60);
 
-		Unit marth = new Unit("Roy", Class.createClass("Roy"), stats1,
+		Unit marth = new Unit("Roy", Class.createClass("Swordmaster"), stats1,
 				growths1);
 		marth.addToInventory(Weapon.createWeapon("sord"));
 		marth.equip(0);
@@ -105,7 +105,7 @@ public class FEMultiplayer extends Game{
 
 		for (int i = 0; i < 20; i++) {
 			marth.levelUp();
-			//roy.levelUp();
+			roy.levelUp();
 		}
 		OverworldStage map = new OverworldStage(new Grid(10,10, Terrain.PLAIN));
 		map.addUnit(marth, 0, 0);

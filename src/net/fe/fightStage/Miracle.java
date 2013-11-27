@@ -6,12 +6,12 @@ import net.fe.unit.Unit;
 public class Miracle extends CombatTrigger {
 	
 	public Miracle() {
-		super(APPEND_NAME);
+		super(APPEND_NAME_AFTER_MOD, ENEMY_TURN_MOD);
 	}
 
 	@Override
-	public void attempt(Unit user) {
-		success = RNG.get() < user.get("Lck");
+	public boolean attempt(Unit user) {
+		return RNG.get() < user.get("Lck");
 	}
 	
 	public int runDamageMod(Unit a, Unit d, int damage){

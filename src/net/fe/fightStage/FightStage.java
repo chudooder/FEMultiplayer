@@ -3,6 +3,7 @@ package net.fe.fightStage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -71,14 +72,18 @@ public class FightStage extends Stage {
 		}
 
 		for (Boolean i : attackOrder) {
-			attack(i, true, "Attack");
+			attack(i);
 		}
 	}
 
-	public void attack(boolean dir, boolean skills, String name) {
+	public void attack(boolean dir) {
 		Unit a, d;
 		int damage = 0;
 		String animation = "Attack";
+		boolean miss = false;
+		int crit = 1;
+		
+		
 		if (dir) {
 			a = left;
 			d = right;
@@ -92,81 +97,93 @@ public class FightStage extends Stage {
 		}
 
 		ArrayList<CombatTrigger> aTriggers = a.getTriggers();
+		LinkedHashMap<CombatTrigger, Boolean> aSuccess = 
+				new LinkedHashMap<CombatTrigger, Boolean>();
 		ArrayList<CombatTrigger> dTriggers = d.getTriggers();
-
+		LinkedHashMap<CombatTrigger, Boolean> dSuccess = 
+				new LinkedHashMap<CombatTrigger, Boolean>();
 		for (CombatTrigger t : aTriggers) {
-			t.attempt(a);
+			aSuccess.put(t,t.attempt(a));
 		}
 		for (CombatTrigger t : dTriggers) {
-			t.attempt(a);
+			dSuccess.put(t,t.attempt(a));
 		}
+		
+		
 
-		if (!(RNG.get() < a.hit() - d.avoid()
-				+ a.getWeapon().triMod(d.getWeapon()) * 10)) {
-			// Miss
-			addToAttackQueue(a, d, "Miss", 0);
-			if (a.getWeapon().isMagic())
-				a.getWeapon().use(a);
-			return;
-		}
-
-		if (skills) {
-			for (CombatTrigger t : aTriggers) {
-				if (t.success) {
-					if (!t.runPreAttack(this, a, d)) {
-						for (CombatTrigger t2 : aTriggers) {
-							t2.clear();
-						}
-						for (CombatTrigger t2 : dTriggers) {
-							t2.clear();
-						}
-						return;
-					}
-					if (t.nameModification == CombatTrigger.REPLACE_NAME) {
-						animation = t.getClass().getSimpleName();
-					}
+		for (CombatTrigger t : aTriggers) {
+			if (aSuccess.get(t) && (t.turnToRun & CombatTrigger.YOUR_TURN_PRE)!=0) {
+				if (t.nameModification == CombatTrigger.REPLACE_NAME_AFTER_PRE) {
+					t.runPreAttack(this, a, d);
+					animation = t.getName() + "(a)";
+				}
+			}
+		}	
+		for (CombatTrigger t : dTriggers) {
+			if (dSuccess.get(t) && (t.turnToRun & CombatTrigger.ENEMY_TURN_PRE)!=0) {
+				if (t.nameModification == CombatTrigger.REPLACE_NAME_AFTER_PRE) {
+					t.runPreAttack(this, a, d);
+					animation = t.getName() + "(d)";
 				}
 			}
 		}
-
-		int crit = 1;
+		
+		
+		
+		if (!(RNG.get() < a.hit() - d.avoid()
+				+ a.getWeapon().triMod(d.getWeapon()) * 10)) {
+			miss = true;
+			if (a.getWeapon().isMagic())
+				a.getWeapon().use(a);
+		}
 		if (RNG.get() < a.crit() - d.dodge()) {
 			crit = 3;
 			animation += " Critical";
 		}
-
-		damage = calculateBaseDamage(a, d);
-		damage *= crit;
-
-		for (CombatTrigger t : dTriggers) {
-			if (t.success) {
+		
+		
+		damage = calculateBaseDamage(a, d) * crit;
+		for (CombatTrigger t : aTriggers) {
+			if (aSuccess.get(t) && (t.turnToRun & CombatTrigger.YOUR_TURN_MOD)!=0) {
 				int oldDamage = damage;
 				damage = t.runDamageMod(a,d,damage);
-				if (t.nameModification == CombatTrigger.APPEND_NAME && damage!=oldDamage) {
-					animation += " " + t.getClass().getSimpleName();
+				if (t.nameModification == CombatTrigger.APPEND_NAME_AFTER_MOD 
+						&& damage!=oldDamage) {
+					animation += " " + t.getName() + "(a)";
+				}
+			}
+		}
+		for (CombatTrigger t : dTriggers) {
+			if (dSuccess.get(t)  && (t.turnToRun & CombatTrigger.ENEMY_TURN_MOD)!=0) {
+				int oldDamage = damage;
+				damage = t.runDamageMod(a,d,damage);
+				if (t.nameModification == CombatTrigger.APPEND_NAME_AFTER_MOD 
+						&& damage!=oldDamage) {
+					animation += " " + t.getName() + "(d)";
 				}
 			}
 		}
 		damage = Math.max(0, Math.min(damage, d.getHp()));
+		
+		
+		if(miss){
+			damage = 0;
+			animation = "Miss";
+		}
 
 		addToAttackQueue(a, d, animation, damage);
 		d.setHp(d.getHp() - damage);
 		a.clearTempMods();
 		d.clearTempMods();
-		if (skills) {
-			for (CombatTrigger t : aTriggers) {
-				if (t.success) {
-					t.runPostAttack(this, a, d, damage);
-				}
+		for (CombatTrigger t : aTriggers) {
+			if (aSuccess.get(t) && (t.turnToRun & CombatTrigger.YOUR_TURN_POST)!=0) {
+				t.runPostAttack(this, dir, a, d, damage);
 			}
 		}
-
-		// clear triggers
-		for (CombatTrigger t2 : aTriggers) {
-			t2.clear();
-		}
-		for (CombatTrigger t2 : dTriggers) {
-			t2.clear();
+		for (CombatTrigger t : dTriggers) {
+			if (dSuccess.get(t) && (t.turnToRun & CombatTrigger.ENEMY_TURN_POST)!=0) {
+				t.runPostAttack(this, dir, a, d, damage);
+			}
 		}
 	}
 
@@ -230,11 +247,16 @@ public class FightStage extends Stage {
 		Healthbar dhp;
 		if (rec.attacker == right) {
 			a = fr;
-			dhp = hp1;
 		} else {
 			a = fl;
+		}
+		
+		if (rec.defender == left){
+			dhp = hp1;
+		} else {
 			dhp = hp2;
 		}
+		
 		if (currentEvent == START) {
 			System.out.println("\n" + rec.attacker.name + "'s turn!");
 			currentEvent = ATTACKING;
