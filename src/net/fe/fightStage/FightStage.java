@@ -27,8 +27,8 @@ public class FightStage extends Stage {
 		attackQueue = new ArrayList<AttackRecord>();
 		left = u1;
 		right = u2;
-		fl = left.getFightUnit(true);
-		fr = right.getFightUnit(false);
+		fl = left.getFightUnit(true, this);
+		fr = right.getFightUnit(false, this);
 		addEntity(fl);
 		addEntity(fr);
 		calculate(Grid.getDistance(u1, u2));
@@ -215,6 +215,7 @@ public class FightStage extends Stage {
 		if(currentEvent == START){
 			System.out.println("\n" + rec.attacker.name + "'s turn!");
 			currentEvent = ATTACKING;
+			a.sprite.setAnimation("ATTACK");
 			a.sprite.setSpeed(50);
 		} else if (currentEvent == ATTACKING){
 			//Let the animation play

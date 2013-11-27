@@ -5,7 +5,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import chu.engine.GriddedEntity;
+import chu.engine.Resources;
+import chu.engine.TextureData;
+import chu.engine.anim.Animation;
+import net.fe.fightStage.AttackAnimation;
 import net.fe.fightStage.CombatTrigger;
+import net.fe.fightStage.FightStage;
 import net.fe.fightStage.FightUnit;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
@@ -154,7 +159,26 @@ public class Unit extends GriddedEntity {
 		return name + " HP" + hp + "\n" + stats;
 	}
 
-	public FightUnit getFightUnit(boolean b) {
-		return new FightUnit(b);
+	public FightUnit getFightUnit(boolean b, FightStage s) {
+		FightUnit unit = new FightUnit(b);
+		StringBuilder filename = new StringBuilder();
+		if(clazz.name.contains("Lord")) {
+			filename.append(name);
+		} else {
+			filename.append(clazz.name);
+		}
+		filename.append("_");
+		filename.append(weapon.type.toString());
+		filename.append("_");
+		String base = filename.toString().toLowerCase();
+		
+		System.out.println(base);
+		AttackAnimation attack = new AttackAnimation(
+				Resources.getTextureData(base+"attack"), s);
+		unit.sprite.addAnimation("ATTACK", attack);
+		AttackAnimation crit = new AttackAnimation(
+				Resources.getTextureData(base+"crit"), s);
+		unit.sprite.addAnimation("CRIT", crit);
+		return unit;
 	}
 }

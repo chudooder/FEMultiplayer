@@ -11,21 +11,36 @@ import org.newdawn.slick.util.ResourceLoader;
 public class Resources {
 	
 	private static HashMap<String, Audio> audio;
-	private static HashMap<String, Texture> textures;
+	private static HashMap<String, TextureData> textures;
 	
 	static {
 		audio = new HashMap<String, Audio>();
-		textures = new HashMap<String, Texture>();
+		textures = new HashMap<String, TextureData>();
 		try {
-			textures.put("ROY_ATTACK", TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/ROY_ATTACK.png")));
+			textures.put("whoops", new TextureData(
+					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
+							"res/whoops.png")),
+					32, 32, 1, 1));
+			textures.put("roy_sword_crit", new TextureData(
+					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
+							"res/battle_anim/roy_sword_crit.png")),
+					142, 102, 4, 24, 47));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static Texture getTexture(String string) {
-		return textures.get(string);
+		return getTextureData(string).texture;
+	}
+	
+	public static TextureData getTextureData(String string) {
+		TextureData t = textures.get(string);
+		if(t != null) {
+			return t;
+		} else {
+			return textures.get("whoops");
+		}
 	}
 
 }
