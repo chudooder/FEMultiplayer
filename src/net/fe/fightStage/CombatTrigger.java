@@ -23,7 +23,7 @@ public abstract class CombatTrigger {
 	public boolean runPreAttack(FightStage stage, Unit a, Unit d){
 		return true;
 	}
-	public int runDamageMod(int damage){
+	public int runDamageMod(Unit a, Unit d, int damage){
 		return damage;
 	}
 	public void runPostAttack(FightStage stage, Unit a, Unit d, int damage){

@@ -76,7 +76,7 @@ public class FEMultiplayer extends Game{
 		stats2.put("Skl", 18f);
 		stats2.put("Lck", 16f);
 		stats2.put("HP", 38f);
-		stats2.put("Str", 23f);
+		stats2.put("Str", 18f);
 		stats2.put("Mag", 2f);
 		stats2.put("Def", 16f);
 		stats2.put("Res", 11f);
@@ -100,12 +100,12 @@ public class FEMultiplayer extends Game{
 		marth.equip(0);
 
 		Unit roy = new Unit("Roy", Class.createClass("Roy"), stats2, growths2);
-		roy.addToInventory(Weapon.createWeapon("Bow Sword"));
+		roy.addToInventory(Weapon.createWeapon("sord"));
 		roy.equip(0);
 
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < 20; i++) {
 			marth.levelUp();
-			roy.levelUp();
+			//roy.levelUp();
 		}
 		OverworldStage map = new OverworldStage(new Grid(10,10, Terrain.PLAIN));
 		map.addUnit(marth, 0, 0);

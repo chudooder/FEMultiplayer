@@ -140,13 +140,14 @@ public class FightStage extends Stage {
 
 		for (CombatTrigger t : dTriggers) {
 			if (t.success) {
-				damage = t.runDamageMod(damage);
-				if (t.nameModification == CombatTrigger.APPEND_NAME) {
+				int oldDamage = damage;
+				damage = t.runDamageMod(a,d,damage);
+				if (t.nameModification == CombatTrigger.APPEND_NAME && damage!=oldDamage) {
 					animation += " " + t.getClass().getSimpleName();
 				}
 			}
 		}
-		damage = Math.min(damage, d.getHp());
+		damage = Math.max(0, Math.min(damage, d.getHp()));
 
 		addToAttackQueue(a, d, animation, damage);
 		d.setHp(d.getHp() - damage);

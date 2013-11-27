@@ -31,6 +31,10 @@ public class Class {
 			return new Class("Lord", 0, null, Weapon.Type.SWORD); //TODO Aether
 		if(name.equals("Sage"))
 			return new Class("Sage", 0, new Sol(), Weapon.Type.ANIMA, Weapon.Type.STAFF);
+		if(name.equals("General"))
+			return new Class("General", 0, new Pavise(), Weapon.Type.AXE, Weapon.Type.LANCE);
+		if(name.equals("Valkyrie"))
+			return new Class("Valkyrie", 0, new Miracle(), Weapon.Type.STAFF, Weapon.Type.LIGHT);
 		return null;
 		
 	}

@@ -174,7 +174,6 @@ public class Unit extends GriddedEntity {
 		filename.append("_");
 		String base = filename.toString().toLowerCase();
 		
-		System.out.println(base);
 		AttackAnimation attack = new AttackAnimation(
 				Resources.getTextureData(base+"attack"), s);
 		unit.sprite.addAnimation("ATTACK", attack);
