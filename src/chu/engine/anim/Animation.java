@@ -25,13 +25,13 @@ public class Animation {
 		speed = 0;
 	}
 	
-	public Animation(Texture t, int width, int height, int rows, int columns, int speed) {
+	public Animation(Texture t, int width, int height, int length, int columns, int speed) {
 		this(t);
 		this.width = width;
 		this.height = height;
-		this.rows = rows;
 		this.columns = columns;
-		this.length = rows*columns;
+		this.rows = (length/columns)+1;
+		this.length = length;
 		this.speed = speed;
 	}
 	

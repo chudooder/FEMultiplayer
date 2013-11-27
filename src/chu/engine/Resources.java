@@ -3,10 +3,13 @@ package chu.engine;
 import java.io.IOException;
 import java.util.HashMap;
 
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
+import org.newdawn.slick.opengl.renderer.Renderer;
 
 public class Resources {
 	
@@ -24,15 +27,17 @@ public class Resources {
 			textures.put("roy_sword_crit", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/roy_sword_crit.png")),
-					142, 102, 2, 48, 47));
+					142, 102, 96, 12, 47));
 			textures.put("roy_sword_attack", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/roy_sword_attack.png")),
-					124, 102, 1, 82, 34));
+					124, 102, 82, 11, 34));
 			textures.put("gui_tickEmpty", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_gui/tickEmpty.png"))));
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_gui/tickFilled.png"))));
+			int max = GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE);
+			System.out.println(max);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
