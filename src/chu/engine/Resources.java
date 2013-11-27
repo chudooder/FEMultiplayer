@@ -1,9 +1,11 @@
 package chu.engine;
 
+import java.awt.Font;
 import java.io.IOException;
 import java.util.HashMap;
 
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureImpl;
@@ -15,11 +17,14 @@ public class Resources {
 	
 	private static HashMap<String, Audio> audio;
 	private static HashMap<String, TextureData> textures;
+	private static HashMap<String, TrueTypeFont> fonts;
 	
 	static {
 		audio = new HashMap<String, Audio>();
 		textures = new HashMap<String, TextureData>();
+		fonts = new HashMap<String, TrueTypeFont>();
 		try {
+			// Textures
 			textures.put("whoops", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/whoops.png")),
@@ -36,9 +41,11 @@ public class Resources {
 					ResourceLoader.getResourceAsStream("res/battle_gui/tickEmpty.png"))));
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_gui/tickFilled.png"))));
+			// Fonts
+			fonts.put("default", createFont("Arial", Font.PLAIN, 10));
+		} catch (IOException e) {
 			int max = GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE);
 			System.out.println(max);
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -54,6 +61,15 @@ public class Resources {
 		} else {
 			return textures.get("whoops");
 		}
+	}
+	
+	public static TrueTypeFont createFont(String name, int type, int size) {
+		Font awtfont = new Font(name, type, size);
+		return new TrueTypeFont(awtfont, false);
+	}
+
+	public static TrueTypeFont getFont(String fontName) {
+		return fonts.get(fontName);
 	}
 
 }
