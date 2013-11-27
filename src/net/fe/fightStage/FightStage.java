@@ -339,12 +339,6 @@ public class FightStage extends Stage {
 					units.get(i).getTeamColor());
 		}
 		
-		Renderer.drawRectangle(CENTRAL_AXIS + 120, FLOOR + 16, CENTRAL_AXIS, 
-				FLOOR + 56, 0, new Color(128,0,0));
-		Renderer.drawRectangle(CENTRAL_AXIS + 120, FLOOR + 6,
-				CENTRAL_AXIS + 78, FLOOR + 32, 0, new Color(255,0,0));
-		Renderer.drawRectangle(CENTRAL_AXIS + 120, FLOOR -99, CENTRAL_AXIS+65, 
-				FLOOR-79, 0, new Color(255,0,0));
 		Renderer.drawString("default", "test", 500, 300, Color.white);
 		Renderer.drawString("default", "hi young!!!", 500, 350, Color.red);
 		super.render();
