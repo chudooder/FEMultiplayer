@@ -110,7 +110,9 @@ public class FightStage extends Stage {
 						}
 						return;
 					}
-					animation = t.getClass().getSimpleName();
+					if(t.nameModification == CombatTrigger.REPLACE_NAME){
+						animation = t.getClass().getSimpleName();
+					}
 				}
 			}
 		}
@@ -118,6 +120,7 @@ public class FightStage extends Stage {
 		int crit = 1;
 		if (RNG.get() < a.crit() - d.dodge()) {
 			crit = 3;
+			animation += " Critical";
 		}
 
 		if (a.getWeapon().isMagic()) {
@@ -136,13 +139,14 @@ public class FightStage extends Stage {
 		for (CombatTrigger t : dTriggers) {
 			if (t.success) {
 				damage = t.runDamageMod(damage);
+				if(t.nameModification == CombatTrigger.APPEND_NAME){
+					animation += " " + t.getClass().getSimpleName();
+				}
 			}
 		}
 		damage = Math.min(damage, d.getHp());
 
-		if (crit == 3) {
-			animation += " Critical";
-		}
+		
 		addToAttackQueue(a, d, animation, damage);
 		d.setHp(d.getHp() - damage);
 		a.clearTempMods();

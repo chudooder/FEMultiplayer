@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
@@ -25,10 +26,10 @@ public class Resources {
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/roy_sword_crit.png")),
 					142, 102, 2, 48, 47));
-			textures.put("roy_sword_attack", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/roy_sword_attack.png")),
-					124, 102, 1, 82, 34));
+//			textures.put("roy_sword_attack", new TextureData(
+//					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
+//							"res/battle_anim/roy_sword_attack.png")),
+//					124, 102, 1, 82, 34));
 			textures.put("gui_tickEmpty", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_gui/tickEmpty.png"))));
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",

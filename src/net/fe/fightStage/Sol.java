@@ -5,7 +5,7 @@ import net.fe.unit.Unit;
 
 public class Sol extends CombatTrigger {
 	public Sol(){
-		super(true);
+		super(REPLACE_NAME);
 	}
 	@Override
 	public void attempt(Unit user) {

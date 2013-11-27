@@ -7,9 +7,14 @@ import net.fe.unit.Unit;
 
 public abstract class CombatTrigger {
 	public boolean success;
-	public final boolean overridesName;
-	public CombatTrigger(boolean override){
-		overridesName = override;
+	public final int nameModification;
+	
+	public static final int NO_MOD = 0;
+	public static final int REPLACE_NAME = 1;
+	public static final int APPEND_NAME = 2;
+	
+	public CombatTrigger(int mod){
+		nameModification = mod;
 	}
 	public void clear(){
 		success = false;

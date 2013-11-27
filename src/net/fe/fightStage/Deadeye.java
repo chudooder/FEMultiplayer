@@ -5,7 +5,7 @@ import net.fe.unit.Unit;
 
 public class Deadeye extends CombatTrigger {
 	public Deadeye(){
-		super(true);
+		super(REPLACE_NAME);
 	}
 	@Override
 	public boolean runPreAttack(FightStage stage, Unit a, Unit d) {

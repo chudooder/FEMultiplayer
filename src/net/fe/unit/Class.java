@@ -17,8 +17,6 @@ public class Class {
 		this.name = name;
 	}
 	public static Class createClass(String name){
-		if(name == null)
-			return new Class("Test", 0, null, Weapon.Type.SWORD, Weapon.Type.LANCE);
 		if(name.equals("Sniper"))
 			return new Class("Sniper",10, new Deadeye(), Weapon.Type.BOW);
 		if(name.equals("Hero"))
@@ -30,7 +28,9 @@ public class Class {
 		if(name.equals("Paladin"))
 			return new Class("Paladin", 0, new Sol(), Weapon.Type.LANCE, Weapon.Type.SWORD);
 		if(name.equals("Roy"))
-			return new Class("Lord", 0, null, Weapon.Type.SWORD);
+			return new Class("Lord", 0, null, Weapon.Type.SWORD); //TODO Aether
+		if(name.equals("Sage"))
+			return new Class("Sage", 0, new Sol(), Weapon.Type.ANIMA, Weapon.Type.STAFF);
 		return null;
 		
 	}

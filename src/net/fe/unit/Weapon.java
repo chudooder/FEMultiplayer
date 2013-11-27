@@ -116,6 +116,15 @@ public class Weapon extends Item{
 			weapon.range = Arrays.asList(1);
 			return weapon;
 		}
+		
+		if(name.equals("anima")){
+			weapon.type = Weapon.Type.ANIMA;
+			weapon.mt = 5;
+			weapon.hit = 80;
+			weapon.crit = 10;
+			weapon.range = Arrays.asList(1,2);
+			return weapon;
+		}
 		return null;
 	}
 }
