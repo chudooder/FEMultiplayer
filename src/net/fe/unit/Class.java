@@ -28,7 +28,7 @@ public class Class {
 		if(name.equals("Paladin"))
 			return new Class("Paladin", 0, new Sol(), Weapon.Type.LANCE, Weapon.Type.SWORD);
 		if(name.equals("Roy"))
-			return new Class("Lord", 0, new Astra(), Weapon.Type.SWORD); //TODO Aether
+			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD); //TODO Aether
 		if(name.equals("Sage"))
 			return new Class("Sage", 0, new Sol(), Weapon.Type.ANIMA, Weapon.Type.STAFF);
 		if(name.equals("General"))
