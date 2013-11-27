@@ -317,33 +317,46 @@ public class FightStage extends Stage {
 					CENTRAL_AXIS + sign, FLOOR+31, 0, borderLight);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 16, 
 					CENTRAL_AXIS + sign*2, FLOOR+30, 0, new Color(0xb0a878));
-			Renderer.drawString("default" , u1.getWeapon().name,
-					CENTRAL_AXIS + sign*40 - 18, FLOOR + 16);
+			Renderer.drawString("default_small" , u1.getWeapon().name,
+					CENTRAL_AXIS + sign*39 - 20, FLOOR + 17);
 			
 			//Attack Stats
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR + 0,
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR - 1,
 					CENTRAL_AXIS + sign*76, FLOOR + 32, 0, borderDark);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 1,
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR ,
 					CENTRAL_AXIS + sign*77, FLOOR + 31, 0, borderLight);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 2,
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 1,
 					CENTRAL_AXIS + sign*78, FLOOR + 30, 0, 
 					u1.getTeamColor());
+			
+			String hit, crit, dmg;
+			
+			if(!u1.getWeapon().range.contains(range)){
+				hit = "  -";
+				crit = "  -";
+				dmg = "  -";
+			} else {
+				hit = String.format("%3d", 
+						Math.min(100, Math.max(u1.hit()-u2.avoid(),0)));
+				crit = String.format("%3d", 
+						Math.min(100, Math.max(u1.crit()-u2.dodge(),0)));
+				dmg = String.format("%3d", 
+						Math.min(100, Math.max(calculateBaseDamage(u1,u2),0)));
+			}
+			
 			Renderer.drawString("default_small", "HIT", 
-					CENTRAL_AXIS + sign*98 - 17, FLOOR + 2);
-			Renderer.drawString("number", String.format("%3d", 
-					Math.min(100, Math.max(u1.hit()-u2.avoid(),0))), 
-					CENTRAL_AXIS + sign*98, FLOOR + 1);
+					CENTRAL_AXIS + sign*98 - 18, FLOOR);
+			Renderer.drawString("number", hit, 
+					CENTRAL_AXIS + sign*98, FLOOR);
 			
 			Renderer.drawString("default_small", "CRT", 
-					CENTRAL_AXIS + sign*98 - 17, FLOOR + 10);
-			Renderer.drawString("number", String.format("%3d", 
-					Math.min(100, Math.max(u1.crit()-u2.dodge(),0))), 
+					CENTRAL_AXIS + sign*98 - 18, FLOOR + 9);
+			Renderer.drawString("number", crit, 
 					CENTRAL_AXIS + sign*98, FLOOR + 9);
 			
 			Renderer.drawString("default_small", "DMG", 
-					CENTRAL_AXIS + sign*98 - 17, FLOOR + 19);
-			Renderer.drawString("number", String.format("%3d", 
-					Math.min(100, Math.max(calculateBaseDamage(u1,u2),0))), 
+					CENTRAL_AXIS + sign*98 - 18, FLOOR + 18);
+			Renderer.drawString("number", dmg, 
 					CENTRAL_AXIS + sign*98, FLOOR + 18);
 			
 			//Name

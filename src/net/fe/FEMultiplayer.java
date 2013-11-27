@@ -100,7 +100,7 @@ public class FEMultiplayer extends Game{
 		marth.equip(0);
 
 		Unit roy = new Unit("Roy", Class.createClass("Roy"), stats2, growths2);
-		roy.addToInventory(Weapon.createWeapon("sord"));
+		roy.addToInventory(Weapon.createWeapon("Bow Sword"));
 		roy.equip(0);
 
 		for (int i = 0; i < 15; i++) {

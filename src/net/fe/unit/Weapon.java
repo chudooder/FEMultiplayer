@@ -125,6 +125,15 @@ public class Weapon extends Item{
 			weapon.range = Arrays.asList(1,2);
 			return weapon;
 		}
+		
+		if(name.equals("Bow Sword")){
+			weapon.type = Weapon.Type.SWORD;
+			weapon.mt = 4;
+			weapon.hit = 80;
+			weapon.crit = 10;
+			weapon.range = Arrays.asList(2);
+			return weapon;
+		}
 		return null;
 	}
 }
