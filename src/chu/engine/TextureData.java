@@ -19,4 +19,12 @@ class TextureData {
 		frameHeight = h;
 		hitframes = frames;
 	}
+	
+	public TextureData(Texture t) {
+		texture = t;
+		rows = 1;
+		columns = 1;
+		frameWidth = t.getImageWidth();
+		frameHeight = t.getImageHeight();
+	}
 }

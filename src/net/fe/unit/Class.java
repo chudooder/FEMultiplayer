@@ -29,6 +29,8 @@ public class Class {
 			return new Class("Assassin", 10, new Lethality(), Weapon.Type.BOW, Weapon.Type.SWORD);
 		if(name.equals("Paladin"))
 			return new Class("Paladin", 0, new Sol(), Weapon.Type.LANCE, Weapon.Type.SWORD);
+		if(name.equals("Roy"))
+			return new Class("Lord", 0, null, Weapon.Type.SWORD);
 		return null;
 		
 	}

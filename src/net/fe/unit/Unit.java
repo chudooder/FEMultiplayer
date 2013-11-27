@@ -12,6 +12,7 @@ import net.fe.fightStage.AttackAnimation;
 import net.fe.fightStage.CombatTrigger;
 import net.fe.fightStage.FightStage;
 import net.fe.fightStage.FightUnit;
+import net.fe.fightStage.Healthbar;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
 
@@ -180,5 +181,9 @@ public class Unit extends GriddedEntity {
 				Resources.getTextureData(base+"crit"), s);
 		unit.sprite.addAnimation("CRIT", crit);
 		return unit;
+	}
+	
+	public Healthbar getHealthbar(boolean b){
+		return new Healthbar(get("HP"), getHp(), b);
 	}
 }
