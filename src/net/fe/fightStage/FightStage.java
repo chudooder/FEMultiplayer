@@ -36,6 +36,8 @@ public class FightStage extends Stage {
 		addEntity(fr);
 		addEntity(hp1);
 		addEntity(hp2);
+		System.out.println("Battle!\n" + left + "\n" + right + "\n");
+		System.out.println("Running calcuations:");
 		calculate(Grid.getDistance(u1, u2));
 	}
 
@@ -57,7 +59,7 @@ public class FightStage extends Stage {
 			attackOrder.add(false);
 		}
 
-		System.out.println("Battle!\n" + left + "\n" + right);
+		
 		for (Boolean i : attackOrder) {
 			attack(i, true, "Attack");
 		}
@@ -191,6 +193,9 @@ public class FightStage extends Stage {
 		rec.animation = animation;
 		rec.damage = damage;
 		attackQueue.add(rec);
+		
+		System.out.println(animation + ": " + a.name + ", " +
+				d.name + ", " + damage);
 	}
 
 	@Override
