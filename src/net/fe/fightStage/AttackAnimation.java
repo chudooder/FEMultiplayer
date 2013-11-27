@@ -8,11 +8,13 @@ import chu.engine.anim.Animation;
 public class AttackAnimation extends Animation {
 	
 	private int[] hitframes;
+	private int headX;
+	private int headY;
 	private FightStage stage;
 
-	public AttackAnimation(Texture t, int width, int height, int rows,
+	public AttackAnimation(Texture t, int width, int height, int frames,
 			int columns, int speed, int[] hitframes, FightStage stage) {
-		super(t, width, height, rows, columns, speed);
+		super(t, width, height, frames, columns, speed);
 		this.hitframes = hitframes;
 		this.stage = stage;
 	}

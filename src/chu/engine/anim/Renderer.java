@@ -5,6 +5,8 @@ import static org.lwjgl.opengl.GL11.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import chu.engine.Resources;
+
 public class Renderer {
 
 	private static Camera camera;
@@ -105,7 +107,6 @@ public class Renderer {
 		glEnd();
 
 		glPopMatrix();
-
 	}
 
 	public static void drawSquare(float x, float y, float s, float depth,
@@ -203,7 +204,15 @@ public class Renderer {
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
 	}
-
+	
+	public static void drawString(String fontName, String string, float x, float y) {
+		Resources.getFont(fontName).drawString(x, y, string);
+	}
+	
+	public static void drawString(String fontName, String string, float x, float y, Color c) {
+		Resources.getFont(fontName).drawString(x, y, string, c);
+	}
+	
 	public static void setCamera(Camera c) {
 		camera = c;
 	}
