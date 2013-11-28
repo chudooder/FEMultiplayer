@@ -9,13 +9,18 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
 
 import net.fe.RNG;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
 import chu.engine.Entity;
+import chu.engine.Game;
+import chu.engine.Resources;
 import chu.engine.Stage;
+import chu.engine.anim.Animation;
 import chu.engine.anim.Renderer;
+import chu.engine.anim.Transform;
 
 public class FightStage extends Stage {
 	private Unit left, right;
@@ -24,18 +29,30 @@ public class FightStage extends Stage {
 	private ArrayList<AttackRecord> attackQueue;
 	private int currentEvent;
 	private int range;
+	private float prevShakeTimer;
+	private float shakeTimer;
+	private float shakeX;
+	private float shakeY;
 
 	// Config
+	public static final float SHAKE_INTERVAL = 0.05f;
+	
 	public static final int CENTRAL_AXIS = 120;
 	public static final int FLOOR = 104;
 
 	public static final int START = 0;
 	public static final int ATTACKING = 1;
 	public static final int ATTACKED = 2;
-	public static final int RETURNING = 3;
-	public static final int DONE = 4;
+	public static final int HURTING = 3;
+	public static final int HURTED = 4;
+	public static final int RETURNING = 5;
+	public static final int DONE = 6;
 
 	public FightStage(Unit u1, Unit u2) {
+		shakeTimer = 0;
+		prevShakeTimer = 0;
+		shakeX = 0;
+		shakeY = 0;
 		range = Grid.getDistance(u1, u2);
 		attackQueue = new ArrayList<AttackRecord>();
 		left = u1;
@@ -244,11 +261,15 @@ public class FightStage extends Stage {
 	private void processAttackQueue() {
 		final AttackRecord rec = attackQueue.get(0);
 		FightUnit a;
+		FightUnit d;
+		boolean crit = rec.animation.contains("Critical");
 		Healthbar dhp;
 		if (rec.attacker == right) {
 			a = fr;
+			d = fl;
 		} else {
 			a = fl;
+			d = fr;
 		}
 		
 		if (rec.defender == left){
@@ -260,7 +281,7 @@ public class FightStage extends Stage {
 		if (currentEvent == START) {
 			System.out.println("\n" + rec.attacker.name + "'s turn!");
 			currentEvent = ATTACKING;
-			if (rec.animation.contains("Critical"))
+			if (crit)
 				a.sprite.setAnimation("CRIT");
 			else
 				a.sprite.setAnimation("ATTACK");
@@ -272,14 +293,31 @@ public class FightStage extends Stage {
 				// TODO Play defenders dodge animation
 				System.out.println("Miss! " + rec.defender.name
 						+ " dodged the attack!");
+				currentEvent = RETURNING;
 			} else {
 				dhp.setHp(dhp.getHp() - rec.damage);
+				addEntity(new HitEffect(crit, rec.attacker == left));
+				if(crit) {
+					startShaking(1.2f);
+				} else {
+					startShaking(.5f);
+				}
 				System.out.println(rec.animation + "! " + rec.defender.name
 						+ " took " + rec.damage + " damage!");
+				if(rec.damage != 0) {
+					a.sprite.setSpeed(0);
+					currentEvent = HURTING;
+				} else {
+					currentEvent = RETURNING;
+				}
 			}
 			if (dhp.getHp() == 0) {
-				// TODO Play defender's fading away animation
+				d.dying = true;
 			}
+		} else if (currentEvent == HURTING) {
+			// let health bar animation play
+		} else if (currentEvent == HURTED) {
+			a.sprite.setSpeed(40);
 			currentEvent = RETURNING;
 		} else if (currentEvent == RETURNING) {
 			// Let animation play
@@ -318,6 +356,25 @@ public class FightStage extends Stage {
 	public void render() {
 		Color borderDark = new Color(0x483828);
 		Color borderLight = new Color(0xf8f0c8);
+		
+		if(shakeTimer > 0) {
+			shakeTimer -= Game.getDeltaSeconds();
+			if(prevShakeTimer - shakeTimer > SHAKE_INTERVAL) {
+				float factor = Math.min(shakeTimer, 1.0f);
+				shakeX *= -factor;
+				shakeY *= -factor;
+				prevShakeTimer = shakeTimer;
+			}
+			if(shakeTimer < 0) {
+				shakeTimer = 0;
+				prevShakeTimer = 0;
+				shakeX = 0;
+				shakeY = 0;
+			}
+		}
+		
+		//Shake
+		Renderer.translate((int)shakeX, (int)shakeY);
 		
 		List<Unit> units = Arrays.asList(left, right);
 		for(int i = 0; i < units.size(); i++){
@@ -392,9 +449,13 @@ public class FightStage extends Stage {
 					u1.getTeamColor());
 			Renderer.drawString("default", units.get(i).name, 
 					CENTRAL_AXIS + sign*94 - 16, FLOOR - 95);
+			
 		}
 		
 		super.render();
+		
+		//Undo shake translation
+		Renderer.translate((int)-shakeX, (int)-shakeY);
 	}
 
 	public static int calculateBaseDamage(Unit a, Unit d){
@@ -408,6 +469,47 @@ public class FightStage extends Stage {
 					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
 					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
 							: 1) - d.get("Def");
+		}
+	}
+	
+	private void startShaking(float time) {
+		shakeTimer = time;
+		prevShakeTimer = time;
+		float dist = Math.min(shakeTimer*9, 7);
+		shakeX = -dist;
+		shakeY = -dist;
+	}
+	
+	// On regular hit
+	private class HitEffect extends Entity {
+		private boolean left;
+		public HitEffect(boolean crit, boolean leftAttacking) {
+			super(0, 0);
+			left = leftAttacking;
+			Texture tex = null;
+			if(crit) {
+				tex = Resources.getTexture("hit_effect_crit");
+			} else {
+				tex = Resources.getTexture("hit_effect");
+			}
+			Animation anim = new Animation(tex, 240, 160, 9, 3, 20) {
+				@Override
+				public void done() {
+					destroy();
+				}
+			};
+			sprite.addAnimation("default", anim);
+		}
+		
+		@Override
+		public void render() {
+			if(!left) {
+				sprite.render(CENTRAL_AXIS-120, FLOOR-104, 0);
+			} else {
+				Transform t = new Transform();
+				t.flipHorizontal();
+				sprite.renderTransformed(CENTRAL_AXIS-120, FLOOR-104, 0, t);
+			}
 		}
 	}
 }
