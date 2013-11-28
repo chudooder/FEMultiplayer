@@ -41,7 +41,7 @@ public class Resources {
 					ResourceLoader.getResourceAsStream("res/battle_gui/tickEmpty.png"))));
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_gui/tickFilled.png"))));
-			textures.put("hit_effect", new TextureData(TextureLoader.getTexture("PNG",
+			textures.put("hit_effect_attack", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect.png")),
 					240, 160, 9, 3));
 			textures.put("hit_effect_crit", new TextureData(TextureLoader.getTexture("PNG",

@@ -263,6 +263,8 @@ public class FightStage extends Stage {
 		FightUnit a;
 		FightUnit d;
 		boolean crit = rec.animation.contains("Critical");
+		String hitEffect = crit?"crit":"attack";
+		
 		Healthbar dhp;
 		if (rec.attacker == right) {
 			a = fr;
@@ -296,7 +298,7 @@ public class FightStage extends Stage {
 				currentEvent = RETURNING;
 			} else {
 				dhp.setHp(dhp.getHp() - rec.damage);
-				addEntity(new HitEffect(crit, rec.attacker == left));
+				addEntity(new HitEffect(hitEffect, rec.attacker == left));
 				if(crit) {
 					startShaking(1.2f);
 				} else {
@@ -482,35 +484,5 @@ public class FightStage extends Stage {
 	}
 	
 	// On regular hit
-	private class HitEffect extends Entity {
-		private boolean left;
-		public HitEffect(boolean crit, boolean leftAttacking) {
-			super(0, 0);
-			left = leftAttacking;
-			Texture tex = null;
-			if(crit) {
-				tex = Resources.getTexture("hit_effect_crit");
-			} else {
-				tex = Resources.getTexture("hit_effect");
-			}
-			Animation anim = new Animation(tex, 240, 160, 9, 3, 20) {
-				@Override
-				public void done() {
-					destroy();
-				}
-			};
-			sprite.addAnimation("default", anim);
-		}
-		
-		@Override
-		public void render() {
-			if(!left) {
-				sprite.render(CENTRAL_AXIS-120, FLOOR-104, 0);
-			} else {
-				Transform t = new Transform();
-				t.flipHorizontal();
-				sprite.renderTransformed(CENTRAL_AXIS-120, FLOOR-104, 0, t);
-			}
-		}
-	}
+	
 }
