@@ -14,8 +14,11 @@ import net.fe.RNG;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
 import chu.engine.Entity;
+import chu.engine.Resources;
 import chu.engine.Stage;
+import chu.engine.anim.Animation;
 import chu.engine.anim.Renderer;
+import chu.engine.anim.Transform;
 
 public class FightStage extends Stage {
 	private Unit left, right;
@@ -274,6 +277,7 @@ public class FightStage extends Stage {
 						+ " dodged the attack!");
 			} else {
 				dhp.setHp(dhp.getHp() - rec.damage);
+				addEntity(new HitEffect(rec.attacker == left));
 				System.out.println(rec.animation + "! " + rec.defender.name
 						+ " took " + rec.damage + " damage!");
 			}
@@ -408,6 +412,34 @@ public class FightStage extends Stage {
 					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
 					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
 							: 1) - d.get("Def");
+		}
+	}
+	
+	// On regular hit
+	private class HitEffect extends Entity {
+		private boolean left;
+		public HitEffect(boolean leftAttacking) {
+			super(0, 0);
+			left = leftAttacking;
+			Animation anim = new Animation(Resources.getTexture("hit_effect"), 
+					240, 160, 9, 3, 20) {
+				@Override
+				public void done() {
+					destroy();
+				}
+			};
+			sprite.addAnimation("default", anim);
+		}
+		
+		@Override
+		public void render() {
+			if(!left) {
+				sprite.render(CENTRAL_AXIS-120, FLOOR-104, 0);
+			} else {
+				Transform t = new Transform();
+				t.flipHorizontal();
+				sprite.renderTransformed(CENTRAL_AXIS-120, FLOOR-104, 0, t);
+			}
 		}
 	}
 }
