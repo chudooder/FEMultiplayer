@@ -3,6 +3,7 @@ package net.fe.fightStage;
 import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.Entity;
+import chu.engine.Game;
 import chu.engine.Resources;
 import chu.engine.anim.Renderer;
 
@@ -54,9 +55,10 @@ public class Healthbar extends Entity {
 
 	public void onStep() {
 		if(Math.abs(displayedHealth-currentHealth) >= 1){
-			displayedHealth += Math.signum(currentHealth - displayedHealth)/30;
-		} else {
+			displayedHealth += Math.signum(currentHealth - displayedHealth)*30*Game.getDeltaSeconds();
+		} else if(displayedHealth != currentHealth){
 			displayedHealth = currentHealth;
+			((FightStage)stage).setCurrentEvent(FightStage.HURTED);
 		}
 	}
 	

@@ -43,8 +43,10 @@ public class FightStage extends Stage {
 	public static final int START = 0;
 	public static final int ATTACKING = 1;
 	public static final int ATTACKED = 2;
-	public static final int RETURNING = 3;
-	public static final int DONE = 4;
+	public static final int HURTING = 3;
+	public static final int HURTED = 4;
+	public static final int RETURNING = 5;
+	public static final int DONE = 6;
 
 	public FightStage(Unit u1, Unit u2) {
 		shakeTimer = 0;
@@ -283,7 +285,7 @@ public class FightStage extends Stage {
 				a.sprite.setAnimation("CRIT");
 			else
 				a.sprite.setAnimation("ATTACK");
-			a.sprite.setSpeed(50);
+			a.sprite.setSpeed(40);
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
 		} else if (currentEvent == ATTACKED) {
@@ -305,6 +307,12 @@ public class FightStage extends Stage {
 			if (dhp.getHp() == 0) {
 				d.dying = true;
 			}
+			a.sprite.setSpeed(0);
+			currentEvent = HURTING;
+		} else if (currentEvent == HURTING) {
+			// let health bar animation play
+		} else if (currentEvent == HURTED) {
+			a.sprite.setSpeed(40);
 			currentEvent = RETURNING;
 		} else if (currentEvent == RETURNING) {
 			// Let animation play
