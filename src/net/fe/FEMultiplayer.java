@@ -75,7 +75,7 @@ public class FEMultiplayer extends Game{
 		HashMap<String, Float> stats2 = new HashMap<String, Float>();
 		stats2.put("Skl", 18f);
 		stats2.put("Lck", 16f);
-		stats2.put("HP", 38f);
+		stats2.put("HP", 1f);
 		stats2.put("Str", 18f);
 		stats2.put("Mag", 2f);
 		stats2.put("Def", 16f);

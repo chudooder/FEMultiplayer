@@ -259,12 +259,15 @@ public class FightStage extends Stage {
 	private void processAttackQueue() {
 		final AttackRecord rec = attackQueue.get(0);
 		FightUnit a;
+		FightUnit d;
 		boolean crit = rec.animation.contains("Critical");
 		Healthbar dhp;
 		if (rec.attacker == right) {
 			a = fr;
+			d = fl;
 		} else {
 			a = fl;
+			d = fr;
 		}
 		
 		if (rec.defender == left){
@@ -300,7 +303,7 @@ public class FightStage extends Stage {
 						+ " took " + rec.damage + " damage!");
 			}
 			if (dhp.getHp() == 0) {
-				// TODO Play defender's fading away animation
+				d.dying = true;
 			}
 			currentEvent = RETURNING;
 		} else if (currentEvent == RETURNING) {
