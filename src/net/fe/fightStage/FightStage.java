@@ -15,6 +15,7 @@ import net.fe.RNG;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
 import chu.engine.Entity;
+import chu.engine.Game;
 import chu.engine.Resources;
 import chu.engine.Stage;
 import chu.engine.anim.Animation;
@@ -28,8 +29,14 @@ public class FightStage extends Stage {
 	private ArrayList<AttackRecord> attackQueue;
 	private int currentEvent;
 	private int range;
+	private float prevShakeTimer;
+	private float shakeTimer;
+	private float shakeX;
+	private float shakeY;
 
 	// Config
+	public static final float SHAKE_INTERVAL = 0.05f;
+	
 	public static final int CENTRAL_AXIS = 120;
 	public static final int FLOOR = 104;
 
@@ -40,6 +47,10 @@ public class FightStage extends Stage {
 	public static final int DONE = 4;
 
 	public FightStage(Unit u1, Unit u2) {
+		shakeTimer = 0;
+		prevShakeTimer = 0;
+		shakeX = 0;
+		shakeY = 0;
 		range = Grid.getDistance(u1, u2);
 		attackQueue = new ArrayList<AttackRecord>();
 		left = u1;
@@ -280,6 +291,11 @@ public class FightStage extends Stage {
 			} else {
 				dhp.setHp(dhp.getHp() - rec.damage);
 				addEntity(new HitEffect(crit, rec.attacker == left));
+				if(crit) {
+					startShaking(1.2f);
+				} else {
+					startShaking(.5f);
+				}
 				System.out.println(rec.animation + "! " + rec.defender.name
 						+ " took " + rec.damage + " damage!");
 			}
@@ -324,6 +340,25 @@ public class FightStage extends Stage {
 	public void render() {
 		Color borderDark = new Color(0x483828);
 		Color borderLight = new Color(0xf8f0c8);
+		
+		if(shakeTimer > 0) {
+			shakeTimer -= Game.getDeltaSeconds();
+			if(prevShakeTimer - shakeTimer > SHAKE_INTERVAL) {
+				float factor = Math.min(shakeTimer, 1.0f);
+				shakeX *= -factor;
+				shakeY *= -factor;
+				prevShakeTimer = shakeTimer;
+			}
+			if(shakeTimer < 0) {
+				shakeTimer = 0;
+				prevShakeTimer = 0;
+				shakeX = 0;
+				shakeY = 0;
+			}
+		}
+		
+		//Shake
+		Renderer.translate((int)shakeX, (int)shakeY);
 		
 		List<Unit> units = Arrays.asList(left, right);
 		for(int i = 0; i < units.size(); i++){
@@ -398,9 +433,13 @@ public class FightStage extends Stage {
 					u1.getTeamColor());
 			Renderer.drawString("default", units.get(i).name, 
 					CENTRAL_AXIS + sign*94 - 16, FLOOR - 95);
+			
 		}
 		
 		super.render();
+		
+		//Undo shake translation
+		Renderer.translate((int)-shakeX, (int)-shakeY);
 	}
 
 	public static int calculateBaseDamage(Unit a, Unit d){
@@ -415,6 +454,14 @@ public class FightStage extends Stage {
 					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
 							: 1) - d.get("Def");
 		}
+	}
+	
+	private void startShaking(float time) {
+		shakeTimer = time;
+		prevShakeTimer = time;
+		float dist = Math.min(shakeTimer*9, 7);
+		shakeX = -dist;
+		shakeY = -dist;
 	}
 	
 	// On regular hit

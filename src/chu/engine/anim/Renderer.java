@@ -213,6 +213,10 @@ public class Renderer {
 		Resources.getFont(fontName).drawString(x, y, string, c);
 	}
 	
+	public static void translate(float x, float y) {
+		glTranslatef(x, y, 0);
+	}
+	
 	public static void setCamera(Camera c) {
 		camera = c;
 	}
