@@ -311,7 +311,6 @@ public class FightStage extends Stage {
 				} else {
 					currentEvent = RETURNING;
 				}
-				currentEvent = RETURNING;
 			}
 			if (dhp.getHp() == 0) {
 				d.dying = true;

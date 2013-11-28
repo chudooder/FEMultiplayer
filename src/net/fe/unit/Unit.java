@@ -177,10 +177,10 @@ public class Unit extends GriddedEntity {
 		String base = filename.toString().toLowerCase();
 		
 		AttackAnimation attack = new AttackAnimation(
-				Resources.getTextureData(base+"attack"), s);
+				Resources.getTextureData(base+"attack"), s, range==1 && !weapon.isMagic());
 		unit.sprite.addAnimation("ATTACK", attack);
 		AttackAnimation crit = new AttackAnimation(
-				Resources.getTextureData(base+"crit"), s);
+				Resources.getTextureData(base+"crit"), s, range==1 && !weapon.isMagic());
 		unit.sprite.addAnimation("CRIT", crit);
 		return unit;
 	}

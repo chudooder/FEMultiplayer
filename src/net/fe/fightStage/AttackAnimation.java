@@ -11,18 +11,22 @@ public class AttackAnimation extends Animation {
 	private int headX;
 	private int headY;
 	private FightStage stage;
+	
+	private boolean freeze;
 
 	public AttackAnimation(Texture t, int width, int height, int frames,
-			int columns, int speed, int[] hitframes, FightStage stage) {
+			int columns, int speed, int[] hitframes, FightStage stage, boolean freeze) {
 		super(t, width, height, frames, columns, speed);
 		this.hitframes = hitframes;
 		this.stage = stage;
+		this.freeze = freeze;
 	}
 	
-	public AttackAnimation(TextureData data, FightStage stage) {
+	public AttackAnimation(TextureData data, FightStage stage, boolean freeze) {
 		super(data.texture, data.frameWidth, data.frameHeight, data.rows, data.columns, 0);
 		this.hitframes = data.hitframes;
 		this.stage = stage;
+		this.freeze = freeze;
 	}
 	
 	@Override
