@@ -138,7 +138,7 @@ public class FightStage extends Stage {
 		}
 		if (RNG.get() < a.crit() - d.dodge()) {
 			crit = 3;
-			animation += " Critical";
+			animation += " Critical(a)";
 		}
 		
 		
@@ -264,7 +264,7 @@ public class FightStage extends Stage {
 				a.sprite.setAnimation("CRIT");
 			else
 				a.sprite.setAnimation("ATTACK");
-			a.sprite.setSpeed(50);
+			a.sprite.setSpeed(40);
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
 		} else if (currentEvent == ATTACKED) {

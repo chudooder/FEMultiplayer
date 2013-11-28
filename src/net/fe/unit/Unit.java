@@ -1,6 +1,7 @@
 package net.fe.unit;
 
 import org.newdawn.slick.Color;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import chu.engine.GriddedEntity;
 import chu.engine.Resources;
 import chu.engine.TextureData;
 import chu.engine.anim.Animation;
+import net.fe.Party;
 import net.fe.fightStage.AttackAnimation;
 import net.fe.fightStage.CombatTrigger;
 import net.fe.fightStage.FightStage;
@@ -188,6 +190,6 @@ public class Unit extends GriddedEntity {
 	}
 	
 	public Color getTeamColor(){
-		return Color.red;
+		return Party.TEAM_GREEN;
 	}
 }

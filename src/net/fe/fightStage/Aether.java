@@ -30,7 +30,7 @@ public class Aether extends CombatTrigger {
 		if(phase == SOL){
 			if(damage == 0) return;
 			int heal = Math.min(damage/2, a.get("HP") - a.getHp());
-			stage.addToAttackQueue(a, a, "Aether2", -heal);
+			stage.addToAttackQueue(a, a, "Aether2(a)", -heal);
 			a.setHp(a.getHp() + damage/2);
 			phase = LUNA;
 			stage.attack(dir);
