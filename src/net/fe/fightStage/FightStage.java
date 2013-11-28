@@ -306,12 +306,11 @@ public class FightStage extends Stage {
 				}
 				System.out.println(rec.animation + "! " + rec.defender.name
 						+ " took " + rec.damage + " damage!");
-//				if(rec.damage != 0) {
-//					a.sprite.setSpeed(0);
-//					currentEvent = HURTING;
-//				} else {
-//					currentEvent = RETURNING;
-//				}
+				if(rec.damage != 0) {
+					currentEvent = HURTING;
+				} else {
+					currentEvent = RETURNING;
+				}
 				currentEvent = RETURNING;
 			}
 			if (dhp.getHp() == 0) {

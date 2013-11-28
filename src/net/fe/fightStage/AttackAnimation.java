@@ -39,6 +39,7 @@ public class AttackAnimation extends Animation {
 		for(int i : hitframes) {
 			if(prevFrame != getFrame() && getFrame() == i) {
 				((FightStage)stage).setCurrentEvent(FightStage.ATTACKED);
+				setSpeed(0);
 			}
 		}
 	}
