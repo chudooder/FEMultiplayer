@@ -9,6 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
 
 import net.fe.RNG;
 import net.fe.overworldStage.Grid;
@@ -247,6 +248,7 @@ public class FightStage extends Stage {
 	private void processAttackQueue() {
 		final AttackRecord rec = attackQueue.get(0);
 		FightUnit a;
+		boolean crit = rec.animation.contains("Critical");
 		Healthbar dhp;
 		if (rec.attacker == right) {
 			a = fr;
@@ -263,7 +265,7 @@ public class FightStage extends Stage {
 		if (currentEvent == START) {
 			System.out.println("\n" + rec.attacker.name + "'s turn!");
 			currentEvent = ATTACKING;
-			if (rec.animation.contains("Critical"))
+			if (crit)
 				a.sprite.setAnimation("CRIT");
 			else
 				a.sprite.setAnimation("ATTACK");
@@ -277,7 +279,7 @@ public class FightStage extends Stage {
 						+ " dodged the attack!");
 			} else {
 				dhp.setHp(dhp.getHp() - rec.damage);
-				addEntity(new HitEffect(rec.attacker == left));
+				addEntity(new HitEffect(crit, rec.attacker == left));
 				System.out.println(rec.animation + "! " + rec.defender.name
 						+ " took " + rec.damage + " damage!");
 			}
@@ -418,11 +420,16 @@ public class FightStage extends Stage {
 	// On regular hit
 	private class HitEffect extends Entity {
 		private boolean left;
-		public HitEffect(boolean leftAttacking) {
+		public HitEffect(boolean crit, boolean leftAttacking) {
 			super(0, 0);
 			left = leftAttacking;
-			Animation anim = new Animation(Resources.getTexture("hit_effect"), 
-					240, 160, 9, 3, 20) {
+			Texture tex = null;
+			if(crit) {
+				tex = Resources.getTexture("hit_effect_crit");
+			} else {
+				tex = Resources.getTexture("hit_effect");
+			}
+			Animation anim = new Animation(tex, 240, 160, 9, 3, 20) {
 				@Override
 				public void done() {
 					destroy();
