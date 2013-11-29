@@ -15,7 +15,7 @@ public class Sol extends CombatTrigger {
 	public void runPostAttack(FightStage stage, boolean dir, Unit a, Unit d, int damage){
 		if(damage == 0) return;
 		int heal = Math.min(damage/2, a.get("HP") - a.getHp());
-		stage.addToAttackQueue(a, a, "Sol2", -heal);
+		stage.addToAttackQueue(a, a, "Sol2(a)", -heal);
 		a.setHp(a.getHp() + damage/2);
 	}
 	
