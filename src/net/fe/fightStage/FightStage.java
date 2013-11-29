@@ -67,7 +67,7 @@ public class FightStage extends Stage {
 		addEntity(hp2);
 		System.out.println("Battle!\n" + left + "\n" + right + "\n");
 		System.out.println("Running calcuations:");
-		calculate(Grid.getDistance(u1, u2));
+		calculate(range);
 	}
 
 	public void calculate(int range) {
@@ -89,11 +89,11 @@ public class FightStage extends Stage {
 		}
 
 		for (Boolean i : attackOrder) {
-			attack(i);
+			attack(i, "None");
 		}
 	}
 
-	public void attack(boolean dir) {
+	public void attack(boolean dir, String currentEffect) {
 		Unit a, d;
 		int damage = 0;
 		String animation = "Attack";
@@ -194,33 +194,17 @@ public class FightStage extends Stage {
 		d.clearTempMods();
 		for (CombatTrigger t : aTriggers) {
 			if (aSuccess.get(t) && (t.turnToRun & CombatTrigger.YOUR_TURN_POST)!=0) {
-				t.runPostAttack(this, dir, a, d, damage);
+				t.runPostAttack(this, dir, a, d, damage, currentEffect);
 			}
 		}
 		for (CombatTrigger t : dTriggers) {
 			if (dSuccess.get(t) && (t.turnToRun & CombatTrigger.ENEMY_TURN_POST)!=0) {
-				t.runPostAttack(this, dir, a, d, damage);
+				t.runPostAttack(this, dir, a, d, damage, currentEffect);
 			}
 		}
 		
 	}
 
-	/**
-	 * Adds an attack to the Attack Queue
-	 * 
-	 * @param a
-	 *            The attacking unit
-	 * @param d
-	 *            The defending unit
-	 * @param animation
-	 *            The name of the animation to play
-	 * @param damage
-	 *            The damage of the attack on the defending unit
-	 * @param consume
-	 *            The number of attacks in the animation. If consume > 1, it
-	 *            will get the next (consume - 1) AttackRecords in the
-	 *            attackQueue.
-	 */
 	public void addToAttackQueue(Unit a, Unit d, String animation, int damage) {
 		AttackRecord rec = new AttackRecord();
 		rec.attacker = a;
@@ -264,8 +248,7 @@ public class FightStage extends Stage {
 		FightUnit a;
 		FightUnit d;
 		boolean crit = rec.animation.contains("Critical");
-		String hitEffect = crit?"crit":"attack";
-		
+		String hitEffect = "attack";		
 		Healthbar dhp;
 		if (rec.attacker == right) {
 			a = fr;
@@ -279,6 +262,14 @@ public class FightStage extends Stage {
 			dhp = hp1;
 		} else {
 			dhp = hp2;
+		}
+		
+		if(crit){
+			hitEffect = "crit";
+		} 
+		
+		if(rec.attacker.getWeapon().isMagic()){
+			hitEffect = rec.attacker.getWeapon().name;
 		}
 		
 		if (currentEvent == START) {
@@ -329,33 +320,7 @@ public class FightStage extends Stage {
 			attackQueue.remove(0);
 		}
 	}
-
-	@Override
-	public void endStep() {
-		for (Entity e : entities) {
-			e.endStep();
-		}
-		processAddStack();
-		processRemoveStack();
-	}
-
-	private class AttackRecord {
-		public String animation;
-		public Unit attacker, defender;
-		public int damage;
-	}
-
-	public void setCurrentEvent(int event) {
-		currentEvent = event;
-	}
-
-	public static int rangeToHeadDistance(int range) {
-		if (range == 1) {
-			return 40;
-		}
-		return 0;
-	}
-
+	
 	public void render() {
 		Color borderDark = new Color(0x483828);
 		Color borderLight = new Color(0xf8f0c8);
@@ -460,12 +425,55 @@ public class FightStage extends Stage {
 		Renderer.translate((int)-shakeX, (int)-shakeY);
 	}
 
+	@Override
+	public void endStep() {
+		for (Entity e : entities) {
+			e.endStep();
+		}
+		processAddStack();
+		processRemoveStack();
+	}
+	
+	private void startShaking(float time) {
+		shakeTimer = time;
+		prevShakeTimer = time;
+		float dist = Math.min(shakeTimer*9, 7);
+		shakeX = -dist;
+		shakeY = -dist;
+	}
+	
+	//Getters Setters
+
+	public void setCurrentEvent(int event) {
+		currentEvent = event;
+	}
+	
+	public int distanceToHead(){
+		return rangeToHeadDistance(range);
+	}
+
+	public static int rangeToHeadDistance(int range) {
+		if (range == 1) {
+			return 40;
+		}
+		return 0;
+	}
+	
+	public int getRange(){
+		return range;
+	}
+	
+	public boolean isLeft(Unit u){
+		return u == left;
+	}
+	
+	// On regular hit
+	
+
 	public static int calculateBaseDamage(Unit a, Unit d){
 		boolean effective = a.getWeapon().effective.contains(d.getTheClass().name)
 				|| (d.getTheClass().name.equals("Lord") 
 						&& a.getWeapon().effective.contains(d.name));
-		
-		
 		if (a.getWeapon().isMagic()) {
 			return a.get("Mag")
 					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
@@ -477,14 +485,10 @@ public class FightStage extends Stage {
 		}
 	}
 	
-	private void startShaking(float time) {
-		shakeTimer = time;
-		prevShakeTimer = time;
-		float dist = Math.min(shakeTimer*9, 7);
-		shakeX = -dist;
-		shakeY = -dist;
+	
+	private class AttackRecord {
+		public String animation;
+		public Unit attacker, defender;
+		public int damage;
 	}
-	
-	// On regular hit
-	
 }

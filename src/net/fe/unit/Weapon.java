@@ -2,6 +2,9 @@ package net.fe.unit;
 
 import java.util.*;
 
+import net.fe.fightStage.Brave;
+import net.fe.fightStage.CombatTrigger;
+
 public class Weapon extends Item{
 	public HashMap<String, Integer> modifiers;
 	public int mt, hit, crit;
@@ -73,13 +76,24 @@ public class Weapon extends Item{
 	//Returns 1 if advantage, -1 if disadvantage
 	public int triMod(Weapon other){ 
 		if(other == null) return 0;
+		if(this.name.contains("reaver") || other.name.contains("reaver")){
+			return -type.triangleModifier(other.type);
+		}
 		return type.triangleModifier(other.type);
 	}
 	
 	public boolean isMagic(){
 		return type.isMagic();
 	}
-	//TODO: Trigger
+	
+	public List<CombatTrigger> getTriggers(){
+		ArrayList<CombatTrigger> triggers = new ArrayList<CombatTrigger>();
+		if(name.contains("Brave")){
+			triggers.add(new Brave());
+		}
+		return triggers;
+	}
+	
 	
 	public Weapon getCopy(){
 		Weapon w = new Weapon(name);

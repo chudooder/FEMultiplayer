@@ -9,7 +9,7 @@ public abstract class CombatTrigger {
 	public final int nameModification;
 	public final int turnToRun;
 	
-	public static final int NO_MOD = 0;
+	public static final int NO_NAME_MOD = 0;
 	public static final int REPLACE_NAME_AFTER_PRE = 1;
 	public static final int APPEND_NAME_AFTER_MOD = 2;
 	
@@ -31,7 +31,7 @@ public abstract class CombatTrigger {
 	public int runDamageMod(Unit a, Unit d, int damage){
 		return damage;
 	}
-	public void runPostAttack(FightStage stage, boolean dir, Unit a, Unit d, int damage){
+	public void runPostAttack(FightStage stage, boolean dir, Unit a, Unit d, int damage, String currentEffect){
 		
 	}
 	

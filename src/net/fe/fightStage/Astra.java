@@ -18,13 +18,16 @@ public class Astra extends CombatTrigger {
 		return damage/2;
 	}
 	@Override
-	public void runPostAttack(FightStage stage, boolean dir, Unit a, Unit d, int damage) {
+	public void runPostAttack(FightStage stage, boolean dir, Unit a, Unit d, int damage,
+			String currentEffect) {
 		if(counter == 4){
 			//its the last hit
 			counter = 0;
 		} else {
 			counter++;
-			stage.attack(dir);
+			if(d.getHp() > 0){
+				stage.attack(dir, "Astra");
+			}
 		}
 	}
 	@Override

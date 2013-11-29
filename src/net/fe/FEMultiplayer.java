@@ -51,68 +51,73 @@ public class FEMultiplayer extends Game{
 		/* OpenGL final setup */
 		GL11.glEnable(GL11.GL_LINE_SMOOTH);
 		// TODO: Beta testing stuff, delete later
-		HashMap<String, Float> stats1 = new HashMap<String, Float>();
-		stats1.put("Skl", 22f);
-		stats1.put("Lck", 13f);
-		stats1.put("HP", 32f);
-		stats1.put("Str", 16f);
-		stats1.put("Mag", 3f);
-		stats1.put("Def", 12f);
-		stats1.put("Res", 12f);
-		stats1.put("Spd", 24f);
-		stats1.put("Lvl", 1f);
-		stats1.put("Mov", 6f);
+		HashMap<String, Integer> eliwoodBases = new HashMap<String, Integer>();
+		eliwoodBases.put("Lvl", 1);
+		eliwoodBases.put("HP", 18);
+		eliwoodBases.put("Str", 5);
+		eliwoodBases.put("Mag", 5);
+		eliwoodBases.put("Spd", 7);
+		eliwoodBases.put("Skl", 5);
+		eliwoodBases.put("Lck", 7);
+		eliwoodBases.put("Def", 5);
+		eliwoodBases.put("Res", 0);
+		eliwoodBases.put("Con", 9);
+		eliwoodBases.put("Mov", 7);
 
-		HashMap<String, Integer> growths1 = new HashMap<String, Integer>();
-		growths1.put("HP", 70);
-		growths1.put("Str", 50);
-		growths1.put("Mag", 10);
-		growths1.put("Skl", 70);
-		growths1.put("Spd", 70);
-		growths1.put("Def", 40);
-		growths1.put("Res", 30);
-		growths1.put("Lck", 60);
+		HashMap<String, Integer> eliwoodGrowths = new HashMap<String, Integer>();
+		eliwoodGrowths.put("HP", 80);
+		eliwoodGrowths.put("Str", 45);
+		eliwoodGrowths.put("Mag", 0);
+		eliwoodGrowths.put("Skl", 50);
+		eliwoodGrowths.put("Spd", 40);
+		eliwoodGrowths.put("Def", 30);
+		eliwoodGrowths.put("Res", 35);
+		eliwoodGrowths.put("Lck", 45);
 
-		HashMap<String, Float> stats2 = new HashMap<String, Float>();
-		stats2.put("Skl", 18f);
-		stats2.put("Lck", 16f);
-		stats2.put("HP", 25f);
-		stats2.put("Str", 18f);
-		stats2.put("Mag", 2f);
-		stats2.put("Def", 16f);
-		stats2.put("Res", 11f);
-		stats2.put("Spd", 18f);
-		stats2.put("Lvl", 1f);
-		stats2.put("Mov", 6f);
+		HashMap<String, Integer> royBases = new HashMap<String, Integer>();
+		royBases.put("Lvl", 1);
+		royBases.put("HP", 18);
+		royBases.put("Str", 5);
+		royBases.put("Mag", 5);
+		royBases.put("Skl", 5);
+		royBases.put("Spd", 7);
+		royBases.put("Lck", 7);
+		royBases.put("Def", 5);
+		royBases.put("Res", 0);
+		royBases.put("Con", 8);
+		royBases.put("Mov", 6);
 
-		HashMap<String, Integer> growths2 = new HashMap<String, Integer>();
-		growths2.put("HP", 70);
-		growths2.put("Str", 60);
-		growths2.put("Mag", 10);
-		growths2.put("Skl", 60);
-		growths2.put("Spd", 50);
-		growths2.put("Def", 40);
-		growths2.put("Res", 30);
-		growths2.put("Lck", 60);
+		HashMap<String, Integer> royGrowths = new HashMap<String, Integer>();
+		royGrowths.put("HP", 85);
+		royGrowths.put("Str", 45);
+		royGrowths.put("Mag", 0);
+		royGrowths.put("Skl", 55);
+		royGrowths.put("Spd", 45);
+		royGrowths.put("Def", 30);
+		royGrowths.put("Res", 35);
+		royGrowths.put("Lck", 30);
 
-		Unit marth = new Unit("Eliwood", Class.createClass("Eliwood"), stats1,
-				growths1);
-		marth.addToInventory(WeaponFactory.getWeapon("Log"));
-		marth.equip(0);
+		Unit eliwood = new Unit("Eliwood", Class.createClass("Eliwood"), eliwoodBases,
+				eliwoodGrowths);
+		eliwood.addToInventory(WeaponFactory.getWeapon("Killing Edge"));
+		eliwood.equip(0);
 
-		Unit roy = new Unit("Roy", Class.createClass("Roy"), stats2, growths2);
-		roy.addToInventory(WeaponFactory.getWeapon("Tree Branch"));
+		Unit roy = new Unit("Roy", Class.createClass("Roy"), royBases, royGrowths);
+		roy.addToInventory(WeaponFactory.getWeapon("Sword of Seals"));
 		roy.equip(0);
 
-		for (int i = 0; i < 20; i++) {
-			marth.levelUp();
-			roy.levelUp();
-		}
+		eliwood.setLevel(40);
+		roy.setLevel(40);
+		
+		
+		eliwood.fillHp();
+		roy.fillHp();
+		
 		OverworldStage map = new OverworldStage(new Grid(10,10, Terrain.PLAIN));
-		map.addUnit(marth, 0, 0);
+		map.addUnit(eliwood, 0, 0);
 		map.addUnit(roy, 0, 1);
 		map.processAddStack();
-		currentStage = new FightStage(marth, roy);
+		currentStage = new FightStage(eliwood, roy);
 		serverMessages = new ArrayList<Message>();
 	}
 

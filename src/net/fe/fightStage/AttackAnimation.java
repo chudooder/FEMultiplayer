@@ -1,5 +1,7 @@
 package net.fe.fightStage;
 
+import net.fe.unit.Unit;
+
 import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.TextureData;
@@ -12,25 +14,17 @@ public class AttackAnimation extends Animation {
 	private int headY;
 	private FightStage stage;
 	
-	private boolean freeze;
-	
+	private Unit unit;
 	public static final int NORMAL_SPEED = 60;
-
-	public AttackAnimation(Texture t, int width, int height, int frames,
-			int columns, int speed, int[] hitframes, FightStage stage, boolean freeze) {
-		super(t, width, height, frames, columns, speed);
-		this.hitframes = hitframes;
-		this.stage = stage;
-		this.freeze = freeze;
-	}
 	
-	public AttackAnimation(TextureData data, FightStage stage, boolean freeze) {
+	//TODO You can't have a hit frame on the very last frame
+	public AttackAnimation(TextureData data, FightStage stage, Unit u) {
 		super(data.texture, data.frameWidth, data.frameHeight, data.rows, data.columns, 0);
 		this.hitframes = data.hitframes;
 		this.headX = data.headX;
 		this.headY = data.headY;
 		this.stage = stage;
-		this.freeze = freeze;
+		this.unit = u;
 	}
 	
 	@Override
@@ -47,8 +41,15 @@ public class AttackAnimation extends Animation {
 		super.update();
 		for(int i : hitframes) {
 			if(prevFrame != getFrame() && getFrame() == i) {
-				((FightStage)stage).setCurrentEvent(FightStage.ATTACKED);
-				setSpeed(0);
+				if(unit.getWeapon().isMagic()){
+					stage.addEntity(new MagicEffect(
+							unit.getWeapon().name, stage.isLeft(unit)));
+				} else {
+					stage.setCurrentEvent(FightStage.ATTACKED);
+				}
+				if(stage.getRange() == 1 || unit.getWeapon().isMagic()){
+					setSpeed(0);
+				}
 			}
 		}
 	}

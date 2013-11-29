@@ -24,14 +24,11 @@ public class HitEffect extends Entity {
 	
 	@Override
 	public void render() {
-		//Depends on the range
-		if(!left) {
-			sprite.render(FightStage.CENTRAL_AXIS-120, FightStage.FLOOR-104, 0);
-		} else {
-			Transform t = new Transform();
+		Transform t = new Transform();
+		if(left){
 			t.flipHorizontal();
-			sprite.renderTransformed(FightStage.CENTRAL_AXIS-120, FightStage.FLOOR-104, 0, t);
 		}
+		sprite.renderTransformed(FightStage.CENTRAL_AXIS-120, FightStage.FLOOR-104, 0, t);
 	}
 	
 	public static Texture getHitTexture(String name){

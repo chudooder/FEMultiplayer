@@ -22,6 +22,7 @@ import net.fe.overworldStage.Terrain;
 
 public class Unit extends GriddedEntity {
 	private HashMap<String, Float> stats;
+	private HashMap<String, Integer> bases;
 	private int hp;
 	private Class clazz;
 	private HashMap<String, Integer> growths;
@@ -31,16 +32,22 @@ public class Unit extends GriddedEntity {
 	public final String name;
 	//TODO Rescue
 
-	public Unit(String name, Class c, HashMap<String, Float> startingStats,
+	public Unit(String name, Class c, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
 		super(0, 0);
-		stats = startingStats;
-		hp = (int)(startingStats.get("HP").floatValue());
+		this.bases = bases;
 		this.growths = growths;
 		inventory = new ArrayList<Item>();
 		tempMods = new HashMap<String, Integer>();
 		this.name = name;
 		clazz = c;
+		
+		stats = new HashMap<String, Float>();
+		for(String s: bases.keySet()){
+			stats.put(s, bases.get(s).floatValue());
+		}
+			
+		fillHp();
 	}
 	
 	@Override
@@ -55,15 +62,25 @@ public class Unit extends GriddedEntity {
 	}
 	
 	public void levelUp(){
-		if(stats.get("Lvl") == 20){
+		if(stats.get("Lvl") == 40){
 			return;
 		}
 		stats.put("Lvl", stats.get("Lvl") + 1);
 		for(String stat: growths.keySet()){
-			int hpOld = get("HP");
 			stats.put(stat, stats.get(stat) + (float)(growths.get(stat)/100.0));
-			hp += get("HP") - hpOld;
 		}
+	}
+	
+	public void setLevel(int lv){
+		stats.put("Lvl", (float) lv);
+		lv--;
+		for(String stat: growths.keySet()){
+			stats.put(stat, bases.get(stat) + (float)(lv*growths.get(stat)/100.0));
+		}
+	}
+	
+	public void fillHp(){
+		setHp(get("HP"));
 	}
 	
 	public void equip(int index){
@@ -93,6 +110,7 @@ public class Unit extends GriddedEntity {
 		ArrayList<CombatTrigger> triggers = new ArrayList<CombatTrigger>();
 		if(clazz.masterSkill!=null)
 			triggers.add(clazz.masterSkill);
+		triggers.addAll(weapon.getTriggers());
 		return triggers;
 	}
 
@@ -181,10 +199,10 @@ public class Unit extends GriddedEntity {
 		String base = filename.toString().toLowerCase();
 		
 		AttackAnimation attack = new AttackAnimation(
-				Resources.getTextureData(base+"attack"), s, range==1 && !weapon.isMagic());
+				Resources.getTextureData(base+"attack"), s, this);
 		unit.sprite.addAnimation("ATTACK", attack);
 		AttackAnimation crit = new AttackAnimation(
-				Resources.getTextureData(base+"critical"), s, range==1 && !weapon.isMagic());
+				Resources.getTextureData(base+"critical"), s, this);
 		unit.sprite.addAnimation("CRIT", crit);
 		return unit;
 	}

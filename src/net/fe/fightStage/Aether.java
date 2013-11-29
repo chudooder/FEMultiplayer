@@ -26,7 +26,7 @@ public class Aether extends CombatTrigger {
 	}
 	@Override
 	public void runPostAttack(FightStage stage, boolean dir, Unit a, Unit d,
-			int damage) {
+			int damage, String currentEffect) {
 		if(phase == SOL){
 			if(damage == 0) return;
 			int heal = Math.min(damage/2, a.get("HP") - a.getHp());
@@ -34,7 +34,7 @@ public class Aether extends CombatTrigger {
 			a.setHp(a.getHp() + damage/2);
 			if(d.getHp() > 0){
 				phase = LUNA;
-				stage.attack(dir);
+				stage.attack(dir, "Aether");
 			}
 		} else {
 			phase = SOL;

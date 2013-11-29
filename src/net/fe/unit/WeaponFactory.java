@@ -62,8 +62,6 @@ public class WeaponFactory {
 				w.modifiers.put(modArgs[0], Integer.parseInt(modArgs[1]));
 			}
 			
-			//TODO Brave, Reaver
-			
 			weapons.put(name, w);
 		}
 		in.close();
