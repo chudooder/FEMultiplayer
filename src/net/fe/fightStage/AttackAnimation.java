@@ -13,6 +13,8 @@ public class AttackAnimation extends Animation {
 	private FightStage stage;
 	
 	private boolean freeze;
+	
+	public static final int NORMAL_SPEED = 60;
 
 	public AttackAnimation(Texture t, int width, int height, int frames,
 			int columns, int speed, int[] hitframes, FightStage stage, boolean freeze) {
@@ -38,6 +40,7 @@ public class AttackAnimation extends Animation {
 	
 	@Override
 	public void update() {
+		FightStage fs = ((FightStage)stage);
 		int prevFrame = getFrame();
 		super.update();
 		for(int i : hitframes) {

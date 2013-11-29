@@ -287,7 +287,7 @@ public class FightStage extends Stage {
 				a.sprite.setAnimation("CRIT");
 			else
 				a.sprite.setAnimation("ATTACK");
-			a.sprite.setSpeed(40);
+			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
 		} else if (currentEvent == ATTACKED) {
@@ -319,7 +319,7 @@ public class FightStage extends Stage {
 		} else if (currentEvent == HURTING) {
 			// let health bar animation play
 		} else if (currentEvent == HURTED) {
-			a.sprite.setSpeed(40);
+			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
 			currentEvent = RETURNING;
 		} else if (currentEvent == RETURNING) {
 			// Let animation play
