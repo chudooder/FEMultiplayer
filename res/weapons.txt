@@ -1,0 +1,72 @@
+#Name		Type	Range	Mt	Hit	Crit	Uses	Worth	Effect	User	Mod
+Tree Branch	Sword	1	1	100	0	20	1	-	-	-
+Iron Sword	Sword	1	5	90	0	23	460	-	-	-
+Steel Sword	Sword	1	8	75	0	15	600	-	-	-
+Silver Sword	Sword	1	13	80	0	10	1500	-	-	-
+Killing Edge	Sword	1	9	75	30	10	1300	-	-	-
+Armourslayer	Sword	1	8	80	0	9	1260	Armor	-	-
+Longsword	Sword	1	6	85	0	9	1260	Mount	-	-
+Lancereaver	Sword	1	9	75	5	7	1800	-	-	-
+Brave Sword	Sword	1	9	75	0	15	8000	-	-	-
+Audhulma	Sword	1	18	85	0	15	15000	-	-	Res5
+Wo Dao		Sword	1	8	75	35	10	1200	-	-	-
+Durandal	Sword	1	17	90	0	10	-	-	Eliwood	Str5
+Sol Katti	Sword	1	12	95	25	15	-	Armor	Lyn	Res5
+Sieglinde	Sword	1	16	90	0	15	-	Armor	Eirika	Str5
+Falchion	Sword	1	14	90	20	15	-	Mount	Marth	Skl5
+Ragnell		Sword	1	20	85	0	10	-	-	Ike	Def5
+Sword of Seals	Sword	1,2	16	95	10	10	-	-	Roy	Def5,Res5
+Log		Lance	1	1	100	0	20	1	-	-	-
+Iron Lance	Lance	1	7	80	0	22	360	-	-	-
+Steel Lance	Lance	1	10	70	0	15	480	-	-	-
+Silver Lance	Lance	1	14	75	0	10	1200	-	-	-
+Javelin		Lance	1,2	6	65	0	10	400	-	-	-
+Short Spear	Lance	1,2	9	60	0	9	900	-	-	-
+Killer Lance	Lance	1	10	70	30	10	1200	-	-	-
+Heavy Spear	Lance	1	9	70	0	8	1200	Armor	-	-
+Horseslayer	Lance	1	7	70	0	8	1040	Mount	-	-
+Axereaver	Lance	1	10	70	5	7	1950	-	-	-
+Brave Lance	Lance	1	10	70	0	15	7500	-	-	-
+Wishblade	Lance	1,2	15	85	0	15	15000	-	-	Def5
+Siegmund	Lance	1	17	80	0	15	-	Mount	Ephraim	Str5
+#
+#Name		Type	Range	Mt	Hit	Crit	Uses	Worth	Effect	User	Mod
+Ladle		Axe	1	1	100	0	20	1	-	-	-
+Iron Axe	Axe	1	8	75	0	22	270	-	-	-
+Steel Axe	Axe	1	11	65	0	15	360	-	-	-
+Silver Axe	Axe	1	15	70	0	10	1000	-	-	-
+Hand Axe	Axe	1,2	7	60	0	10	300	-	-	-
+Tomahawk	Axe	1,2	13	65	0	7	3000	-	-	-
+Killer Axe	Axe	1	11	65	30	1	1000	-	-	-
+Hammer		Axe	1	10	55	0	10	800	Armor	-	-
+Halberd		Axe	1	10	60	0	8	810	Mount	-	-
+Swordreaver	Axe	1	11	65	5	7	2100	-	-	-
+Brave Axe	Axe	1	10	65	0	15	7500	-	-	-
+Garm		Axe	1	20	75	0	15	15000	-	-	Spd5
+Armads		Axe	1	18	85	0	12	-	Armor	-	Def5
+Slack Bow	Bow	2	1	100	0	20	1	-	-	-
+Iron Bow	Bow	2	6	85	0	22	540	-	-	-
+Steel Bow	Bow	2	9	70	0	15	720	-	-	-
+Silver Bow	Bow	2	13	75	0	10	1600	-	-	-
+Killer Bow	Bow	2	9	75	30	10	1400	-	-	-
+Brave Bow	Bow	2	10	70	0	15	7500	-	-	-
+Longbow		Bow	2,3	5	65	0	10	2000	-	-	-
+Double Bow	Bow	1,2,3	18	85	5	12	16500	-	-	Str5
+Fire		Anima	1,2	5	90	0	20	560	-	-	-
+Elfire		Anima	1,2	10	85	0	15	1200	-	-	-
+Fimbulvetr	Anima	1,2	13	80	0	10	6000	-	-	-
+Excalibur	Anima	1,2	18	90	10	15	25000	-	-	Spd5
+Lightning	Light	1,2	4	95	5	17	630	-	-	-
+Divine		Light	1,2	8	85	10	12	2500	-	-	-
+Aura		Light	1,2	12	85	15	10	8000	-	-	-
+Luce		Light	1,2	16	95	25	12	30000	-	-	Def5
+Flux		Dark	1,2	7	80	0	22	900	-	-	-
+Nosferatu	Dark	1,2	10	70	0	10	3200	-	-	-
+Fenrir		Dark	1,2	15	70	0	10	9000	-	-	-
+Ereshkigal	Dark	1,2	20	95	0	12	30000	-	-	Skl5
+Heal		Staff	0	10	100	0	15	600	-	-	-
+Mend		Staff	0	20	100	0	10	1000	-	-	-
+Recover		Staff	0	99	100	0	7	2250	-	-	-
+Physic		Staff	0	10	100	0	7	3750	-	-	-
+Rescue		Staff	0	0	100	0	2	1800	-	-	-
+Warp		Staff	0	0	100	0	2	7500	-	-	-
