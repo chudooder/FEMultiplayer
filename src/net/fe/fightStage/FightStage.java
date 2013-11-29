@@ -351,7 +351,7 @@ public class FightStage extends Stage {
 
 	public static int rangeToHeadDistance(int range) {
 		if (range == 1) {
-			return 32;
+			return 40;
 		}
 		return 0;
 	}

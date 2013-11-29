@@ -80,4 +80,20 @@ public class Weapon extends Item{
 		return type.isMagic();
 	}
 	//TODO: Trigger
+	
+	public Weapon getCopy(){
+		Weapon w = new Weapon(name);
+		w.type = type;
+		w.range = new ArrayList<Integer>(range);
+		w.mt = mt;
+		w.hit = hit;
+		w.crit = crit;
+		w.setMaxUses(getMaxUses());
+		w.worth = worth;
+		w.effective = new ArrayList<String>(effective);
+		w.pref = pref;
+		w.modifiers = new HashMap<String, Integer>(modifiers);
+		return w;
+		
+	}
 }

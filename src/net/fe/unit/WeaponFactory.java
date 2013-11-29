@@ -70,6 +70,6 @@ public class WeaponFactory {
 	}
 	
 	public static Weapon getWeapon(String name){
-		return weapons.get(name);
+		return weapons.get(name).getCopy();
 	}
 }

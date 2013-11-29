@@ -97,11 +97,11 @@ public class FEMultiplayer extends Game{
 
 		Unit marth = new Unit("Eliwood", Class.createClass("Eliwood"), stats1,
 				growths1);
-		marth.addToInventory(WeaponFactory.getWeapon("Iron Lance"));
+		marth.addToInventory(WeaponFactory.getWeapon("Log"));
 		marth.equip(0);
 
 		Unit roy = new Unit("Roy", Class.createClass("Roy"), stats2, growths2);
-		roy.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
+		roy.addToInventory(WeaponFactory.getWeapon("Tree Branch"));
 		roy.equip(0);
 
 		for (int i = 0; i < 20; i++) {
