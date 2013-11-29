@@ -19,6 +19,7 @@ import net.fe.overworldStage.Terrain;
 import net.fe.unit.Class;
 import net.fe.unit.Unit;
 import net.fe.unit.Weapon;
+import net.fe.unit.WeaponFactory;
 
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
@@ -75,7 +76,7 @@ public class FEMultiplayer extends Game{
 		HashMap<String, Float> stats2 = new HashMap<String, Float>();
 		stats2.put("Skl", 18f);
 		stats2.put("Lck", 16f);
-		stats2.put("HP", 1f);
+		stats2.put("HP", 25f);
 		stats2.put("Str", 18f);
 		stats2.put("Mag", 2f);
 		stats2.put("Def", 16f);
@@ -96,11 +97,11 @@ public class FEMultiplayer extends Game{
 
 		Unit marth = new Unit("Eliwood", Class.createClass("Eliwood"), stats1,
 				growths1);
-		marth.addToInventory(Weapon.createWeapon("lunce"));
+		marth.addToInventory(WeaponFactory.getWeapon("Iron Lance"));
 		marth.equip(0);
 
 		Unit roy = new Unit("Roy", Class.createClass("Roy"), stats2, growths2);
-		roy.addToInventory(Weapon.createWeapon("sord"));
+		roy.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
 		roy.equip(0);
 
 		for (int i = 0; i < 20; i++) {

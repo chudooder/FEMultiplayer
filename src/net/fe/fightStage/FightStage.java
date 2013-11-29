@@ -461,16 +461,19 @@ public class FightStage extends Stage {
 	}
 
 	public static int calculateBaseDamage(Unit a, Unit d){
+		boolean effective = a.getWeapon().effective.contains(d.getTheClass().name)
+				|| (d.getTheClass().name.equals("Lord") 
+						&& a.getWeapon().effective.contains(d.name));
+		
+		
 		if (a.getWeapon().isMagic()) {
 			return a.get("Mag")
 					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
-					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
-							: 1) - d.get("Res");
+					* (effective ? 3: 1) - d.get("Res");
 		} else {
 			return  a.get("Str")
 					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
-					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
-							: 1) - d.get("Def");
+					* (effective? 3:1) - d.get("Def");
 		}
 	}
 	

@@ -3,7 +3,8 @@ package net.fe.unit;
 
 public abstract class Item {
 	public final String name;
-	protected int uses;
+	private int maxUses;
+	private int uses;
 	public Item(String name){
 		this.name = name;
 	}
@@ -12,5 +13,12 @@ public abstract class Item {
 	}
 	public int getUses(){
 		return uses;
+	}
+	public void setMaxUses(int x){
+		uses = x;
+		maxUses = x;
+	}
+	public int getMaxUses(){
+		return maxUses;
 	}
 }

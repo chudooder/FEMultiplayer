@@ -7,7 +7,9 @@ public class Weapon extends Item{
 	public int mt, hit, crit;
 	public List<Integer> range;
 	public Type type;
-	public ArrayList<Class> effective;
+	public ArrayList<String> effective;
+	public int worth;
+	public String pref;
 	
 	public Weapon(String name) {
 		super(name);
@@ -27,7 +29,7 @@ public class Weapon extends Item{
 		hit = 0;
 		crit = 0;
 		type = null;
-		effective = new ArrayList<Class>();
+		effective = new ArrayList<String>();
 	}
 	
 	public enum Type{
@@ -78,62 +80,4 @@ public class Weapon extends Item{
 		return type.isMagic();
 	}
 	//TODO: Trigger
-	
-	public static Weapon createWeapon(String name) {
-		Weapon weapon = new Weapon(name);
-		if(name.equals("sord")) {
-			weapon.type = Weapon.Type.SWORD;
-			weapon.mt = 3;
-			weapon.hit = 90;
-			weapon.crit = 30;
-			weapon.range = Arrays.asList(1);
-			return weapon;
-		}
-		
-		if(name.equals("lunce")) {
-			weapon.type = Weapon.Type.LANCE;
-			weapon.mt = 4;
-			weapon.hit = 80;
-			weapon.crit = 10;
-			weapon.range = Arrays.asList(1);
-			return weapon;
-		}
-		
-		if(name.equals("bow")){
-			weapon.type = Weapon.Type.BOW;
-			weapon.mt = 4;
-			weapon.hit = 100;
-			weapon.crit = 0;
-			weapon.range = Arrays.asList(2);
-			return weapon;
-		}
-		
-		if(name.equals("axe")){
-			weapon.type = Weapon.Type.AXE;
-			weapon.mt = 6;
-			weapon.hit = 75;
-			weapon.crit = 10;
-			weapon.range = Arrays.asList(1);
-			return weapon;
-		}
-		
-		if(name.equals("anima")){
-			weapon.type = Weapon.Type.ANIMA;
-			weapon.mt = 5;
-			weapon.hit = 80;
-			weapon.crit = 10;
-			weapon.range = Arrays.asList(1,2);
-			return weapon;
-		}
-		
-		if(name.equals("Bow Sword")){
-			weapon.type = Weapon.Type.SWORD;
-			weapon.mt = 4;
-			weapon.hit = 80;
-			weapon.crit = 10;
-			weapon.range = Arrays.asList(2);
-			return weapon;
-		}
-		return null;
-	}
 }

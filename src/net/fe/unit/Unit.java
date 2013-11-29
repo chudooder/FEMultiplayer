@@ -76,7 +76,11 @@ public class Unit extends GriddedEntity {
 	
 	public boolean equippable(int index){
 		if(inventory.get(index) instanceof Weapon){
-			return clazz.usableWeapon.contains(((Weapon) inventory.get(index)).type);
+			Weapon w = (Weapon) inventory.get(index);
+			if(w.pref!=null){
+				return name.equals(w.pref);
+			}
+			return clazz.usableWeapon.contains(w.type);
 		}
 		return false;
 	}
