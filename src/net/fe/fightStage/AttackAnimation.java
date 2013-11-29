@@ -27,6 +27,8 @@ public class AttackAnimation extends Animation {
 	public AttackAnimation(TextureData data, FightStage stage, boolean freeze) {
 		super(data.texture, data.frameWidth, data.frameHeight, data.rows, data.columns, 0);
 		this.hitframes = data.hitframes;
+		this.headX = data.headX;
+		this.headY = data.headY;
 		this.stage = stage;
 		this.freeze = freeze;
 	}
@@ -49,6 +51,14 @@ public class AttackAnimation extends Animation {
 				setSpeed(0);
 			}
 		}
+	}
+
+	public int getHeadX() {
+		return headX;
+	}
+	
+	public int getHeadY() {
+		return headY;
 	}
 
 }

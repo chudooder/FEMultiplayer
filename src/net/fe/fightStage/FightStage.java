@@ -202,6 +202,7 @@ public class FightStage extends Stage {
 				t.runPostAttack(this, dir, a, d, damage);
 			}
 		}
+		
 	}
 
 	/**
@@ -350,7 +351,7 @@ public class FightStage extends Stage {
 
 	public static int rangeToHeadDistance(int range) {
 		if (range == 1) {
-			return 48;
+			return 32;
 		}
 		return 0;
 	}
@@ -451,7 +452,6 @@ public class FightStage extends Stage {
 					u1.getTeamColor());
 			Renderer.drawString("default", units.get(i).name, 
 					CENTRAL_AXIS + sign*94 - 16, FLOOR - 95);
-			
 		}
 		
 		super.render();
