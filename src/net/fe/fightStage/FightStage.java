@@ -295,7 +295,7 @@ public class FightStage extends Stage {
 				// TODO Play defenders dodge animation
 				System.out.println("Miss! " + rec.defender.name
 						+ " dodged the attack!");
-				currentEvent = RETURNING;
+				currentEvent = HURTED;
 			} else {
 				dhp.setHp(dhp.getHp() - rec.damage);
 				addEntity(new HitEffect(hitEffect, rec.attacker == left));
@@ -309,7 +309,8 @@ public class FightStage extends Stage {
 				if(rec.damage != 0) {
 					currentEvent = HURTING;
 				} else {
-					currentEvent = RETURNING;
+					System.out.println("welp");
+					currentEvent = HURTED;
 				}
 			}
 			if (dhp.getHp() == 0) {
