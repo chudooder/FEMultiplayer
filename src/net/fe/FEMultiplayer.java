@@ -96,15 +96,22 @@ public class FEMultiplayer extends Game{
 		royGrowths.put("Def", 30);
 		royGrowths.put("Res", 35);
 		royGrowths.put("Lck", 30);
+		
+		Party blue = new Party();
+		blue.setColor(Party.TEAM_BLUE);
+		Party red = new Party();
+		red.setColor(Party.TEAM_RED);
 
 		Unit eliwood = new Unit("Eliwood", Class.createClass("Eliwood"), eliwoodBases,
 				eliwoodGrowths);
 		eliwood.addToInventory(WeaponFactory.getWeapon("Killing Edge"));
 		eliwood.equip(0);
+		blue.addUnit(eliwood);
 
 		Unit roy = new Unit("Roy", Class.createClass("Roy"), royBases, royGrowths);
 		roy.addToInventory(WeaponFactory.getWeapon("Sword of Seals"));
 		roy.equip(0);
+		red.addUnit(roy);
 
 		eliwood.setLevel(40);
 		roy.setLevel(40);

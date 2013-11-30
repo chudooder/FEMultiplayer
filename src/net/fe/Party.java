@@ -27,6 +27,7 @@ public class Party {
 	
 	public void addUnit(Unit unit) {
 		units.add(unit);
+		unit.setParty(this);
 	}
 	
 	public Unit getUnit(int index) {
