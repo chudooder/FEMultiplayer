@@ -13,6 +13,7 @@ import chu.engine.anim.Animation;
 import net.fe.Party;
 import net.fe.fightStage.AttackAnimation;
 import net.fe.fightStage.CombatTrigger;
+import net.fe.fightStage.DodgeAnimation;
 import net.fe.fightStage.FightStage;
 import net.fe.fightStage.FightUnit;
 import net.fe.fightStage.Healthbar;
@@ -124,6 +125,8 @@ public class Unit extends GriddedEntity {
 		filename.append("_");
 		String base = filename.toString().toLowerCase();
 		
+		DodgeAnimation dodge = new DodgeAnimation(Resources.getTextureData(base+"dodge"));
+		unit.sprite.addAnimation("DODGE", dodge);
 		AttackAnimation attack = new AttackAnimation(
 				Resources.getTextureData(base+"attack"), s, this);
 		unit.sprite.addAnimation("ATTACK", attack);

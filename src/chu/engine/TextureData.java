@@ -9,8 +9,8 @@ class TextureData {
 	public int columns;
 	public int frameWidth;
 	public int frameHeight;
-	public int headX;
-	public int headY;
+	public int offsetX;
+	public int offsetY;
 	public int freeze;
 	public int[] hitframes;
 	
@@ -18,8 +18,8 @@ class TextureData {
 		texture = t;
 		this.frames = r;
 		columns = c;
-		headX = x;
-		headY = y;
+		offsetX = x;
+		offsetY = y;
 		frameWidth = w;
 		frameHeight = h;
 		freeze = f;
@@ -30,8 +30,8 @@ class TextureData {
 		texture = t;
 		frames = 1;
 		columns = 1;
-		headX = 0;
-		headY = 0;
+		offsetX = 0;
+		offsetY = 0;
 		freeze = -1;
 		frameWidth = t.getImageWidth();
 		frameHeight = t.getImageHeight();

@@ -30,8 +30,9 @@ public class Sprite {
 	 */
 	public void addAnimation(String name, Texture tex, int width, int height, int rows, int columns, int speed) {
 		Animation anim = new Animation(tex, width, height, rows, columns, speed);
-		animations.put(name, anim);
+		animations.put(name.toUpperCase(), anim);
 		currentAnimation = anim;
+		anim.setSprite(this);
 	}
 	
 	/**
@@ -41,8 +42,9 @@ public class Sprite {
 	 */
 	public void addAnimation(String name, Texture tex) {
 		Animation anim = new Animation(tex);
-		animations.put(name, anim);
+		animations.put(name.toUpperCase(), anim);
 		currentAnimation = anim;
+		anim.setSprite(this);
 	}
 	
 	/**
@@ -51,8 +53,9 @@ public class Sprite {
 	 * @param anim Existing animation to add
 	 */
 	public void addAnimation(String name, Animation anim) {
-		animations.put(name, anim);
+		animations.put(name.toUpperCase(), anim);
 		currentAnimation = anim;
+		anim.setSprite(this);
 	}
 	
 	/**
@@ -61,7 +64,7 @@ public class Sprite {
 	 * @return Animation that corresponds with that name
 	 */
 	public Animation getAnimation(String name) {
-		return animations.get(name);
+		return animations.get(name.toUpperCase());
 	}
 	
 	public Animation getCurrentAnimation(){
@@ -74,7 +77,7 @@ public class Sprite {
 	 * @param name Name of the animation
 	 */
 	public void setAnimation(String name) {
-		currentAnimation = animations.get(name);
+		currentAnimation = animations.get(name.toUpperCase());
 	}
 	
 	/**
@@ -112,13 +115,15 @@ public class Sprite {
 		int height = currentAnimation.getHeight();
 		int frameX = currentAnimation.getFrame() % currentAnimation.getColumns();
 		int frameY = currentAnimation.getFrame() / currentAnimation.getColumns();
+		int offX = currentAnimation.getOffsetX();
+		int offY = currentAnimation.getOffsetY();
 		float x0 = ((float)frameX * width)/currentAnimation.getImageWidth();
 		float x1 = ((float)(frameX+1) * width)/currentAnimation.getImageWidth();
 		float y0 = ((float)frameY * height)/currentAnimation.getImageHeight();
 		float y1 = ((float)(frameY+1) * height)/currentAnimation.getImageHeight();
 		Texture texture = currentAnimation.getTexture();
 		
-		Renderer.render(texture, x0, y0, x1, y1, x, y, x+width, y+height, depth);
+		Renderer.render(texture, x0, y0, x1, y1, x-offX, y-offY, x+width-offX, y+height-offY, depth);
 		
 	}
 
@@ -144,12 +149,15 @@ public class Sprite {
 		int height = currentAnimation.getHeight();
 		int frameX = currentAnimation.getFrame() % currentAnimation.getColumns();
 		int frameY = currentAnimation.getFrame() / currentAnimation.getColumns();
+		int offX = currentAnimation.getOffsetX();
+		int offY = currentAnimation.getOffsetY();
 		float x0 = ((float)frameX * width)/currentAnimation.getImageWidth();
 		float x1 = ((float)(frameX+1) * width)/currentAnimation.getImageWidth();
 		float y0 = ((float)frameY * height)/currentAnimation.getImageHeight();
 		float y1 = ((float)(frameY+1) * height)/currentAnimation.getImageHeight();
 		Texture texture = currentAnimation.getTexture();
-		Renderer.renderTransformed(texture, x0, y0, x1, y1, x, y, x+width, y+height, depth, transform);
+		Renderer.renderTransformed(texture, x0, y0, x1, y1, x - offX, y - offY,
+				x + width - offX, y + height - offY, depth, transform);
 	}
 
 	public void setSpeed(int i) {

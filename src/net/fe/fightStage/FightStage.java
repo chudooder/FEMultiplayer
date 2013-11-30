@@ -296,6 +296,8 @@ public class FightStage extends Stage {
 				System.out.println("Miss! " + rec.defender.name
 						+ " dodged the attack!");
 				currentEvent = HURTED;
+				d.sprite.setAnimation("DODGE");
+				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
 			} else {
 				dhp.setHp(dhp.getHp() - rec.damage);
 				addEntity(new HitEffect(hitEffect, rec.attacker == left));

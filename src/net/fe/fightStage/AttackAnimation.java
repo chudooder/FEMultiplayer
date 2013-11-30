@@ -10,20 +10,17 @@ import chu.engine.anim.Animation;
 public class AttackAnimation extends Animation {
 	
 	private int[] hitframes;
-	private int headX;
-	private int headY;
 	private FightStage stage;
 	private int freeze;
 	private int loopUntil;
-	private Unit unit;
+	protected Unit unit;
 	public static final int NORMAL_SPEED = 60;
 	
 	//TODO You can't have a hit frame on the very last frame
 	public AttackAnimation(TextureData data, FightStage stage, Unit u) {
-		super(data.texture, data.frameWidth, data.frameHeight, data.frames, data.columns, 0);
+		super(data.texture, data.frameWidth, data.frameHeight, data.frames,
+				data.columns, data.offsetX, data.offsetY, 0);
 		this.hitframes = data.hitframes;
-		this.headX = data.headX;
-		this.headY = data.headY;
 		this.stage = stage;
 		this.unit = u;
 		this.freeze = data.freeze;
@@ -39,7 +36,6 @@ public class AttackAnimation extends Animation {
 	
 	@Override
 	public void update() {
-		FightStage fs = ((FightStage)stage);
 		int prevFrame = getFrame();
 		super.update();
 		for(int i : hitframes) {
@@ -60,14 +56,6 @@ public class AttackAnimation extends Animation {
 		if(getFrame() == loopUntil) {
 			setFrame(getFrame()-freeze);
 		}
-	}
-
-	public int getHeadX() {
-		return headX;
-	}
-	
-	public int getHeadY() {
-		return headY;
 	}
 	
 	@Override
