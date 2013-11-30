@@ -13,18 +13,21 @@ public class AttackAnimation extends Animation {
 	private int headX;
 	private int headY;
 	private FightStage stage;
-	
+	private int freeze;
+	private int loopUntil;
 	private Unit unit;
 	public static final int NORMAL_SPEED = 60;
 	
 	//TODO You can't have a hit frame on the very last frame
 	public AttackAnimation(TextureData data, FightStage stage, Unit u) {
-		super(data.texture, data.frameWidth, data.frameHeight, data.rows, data.columns, 0);
+		super(data.texture, data.frameWidth, data.frameHeight, data.frames, data.columns, 0);
 		this.hitframes = data.hitframes;
 		this.headX = data.headX;
 		this.headY = data.headY;
 		this.stage = stage;
 		this.unit = u;
+		this.freeze = data.freeze;
+		this.loopUntil = -1;
 	}
 	
 	@Override
@@ -47,10 +50,15 @@ public class AttackAnimation extends Animation {
 				} else {
 					stage.setCurrentEvent(FightStage.ATTACKED);
 				}
-				if(stage.getRange() == 1 || unit.getWeapon().isMagic()){
+				if(freeze == 0){
 					setSpeed(0);
+				} else if(freeze > 0) {
+					loopUntil = getFrame() + freeze;
 				}
 			}
+		}
+		if(getFrame() == loopUntil) {
+			setFrame(getFrame()-freeze);
 		}
 	}
 
@@ -60,6 +68,12 @@ public class AttackAnimation extends Animation {
 	
 	public int getHeadY() {
 		return headY;
+	}
+	
+	@Override
+	public void setSpeed(int speed) {
+		super.setSpeed(speed);
+		loopUntil = -1;
 	}
 
 }

@@ -28,41 +28,41 @@ public class Resources {
 			textures.put("whoops", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/whoops.png")),
-					32, 32, 1, 0, 0, 1));
+					32, 32, 1, 1, 0, 0, -1));
 			textures.put("roy_sword_critical", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/roy_sword_critical.png")),
-					142, 102, 96, 12, 75, 99, 47));
+					142, 102, 96, 12, 75, 99, 0, 47));
 			textures.put("roy_sword_attack", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/roy_sword_attack.png")),
-					124, 102, 82, 11, 76, 100, 34));
+					124, 102, 82, 11, 76, 100, 0, 34));
 			textures.put("eliwood_lance_attack", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/eliwood_lance_attack.png")),
-					143, 89, 35, 6, 100, 81, 16));
+					143, 89, 35, 6, 100, 81, 0, 16));
 			textures.put("eliwood_lance_critical", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/eliwood_lance_attack.png")),
-					143, 89, 35, 6, 100, 81, 16));
+					143, 89, 35, 6, 100, 81, 0, 16));
 			textures.put("eliwood_sword_attack", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/eliwood_sword_attack.png")),
-					144, 106, 40, 7, 100, 101, 21));
+					144, 106, 40, 7, 100, 101, 5, 21));
 			textures.put("eliwood_sword_critical", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/eliwood_sword_critical.png")),
-					205, 126, 59, 8, 138, 101, 41));
+					205, 126, 59, 8, 138, 101, 0, 41));
 			textures.put("gui_tickEmpty", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_gui/tickEmpty.png"))));
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_gui/tickFilled.png"))));
 			textures.put("hit_effect_attack", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect.png")),
-					240, 160, 9, 0, 0, 3));
+					240, 160, 9, 0, 0, -1, 3));
 			textures.put("hit_effect_crit", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_crit.png")),
-					240, 160, 9, 0, 0, 3));
+					240, 160, 9, 0, 0, -1, 3));
 			// Fonts
 			fonts.put("default", createFont("Arial Narrow", Font.PLAIN, 11));
 			fonts.put("default_small", createFont("Arial Narrow", Font.PLAIN, 9));
