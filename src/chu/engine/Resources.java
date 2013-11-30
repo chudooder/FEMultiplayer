@@ -47,8 +47,8 @@ public class Resources {
 					143, 89, 35, 6, 100, 81, 0, 16));
 			textures.put("eliwood_lance_critical", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/eliwood_lance_attack.png")),
-					143, 89, 35, 6, 100, 81, 0, 16));
+							"res/battle_anim/eliwood_lance_critical.png")),
+					153, 82, 40, 7, 95, 74, 0, 22));
 			textures.put("eliwood_sword_attack", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/eliwood_sword_attack.png")),

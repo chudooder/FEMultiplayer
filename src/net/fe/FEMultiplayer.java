@@ -57,7 +57,7 @@ public class FEMultiplayer extends Game{
 		eliwoodBases.put("Str", 5);
 		eliwoodBases.put("Mag", 5);
 		eliwoodBases.put("Spd", 7);
-		eliwoodBases.put("Skl", 5);
+		eliwoodBases.put("Skl", 50);
 		eliwoodBases.put("Lck", 7);
 		eliwoodBases.put("Def", 5);
 		eliwoodBases.put("Res", 0);
@@ -92,10 +92,10 @@ public class FEMultiplayer extends Game{
 		royGrowths.put("Str", 45);
 		royGrowths.put("Mag", 0);
 		royGrowths.put("Skl", 55);
-		royGrowths.put("Spd", 45);
+		royGrowths.put("Spd", 0);
 		royGrowths.put("Def", 30);
 		royGrowths.put("Res", 35);
-		royGrowths.put("Lck", 30);
+		royGrowths.put("Lck", 0);
 		
 		Party blue = new Party();
 		blue.setColor(Party.TEAM_BLUE);
@@ -104,7 +104,7 @@ public class FEMultiplayer extends Game{
 
 		Unit eliwood = new Unit("Eliwood", Class.createClass("Eliwood"), eliwoodBases,
 				eliwoodGrowths);
-		eliwood.addToInventory(WeaponFactory.getWeapon("Killing Edge"));
+		eliwood.addToInventory(WeaponFactory.getWeapon("Log"));
 		eliwood.equip(0);
 		blue.addUnit(eliwood);
 
