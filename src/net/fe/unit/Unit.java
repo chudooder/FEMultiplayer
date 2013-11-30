@@ -30,6 +30,7 @@ public class Unit extends GriddedEntity {
 	private ArrayList<Item> inventory;
 	private HashMap<String, Integer> tempMods;
 	public final String name;
+	private Party team;
 	//TODO Rescue
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
@@ -102,16 +103,34 @@ public class Unit extends GriddedEntity {
 		return false;
 	}
 	
-	public void clearTempMods(){
-		tempMods.clear();
-	}
-	
 	public ArrayList<CombatTrigger> getTriggers(){
 		ArrayList<CombatTrigger> triggers = new ArrayList<CombatTrigger>();
 		if(clazz.masterSkill!=null)
 			triggers.add(clazz.masterSkill);
 		triggers.addAll(weapon.getTriggers());
 		return triggers;
+	}
+	
+	public FightUnit getFightUnit(boolean b, FightStage s, int range) {
+		FightUnit unit = new FightUnit(b, range);
+		StringBuilder filename = new StringBuilder();
+		if(clazz.name.contains("Lord")) {
+			filename.append(name);
+		} else {
+			filename.append(clazz.name);
+		}
+		filename.append("_");
+		filename.append(weapon.type.toString());
+		filename.append("_");
+		String base = filename.toString().toLowerCase();
+		
+		AttackAnimation attack = new AttackAnimation(
+				Resources.getTextureData(base+"attack"), s, this);
+		unit.sprite.addAnimation("ATTACK", attack);
+		AttackAnimation crit = new AttackAnimation(
+				Resources.getTextureData(base+"critical"), s, this);
+		unit.sprite.addAnimation("CRIT", crit);
+		return unit;
 	}
 
 	
@@ -168,6 +187,10 @@ public class Unit extends GriddedEntity {
 		tempMods.put(stat, val);
 	}
 	
+	public void clearTempMods(){
+		tempMods.clear();
+	}
+	
 	public Weapon getWeapon(){
 		return weapon;
 	}
@@ -185,33 +208,21 @@ public class Unit extends GriddedEntity {
 		return name + " HP" + hp + "\n" + stats;
 	}
 
-	public FightUnit getFightUnit(boolean b, FightStage s, int range) {
-		FightUnit unit = new FightUnit(b, range);
-		StringBuilder filename = new StringBuilder();
-		if(clazz.name.contains("Lord")) {
-			filename.append(name);
-		} else {
-			filename.append(clazz.name);
-		}
-		filename.append("_");
-		filename.append(weapon.type.toString());
-		filename.append("_");
-		String base = filename.toString().toLowerCase();
-		
-		AttackAnimation attack = new AttackAnimation(
-				Resources.getTextureData(base+"attack"), s, this);
-		unit.sprite.addAnimation("ATTACK", attack);
-		AttackAnimation crit = new AttackAnimation(
-				Resources.getTextureData(base+"critical"), s, this);
-		unit.sprite.addAnimation("CRIT", crit);
-		return unit;
-	}
+	
 	
 	public Healthbar getHealthbar(boolean b){
 		return new Healthbar(get("HP"), getHp(), b);
 	}
 	
-	public Color getTeamColor(){
-		return Party.TEAM_GREEN;
+	public Color getPartyColor(){
+		return team.getColor();
+	}
+	
+	public void setParty(Party t){
+		team = t;
+	}
+	
+	public Party getParty(){
+		return team;
 	}
 }

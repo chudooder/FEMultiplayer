@@ -14,6 +14,7 @@ import org.newdawn.slick.opengl.Texture;
 import net.fe.RNG;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
+import net.fe.unit.Weapon;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.Resources;
@@ -73,24 +74,31 @@ public class FightStage extends Stage {
 	public void calculate(int range) {
 		// Determine turn order
 		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
-		if (left.getWeapon() != null && left.getWeapon().range.contains(range))
+		if (shouldAttack(left,right,range,true))
 			attackOrder.add(true);
-		if (right.getWeapon() != null
-				&& right.getWeapon().range.contains(range))
+		if (shouldAttack(right,left,range,false))
 			attackOrder.add(false);
-		if (left.get("Spd") >= right.get("Spd") + 4 && left.getWeapon() != null
-				&& left.getWeapon().range.contains(range)) {
+		if (left.get("Spd") >= right.get("Spd") + 4 
+				&& shouldAttack(left,right,range,false)) {
 			attackOrder.add(true);
 		}
 		if (right.get("Spd") >= left.get("Spd") + 4
-				&& right.getWeapon() != null
-				&& right.getWeapon().range.contains(range)) {
+				&& shouldAttack(right,left,range,false)) {
 			attackOrder.add(false);
 		}
 
 		for (Boolean i : attackOrder) {
 			attack(i, "None");
 		}
+	}
+	
+	public static boolean shouldAttack(Unit a, Unit d, int range, boolean first){
+		if(a.getWeapon() == null) return false;
+		if(!a.getWeapon().range.contains(range)) return false;
+		if(a.getWeapon().type == Weapon.Type.STAFF && !first) return false;
+		if((a.getWeapon().type == Weapon.Type.STAFF)
+				!= (a.getPartyColor().equals(d.getPartyColor()))) return false;
+		return true;
 	}
 
 	public void attack(boolean dir, String currentEffect) {
@@ -358,7 +366,7 @@ public class FightStage extends Stage {
 					CENTRAL_AXIS + sign, FLOOR + 55, 0, borderLight);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 16, 
 					CENTRAL_AXIS + sign*2, FLOOR + 54, 0, 
-					u1.getTeamColor().darker(0.5f));
+					u1.getPartyColor().darker(0.5f));
 			
 			//Weapon
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 15, 
@@ -375,7 +383,7 @@ public class FightStage extends Stage {
 					CENTRAL_AXIS + sign*77, FLOOR + 31, 0, borderLight);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 1,
 					CENTRAL_AXIS + sign*78, FLOOR + 30, 0, 
-					u1.getTeamColor());
+					u1.getPartyColor());
 			
 			String hit, crit, dmg;
 			
@@ -414,7 +422,7 @@ public class FightStage extends Stage {
 					CENTRAL_AXIS + sign*64, FLOOR-78, 0, borderLight);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -97, 
 					CENTRAL_AXIS + sign*65, FLOOR-79, 0, 
-					u1.getTeamColor());
+					u1.getPartyColor());
 			Renderer.drawString("default", units.get(i).name, 
 					CENTRAL_AXIS + sign*94 - 16, FLOOR - 95);
 		}

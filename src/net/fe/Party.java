@@ -9,6 +9,7 @@ import net.fe.unit.Unit;
 public class Party {
 	private Color color;
 	private ArrayList<Unit> units;
+	private ArrayList<Party> allies;
 	
 	public static final Color TEAM_RED = new Color(220,0,0);
 	public static final Color TEAM_GREEN = new Color(0,190,0);
@@ -16,6 +17,8 @@ public class Party {
 	
 	public Party() {
 		units = new ArrayList<Unit>();
+		allies = new ArrayList<Party>();
+		allies.add(this);
 	}
 	
 	public Party(ArrayList<Unit> units) {
