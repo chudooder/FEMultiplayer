@@ -10,12 +10,12 @@ public class MissEffect extends Entity {
 	private boolean left;
 	public MissEffect(boolean left) {
 		super(0, 0);
-		Animation anim = new Animation(Resources.getTexture("miss"), 38, 26, 20, 5, 0, 0, 30) {
+		Animation anim = new Animation(Resources.getTexture("miss"), 38, 26, 20, 5, 0, 0, 15) {
 			@Override
 			public void update() {
 				super.update();
 				if(getFrame() == 17)
-					setSpeed(100);
+					setSpeed(80);
 			}
 			@Override
 			public void done() {
