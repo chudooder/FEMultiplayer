@@ -5,14 +5,17 @@ import static org.lwjgl.opengl.GL11.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import chu.engine.Game;
 import chu.engine.Resources;
 
 public class Renderer {
 
 	private static Camera camera;
+	private static RectClip clip;
 
 	static {
 		camera = new Camera(null, 0, 0);
+		clip = null;
 	}
 
 	/***
@@ -59,6 +62,7 @@ public class Renderer {
 		glTexCoord2f(txi, tyf);
 		glVertex3f(x0, y1, depth);
 		glEnd();
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void renderTransformed(Texture t, float tx0, float ty0,
@@ -107,6 +111,7 @@ public class Renderer {
 		glEnd();
 
 		glPopMatrix();
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void drawSquare(float x, float y, float s, float depth,
@@ -128,6 +133,7 @@ public class Renderer {
 		glVertex3f(x0, y1, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void drawRectangle(float x0, float y0, float x1, float y1,
@@ -145,6 +151,7 @@ public class Renderer {
 		glVertex3f(x0, y1, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void drawLine(float x0, float y0, float x, float y,
@@ -160,7 +167,7 @@ public class Renderer {
 		glVertex3f(x, y, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
-
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void drawLine(double x0, double y0, double x, double y,
@@ -176,6 +183,7 @@ public class Renderer {
 		glVertex3d(x, y, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void drawTriangle(float x0, float y0, float x, float y,
@@ -189,7 +197,7 @@ public class Renderer {
 		glVertex3f(x2, y2, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
-
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void drawTriangle(double x0, double y0, double x1, double y1,
@@ -203,14 +211,17 @@ public class Renderer {
 		glVertex3d(x2, y2, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 	
 	public static void drawString(String fontName, String string, float x, float y) {
 		Resources.getFont(fontName).drawString(x, y, string);
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 	
 	public static void drawString(String fontName, String string, float x, float y, Color c) {
 		Resources.getFont(fontName).drawString(x, y, string, c);
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 	
 	public static void translate(float x, float y) {
@@ -224,13 +235,26 @@ public class Renderer {
 	public static Camera getCamera() {
 		return camera;
 	}
-	
-    public static int get2Fold(int fold) {
-        int ret = 2;
-        while (ret < fold) {
-            ret *= 2;
-        }
-        return ret;
+    
+    public static void addClip(int x0, int y0, int w, int h, boolean persistent) {
+    	clip = new RectClip(x0, y0, w, h, persistent);
+    }
+    
+    public static void removeClip() {
+    	if(clip != null) clip.destroy();
     }
 
+}
+
+class RectClip {
+	boolean persistent;
+	public RectClip(int x0, int y0, int w, int h, boolean p) {
+		persistent = p;
+		glEnable(GL_SCISSOR_TEST);
+		glScissor(x0, Game.getWindowHeight()-y0-h, w, h);
+	}
+	
+	public void destroy() {
+		glDisable(GL_SCISSOR_TEST);
+	}
 }
