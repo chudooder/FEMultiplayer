@@ -57,7 +57,7 @@ public class FEMultiplayer extends Game{
 		eliwoodBases.put("Str", 5);
 		eliwoodBases.put("Mag", 5);
 		eliwoodBases.put("Spd", 7);
-		eliwoodBases.put("Skl", 50);
+		eliwoodBases.put("Skl", 0);
 		eliwoodBases.put("Lck", 7);
 		eliwoodBases.put("Def", 5);
 		eliwoodBases.put("Res", 0);
@@ -68,7 +68,7 @@ public class FEMultiplayer extends Game{
 		eliwoodGrowths.put("HP", 80);
 		eliwoodGrowths.put("Str", 45);
 		eliwoodGrowths.put("Mag", 0);
-		eliwoodGrowths.put("Skl", 50);
+		eliwoodGrowths.put("Skl", 0);
 		eliwoodGrowths.put("Spd", 40);
 		eliwoodGrowths.put("Def", 30);
 		eliwoodGrowths.put("Res", 35);
@@ -92,7 +92,7 @@ public class FEMultiplayer extends Game{
 		royGrowths.put("Str", 45);
 		royGrowths.put("Mag", 0);
 		royGrowths.put("Skl", 55);
-		royGrowths.put("Spd", 0);
+		royGrowths.put("Spd", 40);
 		royGrowths.put("Def", 30);
 		royGrowths.put("Res", 35);
 		royGrowths.put("Lck", 0);
@@ -104,12 +104,12 @@ public class FEMultiplayer extends Game{
 
 		Unit eliwood = new Unit("Eliwood", Class.createClass("Eliwood"), eliwoodBases,
 				eliwoodGrowths);
-		eliwood.addToInventory(WeaponFactory.getWeapon("Log"));
+		eliwood.addToInventory(WeaponFactory.getWeapon("Steel Sword"));
 		eliwood.equip(0);
 		blue.addUnit(eliwood);
 
 		Unit roy = new Unit("Roy", Class.createClass("Roy"), royBases, royGrowths);
-		roy.addToInventory(WeaponFactory.getWeapon("Sword of Seals"));
+		roy.addToInventory(WeaponFactory.getWeapon("Tree Branch"));
 		roy.equip(0);
 		red.addUnit(roy);
 

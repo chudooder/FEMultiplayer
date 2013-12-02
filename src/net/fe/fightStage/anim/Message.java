@@ -19,7 +19,7 @@ public class Message extends Entity{
 	public static final int HEIGHT = 12;
 	
 	public Message(String message, boolean left, int position){
-		super(0,FightStage.FLOOR - 75 + position*(HEIGHT+2));
+		super(0,29 + position*(HEIGHT+2));
 		this.message = message;
 		elapsedTime = 0;
 		extended = false;
@@ -49,6 +49,6 @@ public class Message extends Entity{
 	
 	public void render(){
 		Renderer.drawRectangle(x, y, x+WIDTH, y + HEIGHT, 0, FightStage.NEUTRAL);
-		Renderer.drawString("default_small", message, x+5, y);
+		Renderer.drawString("default_small", message, x+7, y);
 	}
 }

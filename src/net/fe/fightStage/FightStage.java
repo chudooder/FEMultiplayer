@@ -48,7 +48,7 @@ public class FightStage extends Stage {
 	public static final float SHAKE_INTERVAL = 0.05f;
 	
 	public static final int CENTRAL_AXIS = 120;
-	public static final int FLOOR = 104;
+	public static final int FLOOR = 119;
 
 	public static final int START = 0;
 	public static final int ATTACKING = 1;
@@ -78,9 +78,6 @@ public class FightStage extends Stage {
 		System.out.println("Battle!\n" + left + "\n" + right + "\n");
 		System.out.println("Running calcuations:");
 		calculate(range);
-		
-		addEntity(new Message("FIGHT", true, 0));
-		addEntity(new Message("FIGHT", false, 0));
 	}
 
 	public void calculate(int range) {
@@ -294,6 +291,10 @@ public class FightStage extends Stage {
 		
 		if (currentEvent == START) {
 			System.out.println("\n" + rec.attacker.name + "'s turn!");
+			ArrayList<String> messages = getMessages(rec.animation, "(a)");
+			for(int i = 0; i < messages.size(); i++){
+				addEntity(new Message(messages.get(i), rec.attacker == left, i));
+			}
 			currentEvent = ATTACKING;
 			if (crit)
 				a.sprite.setAnimation("CRIT");
@@ -303,6 +304,10 @@ public class FightStage extends Stage {
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
 		} else if (currentEvent == ATTACKED) {
+			ArrayList<String> messages = getMessages(rec.animation, "(d)");
+			for(int i = 0; i < messages.size(); i++){
+				addEntity(new Message(messages.get(i), rec.attacker == left, i));
+			}
 			if (rec.animation.equals("Miss")) {
 				// TODO Play defenders dodge animation
 				System.out.println("Miss! " + rec.defender.name
@@ -340,6 +345,27 @@ public class FightStage extends Stage {
 			currentEvent = START;
 			attackQueue.remove(0);
 		}
+	}
+	
+	private ArrayList<String> getMessages(String animationName, String suffix){
+		ArrayList<String> ans = new ArrayList<String>();
+		String[] animation = animationName.split(" ");
+		for(String anim: animation){
+			if(anim.endsWith(suffix)){
+				anim = anim.substring(0, anim.length()-suffix.length());
+			} else {
+				continue;
+			}
+			if(anim.matches(".*\\d")){
+				if(anim.endsWith("1")){
+					anim = anim.substring(0, anim.length()-1);
+				} else {
+					continue;
+				}
+			}
+			ans.add(anim.toUpperCase());
+		}
+		return ans;
 	}
 	
 	public void render() {		
@@ -426,15 +452,15 @@ public class FightStage extends Stage {
 					CENTRAL_AXIS + sign*98, FLOOR + 18);
 			
 			//Name
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -99, 
-					CENTRAL_AXIS + sign*63, FLOOR-77, 0, BORDER_DARK);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -98, 
-					CENTRAL_AXIS + sign*64, FLOOR-78, 0, BORDER_LIGHT);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -97, 
-					CENTRAL_AXIS + sign*65, FLOOR-79, 0, 
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, 5, 
+					CENTRAL_AXIS + sign*63, 27, 0, BORDER_DARK);
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, 6, 
+					CENTRAL_AXIS + sign*64, 26, 0, BORDER_LIGHT);
+			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, 7, 
+					CENTRAL_AXIS + sign*65, 25, 0, 
 					u1.getPartyColor());
 			Renderer.drawString("default", units.get(i).name, 
-					CENTRAL_AXIS + sign*94 - 16, FLOOR - 95);
+					CENTRAL_AXIS + sign*94 - 16, 9);
 		}
 		
 		super.render();

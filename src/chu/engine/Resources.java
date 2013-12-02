@@ -56,7 +56,7 @@ public class Resources {
 			textures.put("eliwood_sword_critical", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/eliwood_sword_critical.png")),
-					205, 126, 59, 8, 138, 101, 0, 44));
+					205, 126, 59, 8, 138, 101, 0, 41));
 			textures.put("gui_tickEmpty", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_gui/tickEmpty.png"))));
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",
