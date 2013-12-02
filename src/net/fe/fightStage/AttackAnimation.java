@@ -34,8 +34,9 @@ public abstract class AttackAnimation extends Animation {
 	
 	@Override
 	public void done() {
-		stage.setCurrentEvent(FightStage.DONE);
-		freeze();
+		((FightStage)stage).setCurrentEvent(FightStage.DONE);
+		setFrame(0);
+		setSpeed(0);
 	}
 	
 	@Override

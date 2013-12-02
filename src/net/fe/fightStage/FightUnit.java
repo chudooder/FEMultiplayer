@@ -33,18 +33,15 @@ public class FightUnit extends Entity {
 	public void render() {
 		Transform t = new Transform();
 		t.setColor(new Color(255, 255, 255, alpha));
-		int y1 = FightStage.FLOOR - ((AttackAnimation)sprite.getCurrentAnimation()).getHeadY();
+//		int y1 = FightStage.FLOOR - sprite.getCurrentAnimation().getOffsetY();
 		if(left) {
 			t.flipHorizontal();
-			int headX = ((AttackAnimation)sprite.getCurrentAnimation()).getHeadX();
 			sprite.renderTransformed(FightStage.CENTRAL_AXIS - distanceFromCenter
-					- (sprite.getCurrentAnimation().getWidth() - headX), 
-					y1, renderDepth, t);
+					- (sprite.getCurrentAnimation().getWidth()) + 2*sprite.getCurrentAnimation().getOffsetX(), 
+					FightStage.FLOOR, renderDepth, t);
 		} else {
-			int headX = ((AttackAnimation)sprite.getCurrentAnimation()).getHeadX();
-			sprite.renderTransformed(FightStage.CENTRAL_AXIS + distanceFromCenter
-					- headX,
-					y1, renderDepth, t);
+			sprite.renderTransformed(FightStage.CENTRAL_AXIS + distanceFromCenter,
+					FightStage.FLOOR, renderDepth, t);
 		}
 	}
 

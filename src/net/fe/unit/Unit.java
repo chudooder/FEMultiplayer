@@ -9,8 +9,10 @@ import java.util.HashMap;
 import chu.engine.GriddedEntity;
 import chu.engine.Resources;
 import net.fe.Party;
+
 import net.fe.fightStage.*;
 import net.fe.overworldStage.*;
+
 
 
 public class Unit extends GriddedEntity {
@@ -117,6 +119,8 @@ public class Unit extends GriddedEntity {
 		filename.append("_");
 		String base = filename.toString().toLowerCase();
 		
+		DodgeAnimation dodge = new DodgeAnimation(Resources.getTextureData(base+"dodge"));
+		unit.sprite.addAnimation("DODGE", dodge);
 		AttackAnimation attack = new NormalAttack(
 				Resources.getTextureData(base+"attack"), s, this);
 		unit.sprite.addAnimation("ATTACK", attack);
