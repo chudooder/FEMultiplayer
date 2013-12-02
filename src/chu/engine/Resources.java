@@ -75,6 +75,8 @@ public class Resources {
 			textures.put("hit_effect_crit", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_crit.png")),
 					240, 160, 9, 0, 0, -1, 3));
+			textures.put("miss", new TextureData(TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/battle_anim/miss.png"))));
 			// Fonts
 			fonts.put("default", createFont("Arial Narrow", Font.PLAIN, 11));
 			fonts.put("default_small", createFont("Arial Narrow", Font.PLAIN, 9));

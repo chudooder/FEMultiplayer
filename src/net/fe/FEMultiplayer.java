@@ -56,7 +56,7 @@ public class FEMultiplayer extends Game{
 		eliwoodBases.put("HP", 18);
 		eliwoodBases.put("Str", 5);
 		eliwoodBases.put("Mag", 5);
-		eliwoodBases.put("Spd", 7);
+		eliwoodBases.put("Spd", 99);
 		eliwoodBases.put("Skl", 7);
 		eliwoodBases.put("Lck", 7);
 		eliwoodBases.put("Def", 5);

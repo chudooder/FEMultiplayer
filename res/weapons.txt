@@ -15,7 +15,7 @@ Sol Katti	Sword	1	12	95	25	15	-	Armor	Lyn	Res 5
 Sieglinde	Sword	1	16	90	0	15	-	Armor	Eirika	Str 5
 Falchion	Sword	1	14	90	20	15	-	Mount	Marth	Skl 5
 Ragnell		Sword	1	20	85	0	10	-	-	Ike	Def 5
-Sword of Seals	Sword	1,2	16	0	10	10	-	-	Roy	Res 5
+Sword of Seals	Sword	1,2	16	95	10	10	-	-	Roy	Res 5
 Log		Lance	1	1	100	0	20	1	-	-	-
 Iron Lance	Lance	1	7	80	0	22	360	-	-	-
 Steel Lance	Lance	1	10	70	0	15	480	-	-	-

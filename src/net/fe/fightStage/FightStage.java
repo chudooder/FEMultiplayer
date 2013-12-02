@@ -17,6 +17,7 @@ import net.fe.fightStage.anim.AttackAnimation;
 import net.fe.fightStage.anim.DodgeAnimation;
 import net.fe.fightStage.anim.HitEffect;
 import net.fe.fightStage.anim.Message;
+import net.fe.fightStage.anim.MissEffect;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
 import net.fe.unit.Weapon;
@@ -316,6 +317,7 @@ public class FightStage extends Stage {
 				d.sprite.setAnimation("DODGE");
 				d.sprite.setFrame(0);
 				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
+				addEntity(new MissEffect(rec.defender == left));
 			} else {
 				dhp.setHp(dhp.getHp() - rec.damage);
 				addEntity(new HitEffect(hitEffect, rec.attacker == left));
