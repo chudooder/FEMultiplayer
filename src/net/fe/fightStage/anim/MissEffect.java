@@ -12,6 +12,12 @@ public class MissEffect extends Entity {
 		super(0, 0);
 		Animation anim = new Animation(Resources.getTexture("miss"), 38, 26, 20, 5, 0, 0, 30) {
 			@Override
+			public void update() {
+				super.update();
+				if(getFrame() == 17)
+					setSpeed(100);
+			}
+			@Override
 			public void done() {
 				destroy();
 			}

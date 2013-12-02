@@ -52,7 +52,7 @@ public class Resources {
 			textures.put("eliwood_lance_dodge", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/eliwood_lance_dodge.png")),
-					43, 53, 2, 2, 19, 48, 0));
+					44, 53, 2, 2, 22, 48, 0));
 			textures.put("eliwood_sword_attack", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/eliwood_sword_attack.png")),
@@ -64,7 +64,7 @@ public class Resources {
 			textures.put("eliwood_sword_dodge", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/eliwood_sword_dodge.png")),
-					59, 49, 2, 2, 38, 46, 0));
+					60, 49, 2, 2, 39, 46, 0));
 			textures.put("gui_tickEmpty", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_gui/tickEmpty.png"))));
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",
