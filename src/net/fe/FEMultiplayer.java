@@ -57,7 +57,7 @@ public class FEMultiplayer extends Game{
 		eliwoodBases.put("Str", 5);
 		eliwoodBases.put("Mag", 5);
 		eliwoodBases.put("Spd", 7);
-		eliwoodBases.put("Skl", 0);
+		eliwoodBases.put("Skl", 7);
 		eliwoodBases.put("Lck", 7);
 		eliwoodBases.put("Def", 5);
 		eliwoodBases.put("Res", 0);
@@ -68,7 +68,7 @@ public class FEMultiplayer extends Game{
 		eliwoodGrowths.put("HP", 80);
 		eliwoodGrowths.put("Str", 45);
 		eliwoodGrowths.put("Mag", 0);
-		eliwoodGrowths.put("Skl", 0);
+		eliwoodGrowths.put("Skl", 40);
 		eliwoodGrowths.put("Spd", 40);
 		eliwoodGrowths.put("Def", 30);
 		eliwoodGrowths.put("Res", 35);
@@ -104,7 +104,7 @@ public class FEMultiplayer extends Game{
 
 		Unit eliwood = new Unit("Eliwood", Class.createClass("Eliwood"), eliwoodBases,
 				eliwoodGrowths);
-		eliwood.addToInventory(WeaponFactory.getWeapon("Steel Sword"));
+		eliwood.addToInventory(WeaponFactory.getWeapon("Steel Lance"));
 		eliwood.equip(0);
 		blue.addUnit(eliwood);
 

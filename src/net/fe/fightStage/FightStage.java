@@ -48,7 +48,7 @@ public class FightStage extends Stage {
 	public static final float SHAKE_INTERVAL = 0.05f;
 	
 	public static final int CENTRAL_AXIS = 120;
-	public static final int FLOOR = 119;
+	public static final int FLOOR = 104;
 
 	public static final int START = 0;
 	public static final int ATTACKING = 1;
@@ -314,6 +314,7 @@ public class FightStage extends Stage {
 						+ " dodged the attack!");
 				currentEvent = HURTED;
 				d.sprite.setAnimation("DODGE");
+				d.sprite.setFrame(0);
 				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
 			} else {
 				dhp.setHp(dhp.getHp() - rec.damage);
