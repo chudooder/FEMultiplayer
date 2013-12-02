@@ -309,7 +309,6 @@ public class FightStage extends Stage {
 				if(rec.damage != 0) {
 					currentEvent = HURTING;
 				} else {
-					System.out.println("welp");
 					currentEvent = HURTED;
 				}
 			}

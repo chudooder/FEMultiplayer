@@ -7,15 +7,17 @@ import org.newdawn.slick.opengl.Texture;
 import chu.engine.TextureData;
 import chu.engine.anim.Animation;
 
-public class AttackAnimation extends Animation {
+public abstract class AttackAnimation extends Animation {
 	
 	private int[] hitframes;
 	private int headX;
 	private int headY;
-	private FightStage stage;
-	private int freeze;
-	private int loopUntil;
-	private Unit unit;
+	protected int loopUntil;
+	
+	protected Unit unit;
+	protected FightStage stage;
+	protected int freeze;
+	
 	public static final int NORMAL_SPEED = 60;
 	
 	//TODO You can't have a hit frame on the very last frame
@@ -32,34 +34,50 @@ public class AttackAnimation extends Animation {
 	
 	@Override
 	public void done() {
-		((FightStage)stage).setCurrentEvent(FightStage.DONE);
-		setFrame(0);
-		setSpeed(0);
+		stage.setCurrentEvent(FightStage.DONE);
+		freeze();
 	}
 	
 	@Override
 	public void update() {
-		FightStage fs = ((FightStage)stage);
 		int prevFrame = getFrame();
 		super.update();
 		for(int i : hitframes) {
 			if(prevFrame != getFrame() && getFrame() == i) {
-				if(unit.getWeapon().isMagic()){
-					stage.addEntity(new MagicEffect(
-							unit.getWeapon().name, stage.isLeft(unit)));
-				} else {
-					stage.setCurrentEvent(FightStage.ATTACKED);
-				}
-				if(freeze == 0){
-					setSpeed(0);
-				} else if(freeze > 0) {
-					loopUntil = getFrame() + freeze;
-				}
+				onHit();
+//				if(unit.getWeapon().isMagic()){
+//					stage.addEntity(new MagicEffect(
+//							unit.getWeapon().name, stage.isLeft(unit)));
+//				} else {
+//					stage.setCurrentEvent(FightStage.ATTACKED);
+//				}
+//				if(freeze == 0){
+//					setSpeed(0);
+//				} else if(freeze > 0) {
+//					loopUntil = getFrame() + freeze;
+//				}
 			}
 		}
 		if(getFrame() == loopUntil) {
 			setFrame(getFrame()-freeze);
 		}
+	}
+	
+	protected void loopNextFrames(int frames){
+		if(frames == 0){
+			setSpeed(0);
+		} else if (frames > 0){
+			loopUntil = getFrame() + frames;
+		}
+	}
+	
+	public void freeze(){
+		setSpeed(0);
+	}
+	
+	public void resume(){
+		setSpeed(NORMAL_SPEED);
+		loopUntil = -1;
 	}
 
 	public int getHeadX() {
@@ -75,5 +93,8 @@ public class AttackAnimation extends Animation {
 		super.setSpeed(speed);
 		loopUntil = -1;
 	}
+	
+	
+	public abstract void onHit();
 
 }

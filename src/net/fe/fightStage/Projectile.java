@@ -7,6 +7,7 @@ public class Projectile extends Entity {
 	private float destination;
 	private int dir;
 	private boolean destroyOnHit;
+	private String name;
 	
 	public Projectile(String name, float y, FightStage f, 
 			boolean left, boolean destroyOnHit){
@@ -22,11 +23,15 @@ public class Projectile extends Entity {
 			dir = -1;
 		}
 		this.destroyOnHit = destroyOnHit;
-		
+		this.name = name;
 	}
 	
 	public void onStep(){
-		x += dir*30*Game.getDeltaSeconds();
+		x += dir*getVelocity(name)*30*Game.getDeltaSeconds();
+	}
+	
+	public void render(){
+		
 	}
 	
 	public void endStep(){
@@ -41,5 +46,10 @@ public class Projectile extends Entity {
 
 	public FightStage getStage(){
 		return (FightStage) stage;
+	}
+	
+	public static int getVelocity(String name){
+		//TODO
+		return 1;
 	}
 }
