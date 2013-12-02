@@ -4,7 +4,7 @@ import net.fe.fightStage.FightStage;
 import chu.engine.TextureData;
 
 public class ProjectileAttack extends AttackAnimation{
-	private boolean finished;
+	private boolean weFailed;
 	public ProjectileAttack(TextureData data, FightStage stage,
 			AnimationArgs animArgs) {
 		super(data, stage, animArgs);
@@ -15,19 +15,19 @@ public class ProjectileAttack extends AttackAnimation{
 			super.done();
 		} catch (IllegalArgumentException e){
 			//Drats! We'll try again next frame.
-			finished = true;
+			weFailed = true;
 		}
 		
 	}
 	
 	public void onStep(){
-		if(finished){
+		if(weFailed){
 			try{
 				stage.setCurrentEvent(FightStage.DONE);
-				finished = false;
+				weFailed = false;
 			} catch (IllegalArgumentException e){
 				//Foiled again! We'll try again next frame.
-				finished = true;
+				weFailed = true;
 			}
 		}
 	}
