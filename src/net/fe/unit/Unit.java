@@ -9,8 +9,11 @@ import java.util.HashMap;
 import chu.engine.GriddedEntity;
 import chu.engine.Resources;
 import net.fe.Party;
-
 import net.fe.fightStage.*;
+import net.fe.fightStage.anim.AnimationArgs;
+import net.fe.fightStage.anim.AttackAnimation;
+import net.fe.fightStage.anim.DodgeAnimation;
+import net.fe.fightStage.anim.NormalAttack;
 import net.fe.overworldStage.*;
 
 
@@ -105,30 +108,6 @@ public class Unit extends GriddedEntity {
 		triggers.addAll(weapon.getTriggers());
 		return triggers;
 	}
-	
-	public FightUnit getFightUnit(boolean b, FightStage s, int range) {
-		FightUnit unit = new FightUnit(b, range);
-		StringBuilder filename = new StringBuilder();
-		if(clazz.name.contains("Lord")) {
-			filename.append(name);
-		} else {
-			filename.append(clazz.name);
-		}
-		filename.append("_");
-		filename.append(weapon.type.toString());
-		filename.append("_");
-		String base = filename.toString().toLowerCase();
-		
-		DodgeAnimation dodge = new DodgeAnimation(Resources.getTextureData(base+"dodge"));
-		unit.sprite.addAnimation("DODGE", dodge);
-		AttackAnimation attack = new NormalAttack(
-				Resources.getTextureData(base+"attack"), s, this);
-		unit.sprite.addAnimation("ATTACK", attack);
-		AttackAnimation crit = new NormalAttack(
-				Resources.getTextureData(base+"critical"), s, this);
-		unit.sprite.addAnimation("CRIT", crit);
-		return unit;
-	}
 
 	
 	//Combat statistics
@@ -203,12 +182,6 @@ public class Unit extends GriddedEntity {
 	//Debugging
 	public String toString(){
 		return name + " HP" + hp + "\n" + stats;
-	}
-
-	
-	
-	public Healthbar getHealthbar(boolean b){
-		return new Healthbar(get("HP"), getHp(), b);
 	}
 	
 	public Color getPartyColor(){

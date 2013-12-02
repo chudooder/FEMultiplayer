@@ -1,4 +1,4 @@
-package net.fe.fightStage;
+package net.fe.fightStage.anim;
 
 import net.fe.unit.Unit;
 

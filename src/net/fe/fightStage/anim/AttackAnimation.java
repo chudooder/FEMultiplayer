@@ -1,5 +1,6 @@
-package net.fe.fightStage;
+package net.fe.fightStage.anim;
 
+import net.fe.fightStage.FightStage;
 import net.fe.unit.Unit;
 
 import org.newdawn.slick.opengl.Texture;
@@ -14,20 +15,19 @@ public abstract class AttackAnimation extends Animation {
 	private int headY;
 	protected int loopUntil;
 	
-	protected Unit unit;
+	protected AnimationArgs animationArgs;
 	protected FightStage stage;
 	protected int freeze;
 	
 	public static final int NORMAL_SPEED = 60;
 	
 	//TODO You can't have a hit frame on the very last frame
-	public AttackAnimation(TextureData data, FightStage stage, Unit u) {
-		super(data.texture, data.frameWidth, data.frameHeight, data.frames, data.columns, 0);
+	public AttackAnimation(TextureData data, FightStage stage, AnimationArgs animArgs) {
+		super(data.texture, data.frameWidth, data.frameHeight, data.frames,
+                data.columns, data.offsetX, data.offsetY, 0);
 		this.hitframes = data.hitframes;
-		this.headX = data.headX;
-		this.headY = data.headY;
 		this.stage = stage;
-		this.unit = u;
+		this.animationArgs = animArgs;
 		this.freeze = data.freeze;
 		this.loopUntil = -1;
 	}
@@ -97,5 +97,17 @@ public abstract class AttackAnimation extends Animation {
 	
 	
 	public abstract void onHit();
+	
+	public static AttackAnimation createAnimation(TextureData data, 
+			FightStage stage, AnimationArgs args){
+		if(args.classification.equals("normal")){
+			return new NormalAttack(data, stage, args);
+		} else if (args.classification.equals("ranged")){
+			return new ProjectileAttack(data, stage, args);
+		} else if (args.classification.equals("magic")){
+			return new MagicAttack(data, stage, args);
+		}
+		return null;
+	}
 
 }

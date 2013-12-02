@@ -12,6 +12,10 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import net.fe.RNG;
+import net.fe.fightStage.anim.AnimationArgs;
+import net.fe.fightStage.anim.AttackAnimation;
+import net.fe.fightStage.anim.DodgeAnimation;
+import net.fe.fightStage.anim.HitEffect;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
 import net.fe.unit.Weapon;
@@ -58,10 +62,10 @@ public class FightStage extends Stage {
 		attackQueue = new ArrayList<AttackRecord>();
 		left = u1;
 		right = u2;
-		fl = left.getFightUnit(true, this, rangeToHeadDistance(range));
-		fr = right.getFightUnit(false, this, rangeToHeadDistance(range));
-		hp1 = left.getHealthbar(true);
-		hp2 = right.getHealthbar(false);
+		fl = new FightUnit(new AnimationArgs(left, true, range), this);
+		fr = new FightUnit(new AnimationArgs(right, false, range), this);
+		hp1 = new Healthbar(left, true);
+		hp2 = new Healthbar(right, false);
 		addEntity(fl);
 		addEntity(fr);
 		addEntity(hp1);
@@ -454,7 +458,12 @@ public class FightStage extends Stage {
 	//Getters Setters
 
 	public void setCurrentEvent(int event) {
-		currentEvent = event;
+		if(event == HURTED || event == HURTING || event == currentEvent + 1){
+			currentEvent = event;
+		} else {
+			throw new IllegalArgumentException("Invalid state transit");
+		}
+		
 	}
 	
 	public int distanceToHead(){

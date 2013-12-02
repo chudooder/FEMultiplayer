@@ -1,11 +1,11 @@
-package net.fe.fightStage;
+package net.fe.fightStage.anim;
 
-import net.fe.unit.Unit;
+import net.fe.fightStage.FightStage;
 import chu.engine.TextureData;
 
 public class NormalAttack extends AttackAnimation {
-	public NormalAttack(TextureData data, FightStage stage, Unit u) {
-		super(data, stage, u);
+	public NormalAttack(TextureData data, FightStage stage, AnimationArgs args) {
+		super(data, stage, args);
 	}
 
 	@Override

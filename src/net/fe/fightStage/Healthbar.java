@@ -1,5 +1,7 @@
 package net.fe.fightStage;
 
+import net.fe.unit.Unit;
+
 import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.Entity;
@@ -12,21 +14,21 @@ public class Healthbar extends Entity {
 	private int currentHealth;
 	private float displayedHealth;
 
-	public Healthbar(int hpMax, int hp, boolean left) {
+	public Healthbar(Unit u, boolean left) {
 		super(0, 0);
 		if(left){
 			x = FightStage.CENTRAL_AXIS - 91;
 		} else {
 			x = FightStage.CENTRAL_AXIS + 30;
 		}
-		if(hp > 40){
+		if(u.get("HP") > 40){
 			y = FightStage.FLOOR + 38;
 		} else {
 			y = FightStage.FLOOR + 42;
 		}
-		totalHealth = hpMax;
-		currentHealth = hp;
-		displayedHealth = hp;
+		totalHealth = u.get("HP");
+		currentHealth = u.getHp();
+		displayedHealth = u.getHp();
 	}
 
 	public void render() {

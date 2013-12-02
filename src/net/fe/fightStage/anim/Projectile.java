@@ -1,5 +1,6 @@
-package net.fe.fightStage;
+package net.fe.fightStage.anim;
 
+import net.fe.fightStage.FightStage;
 import chu.engine.Entity;
 import chu.engine.Game;
 

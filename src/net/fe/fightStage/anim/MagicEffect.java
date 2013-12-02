@@ -1,4 +1,6 @@
-package net.fe.fightStage;
+package net.fe.fightStage.anim;
+
+import net.fe.fightStage.FightStage;
 
 import org.newdawn.slick.opengl.Texture;
 
@@ -8,16 +10,20 @@ import chu.engine.anim.Animation;
 
 public class MagicEffect extends Entity {
 
-	public MagicEffect(final String name, final boolean left) {
+	public MagicEffect(final AnimationArgs args) {
 		super(0, 0);
 		//TODO Get the magic animation
-		Texture tex = getHitTexture(name);
+		Texture tex = getHitTexture(args.unit.getWeapon().name);
 		Animation anim = new Animation(tex, 0, 0, 0, 0, 0){
 			@Override
 			public void done() {
 				//TODO Add projectile coords
 				stage.addEntity(new Projectile(
-						name,FightStage.FLOOR - 50f,(FightStage) stage,left,true));
+						args.unit.getWeapon().name,
+						FightStage.FLOOR - 50f, 
+						(FightStage) stage,
+						args.left,
+						true));
 				destroy();
 			}
 		};

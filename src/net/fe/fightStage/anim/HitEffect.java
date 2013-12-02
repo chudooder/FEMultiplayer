@@ -1,4 +1,6 @@
-package net.fe.fightStage;
+package net.fe.fightStage.anim;
+
+import net.fe.fightStage.FightStage;
 
 import org.newdawn.slick.opengl.Texture;
 
