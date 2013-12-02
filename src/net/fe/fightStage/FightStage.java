@@ -16,6 +16,7 @@ import net.fe.fightStage.anim.AnimationArgs;
 import net.fe.fightStage.anim.AttackAnimation;
 import net.fe.fightStage.anim.DodgeAnimation;
 import net.fe.fightStage.anim.HitEffect;
+import net.fe.fightStage.anim.Message;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
 import net.fe.unit.Weapon;
@@ -38,6 +39,10 @@ public class FightStage extends Stage {
 	private float shakeTimer;
 	private float shakeX;
 	private float shakeY;
+	
+	public static Color BORDER_DARK = new Color(0x483828);
+	public static Color BORDER_LIGHT = new Color(0xf8f0c8);
+	public static Color NEUTRAL = new Color(0xb0a878);
 
 	// Config
 	public static final float SHAKE_INTERVAL = 0.05f;
@@ -73,6 +78,9 @@ public class FightStage extends Stage {
 		System.out.println("Battle!\n" + left + "\n" + right + "\n");
 		System.out.println("Running calcuations:");
 		calculate(range);
+		
+		addEntity(new Message("FIGHT", true, 0));
+		addEntity(new Message("FIGHT", false, 0));
 	}
 
 	public void calculate(int range) {
@@ -334,10 +342,7 @@ public class FightStage extends Stage {
 		}
 	}
 	
-	public void render() {
-		Color borderDark = new Color(0x483828);
-		Color borderLight = new Color(0xf8f0c8);
-		
+	public void render() {		
 		if(shakeTimer > 0) {
 			shakeTimer -= Game.getDeltaSeconds();
 			if(prevShakeTimer - shakeTimer > SHAKE_INTERVAL) {
@@ -366,26 +371,26 @@ public class FightStage extends Stage {
 			
 			//Main status
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR + 14, 
-					CENTRAL_AXIS, FLOOR + 56, 0, borderDark);
+					CENTRAL_AXIS, FLOOR + 56, 0, BORDER_DARK);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 15, 
-					CENTRAL_AXIS + sign, FLOOR + 55, 0, borderLight);
+					CENTRAL_AXIS + sign, FLOOR + 55, 0, BORDER_LIGHT);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 16, 
 					CENTRAL_AXIS + sign*2, FLOOR + 54, 0, 
 					u1.getPartyColor().darker(0.5f));
 			
 			//Weapon
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 15, 
-					CENTRAL_AXIS + sign, FLOOR+31, 0, borderLight);
+					CENTRAL_AXIS + sign, FLOOR+31, 0, BORDER_LIGHT);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 16, 
-					CENTRAL_AXIS + sign*2, FLOOR+30, 0, new Color(0xb0a878));
+					CENTRAL_AXIS + sign*2, FLOOR+30, 0, NEUTRAL);
 			Renderer.drawString("default_small" , u1.getWeapon().name,
 					CENTRAL_AXIS + sign*39 - 20, FLOOR + 17);
 			
 			//Attack Stats
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR - 1,
-					CENTRAL_AXIS + sign*76, FLOOR + 32, 0, borderDark);
+					CENTRAL_AXIS + sign*76, FLOOR + 32, 0, BORDER_DARK);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR ,
-					CENTRAL_AXIS + sign*77, FLOOR + 31, 0, borderLight);
+					CENTRAL_AXIS + sign*77, FLOOR + 31, 0, BORDER_LIGHT);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 1,
 					CENTRAL_AXIS + sign*78, FLOOR + 30, 0, 
 					u1.getPartyColor());
@@ -422,9 +427,9 @@ public class FightStage extends Stage {
 			
 			//Name
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -99, 
-					CENTRAL_AXIS + sign*63, FLOOR-77, 0, borderDark);
+					CENTRAL_AXIS + sign*63, FLOOR-77, 0, BORDER_DARK);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -98, 
-					CENTRAL_AXIS + sign*64, FLOOR-78, 0, borderLight);
+					CENTRAL_AXIS + sign*64, FLOOR-78, 0, BORDER_LIGHT);
 			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR -97, 
 					CENTRAL_AXIS + sign*65, FLOOR-79, 0, 
 					u1.getPartyColor());
