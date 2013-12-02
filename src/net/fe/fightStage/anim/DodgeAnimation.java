@@ -45,8 +45,8 @@ public class DodgeAnimation extends Animation {
 			getSprite().setAnimation("ATTACK");
 			getSprite().setSpeed(0);
 			dodging = false;
+			dodgeTimer = 0;
 		}
 	}
-	
 
 }

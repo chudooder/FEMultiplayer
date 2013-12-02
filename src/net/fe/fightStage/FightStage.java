@@ -309,6 +309,7 @@ public class FightStage extends Stage {
 						+ " dodged the attack!");
 				currentEvent = HURTED;
 				d.sprite.setAnimation("DODGE");
+				d.sprite.setFrame(0);
 				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
 			} else {
 				dhp.setHp(dhp.getHp() - rec.damage);
