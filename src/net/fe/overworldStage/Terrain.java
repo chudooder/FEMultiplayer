@@ -8,7 +8,8 @@ import net.fe.unit.Class;
 import net.fe.unit.Unit;
 
 public enum Terrain {
-	PLAIN(1,0,0,0), 
+	PLAIN(1,0,0,0),
+	PATH(1,0,0,0),
 	FOREST(2,1,20,0), 
 	FLOOR(1,0,0,0), 
 	PILLAR(2,1,20,0), 
