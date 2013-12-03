@@ -12,6 +12,7 @@ public class Renderer {
 
 	private static Camera camera;
 	private static RectClip clip;
+	private static final int SCALE_FILTER = GL_NEAREST;
 
 	static {
 		camera = new Camera(null, 0, 0);
@@ -44,7 +45,8 @@ public class Renderer {
 			float ty1, float x0, float y0, float x1, float y1, float depth) {
 		Color.white.bind();
 		t.bind();
-		
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
 		// Compensation for non power of 2 images
 		float txi = tx0*t.getImageWidth()/t.getTextureWidth();
 		float tyi = ty0*t.getImageHeight()/t.getTextureHeight();
@@ -69,6 +71,8 @@ public class Renderer {
 			float tx1, float ty1, float x0, float y0, float x1, float y1,
 			float depth, Transform transform) {
 		t.bind();
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
 		Color c = transform.color;
 		glColor4f(c.r, c.g, c.b, c.a);
 		glPushMatrix();
@@ -215,11 +219,15 @@ public class Renderer {
 	}
 	
 	public static void drawString(String fontName, String string, float x, float y) {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
 		Resources.getFont(fontName).drawString(x, y, string);
 		if(clip != null && !clip.persistent) clip.destroy();
 	}
 	
 	public static void drawString(String fontName, String string, float x, float y, Color c) {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
 		Resources.getFont(fontName).drawString(x, y, string, c);
 		if(clip != null && !clip.persistent) clip.destroy();
 	}
@@ -227,6 +235,20 @@ public class Renderer {
 	public static void translate(float x, float y) {
 		glTranslatef(x, y, 0);
 	}
+	
+	public static void scale(float x, float y) {
+		glScalef(x, y, 0);
+	}
+	
+	public static void pushMatrix() {
+		glPushMatrix();
+	}
+	
+	public static void popMatrix() {
+		glPopMatrix();
+	}
+	
+	
 	
 	public static void setCamera(Camera c) {
 		camera = c;

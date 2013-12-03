@@ -389,7 +389,10 @@ public class FightStage extends Stage {
 		}
 		
 		//Shake
+		Renderer.pushMatrix();
 		Renderer.translate((int)shakeX, (int)shakeY);
+//		Renderer.scale(2, 2);
+		Renderer.scale(1, 1);
 		
 		List<Unit> units = Arrays.asList(left, right);
 		for(int i = 0; i < units.size(); i++){
@@ -469,7 +472,7 @@ public class FightStage extends Stage {
 		super.render();
 		
 		//Undo shake translation
-		Renderer.translate((int)-shakeX, (int)-shakeY);
+		Renderer.popMatrix();
 	}
 
 	@Override

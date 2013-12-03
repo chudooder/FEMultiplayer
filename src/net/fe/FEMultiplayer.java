@@ -1,12 +1,6 @@
 package net.fe;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_STENCIL_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearDepth;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Font;
 import java.util.ArrayList;
@@ -49,15 +43,15 @@ public class FEMultiplayer extends Game{
 		//TODO: Implement client
 //		client = new Client();
 		/* OpenGL final setup */
-		GL11.glEnable(GL11.GL_LINE_SMOOTH);
+		glEnable(GL_LINE_SMOOTH);
 		// TODO: Beta testing stuff, delete later
 		HashMap<String, Integer> eliwoodBases = new HashMap<String, Integer>();
 		eliwoodBases.put("Lvl", 1);
 		eliwoodBases.put("HP", 18);
 		eliwoodBases.put("Str", 5);
 		eliwoodBases.put("Mag", 5);
-		eliwoodBases.put("Spd", 99);		//orig 7
-		eliwoodBases.put("Skl", 7);
+		eliwoodBases.put("Spd", 7);		//orig 7
+		eliwoodBases.put("Skl", 99);
 		eliwoodBases.put("Lck", 7);
 		eliwoodBases.put("Def", 5);
 		eliwoodBases.put("Res", 0);
@@ -80,7 +74,7 @@ public class FEMultiplayer extends Game{
 		royBases.put("Str", 5);
 		royBases.put("Mag", 5);
 		royBases.put("Skl", 5);
-		royBases.put("Spd", 99);		//orig 7
+		royBases.put("Spd", 7);		//orig 7
 		royBases.put("Lck", 7);
 		royBases.put("Def", 5);
 		royBases.put("Res", 0);
