@@ -78,12 +78,12 @@ public class HUD extends Entity {
 				FightStage.CENTRAL_AXIS + sign*98, FightStage.FLOOR + 18);
 		
 		//Name
-		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign*120, 5, 
-				FightStage.CENTRAL_AXIS + sign*63, 27, 0, FightStage.BORDER_DARK);
-		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign*120, 6, 
-				FightStage.CENTRAL_AXIS + sign*64, 26, 0, FightStage.BORDER_LIGHT);
-		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign*120, 7, 
-				FightStage.CENTRAL_AXIS + sign*65, 25, 0, 
+		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign*120, FightStage.FLOOR - 99, 
+				FightStage.CENTRAL_AXIS + sign*63, FightStage.FLOOR - 77, 0, FightStage.BORDER_DARK);
+		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign*120, FightStage.FLOOR - 98, 
+				FightStage.CENTRAL_AXIS + sign*64, FightStage.FLOOR - 78, 0, FightStage.BORDER_LIGHT);
+		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign*120, FightStage.FLOOR - 97, 
+				FightStage.CENTRAL_AXIS + sign*65, FightStage.FLOOR - 79, 0, 
 				u1.getPartyColor());
 		Renderer.drawString("default", u1.name, 
 				FightStage.CENTRAL_AXIS + sign*94 - 16, 9);
