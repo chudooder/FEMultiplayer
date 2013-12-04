@@ -24,8 +24,20 @@ public class Resources {
 	
 	static {
 		audio = new HashMap<String, Audio>();
-		textures = new HashMap<String, TextureData>();
-		fonts = new HashMap<String, TrueTypeFont>();
+		textures = new HashMap<String, TextureData>() {
+			@Override
+			public TextureData put(String string, TextureData data) {
+				System.out.println(string + "(texture) loaded.");
+				return super.put(string, data);
+			}
+		};
+		fonts = new HashMap<String, TrueTypeFont>() {
+			@Override
+			public TrueTypeFont put(String string, TrueTypeFont data) {
+				System.out.println(string + "(font) loaded.");
+				return super.put(string, data);
+			}
+		};
 		try {
 			// Textures
 			textures.put("whoops", new TextureData(
@@ -76,6 +88,14 @@ public class Resources {
 					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
 							"res/battle_anim/sage_magic_critical.png")),
 					74, 60, 60, 8, 30, 43, 8, 38));
+			textures.put("sage_magic_dodge", new TextureData(
+					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
+							"res/battle_anim/sage_magic_dodge.png")),
+					28, 35, 2, 2, 18, 31, 0));
+			textures.put("sage_staff_attack", new TextureData(
+					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
+							"res/battle_anim/sage_staff_attack.png")), 
+					34, 41, 5, 5, 37, 21, 0, 2));
 			
 			
 			textures.put("hit_effect_attack", new TextureData(TextureLoader.getTexture("PNG",
