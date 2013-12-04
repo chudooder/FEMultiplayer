@@ -38,12 +38,13 @@ public class FightUnit extends Entity {
 		
 		DodgeAnimation dodge = new DodgeAnimation(Resources.getTextureData(base+"dodge"));
 		sprite.addAnimation("DODGE", dodge);
-		AttackAnimation attack = AttackAnimation.createAnimation(
-				Resources.getTextureData(base+"attack"), s, animArgs);
-		sprite.addAnimation("ATTACK", attack);
 		AttackAnimation crit = AttackAnimation.createAnimation(
 				Resources.getTextureData(base+"critical"), s, animArgs);
 		sprite.addAnimation("CRIT", crit);
+		AttackAnimation attack = AttackAnimation.createAnimation(
+				Resources.getTextureData(base+"attack"), s, animArgs);
+		sprite.addAnimation("ATTACK", attack);
+		
 		
 		renderDepth = FightStage.UNIT_DEPTH;
 	}

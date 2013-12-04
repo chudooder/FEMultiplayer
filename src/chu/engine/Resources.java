@@ -95,7 +95,7 @@ public class Resources {
 			textures.put("sage_staff_attack", new TextureData(
 					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
 							"res/battle_anim/sage_staff_attack.png")), 
-					34, 41, 5, 5, 37, 21, 0, 2));
+					34, 41, 5, 5, 21, 37, 0, 2));
 			
 			
 			textures.put("hit_effect_attack", new TextureData(TextureLoader.getTexture("PNG",
