@@ -2,7 +2,10 @@ package net.fe.fightStage;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+
 import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
+
 import net.fe.RNG;
 import net.fe.fightStage.anim.*;
 import net.fe.overworldStage.Grid;
@@ -10,6 +13,7 @@ import net.fe.unit.Unit;
 import net.fe.unit.Weapon;
 import chu.engine.Entity;
 import chu.engine.Game;
+import chu.engine.Resources;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
 
@@ -17,6 +21,7 @@ public class FightStage extends Stage {
 	private Unit left, right;
 	private FightUnit fl, fr;
 	private Healthbar hp1, hp2;
+	private Texture bg;
 	private ArrayList<AttackRecord> attackQueue;
 	private int currentEvent;
 	private int range;
@@ -71,6 +76,8 @@ public class FightStage extends Stage {
 		addEntity(new Platform(u1.getTerrain(), false, range));
 		addEntity(new HUD(u1, u2, this));
 		addEntity(new HUD(u2, u1, this));
+		bg = Resources.getTexture(u2.getTerrain().toString().toLowerCase() + "_bg");
+		
 		System.out.println("Battle!\n" + left + "\n" + right + "\n");
 		System.out.println("Running calcuations:");
 		calculate(range);
@@ -360,7 +367,9 @@ public class FightStage extends Stage {
 		return ans;
 	}
 	
-	public void render() {		
+	public void render() {
+		Renderer.scale(2, 2);
+		Renderer.render(bg, 0, 0, 1, 1, 0, 0, 240, 160, 1);
 		if(shakeTimer > 0) {
 			shakeTimer -= Game.getDeltaSeconds();
 			if(prevShakeTimer - shakeTimer > SHAKE_INTERVAL) {
@@ -380,8 +389,6 @@ public class FightStage extends Stage {
 		//Shake
 		Renderer.pushMatrix();
 		Renderer.translate((int)shakeX, (int)shakeY);
-		Renderer.scale(2, 2);
-//		Renderer.scale(1, 1);
 		
 		super.render();
 		
