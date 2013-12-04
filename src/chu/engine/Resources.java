@@ -74,7 +74,7 @@ public class Resources {
 					74, 60, 38, 8, 30, 43, 8, 16));
 			textures.put("sage_magic_critical", new TextureData(
 					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
-							"res/battle_anim/sage_magic_attack.png")),
+							"res/battle_anim/sage_magic_critical.png")),
 					74, 60, 60, 8, 30, 43, 8, 38));
 			
 			
