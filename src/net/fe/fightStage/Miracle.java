@@ -14,6 +14,7 @@ public class Miracle extends CombatTrigger {
 		return RNG.get() < user.get("Lck");
 	}
 	
+	@Override
 	public int runDamageMod(Unit a, Unit d, int damage){
 		if(d.getHp() - damage <= 0){
 			return d.getHp() - 1;

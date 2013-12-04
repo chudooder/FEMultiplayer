@@ -14,6 +14,7 @@ public class Pavise extends CombatTrigger {
 		return RNG.get() < user.get("Skl");
 	}
 	
+	@Override
 	public int runDamageMod(Unit a, Unit d, int dmg){
 		return dmg/2;
 	}
