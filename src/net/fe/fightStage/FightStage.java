@@ -368,6 +368,7 @@ public class FightStage extends Stage {
 	}
 	
 	public void render() {
+		Renderer.pushMatrix();
 		Renderer.scale(2, 2);
 		Renderer.render(bg, 0, 0, 1, 1, 0, 0, 240, 160, 1);
 		if(shakeTimer > 0) {
@@ -387,7 +388,6 @@ public class FightStage extends Stage {
 		}
 		
 		//Shake
-		Renderer.pushMatrix();
 		Renderer.translate((int)shakeX, (int)shakeY);
 		
 		super.render();
