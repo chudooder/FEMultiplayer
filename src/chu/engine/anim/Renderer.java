@@ -13,6 +13,8 @@ public class Renderer {
 	private static Camera camera;
 	private static RectClip clip;
 	private static final int SCALE_FILTER = GL_NEAREST;
+	private static int scaleX;
+	private static int scaleY;
 
 	static {
 		camera = new Camera(null, 0, 0);
@@ -236,7 +238,9 @@ public class Renderer {
 		glTranslatef(x, y, 0);
 	}
 	
-	public static void scale(float x, float y) {
+	public static void scale(int x, int y) {
+		scaleX = x;
+		scaleY = y;
 		glScalef(x, y, 0);
 	}
 	
@@ -265,18 +269,19 @@ public class Renderer {
     public static void removeClip() {
     	if(clip != null) clip.destroy();
     }
+    
+    static class RectClip {
+    	boolean persistent;
+    	public RectClip(int x0, int y0, int w, int h, boolean p) {
+    		persistent = p;
+    		glEnable(GL_SCISSOR_TEST);
+    		System.out.println(scaleX*x0+" "+(Game.getWindowHeight()-y0-scaleY*h)+" "+scaleX*w+" "+scaleY*h);
+    		glScissor(scaleX*x0, Game.getWindowHeight()-y0-scaleY*h, scaleX*w, scaleY*h);
+    	}
+    	
+    	public void destroy() {
+    		glDisable(GL_SCISSOR_TEST);
+    	}
+    }
 
-}
-
-class RectClip {
-	boolean persistent;
-	public RectClip(int x0, int y0, int w, int h, boolean p) {
-		persistent = p;
-		glEnable(GL_SCISSOR_TEST);
-		glScissor(x0, Game.getWindowHeight()-y0-h, w, h);
-	}
-	
-	public void destroy() {
-		glDisable(GL_SCISSOR_TEST);
-	}
 }

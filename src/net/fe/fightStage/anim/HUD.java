@@ -67,14 +67,14 @@ public class HUD extends Entity {
 		Renderer.drawString("number", hit, 
 				FightStage.CENTRAL_AXIS + sign*98, FightStage.FLOOR);
 		
-		Renderer.drawString("default_small", "CRT", 
+		Renderer.drawString("default_small", "DMG", 
 				FightStage.CENTRAL_AXIS + sign*98 - 18, FightStage.FLOOR + 9);
-		Renderer.drawString("number", crit, 
+		Renderer.drawString("number", dmg, 
 				FightStage.CENTRAL_AXIS + sign*98, FightStage.FLOOR + 9);
 		
-		Renderer.drawString("default_small", "DMG", 
+		Renderer.drawString("default_small", "CRT", 
 				FightStage.CENTRAL_AXIS + sign*98 - 18, FightStage.FLOOR + 18);
-		Renderer.drawString("number", dmg, 
+		Renderer.drawString("number", crit, 
 				FightStage.CENTRAL_AXIS + sign*98, FightStage.FLOOR + 18);
 		
 		//Name
