@@ -25,6 +25,7 @@ public class Projectile extends Entity {
 		}
 		this.destroyOnHit = destroyOnHit;
 		this.name = name;
+		renderDepth = FightStage.EFFECT_DEPTH;
 	}
 	
 	public void onStep(){

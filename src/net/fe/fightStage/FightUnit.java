@@ -3,6 +3,7 @@ package net.fe.fightStage;
 import net.fe.fightStage.anim.AnimationArgs;
 import net.fe.fightStage.anim.AttackAnimation;
 import net.fe.fightStage.anim.DodgeAnimation;
+import net.fe.fightStage.anim.HitEffect;
 import net.fe.fightStage.anim.NormalAttack;
 import net.fe.unit.Unit;
 
@@ -19,6 +20,7 @@ public class FightUnit extends Entity {
 	private int distanceFromCenter;
 	public boolean dying;
 	private float alpha;
+	private AnimationArgs animArgs;
 	
 	public FightUnit(AnimationArgs animArgs, FightStage s){
 		super(0,0);
@@ -26,6 +28,7 @@ public class FightUnit extends Entity {
 		distanceFromCenter = FightStage.rangeToHeadDistance(animArgs.range);
 		dying = false;
 		alpha = 1;
+		this.animArgs = animArgs;
 		StringBuilder filename = new StringBuilder();
 		filename.append(animArgs.userclass);
 		filename.append("_");
@@ -64,6 +67,14 @@ public class FightUnit extends Entity {
 		} else {
 			sprite.renderTransformed(FightStage.CENTRAL_AXIS + distanceFromCenter,
 					FightStage.FLOOR, renderDepth, t);
+		}
+	}
+	
+	public HitEffect getHitEffect(boolean crit){
+		if(animArgs.unit.getWeapon().isMagic()){
+			return new HitEffect(animArgs.wepAnimName, !left);
+		} else {
+			return new HitEffect(crit?"critical":"attack", !left);
 		}
 	}
 

@@ -1,33 +1,17 @@
 package net.fe.fightStage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
-
 import net.fe.RNG;
-import net.fe.fightStage.anim.AnimationArgs;
-import net.fe.fightStage.anim.AttackAnimation;
-import net.fe.fightStage.anim.DodgeAnimation;
-import net.fe.fightStage.anim.HitEffect;
-import net.fe.fightStage.anim.Message;
-import net.fe.fightStage.anim.MissEffect;
+import net.fe.fightStage.anim.*;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
 import net.fe.unit.Weapon;
 import chu.engine.Entity;
 import chu.engine.Game;
-import chu.engine.Resources;
 import chu.engine.Stage;
-import chu.engine.anim.Animation;
 import chu.engine.anim.Renderer;
-import chu.engine.anim.Transform;
 
 public class FightStage extends Stage {
 	private Unit left, right;
@@ -41,15 +25,22 @@ public class FightStage extends Stage {
 	private float shakeX;
 	private float shakeY;
 	
-	public static Color BORDER_DARK = new Color(0x483828);
-	public static Color BORDER_LIGHT = new Color(0xf8f0c8);
-	public static Color NEUTRAL = new Color(0xb0a878);
-
 	// Config
 	public static final float SHAKE_INTERVAL = 0.05f;
 	
 	public static final int CENTRAL_AXIS = 120;
 	public static final int FLOOR = 104;
+	
+	public static Color BORDER_DARK = new Color(0x483828);
+	public static Color BORDER_LIGHT = new Color(0xf8f0c8);
+	public static Color NEUTRAL = new Color(0xb0a878);
+	
+	public static final float HP_DEPTH = 0;
+	public static final float HUD_DEPTH = 0.1f;
+	public static final float EFFECT_DEPTH = 0.2f;
+	public static final float UNIT_DEPTH = 0.5f;
+	public static final float PLATFORM_DEPTH = 0.7f;
+	public static final float BG_DEPTH = 1;
 
 	public static final int START = 0;
 	public static final int ATTACKING = 1;
@@ -76,6 +67,10 @@ public class FightStage extends Stage {
 		addEntity(fr);
 		addEntity(hp1);
 		addEntity(hp2);
+		addEntity(new Platform(u1.getTerrain(), true, range));
+		addEntity(new Platform(u1.getTerrain(), false, range));
+		addEntity(new HUD(u1, u2, this));
+		addEntity(new HUD(u2, u1, this));
 		System.out.println("Battle!\n" + left + "\n" + right + "\n");
 		System.out.println("Running calcuations:");
 		calculate(range);
@@ -266,7 +261,6 @@ public class FightStage extends Stage {
 		FightUnit a;
 		FightUnit d;
 		boolean crit = rec.animation.contains("Critical");
-		String hitEffect = "attack";		
 		Healthbar dhp;
 		if (rec.attacker == right) {
 			a = fr;
@@ -280,14 +274,6 @@ public class FightStage extends Stage {
 			dhp = hp1;
 		} else {
 			dhp = hp2;
-		}
-		
-		if(crit){
-			hitEffect = "crit";
-		} 
-		
-		if(rec.attacker.getWeapon().isMagic()){
-			hitEffect = rec.attacker.getWeapon().name;
 		}
 		
 		if (currentEvent == START) {
@@ -318,9 +304,12 @@ public class FightStage extends Stage {
 				d.sprite.setFrame(0);
 				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
 				addEntity(new MissEffect(rec.defender == left));
+				if(rec.attacker.getWeapon().isMagic()){
+					addEntity(a.getHitEffect(crit));
+				}
 			} else {
 				dhp.setHp(dhp.getHp() - rec.damage);
-				addEntity(new HitEffect(hitEffect, rec.attacker == left));
+				addEntity(a.getHitEffect(crit));
 				if(crit) {
 					startShaking(1.2f);
 				} else {
@@ -334,12 +323,12 @@ public class FightStage extends Stage {
 					currentEvent = HURTED;
 				}
 			}
-			if (dhp.getHp() == 0) {
-				d.dying = true;
-			}
 		} else if (currentEvent == HURTING) {
 			// let health bar animation play
 		} else if (currentEvent == HURTED) {
+			if (dhp.getHp() == 0) {
+				d.dying = true;
+			}
 			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
 			currentEvent = RETURNING;
 		} else if (currentEvent == RETURNING) {
@@ -394,81 +383,6 @@ public class FightStage extends Stage {
 		Renderer.scale(2, 2);
 //		Renderer.scale(1, 1);
 		
-		List<Unit> units = Arrays.asList(left, right);
-		for(int i = 0; i < units.size(); i++){
-			int sign = i*2-1;
-			
-			Unit u1 = units.get(i);
-			Unit u2 = units.get((i + 1) %2);
-			
-			//Main status
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR + 14, 
-					CENTRAL_AXIS, FLOOR + 56, 0, BORDER_DARK);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 15, 
-					CENTRAL_AXIS + sign, FLOOR + 55, 0, BORDER_LIGHT);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 16, 
-					CENTRAL_AXIS + sign*2, FLOOR + 54, 0, 
-					u1.getPartyColor().darker(0.5f));
-			
-			//Weapon
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR + 15, 
-					CENTRAL_AXIS + sign, FLOOR+31, 0, BORDER_LIGHT);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 16, 
-					CENTRAL_AXIS + sign*2, FLOOR+30, 0, NEUTRAL);
-			Renderer.drawString("default_small" , u1.getWeapon().name,
-					CENTRAL_AXIS + sign*39 - 20, FLOOR + 17);
-			
-			//Attack Stats
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, FLOOR - 1,
-					CENTRAL_AXIS + sign*76, FLOOR + 32, 0, BORDER_DARK);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*119, FLOOR ,
-					CENTRAL_AXIS + sign*77, FLOOR + 31, 0, BORDER_LIGHT);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*118, FLOOR + 1,
-					CENTRAL_AXIS + sign*78, FLOOR + 30, 0, 
-					u1.getPartyColor());
-			
-			String hit, crit, dmg;
-			
-			if(!u1.getWeapon().range.contains(range)){
-				hit = "  -";
-				crit = "  -";
-				dmg = "  -";
-			} else {
-				hit = String.format("%3d", 
-						Math.min(100, Math.max(u1.hit()-u2.avoid(),0)));
-				crit = String.format("%3d", 
-						Math.min(100, Math.max(u1.crit()-u2.dodge(),0)));
-				dmg = String.format("%3d", 
-						Math.min(100, Math.max(calculateBaseDamage(u1,u2),0)));
-			}
-			
-			Renderer.drawString("default_small", "HIT", 
-					CENTRAL_AXIS + sign*98 - 18, FLOOR);
-			Renderer.drawString("number", hit, 
-					CENTRAL_AXIS + sign*98, FLOOR);
-			
-			Renderer.drawString("default_small", "CRT", 
-					CENTRAL_AXIS + sign*98 - 18, FLOOR + 9);
-			Renderer.drawString("number", crit, 
-					CENTRAL_AXIS + sign*98, FLOOR + 9);
-			
-			Renderer.drawString("default_small", "DMG", 
-					CENTRAL_AXIS + sign*98 - 18, FLOOR + 18);
-			Renderer.drawString("number", dmg, 
-					CENTRAL_AXIS + sign*98, FLOOR + 18);
-			
-			//Name
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, 5, 
-					CENTRAL_AXIS + sign*63, 27, 0, BORDER_DARK);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, 6, 
-					CENTRAL_AXIS + sign*64, 26, 0, BORDER_LIGHT);
-			Renderer.drawRectangle(CENTRAL_AXIS + sign*120, 7, 
-					CENTRAL_AXIS + sign*65, 25, 0, 
-					u1.getPartyColor());
-			Renderer.drawString("default", units.get(i).name, 
-					CENTRAL_AXIS + sign*94 - 16, 9);
-		}
-		
 		super.render();
 		
 		//Undo shake translation
@@ -509,7 +423,7 @@ public class FightStage extends Stage {
 
 	public static int rangeToHeadDistance(int range) {
 		if (range == 1) {
-			return 40;
+			return 32;
 		}
 		return 0;
 	}

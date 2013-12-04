@@ -14,6 +14,9 @@ import org.newdawn.slick.util.ResourceLoader;
 import org.newdawn.slick.opengl.renderer.Renderer;
 
 public class Resources {
+	private static String[] searchFolders = 
+		{"battle_anim", "battle_anim/static", "gui"};
+	
 	
 	private static HashMap<String, Audio> audio;
 	private static HashMap<String, TextureData> textures;
@@ -66,14 +69,14 @@ public class Resources {
 							"res/battle_anim/eliwood_sword_dodge.png")),
 					60, 49, 2, 2, 39, 46, 0));
 			textures.put("gui_tickEmpty", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_gui/tickEmpty.png"))));
+					ResourceLoader.getResourceAsStream("res/gui/tickEmpty.png"))));
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_gui/tickFilled.png"))));
+					ResourceLoader.getResourceAsStream("res/gui/tickFilled.png"))));
 			textures.put("hit_effect_attack", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect.png")),
+					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_attack.png")),
 					240, 160, 9, 0, 0, -1, 3));
-			textures.put("hit_effect_crit", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_crit.png")),
+			textures.put("hit_effect_critical", new TextureData(TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_critical.png")),
 					240, 160, 9, 0, 0, -1, 3));
 			textures.put("miss", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/miss.png"))));
@@ -97,6 +100,20 @@ public class Resources {
 		if(t != null) {
 			return t;
 		} else {
+			//try to get it, in case we forgot
+			for(String loc: searchFolders){
+				System.out.println("Looking for " + string + " in " + loc);
+				try{
+					TextureData txt = new TextureData(TextureLoader.getTexture("PNG",
+							ResourceLoader.getResourceAsStream(
+								"res/" + loc + "/" + string + ".png"
+							)));
+					textures.put(string, txt);
+					return txt;
+				} catch (Exception e){
+					System.out.println("Didn't find it");
+				}
+			}
 			return textures.get("whoops");
 		}
 	}

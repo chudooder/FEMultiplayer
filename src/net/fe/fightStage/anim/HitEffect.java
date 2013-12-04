@@ -22,6 +22,8 @@ public class HitEffect extends Entity {
 			}
 		};
 		sprite.addAnimation("default", anim);
+		
+		renderDepth = FightStage.EFFECT_DEPTH;
 	}
 	
 	@Override

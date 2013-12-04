@@ -24,6 +24,8 @@ public class MissEffect extends Entity {
 		};
 		sprite.addAnimation("default", anim);
 		this.left = left;
+		
+		renderDepth = FightStage.EFFECT_DEPTH;
 	}
 	
 	@Override

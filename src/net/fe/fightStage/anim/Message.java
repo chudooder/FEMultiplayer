@@ -13,6 +13,7 @@ public class Message extends Entity{
 	private boolean extended;
 	private int vx;
 	private int x0;
+	private boolean left;
 	
 	public static final int MSG_TIME = 1;
 	public static final int WIDTH = 50;
@@ -26,6 +27,9 @@ public class Message extends Entity{
 		vx = left? 800: -800;
 		x = left? -WIDTH: FightStage.CENTRAL_AXIS*2;
 		x0 = (int) x;
+		this.left = left;
+		
+		renderDepth = FightStage.HUD_DEPTH;
 	}
 	
 	public void onStep(){
@@ -49,8 +53,12 @@ public class Message extends Entity{
 	
 	public void render(){
 		Renderer.addClip(FightStage.CENTRAL_AXIS-120, 0, 240, 160, true);
-		Renderer.drawRectangle(x, y, x+WIDTH, y + HEIGHT, 0, FightStage.NEUTRAL);
-		Renderer.drawString("default_small", message, x+5, y);
+		if(left){
+			Renderer.drawRectangle(x-10, y, x+WIDTH, y + HEIGHT, 0, FightStage.NEUTRAL);
+		} else {
+			Renderer.drawRectangle(x, y, x+WIDTH+10, y + HEIGHT, 0, FightStage.NEUTRAL);
+		}
+		Renderer.drawString("default_small", message, x+4, y);
 		Renderer.removeClip();
 	}
 }
