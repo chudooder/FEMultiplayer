@@ -104,7 +104,7 @@ public class FEMultiplayer extends Game{
 		blue.addUnit(eliwood);
 
 		Unit lute = new Unit("Lute", Class.createClass("Sage"), luteBases, luteGrowths);
-		lute.addToInventory(WeaponFactory.getWeapon("Recover"));
+		lute.addToInventory(WeaponFactory.getWeapon("Elfire"));
 		lute.equip(0);
 		red.addUnit(lute);
 

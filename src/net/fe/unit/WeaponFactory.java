@@ -29,10 +29,17 @@ public class WeaponFactory {
 			
 			w.type = Weapon.Type.valueOf(args[1].toUpperCase());
 			
-			String[] rangeArgs = args[2].split(",");
+			
 			List<Integer> range = new ArrayList<Integer>();
-			for(int i = 0; i < rangeArgs.length; i++){
-				range.add(Integer.parseInt(rangeArgs[i]));
+			String[] rangeArgs = args[2].split("-");
+			if(rangeArgs.length == 1){
+				range.add(Integer.parseInt(rangeArgs[0]));
+			} else {
+				int min = Integer.parseInt(rangeArgs[0]);
+				int max = Integer.parseInt(rangeArgs[1]);
+				for(int i = min; i <= max; i++){
+					range.add(i);
+				}
 			}
 			w.range = range;
 			
