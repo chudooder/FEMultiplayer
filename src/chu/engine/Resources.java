@@ -78,18 +78,28 @@ public class Resources {
 					74, 60, 60, 8, 30, 43, 8, 38));
 			
 			
+			textures.put("hit_effect_attack", new TextureData(TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_attack.png")),
+					240, 160, 9, 3, 0, 0, -1));
+			textures.put("hit_effect_critical", new TextureData(TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_critical.png")),
+					240, 160, 9, 3, 0, 0, -1));
+			textures.put("hit_effect_elfire", new TextureData(TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_elfire.png")),
+					240, 160, 15, 4, 0, 0, -1));
+			textures.put("miss", new TextureData(TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/battle_anim/miss.png"))));
+			
+			textures.put("magic_effect_elfire", new TextureData(TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/battle_anim/magic_effect_elfire.png")),
+					240, 160, 12, 4, 0, 0, -1));
+			
+			
 			textures.put("gui_tickEmpty", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/gui/tickEmpty.png"))));
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/gui/tickFilled.png"))));
-			textures.put("hit_effect_attack", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_attack.png")),
-					240, 160, 9, 0, 0, -1, 3));
-			textures.put("hit_effect_critical", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_critical.png")),
-					240, 160, 9, 0, 0, -1, 3));
-			textures.put("miss", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/miss.png"))));
+			
 			// Fonts
 			fonts.put("default", createFont("Arial Narrow", Font.PLAIN, 11));
 			fonts.put("default_small", createFont("Arial Narrow", Font.PLAIN, 9));
@@ -111,8 +121,8 @@ public class Resources {
 			return t;
 		} else {
 			//try to get it, in case we forgot
+			System.out.println("Warn:" + string + " not explicitly defined");
 			for(String loc: searchFolders){
-				System.out.println("Looking for " + string + " in " + loc);
 				try{
 					TextureData txt = new TextureData(TextureLoader.getTexture("PNG",
 							ResourceLoader.getResourceAsStream(
@@ -121,7 +131,7 @@ public class Resources {
 					textures.put(string, txt);
 					return txt;
 				} catch (Exception e){
-					System.out.println("Didn't find it");
+					
 				}
 			}
 			return textures.get("whoops");

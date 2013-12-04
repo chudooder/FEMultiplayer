@@ -419,7 +419,7 @@ public class FightStage extends Stage {
 		if(event == HURTED || event == HURTING || event == currentEvent + 1){
 			currentEvent = event;
 		} else {
-			throw new IllegalArgumentException("Invalid state transit");
+			throw new IllegalArgumentException("Invalid state transit: " + currentEvent + " to " + event);
 		}
 		
 	}

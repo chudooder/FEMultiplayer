@@ -38,12 +38,14 @@ public class FightUnit extends Entity {
 		
 		DodgeAnimation dodge = new DodgeAnimation(Resources.getTextureData(base+"dodge"));
 		sprite.addAnimation("DODGE", dodge);
-		AttackAnimation attack = new NormalAttack(
+		AttackAnimation attack = AttackAnimation.createAnimation(
 				Resources.getTextureData(base+"attack"), s, animArgs);
 		sprite.addAnimation("ATTACK", attack);
-		AttackAnimation crit = new NormalAttack(
+		AttackAnimation crit = AttackAnimation.createAnimation(
 				Resources.getTextureData(base+"critical"), s, animArgs);
 		sprite.addAnimation("CRIT", crit);
+		
+		renderDepth = FightStage.UNIT_DEPTH;
 	}
 	
 	@Override
@@ -72,7 +74,7 @@ public class FightUnit extends Entity {
 	
 	public HitEffect getHitEffect(boolean crit){
 		if(animArgs.unit.getWeapon().isMagic()){
-			return new HitEffect(animArgs.wepAnimName, left);
+			return new HitEffect(animArgs.unit.getWeapon().name.toLowerCase(), left);
 		} else {
 			return new HitEffect(crit?"critical":"attack", left);
 		}

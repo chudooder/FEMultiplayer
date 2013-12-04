@@ -6,18 +6,25 @@ import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.Entity;
 import chu.engine.Resources;
+import chu.engine.TextureData;
 import chu.engine.anim.Animation;
+import chu.engine.anim.Transform;
 
 public class MagicEffect extends Entity {
-
+	private AnimationArgs args;
 	public MagicEffect(final AnimationArgs args) {
 		super(0, 0);
+		this.args = args;
 		//TODO Get the magic animation
-		Texture tex = getHitTexture(args.unit.getWeapon().name.toLowerCase());
-		Animation anim = new Animation(tex, 0, 0, 0, 0, 0){
+		TextureData data = getTexture(args.unit.getWeapon().name.toLowerCase());
+		Animation anim = new Animation(data.texture, data.frameWidth, data.frameHeight, 
+				data.frames, data.columns, data.offsetX, data.offsetY, 20){
 			@Override
 			public void done() {
+				setFrame(0);
+				setSpeed(0);
 				((FightStage) stage).setCurrentEvent(FightStage.ATTACKED);
+				destroy();
 			}
 		};
 		sprite.addAnimation("default", anim);
@@ -25,11 +32,16 @@ public class MagicEffect extends Entity {
 	}
 	
 	public void render(){
-		//TODO Implement
+		Transform t = new Transform();
+		if (args.left) {
+			t.flipHorizontal();
+		}
+		sprite.renderTransformed(FightStage.CENTRAL_AXIS - 120,
+				FightStage.FLOOR - 104, 0, t);
 	}
 	
-	public static Texture getHitTexture(String name){
-		return Resources.getTexture("magic_effect_" + name);
+	public static TextureData getTexture(String name){
+		return Resources.getTextureData("magic_effect_" + name);
 	}
 
 }
