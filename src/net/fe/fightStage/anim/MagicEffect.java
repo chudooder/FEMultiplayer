@@ -13,18 +13,11 @@ public class MagicEffect extends Entity {
 	public MagicEffect(final AnimationArgs args) {
 		super(0, 0);
 		//TODO Get the magic animation
-		Texture tex = getHitTexture(args.unit.getWeapon().name);
+		Texture tex = getHitTexture(args.unit.getWeapon().name.toLowerCase());
 		Animation anim = new Animation(tex, 0, 0, 0, 0, 0){
 			@Override
 			public void done() {
-				//TODO Add projectile coords
-				stage.addEntity(new Projectile(
-						args.unit.getWeapon().name,
-						FightStage.FLOOR - 50f, 
-						(FightStage) stage,
-						args.left,
-						true));
-				destroy();
+				((FightStage) stage).setCurrentEvent(FightStage.ATTACKED);
 			}
 		};
 		sprite.addAnimation("default", anim);

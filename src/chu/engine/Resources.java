@@ -68,6 +68,16 @@ public class Resources {
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/eliwood_sword_dodge.png")),
 					60, 49, 2, 2, 39, 46, 0));
+			textures.put("sage_magic_attack", new TextureData(
+					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
+							"res/battle_anim/sage_magic_attack.png")),
+					74, 60, 38, 8, 30, 43, 8, 16));
+			textures.put("sage_magic_critical", new TextureData(
+					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
+							"res/battle_anim/sage_magic_attack.png")),
+					74, 60, 60, 8, 30, 43, 8, 38));
+			
+			
 			textures.put("gui_tickEmpty", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/gui/tickEmpty.png"))));
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",

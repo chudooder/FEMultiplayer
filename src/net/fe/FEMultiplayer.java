@@ -51,7 +51,7 @@ public class FEMultiplayer extends Game{
 		eliwoodBases.put("Str", 5);
 		eliwoodBases.put("Mag", 5);
 		eliwoodBases.put("Spd", 7);		//orig 7
-		eliwoodBases.put("Skl", 99);
+		eliwoodBases.put("Skl", 7);
 		eliwoodBases.put("Lck", 7);
 		eliwoodBases.put("Def", 5);
 		eliwoodBases.put("Res", 0);
@@ -67,29 +67,30 @@ public class FEMultiplayer extends Game{
 		eliwoodGrowths.put("Def", 30);
 		eliwoodGrowths.put("Res", 35);
 		eliwoodGrowths.put("Lck", 45);
+		
 
-		HashMap<String, Integer> royBases = new HashMap<String, Integer>();
-		royBases.put("Lvl", 1);
-		royBases.put("HP", 18);
-		royBases.put("Str", 5);
-		royBases.put("Mag", 5);
-		royBases.put("Skl", 5);
-		royBases.put("Spd", 7);		//orig 7
-		royBases.put("Lck", 7);
-		royBases.put("Def", 5);
-		royBases.put("Res", 0);
-		royBases.put("Con", 8);
-		royBases.put("Mov", 6);
+		HashMap<String, Integer> luteBases = new HashMap<String, Integer>();
+		luteBases.put("Lvl", 1);
+		luteBases.put("HP", 18);
+		luteBases.put("Str", 5);
+		luteBases.put("Mag", 5);
+		luteBases.put("Skl", 5);
+		luteBases.put("Spd", 7);		//orig 7
+		luteBases.put("Lck", 7);
+		luteBases.put("Def", 5);
+		luteBases.put("Res", 0);
+		luteBases.put("Con", 8);
+		luteBases.put("Mov", 6);
 
-		HashMap<String, Integer> royGrowths = new HashMap<String, Integer>();
-		royGrowths.put("HP", 85);
-		royGrowths.put("Str", 45);
-		royGrowths.put("Mag", 0);
-		royGrowths.put("Skl", 55);
-		royGrowths.put("Spd", 40);
-		royGrowths.put("Def", 30);
-		royGrowths.put("Res", 35);
-		royGrowths.put("Lck", 0);
+		HashMap<String, Integer> luteGrowths = new HashMap<String, Integer>();
+		luteGrowths.put("HP", 85);
+		luteGrowths.put("Str", 0);
+		luteGrowths.put("Mag", 60);
+		luteGrowths.put("Skl", 55);
+		luteGrowths.put("Spd", 40);
+		luteGrowths.put("Def", 30);
+		luteGrowths.put("Res", 35);
+		luteGrowths.put("Lck", 0);
 		
 		Party blue = new Party();
 		blue.setColor(Party.TEAM_BLUE);
@@ -102,23 +103,23 @@ public class FEMultiplayer extends Game{
 		eliwood.equip(0);
 		blue.addUnit(eliwood);
 
-		Unit roy = new Unit("Roy", Class.createClass("Roy"), royBases, royGrowths);
-		roy.addToInventory(WeaponFactory.getWeapon("Tree Branch"));
-		roy.equip(0);
-		red.addUnit(roy);
+		Unit lute = new Unit("Lute", Class.createClass("Sage"), luteBases, luteGrowths);
+		lute.addToInventory(WeaponFactory.getWeapon("Elfire"));
+		lute.equip(0);
+		red.addUnit(lute);
 
 		eliwood.setLevel(40);
-		roy.setLevel(40);
+		lute.setLevel(40);
 		
 		
 		eliwood.fillHp();
-		roy.fillHp();
+		lute.fillHp();
 		
 		OverworldStage map = new OverworldStage(new Grid(10,10, Terrain.PLAIN));
 		map.addUnit(eliwood, 0, 0);
-		map.addUnit(roy, 0, 1);
+		map.addUnit(lute, 0, 1);
 		map.processAddStack();
-		currentStage = new FightStage(eliwood, roy);
+		currentStage = new FightStage(eliwood, lute);
 		serverMessages = new ArrayList<Message>();
 	}
 

@@ -21,7 +21,7 @@ public class AnimationArgs {
 		this.range = range;
 		unit = u;
 		if(u.getWeapon().isMagic()){
-			wepAnimName = u.getWeapon().name.toLowerCase();
+			wepAnimName = "magic";
 			classification = "magic";
 		} else {
 			wepAnimName = u.getWeapon().type.toString().toLowerCase();
