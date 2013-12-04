@@ -96,6 +96,10 @@ public class Resources {
 					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
 							"res/battle_anim/sage_staff_attack.png")), 
 					34, 41, 5, 5, 37, 21, 0, 2));
+			textures.put("sage_staff_dodge", new TextureData(
+					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
+							"res/battle_anim/sage_staff_dodge.png")),
+					36, 35, 2, 2, 19, 31, 0));
 			
 			
 			textures.put("hit_effect_attack", new TextureData(TextureLoader.getTexture("PNG",
@@ -109,7 +113,6 @@ public class Resources {
 					240, 160, 15, 4, 0, 0, -1));
 			textures.put("miss", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/miss.png"))));
-			
 			textures.put("magic_effect_elfire", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/magic_effect_elfire.png")),
 					240, 160, 12, 4, 0, 0, -1));
