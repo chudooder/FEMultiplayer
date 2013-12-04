@@ -12,13 +12,15 @@ import chu.engine.anim.Transform;
 
 public class MagicEffect extends Entity {
 	private AnimationArgs args;
+
 	public MagicEffect(final AnimationArgs args) {
 		super(0, 0);
 		this.args = args;
-		//TODO Get the magic animation
+		// TODO Get the magic animation
 		TextureData data = getTexture(args.unit.getWeapon().name.toLowerCase());
-		Animation anim = new Animation(data.texture, data.frameWidth, data.frameHeight, 
-				data.frames, data.columns, data.offsetX, data.offsetY, 20){
+		Animation anim = new Animation(data.texture, data.frameWidth,
+				data.frameHeight, data.frames, data.columns, data.offsetX,
+				data.offsetY, 20) {
 			@Override
 			public void done() {
 				setFrame(0);
@@ -30,17 +32,21 @@ public class MagicEffect extends Entity {
 		sprite.addAnimation("default", anim);
 		renderDepth = FightStage.EFFECT_DEPTH;
 	}
-	
+
 	public void render(){
 		Transform t = new Transform();
+		int offset = FightStage.rangeToHeadDistance(1) - 
+				FightStage.rangeToHeadDistance(args.range);
 		if (args.left) {
 			t.flipHorizontal();
+			offset *=-1;
 		}
-		sprite.renderTransformed(FightStage.CENTRAL_AXIS - 120,
+		sprite.renderTransformed(FightStage.CENTRAL_AXIS - 120 - offset,				
 				FightStage.FLOOR - 104, 0, t);
+		
 	}
-	
-	public static TextureData getTexture(String name){
+
+	public static TextureData getTexture(String name) {
 		return Resources.getTextureData("magic_effect_" + name);
 	}
 

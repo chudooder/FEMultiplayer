@@ -368,6 +368,7 @@ public class FightStage extends Stage {
 	}
 	
 	public void render() {
+		Renderer.addClip(0, 0, 480, 320, true);
 		Renderer.scale(2, 2);
 		Renderer.render(bg, 0, 0, 1, 1, 0, 0, 240, 160, 1);
 		if(shakeTimer > 0) {
@@ -394,6 +395,7 @@ public class FightStage extends Stage {
 		
 		//Undo shake translation
 		Renderer.popMatrix();
+		Renderer.removeClip();
 	}
 
 	@Override
@@ -432,7 +434,7 @@ public class FightStage extends Stage {
 		if (range == 1) {
 			return 32;
 		} else {
-			return 49;
+			return 54;
 		}
 	}
 	

@@ -33,10 +33,13 @@ public class HitEffect extends Entity {
 	@Override
 	public void render() {
 		Transform t = new Transform();
+		int offset = FightStage.rangeToHeadDistance(1) - 
+				((FightStage) stage).distanceToHead();
 		if (left) {
 			t.flipHorizontal();
+			offset*=-1;
 		}
-		sprite.renderTransformed(FightStage.CENTRAL_AXIS - 120,
+		sprite.renderTransformed(FightStage.CENTRAL_AXIS - 120 + offset,
 				FightStage.FLOOR - 104, 0, t);
 	}
 
