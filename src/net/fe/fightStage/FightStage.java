@@ -32,7 +32,6 @@ public class FightStage extends Stage {
 	private float shakeTimer;
 	private float shakeX;
 	private float shakeY;
-	private float scrollX;
 	
 	// Config
 	public static final float SHAKE_INTERVAL = 0.05f;
@@ -132,13 +131,6 @@ public class FightStage extends Stage {
 			currentEvent = ATTACKING;
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
-			if(range > 1) {
-				Animation anim = a.sprite.getCurrentAnimation();
-				int diff = ((AttackAnimation)anim).getNextHitFrame() - anim.getFrame();
-				if(diff > 0 && diff < 2) {
-					scrollX += (rec.defender==left?300:-300)*Game.getDeltaSeconds();
-				}
-			}
 		} else if (currentEvent == ATTACKED) {
 			if (rec.animation.equals("Miss")) {
 				System.out.println("Miss! " + rec.defender.name
@@ -186,17 +178,9 @@ public class FightStage extends Stage {
 			currentEvent = RETURNING;
 		} else if (currentEvent == RETURNING) {
 			// Let animation play
-			if(range > 1) {
-				Animation anim = a.sprite.getCurrentAnimation();
-				int diff = anim.getLength() - anim.getFrame();
-				if(diff > 0 && diff < 2) {
-					scrollX -= (rec.defender==left?300:-300)*Game.getDeltaSeconds();
-				}
-			}
 		} else if (currentEvent == DONE) {
 			calc.getAttackQueue().remove(0);
 			currentEvent = START;
-			scrollX = 0;
 		}
 	}
 	
@@ -285,10 +269,6 @@ public class FightStage extends Stage {
 	
 	public int getRange(){
 		return range;
-	}
-	
-	public float getScrollX() {
-		return scrollX;
 	}
 	
 	public boolean isLeft(Unit u){
