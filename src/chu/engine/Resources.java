@@ -123,9 +123,12 @@ public class Resources {
 					ResourceLoader.getResourceAsStream("res/gui/tickEmpty.png"))));
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/gui/tickFilled.png"))));
+			textures.put("gui_weaponIcon", new TextureData(TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/weaponIcon.png"))));
 			
 			// Fonts
 			fonts.put("default", createFont("Arial Narrow", Font.PLAIN, 11));
+			fonts.put("default_med", createFont("Arial Narrow", Font.PLAIN, 10));
 			fonts.put("default_small", createFont("Arial Narrow", Font.PLAIN, 9));
 			fonts.put("number", createFont("Consolas", Font.BOLD, 10));
 		} catch (IOException e) {
