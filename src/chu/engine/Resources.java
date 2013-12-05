@@ -170,10 +170,12 @@ public class Resources {
 				String texName = in.nextLine();
 				char[] chars = in.nextLine().toCharArray();
 				int height = Integer.parseInt(in.nextLine());
+				int spacing = Integer.parseInt(in.nextLine());
 				char[] widths = in.nextLine().toCharArray();
 				
 				BitmapFont font = new BitmapFont(texName);
 				font.setHeight(height);
+				font.setSpacing(spacing);
 				int pos = 0;
 				for(int i=0; i<chars.length; i++) {
 					int width = Integer.parseInt(widths[i]+"");

@@ -10,6 +10,7 @@ import org.newdawn.slick.util.ResourceLoader;
 public class BitmapFont {
 	private Texture texture;
 	private int glyphHeight;
+	private int spacing;
 	private HashMap<Character, Glyph> glyphs;
 	
 	public BitmapFont(String texName) {
@@ -26,6 +27,10 @@ public class BitmapFont {
 		glyphHeight = height;
 	}
 	
+	public void setSpacing(int spacing) {
+		this.spacing = spacing;
+	}
+	
 	public void put(char c, int pos, int width) {
 		glyphs.put(c, new Glyph(pos, width));
 	}
@@ -38,6 +43,7 @@ public class BitmapFont {
 			float tx1 = (float)(g.pos+g.width)/texture.getImageWidth();
 			Renderer.render(texture, tx0, 0, tx1, 1, x, beginY, x+g.width, beginY+glyphHeight, depth);
 			x += g.width;
+			x += spacing;
 		}
 	}
 	
