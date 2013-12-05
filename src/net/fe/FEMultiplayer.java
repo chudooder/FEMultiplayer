@@ -45,28 +45,28 @@ public class FEMultiplayer extends Game{
 		/* OpenGL final setup */
 		glEnable(GL_LINE_SMOOTH);
 		// TODO: Beta testing stuff, delete later
-		HashMap<String, Integer> eliwoodBases = new HashMap<String, Integer>();
-		eliwoodBases.put("Lvl", 1);
-		eliwoodBases.put("HP", 18);
-		eliwoodBases.put("Str", 5);
-		eliwoodBases.put("Mag", 5);
-		eliwoodBases.put("Spd", 7);
-		eliwoodBases.put("Skl", 7);
-		eliwoodBases.put("Lck", 7);
-		eliwoodBases.put("Def", 5);
-		eliwoodBases.put("Res", 0);
-		eliwoodBases.put("Con", 9);
-		eliwoodBases.put("Mov", 7);
+		HashMap<String, Integer> lynBases = new HashMap<String, Integer>();
+		lynBases.put("Lvl", 1);
+		lynBases.put("HP", 18);
+		lynBases.put("Str", 5);
+		lynBases.put("Mag", 5);
+		lynBases.put("Spd", 200);
+		lynBases.put("Skl", 7);
+		lynBases.put("Lck", 7);
+		lynBases.put("Def", 5);
+		lynBases.put("Res", 0);
+		lynBases.put("Con", 9);
+		lynBases.put("Mov", 7);
 
-		HashMap<String, Integer> eliwoodGrowths = new HashMap<String, Integer>();
-		eliwoodGrowths.put("HP", 80);
-		eliwoodGrowths.put("Str", 45);
-		eliwoodGrowths.put("Mag", 0);
-		eliwoodGrowths.put("Skl", 40);
-		eliwoodGrowths.put("Spd", 40);
-		eliwoodGrowths.put("Def", 30);
-		eliwoodGrowths.put("Res", 35);
-		eliwoodGrowths.put("Lck", 45);
+		HashMap<String, Integer> lynGrowths = new HashMap<String, Integer>();
+		lynGrowths.put("HP", 80);
+		lynGrowths.put("Str", 45);
+		lynGrowths.put("Mag", 0);
+		lynGrowths.put("Skl", 40);
+		lynGrowths.put("Spd", 40);
+		lynGrowths.put("Def", 30);
+		lynGrowths.put("Res", 35);
+		lynGrowths.put("Lck", 45);
 		
 
 		HashMap<String, Integer> luteBases = new HashMap<String, Integer>();
@@ -74,7 +74,7 @@ public class FEMultiplayer extends Game{
 		luteBases.put("HP", 18);
 		luteBases.put("Str", 5);
 		luteBases.put("Mag", 5);
-		luteBases.put("Skl", 200);
+		luteBases.put("Skl", 7);
 		luteBases.put("Spd", 7);
 		luteBases.put("Lck", 7);
 		luteBases.put("Def", 5);
@@ -97,14 +97,14 @@ public class FEMultiplayer extends Game{
 		Party red = new Party();
 		red.setColor(Party.TEAM_RED);
 
-		Unit eliwood = new Unit("Eliwood", Class.createClass("Eliwood"), eliwoodBases,
-				eliwoodGrowths);
-		eliwood.addToInventory(WeaponFactory.getWeapon("Durandal"));
+		Unit eliwood = new Unit("Lyn", Class.createClass("Lyn"), lynBases,
+				lynGrowths);
+		eliwood.addToInventory(WeaponFactory.getWeapon("Steel Sword"));
 		eliwood.equip(0);
 		blue.addUnit(eliwood);
 
-		Unit lute = new Unit("Lute", Class.createClass("Sage"), luteBases, luteGrowths);
-		lute.addToInventory(WeaponFactory.getWeapon("Elfire"));
+		Unit lute = new Unit("Eliwood", Class.createClass("Eliwood"), luteBases, luteGrowths);
+		lute.addToInventory(WeaponFactory.getWeapon("Durandal"));
 		lute.equip(0);
 		red.addUnit(lute);
 

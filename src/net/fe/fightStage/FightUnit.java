@@ -60,7 +60,8 @@ public class FightUnit extends Entity {
 	@Override
 	public void render() {
 		Transform t = new Transform();
-		t.setColor(new Color(255, 255, 255, alpha));
+		if(dying)
+			t.setColor(new Color(100, 0, 0, alpha));
 //		int y1 = FightStage.FLOOR - sprite.getCurrentAnimation().getOffsetY();
 		if(left) {
 			t.flipHorizontal();

@@ -118,7 +118,8 @@ public class FightStage extends Stage {
 		FightUnit d = rec.attacker == right? leftFighter: rightFighter;
 		Healthbar dhp = rec.defender == left? leftHP: rightHP;
 		boolean crit = rec.animation.contains("Critical");		
-		
+		a.renderDepth = FightStage.UNIT_DEPTH;
+		d.renderDepth = FightStage.UNIT_DEPTH+0.01f;
 		if (currentEvent == START) {
 			System.out.println("\n" + rec.attacker.name + "'s turn!"); //Debug
 			ArrayList<String> messages = getMessages(rec.animation, "(a)");
