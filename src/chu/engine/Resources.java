@@ -117,6 +117,9 @@ public class Resources {
 			textures.put("magic_effect_elfire", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/magic_effect_elfire.png")),
 					240, 160, 12, 4, 0, 0, -1));
+			textures.put("bg_effect_elfire", new TextureData(TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/battle_anim/bg_effect_elfire.png")),
+					1, 1, 32, 16, 0, 0, -1));
 			
 			
 			textures.put("gui_tickEmpty", new TextureData(TextureLoader.getTexture("PNG",

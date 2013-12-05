@@ -117,7 +117,7 @@ public class FEMultiplayer extends Game{
 		
 		OverworldStage map = new OverworldStage(new Grid(10,10, Terrain.PLAIN));
 		map.addUnit(eliwood, 0, 0);
-		map.addUnit(lute, 1, 1);
+		map.addUnit(lute, 1, 0);
 		map.processAddStack();
 		currentStage = new FightStage(eliwood, lute);
 		serverMessages = new ArrayList<Message>();

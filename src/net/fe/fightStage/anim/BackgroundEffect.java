@@ -29,6 +29,8 @@ public class BackgroundEffect extends Entity {
 		if(left){
 			t.flipHorizontal();
 		}
+		if(sprite.getCurrentAnimation().getHeight()==1)
+			t.setScale(240, 160);
 		sprite.renderTransformed(FightStage.CENTRAL_AXIS - 120,
 				FightStage.FLOOR - 104, 0, t);
 	}

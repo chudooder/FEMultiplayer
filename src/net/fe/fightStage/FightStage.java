@@ -151,7 +151,7 @@ public class FightStage extends Stage {
 				
 				dhp.setHp(dhp.getHp() - rec.damage);
 				addEntity(a.getHitEffect(crit));
-				startShaking(crit?1.2f:.5f);
+				startShaking(crit?1.5f:.7f);
 				
 				
 				if(rec.damage != 0) {
@@ -207,12 +207,12 @@ public class FightStage extends Stage {
 	
 	public void render() {
 		Renderer.pushMatrix();
-		Renderer.scale(1, 1);
+		Renderer.scale(2, 2);
 		Renderer.render(bg, 0, 0, 1, 1, 0, 0, 240, 160, 1);
 		if(shakeTimer > 0) {
 			shakeTimer -= Game.getDeltaSeconds();
 			if(prevShakeTimer - shakeTimer > SHAKE_INTERVAL) {
-				float factor = Math.min(shakeTimer, 1.0f);
+				float factor = Math.min(shakeTimer*1.2f, 1.0f);
 				shakeX *= -factor;
 				shakeY *= -factor;
 				prevShakeTimer = shakeTimer;
@@ -247,7 +247,7 @@ public class FightStage extends Stage {
 	private void startShaking(float time) {
 		shakeTimer = time;
 		prevShakeTimer = time;
-		float dist = Math.min(shakeTimer*9, 7);
+		float dist = Math.min(shakeTimer*9, 5);
 		shakeX = -dist;
 		shakeY = -dist;
 	}
