@@ -1,8 +1,10 @@
 package chu.engine;
 
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Scanner;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
@@ -13,6 +15,8 @@ import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 import org.newdawn.slick.opengl.renderer.Renderer;
 
+import chu.engine.anim.BitmapFont;
+
 public class Resources {
 	private static String[] searchFolders = 
 		{"battle_anim", "battle_anim/static", "gui"};
@@ -21,6 +25,7 @@ public class Resources {
 	private static HashMap<String, Audio> audio;
 	private static HashMap<String, TextureData> textures;
 	private static HashMap<String, TrueTypeFont> fonts;
+	private static HashMap<String, BitmapFont> bitmapFonts;
 	
 	static {
 		audio = new HashMap<String, Audio>();
@@ -38,6 +43,7 @@ public class Resources {
 				return super.put(string, data);
 			}
 		};
+		bitmapFonts = new HashMap<String, BitmapFont>();
 		try {
 			// Textures
 			textures.put("whoops", new TextureData(
@@ -131,9 +137,13 @@ public class Resources {
 			
 			// Fonts
 			fonts.put("default", createFont("Arial Narrow", Font.PLAIN, 11));
-			fonts.put("default_med", createFont("Arial Narrow", Font.PLAIN, 10));
+//			fonts.put("default_med", createFontFromFile("Fire Emblem", 16));
 			fonts.put("default_small", createFont("Arial Narrow", Font.PLAIN, 9));
 			fonts.put("number", createFont("Consolas", Font.BOLD, 10));
+			
+			//Load bitmap fonts
+			loadBitmapFonts();
+			
 		} catch (IOException e) {
 			int max = GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE);
 			System.out.println(max);
@@ -145,6 +155,37 @@ public class Resources {
 		return getTextureData(string).texture;
 	}
 	
+	public static BitmapFont getBitmapFont(String name) {
+		return bitmapFonts.get(name);
+	}
+	
+	private static void loadBitmapFonts() {
+		Scanner in = new Scanner(ResourceLoader.getResourceAsStream("res/fonts.txt"));
+		while(in.hasNextLine()) {
+			String line = in.nextLine();
+			if(line.startsWith("#"))
+				continue;
+			if(line.startsWith("define")) {
+				String name = line.split(":")[1];
+				String texName = in.nextLine();
+				char[] chars = in.nextLine().toCharArray();
+				int height = Integer.parseInt(in.nextLine());
+				char[] widths = in.nextLine().toCharArray();
+				
+				BitmapFont font = new BitmapFont(texName);
+				font.setHeight(height);
+				int pos = 0;
+				for(int i=0; i<chars.length; i++) {
+					int width = Integer.parseInt(widths[i]+"");
+					font.put(chars[i], pos, width);
+					pos += width;
+				}
+				bitmapFonts.put(name, font);
+				System.out.println(name+"(bitmap font) loaded");
+			}
+		}
+	}
+
 	public static TextureData getTextureData(String string) {
 		TextureData t = textures.get(string);
 		if(t != null) {
@@ -171,6 +212,23 @@ public class Resources {
 	public static TrueTypeFont createFont(String name, int type, int size) {
 		Font awtfont = new Font(name, type, size);
 		return new TrueTypeFont(awtfont, false);
+	}
+	
+	public static TrueTypeFont createFontFromFile(String name, int size) {
+		try {
+			Font awtfont = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("res/"+name+".ttf"));
+			awtfont = awtfont.deriveFont(Font.TRUETYPE_FONT, size);
+			TrueTypeFont ttf = new TrueTypeFont(awtfont, false);
+			return ttf;
+		} catch (FontFormatException e) {
+			System.err.println("Font "+name+" could not be created!");
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			System.err.println("Font "+name+" could not be found!");
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public static TrueTypeFont getFont(String fontName) {
