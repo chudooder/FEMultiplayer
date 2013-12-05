@@ -1,5 +1,6 @@
 package net.fe.fightStage.anim;
 
+import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.unit.Unit;
 import net.fe.unit.WeaponDisplay;
@@ -7,17 +8,28 @@ import chu.engine.Entity;
 import chu.engine.anim.Renderer;
 
 public class HUD extends Entity {
-	private Unit u1;
-	private Unit u2;
+	private Unit unit;
 	private int sign;
-	private FightStage stage;
+	private String hit,crit,dmg;
 
 	public HUD(Unit u1, Unit u2, FightStage stage) {
 		super(0, 0);
-		this.u1 = u1;
-		this.u2 = u2;
+		this.unit = u1;
 		sign = stage.isLeft(u1) ? -1 : 1;
 		this.stage = stage;
+		
+		if (!u1.getWeapon().range.contains(stage.getRange())) {
+			hit = "  -";
+			crit = "  -";
+			dmg = "  -";
+		} else {
+			hit = String.format("%3d",
+					Math.min(100, Math.max(u1.hit() - u2.avoid(), 0)));
+			crit = String.format("%3d",
+					Math.min(100, Math.max(u1.crit() - u2.dodge(), 0)));
+			dmg = String.format("%3d", Math.min(100,
+					Math.max(CombatCalculator.calculateBaseDamage(u1, u2), 0)));
+		}
 
 		renderDepth = FightStage.HUD_DEPTH;
 
@@ -35,7 +47,7 @@ public class HUD extends Entity {
 				FightStage.FLOOR + 55, 0, FightStage.BORDER_LIGHT);
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 118,
 				FightStage.FLOOR + 14, FightStage.CENTRAL_AXIS + sign * 2,
-				FightStage.FLOOR + 54, 0, u1.getPartyColor().darker(0.5f));
+				FightStage.FLOOR + 54, 0, unit.getPartyColor().darker(0.5f));
 
 		// Weapon
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 119,
@@ -56,22 +68,7 @@ public class HUD extends Entity {
 				FightStage.FLOOR + 31, 0, FightStage.BORDER_LIGHT);
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 118,
 				FightStage.FLOOR + 1, FightStage.CENTRAL_AXIS + sign * 78,
-				FightStage.FLOOR + 30, 0, u1.getPartyColor());
-
-		String hit, crit, dmg;
-
-		if (!u1.getWeapon().range.contains(stage.getRange())) {
-			hit = "  -";
-			crit = "  -";
-			dmg = "  -";
-		} else {
-			hit = String.format("%3d",
-					Math.min(100, Math.max(u1.hit() - u2.avoid(), 0)));
-			crit = String.format("%3d",
-					Math.min(100, Math.max(u1.crit() - u2.dodge(), 0)));
-			dmg = String.format("%3d", Math.min(100,
-					Math.max(FightStage.calculateBaseDamage(u1, u2), 0)));
-		}
+				FightStage.FLOOR + 30, 0, unit.getPartyColor());
 
 		Renderer.drawString("default_small", "HIT", FightStage.CENTRAL_AXIS
 				+ sign * 98 - 18, FightStage.FLOOR);
@@ -97,8 +94,8 @@ public class HUD extends Entity {
 				FightStage.FLOOR - 78, 0, FightStage.BORDER_LIGHT);
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 120,
 				FightStage.FLOOR - 97, FightStage.CENTRAL_AXIS + sign * 65,
-				FightStage.FLOOR - 79, 0, u1.getPartyColor());
-		Renderer.drawString("default", u1.name, FightStage.CENTRAL_AXIS + sign
+				FightStage.FLOOR - 79, 0, unit.getPartyColor());
+		Renderer.drawString("default", unit.name, FightStage.CENTRAL_AXIS + sign
 				* 94 - 16, 9);
 	}
 }

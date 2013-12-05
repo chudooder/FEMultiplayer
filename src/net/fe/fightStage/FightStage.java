@@ -19,12 +19,14 @@ import chu.engine.anim.Renderer;
 
 public class FightStage extends Stage {
 	private Unit left, right;
-	private FightUnit fl, fr;
-	private Healthbar hp1, hp2;
-	private Texture bg;
-	private ArrayList<AttackRecord> attackQueue;
-	private int currentEvent;
+	private FightUnit leftFighter, rightFighter;
+	private Healthbar leftHP, rightHP;
 	private int range;
+	
+	private CombatCalculator calc;
+	
+	private Texture bg;
+	private int currentEvent;
 	private float prevShakeTimer;
 	private float shakeTimer;
 	private float shakeX;
@@ -61,17 +63,16 @@ public class FightStage extends Stage {
 		shakeX = 0;
 		shakeY = 0;
 		range = Grid.getDistance(u1, u2);
-		attackQueue = new ArrayList<AttackRecord>();
 		left = u1;
 		right = u2;
-		fl = new FightUnit(new AnimationArgs(left, true, range), this);
-		fr = new FightUnit(new AnimationArgs(right, false, range), this);
-		hp1 = new Healthbar(left, true);
-		hp2 = new Healthbar(right, false);
-		addEntity(fl);
-		addEntity(fr);
-		addEntity(hp1);
-		addEntity(hp2);
+		leftFighter = new FightUnit(new AnimationArgs(left, true, range), this);
+		rightFighter = new FightUnit(new AnimationArgs(right, false, range), this);
+		leftHP = new Healthbar(left, true);
+		rightHP = new Healthbar(right, false);
+		addEntity(leftFighter);
+		addEntity(rightFighter);
+		addEntity(leftHP);
+		addEntity(rightHP);
 		addEntity(new Platform(u1.getTerrain(), true, range));
 		addEntity(new Platform(u1.getTerrain(), false, range));
 		addEntity(new HUD(u1, u2, this));
@@ -80,161 +81,8 @@ public class FightStage extends Stage {
 		
 		System.out.println("Battle!\n" + left + "\n" + right + "\n");
 		System.out.println("Running calcuations:");
-		calculate(range);
-	}
-
-	public void calculate(int range) {
-		// Determine turn order
-		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
-		if (shouldAttack(left,right,range,true))
-			attackOrder.add(true);
-		if (shouldAttack(right,left,range,false))
-			attackOrder.add(false);
-		if (left.get("Spd") >= right.get("Spd") + 4 
-				&& shouldAttack(left,right,range,false)) {
-			attackOrder.add(true);
-		}
-		if (right.get("Spd") >= left.get("Spd") + 4
-				&& shouldAttack(right,left,range,false)) {
-			attackOrder.add(false);
-		}
-
-		for (Boolean i : attackOrder) {
-			attack(i, "None");
-		}
-	}
-	
-	public static boolean shouldAttack(Unit a, Unit d, int range, boolean first){
-		if(a.getWeapon() == null) return false;
-		if(!a.getWeapon().range.contains(range)) return false;
-		if(a.getWeapon().type == Weapon.Type.STAFF && !first) return false;
-		if((a.getWeapon().type == Weapon.Type.STAFF)
-				!= (a.getPartyColor().equals(d.getPartyColor()))) return false;
-		return true;
-	}
-
-	public void attack(boolean dir, String currentEffect) {
-		Unit a, d;
-		int damage = 0;
-		String animation = "Attack";
-		boolean miss = false;
-		int crit = 1;
-		
-		
-		if (dir) {
-			a = left;
-			d = right;
-		} else {
-			a = right;
-			d = left;
-		}
-
-		if (a.getHp() == 0 || d.getHp() == 0) {
-			return;
-		}
-
-		ArrayList<CombatTrigger> aTriggers = a.getTriggers();
-		LinkedHashMap<CombatTrigger, Boolean> aSuccess = 
-				new LinkedHashMap<CombatTrigger, Boolean>();
-		ArrayList<CombatTrigger> dTriggers = d.getTriggers();
-		LinkedHashMap<CombatTrigger, Boolean> dSuccess = 
-				new LinkedHashMap<CombatTrigger, Boolean>();
-		for (CombatTrigger t : aTriggers) {
-			aSuccess.put(t,t.attempt(a));
-		}
-		for (CombatTrigger t : dTriggers) {
-			dSuccess.put(t,t.attempt(a));
-		}
-		
-		
-
-		for (CombatTrigger t : aTriggers) {
-			if (aSuccess.get(t) && (t.turnToRun & CombatTrigger.YOUR_TURN_PRE)!=0) {
-				if (t.nameModification == CombatTrigger.REPLACE_NAME_AFTER_PRE) {
-					t.runPreAttack(this, a, d);
-					animation = t.getName() + "(a)";
-				}
-			}
-		}	
-		for (CombatTrigger t : dTriggers) {
-			if (dSuccess.get(t) && (t.turnToRun & CombatTrigger.ENEMY_TURN_PRE)!=0) {
-				if (t.nameModification == CombatTrigger.REPLACE_NAME_AFTER_PRE) {
-					t.runPreAttack(this, a, d);
-					animation = t.getName() + "(d)";
-				}
-			}
-		}
-		
-		
-		
-		if (!(RNG.get() < a.hit() - d.avoid()
-				+ a.getWeapon().triMod(d.getWeapon()) * 10)) {
-			miss = true;
-			if (a.getWeapon().isMagic())
-				a.getWeapon().use(a);
-		}
-		if (RNG.get() < a.crit() - d.dodge()) {
-			crit = 3;
-			animation += " Critical(a)";
-		}
-		
-		
-		damage = calculateBaseDamage(a, d) * crit;
-		for (CombatTrigger t : aTriggers) {
-			if (aSuccess.get(t) && (t.turnToRun & CombatTrigger.YOUR_TURN_MOD)!=0) {
-				int oldDamage = damage;
-				damage = t.runDamageMod(a,d,damage);
-				if (t.nameModification == CombatTrigger.APPEND_NAME_AFTER_MOD 
-						&& damage!=oldDamage) {
-					animation += " " + t.getName() + "(a)";
-				}
-			}
-		}
-		for (CombatTrigger t : dTriggers) {
-			if (dSuccess.get(t)  && (t.turnToRun & CombatTrigger.ENEMY_TURN_MOD)!=0) {
-				int oldDamage = damage;
-				damage = t.runDamageMod(a,d,damage);
-				if (t.nameModification == CombatTrigger.APPEND_NAME_AFTER_MOD 
-						&& damage!=oldDamage) {
-					animation += " " + t.getName() + "(d)";
-				}
-			}
-		}
-		damage = Math.max(0, Math.min(damage, d.getHp()));
-		
-		
-		if(miss){
-			damage = 0;
-			animation = "Miss";
-		}
-
-		addToAttackQueue(a, d, animation, damage);
-		d.setHp(d.getHp() - damage);
-		a.clearTempMods();
-		d.clearTempMods();
-		for (CombatTrigger t : aTriggers) {
-			if (aSuccess.get(t) && (t.turnToRun & CombatTrigger.YOUR_TURN_POST)!=0) {
-				t.runPostAttack(this, dir, a, d, damage, currentEffect);
-			}
-		}
-		for (CombatTrigger t : dTriggers) {
-			if (dSuccess.get(t) && (t.turnToRun & CombatTrigger.ENEMY_TURN_POST)!=0) {
-				t.runPostAttack(this, dir, a, d, damage, currentEffect);
-			}
-		}
-		
-	}
-
-	public void addToAttackQueue(Unit a, Unit d, String animation, int damage) {
-		AttackRecord rec = new AttackRecord();
-		rec.attacker = a;
-		rec.defender = d;
-		rec.animation = animation;
-		rec.damage = damage;
-		attackQueue.add(rec);
-
-		System.out.println(animation + ": " + a.name + ", " + d.name + ", "
-				+ damage);
+		calc = new CombatCalculator(u1, u2);
+		calc.calculate(range);
 	}
 
 	@Override
@@ -253,7 +101,7 @@ public class FightStage extends Stage {
 		}
 		processAddStack();
 		processRemoveStack();
-		if (attackQueue.size() != 0) {
+		if (calc.getAttackQueue().size() != 0) {
 			processAttackQueue();
 		} else {
 			// TODO switch back to the other stage
@@ -264,49 +112,31 @@ public class FightStage extends Stage {
 	}
 
 	private void processAttackQueue() {
-		final AttackRecord rec = attackQueue.get(0);
-		FightUnit a;
-		FightUnit d;
-		boolean crit = rec.animation.contains("Critical");
-		Healthbar dhp;
-		if (rec.attacker == right) {
-			a = fr;
-			d = fl;
-		} else {
-			a = fl;
-			d = fr;
-		}
-		
-		if (rec.defender == left){
-			dhp = hp1;
-		} else {
-			dhp = hp2;
-		}
+		final AttackRecord rec = calc.getAttackQueue().get(0);
+		FightUnit a = rec.attacker == right? rightFighter: leftFighter;
+		FightUnit d = rec.attacker == right? leftFighter: rightFighter;
+		Healthbar dhp = rec.defender == left? leftHP: rightHP;
+		boolean crit = rec.animation.contains("Critical");		
 		
 		if (currentEvent == START) {
-			System.out.println("\n" + rec.attacker.name + "'s turn!");
+			System.out.println("\n" + rec.attacker.name + "'s turn!"); //Debug
 			ArrayList<String> messages = getMessages(rec.animation, "(a)");
 			for(int i = 0; i < messages.size(); i++){
 				addEntity(new Message(messages.get(i), rec.attacker == left, i));
 			}
-			currentEvent = ATTACKING;
-			if (crit)
-				a.sprite.setAnimation("CRIT");
-			else
-				a.sprite.setAnimation("ATTACK");
+			a.sprite.setAnimation(crit?"CRIT":"ATTACK");
 			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
+			
+			currentEvent = ATTACKING;
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
+			
+			
 		} else if (currentEvent == ATTACKED) {
-			ArrayList<String> messages = getMessages(rec.animation, "(d)");
-			for(int i = 0; i < messages.size(); i++){
-				addEntity(new Message(messages.get(i), rec.attacker == left, i));
-			}
 			if (rec.animation.equals("Miss")) {
-				// TODO Play defenders dodge animation
 				System.out.println("Miss! " + rec.defender.name
 						+ " dodged the attack!");
-				currentEvent = HURTED;
+				
 				d.sprite.setAnimation("DODGE");
 				d.sprite.setFrame(0);
 				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
@@ -314,35 +144,47 @@ public class FightStage extends Stage {
 				if(rec.attacker.getWeapon().isMagic()){
 					addEntity(a.getHitEffect(crit));
 				}
+				
+				currentEvent = HURTED;
 			} else {
-				dhp.setHp(dhp.getHp() - rec.damage);
-				addEntity(a.getHitEffect(crit));
-				if(crit) {
-					startShaking(1.2f);
-				} else {
-					startShaking(.5f);
-				}
 				System.out.println(rec.animation + "! " + rec.defender.name
 						+ " took " + rec.damage + " damage!");
+				
+				dhp.setHp(dhp.getHp() - rec.damage);
+				addEntity(a.getHitEffect(crit));
+				startShaking(crit?1.2f:.5f);
+				
+				
 				if(rec.damage != 0) {
 					currentEvent = HURTING;
 				} else {
 					currentEvent = HURTED;
 				}
 			}
+			
+			ArrayList<String> messages = getMessages(rec.animation, "(d)");
+			for(int i = 0; i < messages.size(); i++){
+				addEntity(new Message(messages.get(i), rec.attacker == left, i));
+			}
 		} else if (currentEvent == HURTING) {
 			// let health bar animation play
+			
+				
 		} else if (currentEvent == HURTED) {
 			if (dhp.getHp() == 0) {
 				d.dying = true;
 			}
 			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
+			
 			currentEvent = RETURNING;
 		} else if (currentEvent == RETURNING) {
 			// Let animation play
+			
+			
 		} else if (currentEvent == DONE) {
+			calc.getAttackQueue().remove(0);
+			
 			currentEvent = START;
-			attackQueue.remove(0);
 		}
 	}
 	
@@ -428,14 +270,6 @@ public class FightStage extends Stage {
 	public int distanceToHead(){
 		return rangeToHeadDistance(range);
 	}
-
-	public static int rangeToHeadDistance(int range) {
-		if (range == 1) {
-			return 32;
-		} else {
-			return 54;
-		}
-	}
 	
 	public int getRange(){
 		return range;
@@ -445,28 +279,15 @@ public class FightStage extends Stage {
 		return u == left;
 	}
 	
-	// On regular hit
-	
-
-	public static int calculateBaseDamage(Unit a, Unit d){
-		boolean effective = a.getWeapon().effective.contains(d.getTheClass().name)
-				|| (d.getTheClass().name.equals("Lord") 
-						&& a.getWeapon().effective.contains(d.name));
-		if (a.getWeapon().isMagic()) {
-			return a.get("Mag")
-					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
-					* (effective ? 3: 1) - d.get("Res");
+	public static int rangeToHeadDistance(int range) {
+		if (range == 1) {
+			return 32;
 		} else {
-			return  a.get("Str")
-					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
-					* (effective? 3:1) - d.get("Def");
+			return 54;
 		}
 	}
+
 	
 	
-	private class AttackRecord {
-		public String animation;
-		public Unit attacker, defender;
-		public int damage;
-	}
+	
 }

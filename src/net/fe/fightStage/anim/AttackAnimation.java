@@ -71,15 +71,6 @@ public abstract class AttackAnimation extends Animation {
 			loopUntil = getFrame() + frames;
 		}
 	}
-	
-	public void freeze(){
-		setSpeed(0);
-	}
-	
-	public void resume(){
-		setSpeed(NORMAL_SPEED);
-		loopUntil = -1;
-	}
 
 	public int getHeadX() {
 		return headX;

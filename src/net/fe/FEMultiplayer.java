@@ -99,7 +99,7 @@ public class FEMultiplayer extends Game{
 
 		Unit eliwood = new Unit("Eliwood", Class.createClass("Eliwood"), eliwoodBases,
 				eliwoodGrowths);
-		eliwood.addToInventory(WeaponFactory.getWeapon("Silver Lance"));
+		eliwood.addToInventory(WeaponFactory.getWeapon("Javelin"));
 		eliwood.equip(0);
 		blue.addUnit(eliwood);
 
@@ -117,7 +117,7 @@ public class FEMultiplayer extends Game{
 		
 		OverworldStage map = new OverworldStage(new Grid(10,10, Terrain.PLAIN));
 		map.addUnit(eliwood, 0, 0);
-		map.addUnit(lute, 0, 1);
+		map.addUnit(lute, 1, 0);
 		map.processAddStack();
 		currentStage = new FightStage(eliwood, lute);
 		serverMessages = new ArrayList<Message>();

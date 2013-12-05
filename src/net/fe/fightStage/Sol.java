@@ -4,23 +4,28 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Sol extends CombatTrigger {
-	public Sol(){
+	public Sol() {
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE + YOUR_TURN_POST);
 	}
+
 	@Override
 	public boolean attempt(Unit user) {
-		
+
 		return RNG.get() < user.get("Skl");
 	}
+
 	@Override
-	public void runPostAttack(FightStage stage, boolean dir, Unit a, Unit d, int damage, String currentEffect){
-		if(damage == 0) return;
-		int heal = Math.min(damage/2, a.get("HP") - a.getHp());
+	public void runPostAttack(CombatCalculator stage, boolean dir, Unit a,
+			Unit d, int damage, String currentEffect) {
+		if (damage == 0)
+			return;
+		int heal = Math.min(damage / 2, a.get("HP") - a.getHp());
 		stage.addToAttackQueue(a, a, "Sol2(a)", -heal);
-		a.setHp(a.getHp() + damage/2);
+		a.setHp(a.getHp() + damage / 2);
 	}
+
 	@Override
-	public String getName(){
+	public String getName() {
 		return "Sol1";
 	}
 }

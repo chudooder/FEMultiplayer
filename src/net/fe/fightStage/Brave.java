@@ -13,10 +13,10 @@ public class Brave extends CombatTrigger{
 	}
 
 	@Override
-	public void runPostAttack(FightStage stage, boolean dir, Unit a, Unit d,
+	public void runPostAttack(CombatCalculator calc, boolean dir, Unit a, Unit d,
 			int damage, String currentEffect) {
 		if(d.getHp() > 0 && currentEffect.equals("None")){
-			stage.attack(dir, "Brave");
+			calc.attack(dir, "Brave");
 		}
 	}
 	
