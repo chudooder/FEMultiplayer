@@ -110,4 +110,13 @@ public abstract class AttackAnimation extends Animation {
 		return null;
 	}
 
+	public int getNextHitFrame() {
+		for(int h : hitframes) {
+			if(h >= getFrame()) {
+				return h;
+			}
+		}
+		return -1;
+	}
+
 }

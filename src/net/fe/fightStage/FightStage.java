@@ -15,6 +15,7 @@ import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.Resources;
 import chu.engine.Stage;
+import chu.engine.anim.Animation;
 import chu.engine.anim.Renderer;
 
 public class FightStage extends Stage {
@@ -29,6 +30,7 @@ public class FightStage extends Stage {
 	private float shakeTimer;
 	private float shakeX;
 	private float shakeY;
+	private float scrollX;
 	
 	// Config
 	public static final float SHAKE_INTERVAL = 0.05f;
@@ -297,6 +299,13 @@ public class FightStage extends Stage {
 			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
+			if(range > 1) {
+				Animation anim = a.sprite.getCurrentAnimation();
+				int diff = ((AttackAnimation)anim).getNextHitFrame() - anim.getFrame();
+				if(diff > 0 && diff < 2) {
+					scrollX += (rec.defender==left?300:-300)*Game.getDeltaSeconds();
+				}
+			}
 		} else if (currentEvent == ATTACKED) {
 			ArrayList<String> messages = getMessages(rec.animation, "(d)");
 			for(int i = 0; i < messages.size(); i++){
@@ -340,8 +349,16 @@ public class FightStage extends Stage {
 			currentEvent = RETURNING;
 		} else if (currentEvent == RETURNING) {
 			// Let animation play
+			if(range > 1) {
+				Animation anim = a.sprite.getCurrentAnimation();
+				int diff = anim.getLength() - anim.getFrame();
+				if(diff > 0 && diff < 2) {
+					scrollX -= (rec.defender==left?300:-300)*Game.getDeltaSeconds();
+				}
+			}
 		} else if (currentEvent == DONE) {
 			currentEvent = START;
+			scrollX = 0;
 			attackQueue.remove(0);
 		}
 	}
@@ -439,6 +456,10 @@ public class FightStage extends Stage {
 	
 	public int getRange(){
 		return range;
+	}
+	
+	public float getScrollX() {
+		return scrollX;
 	}
 	
 	public boolean isLeft(Unit u){
