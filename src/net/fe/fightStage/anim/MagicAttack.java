@@ -13,6 +13,8 @@ public class MagicAttack extends AttackAnimation{
 	@Override
 	public void onHit() {
 		stage.addEntity(new MagicEffect(animationArgs));
+		stage.addEntity(new BackgroundEffect(animationArgs.unit.getWeapon().name.toLowerCase(), 
+				animationArgs.left));
 		loopNextFrames(freeze);
 	}
 
