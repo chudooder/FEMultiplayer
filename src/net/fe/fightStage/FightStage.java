@@ -223,7 +223,7 @@ public class FightStage extends Stage {
 	
 	public void render() {
 		Renderer.pushMatrix();
-		Renderer.scale(2, 2);
+		Renderer.scale(1, 1);
 		Renderer.render(bg, 0, 0, 1, 1, 0, 0, 240, 160, 1);
 		if(shakeTimer > 0) {
 			shakeTimer -= Game.getDeltaSeconds();

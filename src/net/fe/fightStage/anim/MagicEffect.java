@@ -30,6 +30,7 @@ public class MagicEffect extends Entity {
 			}
 		};
 		sprite.addAnimation("default", anim);
+		
 		renderDepth = FightStage.EFFECT_DEPTH;
 	}
 
