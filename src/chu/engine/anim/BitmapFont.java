@@ -47,6 +47,18 @@ public class BitmapFont {
 		}
 	}
 	
+	public void renderTransformed(String string, float beginX, float beginY, float depth, Transform t) {
+		int x = (int)beginX;
+		for(char c : string.toCharArray()) {
+			Glyph g = glyphs.get(c);
+			float tx0 = (float)g.pos/texture.getImageWidth();
+			float tx1 = (float)(g.pos+g.width)/texture.getImageWidth();
+			Renderer.renderTransformed(texture, tx0, 0, tx1, 1, x, beginY, x+g.width, beginY+glyphHeight, depth, t);
+			x += g.width;
+			x += spacing;
+		}
+	}
+	
 	private class Glyph {
 		int pos;
 		int width;

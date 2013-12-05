@@ -137,7 +137,6 @@ public class Resources {
 			
 			// Fonts
 			fonts.put("default", createFont("Arial Narrow", Font.PLAIN, 11));
-//			fonts.put("default_med", createFontFromFile("Fire Emblem", 16));
 			fonts.put("default_small", createFont("Arial Narrow", Font.PLAIN, 9));
 			fonts.put("number", createFont("Consolas", Font.BOLD, 10));
 			
