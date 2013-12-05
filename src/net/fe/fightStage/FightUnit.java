@@ -62,7 +62,6 @@ public class FightUnit extends Entity {
 		Transform t = new Transform();
 		t.setColor(new Color(255, 255, 255, alpha));
 //		int y1 = FightStage.FLOOR - sprite.getCurrentAnimation().getOffsetY();
-		t.setTranslation(((FightStage)stage).getScrollX(), 0);
 		if(left) {
 			t.flipHorizontal();
 			sprite.renderTransformed(FightStage.CENTRAL_AXIS - distanceFromCenter

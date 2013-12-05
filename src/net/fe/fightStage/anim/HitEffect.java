@@ -39,7 +39,6 @@ public class HitEffect extends Entity {
 			t.flipHorizontal();
 			offset*=-1;
 		}
-		t.setTranslation(((FightStage)stage).getScrollX(), 0);
 		sprite.renderTransformed(FightStage.CENTRAL_AXIS - 120 + offset,
 				FightStage.FLOOR - 104, 0, t);
 	}

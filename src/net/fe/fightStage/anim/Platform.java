@@ -26,7 +26,6 @@ public class Platform extends Entity {
 
 	public void render() {
 		Transform t = new Transform();
-		t.setTranslation(((FightStage)stage).getScrollX(), 0);
 		if (!left) {
 			t.flipHorizontal();
 		}
