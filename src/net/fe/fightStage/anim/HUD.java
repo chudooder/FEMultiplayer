@@ -57,34 +57,30 @@ public class HUD extends Entity {
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 118,
 				FightStage.FLOOR + 14, FightStage.CENTRAL_AXIS + sign * 2,
 				FightStage.FLOOR + 30, 0, FightStage.NEUTRAL);
-//		Renderer.drawString("default_small", u1.getWeapon().name,
-//				FightStage.CENTRAL_AXIS + sign * 39 - 20, FightStage.FLOOR + 17);
 
 		// Attack Stats
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 120,
-				FightStage.FLOOR - 1, FightStage.CENTRAL_AXIS + sign * 76,
+				FightStage.FLOOR + 2, FightStage.CENTRAL_AXIS + sign * 76,
 				FightStage.FLOOR + 32, 0, FightStage.BORDER_DARK);
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 119,
-				FightStage.FLOOR, FightStage.CENTRAL_AXIS + sign * 77,
+				FightStage.FLOOR + 3, FightStage.CENTRAL_AXIS + sign * 77,
 				FightStage.FLOOR + 31, 0, FightStage.BORDER_LIGHT);
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 118,
-				FightStage.FLOOR + 1, FightStage.CENTRAL_AXIS + sign * 78,
+				FightStage.FLOOR + 4, FightStage.CENTRAL_AXIS + sign * 78,
 				FightStage.FLOOR + 30, 0, unit.getPartyColor());
+		
+		Renderer.render(Resources.getTexture("gui_battleStats"), 0, 0, 1, 1, FightStage.CENTRAL_AXIS
+				+ sign * 98 - 18, FightStage.FLOOR+5, FightStage.CENTRAL_AXIS
+				+ sign * 98 - 3, FightStage.FLOOR+29, 0.0f);
 
-		Renderer.drawString("default_small", "HIT", FightStage.CENTRAL_AXIS
-				+ sign * 98 - 18, FightStage.FLOOR);
-		Renderer.drawString("number", hit, FightStage.CENTRAL_AXIS + sign * 98,
-				FightStage.FLOOR);
+		Renderer.drawString("stat_numbers", hit, FightStage.CENTRAL_AXIS + sign * 98 - 5, 
+				FightStage.FLOOR + 5, 0.0f);
 
-		Renderer.drawString("default_small", "DMG", FightStage.CENTRAL_AXIS
-				+ sign * 98 - 18, FightStage.FLOOR + 9);
-		Renderer.drawString("number", dmg, FightStage.CENTRAL_AXIS + sign * 98,
-				FightStage.FLOOR + 9);
+		Renderer.drawString("stat_numbers", dmg, FightStage.CENTRAL_AXIS + sign * 98 - 5,
+				FightStage.FLOOR + 13, 0.0f);
 
-		Renderer.drawString("default_small", "CRT", FightStage.CENTRAL_AXIS
-				+ sign * 98 - 18, FightStage.FLOOR + 18);
-		Renderer.drawString("number", crit,
-				FightStage.CENTRAL_AXIS + sign * 98, FightStage.FLOOR + 18);
+		Renderer.drawString("stat_numbers", crit,FightStage.CENTRAL_AXIS + sign * 98 - 5, 
+				FightStage.FLOOR + 21, 0.0f);
 
 		// Name
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 120,

@@ -74,7 +74,7 @@ public class FEMultiplayer extends Game{
 		luteBases.put("HP", 18);
 		luteBases.put("Str", 5);
 		luteBases.put("Mag", 5);
-		luteBases.put("Skl", 7);
+		luteBases.put("Skl", 200);
 		luteBases.put("Spd", 7);
 		luteBases.put("Lck", 7);
 		luteBases.put("Def", 5);

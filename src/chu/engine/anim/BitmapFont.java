@@ -16,7 +16,7 @@ public class BitmapFont {
 	public BitmapFont(String texName) {
 		try {
 			texture = TextureLoader.getTexture("PNG", 
-					ResourceLoader.getResourceAsStream("res/"+texName+".png"));
+					ResourceLoader.getResourceAsStream("res/fonts/"+texName+".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -39,6 +39,10 @@ public class BitmapFont {
 		int x = (int)beginX;
 		for(char c : string.toCharArray()) {
 			Glyph g = glyphs.get(c);
+			if(g == null) {
+				System.err.println("I don't have this character: '"+c+"'");
+				continue;
+			}
 			float tx0 = (float)g.pos/texture.getImageWidth();
 			float tx1 = (float)(g.pos+g.width)/texture.getImageWidth();
 			Renderer.render(texture, tx0, 0, tx1, 1, x, beginY, x+g.width, beginY+glyphHeight, depth);
@@ -57,6 +61,15 @@ public class BitmapFont {
 			x += g.width;
 			x += spacing;
 		}
+	}
+	
+	public int getStringWidth(String string) {
+		int width = 0;
+		for(char c : string.toCharArray()) {
+			width += glyphs.get(c).width;
+			width += spacing;
+		}
+		return width;
 	}
 	
 	private class Glyph {

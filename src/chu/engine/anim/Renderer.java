@@ -220,17 +220,17 @@ public class Renderer {
 		if(clip != null && !clip.persistent) clip.destroy();
 	}
 	
-	public static void drawString(String fontName, String string, float x, float y) {
+	public static void drawString(String fontName, String string, float x, float y, float depth) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		Resources.getFont(fontName).drawString(x, y, string);
+		Resources.getBitmapFont(fontName).render(string, x, y, depth);
 		if(clip != null && !clip.persistent) clip.destroy();
 	}
 	
-	public static void drawString(String fontName, String string, float x, float y, Color c) {
+	public static void drawTransformedString(String fontName, String string, float x, float y, float depth, Transform t) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		Resources.getFont(fontName).drawString(x, y, string, c);
+		Resources.getBitmapFont(fontName).renderTransformed(string, x, y, depth, t);
 		if(clip != null && !clip.persistent) clip.destroy();
 	}
 	

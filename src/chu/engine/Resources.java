@@ -134,11 +134,8 @@ public class Resources {
 					ResourceLoader.getResourceAsStream("res/gui/tickFilled.png"))));
 			textures.put("gui_weaponIcon", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/weaponIcon.png"))));
-			
-			// Fonts
-			fonts.put("default", createFont("Arial Narrow", Font.PLAIN, 11));
-			fonts.put("default_small", createFont("Arial Narrow", Font.PLAIN, 9));
-			fonts.put("number", createFont("Consolas", Font.BOLD, 10));
+			textures.put("gui_battleStats", new TextureData(TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/gui/battleStats.png"))));
 			
 			//Load bitmap fonts
 			loadBitmapFonts();
@@ -159,7 +156,7 @@ public class Resources {
 	}
 	
 	private static void loadBitmapFonts() {
-		Scanner in = new Scanner(ResourceLoader.getResourceAsStream("res/fonts.txt"));
+		Scanner in = new Scanner(ResourceLoader.getResourceAsStream("res/fonts/fonts.txt"));
 		while(in.hasNextLine()) {
 			String line = in.nextLine();
 			if(line.startsWith("#"))

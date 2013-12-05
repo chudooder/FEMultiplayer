@@ -34,10 +34,11 @@ public class Healthbar extends Entity {
 	public void render() {
 		int offY = 0;
 		int offX = 0;
+		int width = Resources.getBitmapFont("stat_numbers").getStringWidth((int)displayedHealth + "");
 		if(totalHealth <= 40) {
-			Renderer.drawString("number", (int)displayedHealth + "", x - 17, y-4);
+			Renderer.drawString("stat_numbers", (int)displayedHealth + "", x-5-width, y-2, 0.0f);
 		} else {
-			Renderer.drawString("number", (int)displayedHealth + "", x - 17, y);
+			Renderer.drawString("stat_numbers", (int)displayedHealth + "", x-5-width, y+2, 0.0f);
 		}
 		for (int hp = 1; hp <= totalHealth; hp++) {
 			Texture t = Resources

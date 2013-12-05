@@ -1,0 +1,21 @@
+# Default medium font
+define:default_med
+default_med
+ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,"?!@_*#$%&()+-/:;<=>[]^`{|}~\ 
+14
+-1
+6666666636667666766767777676666566356376666565677766888888888833774797777755777437574454535764
+# Stat numbers and health numbers font
+define:stat_numbers
+stat_numbers
+0123456789 
+8
+0
+88888888888
+# Message texts
+define:msg_text
+msg_text
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+7
+0
+55555555455565555556566665

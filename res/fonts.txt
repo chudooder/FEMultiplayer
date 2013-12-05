@@ -1,7 +1,0 @@
-# Default medium font
-define:default_med
-font_default_med
-ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,"?!@_*#$%&()+-/:;<=>[]^`{|}~\
-13
--1
-666666663666766676676777767666656635637666656567776688888888883377478777775577743757445453576

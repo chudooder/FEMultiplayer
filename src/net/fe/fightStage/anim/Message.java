@@ -58,7 +58,7 @@ public class Message extends Entity{
 		} else {
 			Renderer.drawRectangle(x, y, x+WIDTH+10, y + HEIGHT, 0, FightStage.NEUTRAL);
 		}
-		Renderer.drawString("default_small", message, x+4, y);
+		Renderer.drawString("msg_text", message, x+4, y+2, 0.0f);
 	//	Renderer.removeClip();
 	}
 }
