@@ -112,12 +112,12 @@ public class Unit extends GriddedEntity {
 	
 	//Combat statistics
 	public int hit(){
-		return weapon.hit + get("Skl") + get("Lck")/2 +
+		return weapon.hit + 2*get("Skl") + get("Lck")/2 +
 				(tempMods.get("Hit")!=null?tempMods.get("Hit"):0);
 	}
 	
 	public int avoid(){
-		return get("Spd") + get("Lck")/2 +
+		return 2*get("Spd") + get("Lck")/2 +
 				(tempMods.get("Avo")!=null?tempMods.get("Avo"):0) +
 				getTerrain().avoidBonus;
 	}

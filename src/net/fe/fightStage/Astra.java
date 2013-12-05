@@ -18,7 +18,7 @@ public class Astra extends CombatTrigger {
 		return damage/2;
 	}
 	@Override
-	public void runPostAttack(FightStage stage, boolean dir, Unit a, Unit d, int damage,
+	public void runPostAttack(CombatCalculator calc, boolean dir, Unit a, Unit d, int damage,
 			String currentEffect) {
 		if(counter == 4){
 			//its the last hit
@@ -26,7 +26,7 @@ public class Astra extends CombatTrigger {
 		} else {
 			counter++;
 			if(d.getHp() > 0){
-				stage.attack(dir, "Astra");
+				calc.attack(dir, "Astra");
 			}
 		}
 	}

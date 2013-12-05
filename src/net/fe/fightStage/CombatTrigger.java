@@ -25,13 +25,13 @@ public abstract class CombatTrigger {
 		turnToRun = turn;
 	}
 	public abstract boolean attempt(Unit user);
-	public boolean runPreAttack(FightStage stage, Unit a, Unit d){
+	public boolean runPreAttack(CombatCalculator calc, Unit a, Unit d){
 		return true;
 	}
 	public int runDamageMod(Unit a, Unit d, int damage){
 		return damage;
 	}
-	public void runPostAttack(FightStage stage, boolean dir, Unit a, Unit d, int damage, String currentEffect){
+	public void runPostAttack(CombatCalculator calc, boolean dir, Unit a, Unit d, int damage, String currentEffect){
 		
 	}
 	

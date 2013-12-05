@@ -13,6 +13,7 @@ public class Weapon extends Item{
 	public ArrayList<String> effective;
 	public int worth;
 	public String pref;
+	public int id;
 	
 	public Weapon(String name) {
 		super(name);
@@ -107,6 +108,7 @@ public class Weapon extends Item{
 		w.effective = new ArrayList<String>(effective);
 		w.pref = pref;
 		w.modifiers = new HashMap<String, Integer>(modifiers);
+		w.id = id;
 		return w;
 		
 	}

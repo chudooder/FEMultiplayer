@@ -8,8 +8,9 @@ public class Deadeye extends CombatTrigger {
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE);
 	}
 	@Override
-	public boolean runPreAttack(FightStage stage, Unit a, Unit d) {
+	public boolean runPreAttack(CombatCalculator stage, Unit a, Unit d) {
 		a.setTempMod("Crit", 9000);
+		a.setTempMod("Hit", 9000);
 		return true;
 	}
 	@Override

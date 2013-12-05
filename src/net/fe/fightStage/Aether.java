@@ -18,23 +18,23 @@ public class Aether extends CombatTrigger {
 		return RNG.get() < user.get("Skl")/2 || phase != SOL;
 	}
 	@Override
-	public boolean runPreAttack(FightStage stage, Unit a, Unit d) {
+	public boolean runPreAttack(CombatCalculator calc, Unit a, Unit d) {
 		if(phase == LUNA){
-			new Luna().runPreAttack(stage, a, d);
+			new Luna().runPreAttack(calc, a, d);
 		}
 		return true;
 	}
 	@Override
-	public void runPostAttack(FightStage stage, boolean dir, Unit a, Unit d,
+	public void runPostAttack(CombatCalculator calc, boolean dir, Unit a, Unit d,
 			int damage, String currentEffect) {
 		if(phase == SOL){
 			if(damage == 0) return;
 			int heal = Math.min(damage/2, a.get("HP") - a.getHp());
-			stage.addToAttackQueue(a, a, "Aether2(a)", -heal);
+			calc.addToAttackQueue(a, a, "Aether2(a)", -heal);
 			a.setHp(a.getHp() + damage/2);
 			if(d.getHp() > 0){
 				phase = LUNA;
-				stage.attack(dir, "Aether");
+				calc.attack(dir, "Aether");
 			}
 		} else {
 			phase = SOL;

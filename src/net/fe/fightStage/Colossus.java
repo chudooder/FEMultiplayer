@@ -13,7 +13,7 @@ public class Colossus extends CombatTrigger{
 	}
 
 	@Override
-	public boolean runPreAttack(FightStage stage, Unit a, Unit d) {
+	public boolean runPreAttack(CombatCalculator stage, Unit a, Unit d) {
 		a.setTempMod("Str", a.get("Str"));
 		return true;
 	}

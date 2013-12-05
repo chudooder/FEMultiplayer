@@ -18,6 +18,7 @@ public class WeaponFactory {
 	
 	static{
 		Scanner in = new Scanner(ResourceLoader.getResourceAsStream("res/weapons.txt"));
+		int id = 0;
 		while(in.hasNextLine()){
 			String line = in.nextLine();
 			if(line.startsWith("#") || line.equals("")){
@@ -26,7 +27,7 @@ public class WeaponFactory {
 			String[] args = line.split("\\t+");
 			String name = args[0];
 			Weapon w = new Weapon(name);
-			
+			w.id = id++;
 			w.type = Weapon.Type.valueOf(args[1].toUpperCase());
 			
 			
