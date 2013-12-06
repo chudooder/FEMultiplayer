@@ -6,12 +6,14 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
 import net.fe.unit.Class;
 import net.fe.unit.Unit;
+import net.fe.unit.UnitIdentifier;
 import net.fe.unit.Weapon;
 import net.fe.unit.WeaponFactory;
 
@@ -32,14 +34,20 @@ public class FEMultiplayer extends Game{
 	private static Client client;
 	private static ArrayList<Message> serverMessages;
 	
+	private static ArrayList<Player> players;
+	
 	public static void main(String[] args) {
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
 		game.loop();
+		
 	}
 	
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
+		players = new ArrayList<Player>();
+		
+		
 		//TODO: Implement client
 //		client = new Client();
 		/* OpenGL final setup */
@@ -92,9 +100,14 @@ public class FEMultiplayer extends Game{
 		luteGrowths.put("Res", 35);
 		luteGrowths.put("Lck", 0);
 		
-		Party blue = new Party();
+		Player p1 = new Player((byte) 0);
+		Player p2 = new Player((byte) 1);
+		players.add(p1);
+		players.add(p2);
+		
+		Party blue = p1.getParty();
 		blue.setColor(Party.TEAM_BLUE);
-		Party red = new Party();
+		Party red = p2.getParty();
 		red.setColor(Party.TEAM_RED);
 
 		Unit lyn = new Unit("Lyn", Class.createClass("Lyn"), lynBases,
@@ -119,8 +132,21 @@ public class FEMultiplayer extends Game{
 		map.addUnit(lyn, 0, 0);
 		map.addUnit(lute, 1, 1);
 		map.processAddStack();
-		currentStage = new FightStage(lute, lyn);
+		CombatCalculator calc = new CombatCalculator(
+				new UnitIdentifier(lyn), new UnitIdentifier(lute));
+		
+		currentStage = new FightStage(new UnitIdentifier(lyn), new UnitIdentifier(lute),
+				calc.getAttackQueue());
 		serverMessages = new ArrayList<Message>();
+	}
+	
+	public static Unit getUnit(UnitIdentifier id){
+		for(Player p: players){
+			if(!p.isSpectator() && p.getParty().getColor().equals(id.partyColor)){
+				return p.getParty().search(id.name);
+			}
+		}
+		return null;
 	}
 
 	@Override

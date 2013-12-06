@@ -63,7 +63,6 @@ public class Healthbar extends Entity {
 			displayedHealth += Math.signum(currentHealth - displayedHealth)*30*Game.getDeltaSeconds();
 		} else if(displayedHealth != currentHealth){
 			displayedHealth = currentHealth;
-			System.out.println(currentHealth);
 			if(!doNotSet){
 				((FightStage)stage).setCurrentEvent(FightStage.HURTED);
 			}
