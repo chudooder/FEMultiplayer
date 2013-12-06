@@ -13,6 +13,8 @@ public class Healthbar extends Entity {
 	private int totalHealth;
 	private int currentHealth;
 	private float displayedHealth;
+	
+	private boolean doNotSet;
 
 	public Healthbar(Unit u, boolean left) {
 		super(0, 0);
@@ -61,7 +63,10 @@ public class Healthbar extends Entity {
 			displayedHealth += Math.signum(currentHealth - displayedHealth)*30*Game.getDeltaSeconds();
 		} else if(displayedHealth != currentHealth){
 			displayedHealth = currentHealth;
-			((FightStage)stage).setCurrentEvent(FightStage.HURTED);
+			System.out.println(currentHealth);
+			if(!doNotSet){
+				((FightStage)stage).setCurrentEvent(FightStage.HURTED);
+			}
 		}
 	}
 	
@@ -71,6 +76,12 @@ public class Healthbar extends Entity {
 	
 	public void setHp(int hp){
 		currentHealth = hp;
+		doNotSet = false;
+	}
+	
+	public void setHp(int hp, boolean stateShift){
+		doNotSet = !stateShift;
+		setHp(hp);
 	}
 
 }

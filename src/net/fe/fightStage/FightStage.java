@@ -117,6 +117,7 @@ public class FightStage extends Stage {
 		FightUnit a = rec.attacker == right? rightFighter: leftFighter;
 		FightUnit d = rec.attacker == right? leftFighter: rightFighter;
 		Healthbar dhp = rec.defender == left? leftHP: rightHP;
+		Healthbar ahp = rec.defender == left? rightHP: leftHP;
 		boolean crit = rec.animation.contains("Critical");		
 		a.renderDepth = FightStage.UNIT_DEPTH;
 		d.renderDepth = FightStage.UNIT_DEPTH+0.01f;
@@ -151,8 +152,9 @@ public class FightStage extends Stage {
 						+ " took " + rec.damage + " damage!");
 				
 				dhp.setHp(dhp.getHp() - rec.damage);
+				ahp.setHp(ahp.getHp() + rec.drain, false);
 				addEntity(a.getHitEffect(crit));
-				startShaking(crit?1.5f:.7f);
+				startShaking(crit?1.3f:.5f);
 				
 				
 				if(rec.damage != 0) {

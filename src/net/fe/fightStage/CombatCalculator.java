@@ -49,6 +49,7 @@ public class CombatCalculator {
 		Unit a = leftAttacking?left: right;
 		Unit d = leftAttacking?right: left;
 		int damage = 0;
+		int drain = 0;
 		String animation = "Attack";
 		boolean miss = false;
 		int crit = 1;
@@ -124,14 +125,26 @@ public class CombatCalculator {
 		}
 		damage = Math.max(0, Math.min(damage, d.getHp()));
 		
+		for (CombatTrigger t : aSuccess.keySet()) {
+			if(aSuccess.get(t) && (t.turnToRun & CombatTrigger.YOUR_TURN_DRAIN)!=0){
+				drain = t.runDrain(a, d, damage);
+			}
+		}
+		for (CombatTrigger t : dSuccess.keySet()) {
+			if(dSuccess.get(t) && (t.turnToRun & CombatTrigger.ENEMY_TURN_DRAIN)!=0){
+				drain = t.runDrain(a, d, damage);
+			}
+		}
+		
 		
 		if(miss){
 			damage = 0;
 			animation = "Miss";
 		}
 
-		addToAttackQueue(a, d, animation, damage);
+		addToAttackQueue(a, d, animation, damage, drain);
 		d.setHp(d.getHp() - damage);
+		a.setHp(a.getHp() + drain);
 		a.clearTempMods();
 		d.clearTempMods();
 		for (CombatTrigger t : aSuccess.keySet()) {
@@ -147,16 +160,17 @@ public class CombatCalculator {
 		
 	}
 
-	public void addToAttackQueue(Unit a, Unit d, String animation, int damage) {
+	public void addToAttackQueue(Unit a, Unit d, String animation, int damage, int drain) {
 		AttackRecord rec = new AttackRecord();
 		rec.attacker = a;
 		rec.defender = d;
 		rec.animation = animation;
 		rec.damage = damage;
+		rec.drain = drain;
 		attackQueue.add(rec);
 
 		System.out.println(animation + ": " + a.name + ", " + d.name + ", "
-				+ damage);
+				+ damage + ", " + drain + " (drain)");
 	}
 	
 	public ArrayList<AttackRecord> getAttackQueue(){

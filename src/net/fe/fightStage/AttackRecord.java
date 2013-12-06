@@ -6,4 +6,5 @@ public class AttackRecord {
 	public String animation;
 	public Unit attacker, defender;
 	public int damage;
+	public int drain;
 }

@@ -5,7 +5,7 @@ import net.fe.unit.Unit;
 
 public class Sol extends CombatTrigger {
 	public Sol() {
-		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE + YOUR_TURN_POST);
+		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE + YOUR_TURN_DRAIN);
 	}
 
 	@Override
@@ -13,19 +13,10 @@ public class Sol extends CombatTrigger {
 
 		return RNG.get() < user.get("Skl");
 	}
-
-	@Override
-	public void runPostAttack(CombatCalculator stage, boolean dir, Unit a,
-			Unit d, int damage, String currentEffect) {
+	
+	public int runDrain(Unit a, Unit d, int damage){
 		if (damage == 0)
-			return;
-		int heal = Math.min(damage / 2, a.get("HP") - a.getHp());
-		stage.addToAttackQueue(a, a, "Sol2(a)", -heal);
-		a.setHp(a.getHp() + damage / 2);
-	}
-
-	@Override
-	public String getName() {
-		return "Sol1";
+			return 0;
+		return Math.min(damage / 2, a.get("HP") - a.getHp());
 	}
 }

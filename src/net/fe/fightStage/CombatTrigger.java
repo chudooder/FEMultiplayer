@@ -19,6 +19,8 @@ public abstract class CombatTrigger {
 	public static final int ENEMY_TURN_MOD = 0x8;
 	public static final int YOUR_TURN_POST = 0x10;
 	public static final int ENEMY_TURN_POST = 0x20;
+	public static final int YOUR_TURN_DRAIN = 0x40;
+	public static final int ENEMY_TURN_DRAIN = 0x80;
 	
 	public CombatTrigger(int mod, int turn){
 		nameModification = mod;
@@ -30,6 +32,9 @@ public abstract class CombatTrigger {
 	}
 	public int runDamageMod(Unit a, Unit d, int damage){
 		return damage;
+	}
+	public int runDrain(Unit a, Unit d, int damage){
+		return 0;
 	}
 	public void runPostAttack(CombatCalculator calc, boolean dir, Unit a, Unit d, int damage, String currentEffect){
 		

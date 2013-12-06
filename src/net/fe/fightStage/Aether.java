@@ -7,11 +7,11 @@ public class Aether extends CombatTrigger {
 	private int phase;
 	
 	private static final int SOL = 0;
-	private static final int LUNA = 2;
+	private static final int LUNA = 1;
 	
 	
 	public Aether(){
-		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE + YOUR_TURN_POST);
+		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE + YOUR_TURN_POST + YOUR_TURN_DRAIN);
 	}
 	@Override
 	public boolean attempt(Unit user) {
@@ -25,13 +25,18 @@ public class Aether extends CombatTrigger {
 		return true;
 	}
 	@Override
+	public int runDrain(Unit a, Unit d, int damage){
+		if(phase == SOL){
+			if(damage == 0) return 0;
+			return Math.min(damage/2, a.get("HP") - a.getHp());
+		} else {
+			return 0;
+		}
+	}
+	@Override
 	public void runPostAttack(CombatCalculator calc, boolean dir, Unit a, Unit d,
 			int damage, String currentEffect) {
 		if(phase == SOL){
-			if(damage == 0) return;
-			int heal = Math.min(damage/2, a.get("HP") - a.getHp());
-			calc.addToAttackQueue(a, a, "Aether2(a)", -heal);
-			a.setHp(a.getHp() + damage/2);
 			if(d.getHp() > 0){
 				phase = LUNA;
 				calc.attack(dir, "Aether");

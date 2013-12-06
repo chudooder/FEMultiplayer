@@ -50,8 +50,8 @@ public class FEMultiplayer extends Game{
 		lynBases.put("HP", 18);
 		lynBases.put("Str", 5);
 		lynBases.put("Mag", 5);
-		lynBases.put("Spd", 200);
-		lynBases.put("Skl", 7);
+		lynBases.put("Spd", 7);
+		lynBases.put("Skl", 200);
 		lynBases.put("Lck", 7);
 		lynBases.put("Def", 5);
 		lynBases.put("Res", 0);
@@ -97,29 +97,29 @@ public class FEMultiplayer extends Game{
 		Party red = new Party();
 		red.setColor(Party.TEAM_RED);
 
-		Unit eliwood = new Unit("Lyn", Class.createClass("Lyn"), lynBases,
+		Unit lyn = new Unit("Lyn", Class.createClass("Lyn"), lynBases,
 				lynGrowths);
-		eliwood.addToInventory(WeaponFactory.getWeapon("Steel Sword"));
-		eliwood.equip(0);
-		blue.addUnit(eliwood);
+		lyn.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
+		lyn.equip(0);
+		blue.addUnit(lyn);
 
-		Unit lute = new Unit("Eliwood", Class.createClass("Eliwood"), luteBases, luteGrowths);
-		lute.addToInventory(WeaponFactory.getWeapon("Durandal"));
+		Unit lute = new Unit("Lute", Class.createClass("Sage"), luteBases, luteGrowths);
+		lute.addToInventory(WeaponFactory.getWeapon("Elfire"));
 		lute.equip(0);
 		red.addUnit(lute);
 
-		eliwood.setLevel(40);
+		lyn.setLevel(40);
 		lute.setLevel(40);
 		
 		
-		eliwood.fillHp();
+		lyn.fillHp();
 		lute.fillHp();
 		
 		OverworldStage map = new OverworldStage(new Grid(10,10, Terrain.PLAIN));
-		map.addUnit(eliwood, 0, 0);
+		map.addUnit(lyn, 0, 0);
 		map.addUnit(lute, 1, 0);
 		map.processAddStack();
-		currentStage = new FightStage(eliwood, lute);
+		currentStage = new FightStage(lute, lyn);
 		serverMessages = new ArrayList<Message>();
 	}
 
