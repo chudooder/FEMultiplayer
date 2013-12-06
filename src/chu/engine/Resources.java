@@ -98,6 +98,18 @@ public class Resources {
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/lyn_sword_dodge.png")),
 					25, 34, 2, 2, 9, 33, 0));
+			textures.put("lyn_bow_attack", new TextureData(
+					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
+							"res/battle_anim/lyn_bow_attack.png")),
+					40, 52, 13, 4, 25, 49, 0, 12));
+			textures.put("lyn_bow_critical", new TextureData(
+					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
+							"res/battle_anim/lyn_bow_critical.png")),
+					47, 52, 24, 5, 25, 49, 0, 23));
+			textures.put("lyn_bow_dodge", new TextureData(
+					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
+							"res/battle_anim/lyn_bow_dodge.png")),
+					36, 33, 2, 2, 19, 28, 0));
 			
 			
 			textures.put("sage_magic_attack", new TextureData(

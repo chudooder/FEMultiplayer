@@ -8,10 +8,10 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,"?!@_*#$%&()+-/:
 # Stat numbers and health numbers font
 define:stat_numbers
 stat_numbers
-0123456789 
+-0123456789 
 8
 0
-88888888888
+888888888888
 # Message texts
 define:msg_text
 msg_text

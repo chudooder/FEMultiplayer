@@ -13,9 +13,11 @@ public class ProjectileAttack extends AttackAnimation{
 	public void done(){
 		try{
 			super.done();
+			System.out.println("asdf");
 		} catch (IllegalArgumentException e){
 			//Drats! We'll try again next frame.
 			weFailed = true;
+			setFrame(getLength()-1);
 		}
 		
 	}
@@ -36,8 +38,8 @@ public class ProjectileAttack extends AttackAnimation{
 	public void onHit() {
 		stage.addEntity(new Projectile(
 				animationArgs.wepAnimName, 
-				FightStage.FLOOR - 50,
-				stage, animationArgs.left, 
+				FightStage.FLOOR - 25,
+				stage, animationArgs.left,
 				animationArgs.wepAnimName.equals("javelin")));
 	}
 

@@ -19,7 +19,7 @@ public abstract class AttackAnimation extends Animation {
 	protected FightStage stage;
 	protected int freeze;
 	
-	public static final int NORMAL_SPEED = 60;
+	public static final int NORMAL_SPEED = 55;
 	
 	//TODO You can't have a hit frame on the very last frame
 	public AttackAnimation(TextureData data, FightStage stage, AnimationArgs animArgs) {

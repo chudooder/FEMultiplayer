@@ -55,8 +55,9 @@ public class FightStage extends Stage {
 	public static final int ATTACKED = 2;
 	public static final int HURTING = 3;
 	public static final int HURTED = 4;
-	public static final int RETURNING = 5;
-	public static final int DONE = 6;
+	public static final int DYING = 5;
+	public static final int RETURNING = 6;
+	public static final int DONE = 7;
 
 	public FightStage(Unit u1, Unit u2) {
 		shakeTimer = 0;
@@ -175,11 +176,14 @@ public class FightStage extends Stage {
 		} else if (currentEvent == HURTED) {
 			if (dhp.getHp() == 0) {
 				d.dying = true;
+				currentEvent = DYING;
+			} else {
+				currentEvent = RETURNING;
 			}
-			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
-			
-			currentEvent = RETURNING;
+		} else if (currentEvent == DYING) {
+			// Let animation for dying guy play
 		} else if (currentEvent == RETURNING) {
+			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
 			// Let animation play
 		} else if (currentEvent == DONE) {
 			calc.getAttackQueue().remove(0);
@@ -258,7 +262,10 @@ public class FightStage extends Stage {
 	//Getters Setters
 
 	public void setCurrentEvent(int event) {
-		if(event == HURTED || event == HURTING || event == currentEvent + 1){
+		if(currentEvent == ATTACKING && event == HURTED)
+			return;
+		if((event == HURTED || event == HURTING || event == currentEvent + 1)){
+			System.out.println(currentEvent+" to "+event);
 			currentEvent = event;
 		} else {
 			throw new IllegalArgumentException("Invalid state transit: " + currentEvent + " to " + event);

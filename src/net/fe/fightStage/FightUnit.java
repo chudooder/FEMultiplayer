@@ -53,7 +53,10 @@ public class FightUnit extends Entity {
 	public void beginStep() {
 		if(dying && alpha > 0) {
 			alpha -= .75*Game.getDeltaSeconds();
-			if(alpha < 0) alpha = 0;
+			if(alpha < 0) {
+				((FightStage)stage).setCurrentEvent(FightStage.RETURNING);
+				alpha = 0;
+			}
 		}
 	}
 	
@@ -61,7 +64,7 @@ public class FightUnit extends Entity {
 	public void render() {
 		Transform t = new Transform();
 		if(dying)
-			t.setColor(new Color(100, 0, 0, alpha));
+			t.setColor(new Color(255, 255, 255, alpha));
 //		int y1 = FightStage.FLOOR - sprite.getCurrentAnimation().getOffsetY();
 		if(left) {
 			t.flipHorizontal();
