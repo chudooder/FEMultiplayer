@@ -1,14 +1,24 @@
 package net.fe.overworldStage.context;
 
-import net.fe.overworldStage.MoveZone;
+import net.fe.overworldStage.Zone;
 import net.fe.overworldStage.OverworldContext;
 import net.fe.overworldStage.OverworldStage;
+import net.fe.unit.Unit;
 
 public class UnitSelected extends OverworldContext {
-	private MoveZone mz;
-	public UnitSelected(OverworldStage s, MoveZone mz) {
-		super(s);
-		this.mz = mz;
+	private Zone move;
+	private Zone attack;
+	private Zone heal;
+	public UnitSelected(OverworldStage s, OverworldContext prev, Unit u) {
+		super(s, prev);
+		this.move = new Zone(stage.grid.getPossibleMoves(u), Zone.MOVE_DARK);
+		this.attack = Zone.minus(
+				new Zone(stage.grid.getAttackRange(u),Zone.ATTACK_DARK), move);
+		this.heal = Zone.minus(Zone.minus(
+				new Zone(stage.grid.getHealRange(u),Zone.HEAL_DARK), move), attack);
+		stage.addEntity(move);
+		stage.addEntity(attack);
+		stage.addEntity(heal);
 	}
 
 	@Override
@@ -19,32 +29,30 @@ public class UnitSelected extends OverworldContext {
 
 	@Override
 	public void onCancel() {
-		// TODO Auto-generated method stub
-
+		stage.removeEntity(move);
+		stage.removeEntity(attack);
+		stage.removeEntity(heal);
+		stage.setContext(prev);
 	}
 
 	@Override
 	public void onUp() {
-		// TODO Auto-generated method stub
-
+		stage.cursor.ycoord--;
 	}
 
 	@Override
 	public void onDown() {
-		// TODO Auto-generated method stub
-
+		stage.cursor.ycoord++;
 	}
 
 	@Override
 	public void onLeft() {
-		// TODO Auto-generated method stub
-
+		stage.cursor.xcoord--;
 	}
 
 	@Override
 	public void onRight() {
-		// TODO Auto-generated method stub
-
+		stage.cursor.xcoord++;
 	}
 
 }

@@ -24,7 +24,7 @@ public class Cursor extends GriddedEntity{
 	}
 	
 	public void render(){
-		if(time < .75f)
+		if(time < .75f && ((OverworldStage) stage).hasControl())
 			Renderer.drawLine(x+2, y+15, x+14, y+15, 1, 0, Color.black, Color.black);
 	}
 

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Node{
-	int x, y, f, g, h;
+	int x, y, f, g, h, d;
 	Node parent;
 	public Node(int x, int y) {
 		this.x = x;
@@ -21,6 +21,14 @@ public class Node{
 		if(this.x == node.x && this.y == node.y)
 			return true;
 		return false;
+	}
+	
+	public int hashCode(){
+		return x+y;
+	}
+	
+	public int distance(Node other){
+		return Math.abs(other.x - this.x) + Math.abs(other.y - this.y);
 	}
 	
 	public Set<Node> getNeighbors() {

@@ -2,8 +2,10 @@ package net.fe.overworldStage;
 
 public abstract class OverworldContext {
 	protected OverworldStage stage;
-	public OverworldContext(OverworldStage s){
+	protected OverworldContext prev;
+	public OverworldContext(OverworldStage s, OverworldContext prevContext){
 		stage = s;
+		prev = prevContext;
 	}
 	public abstract void onSelect();
 	public abstract void onCancel();

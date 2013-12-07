@@ -208,4 +208,12 @@ public class Unit extends GriddedEntity {
 	public void moved(){
 		moved = true;
 	}
+	
+	public boolean hasMoved(){
+		return moved;
+	}
+	
+	public Iterable<Item> getInventory(){
+		return inventory;
+	}
 }

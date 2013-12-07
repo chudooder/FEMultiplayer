@@ -5,7 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import chu.engine.Entity;
+import net.fe.unit.Item;
 import net.fe.unit.Unit;
+import net.fe.unit.Weapon;
 
 public class Grid{
 	private Unit[][] grid;
@@ -109,59 +111,77 @@ public class Grid{
 	public Set<Node> getPossibleMoves(Unit u) {
 		int x = u.xcoord;
 		int y = u.ycoord;
+		Node start = new Node(x,y);
+		start.d = 0;
 		Set<Node> set = new HashSet<Node>();
-		set.add(new Node(x, y));
-		int w = 0;
-		getPossibleMoves(u, x + 1, y, w, set);
-		getPossibleMoves(u, x - 1, y, w, set);
-		getPossibleMoves(u, x, y + 1, w, set);
-		getPossibleMoves(u, x, y - 1, w, set);
+		ArrayList<Node> q = new ArrayList<Node>();
+		q.add(new Node(x, y));
+		
+		while(q.size() > 0){
+			Node curr = q.remove(0);
+			set.add(curr);
+			for(Node n: curr.getNeighbors()){
+				if(!set.contains(n)){
+					n.d = curr.d + terrain[y][x].getMoveCost(u.getTheClass());
+					if(n.d <= u.get("Mov")){
+						System.out.println("Added " + n.x + " " + n.y);
+						q.add(n);
+					}
+				}
+			}
+		}
+		
+		
 		return set;
 	}
-
-	private void getPossibleMoves(Unit u, int x, int y, int w, Set<Node> set) {
-		if (x < 0 || x > width - 1 || y < 0 || y > height - 1) {
-			return;
-		}
-		Node n = new Node(x, y);
-		if (set.contains(n))
-			return;
-		w += terrain[y][x].getMoveCost(u.getTheClass());
-		if (w > u.get("Mov"))
-			return;
-		set.add(n);
-		getPossibleMoves(u, x + 1, y, w, set);
-		getPossibleMoves(u, x - 1, y, w, set);
-		getPossibleMoves(u, x, y + 1, w, set);
-		getPossibleMoves(u, x, y - 1, w, set);
-	}
-
-	public Set<Node> getNodesWithRange(int x, int y, int distance) {
+	
+	public Set<Node> getAttackRange(Unit u){
+		Set<Node> move = getPossibleMoves(u);
 		Set<Node> set = new HashSet<Node>();
-		set.add(new Node(x, y));
-		int w = 0;
-		getNodesFixed(x + 1, y, w, distance, set);
-		getNodesFixed(x - 1, y, w, distance, set);
-		getNodesFixed(x, y + 1, w, distance, set);
-		getNodesFixed(x, y - 1, w, distance, set);
+		Set<Integer> range = new HashSet<Integer>();
+		for(Item i: u.getInventory()){
+			if(!(i instanceof Weapon)) continue;
+			Weapon w = (Weapon) i;
+			if(w.type != Weapon.Type.STAFF)
+				range.addAll(w.range);
+		}
+		for(Node n: move){
+			for(int i: range){
+				set.addAll(getRange(n, i));
+			}
+		}
 		return set;
 	}
-
-	private void getNodesFixed(int x, int y, int w, int dist, Set<Node> set) {
-		if (x < 0 || x > width - 1 || y < 0 || y > height - 1) {
-			return;
+	
+	public Set<Node> getHealRange(Unit u){
+		Set<Node> move = getPossibleMoves(u);
+		Set<Node> set = new HashSet<Node>();
+		Set<Integer> range = new HashSet<Integer>();
+		for(Item i: u.getInventory()){
+			if(!(i instanceof Weapon)) continue;
+			Weapon w = (Weapon) i;
+			if(w.type == Weapon.Type.STAFF)
+				range.addAll(w.range);
 		}
-		Node n = new Node(x, y);
-		if (set.contains(n))
-			return;
-		w++;
-		if (w > dist)
-			return;
-		set.add(n);
-		getNodesFixed(x + 1, y, w, dist, set);
-		getNodesFixed(x - 1, y, w, dist, set);
-		getNodesFixed(x, y + 1, w, dist, set);
-		getNodesFixed(x, y - 1, w, dist, set);
+		for(Node n: move){
+			for(int i: range){
+				set.addAll(getRange(n, i));
+			}
+		}
+		return set;
+	}
+	
+	public Set<Node> getRange(Node start, int range){
+		Set<Node> set = new HashSet<Node>();
+			for(int dx = -range; dx <=range; dx++){
+				for(int dy = -range; dy <= range; dy++){
+					Node n = new Node(start.x + dx, start.y + dy);
+					if(n.distance(start) == range && !set.contains(n)){
+						set.add(n);
+					}
+				}
+			}
+		return set;
 	}
 
 	private Path getPath(Node goal) {
