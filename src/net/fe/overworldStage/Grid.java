@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import chu.engine.Entity;
 import net.fe.unit.Unit;
 
-public class Grid {
+public class Grid{
 	private Unit[][] grid;
 	private Terrain[][] terrain;
-	private int width, height;
+	public final int width, height;
 
 	public Grid(int width, int height, Terrain defaultTerrain) {
 		grid = new Unit[height][width];
@@ -31,7 +32,7 @@ public class Grid {
 	 * @param y
 	 * @return
 	 */
-	public boolean addUnit(Unit u, int x, int y) {
+	boolean addUnit(Unit u, int x, int y) {
 		if (grid[y][x] != null)
 			return false;
 		grid[y][x] = u;
@@ -40,7 +41,7 @@ public class Grid {
 		return true;
 	}
 
-	public Unit removeUnit(int x, int y) {
+	Unit removeUnit(int x, int y) {
 		if (grid[y][x] == null)
 			return null;
 		Unit ans = grid[y][x];
@@ -50,6 +51,10 @@ public class Grid {
 
 	public Terrain getTerrain(int x, int y) {
 		return terrain[y][x];
+	}
+	
+	public void setTerrain(int x, int y, Terrain t){
+		terrain[y][x] = t;
 	}
 
 	public Unit getUnit(int x, int y) {
@@ -101,7 +106,9 @@ public class Grid {
 		return null;
 	}
 
-	public Set<Node> getPossibleMoves(Unit u, int x, int y) {
+	public Set<Node> getPossibleMoves(Unit u) {
+		int x = u.xcoord;
+		int y = u.ycoord;
 		Set<Node> set = new HashSet<Node>();
 		set.add(new Node(x, y));
 		int w = 0;

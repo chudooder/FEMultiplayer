@@ -1,9 +1,11 @@
 package net.fe.overworldStage;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import org.newdawn.slick.Color;
+
+import chu.engine.anim.Renderer;
 import net.fe.unit.Class;
 import net.fe.unit.Unit;
 
@@ -25,6 +27,8 @@ public enum Terrain {
 	public final int defenseBonus;
 	public final int healthBonus;
 	private CopyOnWriteArrayList<TerrainTrigger> triggers;
+	
+	
 
 	Terrain(int baseMoveCost, int avo, int def, int health) {
 		this.baseMoveCost = baseMoveCost;
