@@ -23,6 +23,8 @@ public class Class {
 			return new Class("Hero",0, new Colossus(), Weapon.Type.SWORD, Weapon.Type.AXE);
 		if(name.equals("Berserker"))
 			return new Class("Berserker", 10, new Luna(), Weapon.Type.AXE);
+		if(name.equals("Warrior"))
+			return new Class("Warrior", 0, new Colossus(), Weapon.Type.AXE, Weapon.Type.BOW);
 		if(name.equals("Assassin"))
 			return new Class("Assassin", 10, new Lethality(), Weapon.Type.BOW, Weapon.Type.SWORD);
 		if(name.equals("Paladin"))

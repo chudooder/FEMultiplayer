@@ -133,12 +133,25 @@ public class Resources {
 							"res/battle_anim/sage_staff_dodge.png")),
 					36, 35, 2, 2, 19, 31, 0));
 			
+			textures.put("assassin_sword_attack", new TextureData(
+					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
+							"res/battle_anim/assassin_sword_attack.png")),
+					90, 43, 47, 7, 68, 40, 0, 21));
+			textures.put("assassin_sword_critical", new TextureData(
+					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
+							"res/battle_anim/assassin_sword_critical.png")),
+					123, 108, 61, 8, 101, 96, 0, 39));
+			textures.put("assassin_sword_dodge", new TextureData(
+					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
+							"res/battle_anim/assassin_sword_dodge.png")),
+					33, 34, 2, 2, 17, 31, 0));
+			
 			
 			textures.put("hit_effect_attack", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_attack.png")),
 					240, 160, 9, 3, 0, 0, -1));
 			textures.put("hit_effect_critical", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_critical.png")),
+					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_critical_alt2.png")),
 					240, 160, 9, 3, 0, 0, -1));
 			textures.put("hit_effect_elfire", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_elfire.png")),

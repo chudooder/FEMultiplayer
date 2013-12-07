@@ -265,7 +265,6 @@ public class FightStage extends Stage {
 		if(currentEvent == ATTACKING && event == HURTED)
 			return;
 		if((event == HURTED || event == HURTING || event == currentEvent + 1)){
-			System.out.println(currentEvent+" to "+event);
 			currentEvent = event;
 		} else {
 			throw new IllegalArgumentException("Invalid state transit: " + currentEvent + " to " + event);

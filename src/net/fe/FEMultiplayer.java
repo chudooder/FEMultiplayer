@@ -50,7 +50,7 @@ public class FEMultiplayer extends Game{
 		lynBases.put("HP", 18);
 		lynBases.put("Str", 5);
 		lynBases.put("Mag", 5);
-		lynBases.put("Spd", 7);
+		lynBases.put("Spd", 200);
 		lynBases.put("Skl", 200);
 		lynBases.put("Lck", 7);
 		lynBases.put("Def", 5);
@@ -97,9 +97,9 @@ public class FEMultiplayer extends Game{
 		Party red = new Party();
 		red.setColor(Party.TEAM_RED);
 
-		Unit lyn = new Unit("Lyn", Class.createClass("Lyn"), lynBases,
+		Unit lyn = new Unit("Ezio", Class.createClass("Assassin"), lynBases,
 				lynGrowths);
-		lyn.addToInventory(WeaponFactory.getWeapon("Iron Bow"));
+		lyn.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
 		lyn.equip(0);
 		blue.addUnit(lyn);
 
@@ -117,7 +117,7 @@ public class FEMultiplayer extends Game{
 		
 		OverworldStage map = new OverworldStage(new Grid(10,10, Terrain.PLAIN));
 		map.addUnit(lyn, 0, 0);
-		map.addUnit(lute, 1, 1);
+		map.addUnit(lute, 1, 0);
 		map.processAddStack();
 		currentStage = new FightStage(lute, lyn);
 		serverMessages = new ArrayList<Message>();
