@@ -17,18 +17,53 @@ public class Class {
 		this.name = name;
 	}
 	public static Class createClass(String name){
-		if(name == null)
-			return new Class("Test", 0, null, Weapon.Type.SWORD, Weapon.Type.LANCE);
+		//Lords
+		if(name.equals("Roy"))
+			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD);
+		if(name.equals("Eliwood"))
+			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD, Weapon.Type.LANCE);
+		if(name.equals("Lyn"))
+			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD, Weapon.Type.BOW);
+		if(name.equals("Hector"))
+			return new Class("Lord", 0, new Aether(), Weapon.Type.AXE, Weapon.Type.SWORD);
+		if(name.equals("Eirika"))
+			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD);
+		if(name.equals("Ephraim"))
+			return new Class("Lord", 0, new Aether(), Weapon.Type.LANCE);
+		if(name.equals("Marth"))
+			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD);
+		if(name.equals("Ike"))
+			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD, Weapon.Type.AXE);
+		
+		//Other
 		if(name.equals("Sniper"))
 			return new Class("Sniper",10, new Deadeye(), Weapon.Type.BOW);
 		if(name.equals("Hero"))
 			return new Class("Hero",0, new Colossus(), Weapon.Type.SWORD, Weapon.Type.AXE);
 		if(name.equals("Berserker"))
 			return new Class("Berserker", 10, new Luna(), Weapon.Type.AXE);
+		if(name.equals("Warrior"))
+			return new Class("Warrior", 0, new Colossus(), Weapon.Type.AXE, Weapon.Type.BOW);
 		if(name.equals("Assassin"))
-			return new Class("Assassin", 10, new Lethality(), Weapon.Type.BOW, Weapon.Type.SWORD);
+			return new Class("Assassin", 10, new Lethality(), Weapon.Type.SWORD);
 		if(name.equals("Paladin"))
 			return new Class("Paladin", 0, new Sol(), Weapon.Type.LANCE, Weapon.Type.SWORD);
+		if(name.equals("Sage"))
+			return new Class("Sage", 0, new Sol(), Weapon.Type.ANIMA, Weapon.Type.STAFF);
+		if(name.equals("General"))
+			return new Class("General", 0, new Pavise(), Weapon.Type.AXE, Weapon.Type.LANCE);
+		if(name.equals("Valkyrie"))
+			return new Class("Valkyrie", 0, new Miracle(), Weapon.Type.STAFF, Weapon.Type.LIGHT);
+		if(name.equals("Swordmaster"))
+			return new Class("Swordmaster", 20, new Astra(), Weapon.Type.SWORD);
+		if(name.equals("Falconknight"))
+			return new Class("Falconknight", 0, null, Weapon.Type.LANCE, Weapon.Type.SWORD);
+		if(name.equals("Sorcerer"))
+			return new Class("Sorcerer", 0, new Luna(), Weapon.Type.DARK, Weapon.Type.ANIMA);
+		if(name.equals("Warrior"))
+			return new Class("Warrior", 0, new Colossus(), Weapon.Type.AXE, Weapon.Type.BOW);
+		if(name.equals("Falconknight"))
+			return new Class("Falconknight", 0, new Stun(), Weapon.Type.LANCE, Weapon.Type.SWORD);
 		return null;
 		
 	}

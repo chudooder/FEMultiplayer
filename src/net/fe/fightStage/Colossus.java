@@ -5,15 +5,15 @@ import net.fe.unit.Unit;
 
 public class Colossus extends CombatTrigger{
 	public Colossus(){
-		super(true);
+		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE);
 	}
 	@Override
-	public void attempt(Unit user) {
-		success = RNG.get() < user.get("Skl")/2;
+	public boolean attempt(Unit user) {
+		return RNG.get() < user.get("Skl")/2;
 	}
 
 	@Override
-	public boolean runPreAttack(FightStage stage, Unit a, Unit d) {
+	public boolean runPreAttack(CombatCalculator stage, Unit a, Unit d) {
 		a.setTempMod("Str", a.get("Str"));
 		return true;
 	}

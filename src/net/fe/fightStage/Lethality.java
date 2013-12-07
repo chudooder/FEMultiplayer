@@ -5,16 +5,17 @@ import net.fe.unit.Unit;
 
 public class Lethality extends CombatTrigger {
 	public Lethality(){
-		super(true);
+		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE);
 	}
 	@Override
-	public void attempt(Unit user) {
-		success = RNG.get() < user.get("Skl") / 4;
+	public boolean attempt(Unit user) {
+		return RNG.get() < user.get("Skl") / 3;
 	}
 
 	@Override
-	public boolean runPreAttack(FightStage stage, Unit a, Unit d) {
-		a.setTempMod("Str", 10000);
+	public boolean runPreAttack(CombatCalculator stage, Unit a, Unit d) {
+		a.setTempMod("Str", 9000);
+		a.setTempMod("Hit", 9000);
 		return true;
 	}
 

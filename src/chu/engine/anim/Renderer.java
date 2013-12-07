@@ -5,12 +5,20 @@ import static org.lwjgl.opengl.GL11.*;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import chu.engine.Game;
+import chu.engine.Resources;
+
 public class Renderer {
 
 	private static Camera camera;
+	private static RectClip clip;
+	private static final int SCALE_FILTER = GL_NEAREST;
+	private static int scaleX;
+	private static int scaleY;
 
 	static {
 		camera = new Camera(null, 0, 0);
+		clip = null;
 	}
 
 	/***
@@ -39,24 +47,34 @@ public class Renderer {
 			float ty1, float x0, float y0, float x1, float y1, float depth) {
 		Color.white.bind();
 		t.bind();
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
+		// Compensation for non power of 2 images
+		float txi = tx0*t.getImageWidth()/t.getTextureWidth();
+		float tyi = ty0*t.getImageHeight()/t.getTextureHeight();
+		float txf = tx1*t.getImageWidth()/t.getTextureWidth();
+		float tyf = ty1*t.getImageHeight()/t.getTextureHeight();
 
 		// draw quad
 		glBegin(GL_QUADS);
-		glTexCoord2f(tx0, ty0);
+		glTexCoord2f(txi, tyi);
 		glVertex3f(x0, y0, depth);
-		glTexCoord2f(tx1, ty0);
+		glTexCoord2f(txf, tyi);
 		glVertex3f(x1, y0, depth);
-		glTexCoord2f(tx1, ty1);
+		glTexCoord2f(txf, tyf);
 		glVertex3f(x1, y1, depth);
-		glTexCoord2f(tx0, ty1);
+		glTexCoord2f(txi, tyf);
 		glVertex3f(x0, y1, depth);
 		glEnd();
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void renderTransformed(Texture t, float tx0, float ty0,
 			float tx1, float ty1, float x0, float y0, float x1, float y1,
 			float depth, Transform transform) {
 		t.bind();
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
 		Color c = transform.color;
 		glColor4f(c.r, c.g, c.b, c.a);
 		glPushMatrix();
@@ -79,21 +97,27 @@ public class Renderer {
 			ty0 = ty1;
 			ty1 = temp;
 		}
+		
+		// Compensation for non power of 2 images
+		float txi = tx0*t.getImageWidth()/t.getTextureWidth();
+		float tyi = ty0*t.getImageHeight()/t.getTextureHeight();
+		float txf = tx1*t.getImageWidth()/t.getTextureWidth();
+		float tyf = ty1*t.getImageHeight()/t.getTextureHeight();
 
 		// draw quad
 		glBegin(GL_QUADS);
-		glTexCoord2f(tx0, ty0);
+		glTexCoord2f(txi, tyi);
 		glVertex3f(x0, y0, depth);
-		glTexCoord2f(tx1, ty0);
+		glTexCoord2f(txf, tyi);
 		glVertex3f(x1, y0, depth);
-		glTexCoord2f(tx1, ty1);
+		glTexCoord2f(txf, tyf);
 		glVertex3f(x1, y1, depth);
-		glTexCoord2f(tx0, ty1);
+		glTexCoord2f(txi, tyf);
 		glVertex3f(x0, y1, depth);
 		glEnd();
 
 		glPopMatrix();
-
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void drawSquare(float x, float y, float s, float depth,
@@ -115,6 +139,7 @@ public class Renderer {
 		glVertex3f(x0, y1, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void drawRectangle(float x0, float y0, float x1, float y1,
@@ -132,6 +157,7 @@ public class Renderer {
 		glVertex3f(x0, y1, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void drawLine(float x0, float y0, float x, float y,
@@ -147,7 +173,7 @@ public class Renderer {
 		glVertex3f(x, y, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
-
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void drawLine(double x0, double y0, double x, double y,
@@ -163,6 +189,7 @@ public class Renderer {
 		glVertex3d(x, y, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void drawTriangle(float x0, float y0, float x, float y,
@@ -176,7 +203,7 @@ public class Renderer {
 		glVertex3f(x2, y2, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
-
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
 
 	public static void drawTriangle(double x0, double y0, double x1, double y1,
@@ -190,8 +217,43 @@ public class Renderer {
 		glVertex3d(x2, y2, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
+		if(clip != null && !clip.persistent) clip.destroy();
 	}
-
+	
+	public static void drawString(String fontName, String string, float x, float y, float depth) {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
+		Resources.getBitmapFont(fontName).render(string, x, y, depth);
+		if(clip != null && !clip.persistent) clip.destroy();
+	}
+	
+	public static void drawTransformedString(String fontName, String string, float x, float y, float depth, Transform t) {
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
+		Resources.getBitmapFont(fontName).renderTransformed(string, x, y, depth, t);
+		if(clip != null && !clip.persistent) clip.destroy();
+	}
+	
+	public static void translate(float x, float y) {
+		glTranslatef(x, y, 0);
+	}
+	
+	public static void scale(int x, int y) {
+		scaleX = x;
+		scaleY = y;
+		glScalef(x, y, 0);
+	}
+	
+	public static void pushMatrix() {
+		glPushMatrix();
+	}
+	
+	public static void popMatrix() {
+		glPopMatrix();
+	}
+	
+	
+	
 	public static void setCamera(Camera c) {
 		camera = c;
 	}
@@ -199,5 +261,27 @@ public class Renderer {
 	public static Camera getCamera() {
 		return camera;
 	}
+    
+    public static void addClip(int x0, int y0, int w, int h, boolean persistent) {
+    	clip = new RectClip(x0, y0, w, h, persistent);
+    }
+    
+    public static void removeClip() {
+    	if(clip != null) clip.destroy();
+    }
+    
+    static class RectClip {
+    	boolean persistent;
+    	public RectClip(int x0, int y0, int w, int h, boolean p) {
+    		persistent = p;
+    		glEnable(GL_SCISSOR_TEST);
+    		System.out.println(scaleX*x0+" "+(Game.getWindowHeight()-y0-scaleY*h)+" "+scaleX*w+" "+scaleY*h);
+    		glScissor(scaleX*x0, Game.getWindowHeight()-y0-scaleY*h, scaleX*w, scaleY*h);
+    	}
+    	
+    	public void destroy() {
+    		glDisable(GL_SCISSOR_TEST);
+    	}
+    }
 
 }

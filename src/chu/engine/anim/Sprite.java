@@ -28,10 +28,11 @@ public class Sprite {
 	 * @param frames Number of frames in the animation
 	 * @param speed Speed of the animation in frames per second
 	 */
-	public void addAnimation(String name, Texture tex, int width, int height, int frames, int speed) {
-		Animation anim = new Animation(tex, width, height, frames, speed);
-		animations.put(name, anim);
+	public void addAnimation(String name, Texture tex, int width, int height, int rows, int columns, int speed) {
+		Animation anim = new Animation(tex, width, height, rows, columns, speed);
+		animations.put(name.toUpperCase(), anim);
 		currentAnimation = anim;
+		anim.setSprite(this);
 	}
 	
 	/**
@@ -41,8 +42,9 @@ public class Sprite {
 	 */
 	public void addAnimation(String name, Texture tex) {
 		Animation anim = new Animation(tex);
-		animations.put(name, anim);
+		animations.put(name.toUpperCase(), anim);
 		currentAnimation = anim;
+		anim.setSprite(this);
 	}
 	
 	/**
@@ -51,8 +53,9 @@ public class Sprite {
 	 * @param anim Existing animation to add
 	 */
 	public void addAnimation(String name, Animation anim) {
-		animations.put(name, anim);
+		animations.put(name.toUpperCase(), anim);
 		currentAnimation = anim;
+		anim.setSprite(this);
 	}
 	
 	/**
@@ -61,7 +64,11 @@ public class Sprite {
 	 * @return Animation that corresponds with that name
 	 */
 	public Animation getAnimation(String name) {
-		return animations.get(name);
+		return animations.get(name.toUpperCase());
+	}
+	
+	public Animation getCurrentAnimation(){
+		return currentAnimation;
 	}
 	
 	/**
@@ -70,7 +77,7 @@ public class Sprite {
 	 * @param name Name of the animation
 	 */
 	public void setAnimation(String name) {
-		currentAnimation = animations.get(name);
+		currentAnimation = animations.get(name.toUpperCase());
 	}
 	
 	/**
@@ -106,14 +113,17 @@ public class Sprite {
 		
 		int width = currentAnimation.getWidth();
 		int height = currentAnimation.getHeight();
-		int fakelength = currentAnimation.getImageWidth()/width;
-		float x0 = (float)(currentAnimation.getFrame())/(float)(fakelength);
-		float x1 = (float)(currentAnimation.getFrame()+1)/(float)(fakelength);
+		int frameX = currentAnimation.getFrame() % currentAnimation.getColumns();
+		int frameY = currentAnimation.getFrame() / currentAnimation.getColumns();
+		int offX = currentAnimation.getOffsetX();
+		int offY = currentAnimation.getOffsetY();
+		float x0 = ((float)frameX * width)/currentAnimation.getImageWidth();
+		float x1 = ((float)(frameX+1) * width)/currentAnimation.getImageWidth();
+		float y0 = ((float)frameY * height)/currentAnimation.getImageHeight();
+		float y1 = ((float)(frameY+1) * height)/currentAnimation.getImageHeight();
 		Texture texture = currentAnimation.getTexture();
-		int xx = (int) (x + currentAnimation.getOffsetX(currentAnimation.getFrame()));
-		int yy = (int) (y + currentAnimation.getOffsetY(currentAnimation.getFrame()));
 		
-		Renderer.render(texture, x0, 0, x1, 1, xx, yy, xx+width, yy+height, depth);
+		Renderer.render(texture, x0, y0, x1, y1, x-offX, y-offY, x+width-offX, y+height-offY, depth);
 		
 	}
 
@@ -137,14 +147,17 @@ public class Sprite {
 		
 		int width = currentAnimation.getWidth();
 		int height = currentAnimation.getHeight();
-		int fakelength = currentAnimation.getImageWidth()/width;
-		float x0 = (float)(currentAnimation.getFrame())/(float)(fakelength);
-		float x1 = (float)(currentAnimation.getFrame()+1)/(float)(fakelength);
-		int xx = (int) (x + currentAnimation.getOffsetX(currentAnimation.getFrame()));
-		int yy = (int) (y + currentAnimation.getOffsetY(currentAnimation.getFrame()));
-		
+		int frameX = currentAnimation.getFrame() % currentAnimation.getColumns();
+		int frameY = currentAnimation.getFrame() / currentAnimation.getColumns();
+		int offX = currentAnimation.getOffsetX();
+		int offY = currentAnimation.getOffsetY();
+		float x0 = ((float)frameX * width)/currentAnimation.getImageWidth();
+		float x1 = ((float)(frameX+1) * width)/currentAnimation.getImageWidth();
+		float y0 = ((float)frameY * height)/currentAnimation.getImageHeight();
+		float y1 = ((float)(frameY+1) * height)/currentAnimation.getImageHeight();
 		Texture texture = currentAnimation.getTexture();
-		Renderer.renderTransformed(texture, x0, 0, x1, 1, xx, yy, xx+width, yy+height, depth, transform);
+		Renderer.renderTransformed(texture, x0, y0, x1, y1, x - offX, y - offY,
+				x + width - offX, y + height - offY, depth, transform);
 	}
 
 	public void setSpeed(int i) {

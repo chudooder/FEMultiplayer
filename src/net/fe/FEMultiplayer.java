@@ -1,24 +1,22 @@
 package net.fe;
 
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_STENCIL_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearDepth;
-import static org.lwjgl.opengl.GL11.glPopMatrix;
-import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.*;
 
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
 import net.fe.unit.Class;
 import net.fe.unit.Unit;
+import net.fe.unit.UnitFactory;
+import net.fe.unit.UnitIdentifier;
 import net.fe.unit.Weapon;
+import net.fe.unit.WeaponFactory;
 
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
@@ -37,82 +35,72 @@ public class FEMultiplayer extends Game{
 	private static Client client;
 	private static ArrayList<Message> serverMessages;
 	
+	private static ArrayList<Player> players;
+	
+	public static Player turn;
+	
 	public static void main(String[] args) {
 		FEMultiplayer game = new FEMultiplayer();
-		game.init(10, 10, "Entanglement");
+		game.init(480, 320, "Fire Emblem Multiplayer");
 		game.loop();
+		
 	}
 	
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
+		players = new ArrayList<Player>();
+		Player p1 = new Player((byte) 0);
+		Player p2 = new Player((byte) 1);
+		players.add(p1);
+		players.add(p2);
+		p1.getParty().setColor(Party.TEAM_BLUE);
+		p2.getParty().setColor(Party.TEAM_RED);
+		
 		//TODO: Implement client
 //		client = new Client();
 		/* OpenGL final setup */
-		GL11.glEnable(GL11.GL_LINE_SMOOTH);
-		// TODO: Beta testing stuff, delete later
-		HashMap<String, Float> stats1 = new HashMap<String, Float>();
-		stats1.put("Skl", 10f);
-		stats1.put("Lck", 1f);
-		stats1.put("HP", 15f);
-		stats1.put("Str", 10f);
-		stats1.put("Mag", 10f);
-		stats1.put("Def", 10f);
-		stats1.put("Res", 10f);
-		stats1.put("Spd", 12f);
-		stats1.put("Lvl", 1f);
-		stats1.put("Mov", 3f);
+		glEnable(GL_LINE_SMOOTH);
+		
+		
+		
+		
 
-		HashMap<String, Integer> growths1 = new HashMap<String, Integer>();
-		growths1.put("HP", 70);
-		growths1.put("Str", 50);
-		growths1.put("Mag", 10);
-		growths1.put("Skl", 70);
-		growths1.put("Spd", 70);
-		growths1.put("Def", 40);
-		growths1.put("Res", 30);
-		growths1.put("Lck", 60);
+		Unit u1 = UnitFactory.getUnit("Lyn");
+		u1.addToInventory(WeaponFactory.getWeapon("Elfire"));
+		u1.equip(0);
+		p1.getParty().addUnit(u1);
 
-		HashMap<String, Float> stats2 = new HashMap<String, Float>();
-		stats2.put("Skl", 10f);
-		stats2.put("Lck", 3f);
-		stats2.put("HP", 15f);
-		stats2.put("Str", 10f);
-		stats2.put("Mag", 10f);
-		stats2.put("Def", 10f);
-		stats2.put("Res", 10f);
-		stats2.put("Spd", 8f);
-		stats2.put("Lvl", 1f);
-		stats2.put("Mov", 3f);
+		Unit u2 = UnitFactory.getUnit("Eliwood");
+		u2.addToInventory(WeaponFactory.getWeapon("Elfire"));
+		u2.equip(0);
+		p2.getParty().addUnit(u2);
 
-		HashMap<String, Integer> growths2 = new HashMap<String, Integer>();
-		growths2.put("HP", 70);
-		growths2.put("Str", 60);
-		growths2.put("Mag", 10);
-		growths2.put("Skl", 60);
-		growths2.put("Spd", 50);
-		growths2.put("Def", 40);
-		growths2.put("Res", 30);
-		growths2.put("Lck", 60);
-
-		Unit marth = new Unit("Marth", Class.createClass("Assassin"), stats1,
-				growths1);
-		marth.addToInventory(Weapon.createWeapon("sord"));
-		marth.equip(0);
-
-		Unit roy = new Unit("Roy", Class.createClass("Paladin"), stats2, growths2);
-		roy.addToInventory(Weapon.createWeapon("lunce"));
-		roy.equip(0);
-
-		for (int i = 0; i < 15; i++) {
-			marth.levelUp();
-			roy.levelUp();
-		}
-		OverworldStage map = new OverworldStage(new Grid(10,10, Terrain.PLAIN));
-		map.addUnit(marth, 0, 0);
-		map.addUnit(roy, 0, 1);
+		u1.setLevel(20);
+		u2.setLevel(20);
+		
+		
+		u1.fillHp();
+		u2.fillHp();
+		
+		OverworldStage map = new OverworldStage(new Grid(20,10, Terrain.PLAIN));
+		map.addUnit(u1, 0, 0);
+		map.addUnit(u2, 1, 0);
 		map.processAddStack();
-		currentStage = new FightStage(marth, roy);
+		CombatCalculator calc = new CombatCalculator(
+				new UnitIdentifier(u1), new UnitIdentifier(u2));
+		
+		currentStage = new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2),
+				calc.getAttackQueue());
 		serverMessages = new ArrayList<Message>();
+	}
+	
+	public static Unit getUnit(UnitIdentifier id){
+		for(Player p: players){
+			if(!p.isSpectator() && p.getParty().getColor().equals(id.partyColor)){
+				return p.getParty().search(id.name);
+			}
+		}
+		return null;
 	}
 
 	@Override

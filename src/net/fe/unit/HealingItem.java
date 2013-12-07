@@ -9,7 +9,7 @@ public class HealingItem extends Item {
 	public int amount;
 	public HealingItem(String name, int amount){
 		super(name);
-		uses = 3;
+		setMaxUses(3);
 		this.amount = amount;
 	}
 	public void use(Unit user){

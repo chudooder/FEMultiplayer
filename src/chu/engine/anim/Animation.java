@@ -8,46 +8,59 @@ public class Animation {
 	private Texture texture;
 	private int width;
 	private int height;
-	private int length;
+	private int rows;
+	private int columns;
 	private int currentFrame;
 	private int counter;
-	private int[][] offset;
+	private int length;
+	private int offsetX;
+	private int offsetY;
+	private Sprite sprite;
 	protected int speed;			//Time for each frame in milliseconds
 	
 	public Animation(Texture t) {
 		texture = t;
 		width = t.getImageWidth();
 		height = t.getImageHeight();
-		offset = new int[2][length];
 		length = 1;
+		rows = 1;
+		columns = 1;
 		speed = 0;
 	}
 	
-	public Animation(Texture t, int width, int height, int frames, int speed) {
+	public Animation(Texture t, int width, int height, int length, int columns, int speed) {
 		this(t);
 		this.width = width;
 		this.height = height;
-		this.length = frames;
+		this.columns = columns;
+		this.rows = (length/columns)+1;
+		this.length = length;
 		this.speed = speed;
+		this.offsetX = 0;
+		this.offsetY = 0;
+	}
+	
+	public Animation(Texture t, int width, int height, int length, int columns, int offsetX, int offsetY, int speed) {
+		this(t);
+		this.width = width;
+		this.height = height;
+		this.columns = columns;
+		this.rows = (length/columns)+1;
+		this.length = length;
+		this.speed = speed;
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
 	}
 	
 	public int getLength() { return length; }
 	public int getFrame() { return currentFrame; }
 	public int getWidth() { return width; }
 	public int getHeight() { return height; }
+	public int getRows() { return rows; }
+	public int getColumns() { return columns; }
+	public int getImageHeight() { return texture.getImageHeight(); }
 	public int getImageWidth() { return texture.getImageWidth(); }
 	public Texture getTexture() { return texture; }
-	public int getOffsetX(int frame) {
-		return offset[0][frame];
-	}
-	public int getOffsetY(int frame) {
-		return offset[1][frame];
-	}
-	
-	public void setOffset(int frame, int x, int y) {
-		offset[0][frame] = x;
-		offset[1][frame] = y;
-	}
 	
 	
 	public void update() {
@@ -72,7 +85,7 @@ public class Animation {
 		if(speed > 0)
 			currentFrame = 0;
 		else
-			currentFrame = length-1;
+			currentFrame = columns-1;
 	}
 
 	public void setFrame(int i) {
@@ -82,6 +95,21 @@ public class Animation {
 	public void setSpeed(int i) {
 		speed = i;
 	}
+
+	public void setSprite(Sprite sprite2) {
+		sprite = sprite2;
+	}
 	
+	public Sprite getSprite() {
+		return sprite;
+	}
+	
+	public int getOffsetX() {
+		return offsetX;
+	}
+	
+	public int getOffsetY() {
+		return offsetY;
+	}
 
 }

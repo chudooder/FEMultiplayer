@@ -1,174 +1,93 @@
 package net.fe.fightStage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.LinkedHashMap;
 
+import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
+
+import net.fe.FEMultiplayer;
 import net.fe.RNG;
+import net.fe.fightStage.anim.*;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
+import net.fe.unit.UnitIdentifier;
+import net.fe.unit.Weapon;
 import chu.engine.Entity;
+import chu.engine.Game;
+import chu.engine.Resources;
 import chu.engine.Stage;
+import chu.engine.anim.Animation;
+import chu.engine.anim.Renderer;
 
 public class FightStage extends Stage {
 	private Unit left, right;
-	private ArrayList<AttackRecord> attackQueue;
-	private int currentEvent;
+	private FightUnit leftFighter, rightFighter;
+	private Healthbar leftHP, rightHP;
+	private int range;
 	
+	private ArrayList<AttackRecord> attackQ;
+	
+	private Texture bg;
+	private int currentEvent;
+	private float prevShakeTimer;
+	private float shakeTimer;
+	private float shakeX;
+	private float shakeY;
+	
+	// Config
+	public static final float SHAKE_INTERVAL = 0.05f;
+	
+	public static final int CENTRAL_AXIS = 120;
+	public static final int FLOOR = 104;
+	
+	public static Color BORDER_DARK = new Color(0x483828);
+	public static Color BORDER_LIGHT = new Color(0xf8f0c8);
+	public static Color NEUTRAL = new Color(0xb0a878);
+	
+	public static final float HP_DEPTH = 0;
+	public static final float HUD_DEPTH = 0.1f;
+	public static final float EFFECT_DEPTH = 0.2f;
+	public static final float UNIT_DEPTH = 0.5f;
+	public static final float PLATFORM_DEPTH = 0.7f;
+	public static final float BG_DEPTH = 1;
+
 	public static final int START = 0;
 	public static final int ATTACKING = 1;
 	public static final int ATTACKED = 2;
-	public static final int RETURNING = 3;
-	public static final int DONE = 4;
+	public static final int HURTING = 3;
+	public static final int HURTED = 4;
+	public static final int DYING = 5;
+	public static final int RETURNING = 6;
+	public static final int DONE = 7;
 
-	public FightStage(Unit u1, Unit u2) {
-		attackQueue = new ArrayList<AttackRecord>();
-		left = u1;
-		right = u2;
-		calculate(Grid.getDistance(u1, u2));
-	}
-
-	public void calculate(int range) {
-		// Determine turn order
-		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
-		if (left.getWeapon() != null && left.getWeapon().range.contains(range))
-			attackOrder.add(true);
-		if (right.getWeapon() != null
-				&& right.getWeapon().range.contains(range))
-			attackOrder.add(false);
-		if (left.get("Spd") >= right.get("Spd") + 4 && left.getWeapon() != null
-				&& left.getWeapon().range.contains(range)) {
-			attackOrder.add(true);
-		}
-		if (right.get("Spd") >= left.get("Spd") + 4
-				&& right.getWeapon() != null
-				&& right.getWeapon().range.contains(range)) {
-			attackOrder.add(false);
-		}
-
-		System.out.println("Battle!\n" + left + "\n" + right);
-		for (Boolean i : attackOrder) {
-			attack(i, true, "Attack");
-		}
-	}
-
-	public void attack(boolean dir, boolean skills, String name) {
-		Unit a, d;
-		int damage = 0;
-		String animation = "Attack";
-		if (dir) {
-			a = left;
-			d = right;
-		} else {
-			a = right;
-			d = left;
-		}
-
-		if (a.getHp() == 0 || d.getHp() == 0) {
-			return;
-		}
-
-		ArrayList<CombatTrigger> aTriggers = a.getTriggers();
-		ArrayList<CombatTrigger> dTriggers = d.getTriggers();
-
-		for (CombatTrigger t : aTriggers) {
-			t.attempt(a);
-		}
-		for (CombatTrigger t : dTriggers) {
-			t.attempt(a);
-		}
-
-		if (!(RNG.get() < a.hit() - d.avoid()
-				+ a.getWeapon().triMod(d.getWeapon()) * 10)) {
-			// Miss
-			addToAttackQueue(a, d, "Miss", 0);
-			if (a.getWeapon().isMagic())
-				a.getWeapon().use(a);
-			return;
-		}
-
-		if (skills) {
-			for (CombatTrigger t : aTriggers) {
-				if (t.success) {
-					if(!t.runPreAttack(this, a, d)){
-						for (CombatTrigger t2 : aTriggers) {
-							t2.clear();
-						}
-						for (CombatTrigger t2 : dTriggers) {
-							t2.clear();
-						}
-						return;
-					}
-					animation = t.getClass().getSimpleName();
-				}
-			}
-		}
-
-		int crit = 1;
-		if (RNG.get() < a.crit() - d.dodge()) {
-			crit = 3;
-		}
-
-		if (a.getWeapon().isMagic()) {
-			damage = a.get("Mag")
-					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
-					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
-							: 1) - d.get("Res");
-		} else {
-			damage = a.get("Str")
-					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
-					* (a.getWeapon().effective.contains(d.getTheClass()) ? 3
-							: 1) - d.get("Def");
-		}
-		damage *= crit;
-
-		for (CombatTrigger t : dTriggers) {
-			if (t.success) {
-				damage = t.runDamageMod(damage);
-			}
-		}
-		damage = Math.min(damage, d.getHp());
-
-		if (crit == 3) {
-			animation += " Critical";
-		}
-		addToAttackQueue(a, d, animation, damage);
-		d.setHp(d.getHp() - damage);
-		a.clearTempMods();
-		d.clearTempMods();
-		if (skills) {
-			for (CombatTrigger t : aTriggers) {
-				if (t.success) {
-					t.runPostAttack(this, a, d, damage);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Adds an attack to the Attack Queue
-	 * 
-	 * @param a
-	 *            The attacking unit
-	 * @param d
-	 *            The defending unit
-	 * @param animation
-	 *            The name of the animation to play
-	 * @param damage
-	 *            The damage of the attack on the defending unit
-	 * @param consume
-	 *            The number of attacks in the animation. If consume > 1, it
-	 *            will get the next (consume - 1) AttackRecords in the
-	 *            attackQueue.
-	 */
-	public void addToAttackQueue(Unit a, Unit d, String animation, int damage) {
-		AttackRecord rec = new AttackRecord();
-		rec.attacker = a;
-		rec.defender = d;
-		rec.animation = animation;
-		rec.damage = damage;
-		attackQueue.add(rec);
+	public FightStage(UnitIdentifier u1, UnitIdentifier u2, ArrayList<AttackRecord> attackQ) {
+		shakeTimer = 0;
+		prevShakeTimer = 0;
+		shakeX = 0;
+		shakeY = 0;
+		left = FEMultiplayer.getUnit(u1);
+		right = FEMultiplayer.getUnit(u2);
+		
+		range = Grid.getDistance(left, right);
+		leftFighter = new FightUnit(new AnimationArgs(left, true, range), this);
+		rightFighter = new FightUnit(new AnimationArgs(right, false, range), this);
+		leftHP = new Healthbar(left, true);
+		rightHP = new Healthbar(right, false);
+		addEntity(leftFighter);
+		addEntity(rightFighter);
+		addEntity(leftHP);
+		addEntity(rightHP);
+		addEntity(new Platform(left.getTerrain(), true, range));
+		addEntity(new Platform(right.getTerrain(), false, range));
+		addEntity(new HUD(left, right, this));
+		addEntity(new HUD(right, left, this));
+		bg = Resources.getTexture(right.getTerrain().toString().toLowerCase() + "_bg");
+		
+		this.attackQ = attackQ;
+		
+		System.out.println("-------Battle!-------\n" + left + "\n" + right + "\n");
+		System.out.println("Running calcuations:");
 	}
 
 	@Override
@@ -187,57 +106,151 @@ public class FightStage extends Stage {
 		}
 		processAddStack();
 		processRemoveStack();
-		if(attackQueue.size()!=0){
+		if (attackQ.size() != 0) {
 			processAttackQueue();
 		} else {
-			//TODO switch back to the other stage
-			System.out.println(left.name + " HP:" + left.getHp() + " | " + right.name + 
-					" HP:" + right.getHp());
+			// TODO switch back to the other stage
+			System.out.println(left.name + " HP:" + left.getHp() + " | "
+					+ right.name + " HP:" + right.getHp());
 			System.exit(0);
 		}
 	}
-	
-	private void processAttackQueue(){
-		final AttackRecord rec = attackQueue.get(0);
-		if(currentEvent == START){
-			System.out.println("\n" + rec.attacker.name + "'s turn!");
-			currentEvent = ATTACKING;
-			//TODO Start the next animation
-			//Debugging: should be called by animation
-			Timer t1 = new Timer();
-			t1.schedule(new TimerTask(){
-				@Override
-				public void run() {
-					currentEvent = ATTACKED;
-				}
-			}, 1000);
+
+	private void processAttackQueue() {
+		final AttackRecord rec = attackQ.get(0);
+		Unit attacker = FEMultiplayer.getUnit(rec.attacker);
+		Unit defender = FEMultiplayer.getUnit(rec.defender);
+		
+		FightUnit a = attacker == right? rightFighter: leftFighter;
+		FightUnit d = attacker == right? leftFighter: rightFighter;
+		Healthbar dhp = defender == left? leftHP: rightHP;
+		Healthbar ahp = defender == left? rightHP: leftHP;
+		
+		boolean crit = rec.animation.contains("Critical");		
+		a.renderDepth = FightStage.UNIT_DEPTH;
+		d.renderDepth = FightStage.UNIT_DEPTH+0.01f;
+		
+		
+		if (currentEvent == START) {
+			System.out.println("\n" + rec.attacker.name + "'s turn!"); //Debug
+			ArrayList<String> messages = getMessages(rec.animation, "(a)");
+			for(int i = 0; i < messages.size(); i++){
+				addEntity(new Message(messages.get(i), attacker == left, i));
+			}
+			a.sprite.setAnimation(crit?"CRIT":"ATTACK");
+			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
 			
-			Timer t2 = new Timer();
-			t2.schedule(new TimerTask(){
-				@Override
-				public void run() {
-					currentEvent = DONE;
+			currentEvent = ATTACKING;
+		} else if (currentEvent == ATTACKING) {
+			// Let the animation play
+		} else if (currentEvent == ATTACKED) {
+			if (rec.animation.equals("Miss")) {
+				System.out.println("Miss! " + rec.defender.name
+						+ " dodged the attack!");
+				
+				d.sprite.setAnimation("DODGE");
+				d.sprite.setFrame(0);
+				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
+				addEntity(new MissEffect(defender == left));
+				if(attacker.getWeapon().isMagic()){
+					addEntity(a.getHitEffect(crit));
 				}
 				
-			}, 2000);
-		} else if (currentEvent == ATTACKING){
-			//Let the animation play
-		} else if (currentEvent == ATTACKED){
-			if(rec.animation.equals("Miss")){
-				//TODO Play defenders dodge animation
-				System.out.println("Miss! " + rec.defender.name + " dodged the attack!");
+				currentEvent = HURTED;
 			} else {
-				//TODO Play healthbar going down/up animation
-				System.out.println(rec.animation + "! " + rec.defender.name + 
-						" took " + rec.damage +	" damage!");
+				System.out.println(rec.animation + "! " + rec.defender.name
+						+ " took " + rec.damage + " damage!");
+				
+				defender.setHp(defender.getHp() - rec.damage);
+				attacker.setHp(attacker.getHp() + rec.drain);
+				dhp.setHp(dhp.getHp() - rec.damage);
+				ahp.setHp(ahp.getHp() + rec.drain, false);
+				addEntity(a.getHitEffect(crit));
+				startShaking(crit?1.3f:.5f);
+				
+				
+				if(rec.damage != 0) {
+					currentEvent = HURTING;
+				} else {
+					currentEvent = HURTED;
+				}
 			}
-			currentEvent = RETURNING;
-		} else if (currentEvent == RETURNING){
-			//Let animation play
-		} else if (currentEvent == DONE){
+			
+			ArrayList<String> messages = getMessages(rec.animation, "(d)");
+			for(int i = 0; i < messages.size(); i++){
+				addEntity(new Message(messages.get(i), attacker == left, i));
+			}
+		} else if (currentEvent == HURTING) {
+			// let health bar animation play
+			
+				
+		} else if (currentEvent == HURTED) {
+			if (dhp.getHp() == 0) {
+				d.dying = true;
+				currentEvent = DYING;
+			} else {
+				currentEvent = RETURNING;
+			}
+		} else if (currentEvent == DYING) {
+			// Let animation for dying guy play
+		} else if (currentEvent == RETURNING) {
+			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
+			// Let animation play
+		} else if (currentEvent == DONE) {
+			attackQ.remove(0);
 			currentEvent = START;
-			attackQueue.remove(0);
 		}
+	}
+	
+	private ArrayList<String> getMessages(String animationName, String suffix){
+		ArrayList<String> ans = new ArrayList<String>();
+		String[] animation = animationName.split(" ");
+		for(String anim: animation){
+			if(anim.endsWith(suffix)){
+				anim = anim.substring(0, anim.length()-suffix.length());
+			} else {
+				continue;
+			}
+			if(anim.matches(".*\\d")){
+				if(anim.endsWith("1")){
+					anim = anim.substring(0, anim.length()-1);
+				} else {
+					continue;
+				}
+			}
+			ans.add(anim.toUpperCase());
+		}
+		return ans;
+	}
+	
+	public void render() {
+		Renderer.pushMatrix();
+		Renderer.scale(2, 2);
+		Renderer.render(bg, 0, 0, 1, 1, 0, 0, 240, 160, 1);
+		if(shakeTimer > 0) {
+			shakeTimer -= Game.getDeltaSeconds();
+			if(prevShakeTimer - shakeTimer > SHAKE_INTERVAL) {
+				float factor = Math.min(shakeTimer*1.2f, 1.0f);
+				shakeX *= -factor;
+				shakeY *= -factor;
+				prevShakeTimer = shakeTimer;
+			}
+			if(shakeTimer < 0) {
+				shakeTimer = 0;
+				prevShakeTimer = 0;
+				shakeX = 0;
+				shakeY = 0;
+			}
+		}
+		
+		//Shake
+		Renderer.translate((int)shakeX, (int)shakeY);
+		
+		super.render();
+		
+		//Undo shake translation
+		Renderer.popMatrix();
+		Renderer.removeClip();
 	}
 
 	@Override
@@ -248,11 +261,49 @@ public class FightStage extends Stage {
 		processAddStack();
 		processRemoveStack();
 	}
+	
+	private void startShaking(float time) {
+		shakeTimer = time;
+		prevShakeTimer = time;
+		float dist = Math.min(shakeTimer*9, 5);
+		shakeX = -dist;
+		shakeY = -dist;
+	}
+	
+	//Getters Setters
 
-	private class AttackRecord {
-		public String animation;
-		public Unit attacker, defender;
-		public int damage;
+	public void setCurrentEvent(int event) {
+		if(currentEvent == ATTACKING && event == HURTED)
+			return;
+		if((event == HURTED || event == HURTING || event == currentEvent + 1)){
+			currentEvent = event;
+		} else {
+			throw new IllegalArgumentException("Invalid state transit: " + currentEvent + " to " + event);
+		}
+		
+	}
+	
+	public int distanceToHead(){
+		return rangeToHeadDistance(range);
+	}
+	
+	public int getRange(){
+		return range;
+	}
+	
+	public boolean isLeft(Unit u){
+		return u == left;
+	}
+	
+	public static int rangeToHeadDistance(int range) {
+		if (range == 1) {
+			return 32;
+		} else {
+			return 54;
+		}
 	}
 
+	
+	
+	
 }
