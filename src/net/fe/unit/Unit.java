@@ -30,6 +30,8 @@ public class Unit extends GriddedEntity {
 	public final String name;
 	private Party team;
 	//TODO Rescue
+	
+	private boolean moved;
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
@@ -206,5 +208,9 @@ public class Unit extends GriddedEntity {
 	
 	public Party getParty(){
 		return team;
+	}
+	
+	public void moved(){
+		moved = true;
 	}
 }

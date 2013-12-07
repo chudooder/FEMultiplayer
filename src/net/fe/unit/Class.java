@@ -60,6 +60,8 @@ public class Class {
 			return new Class("Sorcerer", 0, new Luna(), Weapon.Type.DARK, Weapon.Type.ANIMA);
 		if(name.equals("Warrior"))
 			return new Class("Warrior", 0, new Colossus(), Weapon.Type.AXE, Weapon.Type.BOW);
+		if(name.equals("Falconknight"))
+			return new Class("Falconknight", 0, new Stun(), Weapon.Type.LANCE, Weapon.Type.SWORD);
 		return null;
 		
 	}

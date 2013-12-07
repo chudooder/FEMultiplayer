@@ -37,6 +37,8 @@ public class FEMultiplayer extends Game{
 	
 	private static ArrayList<Player> players;
 	
+	public static Player turn;
+	
 	public static void main(String[] args) {
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
