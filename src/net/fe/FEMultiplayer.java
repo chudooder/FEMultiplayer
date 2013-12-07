@@ -89,9 +89,8 @@ public class FEMultiplayer extends Game{
 		CombatCalculator calc = new CombatCalculator(
 				new UnitIdentifier(u1), new UnitIdentifier(u2));
 		
-		//currentStage = new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2),
-		//		calc.getAttackQueue());
-		currentStage = map;
+		currentStage = new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2),
+				calc.getAttackQueue());
 		serverMessages = new ArrayList<Message>();
 	}
 	
