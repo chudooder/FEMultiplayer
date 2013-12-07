@@ -10,7 +10,7 @@ public class Tile extends GriddedEntity{
 	private Terrain terrain;
 	public Tile(int x, int y, Terrain t){
 		super(x,y);
-		renderDepth = 1;
+		renderDepth = OverworldStage.TILE_DEPTH;
 		terrain = t;
 	}
 	

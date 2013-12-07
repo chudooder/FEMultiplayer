@@ -90,6 +90,7 @@ public class FEMultiplayer extends Game{
 		
 		currentStage = map;
 		serverMessages = new ArrayList<Message>();
+		
 	}
 	
 	public static Unit getUnit(UnitIdentifier id){

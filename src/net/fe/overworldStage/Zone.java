@@ -24,7 +24,7 @@ public class Zone extends Entity {
 		super(0,0);
 		this.zone = zone;
 		this.color = c;
-		renderDepth = 0.2f;
+		renderDepth = OverworldStage.ZONE_DEPTH;
 	}
 	public void render(){
 		for(Node n: zone){

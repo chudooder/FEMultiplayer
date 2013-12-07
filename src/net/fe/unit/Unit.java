@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import chu.engine.Game;
 import chu.engine.GriddedEntity;
 import chu.engine.Resources;
 import chu.engine.anim.Renderer;
@@ -16,8 +17,6 @@ import net.fe.fightStage.anim.AttackAnimation;
 import net.fe.fightStage.anim.DodgeAnimation;
 import net.fe.fightStage.anim.NormalAttack;
 import net.fe.overworldStage.*;
-
-
 
 public class Unit extends GriddedEntity {
 	private HashMap<String, Float> stats;
@@ -30,9 +29,11 @@ public class Unit extends GriddedEntity {
 	private HashMap<String, Integer> tempMods;
 	public final String name;
 	private Party team;
-	//TODO Rescue
-	
+	// TODO Rescue
+
 	private boolean moved;
+	private Path path;
+	private float rX, rY;
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
@@ -43,106 +44,142 @@ public class Unit extends GriddedEntity {
 		tempMods = new HashMap<String, Integer>();
 		this.name = name;
 		clazz = c;
-		
+
 		stats = new HashMap<String, Float>();
-		for(String s: bases.keySet()){
+		for (String s : bases.keySet()) {
 			stats.put(s, bases.get(s).floatValue());
 		}
-			
+
 		fillHp();
+		
+		renderDepth = OverworldStage.UNIT_DEPTH;
 	}
-	
-	public Unit getCopy(){
+
+	public void move(Path p) {
+		this.path = p.getCopy();
+		path.removeFirst();
+		if(path.size() != 0) {
+			Node next = path.removeFirst();
+			rX = -(next.x - xcoord) * 16;
+			rY = -(next.y - ycoord) * 16;
+			xcoord = next.x;
+			ycoord = next.y;
+		}
+	}
+
+	public void onStep() {
+		super.onStep();
+		rX = rX - Math.signum(rX) * Game.getDeltaSeconds() * 500;
+		rY = rY - Math.signum(rY) * Game.getDeltaSeconds() * 500;
+		if (path != null && Math.abs(rX + rY) < 1) {
+			if (path.size() == 0) {
+				// We made it to destination
+				rX = 0;
+				rY = 0;
+				path = null;
+				
+			} else {
+				Node next = path.removeFirst();
+				rX = -(next.x - xcoord) * 16;
+				rY = -(next.y - ycoord) * 16;
+				xcoord = next.x;
+				ycoord = next.y;
+			}
+
+		}
+	}
+
+	public Unit getCopy() {
 		Unit copy = new Unit(name, clazz, bases, growths);
 		copy.setLevel(stats.get("Lvl").intValue());
-		for(Item i: inventory){
+		for (Item i : inventory) {
 			copy.addToInventory(i);
 		}
 		return copy;
 	}
-	
-	public void render(){
-		Renderer.drawRectangle(x + 2, y + 2, x + 14, y + 14, 0, getPartyColor());
-		Renderer.drawString("default_med", name.charAt(0) + "", x+4, y+2, 0);
+
+	public void render() {
+		Renderer.drawRectangle(x + 2 + rX, y + 2 + rY, x + 14 + rX, y + 14+rY, 0, getPartyColor());
+		Renderer.drawString("default_med", name.charAt(0) + "", x + 4 + rX, y + 2 + rY, 0);
 	}
-	
-	public void levelUp(){
-		if(stats.get("Lvl") == 20){
+
+	public void levelUp() {
+		if (stats.get("Lvl") == 20) {
 			return;
 		}
 		stats.put("Lvl", stats.get("Lvl") + 1);
-		for(String stat: growths.keySet()){
-			stats.put(stat, stats.get(stat) + (float)(growths.get(stat)/100.0));
+		for (String stat : growths.keySet()) {
+			stats.put(stat, stats.get(stat)
+					+ (float) (growths.get(stat) / 100.0));
 		}
 	}
-	
-	public void setLevel(int lv){
-		if(lv > 20 || lv < 1){
+
+	public void setLevel(int lv) {
+		if (lv > 20 || lv < 1) {
 			return;
 		}
 		stats.put("Lvl", (float) lv);
 		lv--;
-		for(String stat: growths.keySet()){
-			stats.put(stat, bases.get(stat) + (float)(lv*growths.get(stat)/100.0));
+		for (String stat : growths.keySet()) {
+			stats.put(stat, bases.get(stat)
+					+ (float) (lv * growths.get(stat) / 100.0));
 		}
 	}
-	
-	public void fillHp(){
+
+	public void fillHp() {
 		setHp(get("HP"));
 	}
-	
-	public void equip(int index){
-		if(equippable(index))
+
+	public void equip(int index) {
+		if (equippable(index))
 			weapon = (Weapon) inventory.get(index);
 		else
 			throw new IllegalArgumentException("Cannot equip that item");
-			
+
 	}
-	
-	public boolean equippable(int index){
-		if(inventory.get(index) instanceof Weapon){
+
+	public boolean equippable(int index) {
+		if (inventory.get(index) instanceof Weapon) {
 			Weapon w = (Weapon) inventory.get(index);
-			if(w.pref!=null){
+			if (w.pref != null) {
 				return name.equals(w.pref);
 			}
 			return clazz.usableWeapon.contains(w.type);
 		}
 		return false;
 	}
-	
-	public ArrayList<CombatTrigger> getTriggers(){
+
+	public ArrayList<CombatTrigger> getTriggers() {
 		ArrayList<CombatTrigger> triggers = new ArrayList<CombatTrigger>();
-		if(clazz.masterSkill!=null)
+		if (clazz.masterSkill != null)
 			triggers.add(clazz.masterSkill);
 		triggers.addAll(weapon.getTriggers());
 		return triggers;
 	}
 
-	
-	//Combat statistics
-	public int hit(){
-		return weapon.hit + 2*get("Skl") + get("Lck")/2 +
-				(tempMods.get("Hit")!=null?tempMods.get("Hit"):0);
-	}
-	
-	public int avoid(){
-		return 2*get("Spd") + get("Lck")/2 +
-				(tempMods.get("Avo")!=null?tempMods.get("Avo"):0) +
-				getTerrain().avoidBonus;
-	}
-	
-	public int crit(){
-		return weapon.crit + get("Skl")/2 + clazz.crit +
-				(tempMods.get("Crit")!=null?tempMods.get("Crit"):0);
-	}
-	
-	public int dodge(){ //Critical avoid
-		return get("Lck")+
-				(tempMods.get("Dodge")!=null?tempMods.get("Dodge"):0);
+	// Combat statistics
+	public int hit() {
+		return weapon.hit + 2 * get("Skl") + get("Lck") / 2
+				+ (tempMods.get("Hit") != null ? tempMods.get("Hit") : 0);
 	}
 
-	
-	//Getter/Setter
+	public int avoid() {
+		return 2 * get("Spd") + get("Lck") / 2
+				+ (tempMods.get("Avo") != null ? tempMods.get("Avo") : 0)
+				+ getTerrain().avoidBonus;
+	}
+
+	public int crit() {
+		return weapon.crit + get("Skl") / 2 + clazz.crit
+				+ (tempMods.get("Crit") != null ? tempMods.get("Crit") : 0);
+	}
+
+	public int dodge() { // Critical avoid
+		return get("Lck")
+				+ (tempMods.get("Dodge") != null ? tempMods.get("Dodge") : 0);
+	}
+
+	// Getter/Setter
 	public Class getTheClass() {
 		return clazz;
 	}
@@ -152,68 +189,69 @@ public class Unit extends GriddedEntity {
 	}
 
 	public void setHp(int hp) {
-		this.hp = Math.max(hp,0);
+		this.hp = Math.max(hp, 0);
 	}
-	
-	public int get(String stat){
-		int ans = stats.get(stat).intValue() + (weapon!=null?weapon.modifiers.get(stat):0) +
-				(tempMods.get(stat)!=null?tempMods.get(stat):0);
-		if(Arrays.asList("Def","Res").contains(stat)){
+
+	public int get(String stat) {
+		int ans = stats.get(stat).intValue()
+				+ (weapon != null ? weapon.modifiers.get(stat) : 0)
+				+ (tempMods.get(stat) != null ? tempMods.get(stat) : 0);
+		if (Arrays.asList("Def", "Res").contains(stat)) {
 			ans += getTerrain().defenseBonus;
 		}
 		return ans;
 	}
-	
-	public int getBase(String stat){
+
+	public int getBase(String stat) {
 		return stats.get(stat).intValue();
 	}
-	
-	public void setTempMod(String stat, int val){
+
+	public void setTempMod(String stat, int val) {
 		tempMods.put(stat, val);
 	}
-	
-	public void clearTempMods(){
+
+	public void clearTempMods() {
 		tempMods.clear();
 	}
-	
-	public Weapon getWeapon(){
+
+	public Weapon getWeapon() {
 		return weapon;
 	}
-	
+
 	public void addToInventory(Item item) {
 		inventory.add(item);
 	}
-	
-	public Terrain getTerrain(){
+
+	public Terrain getTerrain() {
 		return ((OverworldStage) stage).getTerrain(xcoord, ycoord);
 	}
-	
-	//Debugging
-	public String toString(){
+
+	// Debugging
+	public String toString() {
 		return name + " HP" + hp + "\n" + stats;
 	}
-	
-	public Color getPartyColor(){
+
+	public Color getPartyColor() {
 		return team.getColor();
 	}
-	
-	public void setParty(Party t){
+
+	public void setParty(Party t) {
 		team = t;
 	}
-	
-	public Party getParty(){
+
+	public Party getParty() {
 		return team;
 	}
-	
-	public void moved(){
+
+	public void moved() {
 		moved = true;
 	}
-	
-	public boolean hasMoved(){
+
+	public boolean hasMoved() {
 		return moved;
 	}
-	
-	public Iterable<Item> getInventory(){
+
+	public Iterable<Item> getInventory() {
 		return inventory;
 	}
 }

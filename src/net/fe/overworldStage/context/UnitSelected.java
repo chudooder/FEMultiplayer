@@ -1,30 +1,33 @@
 package net.fe.overworldStage.context;
 
-import net.fe.overworldStage.Zone;
-import net.fe.overworldStage.OverworldContext;
-import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.*;
 import net.fe.unit.Unit;
 
-public class UnitSelected extends OverworldContext {
+public class UnitSelected extends CursorContext {
 	private Zone move;
 	private Zone attack;
 	private Zone heal;
+	private Unit selected;
+	private Path path;
 	public UnitSelected(OverworldStage s, OverworldContext prev, Unit u) {
 		super(s, prev);
-		this.move = new Zone(stage.grid.getPossibleMoves(u), Zone.MOVE_DARK);
+		this.move = new Zone(grid.getPossibleMoves(u), Zone.MOVE_DARK);
 		this.attack = Zone.minus(
-				new Zone(stage.grid.getAttackRange(u),Zone.ATTACK_DARK), move);
+				new Zone(grid.getAttackRange(u),Zone.ATTACK_DARK), move);
 		this.heal = Zone.minus(Zone.minus(
-				new Zone(stage.grid.getHealRange(u),Zone.HEAL_DARK), move), attack);
+				new Zone(grid.getHealRange(u),Zone.HEAL_DARK), move), attack);
 		stage.addEntity(move);
 		stage.addEntity(attack);
 		stage.addEntity(heal);
+		selected = u;
 	}
 
 	@Override
 	public void onSelect() {
-		// TODO Auto-generated method stub
-
+		if(move.getNodes().contains(new Node(cursor.xcoord, cursor.ycoord))){
+			grid.move(selected.xcoord, selected.ycoord, cursor.xcoord, cursor.ycoord);
+			selected.move(path);
+		}
 	}
 
 	@Override
@@ -32,27 +35,21 @@ public class UnitSelected extends OverworldContext {
 		stage.removeEntity(move);
 		stage.removeEntity(attack);
 		stage.removeEntity(heal);
+		stage.removeEntity(path);
 		stage.setContext(prev);
 	}
 
-	@Override
-	public void onUp() {
-		stage.cursor.ycoord--;
+	public void cursorChanged(){
+		updatePath();
 	}
-
-	@Override
-	public void onDown() {
-		stage.cursor.ycoord++;
-	}
-
-	@Override
-	public void onLeft() {
-		stage.cursor.xcoord--;
-	}
-
-	@Override
-	public void onRight() {
-		stage.cursor.xcoord++;
+	
+	private void updatePath(){
+		stage.removeEntity(path);
+		path = stage.grid.getShortestPath(
+				selected, cursor.xcoord, cursor.ycoord);
+		if(path!=null){
+			stage.addEntity(path);
+		}
 	}
 
 }

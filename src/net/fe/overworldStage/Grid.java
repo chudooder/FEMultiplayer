@@ -17,8 +17,8 @@ public class Grid{
 	public Grid(int width, int height, Terrain defaultTerrain) {
 		grid = new Unit[height][width];
 		terrain = new Terrain[height][width];
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
 				terrain[j][i] = defaultTerrain;
 			}
 		}
@@ -50,6 +50,12 @@ public class Grid{
 		grid[y][x] = null;
 		return ans;
 	}
+	
+	public void move(int x0, int y0, int x1, int y1){
+		Unit u = grid[y0][x0];
+		grid[y0][x0] = null;
+		grid[y1][x1] = u;
+	}
 
 	public Terrain getTerrain(int x, int y) {
 		return terrain[y][x];
@@ -78,24 +84,26 @@ public class Grid{
 			// get node in open with best f score
 			Node cur = null;
 			for (Node n : open) {
-				if (cur == null || n.f > cur.f) {
+				if (cur == null || n.f < cur.f) {
 					cur = n;
 				}
 			}
 			if (cur.equals(goal)) {
-				return getPath(goal);
+				return getPath(cur);
 			}
+			
 			open.remove(cur);
 			closed.add(cur);
-			for (Node n : cur.getNeighbors()) {
+			for (Node n : cur.getNeighbors(this)) {
 				int g = cur.g
 						+ terrain[n.y][n.x].getMoveCost(unit.getTheClass());
 				int f = g + heuristic(n, goal);
 				if (closed.contains(n) && f >= n.f) {
 					continue;
-				} else if (!closed.contains(n) || f < n.f) {
-					if (g > move)
+				} else if (!open.contains(n) || f < n.f) {
+					if (g > move){
 						continue;
+					}
 					n.parent = cur;
 					n.g = g;
 					n.f = f;
@@ -120,11 +128,10 @@ public class Grid{
 		while(q.size() > 0){
 			Node curr = q.remove(0);
 			set.add(curr);
-			for(Node n: curr.getNeighbors()){
+			for(Node n: curr.getNeighbors(this)){
 				if(!set.contains(n)){
 					n.d = curr.d + terrain[y][x].getMoveCost(u.getTheClass());
 					if(n.d <= u.get("Mov")){
-						System.out.println("Added " + n.x + " " + n.y);
 						q.add(n);
 					}
 				}
@@ -176,6 +183,9 @@ public class Grid{
 			for(int dx = -range; dx <=range; dx++){
 				for(int dy = -range; dy <= range; dy++){
 					Node n = new Node(start.x + dx, start.y + dy);
+					if(n.x < 0 || n.x > width-1 ||n.y < 0 || n.y > height-1){
+						continue;
+					}
 					if(n.distance(start) == range && !set.contains(n)){
 						set.add(n);
 					}
@@ -188,9 +198,10 @@ public class Grid{
 		Path path = new Path();
 		Node cur = goal;
 		do {
-			path.add(cur);
+			path.add(0,cur);
 			cur = cur.parent;
 		} while (cur != null);
+		System.out.println(path);
 		return path;
 	}
 

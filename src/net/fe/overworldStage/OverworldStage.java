@@ -18,8 +18,12 @@ public class OverworldStage extends Stage {
 
 	private Player player;
 	private boolean onControl;
-
-	public static final int TILE_WIDTH = 32;
+	
+	public static final float TILE_DEPTH = 1;
+	public static final float ZONE_DEPTH = 0.8f;
+	public static final float PATH_DEPTH = 0.75f;
+	public static final float UNIT_DEPTH = 0.5f;
+	public static final float MENU_DEPTH = 0f;
 
 	public OverworldStage(Grid g, Player p) {
 		super();
