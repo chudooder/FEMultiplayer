@@ -3,19 +3,27 @@ package net.fe.fightStage;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import net.fe.FEMultiplayer;
 import net.fe.RNG;
+import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
+import net.fe.unit.UnitIdentifier;
 import net.fe.unit.Weapon;
 
 public class CombatCalculator {
 	private Unit left, right;
 	private ArrayList<AttackRecord> attackQueue;
-	public CombatCalculator(Unit u1, Unit u2){
-		left = u1;
-		right = u2;
+	private int range;
+	public CombatCalculator(UnitIdentifier u1, UnitIdentifier u2){
+		left = FEMultiplayer.getUnit(u1);
+		right = FEMultiplayer.getUnit(u2);
+		range = Grid.getDistance(left, right);
 		attackQueue = new ArrayList<AttackRecord>();
+		calculate();
 	}
-	public void calculate(int range) {
+	private void calculate() {
+		int hpLeft = left.getHp();
+		int hpRight = right.getHp();
 		// Determine turn order
 		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
 		if (shouldAttack(left,right,range,true))
@@ -34,6 +42,8 @@ public class CombatCalculator {
 		for (Boolean i : attackOrder) {
 			attack(i, "None");
 		}
+		left.setHp(hpLeft);
+		right.setHp(hpRight);
 	}
 	
 	public static boolean shouldAttack(Unit a, Unit d, int range, boolean first){
@@ -162,8 +172,8 @@ public class CombatCalculator {
 
 	public void addToAttackQueue(Unit a, Unit d, String animation, int damage, int drain) {
 		AttackRecord rec = new AttackRecord();
-		rec.attacker = a;
-		rec.defender = d;
+		rec.attacker = new UnitIdentifier(a);
+		rec.defender = new UnitIdentifier(d);
 		rec.animation = animation;
 		rec.damage = damage;
 		rec.drain = drain;

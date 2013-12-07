@@ -6,10 +6,12 @@ import java.util.LinkedHashMap;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import net.fe.FEMultiplayer;
 import net.fe.RNG;
 import net.fe.fightStage.anim.*;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
+import net.fe.unit.UnitIdentifier;
 import net.fe.unit.Weapon;
 import chu.engine.Entity;
 import chu.engine.Game;
@@ -24,7 +26,7 @@ public class FightStage extends Stage {
 	private Healthbar leftHP, rightHP;
 	private int range;
 	
-	private CombatCalculator calc;
+	private ArrayList<AttackRecord> attackQ;
 	
 	private Texture bg;
 	private int currentEvent;
@@ -59,14 +61,15 @@ public class FightStage extends Stage {
 	public static final int RETURNING = 6;
 	public static final int DONE = 7;
 
-	public FightStage(Unit u1, Unit u2) {
+	public FightStage(UnitIdentifier u1, UnitIdentifier u2, ArrayList<AttackRecord> attackQ) {
 		shakeTimer = 0;
 		prevShakeTimer = 0;
 		shakeX = 0;
 		shakeY = 0;
-		range = Grid.getDistance(u1, u2);
-		left = u1;
-		right = u2;
+		left = FEMultiplayer.getUnit(u1);
+		right = FEMultiplayer.getUnit(u2);
+		
+		range = Grid.getDistance(left, right);
 		leftFighter = new FightUnit(new AnimationArgs(left, true, range), this);
 		rightFighter = new FightUnit(new AnimationArgs(right, false, range), this);
 		leftHP = new Healthbar(left, true);
@@ -75,16 +78,16 @@ public class FightStage extends Stage {
 		addEntity(rightFighter);
 		addEntity(leftHP);
 		addEntity(rightHP);
-		addEntity(new Platform(u1.getTerrain(), true, range));
-		addEntity(new Platform(u1.getTerrain(), false, range));
-		addEntity(new HUD(u1, u2, this));
-		addEntity(new HUD(u2, u1, this));
-		bg = Resources.getTexture(u2.getTerrain().toString().toLowerCase() + "_bg");
+		addEntity(new Platform(left.getTerrain(), true, range));
+		addEntity(new Platform(right.getTerrain(), false, range));
+		addEntity(new HUD(left, right, this));
+		addEntity(new HUD(right, left, this));
+		bg = Resources.getTexture(right.getTerrain().toString().toLowerCase() + "_bg");
 		
-		System.out.println("Battle!\n" + left + "\n" + right + "\n");
+		this.attackQ = attackQ;
+		
+		System.out.println("-------Battle!-------\n" + left + "\n" + right + "\n");
 		System.out.println("Running calcuations:");
-		calc = new CombatCalculator(u1, u2);
-		calc.calculate(range);
 	}
 
 	@Override
@@ -103,7 +106,7 @@ public class FightStage extends Stage {
 		}
 		processAddStack();
 		processRemoveStack();
-		if (calc.getAttackQueue().size() != 0) {
+		if (attackQ.size() != 0) {
 			processAttackQueue();
 		} else {
 			// TODO switch back to the other stage
@@ -114,19 +117,25 @@ public class FightStage extends Stage {
 	}
 
 	private void processAttackQueue() {
-		final AttackRecord rec = calc.getAttackQueue().get(0);
-		FightUnit a = rec.attacker == right? rightFighter: leftFighter;
-		FightUnit d = rec.attacker == right? leftFighter: rightFighter;
-		Healthbar dhp = rec.defender == left? leftHP: rightHP;
-		Healthbar ahp = rec.defender == left? rightHP: leftHP;
+		final AttackRecord rec = attackQ.get(0);
+		Unit attacker = FEMultiplayer.getUnit(rec.attacker);
+		Unit defender = FEMultiplayer.getUnit(rec.defender);
+		
+		FightUnit a = attacker == right? rightFighter: leftFighter;
+		FightUnit d = attacker == right? leftFighter: rightFighter;
+		Healthbar dhp = defender == left? leftHP: rightHP;
+		Healthbar ahp = defender == left? rightHP: leftHP;
+		
 		boolean crit = rec.animation.contains("Critical");		
 		a.renderDepth = FightStage.UNIT_DEPTH;
 		d.renderDepth = FightStage.UNIT_DEPTH+0.01f;
+		
+		
 		if (currentEvent == START) {
 			System.out.println("\n" + rec.attacker.name + "'s turn!"); //Debug
 			ArrayList<String> messages = getMessages(rec.animation, "(a)");
 			for(int i = 0; i < messages.size(); i++){
-				addEntity(new Message(messages.get(i), rec.attacker == left, i));
+				addEntity(new Message(messages.get(i), attacker == left, i));
 			}
 			a.sprite.setAnimation(crit?"CRIT":"ATTACK");
 			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
@@ -142,8 +151,8 @@ public class FightStage extends Stage {
 				d.sprite.setAnimation("DODGE");
 				d.sprite.setFrame(0);
 				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
-				addEntity(new MissEffect(rec.defender == left));
-				if(rec.attacker.getWeapon().isMagic()){
+				addEntity(new MissEffect(defender == left));
+				if(attacker.getWeapon().isMagic()){
 					addEntity(a.getHitEffect(crit));
 				}
 				
@@ -152,6 +161,8 @@ public class FightStage extends Stage {
 				System.out.println(rec.animation + "! " + rec.defender.name
 						+ " took " + rec.damage + " damage!");
 				
+				defender.setHp(defender.getHp() - rec.damage);
+				attacker.setHp(attacker.getHp() + rec.drain);
 				dhp.setHp(dhp.getHp() - rec.damage);
 				ahp.setHp(ahp.getHp() + rec.drain, false);
 				addEntity(a.getHitEffect(crit));
@@ -167,7 +178,7 @@ public class FightStage extends Stage {
 			
 			ArrayList<String> messages = getMessages(rec.animation, "(d)");
 			for(int i = 0; i < messages.size(); i++){
-				addEntity(new Message(messages.get(i), rec.attacker == left, i));
+				addEntity(new Message(messages.get(i), attacker == left, i));
 			}
 		} else if (currentEvent == HURTING) {
 			// let health bar animation play
@@ -186,7 +197,7 @@ public class FightStage extends Stage {
 			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
 			// Let animation play
 		} else if (currentEvent == DONE) {
-			calc.getAttackQueue().remove(0);
+			attackQ.remove(0);
 			currentEvent = START;
 		}
 	}

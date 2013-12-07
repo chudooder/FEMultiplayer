@@ -13,7 +13,6 @@ public class ProjectileAttack extends AttackAnimation{
 	public void done(){
 		try{
 			super.done();
-			System.out.println("asdf");
 		} catch (IllegalArgumentException e){
 			//Drats! We'll try again next frame.
 			weFailed = true;

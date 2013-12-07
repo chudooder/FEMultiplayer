@@ -9,7 +9,7 @@ public class Lethality extends CombatTrigger {
 	}
 	@Override
 	public boolean attempt(Unit user) {
-		return RNG.get() < user.get("Skl") / 4;
+		return RNG.get() < user.get("Skl") / 3;
 	}
 
 	@Override

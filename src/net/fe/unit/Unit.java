@@ -30,6 +30,8 @@ public class Unit extends GriddedEntity {
 	public final String name;
 	private Party team;
 	//TODO Rescue
+	
+	private boolean moved;
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
@@ -49,6 +51,15 @@ public class Unit extends GriddedEntity {
 		fillHp();
 	}
 	
+	public Unit getCopy(){
+		Unit copy = new Unit(name, clazz, bases, growths);
+		copy.setLevel(stats.get("Lvl").intValue());
+		for(Item i: inventory){
+			copy.addToInventory(i);
+		}
+		return copy;
+	}
+	
 	@Override
 	public void beginStep() {
 		// TODO Auto-generated method stub
@@ -61,7 +72,7 @@ public class Unit extends GriddedEntity {
 	}
 	
 	public void levelUp(){
-		if(stats.get("Lvl") == 40){
+		if(stats.get("Lvl") == 20){
 			return;
 		}
 		stats.put("Lvl", stats.get("Lvl") + 1);
@@ -71,6 +82,9 @@ public class Unit extends GriddedEntity {
 	}
 	
 	public void setLevel(int lv){
+		if(lv > 20 || lv < 1){
+			return;
+		}
 		stats.put("Lvl", (float) lv);
 		lv--;
 		for(String stat: growths.keySet()){
@@ -194,5 +208,9 @@ public class Unit extends GriddedEntity {
 	
 	public Party getParty(){
 		return team;
+	}
+	
+	public void moved(){
+		moved = true;
 	}
 }

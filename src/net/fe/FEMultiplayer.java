@@ -6,12 +6,15 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
 import net.fe.unit.Class;
 import net.fe.unit.Unit;
+import net.fe.unit.UnitFactory;
+import net.fe.unit.UnitIdentifier;
 import net.fe.unit.Weapon;
 import net.fe.unit.WeaponFactory;
 
@@ -32,14 +35,22 @@ public class FEMultiplayer extends Game{
 	private static Client client;
 	private static ArrayList<Message> serverMessages;
 	
+	private static ArrayList<Player> players;
+	
+	public static Player turn;
+	
 	public static void main(String[] args) {
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
 		game.loop();
+		
 	}
 	
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
+		players = new ArrayList<Player>();
+		
+		
 		//TODO: Implement client
 //		client = new Client();
 		/* OpenGL final setup */
@@ -92,35 +103,52 @@ public class FEMultiplayer extends Game{
 		luteGrowths.put("Res", 35);
 		luteGrowths.put("Lck", 0);
 		
-		Party blue = new Party();
+		Player p1 = new Player((byte) 0);
+		Player p2 = new Player((byte) 1);
+		players.add(p1);
+		players.add(p2);
+		
+		Party blue = p1.getParty();
 		blue.setColor(Party.TEAM_BLUE);
-		Party red = new Party();
+		Party red = p2.getParty();
 		red.setColor(Party.TEAM_RED);
 
-		Unit lyn = new Unit("Ezio", Class.createClass("Assassin"), lynBases,
-				lynGrowths);
-		lyn.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
-		lyn.equip(0);
-		blue.addUnit(lyn);
+		Unit u1 = UnitFactory.getUnit("Lyn");
+		u1.addToInventory(WeaponFactory.getWeapon("Elfire"));
+		u1.equip(0);
+		blue.addUnit(u1);
 
-		Unit lute = new Unit("Lute", Class.createClass("Sage"), luteBases, luteGrowths);
-		lute.addToInventory(WeaponFactory.getWeapon("Elfire"));
-		lute.equip(0);
-		red.addUnit(lute);
+		Unit u2 = UnitFactory.getUnit("Eliwood");
+		u2.addToInventory(WeaponFactory.getWeapon("Elfire"));
+		u2.equip(0);
+		red.addUnit(u2);
 
-		lyn.setLevel(40);
-		lute.setLevel(40);
+		u1.setLevel(20);
+		u2.setLevel(20);
 		
 		
-		lyn.fillHp();
-		lute.fillHp();
+		u1.fillHp();
+		u2.fillHp();
 		
 		OverworldStage map = new OverworldStage(new Grid(10,10, Terrain.PLAIN));
-		map.addUnit(lyn, 0, 0);
-		map.addUnit(lute, 1, 0);
+		map.addUnit(u1, 0, 0);
+		map.addUnit(u2, 1, 0);
 		map.processAddStack();
-		currentStage = new FightStage(lute, lyn);
+		CombatCalculator calc = new CombatCalculator(
+				new UnitIdentifier(u1), new UnitIdentifier(u2));
+		
+		currentStage = new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2),
+				calc.getAttackQueue());
 		serverMessages = new ArrayList<Message>();
+	}
+	
+	public static Unit getUnit(UnitIdentifier id){
+		for(Player p: players){
+			if(!p.isSpectator() && p.getParty().getColor().equals(id.partyColor)){
+				return p.getParty().search(id.name);
+			}
+		}
+		return null;
 	}
 
 	@Override
