@@ -14,7 +14,8 @@ import chu.engine.Stage;
 public class OverworldStage extends Stage {
 	public Grid grid;
 	private OverworldContext context;
-	public Cursor cursor;
+	public final Cursor cursor;
+	public Menu menu;
 
 	private Player player;
 	private boolean onControl;

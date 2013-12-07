@@ -10,6 +10,7 @@ import chu.engine.Game;
 import chu.engine.GriddedEntity;
 import chu.engine.Resources;
 import chu.engine.anim.Renderer;
+import net.fe.Command;
 import net.fe.Party;
 import net.fe.fightStage.*;
 import net.fe.fightStage.anim.AnimationArgs;
@@ -34,6 +35,7 @@ public class Unit extends GriddedEntity {
 	private boolean moved;
 	private Path path;
 	private float rX, rY;
+	private Command callback;
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
@@ -55,7 +57,7 @@ public class Unit extends GriddedEntity {
 		renderDepth = OverworldStage.UNIT_DEPTH;
 	}
 
-	public void move(Path p) {
+	public void move(Path p, Command callback) {
 		this.path = p.getCopy();
 		path.removeFirst();
 		if(path.size() != 0) {
@@ -64,7 +66,11 @@ public class Unit extends GriddedEntity {
 			rY = -(next.y - ycoord) * 16;
 			xcoord = next.x;
 			ycoord = next.y;
+			this.callback = callback;
+		} else {
+			callback.execute();
 		}
+		
 	}
 
 	public void onStep() {
@@ -77,7 +83,7 @@ public class Unit extends GriddedEntity {
 				rX = 0;
 				rY = 0;
 				path = null;
-				
+				callback.execute();
 			} else {
 				Node next = path.removeFirst();
 				rX = -(next.x - xcoord) * 16;

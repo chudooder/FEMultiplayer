@@ -1,12 +1,11 @@
 package net.fe.unit;
 
-import org.newdawn.slick.Color;
 
 import chu.engine.Entity;
 import chu.engine.Resources;
 import chu.engine.anim.Renderer;
 
-public class WeaponDisplay extends Entity {
+public class WeaponDisplay extends Entity{
 	private Weapon weapon;
 	public WeaponDisplay(int x, int y, Weapon w){
 		super(x,y);
