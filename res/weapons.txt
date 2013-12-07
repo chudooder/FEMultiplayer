@@ -4,7 +4,7 @@ Iron Sword	Sword	1	5	90	0	23	460	-	-	-
 Steel Sword	Sword	1	8	75	0	15	600	-	-	-
 Silver Sword	Sword	1	13	80	0	10	1500	-	-	-
 Killing Edge	Sword	1	9	75	30	10	1300	-	-	-
-Armourslayer	Sword	1	8	80	0	9	1260	Armor	-	-
+Armorslayer	Sword	1	8	80	0	9	1260	Armor	-	-
 Longsword	Sword	1	6	85	0	9	1260	Mount	-	-
 Lancereaver	Sword	1	9	75	5	7	1800	-	-	-
 Brave Sword	Sword	1	9	75	0	15	8000	-	-	-
@@ -15,7 +15,7 @@ Sol Katti	Sword	1	12	95	25	15	-	Armor	Lyn	Res 5
 Sieglinde	Sword	1	16	90	0	15	-	Armor	Eirika	Str 5
 Falchion	Sword	1	14	90	20	15	-	Mount	Marth	Skl 5
 Ragnell		Sword	1	20	85	0	10	-	-	Ike	Def 5
-Sword of Seals	Sword	1-2	16	95	10	10	-	-	Roy	Res 5
+Sealed Sword	Sword	1-2	16	95	10	10	-	-	Roy	Res 5
 Log		Lance	1	1	100	0	20	1	-	-	-
 Iron Lance	Lance	1	7	80	0	22	360	-	-	-
 Steel Lance	Lance	1	10	70	0	15	480	-	-	-
@@ -43,7 +43,7 @@ Halberd		Axe	1	10	60	0	8	810	Mount	-	-
 Swordreaver	Axe	1	11	65	5	7	2100	-	-	-
 Brave Axe	Axe	1	10	65	0	15	7500	-	-	-
 Garm		Axe	1	20	75	0	15	15000	-	-	Spd 5
-Armads		Axe	1	18	85	0	12	-	Armor	-	Def 5
+Armads		Axe	1	18	85	0	12	-	Armor	Hector	Def 5
 Iron Bow	Bow	2	6	85	0	22	540	Flier	-	-
 Steel Bow	Bow	2	9	70	0	15	720	Flier	-	-
 Silver Bow	Bow	2	13	75	0	10	1600	Flier	-	-
