@@ -15,9 +15,9 @@ public class Menu extends Entity {
 	
 	public static final Color MENU = new Color(0xAAAAAA);
 	public static final Color MENU_SELECT = new Color(0x777777);
-	public Menu(float x, float y, String... items) {
+	public Menu(float x, float y) {
 		super(x, y);
-		this.items = Arrays.asList(items);
+		this.items = new ArrayList<String>();
 		renderDepth = OverworldStage.MENU_DEPTH;
 	}
 	
@@ -37,6 +37,21 @@ public class Menu extends Entity {
 			Renderer.drawString("default_med", items.get(i), x+1, y + oY + 1, 0);
 			oY+=17;
 		}
+	}
+	
+	public void down(){
+		selection = (selection+1)%items.size();
+	}
+	
+	public void up(){
+		selection = (selection-1)%items.size();
+		if(selection < 0){
+			selection+= items.size();
+		}
+	}
+	
+	public String getSelection(){
+		return items.get(selection);
 	}
 	
 }

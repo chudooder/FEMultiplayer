@@ -105,7 +105,8 @@ public class Unit extends GriddedEntity {
 	}
 
 	public void render() {
-		Renderer.drawRectangle(x + 2 + rX, y + 2 + rY, x + 14 + rX, y + 14+rY, 0, getPartyColor());
+		Color c = !moved? getPartyColor(): Color.gray;
+		Renderer.drawRectangle(x + 2 + rX, y + 2 + rY, x + 14 + rX, y + 14+rY, 0, c);
 		Renderer.drawString("default_med", name.charAt(0) + "", x + 4 + rX, y + 2 + rY, 0);
 	}
 

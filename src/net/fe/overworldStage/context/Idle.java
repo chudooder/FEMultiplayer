@@ -19,9 +19,9 @@ public class Idle extends CursorContext {
 
 	@Override
 	public void onSelect() {
-		removeZones();
 		Unit u = getHoveredUnit();
 		if(u!=null && u.getParty() == player.getParty() && !u.hasMoved()){
+			removeZones();
 			stage.setContext(new UnitSelected(stage, this, u));
 		}
 

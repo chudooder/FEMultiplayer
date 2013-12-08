@@ -10,12 +10,13 @@ import net.fe.unit.Unit;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.Stage;
+import chu.engine.anim.Renderer;
 
 public class OverworldStage extends Stage {
 	public Grid grid;
 	private OverworldContext context;
 	public final Cursor cursor;
-	public Menu menu;
+	private Menu menu;
 
 	private Player player;
 	private boolean onControl;
@@ -39,6 +40,29 @@ public class OverworldStage extends Stage {
 		addEntity(cursor);
 
 		context = new Idle(this, p);
+	}
+	
+	public void setMenu(Menu m){
+		removeEntity(menu);
+		menu = m;
+		if(m!=null)
+		addEntity(menu);
+	}
+	
+	public Menu getMenu(){
+		return menu;
+	}
+	
+	public Player getPlayer(){
+		return player;
+	}
+	
+	public void returnToNeutral(){
+		for(Entity e: entities){
+			if(e instanceof Zone || e instanceof Menu){
+				removeEntity(e);
+			}
+		}
 	}
 
 	public Terrain getTerrain(int x, int y) {
@@ -64,6 +88,11 @@ public class OverworldStage extends Stage {
 			this.removeEntity(u);
 		}
 		return u;
+	}
+	
+	public void render(){
+//		Renderer.scale(2, 2);
+		super.render();
 	}
 
 	@Override
