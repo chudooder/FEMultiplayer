@@ -72,6 +72,8 @@ public class FEMultiplayer extends Game{
 		
 		Unit u3 = UnitFactory.getUnit("Erk");
 		u3.addToInventory(WeaponFactory.getWeapon("Elfire"));
+		u3.addToInventory(WeaponFactory.getWeapon("Physic"));
+		u3.equip(1);
 		p1.getParty().addUnit(u3);
 
 		Unit u2 = UnitFactory.getUnit("Eliwood");

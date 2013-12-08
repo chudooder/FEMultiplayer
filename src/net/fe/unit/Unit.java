@@ -5,6 +5,8 @@ import org.newdawn.slick.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import chu.engine.Game;
 import chu.engine.GriddedEntity;
@@ -61,10 +63,9 @@ public class Unit extends GriddedEntity {
 			rY = -(next.y - ycoord) * 16;
 			xcoord = next.x;
 			ycoord = next.y;
-			this.callback = callback;
-		} else {
-			callback.execute();
+			
 		}
+		this.callback = callback;
 		
 	}
 
@@ -223,6 +224,17 @@ public class Unit extends GriddedEntity {
 
 	public Weapon getWeapon() {
 		return weapon;
+	}
+	
+	public Set<Integer> getTotalWepRange(boolean staff){
+		Set<Integer> range = new HashSet<Integer>();
+		for(Item i: getInventory()){
+			if(!(i instanceof Weapon)) continue;
+			Weapon w = (Weapon) i;
+			if(staff == (w.type == Weapon.Type.STAFF) && equippable(w))
+				range.addAll(w.range);
+		}
+		return range;
 	}
 
 	public void addToInventory(Item item) {

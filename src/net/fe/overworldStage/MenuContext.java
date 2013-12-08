@@ -5,6 +5,8 @@ public abstract class MenuContext extends OverworldContext{
 	public MenuContext(OverworldStage stage, OverworldContext prev, Menu m){
 		super(stage,prev);
 		menu = m;
+		m.x = cursor.x + 17;
+		m.y = cursor.y;
 	}
 	
 	public void startContext(){

@@ -1,8 +1,12 @@
 package net.fe.overworldStage;
 
+import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import java.util.Iterator;
 
 import chu.engine.Entity;
 import net.fe.unit.Item;
@@ -145,13 +149,7 @@ public class Grid{
 	public Set<Node> getAttackRange(Unit u){
 		Set<Node> move = getPossibleMoves(u);
 		Set<Node> set = new HashSet<Node>();
-		Set<Integer> range = new HashSet<Integer>();
-		for(Item i: u.getInventory()){
-			if(!(i instanceof Weapon)) continue;
-			Weapon w = (Weapon) i;
-			if(w.type != Weapon.Type.STAFF && u.equippable(w))
-				range.addAll(w.range);
-		}
+		Set<Integer> range = u.getTotalWepRange(false);
 		for(Node n: move){
 			for(int i: range){
 				set.addAll(getRange(n, i));
@@ -163,34 +161,37 @@ public class Grid{
 	public Set<Node> getHealRange(Unit u){
 		Set<Node> move = getPossibleMoves(u);
 		Set<Node> set = new HashSet<Node>();
-		Set<Integer> range = new HashSet<Integer>();
-		for(Item i: u.getInventory()){
-			if(!(i instanceof Weapon)) continue;
-			Weapon w = (Weapon) i;
-			if(w.type == Weapon.Type.STAFF)
-				range.addAll(w.range);
-		}
+		Set<Integer> range = u.getTotalWepRange(true);
 		for(Node n: move){
-			for(int i: range){
-				set.addAll(getRange(n, i));
-			}
+			set.addAll(getRange(n, range));
 		}
 		return set;
 	}
 	
-	public Set<Node> getRange(Node start, int range){
+	public Set<Node> getRange(Node start, Collection<Integer> range){
+		int[] r = new int[range.size()];
+		Iterator<Integer> it = range.iterator();
+		for(int i = 0; i < range.size(); i++){
+			r[i] = it.next();
+		}
+		return getRange(start, r);
+	}
+	
+	public Set<Node> getRange(Node start, int... range){
 		Set<Node> set = new HashSet<Node>();
-			for(int dx = -range; dx <=range; dx++){
-				for(int dy = -range; dy <= range; dy++){
+		for(int r: range){
+			for(int dx = -r; dx <=r; dx++){
+				for(int dy = -r; dy <= r; dy++){
 					Node n = new Node(start.x + dx, start.y + dy);
 					if(n.x < 0 || n.x > width-1 ||n.y < 0 || n.y > height-1){
 						continue;
 					}
-					if(n.distance(start) == range && !set.contains(n)){
+					if(n.distance(start) == r && !set.contains(n)){
 						set.add(n);
 					}
 				}
 			}
+		}
 		return set;
 	}
 
