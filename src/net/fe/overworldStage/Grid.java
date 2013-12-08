@@ -101,6 +101,9 @@ public class Grid{
 			for (Node n : cur.getNeighbors(this)) {
 				int g = cur.g
 						+ terrain[n.y][n.x].getMoveCost(unit.getTheClass());
+				if(grid[n.y][n.x] != null && grid[n.y][n.x].getParty() != unit.getParty()) {
+					g += 128;
+				}
 				int f = g + heuristic(n, goal);
 				if (closed.contains(n) && f >= n.f) {
 					continue;
