@@ -28,9 +28,9 @@ public class Zone extends Entity {
 	}
 	public void render(){
 		for(Node n: zone){
-			int x = n.x*17 +1;
-			int y = n.y*17 +1;
-			Renderer.drawRectangle(x, y, x+16, y+16, 0, color);
+			int x = n.x*16;
+			int y = n.y*16;
+			Renderer.drawRectangle(x, y, x+16, y+16, renderDepth, color);
 		}
 	}
 	public Set<Node> getNodes(){
