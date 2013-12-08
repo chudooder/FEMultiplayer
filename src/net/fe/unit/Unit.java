@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import chu.engine.GriddedEntity;
 import chu.engine.Resources;
+import chu.engine.anim.Renderer;
 import net.fe.Party;
 import net.fe.fightStage.*;
 import net.fe.fightStage.anim.AnimationArgs;
@@ -60,15 +61,9 @@ public class Unit extends GriddedEntity {
 		return copy;
 	}
 	
-	@Override
-	public void beginStep() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void endStep() {
-		// TODO Auto-generated method stub
-
+	public void render(){
+		Renderer.drawRectangle(x + 2, y + 2, x + 14, y + 14, 0, getPartyColor());
+		Renderer.drawString("default_med", name.charAt(0) + "", x+4, y+2, 0);
 	}
 	
 	public void levelUp(){
