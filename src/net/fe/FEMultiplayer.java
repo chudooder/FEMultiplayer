@@ -69,6 +69,10 @@ public class FEMultiplayer extends Game{
 		u1.addToInventory(WeaponFactory.getWeapon("Elfire"));
 		u1.equip(0);
 		p1.getParty().addUnit(u1);
+		
+		Unit u3 = UnitFactory.getUnit("Erk");
+		u3.addToInventory(WeaponFactory.getWeapon("Elfire"));
+		p1.getParty().addUnit(u3);
 
 		Unit u2 = UnitFactory.getUnit("Eliwood");
 		u2.addToInventory(WeaponFactory.getWeapon("Elfire"));
@@ -85,6 +89,7 @@ public class FEMultiplayer extends Game{
 		OverworldStage map = new OverworldStage(new Grid(20,10, Terrain.PLAIN), p1);
 		map.addUnit(u1, 0, 0);
 		map.addUnit(u2, 1, 0);
+		map.addUnit(u3, 1, 1);
 		map.setControl(true);
 		
 		

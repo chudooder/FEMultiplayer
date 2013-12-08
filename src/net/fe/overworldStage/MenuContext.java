@@ -4,8 +4,12 @@ public abstract class MenuContext extends OverworldContext{
 	protected Menu menu;
 	public MenuContext(OverworldStage stage, OverworldContext prev, Menu m){
 		super(stage,prev);
-		stage.setMenu(m);
 		menu = m;
+	}
+	
+	public void startContext(){
+		super.startContext();
+		stage.setMenu(menu);
 	}
 
 	public void onSelect(){
@@ -14,13 +18,18 @@ public abstract class MenuContext extends OverworldContext{
 	
 	@Override
 	public void onUp() {
-		menu.up();	
+		menu.up();
+		onChange();
 	}
 
 	@Override
 	public void onDown() {
 		menu.down();
+		onChange();
 	}
 	
 	public abstract void onSelect(String selectedItem);
+	public void onChange(){
+		
+	}
 }

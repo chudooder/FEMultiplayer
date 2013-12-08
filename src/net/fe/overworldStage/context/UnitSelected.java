@@ -12,17 +12,22 @@ public class UnitSelected extends CursorContext {
 
 	public UnitSelected(OverworldStage s, OverworldContext prev, Unit u) {
 		super(s, prev);
-		this.move = new Zone(grid.getPossibleMoves(u), Zone.MOVE_DARK);
-		this.attack = Zone.minus(new Zone(grid.getAttackRange(u),
+		selected = u;
+		oX = u.xcoord;
+		oY = u.ycoord;
+	}
+	
+	public void startContext(){
+		super.startContext();
+		this.move = new Zone(grid.getPossibleMoves(selected), Zone.MOVE_DARK);
+		this.attack = Zone.minus(new Zone(grid.getAttackRange(selected),
 				Zone.ATTACK_DARK), move);
-		this.heal = Zone.minus(Zone.minus(new Zone(grid.getHealRange(u),
+		this.heal = Zone.minus(Zone.minus(new Zone(grid.getHealRange(selected),
 				Zone.HEAL_DARK), move), attack);
 		stage.addEntity(move);
 		stage.addEntity(attack);
 		stage.addEntity(heal);
-		selected = u;
-		oX = u.xcoord;
-		oY = u.ycoord;
+		updatePath();
 	}
 
 	@Override
@@ -33,9 +38,12 @@ public class UnitSelected extends CursorContext {
 			selected.move(path, new Command() {
 				@Override
 				public void execute() {
+					stage.removeEntity(attack);
+					stage.removeEntity(move);
+					stage.removeEntity(heal);
 					stage.removeEntity(path);
-					stage.setContext(new UnitMoved(stage, UnitSelected.this,
-							selected, oX, oY));
+					new UnitMoved(stage, UnitSelected.this,
+							selected, oX, oY).startContext();
 				}
 			});
 		}
@@ -47,7 +55,9 @@ public class UnitSelected extends CursorContext {
 		stage.removeEntity(attack);
 		stage.removeEntity(heal);
 		stage.removeEntity(path);
-		stage.setContext(prev);
+		cursor.xcoord = oX;
+		cursor.ycoord = oY;
+		prev.startContext();
 	}
 
 	public void cursorChanged() {

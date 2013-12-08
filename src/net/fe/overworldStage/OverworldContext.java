@@ -26,6 +26,10 @@ public abstract class OverworldContext {
 	public abstract void onLeft();
 	
 	public abstract void onRight();
+	
+	public void startContext(){
+		stage.setContext(this);
+	}
 
 	protected Unit getHoveredUnit() {
 		return stage.getUnit(cursor.xcoord, cursor.ycoord);

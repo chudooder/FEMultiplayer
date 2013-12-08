@@ -8,15 +8,10 @@ import java.util.HashMap;
 
 import chu.engine.Game;
 import chu.engine.GriddedEntity;
-import chu.engine.Resources;
 import chu.engine.anim.Renderer;
 import net.fe.Command;
 import net.fe.Party;
 import net.fe.fightStage.*;
-import net.fe.fightStage.anim.AnimationArgs;
-import net.fe.fightStage.anim.AttackAnimation;
-import net.fe.fightStage.anim.DodgeAnimation;
-import net.fe.fightStage.anim.NormalAttack;
 import net.fe.overworldStage.*;
 
 public class Unit extends GriddedEntity {
@@ -155,6 +150,11 @@ public class Unit extends GriddedEntity {
 		}
 		return false;
 	}
+	
+
+	public boolean equippable(Weapon w) {
+		return clazz.usableWeapon.contains(w.type);
+	}
 
 	public ArrayList<CombatTrigger> getTriggers() {
 		ArrayList<CombatTrigger> triggers = new ArrayList<CombatTrigger>();
@@ -261,4 +261,5 @@ public class Unit extends GriddedEntity {
 	public Iterable<Item> getInventory() {
 		return inventory;
 	}
+
 }

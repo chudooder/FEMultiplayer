@@ -149,7 +149,7 @@ public class Grid{
 		for(Item i: u.getInventory()){
 			if(!(i instanceof Weapon)) continue;
 			Weapon w = (Weapon) i;
-			if(w.type != Weapon.Type.STAFF)
+			if(w.type != Weapon.Type.STAFF && u.equippable(w))
 				range.addAll(w.range);
 		}
 		for(Node n: move){
@@ -201,7 +201,6 @@ public class Grid{
 			path.add(0,cur);
 			cur = cur.parent;
 		} while (cur != null);
-		System.out.println(path);
 		return path;
 	}
 
