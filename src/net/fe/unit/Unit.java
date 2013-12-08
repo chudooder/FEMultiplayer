@@ -5,18 +5,15 @@ import org.newdawn.slick.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import chu.engine.Game;
 import chu.engine.GriddedEntity;
-import chu.engine.Resources;
 import chu.engine.anim.Renderer;
 import net.fe.Command;
 import net.fe.Party;
 import net.fe.fightStage.*;
-import net.fe.fightStage.anim.AnimationArgs;
-import net.fe.fightStage.anim.AttackAnimation;
-import net.fe.fightStage.anim.DodgeAnimation;
-import net.fe.fightStage.anim.NormalAttack;
 import net.fe.overworldStage.*;
 
 public class Unit extends GriddedEntity {
@@ -66,10 +63,9 @@ public class Unit extends GriddedEntity {
 			rY = -(next.y - ycoord) * 16;
 			xcoord = next.x;
 			ycoord = next.y;
-			this.callback = callback;
-		} else {
-			callback.execute();
+			
 		}
+		this.callback = callback;
 		
 	}
 
@@ -155,6 +151,11 @@ public class Unit extends GriddedEntity {
 		}
 		return false;
 	}
+	
+
+	public boolean equippable(Weapon w) {
+		return clazz.usableWeapon.contains(w.type);
+	}
 
 	public ArrayList<CombatTrigger> getTriggers() {
 		ArrayList<CombatTrigger> triggers = new ArrayList<CombatTrigger>();
@@ -224,6 +225,17 @@ public class Unit extends GriddedEntity {
 	public Weapon getWeapon() {
 		return weapon;
 	}
+	
+	public Set<Integer> getTotalWepRange(boolean staff){
+		Set<Integer> range = new HashSet<Integer>();
+		for(Item i: getInventory()){
+			if(!(i instanceof Weapon)) continue;
+			Weapon w = (Weapon) i;
+			if(staff == (w.type == Weapon.Type.STAFF) && equippable(w))
+				range.addAll(w.range);
+		}
+		return range;
+	}
 
 	public void addToInventory(Item item) {
 		inventory.add(item);
@@ -261,4 +273,5 @@ public class Unit extends GriddedEntity {
 	public Iterable<Item> getInventory() {
 		return inventory;
 	}
+
 }

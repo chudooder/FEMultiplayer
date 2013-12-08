@@ -135,7 +135,7 @@ public class OverworldStage extends Stage {
 		}
 	}
 
-	public void setContext(OverworldContext c) {
+	void setContext(OverworldContext c) {
 		context = c;
 	}
 	
