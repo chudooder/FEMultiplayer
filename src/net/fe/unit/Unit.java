@@ -134,11 +134,20 @@ public class Unit extends GriddedEntity {
 	}
 
 	public void equip(int index) {
-		if (equippable(index))
-			weapon = (Weapon) inventory.get(index);
-		else
+		if (equippable(index)){
+			weapon = (Weapon) inventory.remove(index);
+			inventory.add(0, weapon);
+		} else
 			throw new IllegalArgumentException("Cannot equip that item");
 
+	}
+	
+	public void equip(Weapon w){
+		if (equippable(w)){
+			weapon = w; 
+			inventory.remove(w);
+			inventory.add(0, w);
+		}
 	}
 
 	public boolean equippable(int index) {
@@ -155,6 +164,18 @@ public class Unit extends GriddedEntity {
 
 	public boolean equippable(Weapon w) {
 		return clazz.usableWeapon.contains(w.type);
+	}
+	
+	public void equipFirstWeapon(int range){
+		for(Item i : inventory){
+			if(i instanceof Weapon){
+				Weapon w = (Weapon) i;
+				if(w.type != Weapon.Type.STAFF && w.range.contains(range)){
+					equip(w);
+					return;
+				}
+			}
+		}
 	}
 
 	public ArrayList<CombatTrigger> getTriggers() {

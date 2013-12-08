@@ -51,7 +51,7 @@ public class CombatCalculator {
 		if(!a.getWeapon().range.contains(range)) return false;
 		if(a.getWeapon().type == Weapon.Type.STAFF && !first) return false;
 		if((a.getWeapon().type == Weapon.Type.STAFF)
-				!= (a.getPartyColor().equals(d.getPartyColor()))) return false;
+				!= (a.getParty().isAlly(d.getParty()))) return false;
 		return true;
 	}
 

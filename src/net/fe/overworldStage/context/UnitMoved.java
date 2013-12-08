@@ -3,8 +3,12 @@ package net.fe.overworldStage.context;
 import java.util.Arrays;
 import java.util.List;
 
+import net.fe.FEMultiplayer;
+import net.fe.fightStage.CombatCalculator;
+import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.*;
 import net.fe.unit.Unit;
+import net.fe.unit.UnitIdentifier;
 
 public class UnitMoved extends MenuContext {
 	private int origX, origY;
@@ -28,6 +32,8 @@ public class UnitMoved extends MenuContext {
 			menu.addItem(cmd);
 		}
 		updateZones();
+		cursor.xcoord = unit.xcoord;
+		cursor.ycoord = unit.ycoord;
 	}
 
 	public List<String> getCommands(Unit u) {
@@ -38,14 +44,37 @@ public class UnitMoved extends MenuContext {
 	@Override
 	public void onSelect(String selectedItem) {
 		// TODO
+		stage.setMenu(null);
 		System.out.println("Selected " + selectedItem);
 		if (selectedItem.equals("Wait")) {
 			unit.moved();
-			stage.setMenu(null);
 			stage.returnToNeutral();
-			new Idle(stage, stage.getPlayer()).startContext();
-		} else if (selectedItem.equals("Attack") || selectedItem.equals("Heal")) {
+		} else if (selectedItem.equals("Attack")) {
 			// TODO Select Target
+			new SelectTarget(stage, this, zone, unit, false) {
+				@Override
+				public void updateCursor() {
+					super.updateCursor();
+					unit.equipFirstWeapon(Grid.getDistance(cursor.xcoord,
+							cursor.ycoord, unit.xcoord, unit.ycoord));
+				}
+
+				@Override
+				public void unitSelected(Unit u) {
+					System.out.println("Selected " + u.name);
+					unit.moved();
+					stage.returnToNeutral();
+					CombatCalculator calc = new CombatCalculator(
+							new UnitIdentifier(unit), new UnitIdentifier(
+									getHoveredUnit()));
+					FEMultiplayer.setCurrentStage(new FightStage(
+							new UnitIdentifier(unit), new UnitIdentifier(
+									getHoveredUnit()), calc.getAttackQueue()));
+
+				}
+			}.startContext();
+		} else if (selectedItem.equals("Heal")) {
+
 		}
 	}
 

@@ -63,6 +63,7 @@ public class OverworldStage extends Stage {
 				removeEntity(e);
 			}
 		}
+		new Idle(this, player).startContext();
 	}
 
 	public Terrain getTerrain(int x, int y) {

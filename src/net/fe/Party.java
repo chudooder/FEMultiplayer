@@ -23,6 +23,16 @@ public class Party {
 	
 	public Party(ArrayList<Unit> units) {
 		this.units = units;
+		allies = new ArrayList<Party>();
+		allies.add(this);
+	}
+	
+	public void addAlly(Party p){
+		allies.add(p);
+	}
+	
+	public boolean isAlly(Party p){
+		return allies.contains(p);
 	}
 	
 	public void addUnit(Unit unit) {
