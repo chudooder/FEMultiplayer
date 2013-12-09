@@ -1,8 +1,4 @@
 package net.fe.overworldStage;
-
-import java.util.HashMap;
-
-import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
 import chu.engine.Game;
@@ -26,6 +22,14 @@ public class Cursor extends GriddedEntity{
 	public void render(){
 		if(time < .75f && ((OverworldStage) stage).hasControl())
 			Renderer.drawLine(x+2, y+15, x+14, y+15, 1, 0, Color.black, Color.black);
+	}
+
+	public void setXCoord(int xcoord) {
+		this.xcoord = xcoord;
+	}
+
+	public void setYCoord(int ycoord) {
+		this.ycoord = ycoord;
 	}
 
 }

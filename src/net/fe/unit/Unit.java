@@ -33,6 +33,8 @@ public class Unit extends GriddedEntity {
 	private Path path;
 	private float rX, rY;
 	private Command callback;
+	
+	private int origX, origY;
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
@@ -285,6 +287,8 @@ public class Unit extends GriddedEntity {
 
 	public void moved() {
 		moved = true;
+		origX = xcoord;
+		origY = ycoord;
 	}
 
 	public boolean hasMoved() {
@@ -293,6 +297,22 @@ public class Unit extends GriddedEntity {
 
 	public Iterable<Item> getInventory() {
 		return inventory;
+	}
+
+	public int getOrigX() {
+		return origX;
+	}
+
+	public void setOrigX(int origX) {
+		this.origX = origX;
+	}
+
+	public void setOrigY(int origY) {
+		this.origY = origY;
+	}
+
+	public int getOrigY() {
+		return origY;
 	}
 
 }

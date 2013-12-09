@@ -42,8 +42,10 @@ public class Grid{
 		if (grid[y][x] != null)
 			return false;
 		grid[y][x] = u;
-		u.xcoord = x;
-		u.ycoord = y;
+		u.gridSetXCoord(x);
+		u.gridSetYCoord(y);
+		u.setOrigX(x);
+		u.setOrigY(y);
 		return true;
 	}
 
@@ -55,10 +57,13 @@ public class Grid{
 		return ans;
 	}
 	
-	public void move(int x0, int y0, int x1, int y1){
-		Unit u = grid[y0][x0];
-		grid[y0][x0] = null;
-		grid[y1][x1] = u;
+	public void move(Unit u, int x, int y, boolean animated){
+		grid[u.getXCoord()][u.getYCoord()] = null;
+		grid[y][x] = u;
+		if(!animated){
+		u.gridSetXCoord(x);
+		u.gridSetYCoord(y);
+		}
 	}
 
 	public Terrain getTerrain(int x, int y) {
@@ -78,7 +83,7 @@ public class Grid{
 		Set<Node> closed = new HashSet<Node>();
 		Set<Node> open = new HashSet<Node>();
 
-		Node start = new Node(unit.xcoord, unit.ycoord);
+		Node start = new Node(unit.getXCoord(), unit.getYCoord());
 		Node goal = new Node(x, y);
 		start.g = 0;
 		start.f = heuristic(start, goal);
@@ -124,8 +129,8 @@ public class Grid{
 	}
 
 	public Set<Node> getPossibleMoves(Unit u) {
-		int x = u.xcoord;
-		int y = u.ycoord;
+		int x = u.getXCoord();
+		int y = u.getYCoord();
 		Node start = new Node(x,y);
 		start.d = 0;
 		Set<Node> set = new HashSet<Node>();
@@ -221,6 +226,6 @@ public class Grid{
 	}
 
 	public static int getDistance(Unit a, Unit b) {
-		return getDistance(a.xcoord, a.ycoord, b.xcoord, b.ycoord);
+		return getDistance(a.getXCoord(), a.getYCoord(), b.getXCoord(), b.getYCoord());
 	}
 }

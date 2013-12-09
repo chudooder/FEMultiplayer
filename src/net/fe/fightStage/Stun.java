@@ -18,7 +18,7 @@ public class Stun extends CombatTrigger{
 
 	@Override
 	public boolean runPreAttack(CombatCalculator calc, Unit a, Unit d) {
-		((OverworldStage)d.stage).getTerrain(d.xcoord, d.ycoord).addTrigger(new StunTrigger());
+		((OverworldStage)d.stage).getTerrain(d.getXCoord(), d.getYCoord()).addTrigger(new StunTrigger());
 		return true;
 	}
 	

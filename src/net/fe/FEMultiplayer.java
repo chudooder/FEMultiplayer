@@ -154,6 +154,10 @@ public class FEMultiplayer extends Game{
 		setCurrentStage(map);
 	}
 	
+	public static void send(int moveX, int moveY, String... cmds){
+		//TODO server stuff
+	}
+	
 	public static void setCurrentStage(Stage stage) {
 		currentStage = stage;
 	}

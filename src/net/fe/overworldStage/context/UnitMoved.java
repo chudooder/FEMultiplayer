@@ -13,16 +13,11 @@ import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 
 public class UnitMoved extends MenuContext {
-	private int origX, origY;
 	private Unit unit;
 	private Zone zone;
 
-	public UnitMoved(OverworldStage stage, OverworldContext prev, Unit u,
-			int origX, int origY) {
+	public UnitMoved(OverworldStage stage, OverworldContext prev, Unit u) {
 		super(stage, prev, new Menu(0, 0));
-
-		this.origX = origX;
-		this.origY = origY;
 		unit = u;
 		for (String cmd : getCommands(unit)) {
 			menu.addItem(cmd);
@@ -33,15 +28,15 @@ public class UnitMoved extends MenuContext {
 		super.startContext();
 		
 		updateZones();
-		cursor.xcoord = unit.xcoord;
-		cursor.ycoord = unit.ycoord;
+		cursor.setXCoord(unit.getXCoord());
+		cursor.setYCoord(unit.getYCoord());
 	}
 
 	public List<String> getCommands(Unit u) {
-		// TODO
+		// TODO Rescue
 		List<String> list = new ArrayList<String>();
 		boolean attack = false;
-		Set<Node> range = grid.getRange(new Node(u.xcoord, u.ycoord),
+		Set<Node> range = grid.getRange(new Node(u.getXCoord(), u.getYCoord()),
 				unit.getTotalWepRange(false));
 		for(Node n: range){
 			Unit p = grid.getUnit(n.x, n.y);
@@ -54,7 +49,7 @@ public class UnitMoved extends MenuContext {
 			list.add("Attack");
 		
 		boolean heal = false;
-		range = grid.getRange(new Node(u.xcoord, u.ycoord),
+		range = grid.getRange(new Node(u.getXCoord(), u.getYCoord()),
 				unit.getTotalWepRange(true));
 		for(Node n: range){
 			Unit p = grid.getUnit(n.x, n.y);
@@ -82,28 +77,7 @@ public class UnitMoved extends MenuContext {
 			stage.returnToNeutral();
 		} else if (selectedItem.equals("Attack")) {
 			// TODO Select Target
-			new SelectTarget(stage, this, zone, unit, false) {
-				@Override
-				public void updateCursor() {
-					super.updateCursor();
-					unit.equipFirstWeapon(Grid.getDistance(cursor.xcoord,
-							cursor.ycoord, unit.xcoord, unit.ycoord));
-				}
-
-				@Override
-				public void unitSelected(Unit u) {
-					System.out.println("Selected " + u.name);
-					unit.moved();
-					stage.returnToNeutral();
-					CombatCalculator calc = new CombatCalculator(
-							new UnitIdentifier(unit), new UnitIdentifier(
-									getHoveredUnit()));
-					FEMultiplayer.setCurrentStage(new FightStage(
-							new UnitIdentifier(unit), new UnitIdentifier(
-									getHoveredUnit()), calc.getAttackQueue()));
-
-				}
-			}.startContext();
+			new SelectAttackTarget(stage, this, zone, unit, false);
 		} else if (selectedItem.equals("Heal")) {
 
 		}
@@ -116,11 +90,11 @@ public class UnitMoved extends MenuContext {
 	public void updateZones() {
 		stage.removeEntity(zone);
 		if (menu.getSelection().equals("Attack")) {
-			zone = new Zone(grid.getRange(new Node(unit.xcoord, unit.ycoord),
+			zone = new Zone(grid.getRange(new Node(unit.getXCoord(), unit.getYCoord()),
 					unit.getTotalWepRange(false)), Zone.ATTACK_DARK);
 			stage.addEntity(zone);
 		} else if (menu.getSelection().equals("Heal")) {
-			zone = new Zone(grid.getRange(new Node(unit.xcoord, unit.ycoord),
+			zone = new Zone(grid.getRange(new Node(unit.getXCoord(), unit.getYCoord()),
 					unit.getTotalWepRange(true)), Zone.HEAL_DARK);
 			stage.addEntity(zone);
 		}
@@ -128,9 +102,7 @@ public class UnitMoved extends MenuContext {
 
 	@Override
 	public void onCancel() {
-		grid.move(unit.xcoord, unit.ycoord, origX, origY);
-		unit.xcoord = origX;
-		unit.ycoord = origY;
+
 		stage.setMenu(null);
 		stage.removeEntity(zone);
 		prev.startContext();
