@@ -11,4 +11,18 @@ public class UnitIdentifier implements Serializable{
 		name = u.name;
 		partyColor = u.getPartyColor();
 	}
+	
+	public int hashCode(){
+		return name.hashCode() + partyColor.hashCode();
+	}
+	
+	public boolean equals(Object o){
+		if(!(o instanceof UnitIdentifier)) return false;
+		UnitIdentifier other = (UnitIdentifier) o;
+		return name.equals(other.name) && partyColor.equals(other.partyColor);
+	}
+	
+	public String toString(){
+		return name;
+	}
 }

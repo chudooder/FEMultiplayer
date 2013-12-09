@@ -154,9 +154,23 @@ public class FEMultiplayer extends Game{
 		setCurrentStage(map);
 	}
 	
-	public static void send(int moveX, int moveY, String... cmds){
+	public static void send(UnitIdentifier u, int moveX, int moveY, Object... cmds){
 		//TODO server stuff
+		System.out.print("SEND> " + u.name + " moved (" + moveX + "," + moveY + ") - ");
+		for(Object o: cmds){
+			System.out.print(o + " ");
+		}
+		System.out.println();
+		
+		//Debugging
+		if(cmds.length < 2) return;
+		if(cmds[cmds.length - 2].equals("Attack")){
+			UnitIdentifier enemy = (UnitIdentifier) cmds[cmds.length-1];
+			CombatCalculator calc = new CombatCalculator(u, enemy);
+			setCurrentStage(new FightStage(u, enemy, calc.getAttackQueue()));
+		}
 	}
+
 	
 	public static void setCurrentStage(Stage stage) {
 		currentStage = stage;

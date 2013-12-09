@@ -33,6 +33,9 @@ public class UnitMoved extends MenuContext {
 		updateZones();
 		cursor.setXCoord(unit.getXCoord());
 		cursor.setYCoord(unit.getYCoord());
+		
+		stage.setMovX(unit.getXCoord() - unit.getOrigX());
+		stage.setMovY(unit.getYCoord() - unit.getOrigY());
 	}
 
 	public List<String> getCommands(Unit u) {
@@ -88,10 +91,12 @@ public class UnitMoved extends MenuContext {
 	public void onSelect(String selectedItem) {
 		// TODO
 		stage.setMenu(null);
-		System.out.println("Selected " + selectedItem);
 		if (selectedItem.equals("Wait")) {
+			stage.addCmd("Wait");
+			stage.send();
 			unit.moved();
 			stage.returnToNeutral();
+			
 		} else if (selectedItem.equals("Attack") || selectedItem.equals("Heal")) {
 			new AttackTarget(stage, this, zone, unit,
 					selectedItem.equals("Heal")).startContext();

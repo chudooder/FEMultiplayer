@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
 import java.util.Iterator;
 
 import chu.engine.Entity;
 import net.fe.unit.Item;
 import net.fe.unit.Unit;
+import net.fe.unit.UnitIdentifier;
 import net.fe.unit.Weapon;
 
 public class Grid{
@@ -48,6 +48,17 @@ public class Grid{
 		u.setOrigY(y);
 		return true;
 	}
+	
+	public Unit findUnit(UnitIdentifier u){
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height; j++){
+				if(u.equals(new UnitIdentifier(getUnit(i,j)))){
+					return getUnit(i,j);
+				}
+			}
+		}
+		return null;
+	}
 
 	Unit removeUnit(int x, int y) {
 		if (grid[y][x] == null)
@@ -61,8 +72,8 @@ public class Grid{
 		grid[u.getYCoord()][u.getXCoord()] = null;
 		grid[y][x] = u;
 		if(!animated){
-		u.gridSetXCoord(x);
-		u.gridSetYCoord(y);
+			u.gridSetXCoord(x);
+			u.gridSetYCoord(y);
 		}
 	}
 

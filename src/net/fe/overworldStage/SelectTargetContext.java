@@ -10,7 +10,7 @@ public abstract class SelectTargetContext extends OverworldContext {
 	private List<Unit> targets;
 	protected int selected;
 	protected Unit unit;
-	private boolean friendly;
+	protected boolean friendly;
 
 	public SelectTargetContext(OverworldStage stage, OverworldContext context, Zone z,
 			Unit u, boolean friendly) {

@@ -275,7 +275,7 @@ public class Renderer {
     	public RectClip(int x0, int y0, int w, int h, boolean p) {
     		persistent = p;
     		glEnable(GL_SCISSOR_TEST);
-    		System.out.println(scaleX*x0+" "+(Game.getWindowHeight()-y0-scaleY*h)+" "+scaleX*w+" "+scaleY*h);
+//    		System.out.println(scaleX*x0+" "+(Game.getWindowHeight()-y0-scaleY*h)+" "+scaleX*w+" "+scaleY*h);
     		glScissor(scaleX*x0, Game.getWindowHeight()-y0-scaleY*h, scaleX*w, scaleY*h);
     	}
     	

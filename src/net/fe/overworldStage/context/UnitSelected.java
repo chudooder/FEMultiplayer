@@ -26,6 +26,8 @@ public class UnitSelected extends CursorContext {
 		stage.addEntity(attack);
 		stage.addEntity(heal);
 		
+		stage.setSelectedUnit(selected);
+		
 		updatePath();
 	}
 

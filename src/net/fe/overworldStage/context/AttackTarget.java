@@ -1,8 +1,5 @@
 package net.fe.overworldStage.context;
 
-import net.fe.FEMultiplayer;
-import net.fe.fightStage.CombatCalculator;
-import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldContext;
 import net.fe.overworldStage.OverworldStage;
@@ -26,18 +23,17 @@ public class AttackTarget extends SelectTargetContext {
 
 	@Override
 	public void unitSelected(Unit u) {
-		UnitIdentifier me = new UnitIdentifier(unit);
-		UnitIdentifier you = new UnitIdentifier(unit);
-		System.out.println("Selected " + u.name);
+		UnitIdentifier you = new UnitIdentifier(u);
+		if(friendly){
+			stage.addCmd("Heal");
+		} else {
+			stage.addCmd("Attack");
+		}
+		stage.addCmd(you);
+		stage.send();
+		
 		unit.moved();
 		stage.returnToNeutral();
-		CombatCalculator calc = new CombatCalculator(
-				new UnitIdentifier(unit), new UnitIdentifier(
-						getHoveredUnit()));
-		FEMultiplayer.setCurrentStage(new FightStage(
-				new UnitIdentifier(unit), new UnitIdentifier(
-						getHoveredUnit()), calc.getAttackQueue()));
-
 	}
 
 }
