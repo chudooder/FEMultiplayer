@@ -1,18 +1,18 @@
-package net.fe.overworldStage.context;
+package net.fe.overworldStage;
 
 import java.util.*;
 
 import net.fe.overworldStage.*;
 import net.fe.unit.*;
 
-public abstract class SelectTarget extends OverworldContext {
+public abstract class SelectTargetContext extends OverworldContext {
 	private Zone zone;
 	private List<Unit> targets;
 	protected int selected;
 	protected Unit unit;
 	private boolean friendly;
 
-	public SelectTarget(OverworldStage stage, OverworldContext context, Zone z,
+	public SelectTargetContext(OverworldStage stage, OverworldContext context, Zone z,
 			Unit u, boolean friendly) {
 		super(stage, context);
 		zone = z;

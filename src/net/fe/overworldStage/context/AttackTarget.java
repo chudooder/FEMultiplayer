@@ -6,12 +6,13 @@ import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldContext;
 import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.SelectTargetContext;
 import net.fe.overworldStage.Zone;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 
-public class SelectAttackTarget extends SelectTarget {
-	public SelectAttackTarget(OverworldStage stage, OverworldContext context,
+public class AttackTarget extends SelectTargetContext {
+	public AttackTarget(OverworldStage stage, OverworldContext context,
 			Zone z, Unit u, boolean friendly) {
 		super(stage, context, z, u, friendly);
 	}

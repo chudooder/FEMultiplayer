@@ -58,7 +58,7 @@ public class Grid{
 	}
 	
 	public void move(Unit u, int x, int y, boolean animated){
-		grid[u.getXCoord()][u.getYCoord()] = null;
+		grid[u.getYCoord()][u.getXCoord()] = null;
 		grid[y][x] = u;
 		if(!animated){
 		u.gridSetXCoord(x);

@@ -15,13 +15,15 @@ import net.fe.unit.UnitIdentifier;
 public class UnitMoved extends MenuContext {
 	private Unit unit;
 	private Zone zone;
+	private boolean fromTrade;
 
-	public UnitMoved(OverworldStage stage, OverworldContext prev, Unit u) {
+	public UnitMoved(OverworldStage stage, OverworldContext prev, Unit u, boolean fromTrade) {
 		super(stage, prev, new Menu(0, 0));
 		unit = u;
 		for (String cmd : getCommands(unit)) {
 			menu.addItem(cmd);
 		}
+		this.fromTrade = fromTrade;
 	}
 
 	public void startContext() {
@@ -61,6 +63,19 @@ public class UnitMoved extends MenuContext {
 		if(heal)
 			list.add("Heal");
 		
+		boolean trade = false;
+		range = grid.getRange(new Node(u.getXCoord(), u.getYCoord()), 1);
+		for(Node n: range){
+			Unit p = grid.getUnit(n.x, n.y);
+			if(p != null && stage.getPlayer().getParty().isAlly(p.getParty())){
+				trade = true;
+				break;
+			}
+		}
+		if(fromTrade) trade = false;
+		if(trade)
+			list.add("Trade");
+		
 		list.add("Item");
 		list.add("Wait");
 		
@@ -75,12 +90,9 @@ public class UnitMoved extends MenuContext {
 		if (selectedItem.equals("Wait")) {
 			unit.moved();
 			stage.returnToNeutral();
-		} else if (selectedItem.equals("Attack")) {
-			// TODO Select Target
-			new SelectAttackTarget(stage, this, zone, unit, false);
-		} else if (selectedItem.equals("Heal")) {
-
-		}
+		} else if (selectedItem.equals("Attack") || selectedItem.equals("Heal")) {
+			new AttackTarget(stage, this, zone, unit, selectedItem.equals("Heal"));
+		} 
 	}
 
 	public void onChange() {
@@ -102,7 +114,7 @@ public class UnitMoved extends MenuContext {
 
 	@Override
 	public void onCancel() {
-
+		if(!fromTrade) return; //You can't cancel this.
 		stage.setMenu(null);
 		stage.removeEntity(zone);
 		prev.startContext();

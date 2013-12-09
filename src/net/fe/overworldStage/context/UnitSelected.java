@@ -41,7 +41,7 @@ public class UnitSelected extends CursorContext {
 					stage.removeEntity(heal);
 					stage.removeEntity(path);
 					new UnitMoved(stage, UnitSelected.this,
-							selected).startContext();
+							selected, true).startContext();
 				}
 			});
 		}
