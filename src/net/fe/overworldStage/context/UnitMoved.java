@@ -22,15 +22,15 @@ public class UnitMoved extends MenuContext {
 		this.origX = origX;
 		this.origY = origY;
 		unit = u;
-
+		for (String cmd : getCommands(unit)) {
+			menu.addItem(cmd);
+		}
 		// TODO Auto-generated constructor stub
 	}
 
 	public void startContext() {
 		super.startContext();
-		for (String cmd : getCommands(unit)) {
-			menu.addItem(cmd);
-		}
+		
 		updateZones();
 		cursor.xcoord = unit.xcoord;
 		cursor.ycoord = unit.ycoord;

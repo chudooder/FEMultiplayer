@@ -87,7 +87,6 @@ public abstract class SelectTarget extends OverworldContext {
 
 	@Override
 	public void onCancel() {
-		stage.removeEntity(zone);
 		prev.startContext();
 	}
 
