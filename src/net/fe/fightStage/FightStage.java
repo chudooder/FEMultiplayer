@@ -2,6 +2,7 @@ package net.fe.fightStage;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Timer;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
@@ -109,7 +110,6 @@ public class FightStage extends Stage {
 		if (attackQ.size() != 0) {
 			processAttackQueue();
 		} else {
-			// TODO switch back to the other stage
 			System.out.println(left.name + " HP:" + left.getHp() + " | "
 					+ right.name + " HP:" + right.getHp());
 			FEMultiplayer.setCurrentStage(FEMultiplayer.getOverworldStage());

@@ -15,10 +15,12 @@ public class Renderer {
 	private static final int SCALE_FILTER = GL_NEAREST;
 	private static int scaleX;
 	private static int scaleY;
+	private static Color color;
 
 	static {
 		camera = new Camera(null, 0, 0);
 		clip = null;
+		color = Color.white;
 	}
 
 	/***
@@ -45,7 +47,7 @@ public class Renderer {
 	 */
 	public static void render(Texture t, float tx0, float ty0, float tx1,
 			float ty1, float x0, float y0, float x1, float y1, float depth) {
-		Color.white.bind();
+		color.bind();
 		t.bind();
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
@@ -75,7 +77,7 @@ public class Renderer {
 		t.bind();
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		Color c = transform.color;
+		Color c = transform.color.multiply(color);
 		glColor4f(c.r, c.g, c.b, c.a);
 		glPushMatrix();
 		glTranslatef(x0, y0, depth);
@@ -127,7 +129,7 @@ public class Renderer {
 
 	public static void drawRectangle(float x0, float y0, float x1, float y1,
 			float depth, Color c) {
-		c.bind();
+		c = c.multiply(color);
 		glDisable(GL_TEXTURE_2D);
 		glColor4f(c.r, c.g, c.b, c.a);
 
@@ -147,6 +149,10 @@ public class Renderer {
 		glDisable(GL_TEXTURE_2D);
 		// glLoadIdentity();
 		glBegin(GL_QUADS);
+		c0 = c0.multiply(color);
+		c1 = c1.multiply(color);
+		c2 = c2.multiply(color);
+		c3 = c3.multiply(color);
 		glColor4f(c0.r, c0.g, c0.b, c0.a);
 		glVertex3f(x0, y0, depth);
 		glColor4f(c1.r, c1.g, c1.b, c1.a);
@@ -167,26 +173,12 @@ public class Renderer {
 
 		// glLoadIdentity();
 		glBegin(GL_LINES);
+		c1 = c1.multiply(color);
+		c2 = c2.multiply(color);
 		glColor4f(c1.r, c1.g, c1.b, c1.a);
 		glVertex3f(x0, y0, depth);
 		glColor4f(c2.r, c2.g, c2.b, c2.a);
 		glVertex3f(x, y, depth);
-		glEnd();
-		glEnable(GL_TEXTURE_2D);
-		if(clip != null && !clip.persistent) clip.destroy();
-	}
-
-	public static void drawLine(double x0, double y0, double x, double y,
-			float width, float depth, Color c1, Color c2) {
-		glDisable(GL_TEXTURE_2D);
-		glLineWidth(width);
-
-		// glLoadIdentity();
-		glBegin(GL_LINES);
-		glColor4f(c1.r, c1.g, c1.b, c1.a);
-		glVertex3d(x0, y0, depth);
-		glColor4f(c2.r, c2.g, c2.b, c2.a);
-		glVertex3d(x, y, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
 		if(clip != null && !clip.persistent) clip.destroy();
@@ -196,25 +188,12 @@ public class Renderer {
 			float x2, float y2, float depth, Color c) {
 		c.bind();
 		glDisable(GL_TEXTURE_2D);
+		c = c.multiply(color);
 		glColor4f(c.r, c.g, c.b, c.a);
 		glBegin(GL_TRIANGLES);
 		glVertex3f(x0, y0, depth);
 		glVertex3f(x, y, depth);
 		glVertex3f(x2, y2, depth);
-		glEnd();
-		glEnable(GL_TEXTURE_2D);
-		if(clip != null && !clip.persistent) clip.destroy();
-	}
-
-	public static void drawTriangle(double x0, double y0, double x1, double y1,
-			double x2, double y2, float depth, Color c) {
-		c.bind();
-		glDisable(GL_TEXTURE_2D);
-		glColor4d(c.r, c.g, c.b, c.a);
-		glBegin(GL_TRIANGLES);
-		glVertex3d(x0, y0, depth);
-		glVertex3d(x1, y1, depth);
-		glVertex3d(x2, y2, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
 		if(clip != null && !clip.persistent) clip.destroy();
@@ -242,6 +221,11 @@ public class Renderer {
 		scaleX = x;
 		scaleY = y;
 		glScalef(x, y, 0);
+	}
+	
+	public static void setColor(Color c) {
+		if(c == null) color = Color.white;
+		else color = c;
 	}
 	
 	public static void pushMatrix() {

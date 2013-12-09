@@ -7,6 +7,7 @@ import net.fe.FEMultiplayer;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.*;
+import net.fe.transition.OverworldFightTransition;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 
@@ -64,12 +65,14 @@ public class UnitMoved extends MenuContext {
 					System.out.println("Selected " + u.name);
 					unit.moved();
 					stage.returnToNeutral();
+					Unit other = getHoveredUnit();
 					CombatCalculator calc = new CombatCalculator(
+							new UnitIdentifier(unit), new UnitIdentifier(other));
+					FightStage to = new FightStage(
 							new UnitIdentifier(unit), new UnitIdentifier(
-									getHoveredUnit()));
-					FEMultiplayer.setCurrentStage(new FightStage(
-							new UnitIdentifier(unit), new UnitIdentifier(
-									getHoveredUnit()), calc.getAttackQueue()));
+									other), calc.getAttackQueue());
+					stage.addEntity(new OverworldFightTransition(stage, to, unit.xcoord, 
+							unit.ycoord, other.xcoord, other.ycoord, Grid.getDistance(unit, other)));
 
 				}
 			}.startContext();

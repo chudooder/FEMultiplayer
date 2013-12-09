@@ -3,8 +3,11 @@ package net.fe.overworldStage;
 import java.util.HashMap;
 
 import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.Color;
 
 import net.fe.Player;
+import net.fe.Transition;
+import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.context.Idle;
 import net.fe.unit.Unit;
 import chu.engine.Entity;
@@ -147,4 +150,5 @@ public class OverworldStage extends Stage {
 	public boolean hasControl(){
 		return onControl;
 	}
+	
 }

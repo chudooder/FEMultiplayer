@@ -1,12 +1,16 @@
 package net.fe.fightStage.anim;
 
+import org.newdawn.slick.Color;
+
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.unit.Unit;
 import net.fe.unit.WeaponDisplay;
 import chu.engine.Entity;
+import chu.engine.Game;
 import chu.engine.Resources;
 import chu.engine.anim.Renderer;
+import chu.engine.anim.Transform;
 
 public class HUD extends Entity {
 	private Unit unit;
@@ -92,7 +96,7 @@ public class HUD extends Entity {
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 120,
 				FightStage.FLOOR - 97, FightStage.CENTRAL_AXIS + sign * 65,
 				FightStage.FLOOR - 79, 0, unit.getPartyColor());
-		Resources.getBitmapFont("default_med").render(unit.name, FightStage.CENTRAL_AXIS + sign
+		Renderer.drawString("default_med", unit.name, FightStage.CENTRAL_AXIS + sign
 				* 94 - 16, 10, 0.0f);
 	}
 }
