@@ -3,6 +3,7 @@ import org.newdawn.slick.Color;
 
 import chu.engine.Game;
 import chu.engine.GriddedEntity;
+import chu.engine.Resources;
 import chu.engine.anim.Renderer;
 
 public class Cursor extends GriddedEntity{
@@ -20,8 +21,9 @@ public class Cursor extends GriddedEntity{
 	}
 	
 	public void render(){
-		if(time < .75f && ((OverworldStage) stage).hasControl())
-			Renderer.drawLine(x+2, y+15, x+14, y+15, 1, 0, Color.black, Color.black);
+		if(((OverworldStage) stage).hasControl())
+			Renderer.render(Resources.getTexture("cursor"),
+					0, 0, 1, 1, x, y, x + 16, y + 16, 0);
 	}
 
 	public void setXCoord(int xcoord) {
