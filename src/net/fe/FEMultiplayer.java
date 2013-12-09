@@ -150,6 +150,10 @@ public class FEMultiplayer extends Game{
 //		client.close();
 	}
 	
+	public static void reportFightResults(){ //TODO get parameters that make sense
+		setCurrentStage(map);
+	}
+	
 	public static void setCurrentStage(Stage stage) {
 		currentStage = stage;
 	}
