@@ -112,7 +112,7 @@ public class FightStage extends Stage {
 			// TODO switch back to the other stage
 			System.out.println(left.name + " HP:" + left.getHp() + " | "
 					+ right.name + " HP:" + right.getHp());
-			System.exit(0);
+			FEMultiplayer.setCurrentStage(FEMultiplayer.getOverworldStage());
 		}
 	}
 
