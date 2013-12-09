@@ -4,15 +4,20 @@ import org.newdawn.slick.Color;
 import chu.engine.Game;
 import chu.engine.GriddedEntity;
 import chu.engine.Resources;
+import chu.engine.anim.Animation;
 import chu.engine.anim.Renderer;
 
 public class Cursor extends GriddedEntity{
 	private float time;
 	public Cursor(int xx, int yy) {
 		super(xx, yy);
+		sprite.addAnimation("default", new Animation(Resources.getTexture("cursor"),
+				24, 24, 16, 16, 4, 4, 50));
+		renderDepth = OverworldStage.MENU_DEPTH;
 	}
 	
 	public void onStep(){
+		sprite.update();
 		time+= Game.getDeltaSeconds();
 		if(time >=1.5){
 			time -=1.5;
@@ -22,8 +27,7 @@ public class Cursor extends GriddedEntity{
 	
 	public void render(){
 		if(((OverworldStage) stage).hasControl())
-			Renderer.render(Resources.getTexture("cursor"),
-					0, 0, 1, 1, x, y, x + 16, y + 16, 0);
+			sprite.render(x, y, renderDepth);
 	}
 
 	public void setXCoord(int xcoord) {

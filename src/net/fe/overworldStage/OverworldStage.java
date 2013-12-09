@@ -49,7 +49,7 @@ public class OverworldStage extends Stage {
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
 		currentCmdString = new ArrayList<Object>();
-
+		setControl(true);
 		context = new Idle(this, p);
 	}
 	
