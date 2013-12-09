@@ -15,6 +15,7 @@ public class Idle extends CursorContext {
 	
 	public void startContext(){
 		super.startContext();
+		stage.clearCmdString();
 		Unit u = getHoveredUnit();
 		if(u!=null && !u.hasMoved()){
 			addZones(u);
@@ -26,7 +27,10 @@ public class Idle extends CursorContext {
 		Unit u = getHoveredUnit();
 		if(u!=null && u.getParty() == player.getParty() && !u.hasMoved()){
 			removeZones();
-			new UnitSelected(stage, this, u).startContext();;
+			new UnitSelected(stage, this, u).startContext();
+		}
+		if(u == null){
+			//TODO end
 		}
 
 	}

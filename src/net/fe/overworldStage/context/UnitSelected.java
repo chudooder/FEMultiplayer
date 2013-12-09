@@ -8,17 +8,15 @@ public class UnitSelected extends CursorContext {
 	private Zone move, attack, heal;
 	private Unit selected;
 	private Path path;
-	private int oX, oY;
 
 	public UnitSelected(OverworldStage s, OverworldContext prev, Unit u) {
 		super(s, prev);
 		selected = u;
-		oX = u.xcoord;
-		oY = u.ycoord;
 	}
 	
 	public void startContext(){
 		super.startContext();
+		grid.move(selected, selected.getOrigX(), selected.getOrigY(), false);
 		this.move = new Zone(grid.getPossibleMoves(selected), Zone.MOVE_DARK);
 		this.attack = Zone.minus(new Zone(grid.getAttackRange(selected),
 				Zone.ATTACK_DARK), move);
@@ -27,14 +25,16 @@ public class UnitSelected extends CursorContext {
 		stage.addEntity(move);
 		stage.addEntity(attack);
 		stage.addEntity(heal);
+		
+		stage.setSelectedUnit(selected);
+		
 		updatePath();
 	}
 
 	@Override
 	public void onSelect() {
-		if (move.getNodes().contains(new Node(cursor.xcoord, cursor.ycoord))) {
-			grid.move(selected.xcoord, selected.ycoord, cursor.xcoord,
-					cursor.ycoord);
+		if (move.getNodes().contains(new Node(cursor.getXCoord(), cursor.getYCoord()))) {
+			grid.move(selected, cursor.getXCoord(),	cursor.getYCoord(), true);
 			selected.move(path, new Command() {
 				@Override
 				public void execute() {
@@ -43,7 +43,7 @@ public class UnitSelected extends CursorContext {
 					stage.removeEntity(heal);
 					stage.removeEntity(path);
 					new UnitMoved(stage, UnitSelected.this,
-							selected, oX, oY).startContext();
+							selected, true).startContext();
 				}
 			});
 		}
@@ -55,8 +55,8 @@ public class UnitSelected extends CursorContext {
 		stage.removeEntity(attack);
 		stage.removeEntity(heal);
 		stage.removeEntity(path);
-		cursor.xcoord = oX;
-		cursor.ycoord = oY;
+		cursor.setXCoord(selected.getOrigX());
+		cursor.setYCoord(selected.getOrigY());
 		prev.startContext();
 	}
 
@@ -66,8 +66,8 @@ public class UnitSelected extends CursorContext {
 
 	private void updatePath() {
 		stage.removeEntity(path);
-		path = stage.grid.getShortestPath(selected, cursor.xcoord,
-				cursor.ycoord);
+		path = stage.grid.getShortestPath(selected, cursor.getXCoord(),
+				cursor.getYCoord());
 		if (path != null) {
 			stage.addEntity(path);
 		}

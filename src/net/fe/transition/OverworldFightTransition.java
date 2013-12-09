@@ -1,8 +1,12 @@
 package net.fe.transition;
 
+import net.fe.FEMultiplayer;
 import net.fe.Transition;
 import net.fe.fightStage.FightStage;
+import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldStage;
+import net.fe.unit.Unit;
+import net.fe.unit.UnitIdentifier;
 
 import org.newdawn.slick.Color;
 
@@ -25,14 +29,21 @@ public class OverworldFightTransition extends Transition {
 	/**
 	 * x0 ... y1 are the coords for the two tiles to fight over
 	 */
-	public OverworldFightTransition(OverworldStage from, FightStage to, int x0, int y0, int x1, int y1, int range) {
-		super(from, to);
+	public OverworldFightTransition(FightStage to, UnitIdentifier u1, UnitIdentifier u2) {
+		super(to);
 		this.from = from;
 		this.to = to;
 		to.beginStep();
 		renderDepth = 0.0f;
 		triAlpha = 0.7f;
 		fightAlpha = 0.0f;
+		Unit a = FEMultiplayer.getUnit(u1);
+		Unit b = FEMultiplayer.getUnit(u2);
+		float x0 = a.getXCoord();
+		float y0 = a.getYCoord();
+		float x1 = b.getXCoord();
+		float y1 = b.getYCoord();
+		int range = Grid.getDistance(a, b);
 		x = new float[] {x0, x0+1, x0+1, x0, x1, x1+1, x1+1, x1};
 		y = new float[] {y0, y0, y0+1, y0+1, y1, y1, y1+1, y1+1};
 		for(int i=0; i<8; i++) {

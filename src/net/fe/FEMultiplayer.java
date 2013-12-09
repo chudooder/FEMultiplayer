@@ -11,6 +11,7 @@ import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
+import net.fe.transition.OverworldFightTransition;
 import net.fe.unit.Class;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitFactory;
@@ -81,6 +82,11 @@ public class FEMultiplayer extends Game{
 		u2.addToInventory(WeaponFactory.getWeapon("Elfire"));
 		u2.equip(0);
 		p2.getParty().addUnit(u2);
+		
+		Unit u4 = UnitFactory.getUnit("Lute");
+		u4.addToInventory(WeaponFactory.getWeapon("Elfire"));
+		u4.equip(0);
+		p2.getParty().addUnit(u4);
 
 		u1.setLevel(20);
 		u2.setLevel(20);
@@ -93,6 +99,7 @@ public class FEMultiplayer extends Game{
 		map.addUnit(u1, 0, 0);
 		map.addUnit(u2, 1, 0);
 		map.addUnit(u3, 1, 1);
+		map.addUnit(u4, 2, 0);
 		map.setControl(true);
 		
 		
@@ -143,6 +150,29 @@ public class FEMultiplayer extends Game{
 		Display.destroy();
 //		client.close();
 	}
+	
+	public static void reportFightResults(){ //TODO get parameters that make sense
+		setCurrentStage(map);
+	}
+	
+	public static void send(UnitIdentifier u, int moveX, int moveY, Object... cmds){
+		//TODO server stuff
+		System.out.print("SEND> " + u.name + " moved (" + moveX + "," + moveY + ") - ");
+		for(Object o: cmds){
+			System.out.print(o + " ");
+		}
+		System.out.println();
+		
+		//Debugging
+		if(cmds.length < 2) return;
+		if(cmds[cmds.length - 2].equals("Attack")){
+			UnitIdentifier enemy = (UnitIdentifier) cmds[cmds.length-1];
+			CombatCalculator calc = new CombatCalculator(u, enemy);
+			FightStage to = new FightStage(u, enemy, calc.getAttackQueue());
+			currentStage.addEntity(new OverworldFightTransition(to, u, enemy));
+		}
+	}
+
 	
 	public static void setCurrentStage(Stage stage) {
 		currentStage = stage;

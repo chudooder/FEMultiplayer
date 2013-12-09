@@ -22,12 +22,16 @@ public abstract class Stage {
 	
 	public void addEntity(Entity e) {
 		addStack.push(e);
+		e.willBeRemoved = false;
 	}
 	
 	
 	public void removeEntity(Entity e) {
 		if(e != null) {
 			e.flagForRemoval();
+			if(removeStack.contains(e)){
+				return;
+			}
 			removeStack.push(e);
 		}
 	}

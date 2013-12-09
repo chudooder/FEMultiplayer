@@ -1,18 +1,18 @@
-package net.fe.overworldStage.context;
+package net.fe.overworldStage;
 
 import java.util.*;
 
 import net.fe.overworldStage.*;
 import net.fe.unit.*;
 
-public abstract class SelectTarget extends OverworldContext {
+public abstract class SelectTargetContext extends OverworldContext {
 	private Zone zone;
 	private List<Unit> targets;
-	private int selected;
-	private Unit unit;
-	private boolean friendly;
+	protected int selected;
+	protected Unit unit;
+	protected boolean friendly;
 
-	public SelectTarget(OverworldStage stage, OverworldContext context, Zone z,
+	public SelectTargetContext(OverworldStage stage, OverworldContext context, Zone z,
 			Unit u, boolean friendly) {
 		super(stage, context);
 		zone = z;
@@ -45,7 +45,7 @@ public abstract class SelectTarget extends OverworldContext {
 	@Override
 	public void onSelect() {
 		stage.removeEntity(zone);
-		unitSelected(grid.getUnit(cursor.xcoord, cursor.ycoord));
+		unitSelected(grid.getUnit(cursor.getXCoord(), cursor.getYCoord()));
 	}
 
 	public abstract void unitSelected(Unit u);
@@ -81,13 +81,12 @@ public abstract class SelectTarget extends OverworldContext {
 	}
 
 	public void updateCursor() {
-		cursor.xcoord = targets.get(selected).xcoord;
-		cursor.ycoord = targets.get(selected).ycoord;
+		cursor.setXCoord(targets.get(selected).getXCoord());
+		cursor.setYCoord(targets.get(selected).getYCoord());
 	}
 
 	@Override
 	public void onCancel() {
-		stage.removeEntity(zone);
 		prev.startContext();
 	}
 

@@ -10,11 +10,10 @@ import chu.engine.Stage;
  */
 public abstract class Transition extends Entity {
 	
-	Stage from, to;
+	Stage to;
 	
-	public Transition(Stage from, Stage to) {
+	public Transition(Stage to) {
 		super(0,0);
-		this.from = from;
 		this.to = to;
 	}
 	

@@ -86,9 +86,6 @@ public class FightStage extends Stage {
 		bg = Resources.getTexture(right.getTerrain().toString().toLowerCase() + "_bg");
 		
 		this.attackQ = attackQ;
-		
-		System.out.println("-------Battle!-------\n" + left + "\n" + right + "\n");
-		System.out.println("Running calcuations:");
 	}
 
 	@Override
@@ -112,7 +109,7 @@ public class FightStage extends Stage {
 		} else {
 			System.out.println(left.name + " HP:" + left.getHp() + " | "
 					+ right.name + " HP:" + right.getHp());
-			FEMultiplayer.setCurrentStage(FEMultiplayer.getOverworldStage());
+			FEMultiplayer.reportFightResults();
 		}
 	}
 
@@ -132,7 +129,7 @@ public class FightStage extends Stage {
 		
 		
 		if (currentEvent == START) {
-			System.out.println("\n" + rec.attacker.name + "'s turn!"); //Debug
+//			System.out.println("\n" + rec.attacker.name + "'s turn!"); //Debug
 			ArrayList<String> messages = getMessages(rec.animation, "(a)");
 			for(int i = 0; i < messages.size(); i++){
 				addEntity(new Message(messages.get(i), attacker == left, i));
@@ -145,8 +142,8 @@ public class FightStage extends Stage {
 			// Let the animation play
 		} else if (currentEvent == ATTACKED) {
 			if (rec.animation.equals("Miss")) {
-				System.out.println("Miss! " + rec.defender.name
-						+ " dodged the attack!");
+//				System.out.println("Miss! " + rec.defender.name
+//						+ " dodged the attack!");
 				
 				d.sprite.setAnimation("DODGE");
 				d.sprite.setFrame(0);
@@ -158,8 +155,8 @@ public class FightStage extends Stage {
 				
 				currentEvent = HURTED;
 			} else {
-				System.out.println(rec.animation + "! " + rec.defender.name
-						+ " took " + rec.damage + " damage!");
+//				System.out.println(rec.animation + "! " + rec.defender.name
+//						+ " took " + rec.damage + " damage!");
 				
 				defender.setHp(defender.getHp() - rec.damage);
 				attacker.setHp(attacker.getHp() + rec.drain);

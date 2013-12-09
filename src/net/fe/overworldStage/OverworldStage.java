@@ -1,15 +1,18 @@
 package net.fe.overworldStage;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
+import net.fe.FEMultiplayer;
 import net.fe.Player;
 import net.fe.Transition;
 import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.context.Idle;
 import net.fe.unit.Unit;
+import net.fe.unit.UnitIdentifier;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.Stage;
@@ -23,6 +26,10 @@ public class OverworldStage extends Stage {
 
 	private Player player;
 	private boolean onControl;
+	
+	private ArrayList<Object> currentCmdString;
+	private int movX, movY;
+	private Unit selectedUnit;
 	
 	public static final float TILE_DEPTH = 1;
 	public static final float ZONE_DEPTH = 0.8f;
@@ -41,6 +48,7 @@ public class OverworldStage extends Stage {
 		player = p;
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
+		currentCmdString = new ArrayList<Object>();
 
 		context = new Idle(this, p);
 	}
@@ -48,8 +56,9 @@ public class OverworldStage extends Stage {
 	public void setMenu(Menu m){
 		removeEntity(menu);
 		menu = m;
-		if(m!=null)
-		addEntity(menu);
+		if(m!=null){
+			addEntity(menu);
+		}
 	}
 	
 	public Menu getMenu(){
@@ -151,4 +160,33 @@ public class OverworldStage extends Stage {
 		return onControl;
 	}
 	
+	public void end(){
+		//TODO implement
+	}
+	
+	public void clearCmdString(){
+		movX = 0;
+		movY = 0;
+		currentCmdString.clear();
+	}
+	
+	public void addCmd(Object cmd){
+		currentCmdString.add(cmd);
+	}
+	
+	public void setMovX(int x){
+		movX = x;
+	}
+	
+	public void setMovY(int y){
+		movY = y;
+	}
+	
+	public void setSelectedUnit(Unit u){
+		selectedUnit = u;
+	}
+	
+	public void send(){
+		FEMultiplayer.send(new UnitIdentifier(selectedUnit), movX, movY, currentCmdString.toArray());
+	}
 }

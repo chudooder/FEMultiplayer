@@ -7,30 +7,30 @@ public abstract class CursorContext extends OverworldContext {
 	}
 	
 	public void onUp() {
-		if (cursor.ycoord > 0) {
-			cursor.ycoord--;
+		if (cursor.getYCoord() > 0) {
+			cursor.setYCoord(cursor.getYCoord() - 1);
 			cursorChanged();
 		}
 	}
 
 	public void onDown() {
-		if (cursor.ycoord < grid.height - 1) {
-			cursor.ycoord++;
+		if (cursor.getYCoord() < grid.height - 1) {
+			cursor.setYCoord(cursor.getYCoord() + 1);
 			cursorChanged();
 		}
 	}
 
 	public void onLeft() {
-		if (cursor.xcoord > 0) {
-			cursor.xcoord--;
+		if (cursor.getXCoord() > 0) {
+			cursor.setXCoord(cursor.getXCoord() - 1);
 			cursorChanged();
 		}
 
 	}
 
 	public void onRight() {
-		if (cursor.xcoord < grid.width - 1) {
-			cursor.xcoord++;
+		if (cursor.getXCoord() < grid.width - 1) {
+			cursor.setXCoord(cursor.getXCoord() + 1);
 			cursorChanged();
 		}
 	}

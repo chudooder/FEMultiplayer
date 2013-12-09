@@ -9,7 +9,6 @@ public class WeaponDisplay extends Entity{
 	private Weapon weapon;
 	public WeaponDisplay(int x, int y, Weapon w){
 		super(x,y);
-		System.out.println(w.id);
 		renderDepth = 0;
 		weapon = w;
 	}

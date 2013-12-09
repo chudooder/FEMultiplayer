@@ -33,6 +33,8 @@ public class Unit extends GriddedEntity {
 	private Path path;
 	private float rX, rY;
 	private Command callback;
+	
+	private int origX, origY;
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
@@ -102,8 +104,10 @@ public class Unit extends GriddedEntity {
 
 	public void render() {
 		Color c = !moved? getPartyColor(): Color.gray;
-		Renderer.drawRectangle(x + 2 + rX, y + 2 + rY, x + 14 + rX, y + 14+rY, OverworldStage.UNIT_DEPTH, c);
-		Renderer.drawString("default_med", name.charAt(0) + "", x + 4 + rX, y + 2 + rY, OverworldStage.UNIT_DEPTH);
+		Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX, y + 14 +rY, OverworldStage.UNIT_DEPTH, c);
+		Renderer.drawString("default_med", name.charAt(0) + "", x + 4 + rX, y + 1 + rY, OverworldStage.UNIT_DEPTH);
+		int hpLength = hp*13/get("HP");
+		Renderer.drawLine(x+1,y+13.5f, x+1+hpLength, y+13.5f, 1, 0, Color.red, Color.green);
 	}
 
 	public void levelUp() {
@@ -285,6 +289,8 @@ public class Unit extends GriddedEntity {
 
 	public void moved() {
 		moved = true;
+		origX = xcoord;
+		origY = ycoord;
 	}
 
 	public boolean hasMoved() {
@@ -293,6 +299,22 @@ public class Unit extends GriddedEntity {
 
 	public Iterable<Item> getInventory() {
 		return inventory;
+	}
+
+	public int getOrigX() {
+		return origX;
+	}
+
+	public void setOrigX(int origX) {
+		this.origX = origX;
+	}
+
+	public void setOrigY(int origY) {
+		this.origY = origY;
+	}
+
+	public int getOrigY() {
+		return origY;
 	}
 
 }
