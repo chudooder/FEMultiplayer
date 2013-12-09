@@ -103,6 +103,11 @@ public class OverworldStage extends Stage {
 		return u;
 	}
 	
+	public void removeUnit(Unit u) {
+		grid.removeUnit(u.getXCoord(), u.getYCoord());
+		this.removeEntity(u);
+	}
+	
 	public void render(){
 //		Renderer.scale(2, 2);
 		super.render();

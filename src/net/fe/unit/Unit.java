@@ -99,7 +99,7 @@ public class Unit extends GriddedEntity {
 		if(dying) alpha -= Game.getDeltaSeconds();
 		if(alpha < 0) {
 			((OverworldStage)stage).setControl(true);
-			destroy();
+			((OverworldStage)stage).removeUnit(this);
 		}
 	}
 
