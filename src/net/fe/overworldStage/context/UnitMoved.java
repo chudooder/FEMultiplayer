@@ -9,7 +9,7 @@ import net.fe.FEMultiplayer;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.*;
-import net.fe.transition.OverworldFightTransition;
+import net.fe.transition.FightOverworldTransition;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 

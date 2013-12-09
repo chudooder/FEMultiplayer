@@ -46,56 +46,56 @@ public class HUD extends Entity {
 		// Main status
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 120,
 				FightStage.FLOOR + 12, FightStage.CENTRAL_AXIS,
-				FightStage.FLOOR + 56, 0, FightStage.BORDER_DARK);
+				FightStage.FLOOR + 56, renderDepth, FightStage.BORDER_DARK);
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 119,
 				FightStage.FLOOR + 13, FightStage.CENTRAL_AXIS + sign,
-				FightStage.FLOOR + 55, 0, FightStage.BORDER_LIGHT);
+				FightStage.FLOOR + 55, renderDepth, FightStage.BORDER_LIGHT);
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 118,
 				FightStage.FLOOR + 14, FightStage.CENTRAL_AXIS + sign * 2,
-				FightStage.FLOOR + 54, 0, unit.getPartyColor().darker(0.5f));
+				FightStage.FLOOR + 54, renderDepth, unit.getPartyColor().darker(0.5f));
 
 		// Weapon
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 119,
 				FightStage.FLOOR + 13, FightStage.CENTRAL_AXIS + sign,
-				FightStage.FLOOR + 31, 0, FightStage.BORDER_LIGHT);
+				FightStage.FLOOR + 31, renderDepth, FightStage.BORDER_LIGHT);
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 118,
 				FightStage.FLOOR + 14, FightStage.CENTRAL_AXIS + sign * 2,
-				FightStage.FLOOR + 30, 0, FightStage.NEUTRAL);
+				FightStage.FLOOR + 30, renderDepth, FightStage.NEUTRAL);
 
 		// Attack Stats
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 120,
 				FightStage.FLOOR + 2, FightStage.CENTRAL_AXIS + sign * 76,
-				FightStage.FLOOR + 32, 0, FightStage.BORDER_DARK);
+				FightStage.FLOOR + 32, renderDepth, FightStage.BORDER_DARK);
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 119,
 				FightStage.FLOOR + 3, FightStage.CENTRAL_AXIS + sign * 77,
-				FightStage.FLOOR + 31, 0, FightStage.BORDER_LIGHT);
+				FightStage.FLOOR + 31, renderDepth, FightStage.BORDER_LIGHT);
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 118,
 				FightStage.FLOOR + 4, FightStage.CENTRAL_AXIS + sign * 78,
-				FightStage.FLOOR + 30, 0, unit.getPartyColor());
+				FightStage.FLOOR + 30, renderDepth, unit.getPartyColor());
 		
 		Renderer.render(Resources.getTexture("gui_battleStats"), 0, 0, 1, 1, FightStage.CENTRAL_AXIS
 				+ sign * 98 - 18, FightStage.FLOOR+5, FightStage.CENTRAL_AXIS
-				+ sign * 98 - 3, FightStage.FLOOR+29, 0.0f);
+				+ sign * 98 - 3, FightStage.FLOOR+29, renderDepth);
 
 		Renderer.drawString("stat_numbers", hit, FightStage.CENTRAL_AXIS + sign * 98 - 5, 
-				FightStage.FLOOR + 5, 0.0f);
+				FightStage.FLOOR + 5, renderDepth);
 
 		Renderer.drawString("stat_numbers", dmg, FightStage.CENTRAL_AXIS + sign * 98 - 5,
-				FightStage.FLOOR + 13, 0.0f);
+				FightStage.FLOOR + 13, renderDepth);
 
 		Renderer.drawString("stat_numbers", crit,FightStage.CENTRAL_AXIS + sign * 98 - 5, 
-				FightStage.FLOOR + 21, 0.0f);
+				FightStage.FLOOR + 21, renderDepth);
 
 		// Name
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 120,
 				FightStage.FLOOR - 99, FightStage.CENTRAL_AXIS + sign * 63,
-				FightStage.FLOOR - 77, 0, FightStage.BORDER_DARK);
+				FightStage.FLOOR - 77, renderDepth, FightStage.BORDER_DARK);
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 120,
 				FightStage.FLOOR - 98, FightStage.CENTRAL_AXIS + sign * 64,
-				FightStage.FLOOR - 78, 0, FightStage.BORDER_LIGHT);
+				FightStage.FLOOR - 78, renderDepth, FightStage.BORDER_LIGHT);
 		Renderer.drawRectangle(FightStage.CENTRAL_AXIS + sign * 120,
 				FightStage.FLOOR - 97, FightStage.CENTRAL_AXIS + sign * 65,
-				FightStage.FLOOR - 79, 0, unit.getPartyColor());
+				FightStage.FLOOR - 79, renderDepth, unit.getPartyColor());
 		Renderer.drawString("default_med", unit.name, FightStage.CENTRAL_AXIS + sign
 				* 94 - 16, 10, 0.0f);
 	}

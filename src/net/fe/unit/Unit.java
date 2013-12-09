@@ -27,6 +27,8 @@ public class Unit extends GriddedEntity {
 	private HashMap<String, Integer> tempMods;
 	public final String name;
 	private Party team;
+	private boolean dying;
+	private float alpha;
 	// TODO Rescue
 
 	private boolean moved;
@@ -44,6 +46,7 @@ public class Unit extends GriddedEntity {
 		inventory = new ArrayList<Item>();
 		tempMods = new HashMap<String, Integer>();
 		this.name = name;
+		alpha = 1.0f;
 		clazz = c;
 
 		stats = new HashMap<String, Float>();
@@ -89,7 +92,14 @@ public class Unit extends GriddedEntity {
 				xcoord = next.x;
 				ycoord = next.y;
 			}
-
+		}
+	}
+	
+	public void endStep() {
+		if(dying) alpha -= Game.getDeltaSeconds();
+		if(alpha < 0) {
+			((OverworldStage)stage).setControl(true);
+			destroy();
 		}
 	}
 
@@ -104,6 +114,7 @@ public class Unit extends GriddedEntity {
 
 	public void render() {
 		Color c = !moved? getPartyColor(): Color.gray;
+		c.a = alpha;
 		Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX, y + 14 +rY, OverworldStage.UNIT_DEPTH, c);
 		Renderer.drawString("default_med", name.charAt(0) + "", x + 4 + rX, y + 1 + rY, OverworldStage.UNIT_DEPTH);
 		int hpLength = hp*13/get("HP");
@@ -315,6 +326,11 @@ public class Unit extends GriddedEntity {
 
 	public int getOrigY() {
 		return origY;
+	}
+
+	public void setDying(boolean b) {
+		dying = b;
+		if(dying) ((OverworldStage)stage).setControl(false);
 	}
 
 }

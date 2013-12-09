@@ -11,6 +11,7 @@ import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
+import net.fe.transition.FightOverworldTransition;
 import net.fe.transition.OverworldFightTransition;
 import net.fe.unit.Class;
 import net.fe.unit.Unit;
@@ -97,7 +98,7 @@ public class FEMultiplayer extends Game{
 		
 		map = new OverworldStage(new Grid(20,10, Terrain.PLAIN), p1);
 		map.addUnit(u1, 0, 0);
-		map.addUnit(u2, 1, 0);
+		map.addUnit(u2, 5, 5);
 		map.addUnit(u3, 1, 1);
 		map.addUnit(u4, 2, 0);
 		map.setControl(true);
@@ -151,8 +152,12 @@ public class FEMultiplayer extends Game{
 //		client.close();
 	}
 	
-	public static void reportFightResults(){ //TODO get parameters that make sense
-		setCurrentStage(map);
+	public static void reportFightResults(FightStage stage){ //TODO get parameters that make sense
+		for(int i=0; i<2; i++) {
+			if(stage.getUnit(i).getHp() <= 0) {
+				stage.getUnit(i).setDying(true);
+			}
+		}
 	}
 	
 	public static void send(UnitIdentifier u, int moveX, int moveY, Object... cmds){

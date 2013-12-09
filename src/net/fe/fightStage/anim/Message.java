@@ -52,13 +52,11 @@ public class Message extends Entity{
 	}
 	
 	public void render(){
-	//	Renderer.addClip(FightStage.CENTRAL_AXIS-120, 0, 240, 160, true);
 		if(left){
 			Renderer.drawRectangle(x-10, y, x+WIDTH, y + HEIGHT, 0, FightStage.NEUTRAL);
 		} else {
 			Renderer.drawRectangle(x, y, x+WIDTH+10, y + HEIGHT, 0, FightStage.NEUTRAL);
 		}
 		Renderer.drawString("msg_text", message, x+4, y+2, 0.0f);
-	//	Renderer.removeClip();
 	}
 }

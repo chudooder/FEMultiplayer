@@ -11,6 +11,7 @@ import net.fe.FEMultiplayer;
 import net.fe.RNG;
 import net.fe.fightStage.anim.*;
 import net.fe.overworldStage.Grid;
+import net.fe.transition.FightOverworldTransition;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 import net.fe.unit.Weapon;
@@ -26,6 +27,7 @@ public class FightStage extends Stage {
 	private FightUnit leftFighter, rightFighter;
 	private Healthbar leftHP, rightHP;
 	private int range;
+	private boolean done;
 	
 	private ArrayList<AttackRecord> attackQ;
 	
@@ -65,6 +67,7 @@ public class FightStage extends Stage {
 	public FightStage(UnitIdentifier u1, UnitIdentifier u2, ArrayList<AttackRecord> attackQ) {
 		shakeTimer = 0;
 		prevShakeTimer = 0;
+		done = false;
 		shakeX = 0;
 		shakeY = 0;
 		left = FEMultiplayer.getUnit(u1);
@@ -106,10 +109,12 @@ public class FightStage extends Stage {
 		processRemoveStack();
 		if (attackQ.size() != 0) {
 			processAttackQueue();
-		} else {
+		} else if(!done) {
 			System.out.println(left.name + " HP:" + left.getHp() + " | "
 					+ right.name + " HP:" + right.getHp());
-			FEMultiplayer.reportFightResults();
+			FEMultiplayer.reportFightResults(this);
+			addEntity(new FightOverworldTransition(FEMultiplayer.map, left, right));
+			done = true;
 		}
 	}
 
@@ -286,6 +291,10 @@ public class FightStage extends Stage {
 	
 	public int getRange(){
 		return range;
+	}
+	
+	public Unit getUnit(int i) {
+		return i == 0 ? left : right;
 	}
 	
 	public boolean isLeft(Unit u){

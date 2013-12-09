@@ -19,6 +19,7 @@ public abstract class Transition extends Entity {
 	
 	public void done() {
 		destroy();
+		stage.processRemoveStack();
 		FEMultiplayer.setCurrentStage(to);
 	}
 }

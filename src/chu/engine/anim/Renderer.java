@@ -13,8 +13,6 @@ public class Renderer {
 	private static Camera camera;
 	private static RectClip clip;
 	private static final int SCALE_FILTER = GL_NEAREST;
-	private static int scaleX;
-	private static int scaleY;
 	private static Color color;
 
 	static {
@@ -217,9 +215,7 @@ public class Renderer {
 		glTranslatef(x, y, 0);
 	}
 	
-	public static void scale(int x, int y) {
-		scaleX = x;
-		scaleY = y;
+	public static void scale(float x, float y) {
 		glScalef(x, y, 0);
 	}
 	
@@ -260,7 +256,7 @@ public class Renderer {
     		persistent = p;
     		glEnable(GL_SCISSOR_TEST);
 //    		System.out.println(scaleX*x0+" "+(Game.getWindowHeight()-y0-scaleY*h)+" "+scaleX*w+" "+scaleY*h);
-    		glScissor(scaleX*x0, Game.getWindowHeight()-y0-scaleY*h, scaleX*w, scaleY*h);
+    		glScissor(x0, Game.getWindowHeight()-y0-h, w, h);
     	}
     	
     	public void destroy() {

@@ -31,6 +31,7 @@ public class Healthbar extends Entity {
 		totalHealth = u.get("HP");
 		currentHealth = u.getHp();
 		displayedHealth = u.getHp();
+		renderDepth = FightStage.HP_DEPTH;
 	}
 
 	public void render() {
@@ -38,9 +39,9 @@ public class Healthbar extends Entity {
 		int offX = 0;
 		int width = Resources.getBitmapFont("stat_numbers").getStringWidth((int)displayedHealth + "");
 		if(totalHealth <= 40) {
-			Renderer.drawString("stat_numbers", (int)displayedHealth + "", x-5-width, y-2, 0.0f);
+			Renderer.drawString("stat_numbers", (int)displayedHealth + "", x-5-width, y-2, renderDepth);
 		} else {
-			Renderer.drawString("stat_numbers", (int)displayedHealth + "", x-5-width, y+2, 0.0f);
+			Renderer.drawString("stat_numbers", (int)displayedHealth + "", x-5-width, y+2, renderDepth);
 		}
 		for (int hp = 1; hp <= totalHealth; hp++) {
 			Texture t = Resources
