@@ -28,6 +28,9 @@ public class Idle extends CursorContext {
 			removeZones();
 			new UnitSelected(stage, this, u).startContext();;
 		}
+		if(u == null){
+			//TODO end
+		}
 
 	}
 

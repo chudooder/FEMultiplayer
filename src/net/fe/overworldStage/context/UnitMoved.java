@@ -1,7 +1,9 @@
 package net.fe.overworldStage.context;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import net.fe.FEMultiplayer;
 import net.fe.fightStage.CombatCalculator;
@@ -25,7 +27,6 @@ public class UnitMoved extends MenuContext {
 		for (String cmd : getCommands(unit)) {
 			menu.addItem(cmd);
 		}
-		// TODO Auto-generated constructor stub
 	}
 
 	public void startContext() {
@@ -38,7 +39,37 @@ public class UnitMoved extends MenuContext {
 
 	public List<String> getCommands(Unit u) {
 		// TODO
-		return Arrays.asList("Attack", "Heal", "Item", "Wait");
+		List<String> list = new ArrayList<String>();
+		boolean attack = false;
+		Set<Node> range = grid.getRange(new Node(u.xcoord, u.ycoord),
+				unit.getTotalWepRange(false));
+		for(Node n: range){
+			Unit p = grid.getUnit(n.x, n.y);
+			if(p != null && !stage.getPlayer().getParty().isAlly(p.getParty())){
+				attack = true;
+				break;
+			}
+		}
+		if(attack)
+			list.add("Attack");
+		
+		boolean heal = false;
+		range = grid.getRange(new Node(u.xcoord, u.ycoord),
+				unit.getTotalWepRange(true));
+		for(Node n: range){
+			Unit p = grid.getUnit(n.x, n.y);
+			if(p != null && stage.getPlayer().getParty().isAlly(p.getParty())){
+				heal = true;
+				break;
+			}
+		}
+		if(heal)
+			list.add("Heal");
+		
+		list.add("Item");
+		list.add("Wait");
+		
+		return list;
 	}
 
 	@Override

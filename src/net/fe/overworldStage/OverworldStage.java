@@ -148,4 +148,8 @@ public class OverworldStage extends Stage {
 	public boolean hasControl(){
 		return onControl;
 	}
+	
+	public void end(){
+		//TODO implement
+	}
 }
