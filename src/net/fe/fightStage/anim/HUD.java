@@ -5,7 +5,7 @@ import org.newdawn.slick.Color;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.unit.Unit;
-import net.fe.unit.WeaponDisplay;
+import net.fe.unit.ItemDisplay;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.Resources;
@@ -38,7 +38,7 @@ public class HUD extends Entity {
 
 		renderDepth = FightStage.HUD_DEPTH;
 
-		stage.addEntity(new WeaponDisplay(FightStage.CENTRAL_AXIS + sign * 39
+		stage.addEntity(new ItemDisplay(FightStage.CENTRAL_AXIS + sign * 39
 				- 37, FightStage.FLOOR + 13, u1.getWeapon()));
 	}
 

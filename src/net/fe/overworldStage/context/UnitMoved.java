@@ -13,14 +13,14 @@ import net.fe.transition.FightOverworldTransition;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 
-public class UnitMoved extends MenuContext {
+public class UnitMoved extends MenuContext<String> {
 	private Unit unit;
 	private Zone zone;
 	private boolean fromTrade;
 
 	public UnitMoved(OverworldStage stage, OverworldContext prev, Unit u,
 			boolean fromTrade) {
-		super(stage, prev, new Menu(0, 0));
+		super(stage, prev, new Menu<String>(0, 0));
 		unit = u;
 		for (String cmd : getCommands(unit)) {
 			menu.addItem(cmd);
@@ -100,6 +100,8 @@ public class UnitMoved extends MenuContext {
 		} else if (selectedItem.equals("Attack") || selectedItem.equals("Heal")) {
 			new AttackTarget(stage, this, zone, unit,
 					selectedItem.equals("Heal")).startContext();
+		} else if (selectedItem.equals("Item")){
+			new Item(stage, this, unit).startContext();
 		}
 	}
 

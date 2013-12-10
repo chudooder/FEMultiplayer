@@ -15,6 +15,6 @@ public class Tile extends GriddedEntity{
 	}
 	
 	public void render(){
-		Renderer.drawRectangle(x, y, x+15, y+15, renderDepth, Color.lightGray);
+		Renderer.drawRectangle(x, y, x+15, y+15, renderDepth, Color.white);
 	}
 }

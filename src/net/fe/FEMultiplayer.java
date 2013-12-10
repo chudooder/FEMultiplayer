@@ -92,10 +92,14 @@ public class FEMultiplayer extends Game{
 
 		u1.setLevel(20);
 		u2.setLevel(20);
+		u3.setLevel(20);
+		u4.setLevel(20);
 		
 		
 		u1.fillHp();
 		u2.fillHp();
+		u3.fillHp();
+		u4.fillHp();
 		
 		map = new OverworldStage(new Grid(20,10, Terrain.PLAIN), p1);
 		map.addUnit(u1, 0, 0);

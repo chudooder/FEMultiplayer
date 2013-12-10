@@ -13,7 +13,7 @@ public class Weapon extends Item{
 	public ArrayList<String> effective;
 	public int worth;
 	public String pref;
-	public int id;
+
 	
 	public Weapon(String name) {
 		super(name);

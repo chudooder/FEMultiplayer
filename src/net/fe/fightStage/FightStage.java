@@ -49,7 +49,7 @@ public class FightStage extends Stage {
 	public static Color NEUTRAL = new Color(0xb0a878);
 	
 	public static final float HP_DEPTH = 0;
-	public static final float HUD_DEPTH = 0.1f;
+	public static final float HUD_DEPTH = 0.15f;
 	public static final float EFFECT_DEPTH = 0.2f;
 	public static final float UNIT_DEPTH = 0.5f;
 	public static final float PLATFORM_DEPTH = 0.7f;
