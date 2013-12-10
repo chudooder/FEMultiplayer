@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
+import net.fe.fightStage.HealCalculator;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
@@ -91,10 +92,14 @@ public class FEMultiplayer extends Game{
 
 		u1.setLevel(20);
 		u2.setLevel(20);
+		u3.setLevel(20);
+		u4.setLevel(20);
 		
 		
 		u1.fillHp();
 		u2.fillHp();
+		u3.fillHp();
+		u4.fillHp();
 		
 		map = new OverworldStage(new Grid(20,10, Terrain.PLAIN), p1);
 		map.addUnit(u1, 0, 0);
@@ -175,6 +180,11 @@ public class FEMultiplayer extends Game{
 			CombatCalculator calc = new CombatCalculator(u, enemy);
 			FightStage to = new FightStage(u, enemy, calc.getAttackQueue());
 			currentStage.addEntity(new OverworldFightTransition(to, u, enemy));
+		} else if (cmds[cmds.length - 2].equals("Attack")){
+			UnitIdentifier healee = (UnitIdentifier) cmds[cmds.length-1];
+			HealCalculator calc = new HealCalculator(u, healee);
+			FightStage to = new FightStage(u, healee, calc.getAttackQueue());
+			currentStage.addEntity(new OverworldFightTransition(to, u, healee));
 		}
 	}
 

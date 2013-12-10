@@ -5,6 +5,7 @@ public abstract class Item {
 	public final String name;
 	private int maxUses;
 	private int uses;
+	public int id;
 	public Item(String name){
 		this.name = name;
 	}

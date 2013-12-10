@@ -1,8 +1,8 @@
 package net.fe.overworldStage;
 
-public abstract class MenuContext extends OverworldContext{
-	protected Menu menu;
-	public MenuContext(OverworldStage stage, OverworldContext prev, Menu m){
+public abstract class MenuContext<T> extends OverworldContext{
+	protected Menu<T> menu;
+	public MenuContext(OverworldStage stage, OverworldContext prev, Menu<T> m){
 		super(stage,prev);
 		menu = m;
 		m.x = cursor.x + 17;
@@ -30,7 +30,7 @@ public abstract class MenuContext extends OverworldContext{
 		onChange();
 	}
 	
-	public abstract void onSelect(String selectedItem);
+	public abstract void onSelect(T selectedItem);
 	public void onChange(){
 		
 	}

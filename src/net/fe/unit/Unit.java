@@ -130,6 +130,7 @@ public class Unit extends GriddedEntity {
 			stats.put(stat, stats.get(stat)
 					+ (float) (growths.get(stat) / 100.0));
 		}
+		fillHp();
 	}
 
 	public void setLevel(int lv) {
@@ -142,6 +143,7 @@ public class Unit extends GriddedEntity {
 			stats.put(stat, bases.get(stat)
 					+ (float) (lv * growths.get(stat) / 100.0));
 		}
+		fillHp();
 	}
 
 	public void fillHp() {
