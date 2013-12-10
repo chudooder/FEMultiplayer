@@ -9,7 +9,7 @@ public class WeaponDisplay extends Entity{
 	private Weapon weapon;
 	public WeaponDisplay(int x, int y, Weapon w){
 		super(x,y);
-		renderDepth = 0.1f;
+		renderDepth = 0.05f;
 		weapon = w;
 	}
 	public void render(){

@@ -118,7 +118,7 @@ public class Unit extends GriddedEntity {
 		Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX, y + 14 +rY, OverworldStage.UNIT_DEPTH, c);
 		Renderer.drawString("default_med", name.charAt(0) + "", x + 4 + rX, y + 1 + rY, OverworldStage.UNIT_DEPTH);
 		int hpLength = hp*13/get("HP");
-		Renderer.drawLine(x+1,y+13.5f, x+1+hpLength, y+13.5f, 1, 0, Color.red, Color.green);
+		Renderer.drawLine(x+1,y+13.5f, x+1+hpLength, y+13.5f, 1, OverworldStage.UNIT_DEPTH-0.01f, Color.red, Color.green);
 	}
 
 	public void levelUp() {
