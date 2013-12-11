@@ -170,7 +170,7 @@ public class FightStage extends Stage {
 				dhp.setHp(dhp.getHp() - rec.damage);
 				ahp.setHp(ahp.getHp() + rec.drain, false);
 				addEntity(a.getHitEffect(crit));
-				startShaking(crit?1.3f:.5f);
+				if(rec.damage > 0) startShaking(crit?1.3f:.5f);
 				
 				
 				if(rec.damage != 0) {

@@ -88,7 +88,8 @@ public class FEMultiplayer extends Game{
 		
 		Unit u4 = UnitFactory.getUnit("Lute");
 		u4.addToInventory(WeaponFactory.getWeapon("Elfire"));
-		u4.equip(0);
+		u4.addToInventory(WeaponFactory.getWeapon("Heal"));
+		u4.equip(1);
 		p2.getParty().addUnit(u4);
 
 		u1.setLevel(20);
@@ -181,7 +182,7 @@ public class FEMultiplayer extends Game{
 			CombatCalculator calc = new CombatCalculator(u, enemy);
 			FightStage to = new FightStage(u, enemy, calc.getAttackQueue());
 			currentStage.addEntity(new OverworldFightTransition(to, u, enemy));
-		} else if (cmds[cmds.length - 2].equals("Attack")){
+		} else if (cmds[cmds.length - 2].equals("Heal")){
 			UnitIdentifier healee = (UnitIdentifier) cmds[cmds.length-1];
 			HealCalculator calc = new HealCalculator(u, healee);
 			FightStage to = new FightStage(u, healee, calc.getAttackQueue());

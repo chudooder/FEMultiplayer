@@ -68,7 +68,8 @@ public class Unit extends GriddedEntity {
 			rY = -(next.y - ycoord) * 16;
 			xcoord = next.x;
 			ycoord = next.y;
-			
+			x = xcoord * 16;
+			y = ycoord * 16;
 		}
 		this.callback = callback;
 		
@@ -76,21 +77,26 @@ public class Unit extends GriddedEntity {
 
 	public void onStep() {
 		super.onStep();
+		float rXOld = rX;
+		float rYOld = rY;
 		rX = rX - Math.signum(rX) * Game.getDeltaSeconds() * 500;
 		rY = rY - Math.signum(rY) * Game.getDeltaSeconds() * 500;
-		if (path != null && Math.abs(rX + rY) < 1) {
+		if (path != null && (rXOld*rX <= 0 || rYOld*rY <= 0)) {
 			if (path.size() == 0) {
 				// We made it to destination
 				rX = 0;
 				rY = 0;
 				path = null;
 				callback.execute();
+				System.out.println("move");
 			} else {
 				Node next = path.removeFirst();
 				rX = -(next.x - xcoord) * 16;
 				rY = -(next.y - ycoord) * 16;
 				xcoord = next.x;
 				ycoord = next.y;
+				x = xcoord * 16;
+				y = ycoord * 16;
 			}
 		}
 	}
@@ -188,6 +194,18 @@ public class Unit extends GriddedEntity {
 			if(i instanceof Weapon){
 				Weapon w = (Weapon) i;
 				if(w.type != Weapon.Type.STAFF && w.range.contains(range)){
+					equip(w);
+					return;
+				}
+			}
+		}
+	}
+	
+	public void equipFirstStaff(int range){
+		for(Item i : inventory){
+			if(i instanceof Weapon){
+				Weapon w = (Weapon) i;
+				if(w.type == Weapon.Type.STAFF && w.range.contains(range)){
 					equip(w);
 					return;
 				}
