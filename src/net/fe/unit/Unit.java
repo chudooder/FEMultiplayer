@@ -81,14 +81,13 @@ public class Unit extends GriddedEntity {
 		float rYOld = rY;
 		rX = rX - Math.signum(rX) * Game.getDeltaSeconds() * 500;
 		rY = rY - Math.signum(rY) * Game.getDeltaSeconds() * 500;
-		if (path != null && (rXOld*rX <= 0 || rYOld*rY <= 0)) {
+		if (path != null && (rXOld*rX < 0 || rYOld*rY < 0 || (rXOld == rX && rYOld == rY))) {
 			if (path.size() == 0) {
 				// We made it to destination
 				rX = 0;
 				rY = 0;
 				path = null;
 				callback.execute();
-				System.out.println("move");
 			} else {
 				Node next = path.removeFirst();
 				rX = -(next.x - xcoord) * 16;
