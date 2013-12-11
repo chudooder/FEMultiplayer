@@ -17,10 +17,10 @@ public class RNG {
 		long seed = RNG.nextLong();
 		RNG.setSeed(seed);
 		// Temporarily rig the RNG
-		System.out.println("**********************************");
-		System.out.println("******WARNING: RNG IS RIGGED******");
-		System.out.println("**********************************");
-		RNG.setSeed(-3609682453736580738l);
+//		System.out.println("**********************************");
+//		System.out.println("******WARNING: RNG IS RIGGED******");
+//		System.out.println("**********************************");
+//		RNG.setSeed(-3609682453736580738l);
 		System.out.println("Seed:" + seed);
 	}
 }
