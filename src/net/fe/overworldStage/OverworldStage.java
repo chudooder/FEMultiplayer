@@ -3,26 +3,23 @@ package net.fe.overworldStage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.Color;
-
 import net.fe.FEMultiplayer;
 import net.fe.Player;
-import net.fe.Transition;
-import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.context.Idle;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
+
+import org.lwjgl.input.Keyboard;
+
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.Stage;
-import chu.engine.anim.Renderer;
 
 public class OverworldStage extends Stage {
 	public Grid grid;
 	private OverworldContext context;
 	public final Cursor cursor;
-	private Menu menu;
+	private Menu<?> menu;
 
 	private Player player;
 	private boolean onControl;
@@ -53,7 +50,7 @@ public class OverworldStage extends Stage {
 		context = new Idle(this, p);
 	}
 	
-	public void setMenu(Menu m){
+	public void setMenu(Menu<?> m){
 		removeEntity(menu);
 		menu = m;
 		if(m!=null){
@@ -61,7 +58,7 @@ public class OverworldStage extends Stage {
 		}
 	}
 	
-	public Menu getMenu(){
+	public Menu<?> getMenu(){
 		return menu;
 	}
 	

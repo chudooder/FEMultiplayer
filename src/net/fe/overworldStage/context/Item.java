@@ -1,7 +1,11 @@
 package net.fe.overworldStage.context;
 
-import net.fe.overworldStage.*;
-import net.fe.unit.*;
+import net.fe.overworldStage.InventoryMenu;
+import net.fe.overworldStage.MenuContext;
+import net.fe.overworldStage.OverworldContext;
+import net.fe.overworldStage.OverworldStage;
+import net.fe.unit.ItemDisplay;
+import net.fe.unit.Unit;
 
 public class Item extends MenuContext<ItemDisplay>{
 	private Unit unit;

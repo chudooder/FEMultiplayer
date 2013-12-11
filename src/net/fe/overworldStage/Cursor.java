@@ -1,11 +1,8 @@
 package net.fe.overworldStage;
-import org.newdawn.slick.Color;
-
 import chu.engine.Game;
 import chu.engine.GriddedEntity;
 import chu.engine.Resources;
 import chu.engine.anim.Animation;
-import chu.engine.anim.Renderer;
 
 public class Cursor extends GriddedEntity{
 	private float time;

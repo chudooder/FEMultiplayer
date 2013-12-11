@@ -1,6 +1,5 @@
 package net.fe.fightStage;
 
-import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 
 public class AttackRecord {

@@ -33,6 +33,7 @@ public class UnitSelected extends CursorContext {
 
 	@Override
 	public void onSelect() {
+		if (path == null) return;
 		if (move.getNodes().contains(new Node(cursor.getXCoord(), cursor.getYCoord()))) {
 			grid.move(selected, cursor.getXCoord(),	cursor.getYCoord(), true);
 			selected.move(path, new Command() {

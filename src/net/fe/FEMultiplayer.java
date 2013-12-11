@@ -1,10 +1,16 @@
 package net.fe;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_LINE_SMOOTH;
+import static org.lwjgl.opengl.GL11.GL_STENCIL_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glClearDepth;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
 
-import java.awt.Font;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
@@ -12,20 +18,15 @@ import net.fe.fightStage.HealCalculator;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
-import net.fe.transition.FightOverworldTransition;
 import net.fe.transition.OverworldFightTransition;
-import net.fe.unit.Class;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitFactory;
 import net.fe.unit.UnitIdentifier;
-import net.fe.unit.Weapon;
 import net.fe.unit.WeaponFactory;
 
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.openal.SoundStore;
-import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.Game;
 import chu.engine.Stage;

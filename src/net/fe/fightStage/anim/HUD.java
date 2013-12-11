@@ -1,16 +1,12 @@
 package net.fe.fightStage.anim;
 
-import org.newdawn.slick.Color;
-
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
-import net.fe.unit.Unit;
 import net.fe.unit.ItemDisplay;
+import net.fe.unit.Unit;
 import chu.engine.Entity;
-import chu.engine.Game;
 import chu.engine.Resources;
 import chu.engine.anim.Renderer;
-import chu.engine.anim.Transform;
 
 public class HUD extends Entity {
 	private Unit unit;

@@ -1,7 +1,5 @@
 package net.fe.fightStage.anim;
 
-import org.newdawn.slick.Color;
-
 import net.fe.fightStage.FightStage;
 import chu.engine.Entity;
 import chu.engine.Game;

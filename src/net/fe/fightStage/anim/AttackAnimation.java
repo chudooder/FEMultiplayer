@@ -1,10 +1,6 @@
 package net.fe.fightStage.anim;
 
 import net.fe.fightStage.FightStage;
-import net.fe.unit.Unit;
-
-import org.newdawn.slick.opengl.Texture;
-
 import chu.engine.TextureData;
 import chu.engine.anim.Animation;
 

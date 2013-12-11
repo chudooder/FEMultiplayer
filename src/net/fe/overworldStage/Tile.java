@@ -2,7 +2,6 @@ package net.fe.overworldStage;
 
 import org.newdawn.slick.Color;
 
-import chu.engine.Entity;
 import chu.engine.GriddedEntity;
 import chu.engine.anim.Renderer;
 

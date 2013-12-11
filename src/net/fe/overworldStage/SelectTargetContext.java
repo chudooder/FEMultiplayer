@@ -1,9 +1,9 @@
 package net.fe.overworldStage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import net.fe.overworldStage.*;
-import net.fe.unit.*;
+import net.fe.unit.Unit;
 
 public abstract class SelectTargetContext extends OverworldContext {
 	private Zone zone;

@@ -1,17 +1,13 @@
 package net.fe.overworldStage;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Iterator;
+import java.util.Set;
 
-import chu.engine.Entity;
-import net.fe.unit.Item;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
-import net.fe.unit.Weapon;
 
 public class Grid{
 	private Unit[][] grid;
@@ -91,6 +87,7 @@ public class Grid{
 
 	public Path getShortestPath(Unit unit, int x, int y) {
 		int move = unit.get("Mov");
+		if(grid[y][x] != null) return null;
 		Set<Node> closed = new HashSet<Node>();
 		Set<Node> open = new HashSet<Node>();
 

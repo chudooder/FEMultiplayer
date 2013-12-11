@@ -1,8 +1,5 @@
 package net.fe.fightStage;
 
-import java.util.Arrays;
-import java.util.List;
-
 import net.fe.unit.Unit;
 
 public abstract class CombatTrigger {

@@ -2,13 +2,9 @@ package net.fe.overworldStage;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ListIterator;
-
-import org.newdawn.slick.Color;
 
 import chu.engine.Entity;
 import chu.engine.Resources;
-import chu.engine.anim.Renderer;
 import chu.engine.anim.Tileset;
 
 public class Path extends Entity{

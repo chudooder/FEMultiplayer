@@ -3,9 +3,6 @@ package net.fe.overworldStage;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.newdawn.slick.Color;
-
-import chu.engine.anim.Renderer;
 import net.fe.unit.Class;
 import net.fe.unit.Unit;
 

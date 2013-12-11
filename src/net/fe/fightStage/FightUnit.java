@@ -4,15 +4,12 @@ import net.fe.fightStage.anim.AnimationArgs;
 import net.fe.fightStage.anim.AttackAnimation;
 import net.fe.fightStage.anim.DodgeAnimation;
 import net.fe.fightStage.anim.HitEffect;
-import net.fe.fightStage.anim.NormalAttack;
-import net.fe.unit.Unit;
 
 import org.newdawn.slick.Color;
 
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.Resources;
-import chu.engine.anim.Animation;
 import chu.engine.anim.Transform;
 
 public class FightUnit extends Entity {
