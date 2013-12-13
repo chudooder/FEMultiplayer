@@ -59,7 +59,8 @@ public class UnitMoved extends MenuContext<String> {
 				unit.getTotalWepRange(true));
 		for (Node n : range) {
 			Unit p = grid.getUnit(n.x, n.y);
-			if (p != null && stage.getPlayer().getParty().isAlly(p.getParty())) {
+			if (p != null && stage.getPlayer().getParty().isAlly(p.getParty())
+					&& p.getHp() != p.get("HP")) {
 				heal = true;
 				break;
 			}

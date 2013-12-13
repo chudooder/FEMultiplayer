@@ -176,6 +176,9 @@ public class Resources {
 
 			textures.put("zone_colors", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/gui/zone_colors.png"))));
+			textures.put("gui_selectArrow", new TextureData(TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/gui/selectArrow.png")),
+					8, 8, 6, 6, 0, 0, -1));
 			textures.put("gui_tickEmpty", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/gui/tickEmpty.png"))));
 			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",
