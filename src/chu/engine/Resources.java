@@ -9,6 +9,7 @@ import java.util.Scanner;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -93,7 +94,7 @@ public class Resources {
 			textures.put("lyn_sword_critical", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/lyn_sword_critical.png")),
-					220, 144, 115, 9, 137, 92, -1, 63));
+					220, 144, 115, 9, 137, 92, -1, 34, 37, 40, 43, 46, 49, 63));
 			textures.put("lyn_sword_dodge", new TextureData(
 					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
 							"res/battle_anim/lyn_sword_dodge.png")),
@@ -191,6 +192,17 @@ public class Resources {
 			//Load bitmap fonts
 			loadBitmapFonts();
 			
+			//load audio
+			audio.put("hit0", AudioLoader.getAudio("WAV",
+					ResourceLoader.getResourceAsStream("res/battle_sounds/hit1.wav")));
+			audio.put("hit1", AudioLoader.getAudio("WAV",
+					ResourceLoader.getResourceAsStream("res/battle_sounds/hit2.wav")));
+			audio.put("hit2", AudioLoader.getAudio("WAV",
+					ResourceLoader.getResourceAsStream("res/battle_sounds/hit3.wav")));
+			audio.put("crit", AudioLoader.getAudio("WAV",
+					ResourceLoader.getResourceAsStream("res/battle_sounds/crit.wav")));
+			
+			
 		} catch (IOException e) {
 			int max = GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE);
 			System.out.println(max);
@@ -282,6 +294,10 @@ public class Resources {
 
 	public static TrueTypeFont getFont(String fontName) {
 		return fonts.get(fontName);
+	}
+
+	public static Audio getAudio(String name) {
+		return audio.get(name);
 	}
 
 }

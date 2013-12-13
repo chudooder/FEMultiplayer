@@ -2,6 +2,7 @@ package net.fe.fightStage.anim;
 
 import net.fe.fightStage.FightStage;
 import chu.engine.TextureData;
+import chu.engine.anim.AudioPlayer;
 
 public class ProjectileAttack extends AttackAnimation{
 	private boolean weFailed;
@@ -34,12 +35,18 @@ public class ProjectileAttack extends AttackAnimation{
 	}
 
 	@Override
-	public void onHit() {
+	public void onLastHit() {
 		stage.addEntity(new Projectile(
 				animationArgs.wepAnimName, 
 				FightStage.FLOOR - 25,
 				stage, animationArgs.left,
 				animationArgs.wepAnimName.equals("javelin")));
+		onHit();
+	}
+
+	@Override
+	public void onHit() {
+		AudioPlayer.playAudio("hit"+(int)(Math.random()*3), 1, 1);
 	}
 
 }

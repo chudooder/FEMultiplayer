@@ -15,7 +15,7 @@ public class Animation {
 	private int length;
 	private int offsetX;
 	private int offsetY;
-	private Sprite sprite;
+	protected Sprite sprite;
 	protected int speed;			//Time for each frame in milliseconds
 	
 	public Animation(Texture t) {

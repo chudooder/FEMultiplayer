@@ -39,20 +39,13 @@ public abstract class AttackAnimation extends Animation {
 	public void update() {
 		int prevFrame = getFrame();
 		super.update();
-		for(int i : hitframes) {
+		for(int j=0; j<hitframes.length; j++) {
+			int i = hitframes[j];
 			if(prevFrame != getFrame() && getFrame() == i) {
-				onHit();
-//				if(unit.getWeapon().isMagic()){
-//					stage.addEntity(new MagicEffect(
-//							unit.getWeapon().name, stage.isLeft(unit)));
-//				} else {
-//					stage.setCurrentEvent(FightStage.ATTACKED);
-//				}
-//				if(freeze == 0){
-//					setSpeed(0);
-//				} else if(freeze > 0) {
-//					loopUntil = getFrame() + freeze;
-//				}
+				if(j == hitframes.length - 1)
+					onLastHit();
+				else
+					onHit();
 			}
 		}
 		if(getFrame() == loopUntil) {
@@ -82,8 +75,8 @@ public abstract class AttackAnimation extends Animation {
 		loopUntil = -1;
 	}
 	
-	
 	public abstract void onHit();
+	public abstract void onLastHit();
 	
 	public static AttackAnimation createAnimation(TextureData data, 
 			FightStage stage, AnimationArgs args){

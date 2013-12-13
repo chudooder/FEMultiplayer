@@ -14,6 +14,7 @@ public class Sprite {
 	
 	private HashMap<String, Animation> animations;
 	protected Animation currentAnimation;
+	private String curAnimName;
 	
 	public Sprite() {
 		animations = new HashMap<String, Animation>();
@@ -32,6 +33,7 @@ public class Sprite {
 		Animation anim = new Animation(tex, width, height, rows, columns, speed);
 		animations.put(name.toUpperCase(), anim);
 		currentAnimation = anim;
+		curAnimName = name;
 		anim.setSprite(this);
 	}
 	
@@ -44,6 +46,7 @@ public class Sprite {
 		Animation anim = new Animation(tex);
 		animations.put(name.toUpperCase(), anim);
 		currentAnimation = anim;
+		curAnimName = name;
 		anim.setSprite(this);
 	}
 	
@@ -55,6 +58,7 @@ public class Sprite {
 	public void addAnimation(String name, Animation anim) {
 		animations.put(name.toUpperCase(), anim);
 		currentAnimation = anim;
+		curAnimName = name;
 		anim.setSprite(this);
 	}
 	
@@ -81,6 +85,7 @@ public class Sprite {
 	 */
 	public void setAnimation(String name) {
 		currentAnimation = animations.get(name.toUpperCase());
+		curAnimName = name;
 	}
 	
 	/**
@@ -173,4 +178,7 @@ public class Sprite {
 		currentAnimation.setSpeed(i);
 	}
 	
+	public String getAnimationName() {
+		return curAnimName;
+	}
 }
