@@ -149,6 +149,9 @@ public class FightStage extends Stage {
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
 		} else if (currentEvent == ATTACKED) {
+			for(HitEffect h: HitEffect.getEffects(a.getAnimArgs(), rec.animation)){
+				addEntity(h);
+			}
 			if (rec.animation.equals("Miss")) {
 //				System.out.println("Miss! " + rec.defender.name
 //						+ " dodged the attack!");
@@ -157,9 +160,6 @@ public class FightStage extends Stage {
 				d.sprite.setFrame(0);
 				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
 				addEntity(new MissEffect(defender == left));
-				if(attacker.getWeapon().isMagic()){
-					addEntity(new HitEffect(a.getAnimArgs(), crit));
-				}
 				
 				currentEvent = HURTED;
 			} else {
@@ -170,7 +170,6 @@ public class FightStage extends Stage {
 				attacker.setHp(attacker.getHp() + rec.drain);
 				dhp.setHp(dhp.getHp() - rec.damage);
 				ahp.setHp(ahp.getHp() + rec.drain, false);
-				addEntity(new HitEffect(a.getAnimArgs(), crit));
 				startShaking(crit?1.3f:.5f);
 				
 				
@@ -207,7 +206,7 @@ public class FightStage extends Stage {
 		}
 	}
 	
-	private ArrayList<String> getMessages(String animationName, String suffix){
+	public static ArrayList<String> getMessages(String animationName, String suffix){
 		ArrayList<String> ans = new ArrayList<String>();
 		String[] animation = animationName.split(" ");
 		for(String anim: animation){
@@ -311,8 +310,5 @@ public class FightStage extends Stage {
 			return 54;
 		}
 	}
-
-	
-	
 	
 }
