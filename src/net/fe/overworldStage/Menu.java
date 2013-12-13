@@ -68,6 +68,10 @@ public class Menu<T> extends Entity {
 		}
 	}
 	
+	public void setSelection(int index){
+		selection = index;
+	}
+	
 	public T getSelection(){
 		return items.get(selection);
 	}

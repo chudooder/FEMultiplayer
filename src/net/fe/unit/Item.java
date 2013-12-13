@@ -9,8 +9,9 @@ public abstract class Item {
 	public Item(String name){
 		this.name = name;
 	}
-	public void use(Unit user){
+	int use(Unit user){
 		uses--;
+		return 0;
 	}
 	public int getUses(){
 		return uses;

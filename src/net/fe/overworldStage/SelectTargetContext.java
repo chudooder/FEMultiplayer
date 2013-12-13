@@ -17,7 +17,6 @@ public abstract class SelectTargetContext extends OverworldContext {
 		super(stage, context);
 		zone = z;
 		targets = new ArrayList<Unit>();
-		stage.addEntity(zone);
 		this.unit = u;
 		this.friendly = friendly;
 		
@@ -26,6 +25,7 @@ public abstract class SelectTargetContext extends OverworldContext {
 	public void startContext(){
 		super.startContext();
 		findTargets(unit, friendly);
+		stage.addEntity(zone);
 		updateCursor();
 	}
 

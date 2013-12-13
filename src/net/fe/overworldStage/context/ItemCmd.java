@@ -4,20 +4,30 @@ import net.fe.overworldStage.InventoryMenu;
 import net.fe.overworldStage.MenuContext;
 import net.fe.overworldStage.OverworldContext;
 import net.fe.overworldStage.OverworldStage;
+import net.fe.unit.Item;
 import net.fe.unit.ItemDisplay;
 import net.fe.unit.Unit;
+import net.fe.unit.Weapon;
 
-public class Item extends MenuContext<ItemDisplay>{
+public class ItemCmd extends MenuContext<ItemDisplay>{
 	private Unit unit;
-	public Item(OverworldStage stage, OverworldContext prev, Unit u) {
+	public ItemCmd(OverworldStage stage, OverworldContext prev, Unit u) {
 		super(stage, prev, new InventoryMenu(u));
 		unit = u;
 	}
 	@Override
 	public void onSelect(ItemDisplay selectedItem) {
-		// TODO Auto-generated method stub
-		
+		Item i = selectedItem.getItem();
+		if(i instanceof Weapon){
+			if(unit.equippable((Weapon) i)){
+				unit.equip((Weapon)i);
+				menu.setSelection(0);
+			}
+		} else {
+			//TODO Healing
+		}
 	}
+
 	@Override
 	public void onCancel() {
 		stage.setMenu(null);

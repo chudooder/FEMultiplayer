@@ -68,7 +68,7 @@ public class OverworldStage extends Stage {
 	
 	public void returnToNeutral(){
 		for(Entity e: entities){
-			if(e instanceof Zone || e instanceof Menu){
+			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor)){
 				removeEntity(e);
 			}
 		}

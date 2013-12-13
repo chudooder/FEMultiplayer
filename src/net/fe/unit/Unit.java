@@ -68,8 +68,7 @@ public class Unit extends GriddedEntity {
 			rY = -(next.y - ycoord) * 16;
 			xcoord = next.x;
 			ycoord = next.y;
-			x = xcoord * 16;
-			y = ycoord * 16;
+			
 		}
 		this.callback = callback;
 		
@@ -186,6 +185,20 @@ public class Unit extends GriddedEntity {
 
 	public boolean equippable(Weapon w) {
 		return clazz.usableWeapon.contains(w.type);
+	
+	}
+	
+	public ArrayList<Weapon> equippableWeapons(int range){
+		ArrayList<Weapon> weps = new ArrayList<Weapon>();
+		for(Item i : inventory){
+			if(i instanceof Weapon){
+				Weapon w = (Weapon) i;
+				if(w.type != Weapon.Type.STAFF && w.range.contains(range)){
+					weps.add(w);
+				}
+			}
+		}
+		return weps;
 	}
 	
 	public void equipFirstWeapon(int range){
@@ -210,6 +223,14 @@ public class Unit extends GriddedEntity {
 				}
 			}
 		}
+	}
+	
+	public int use(int index){
+		return inventory.get(index).use(this);
+	}
+	
+	public int use(Item i){
+		return i.use(this);
 	}
 
 	public ArrayList<CombatTrigger> getTriggers() {
