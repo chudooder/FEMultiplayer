@@ -32,7 +32,6 @@ public class AudioPlayer {
 	
 	public static void playAudio(String name, float pitch, float gain) {
 		Audio audio = Resources.getAudio(name);
-		System.out.println("yes");
 		audio.playAsMusic(pitch, gain + globalGain, false);
 	}
 }

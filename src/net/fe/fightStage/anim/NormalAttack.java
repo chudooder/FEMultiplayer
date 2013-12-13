@@ -13,7 +13,7 @@ public class NormalAttack extends AttackAnimation {
 	public void onLastHit() {
 		stage.setCurrentEvent(FightStage.ATTACKED);
 		if(sprite.getAnimationName().contains("CRIT"))
-			AudioPlayer.playAudio("crit", 1, 1);
+			AudioPlayer.playAudio("kuritiku_hittu", 1, 1);
 		else
 			onHit();
 		loopNextFrames(freeze);

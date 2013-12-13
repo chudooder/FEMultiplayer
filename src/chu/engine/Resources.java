@@ -201,6 +201,8 @@ public class Resources {
 					ResourceLoader.getResourceAsStream("res/battle_sounds/hit3.wav")));
 			audio.put("crit", AudioLoader.getAudio("WAV",
 					ResourceLoader.getResourceAsStream("res/battle_sounds/crit.wav")));
+			audio.put("kuritiku_hittu", AudioLoader.getAudio("WAV",
+					ResourceLoader.getResourceAsStream("res/battle_sounds/kuritiku.wav")));
 			
 			
 		} catch (IOException e) {
