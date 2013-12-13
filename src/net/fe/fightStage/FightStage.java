@@ -23,6 +23,7 @@ import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.Resources;
 import chu.engine.Stage;
+import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
 
 public class FightStage extends Stage {
@@ -175,7 +176,11 @@ public class FightStage extends Stage {
 			} else {
 				// System.out.println(rec.animation + "! " + rec.defender.name
 				// + " took " + rec.damage + " damage!");
-
+				if(rec.animation.contains("Critical")) {
+					AudioPlayer.playAudio("kuritiku_hittu", 1, 1);
+				} else {
+					AudioPlayer.playAudio("hit"+(int)(Math.random()*3), 1, 1);
+				}
 				defender.setHp(defender.getHp() - rec.damage);
 				attacker.setHp(attacker.getHp() + rec.drain);
 				dhp.setHp(dhp.getHp() - rec.damage);

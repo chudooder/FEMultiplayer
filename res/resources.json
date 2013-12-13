@@ -1,0 +1,217 @@
+{
+	"textures": [
+		{
+			"name":		"roy_sword_critical",
+			"path":		"res/battle_anim/roy_sword_critical.png",
+			"width":	142,
+			"height":	102,
+			"frames":	96,
+			"columns":	12,
+			"offsetX":	75,
+			"offsetY":	99,
+			"freeze":	0,
+			"hitframes":[47],
+			"soundMap": [
+				{
+					"frame":47,
+					"sound":"crit"
+				}
+			]
+		},
+		{
+			"name":		"roy_sword_attack",
+			"path":		"res/battle_anim/roy_sword_attack.png",
+			"width":	124,
+			"height":	102,
+			"frames":	82,
+			"columns":	11,
+			"offsetX":	76,
+			"offsetY":	100,
+			"freeze":	0,
+			"hitframes":[34],
+			"soundMap": [
+				{
+					"frame":34,
+					"sound":"hit"
+				}
+			]
+		},
+		{
+			"name":		"roy_sword_dodge",
+			"path":		"res/battle_anim/roy_sword_dodge.png",
+			"width":	38,
+			"height":	33,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	16,
+			"offsetY":	29,
+			"freeze":	0,
+		},
+		{
+			"name":		"eliwood_lance_attack",
+			"path":		"res/battle_anim/eliwood_lance_attack.png",
+			"width":	143,
+			"height":	89,
+			"frames":	35,
+			"columns":	6,
+			"offsetX":	100,
+			"offsetY":	81,
+			"freeze":	0,
+			"hitframes":[16],
+			"soundMap": [
+				{
+					"frame":16,
+					"sound":"hit"
+				}
+			]
+		},
+		{
+			"name":		"eliwood_lance_critical",
+			"path":		"res/battle_anim/eliwood_lance_critical.png",
+			"width":	153,
+			"height":	82,
+			"frames":	40,
+			"columns":	7,
+			"offsetX":	95,
+			"offsetY":	74,
+			"freeze":	0,
+			"hitframes":[22],
+			"soundMap": [
+				{
+					"frame":22,
+					"sound":"crit"
+				}
+			]
+		},
+		{
+			"name":		"eliwood_lance_dodge",
+			"path":		"res/battle_anim/eliwood_lance_dodge.png",
+			"width":	44,
+			"height":	53,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	22,
+			"offsetY":	48,
+			"freeze":	0,
+		},
+		{
+			"name":		"eliwood_sword_attack",
+			"path":		"res/battle_anim/eliwood_sword_attack.png",
+			"width":	144,
+			"height":	106,
+			"frames":	40,
+			"columns":	7,
+			"offsetX":	100,
+			"offsetY":	101,
+			"freeze":	0,
+			"hitframes":[21],
+			"soundMap": [
+				{
+					"frame":21,
+					"sound":"hit"
+				}
+			]
+		},
+		{
+			"name":		"eliwood_sword_critical",
+			"path":		"res/battle_anim/eliwood_sword_critical.png",
+			"width":	205,
+			"height":	126,
+			"frames":	59,
+			"columns":	8,
+			"offsetX":	138,
+			"offsetY":	101,
+			"freeze":	0,
+			"hitframes":[41],
+			"soundMap": [
+				{
+					"frame":41,
+					"sound":"crit"
+				}
+			]
+		},
+		{
+			"name":		"eliwood_sword_dodge",
+			"path":		"res/battle_anim/eliwood_sword_dodge.png",
+			"width":	60,
+			"height":	49,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	39,
+			"offsetY":	46,
+			"freeze":	0,
+		},
+		{
+			"name":		"lyn_sword_attack",
+			"path":		"res/battle_anim/lyn_sword_attack.png",
+			"width":	118,
+			"height":	119,
+			"frames":	37,
+			"columns":	7,
+			"offsetX":	83,
+			"offsetY":	101,
+			"freeze":	0,
+			"hitframes":[13],
+			"soundMap": [
+				{
+					"frame":13,
+					"sound":"hit"
+				}
+			]
+		},
+		{
+			"name":		"lyn_sword_critical",
+			"path":		"res/battle_anim/lyn_sword_critical.png",
+			"width":	220,
+			"height":	144,
+			"frames":	115,
+			"columns":	9,
+			"offsetX":	137,
+			"offsetY":	92,
+			"freeze":	-1,
+			"hitframes":[34, 37, 40, 43, 46, 49, 63],
+			"soundMap": [
+				{
+					"frame":34,
+					"sound":"hit"
+				}
+				{
+					"frame":37,
+					"sound":"hit"
+				}
+				{
+					"frame":40,
+					"sound":"hit"
+				}
+				{
+					"frame":43,
+					"sound":"hit"
+				}
+				{
+					"frame":46,
+					"sound":"hit"
+				}
+				{
+					"frame":49,
+					"sound":"hit"
+				}
+				{
+					"frame":63,
+					"sound":"hit"
+				}
+				
+			]
+		},
+		{
+			"name":		"lyn_sword_dodge",
+			"path":		"res/battle_anim/lyn_sword_dodge.png",
+			"width":	25,
+			"height":	34,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	9,
+			"offsetY":	33,
+			"freeze":	0,
+		},
+	]
+}

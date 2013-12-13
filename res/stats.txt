@@ -4,7 +4,7 @@ Roy			Roy				1	18	5	2	5	7	7	5	0	7	6		80	45	10	50	45	60	45	40
 
 #Fire Emblem 7: Blazing Sword
 #Name		Class			Lv	HP	Str	Mag	Skl	Spd	Lck Def	Res	Con	Mov		HP	Str	Mag	Skl	Spd	Lck	Def	Res
-Lyn			Lyn				1	16	4	4	9	9	5	2	0	6	6		70	40	10	60	60	55	20	30
+Lyn			Lyn				1	16	4	4	7	9	5	2	0	6	6		70	40	10	60	60	55	20	30
 Eliwood		Eliwood			1	18	5	5	5	7	7	5	0	8	6		80	45	10	50	40	45	30	35
 Hector		Hector			1	19	7	1	4	5	3	8	0	14	6		90	60	5	45	35	30	50	25
 Sain		Paladin			1	19	8	4	4	6	4	6	0	10	8		80	60	10	35	40	35	20	20

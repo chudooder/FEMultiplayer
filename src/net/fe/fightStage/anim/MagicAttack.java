@@ -23,7 +23,6 @@ public class MagicAttack extends AttackAnimation{
 	@Override
 	public void onHit() {
 		//TODO: Magic sounds
-		AudioPlayer.playAudio("hit"+(int)(Math.random()*3), 1, 1);
 	}
 
 }
