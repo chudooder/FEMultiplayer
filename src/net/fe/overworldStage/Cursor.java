@@ -10,7 +10,7 @@ public class Cursor extends GriddedEntity{
 		super(xx, yy);
 		sprite.addAnimation("default", new Animation(Resources.getTexture("cursor"),
 				24, 24, 16, 16, 4, 4, 50));
-		renderDepth = OverworldStage.MENU_DEPTH;
+		renderDepth = OverworldStage.CURSOR_DEPTH;
 	}
 	
 	public void onStep(){
