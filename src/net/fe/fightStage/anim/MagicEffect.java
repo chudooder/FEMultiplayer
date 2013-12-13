@@ -33,14 +33,13 @@ public class MagicEffect extends Entity {
 
 	public void render(){
 		Transform t = new Transform();
-		int offset = FightStage.rangeToHeadDistance(1) - 
-				FightStage.rangeToHeadDistance(args.range);
+		int offset = FightStage.rangeToHeadDistance(args.range);
 		if (args.left) {
 			t.flipHorizontal();
 			offset *=-1;
 		}
-		sprite.renderTransformed(FightStage.CENTRAL_AXIS - 120 - offset,				
-				FightStage.FLOOR - 104, 0, t);
+		sprite.renderTransformed(FightStage.CENTRAL_AXIS + offset,				
+				FightStage.FLOOR, 0, t);
 		
 	}
 

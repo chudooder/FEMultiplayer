@@ -149,19 +149,22 @@ public class Resources {
 			
 			textures.put("hit_effect_attack", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_attack.png")),
-					240, 160, 9, 3, 0, 0, -1));
+					240, 160, 9, 3, 88, 110, -1));
 			textures.put("hit_effect_critical", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_critical_alt2.png")),
-					240, 160, 9, 3, 0, 0, -1));
+					240, 160, 9, 3, 88, 110, -1));
 			textures.put("hit_effect_elfire", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_elfire.png")),
-					240, 160, 15, 4, 0, 0, -1));
+					240, 160, 15, 4, 88, 110, -1));
+			textures.put("hit_effect_heal", new TextureData(TextureLoader.getTexture("PNG",
+					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_heal.png")),
+					72, 72, 30, 6, 46, 46, -1));
 			textures.put("miss", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/miss.png"))));
 			
 			textures.put("magic_effect_elfire", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/magic_effect_elfire.png")),
-					240, 160, 12, 4, 0, 0, -1));
+					240, 160, 12, 4, 160, 104, -1));
 			textures.put("bg_effect_elfire", new TextureData(TextureLoader.getTexture("PNG",
 					ResourceLoader.getResourceAsStream("res/battle_anim/bg_effect_elfire.png")),
 					1, 1, 32, 16, 0, 0, -1));

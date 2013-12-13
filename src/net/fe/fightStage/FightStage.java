@@ -175,7 +175,7 @@ public class FightStage extends Stage {
 				attacker.setHp(attacker.getHp() + rec.drain);
 				dhp.setHp(dhp.getHp() - rec.damage);
 				ahp.setHp(ahp.getHp() + rec.drain, false);
-				startShaking(crit ? 1.3f : .5f);
+				if(rec.damage > 0) startShaking(crit ? 1.3f : .5f);
 
 				if (rec.damage != 0) {
 					currentEvent = HURTING;

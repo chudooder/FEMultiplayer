@@ -153,7 +153,13 @@ public class Sprite {
 		int frameX = currentAnimation.getFrame() % currentAnimation.getColumns();
 		int frameY = currentAnimation.getFrame() / currentAnimation.getColumns();
 		int offX = currentAnimation.getOffsetX();
+		if(transform.flipHorizontal) {
+			offX = -offX + width;
+		}
 		int offY = currentAnimation.getOffsetY();
+		if(transform.flipVertical) {
+			offY = -offY + height;
+		}
 		float x0 = ((float)frameX * width)/currentAnimation.getImageWidth();
 		float x1 = ((float)(frameX+1) * width)/currentAnimation.getImageWidth();
 		float y0 = ((float)frameY * height)/currentAnimation.getImageHeight();
