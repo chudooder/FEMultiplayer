@@ -74,12 +74,8 @@ public class FightUnit extends Entity {
 		}
 	}
 	
-	public HitEffect getHitEffect(boolean crit){
-		if(animArgs.unit.getWeapon().isMagic()){
-			return new HitEffect(animArgs.unit.getWeapon().name.toLowerCase(), left);
-		} else {
-			return new HitEffect(crit?"critical":"attack", left);
-		}
+	public AnimationArgs getAnimArgs(){
+		return animArgs;
 	}
 
 }

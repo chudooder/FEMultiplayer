@@ -7,6 +7,7 @@ import net.fe.fightStage.anim.AnimationArgs;
 import net.fe.fightStage.anim.AttackAnimation;
 import net.fe.fightStage.anim.DodgeAnimation;
 import net.fe.fightStage.anim.HUD;
+import net.fe.fightStage.anim.HitEffect;
 import net.fe.fightStage.anim.Message;
 import net.fe.fightStage.anim.MissEffect;
 import net.fe.fightStage.anim.Platform;
@@ -157,7 +158,7 @@ public class FightStage extends Stage {
 				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
 				addEntity(new MissEffect(defender == left));
 				if(attacker.getWeapon().isMagic()){
-					addEntity(a.getHitEffect(crit));
+					addEntity(new HitEffect(a.getAnimArgs(), crit));
 				}
 				
 				currentEvent = HURTED;
@@ -169,7 +170,7 @@ public class FightStage extends Stage {
 				attacker.setHp(attacker.getHp() + rec.drain);
 				dhp.setHp(dhp.getHp() - rec.damage);
 				ahp.setHp(ahp.getHp() + rec.drain, false);
-				addEntity(a.getHitEffect(crit));
+				addEntity(new HitEffect(a.getAnimArgs(), crit));
 				startShaking(crit?1.3f:.5f);
 				
 				
