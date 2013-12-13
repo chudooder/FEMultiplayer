@@ -1,5 +1,8 @@
 package chu.engine;
 
+import java.util.HashMap;
+
+import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.opengl.Texture;
 
 public 
@@ -13,6 +16,7 @@ class TextureData {
 	public int offsetY;
 	public int freeze;
 	public int[] hitframes;
+	public HashMap<Integer, Audio> soundMap;
 	
 	public TextureData(Texture t, int w, int h, int r, int c, int x, int y, int f, int... frames) {
 		texture = t;
@@ -24,6 +28,7 @@ class TextureData {
 		frameHeight = h;
 		freeze = f;
 		hitframes = frames;
+		soundMap = new HashMap<Integer, Audio>();
 	}
 	
 	public TextureData(Texture t) {

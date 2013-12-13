@@ -12,16 +12,12 @@ public class NormalAttack extends AttackAnimation {
 	@Override
 	public void onLastHit() {
 		stage.setCurrentEvent(FightStage.ATTACKED);
-		if(sprite.getAnimationName().contains("CRIT"))
-			AudioPlayer.playAudio("kuritiku_hittu", 1, 1);
-		else
-			onHit();
 		loopNextFrames(freeze);
 	}
 
 	@Override
 	public void onHit() {
-		AudioPlayer.playAudio("hit"+(int)(Math.random()*3), 1, 1);
+		AudioPlayer.playAudio("hit0", 1, 1);
 	}
 
 }
