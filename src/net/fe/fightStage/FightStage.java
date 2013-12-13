@@ -146,7 +146,7 @@ public class FightStage extends Stage {
 			for (int i = 0; i < messages.size(); i++) {
 				addEntity(new Message(messages.get(i), attacker == left, i));
 			}
-			a.sprite.setAnimation(crit ? "CRIT" : "ATTACK");
+			a.setAnimation(rec.animation);
 			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
 
 			currentEvent = ATTACKING;
