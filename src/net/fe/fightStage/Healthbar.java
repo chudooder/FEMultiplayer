@@ -13,11 +13,12 @@ public class Healthbar extends Entity {
 	private int totalHealth;
 	private int currentHealth;
 	private float displayedHealth;
-	
+	public boolean doneAnimating;
 	private boolean doNotSet;
 
 	public Healthbar(Unit u, boolean left) {
 		super(0, 0);
+		doneAnimating = true;
 		if(left){
 			x = FightStage.CENTRAL_AXIS - 91;
 		} else {
@@ -61,11 +62,12 @@ public class Healthbar extends Entity {
 
 	public void onStep() {
 		if(Math.abs(displayedHealth-currentHealth) >= 1){
+			doneAnimating = false;
 			displayedHealth += Math.signum(currentHealth - displayedHealth)*30*Game.getDeltaSeconds();
 		} else if(displayedHealth != currentHealth){
 			displayedHealth = currentHealth;
 			if(!doNotSet){
-				((FightStage)stage).setCurrentEvent(FightStage.HURTED);
+				doneAnimating = true;
 			}
 		}
 	}

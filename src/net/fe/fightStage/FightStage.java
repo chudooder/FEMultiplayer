@@ -38,11 +38,13 @@ public class FightStage extends Stage {
 	private int currentEvent;
 	private float prevShakeTimer;
 	private float shakeTimer;
+	private float timer;
 	private float shakeX;
 	private float shakeY;
 
 	// Config
 	public static final float SHAKE_INTERVAL = 0.05f;
+	public static final float MIN_TIME = 1.5f;
 
 	public static final int CENTRAL_AXIS = 120;
 	public static final int FLOOR = 104;
@@ -71,6 +73,7 @@ public class FightStage extends Stage {
 			ArrayList<AttackRecord> attackQ) {
 		shakeTimer = 0;
 		prevShakeTimer = 0;
+		timer = 0;
 		done = false;
 		shakeX = 0;
 		shakeY = 0;
@@ -102,6 +105,17 @@ public class FightStage extends Stage {
 		for (Entity e : entities) {
 			e.beginStep();
 		}
+		timer += Game.getDeltaSeconds();
+		if (attackQ.size() != 0) {
+			processAttackQueue();
+		} else if (!done && timer > MIN_TIME) {
+			System.out.println(left.name + " HP:" + left.getHp() + " | "
+					+ right.name + " HP:" + right.getHp());
+			FEMultiplayer.reportFightResults(this);
+			addEntity(new FightOverworldTransition(FEMultiplayer.map, left,
+					right));
+			done = true;
+		}
 		processAddStack();
 		processRemoveStack();
 	}
@@ -113,16 +127,6 @@ public class FightStage extends Stage {
 		}
 		processAddStack();
 		processRemoveStack();
-		if (attackQ.size() != 0) {
-			processAttackQueue();
-		} else if (!done) {
-			System.out.println(left.name + " HP:" + left.getHp() + " | "
-					+ right.name + " HP:" + right.getHp());
-			FEMultiplayer.reportFightResults(this);
-			addEntity(new FightOverworldTransition(FEMultiplayer.map, left,
-					right));
-			done = true;
-		}
 	}
 
 	private void processAttackQueue() {
@@ -149,7 +153,7 @@ public class FightStage extends Stage {
 			a.setAnimation(rec.animation);
 			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
 
-			currentEvent = ATTACKING;
+			setCurrentEvent(ATTACKING);
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
 		} else if (currentEvent == ATTACKED) {
@@ -157,6 +161,7 @@ public class FightStage extends Stage {
 					rec.animation)) {
 				addEntity(h);
 			}
+			processAddStack();
 			if (rec.animation.equals("Miss")) {
 				// System.out.println("Miss! " + rec.defender.name
 				// + " dodged the attack!");
@@ -166,7 +171,7 @@ public class FightStage extends Stage {
 				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
 				addEntity(new MissEffect(defender == left));
 
-				currentEvent = HURTED;
+				setCurrentEvent(HURTING);
 			} else {
 				// System.out.println(rec.animation + "! " + rec.defender.name
 				// + " took " + rec.damage + " damage!");
@@ -176,12 +181,8 @@ public class FightStage extends Stage {
 				dhp.setHp(dhp.getHp() - rec.damage);
 				ahp.setHp(ahp.getHp() + rec.drain, false);
 				if(rec.damage > 0) startShaking(crit ? 1.3f : .5f);
-
-				if (rec.damage != 0) {
-					currentEvent = HURTING;
-				} else {
-					currentEvent = HURTED;
-				}
+				
+				setCurrentEvent(HURTING);
 			}
 
 			ArrayList<String> messages = analyzeAnimation(rec.animation, "(d)", true);
@@ -189,8 +190,8 @@ public class FightStage extends Stage {
 				addEntity(new Message(messages.get(i), attacker == left, i));
 			}
 		} else if (currentEvent == HURTING) {
-			// let health bar animation play
-
+			// Try to go to HURTED
+			setCurrentEvent(HURTED);
 		} else if (currentEvent == HURTED) {
 			if (dhp.getHp() == 0) {
 				d.dying = true;
@@ -283,7 +284,13 @@ public class FightStage extends Stage {
 	public void setCurrentEvent(int event) {
 		if (currentEvent == ATTACKING && event == HURTED)
 			return;
-		if ((event == HURTED || event == HURTING || event == currentEvent + 1)) {
+		if (event == HURTED) {
+			if(!hasHitEffects() && leftHP.doneAnimating && rightHP.doneAnimating) {
+//				System.out.println(currentEvent + " TO " + event);
+				currentEvent = event;
+			}
+		} else if (event == HURTING || event == currentEvent + 1) {
+//			System.out.println(currentEvent + " to " + event);
 			currentEvent = event;
 		} else {
 			throw new IllegalArgumentException("Invalid state transit: "
@@ -314,6 +321,21 @@ public class FightStage extends Stage {
 		} else {
 			return 54;
 		}
+	}
+
+	public int getCurrentEvent() {
+		return currentEvent;
+	}
+	
+	public boolean hasHitEffects() {
+		for(Entity e : entities) {
+			if (e instanceof HitEffect) {
+				// We're not ready yet. Wait for the hiteffects to go away.
+//				System.out.println("still have hiteffects "+e.getClass().getCanonicalName());
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
