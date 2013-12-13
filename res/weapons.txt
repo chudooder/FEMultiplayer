@@ -68,3 +68,4 @@ Heal		Staff	1	10	100	0	15	600	-	-	-
 Mend		Staff	1	20	100	0	10	1000	-	-	-
 Recover		Staff	1	99	100	0	7	2250	-	-	-
 Physic		Staff	1-15	10	100	0	7	3750	-	-	-
+Debug Sword	Sword	1	10	100	200	20	1000	-	-	-
