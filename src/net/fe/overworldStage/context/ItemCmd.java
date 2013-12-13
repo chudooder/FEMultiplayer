@@ -24,6 +24,7 @@ public class ItemCmd extends MenuContext<ItemDisplay>{
 			//Healing
 		}
 	}
+
 	@Override
 	public void onCancel() {
 		stage.setMenu(null);
