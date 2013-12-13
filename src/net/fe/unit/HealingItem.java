@@ -12,7 +12,10 @@ public class HealingItem extends Item {
 		setMaxUses(3);
 		this.amount = amount;
 	}
-	public void use(Unit user){
+	public int use(Unit user){
+		super.use(user);
+		user.setHp(user.getHp() + amount);
+		return amount;
 		//TODO implement healing items
 	}
 }

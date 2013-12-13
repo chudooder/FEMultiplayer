@@ -194,6 +194,14 @@ public class Unit extends GriddedEntity {
 			}
 		}
 	}
+	
+	public int use(int index){
+		return inventory.get(index).use(this);
+	}
+	
+	public int use(Item i){
+		return i.use(this);
+	}
 
 	public ArrayList<CombatTrigger> getTriggers() {
 		ArrayList<CombatTrigger> triggers = new ArrayList<CombatTrigger>();

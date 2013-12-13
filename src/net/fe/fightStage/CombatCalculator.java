@@ -104,7 +104,9 @@ public class CombatCalculator {
 				+ a.getWeapon().triMod(d.getWeapon()) * 15)) {
 			miss = true;
 			if (a.getWeapon().isMagic())
-				a.getWeapon().use(a);
+				a.use(a.getWeapon());
+		} else {
+			a.use(a.getWeapon());
 		}
 		if (RNG.get() < a.crit() - d.dodge()) {
 			crit = 3;

@@ -100,7 +100,7 @@ public class UnitMoved extends MenuContext<String> {
 			new AttackTarget(stage, this, zone, unit,
 					selectedItem.equals("Heal")).startContext();
 		} else if (selectedItem.equals("Item")){
-			new Item(stage, this, unit).startContext();
+			new ItemCmd(stage, this, unit).startContext();
 		}
 	}
 

@@ -5,8 +5,12 @@ public abstract class MenuContext<T> extends OverworldContext{
 	public MenuContext(OverworldStage stage, OverworldContext prev, Menu<T> m){
 		super(stage,prev);
 		menu = m;
-//		m.x = cursor.x + 17;
-//		m.y = cursor.y;
+		m.x = cursor.x + 17;
+		m.y = cursor.y;
+		if(cursor.x > stage.grid.width - 5){
+			m.x = cursor.x - m.width;
+		}
+		
 	}
 	
 	public void startContext(){
