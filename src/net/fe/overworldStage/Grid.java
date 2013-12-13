@@ -87,7 +87,7 @@ public class Grid{
 
 	public Path getShortestPath(Unit unit, int x, int y) {
 		int move = unit.get("Mov");
-		if(grid[y][x] != null) return null;
+		if(grid[y][x] != null && grid[y][x] != unit) return null;
 		Set<Node> closed = new HashSet<Node>();
 		Set<Node> open = new HashSet<Node>();
 

@@ -17,6 +17,5 @@ public class HealingItem extends Item {
 		super.use(user);
 		user.setHp(user.getHp() + amount);
 		return amount;
-		//TODO implement healing items
 	}
 }

@@ -16,7 +16,8 @@ public class HealCalculator {
 
 	public ArrayList<AttackRecord> getAttackQueue() {
 		ArrayList<AttackRecord> q = new ArrayList<AttackRecord>();
-		final int heal = healer.get("Mag") / 2 + healer.getWeapon().mt;
+		final int heal = Math.min(healer.get("Mag") / 2 + healer.getWeapon().mt, 
+				healee.get("HP") - healee.getHp());
 		AttackRecord a = new AttackRecord();
 		a.animation = "Heal";
 		a.attacker = new UnitIdentifier(healer);

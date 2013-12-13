@@ -19,9 +19,12 @@ public class ItemCmd extends MenuContext<ItemDisplay>{
 	public void onSelect(ItemDisplay selectedItem) {
 		Item i = selectedItem.getItem();
 		if(i instanceof Weapon){
-			unit.equip((Weapon)i);
+			if(unit.equippable((Weapon) i)){
+				unit.equip((Weapon)i);
+				menu.setSelection(0);
+			}
 		} else {
-			//Healing
+			//TODO Healing
 		}
 	}
 
