@@ -185,6 +185,20 @@ public class Unit extends GriddedEntity {
 
 	public boolean equippable(Weapon w) {
 		return clazz.usableWeapon.contains(w.type);
+	
+	}
+	
+	public ArrayList<Weapon> equippableWeapons(int range){
+		ArrayList<Weapon> weps = new ArrayList<Weapon>();
+		for(Item i : inventory){
+			if(i instanceof Weapon){
+				Weapon w = (Weapon) i;
+				if(w.type != Weapon.Type.STAFF && w.range.contains(range)){
+					weps.add(w);
+				}
+			}
+		}
+		return weps;
 	}
 	
 	public void equipFirstWeapon(int range){

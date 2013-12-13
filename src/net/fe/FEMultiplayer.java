@@ -100,6 +100,7 @@ public class FEMultiplayer extends Game{
 		u2.setLevel(20);
 		u3.setLevel(20);
 		u4.setLevel(20);
+		u5.setLevel(20);
 		
 		u1.fillHp();
 		u2.fillHp();
