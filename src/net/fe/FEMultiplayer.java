@@ -71,8 +71,8 @@ public class FEMultiplayer extends Game{
 		
 
 		Unit u1 = UnitFactory.getUnit("Lyn");
-		u1.addToInventory(WeaponFactory.getWeapon("Elfire"));
-		u1.equip(0);
+		u1.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
+		u1.equip(1);
 		p1.getParty().addUnit(u1);
 		
 		Unit u3 = UnitFactory.getUnit("Erk");
@@ -100,7 +100,6 @@ public class FEMultiplayer extends Game{
 		u2.setLevel(20);
 		u3.setLevel(20);
 		u4.setLevel(20);
-		
 		
 		u1.fillHp();
 		u2.fillHp();

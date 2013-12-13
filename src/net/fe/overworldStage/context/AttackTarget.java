@@ -37,6 +37,8 @@ public class AttackTarget extends SelectTargetContext {
 		stage.send();
 		
 		unit.moved();
+		cursor.setXCoord(unit.getXCoord());
+		cursor.setYCoord(unit.getYCoord());
 		stage.returnToNeutral();
 	}
 

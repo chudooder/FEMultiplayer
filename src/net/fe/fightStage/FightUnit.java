@@ -77,5 +77,19 @@ public class FightUnit extends Entity {
 	public AnimationArgs getAnimArgs(){
 		return animArgs;
 	}
+	
+	public void setAnimation(String animation){
+		for(String s: FightStage.analyzeAnimation(animation, "(a)", false)){
+			if(sprite.hasAnimation(s)){
+				sprite.setAnimation(s);
+				return;
+			}
+		}
+		if(animation.contains("Critical")){
+			sprite.setAnimation("CRIT");
+		} else {
+			sprite.setAnimation("ATTACK");
+		}
+	}
 
 }

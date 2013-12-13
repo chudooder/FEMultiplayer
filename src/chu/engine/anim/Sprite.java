@@ -71,6 +71,9 @@ public class Sprite {
 		return currentAnimation;
 	}
 	
+	public boolean hasAnimation(String name){
+		return animations.containsKey(name.toUpperCase());
+	}
 	/**
 	 * Sets the current, rendering animation to the animation with the
 	 * given name.
