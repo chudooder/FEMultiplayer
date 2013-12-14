@@ -170,7 +170,7 @@ public class BattlePreview extends Entity {
 		
 		public void render(float x, float y, float depth) {
 			double radians = timer/period*2*Math.PI;
-			super.render((float)(x+Math.cos(radians)), (float)(y+Math.sin(radians)), depth);
+			super.render((float)(x+radius*Math.cos(radians)), (float)(y+radius*Math.sin(radians)), depth);
 		}
 	}
 }
