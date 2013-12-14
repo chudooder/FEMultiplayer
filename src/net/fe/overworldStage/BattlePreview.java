@@ -29,9 +29,9 @@ public class BattlePreview extends Entity {
 		leftArrow = new Sprite();
 		leftArrow.addAnimation("default",
 				Resources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 100);
-		x2 = new CirclingSprite(3, 2);
+		x2 = new CirclingSprite(2.2f, 1.2f);
 		x2.addAnimation("default", Resources.getTexture("x2"));
-		x4 = new CirclingSprite(3, 2);
+		x4 = new CirclingSprite(2.2f, 1.2f);
 		x4.addAnimation("default", Resources.getTexture("x4"));
 		sprites.add(rightArrow);
 		sprites.add(leftArrow);
@@ -117,9 +117,9 @@ public class BattlePreview extends Entity {
 		Renderer.drawString("default_med", aHit, x + 63, y + 66, renderDepth);
 		Renderer.drawString("default_med", aCrit, x + 63, y + 81, renderDepth);
 		if(aMult == 2){
-			x2.render(x+75, y+48, renderDepth);
+			x2.render(x+77, y+49, renderDepth);
 		} else if (aMult == 4){
-			x4.render(x+75, y+48, renderDepth);
+			x4.render(x+77, y+49, renderDepth);
 		}
 
 		// Stats text
@@ -138,9 +138,9 @@ public class BattlePreview extends Entity {
 		Renderer.drawString("default_med", dHit, x + 4, y + 66, renderDepth);
 		Renderer.drawString("default_med", dCrit, x + 4, y + 81, renderDepth);
 		if(dMult == 2){
-			x2.render(x+16, y+48, renderDepth);
+			x2.render(x+18, y+49, renderDepth);
 		} else if (dMult == 4){
-			x4.render(x+16, y+48, renderDepth);
+			x4.render(x+18, y+49, renderDepth);
 		}
 
 		// Bottom item and name
