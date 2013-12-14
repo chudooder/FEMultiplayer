@@ -2,6 +2,8 @@ package net.fe.fightStage;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import net.fe.FEMultiplayer;
 import net.fe.RNG;
@@ -14,11 +16,13 @@ public class CombatCalculator {
 	private Unit left, right;
 	private ArrayList<AttackRecord> attackQueue;
 	private int range;
+	private Queue<String> nextAttack;
 	public CombatCalculator(UnitIdentifier u1, UnitIdentifier u2){
 		left = FEMultiplayer.getUnit(u1);
 		right = FEMultiplayer.getUnit(u2);
 		range = Grid.getDistance(left, right);
 		attackQueue = new ArrayList<AttackRecord>();
+		nextAttack = new LinkedList<String>();
 		calculate();
 	}
 	private void calculate() {
@@ -41,6 +45,9 @@ public class CombatCalculator {
 
 		for (Boolean i : attackOrder) {
 			attack(i, "None");
+			while(!nextAttack.isEmpty()){
+				attack(i, nextAttack.poll());
+			}
 		}
 		left.setHp(hpLeft);
 		right.setHp(hpRight);
@@ -54,8 +61,12 @@ public class CombatCalculator {
 				!= (a.getParty().isAlly(d.getParty()))) return false;
 		return true;
 	}
+	
+	public void addAttack(String effect){
+		nextAttack.add(effect);
+	}
 
-	public void attack(boolean leftAttacking, String currentEffect) {
+	private void attack(boolean leftAttacking, String currentEffect) {
 		Unit a = leftAttacking?left: right;
 		Unit d = leftAttacking?right: left;
 		int damage = 0;

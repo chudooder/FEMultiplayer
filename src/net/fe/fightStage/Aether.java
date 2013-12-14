@@ -39,7 +39,7 @@ public class Aether extends CombatTrigger {
 		if(phase == SOL){
 			if(d.getHp() > 0){
 				phase = LUNA;
-				calc.attack(dir, "Aether");
+				calc.addAttack("Aether");
 			}
 		} else {
 			phase = SOL;

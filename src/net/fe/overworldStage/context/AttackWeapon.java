@@ -28,7 +28,6 @@ public class AttackWeapon extends OverworldContext{
 
 	@Override
 	public void onSelect() {
-		stage.addCmd("Heal");
 		stage.addCmd("Attack");
 		stage.addCmd(new UnitIdentifier(defender));
 		stage.send();

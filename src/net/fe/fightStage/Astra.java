@@ -26,7 +26,7 @@ public class Astra extends CombatTrigger {
 		} else {
 			counter++;
 			if(d.getHp() > 0){
-				calc.attack(dir, "Astra");
+				calc.addAttack("Astra");
 			}
 		}
 	}

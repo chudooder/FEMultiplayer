@@ -14,7 +14,7 @@ import chu.engine.anim.Transform;
 public class BattlePreview extends Entity {
 	private Unit attacker, defender;
 	private ArrayList<Sprite> sprites;
-	private Sprite leftArrow, rightArrow;
+	private Sprite leftArrow, rightArrow, x2, x4;
 	private int range;
 
 	public BattlePreview(float x, float y, Unit a, Unit d, int range) {
@@ -28,6 +28,10 @@ public class BattlePreview extends Entity {
 		leftArrow = new Sprite();
 		leftArrow.addAnimation("default",
 				Resources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 100);
+		x2 = new Sprite();
+		x2.addAnimation("default", Resources.getTexture("x2"));
+		x4 = new Sprite();
+		x4.addAnimation("default", Resources.getTexture("x4"));
 		sprites.add(rightArrow);
 		sprites.add(leftArrow);
 		this.range = range;
@@ -42,6 +46,8 @@ public class BattlePreview extends Entity {
 
 	public void render() {
 		String aHit = " - ", aAtk = " - ", aCrit = " - ", dHit = " - ", dAtk = " - ", dCrit = " - ";
+		int aMult = 1;
+		int dMult = 1;
 		String aHp = String.format("%d", attacker.getHp());
 		String dHp = String.format("%d", defender.getHp());
 		Transform flip = new Transform();
@@ -58,6 +64,9 @@ public class BattlePreview extends Entity {
 					"%d",
 					Math.max(0,
 							Math.min(100, attacker.crit() - defender.avoid())));
+			if(attacker.get("Spd") >= defender.get("Spd") + 4) aMult*=2;
+			if(attacker.getWeapon().name.contains("Brave")) aMult*=2;
+			
 		}
 		if (defender.getWeapon().range.contains(range)) {
 			dHit = String.format(
@@ -70,6 +79,8 @@ public class BattlePreview extends Entity {
 					"%d",
 					Math.max(0,
 							Math.min(100, defender.crit() - attacker.avoid())));
+			if(defender.get("Spd") >= attacker.get("Spd") + 4) dMult*=2;
+			if(defender.getWeapon().name.contains("Brave")) dMult*=2;
 		}
 
 		// Borders
@@ -95,12 +106,18 @@ public class BattlePreview extends Entity {
 		rightArrow.renderTransformed(x + 90, y + 21, renderDepth, flip);
 
 		// Attacker stats
+
 		Renderer.drawRectangle(x + 60, y + 34, x + 89, y + 96, renderDepth,
 				attacker.getPartyColor());
 		Renderer.drawString("default_med", aHp, x + 63, y + 36, renderDepth);
 		Renderer.drawString("default_med", aAtk, x + 63, y + 51, renderDepth);
 		Renderer.drawString("default_med", aHit, x + 63, y + 66, renderDepth);
 		Renderer.drawString("default_med", aCrit, x + 63, y + 81, renderDepth);
+		if(aMult == 2){
+			x2.render(x+75, y+48, renderDepth);
+		} else if (aMult == 4){
+			x4.render(x+75, y+48, renderDepth);
+		}
 
 		// Stats text
 		Renderer.drawRectangle(x + 31, y + 35, x + 59, y + 96, renderDepth,
@@ -117,6 +134,11 @@ public class BattlePreview extends Entity {
 		Renderer.drawString("default_med", dAtk, x + 4, y + 51, renderDepth);
 		Renderer.drawString("default_med", dHit, x + 4, y + 66, renderDepth);
 		Renderer.drawString("default_med", dCrit, x + 4, y + 81, renderDepth);
+		if(dMult == 2){
+			x2.render(x+16, y+48, renderDepth);
+		} else if (dMult == 4){
+			x4.render(x+16, y+48, renderDepth);
+		}
 
 		// Bottom item and name
 		Renderer.drawRectangle(x+1, y + 97, x + 89, y + 130, renderDepth,
