@@ -6,6 +6,7 @@ import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.unit.*;
 import chu.engine.Entity;
+import chu.engine.Game;
 import chu.engine.Resources;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Sprite;
@@ -28,12 +29,14 @@ public class BattlePreview extends Entity {
 		leftArrow = new Sprite();
 		leftArrow.addAnimation("default",
 				Resources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 100);
-		x2 = new Sprite();
+		x2 = new CirclingSprite(3, 2);
 		x2.addAnimation("default", Resources.getTexture("x2"));
-		x4 = new Sprite();
+		x4 = new CirclingSprite(3, 2);
 		x4.addAnimation("default", Resources.getTexture("x4"));
 		sprites.add(rightArrow);
 		sprites.add(leftArrow);
+		sprites.add(x2);
+		sprites.add(x4);
 		this.range = range;
 		this.renderDepth = OverworldStage.MENU_DEPTH;
 	}
@@ -147,5 +150,27 @@ public class BattlePreview extends Entity {
 				renderDepth);
 		new ItemDisplay((int) x + 7, (int) y + 112, defender.getWeapon())
 				.render();
+	}
+	
+	private class CirclingSprite extends Sprite {
+		private float timer;
+		private float radius;
+		private float period;
+		public CirclingSprite(float radius, float period) {
+			timer = 0;
+			this.radius = radius;
+			this.period = period;
+		}
+		
+		public void update() {
+			super.update();
+			timer += Game.getDeltaSeconds();
+			if(timer > period) timer -= period;
+		}
+		
+		public void render(float x, float y, float depth) {
+			double radians = timer/period*2*Math.PI;
+			super.render((float)(x+Math.cos(radians)), (float)(y+Math.sin(radians)), depth);
+		}
 	}
 }
