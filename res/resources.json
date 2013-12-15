@@ -45,7 +45,7 @@
 			"columns":	2,
 			"offsetX":	16,
 			"offsetY":	29,
-			"freeze":	0,
+			"freeze":	0
 		},
 		{
 			"name":		"eliwood_lance_attack",
@@ -92,7 +92,7 @@
 			"columns":	2,
 			"offsetX":	22,
 			"offsetY":	48,
-			"freeze":	0,
+			"freeze":	0
 		},
 		{
 			"name":		"eliwood_sword_attack",
@@ -139,7 +139,7 @@
 			"columns":	2,
 			"offsetX":	39,
 			"offsetY":	46,
-			"freeze":	0,
+			"freeze":	0
 		},
 		{
 			"name":		"lyn_sword_attack",
@@ -174,27 +174,27 @@
 				{
 					"frame":34,
 					"sound":"hit"
-				}
+				},
 				{
 					"frame":37,
 					"sound":"hit"
-				}
+				},
 				{
 					"frame":40,
 					"sound":"hit"
-				}
+				},
 				{
 					"frame":43,
 					"sound":"hit"
-				}
+				},
 				{
 					"frame":46,
 					"sound":"hit"
-				}
+				},
 				{
 					"frame":49,
 					"sound":"hit"
-				}
+				},
 				{
 					"frame":63,
 					"sound":"hit"
@@ -211,7 +211,25 @@
 			"columns":	2,
 			"offsetX":	9,
 			"offsetY":	33,
-			"freeze":	0,
+			"freeze":	0
+		},
+		{
+			"name":		"sage_magic_attack",
+			"path":		"res/battle_anim/sage_magic_attack.png",
+			"width":	74,
+			"height":	60,
+			"frames":	38,
+			"columns":	8,
+			"offsetX":	30,
+			"offsetY":	43,
+			"freeze":	8,
+			"hitframes":[16],
+			"soundMap": [
+				{
+					"frame":16,
+					"sound":"magic"
+				}
+			]
 		},
 	]
 }

@@ -29,9 +29,9 @@ public class BattlePreview extends Entity {
 		leftArrow = new Sprite();
 		leftArrow.addAnimation("default",
 				Resources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 100);
-		x2 = new CirclingSprite(3, 2);
+		x2 = new CirclingSprite(2f, 2, true);
 		x2.addAnimation("default", Resources.getTexture("x2"));
-		x4 = new CirclingSprite(3, 2);
+		x4 = new CirclingSprite(2f, 2, true);
 		x4.addAnimation("default", Resources.getTexture("x4"));
 		sprites.add(rightArrow);
 		sprites.add(leftArrow);
@@ -156,10 +156,12 @@ public class BattlePreview extends Entity {
 		private float timer;
 		private float radius;
 		private float period;
-		public CirclingSprite(float radius, float period) {
+		private boolean clockwise;
+		public CirclingSprite(float radius, float period, boolean clockwise) {
 			timer = 0;
 			this.radius = radius;
 			this.period = period;
+			this.clockwise = clockwise;
 		}
 		
 		public void update() {
@@ -170,6 +172,7 @@ public class BattlePreview extends Entity {
 		
 		public void render(float x, float y, float depth) {
 			double radians = timer/period*2*Math.PI;
+			if(!clockwise) radians *= -1;
 			super.render((float)(x+radius*Math.cos(radians)), (float)(y+radius*Math.sin(radians)), depth);
 		}
 	}
