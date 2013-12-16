@@ -23,7 +23,7 @@ public abstract class CombatTrigger {
 		nameModification = mod;
 		turnToRun = turn;
 	}
-	public abstract boolean attempt(Unit user);
+	public abstract boolean attempt(Unit user, int range);
 	public boolean runPreAttack(CombatCalculator calc, Unit a, Unit d){
 		return true;
 	}

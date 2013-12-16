@@ -9,8 +9,8 @@ public class Astra extends CombatTrigger {
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE + YOUR_TURN_MOD + YOUR_TURN_POST);
 	}
 	@Override
-	public boolean attempt(Unit user) {
-		return RNG.get() < user.get("Skl")/2 || counter!=0;
+	public boolean attempt(Unit user, int range) {
+		return range == 1 && (RNG.get() < user.get("Skl")/2 || counter!=0);
 	}
 	
 	@Override

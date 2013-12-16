@@ -8,8 +8,8 @@ public class Colossus extends CombatTrigger{
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE);
 	}
 	@Override
-	public boolean attempt(Unit user) {
-		return RNG.get() < user.get("Skl")/2;
+	public boolean attempt(Unit user, int range) {
+		return range == 1 && RNG.get() < user.get("Skl")/2;
 	}
 
 	@Override
