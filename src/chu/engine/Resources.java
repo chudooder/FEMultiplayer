@@ -126,9 +126,9 @@ public class Resources {
 							height.intValue(),
 							frames.intValue(),
 							columns.intValue(),
-							freeze.intValue(),
 							offsetX.intValue(),
 							offsetY.intValue(),
+							freeze.intValue(),
 							hitframes));
 					System.out.println(" - "+name+": " +path+"\n - "+width+" "+height+" "+frames+" "+columns+" "+freeze);
 				}
