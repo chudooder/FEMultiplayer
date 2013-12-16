@@ -18,7 +18,7 @@ class TextureData {
 	public int[] hitframes;
 	public HashMap<Integer, Audio> soundMap;
 	
-	public TextureData(Texture t, int w, int h, int r, int c, int x, int y, int f, int... frames) {
+	public TextureData(Texture t, int w, int h, int r, int c, int x, int y, int f, int[] frames) {
 		texture = t;
 		this.frames = r;
 		columns = c;

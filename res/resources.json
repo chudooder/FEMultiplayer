@@ -411,7 +411,7 @@
 		},
 		{
 			"name":		"zone_colors",
-			"path":		"res/gui/zone_colors.png",
+			"path":		"res/gui/zone_colors.png"
 		},
 		{
 			"name":		"gui_selectArrow",
@@ -422,23 +422,23 @@
 			"columns":	6,
 			"offsetX":	0,
 			"offsetY":	0,
-			"freeze":	-1,
+			"freeze":	-1
 		},
 		{
 			"name":		"gui_tickEmpty",
-			"path":		"res/gui/tickEmpty.png",
+			"path":		"res/gui/tickEmpty.png"
 		},
 		{
 			"name":		"gui_tickFilled",
-			"path":		"res/gui/tickFilled.png",
+			"path":		"res/gui/tickFilled.png"
 		},
 		{
 			"name":		"gui_weaponIcon",
-			"path":		"res/gui/weaponIcon.png",
+			"path":		"res/gui/weaponIcon.png"
 		},
 		{
 			"name":		"gui_battleStats",
-			"path":		"res/gui/battleStats.png",
+			"path":		"res/gui/battleStats.png"
 		},
 		
 	]

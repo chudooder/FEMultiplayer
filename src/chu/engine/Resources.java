@@ -2,10 +2,17 @@ package chu.engine;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.Audio;
@@ -78,6 +85,57 @@ public class Resources {
 	
 	private static void loadTextures() {
 		// TODO Load textures from JSON
+		InputStream file = ResourceLoader.getResourceAsStream("res/resources.json");
+		Scanner in = new Scanner(file);
+		StringBuilder sb = new StringBuilder();
+		while(in.hasNextLine()) {
+			sb.append(in.nextLine());
+		}
+		String json = sb.toString();
+		JSONObject resources = (JSONObject) JSONValue.parse(json);
+		JSONArray txArray = (JSONArray) resources.get("textures");
+		for(Object obj : txArray) {
+			JSONObject texture = (JSONObject) obj;
+			String name = (String)texture.get("name");
+			String path = (String)texture.get("path");
+			Number width = (Number)texture.get("width");
+			Number height = (Number)texture.get("height");
+			Number frames = (Number)texture.get("frames");
+			Number columns = (Number)texture.get("columns");
+			Number freeze = (Number)texture.get("freeze");
+			Number offsetX = (Number)texture.get("offsetX");
+			Number offsetY = (Number)texture.get("offsetY");
+			JSONArray hitArray = (JSONArray) texture.get("hitframes");
+			int[] hitframes;
+			if(hitArray != null) {
+				hitframes = new int[hitArray.size()];
+				for(int i=0; i<hitframes.length; i++) {
+					hitframes[i] = ((Number)hitArray.get(i)).intValue();
+				}
+			} else {
+				hitframes = new int[0];
+			}
+			try {
+				if(width == null) {
+					textures.put(name, new TextureData(TextureLoader.getTexture("PNG",
+							ResourceLoader.getResourceAsStream(path))));
+				} else {
+					textures.put(name, new TextureData(TextureLoader.getTexture("PNG",
+							ResourceLoader.getResourceAsStream(path)),
+							width.intValue(),
+							height.intValue(),
+							frames.intValue(),
+							columns.intValue(),
+							freeze.intValue(),
+							offsetX.intValue(),
+							offsetY.intValue(),
+							hitframes));
+					System.out.println(" - "+name+": " +path+"\n - "+width+" "+height+" "+frames+" "+columns+" "+freeze);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public static BitmapFont getBitmapFont(String name) {
