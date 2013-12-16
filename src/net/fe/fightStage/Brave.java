@@ -8,7 +8,7 @@ public class Brave extends CombatTrigger{
 	}
 
 	@Override
-	public boolean attempt(Unit user) {
+	public boolean attempt(Unit user, int range) {
 		return true;
 	}
 

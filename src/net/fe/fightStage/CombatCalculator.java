@@ -85,10 +85,10 @@ public class CombatCalculator {
 				new LinkedHashMap<CombatTrigger, Boolean>();
 		
 		for (CombatTrigger t : a.getTriggers()) {
-			aSuccess.put(t,t.attempt(a));
+			aSuccess.put(t,t.attempt(a, range));
 		}
 		for (CombatTrigger t : d.getTriggers()) {
-			dSuccess.put(t,t.attempt(a));
+			dSuccess.put(t,t.attempt(a, range));
 		}
 		
 		
