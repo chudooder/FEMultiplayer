@@ -21,15 +21,15 @@ public class Class {
 		if(name.equals("Roy"))
 			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD);
 		if(name.equals("Eliwood"))
-			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD, Weapon.Type.LANCE);
+			return new Class("Lord", 0, new Sol(), Weapon.Type.SWORD, Weapon.Type.LANCE);
 		if(name.equals("Lyn"))
-			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD, Weapon.Type.BOW);
+			return new Class("Lord", 0, new Astra(), Weapon.Type.SWORD, Weapon.Type.BOW);
 		if(name.equals("Hector"))
-			return new Class("Lord", 0, new Aether(), Weapon.Type.AXE, Weapon.Type.SWORD);
+			return new Class("Lord", 0, new Luna(), Weapon.Type.AXE, Weapon.Type.SWORD);
 		if(name.equals("Eirika"))
-			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD);
+			return new Class("Lord", 0, new Luna(), Weapon.Type.SWORD);
 		if(name.equals("Ephraim"))
-			return new Class("Lord", 0, new Aether(), Weapon.Type.LANCE);
+			return new Class("Lord", 0, new Sol(), Weapon.Type.LANCE);
 		if(name.equals("Marth"))
 			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD);
 		if(name.equals("Ike"))
@@ -56,12 +56,8 @@ public class Class {
 			return new Class("Valkyrie", 0, new Miracle(), Weapon.Type.STAFF, Weapon.Type.LIGHT);
 		if(name.equals("Swordmaster"))
 			return new Class("Swordmaster", 20, new Astra(), Weapon.Type.SWORD);
-		if(name.equals("Falconknight"))
-			return new Class("Falconknight", 0, null, Weapon.Type.LANCE, Weapon.Type.SWORD);
 		if(name.equals("Sorcerer"))
 			return new Class("Sorcerer", 0, new Luna(), Weapon.Type.DARK, Weapon.Type.ANIMA);
-		if(name.equals("Warrior"))
-			return new Class("Warrior", 0, new Colossus(), Weapon.Type.AXE, Weapon.Type.BOW);
 		if(name.equals("Falconknight"))
 			return new Class("Falconknight", 0, new Stun(), Weapon.Type.LANCE, Weapon.Type.SWORD);
 		return null;

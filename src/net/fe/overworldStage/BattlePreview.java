@@ -117,9 +117,9 @@ public class BattlePreview extends Entity {
 		Renderer.drawString("default_med", aHit, x + 63, y + 66, renderDepth);
 		Renderer.drawString("default_med", aCrit, x + 63, y + 81, renderDepth);
 		if(aMult == 2){
-			x2.render(x+77, y+50, renderDepth);
+			x2.render(x+78, y+50, renderDepth);
 		} else if (aMult == 4){
-			x4.render(x+77, y+50, renderDepth);
+			x4.render(x+78, y+50, renderDepth);
 		}
 
 		// Stats text
@@ -138,9 +138,9 @@ public class BattlePreview extends Entity {
 		Renderer.drawString("default_med", dHit, x + 4, y + 66, renderDepth);
 		Renderer.drawString("default_med", dCrit, x + 4, y + 81, renderDepth);
 		if(dMult == 2){
-			x2.render(x+18, y+49, renderDepth);
+			x2.render(x+19, y+49, renderDepth);
 		} else if (dMult == 4){
-			x4.render(x+18, y+49, renderDepth);
+			x4.render(x+19, y+49, renderDepth);
 		}
 
 		// Bottom item and name

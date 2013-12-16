@@ -15,6 +15,7 @@ public class Luna extends CombatTrigger {
 	@Override
 	public boolean runPreAttack(CombatCalculator stage, Unit a, Unit d) {
 		d.setTempMod("Def", -d.get("Def")/2);
+		d.setTempMod("Res", -d.get("Res")/2);
 		return true;
 	}
 
