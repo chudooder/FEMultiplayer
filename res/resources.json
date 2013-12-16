@@ -12,10 +12,7 @@
 			"freeze":	0,
 			"hitframes":[47],
 			"soundMap": [
-				{
-					"frame":47,
-					"sound":"crit"
-				}
+				
 			]
 		},
 		{
@@ -30,10 +27,7 @@
 			"freeze":	0,
 			"hitframes":[34],
 			"soundMap": [
-				{
-					"frame":34,
-					"sound":"hit"
-				}
+				
 			]
 		},
 		{
@@ -59,10 +53,7 @@
 			"freeze":	0,
 			"hitframes":[16],
 			"soundMap": [
-				{
-					"frame":16,
-					"sound":"hit"
-				}
+				
 			]
 		},
 		{
@@ -77,10 +68,7 @@
 			"freeze":	0,
 			"hitframes":[22],
 			"soundMap": [
-				{
-					"frame":22,
-					"sound":"crit"
-				}
+				
 			]
 		},
 		{
@@ -106,10 +94,7 @@
 			"freeze":	0,
 			"hitframes":[21],
 			"soundMap": [
-				{
-					"frame":21,
-					"sound":"hit"
-				}
+				
 			]
 		},
 		{
@@ -124,10 +109,7 @@
 			"freeze":	0,
 			"hitframes":[41],
 			"soundMap": [
-				{
-					"frame":41,
-					"sound":"crit"
-				}
+				
 			]
 		},
 		{
@@ -153,10 +135,7 @@
 			"freeze":	0,
 			"hitframes":[13],
 			"soundMap": [
-				{
-					"frame":13,
-					"sound":"hit"
-				}
+				
 			]
 		},
 		{
@@ -194,10 +173,6 @@
 				{
 					"frame":49,
 					"sound":"hit"
-				},
-				{
-					"frame":63,
-					"sound":"hit"
 				}
 				
 			]
@@ -225,11 +200,246 @@
 			"freeze":	8,
 			"hitframes":[16],
 			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"sage_magic_critical",
+			"path":		"res/battle_anim/sage_magic_critical.png",
+			"width":	74,
+			"height":	60,
+			"frames":	60,
+			"columns":	8,
+			"offsetX":	30,
+			"offsetY":	43,
+			"freeze":	8,
+			"hitframes":[38],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"sage_magic_dodge",
+			"path":		"res/battle_anim/sage_magic_dodge.png",
+			"width":	28,
+			"height":	35,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	18,
+			"offsetY":	31,
+			"freeze":	0
+		},
+		{
+			"name":		"sage_staff_attack",
+			"path":		"res/battle_anim/sage_staff_attack.png",
+			"width":	34,
+			"height":	41,
+			"frames":	5,
+			"columns":	5,
+			"offsetX":	21,
+			"offsetY":	37,
+			"freeze":	0,
+			"hitframes":[2],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"sage_staff_dodge",
+			"path":		"res/battle_anim/sage_staff_dodge.png",
+			"width":	36,
+			"height":	35,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	19,
+			"offsetY":	31,
+			"freeze":	0
+		},
+		{
+			"name":		"assassin_sword_attack",
+			"path":		"res/battle_anim/assassin_sword_attack.png",
+			"width":	90,
+			"height":	43,
+			"frames":	47,
+			"columns":	7,
+			"offsetX":	68,
+			"offsetY":	40,
+			"freeze":	0,
+			"hitframes":[21],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"assassin_sword_critical",
+			"path":		"res/battle_anim/assassin_sword_critical.png",
+			"width":	123,
+			"height":	108,
+			"frames":	61,
+			"columns":	8,
+			"offsetX":	101,
+			"offsetY":	96,
+			"freeze":	0,
+			"hitframes":[39],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"assassin_sword_dodge",
+			"path":		"res/battle_anim/assassin_sword_dodge.png",
+			"width":	33,
+			"height":	34,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	17,
+			"offsetY":	31,
+			"freeze":	0
+		},
+		{
+			"name":		"hit_effect_attack",
+			"path":		"res/battle_anim/hit_effect_attack.png",
+			"width":	240,
+			"height":	160,
+			"frames":	9,
+			"columns":	3,
+			"offsetX":	88,
+			"offsetY":	110,
+			"freeze":	-1,
+			"soundMap": [
 				{
-					"frame":16,
-					"sound":"magic"
+					"frame": 0,
+					"sound":"hit"
 				}
 			]
 		},
+		{
+			"name":		"hit_effect_critical",
+			"path":		"res/battle_anim/hit_effect_critical.png",
+			"width":	240,
+			"height":	160,
+			"frames":	9,
+			"columns":	3,
+			"offsetX":	88,
+			"offsetY":	110,
+			"freeze":	-1,
+			"soundMap": [
+				{
+					"frame": 0,
+					"sound":"crit"
+				}
+			]
+		},
+		{
+			"name":		"hit_effect_elfire",
+			"path":		"res/battle_anim/hit_effect_elfire.png",
+			"width":	240,
+			"height":	160,
+			"frames":	15,
+			"columns":	4,
+			"offsetX":	88,
+			"offsetY":	110,
+			"freeze":	-1,
+			"soundMap": [
+				{
+					"frame": 3,
+					"sound":"elfire"
+				}
+			]
+		},
+		{
+			"name":		"hit_effect_heal",
+			"path":		"res/battle_anim/hit_effect_heal.png",
+			"width":	72,
+			"height":	72,
+			"frames":	30,
+			"columns":	6,
+			"offsetX":	46,
+			"offsetY":	46,
+			"freeze":	-1,
+			"soundMap": [
+				{
+					"frame": 3,
+					"sound":"heal"
+				}
+			]
+		},
+		{
+			"name":		"miss",
+			"path":		"res/battle_anim/miss.png",
+			"width":	38,
+			"height":	26,
+			"frames":	20,
+			"columns":	5,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1,
+			"soundMap": [
+				{
+					"frame":0,
+					"sound":"miss"
+				}
+			]
+		},
+		{
+			"name":		"magic_effect_elfire",
+			"path":		"res/battle_anim/magic_effect_elfire.png",
+			"width":	240,
+			"height":	160,
+			"frames":	12,
+			"columns":	4,
+			"offsetX":	160,
+			"offsetY":	104,
+			"freeze":	-1,
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"bg_effect_elfire",
+			"path":		"res/battle_anim/bg_effect_elfire.png",
+			"width":	1,
+			"height":	1,
+			"frames":	32,
+			"columns":	16,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1,
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"zone_colors",
+			"path":		"res/gui/zone_colors.png",
+		},
+		{
+			"name":		"gui_selectArrow",
+			"path":		"res/gui/selectArrow.png",
+			"width":	8,
+			"height":	8,
+			"frames":	6,
+			"columns":	6,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1,
+		},
+		{
+			"name":		"gui_tickEmpty",
+			"path":		"res/gui/tickEmpty.png",
+		},
+		{
+			"name":		"gui_tickFilled",
+			"path":		"res/gui/tickFilled.png",
+		},
+		{
+			"name":		"gui_weaponIcon",
+			"path":		"res/gui/weaponIcon.png",
+		},
+		{
+			"name":		"gui_battleStats",
+			"path":		"res/gui/battleStats.png",
+		},
+		
 	]
 }
