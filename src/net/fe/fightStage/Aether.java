@@ -20,7 +20,7 @@ public class Aether extends CombatTrigger {
 	@Override
 	public boolean runPreAttack(CombatCalculator calc, Unit a, Unit d) {
 		if(phase == LUNA){
-			new Luna().runPreAttack(calc, a, d);
+			new Luna(false).runPreAttack(calc, a, d);
 		}
 		return true;
 	}

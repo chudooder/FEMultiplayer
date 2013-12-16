@@ -4,12 +4,14 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Luna extends CombatTrigger {
-	public Luna(){
+	private boolean ranged;
+	public Luna(boolean rangeok){
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE);
+		ranged = rangeok;
 	}
 	@Override
 	public boolean attempt(Unit user, int range) {
-		return RNG.get() < user.get("Skl")/2;
+		return (ranged || range == 1) && RNG.get() < user.get("Skl")/2;
 	}
 
 	@Override

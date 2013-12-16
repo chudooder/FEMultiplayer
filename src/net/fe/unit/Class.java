@@ -21,15 +21,15 @@ public class Class {
 		if(name.equals("Roy"))
 			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD);
 		if(name.equals("Eliwood"))
-			return new Class("Lord", 0, new Sol(), Weapon.Type.SWORD, Weapon.Type.LANCE);
+			return new Class("Lord", 0, new Sol(false), Weapon.Type.SWORD, Weapon.Type.LANCE);
 		if(name.equals("Lyn"))
 			return new Class("Lord", 0, new Astra(), Weapon.Type.SWORD, Weapon.Type.BOW);
 		if(name.equals("Hector"))
-			return new Class("Lord", 0, new Luna(), Weapon.Type.AXE, Weapon.Type.SWORD);
+			return new Class("Lord", 0, new Luna(false), Weapon.Type.AXE, Weapon.Type.SWORD);
 		if(name.equals("Eirika"))
-			return new Class("Lord", 0, new Luna(), Weapon.Type.SWORD);
+			return new Class("Lord", 0, new Luna(false), Weapon.Type.SWORD);
 		if(name.equals("Ephraim"))
-			return new Class("Lord", 0, new Sol(), Weapon.Type.LANCE);
+			return new Class("Lord", 0, new Sol(false), Weapon.Type.LANCE);
 		if(name.equals("Marth"))
 			return new Class("Lord", 0, new Aether(), Weapon.Type.SWORD);
 		if(name.equals("Ike"))
@@ -41,15 +41,15 @@ public class Class {
 		if(name.equals("Hero"))
 			return new Class("Hero",0, new Colossus(), Weapon.Type.SWORD, Weapon.Type.AXE);
 		if(name.equals("Berserker"))
-			return new Class("Berserker", 10, new Luna(), Weapon.Type.AXE);
+			return new Class("Berserker", 10, new Luna(false), Weapon.Type.AXE);
 		if(name.equals("Warrior"))
 			return new Class("Warrior", 0, new Colossus(), Weapon.Type.AXE, Weapon.Type.BOW);
 		if(name.equals("Assassin"))
 			return new Class("Assassin", 10, new Lethality(), Weapon.Type.SWORD);
 		if(name.equals("Paladin"))
-			return new Class("Paladin", 0, new Sol(), Weapon.Type.LANCE, Weapon.Type.SWORD);
+			return new Class("Paladin", 0, new Sol(false), Weapon.Type.LANCE, Weapon.Type.SWORD);
 		if(name.equals("Sage"))
-			return new Class("Sage", 0, new Sol(), Weapon.Type.ANIMA, Weapon.Type.STAFF);
+			return new Class("Sage", 0, new Sol(true), Weapon.Type.ANIMA, Weapon.Type.STAFF);
 		if(name.equals("General"))
 			return new Class("General", 0, new Pavise(), Weapon.Type.AXE, Weapon.Type.LANCE);
 		if(name.equals("Valkyrie"))
@@ -57,7 +57,7 @@ public class Class {
 		if(name.equals("Swordmaster"))
 			return new Class("Swordmaster", 20, new Astra(), Weapon.Type.SWORD);
 		if(name.equals("Sorcerer"))
-			return new Class("Sorcerer", 0, new Luna(), Weapon.Type.DARK, Weapon.Type.ANIMA);
+			return new Class("Sorcerer", 0, new Luna(true), Weapon.Type.DARK, Weapon.Type.ANIMA);
 		if(name.equals("Falconknight"))
 			return new Class("Falconknight", 0, new Stun(), Weapon.Type.LANCE, Weapon.Type.SWORD);
 		return null;
