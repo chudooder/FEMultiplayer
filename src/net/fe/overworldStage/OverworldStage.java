@@ -1,7 +1,9 @@
 package net.fe.overworldStage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import net.fe.FEMultiplayer;
 import net.fe.Player;
@@ -69,12 +71,18 @@ public class OverworldStage extends Stage {
 	
 	public void reset(){
 		context.cleanUp();
+		removeExtraneousEntities();
+		new Idle(this, player).startContext();
+	}
+	
+	public void removeExtraneousEntities(Entity... keep){
+		List<Entity> keeps = Arrays.asList(keep);
 		for(Entity e: entities){
-			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor)){
+			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor || 
+					keeps.contains(e))){
 				removeEntity(e);
 			}
 		}
-		new Idle(this, player).startContext();
 	}
 
 	public Terrain getTerrain(int x, int y) {
@@ -168,7 +176,7 @@ public class OverworldStage extends Stage {
 	public void end(){
 		clearCmdString();
 		selectedUnit = null;
-		reset();
+		removeExtraneousEntities();
 		//TODO implement
 	}
 	
