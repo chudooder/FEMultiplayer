@@ -20,6 +20,7 @@ public abstract class AttackAnimation extends Animation {
 	protected HashMap<Integer, String> soundMap;
 	
 	public static final float NORMAL_SPEED = .055f;
+	private float defaultSpeed = NORMAL_SPEED;
 	
 	//TODO You can't have a hit frame on the very last frame
 	public AttackAnimation(AnimationData data, FightStage stage, AnimationArgs animArgs) {
@@ -31,6 +32,9 @@ public abstract class AttackAnimation extends Animation {
 		this.freeze = data.freeze;
 		this.loopUntil = -1;
 		this.soundMap = data.soundMap;
+		if(data.speed != 0) {
+			defaultSpeed = data.speed;
+		}
 		if(soundMap.get(0) != null) {
 			AudioPlayer.playAudio(soundMap.get(0), 1, 1);
 		}
@@ -86,6 +90,10 @@ public abstract class AttackAnimation extends Animation {
 	public void setSpeed(float speed) {
 		super.setSpeed(speed);
 		loopUntil = -1;
+	}
+	
+	public float getDefaultSpeed() {
+		return defaultSpeed;
 	}
 	
 	public abstract void onHit();

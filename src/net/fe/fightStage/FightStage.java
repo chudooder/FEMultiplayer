@@ -152,7 +152,7 @@ public class FightStage extends Stage {
 				addEntity(new Message(messages.get(i), attacker == left, i));
 			}
 			a.setAnimation(rec.animation);
-			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
+			a.sprite.setSpeed(((AttackAnimation)a.sprite.getCurrentAnimation()).getDefaultSpeed());
 
 			setCurrentEvent(ATTACKING);
 		} else if (currentEvent == ATTACKING) {
@@ -203,7 +203,7 @@ public class FightStage extends Stage {
 		} else if (currentEvent == DYING) {
 			// Let animation for dying guy play
 		} else if (currentEvent == RETURNING) {
-			a.sprite.setSpeed(AttackAnimation.NORMAL_SPEED);
+			a.sprite.setSpeed(((AttackAnimation)a.sprite.getCurrentAnimation()).getDefaultSpeed());
 			// Let animation play
 		} else if (currentEvent == DONE) {
 			attackQ.remove(0);

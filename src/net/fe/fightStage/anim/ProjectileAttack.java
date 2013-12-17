@@ -49,7 +49,7 @@ public class ProjectileAttack extends AttackAnimation{
 
 	@Override
 	public void onHit() {
-		AudioPlayer.playAudio("hit_normal", 1, 1);
+		
 	}
 
 }

@@ -127,6 +127,13 @@ public class FEMultiplayer extends Game{
 		u11.equip(0);
 		p1.getParty().addUnit(u11);
 		
+		Unit u12 = UnitFactory.getUnit("Dart");
+		u12.addToInventory(WeaponFactory.getWeapon("Debug Axe"));
+		u12.addToInventory(WeaponFactory.getWeapon("Iron Axe"));
+		u12.addToInventory(WeaponFactory.getWeapon("Hand Axe"));
+		u12.equip(0);
+		p1.getParty().addUnit(u12);
+		
 		
 
 		u1.setLevel(20);
@@ -140,6 +147,7 @@ public class FEMultiplayer extends Game{
 		u9.setLevel(20);
 		u10.setLevel(20);
 		u11.setLevel(20);
+		u12.setLevel(20);
 		
 		u1.fillHp();
 		u2.fillHp();
@@ -152,6 +160,7 @@ public class FEMultiplayer extends Game{
 		u9.fillHp();
 		u10.fillHp();
 		u11.fillHp();
+		u12.fillHp();
 		
 		map = new OverworldStage(new Grid(20,10, Terrain.PLAIN), p1);
 		map.addUnit(u1, 0, 0);
@@ -165,6 +174,7 @@ public class FEMultiplayer extends Game{
 		map.addUnit(u9, 0, 2);
 		map.addUnit(u10, 3, 4);
 		map.addUnit(u11, 4, 0);
+		map.addUnit(u12, 5, 2);
 		map.setControl(true);
 		
 		

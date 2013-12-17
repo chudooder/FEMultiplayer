@@ -641,7 +641,14 @@
 			"freeze":	0,
 			"hitframes":[3],
 			"soundMap": [
-				
+				{
+					"frame":	2,
+					"sound":	"axe_swipe3"
+				},
+				{
+					"frame":	7,
+					"sound":	"catch"
+				},
 			]
 		},
 		{
@@ -656,7 +663,22 @@
 			"freeze":	0,
 			"hitframes":[34],
 			"soundMap": [
-				
+				{
+					"frame":	4,
+					"sound":	"spin"
+				},
+				{
+					"frame":	32,
+					"sound":	"catch"
+				},
+				{
+					"frame":	33,
+					"sound":	"axe_swipe3"
+				},
+				{
+					"frame":	38,
+					"sound":	"catch"
+				},
 			]
 		},
 		{
@@ -890,6 +912,7 @@
 			"offsetX":	68,
 			"offsetY":	70,
 			"freeze":	0,
+			"speed":	0.035,
 			"hitframes":[60],
 			"soundMap": [
 				{
@@ -1134,6 +1157,7 @@
 			"offsetY":	98,
 			"freeze":	-1,
 			"hitframes":[15],
+			"speed":	0.035,
 			"soundMap": [
 				
 			]
@@ -1149,6 +1173,7 @@
 			"offsetY":	100,
 			"freeze":	-1,
 			"hitframes":[63],
+			"speed":	0.035,
 			"soundMap": [
 				
 			]

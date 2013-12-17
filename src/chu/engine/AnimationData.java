@@ -17,6 +17,7 @@ class AnimationData {
 	public int freeze;
 	public int[] hitframes;
 	public HashMap<Integer, String> soundMap;
+	public float speed;
 	
 	public AnimationData(Texture t, int w, int h, int r, int c, int x, int y,
 			int f, int[] frames, HashMap<Integer, String> soundMap) {

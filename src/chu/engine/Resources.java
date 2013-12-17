@@ -88,6 +88,7 @@ public class Resources {
 			Number freeze = (Number)texture.get("freeze");
 			Number offsetX = (Number)texture.get("offsetX");
 			Number offsetY = (Number)texture.get("offsetY");
+			Number speed = (Number)texture.get("speed");
 			JSONArray hitArray = (JSONArray) texture.get("hitframes");
 			JSONArray audioArray = (JSONArray) texture.get("soundMap");
 			HashMap<Integer, String> audioMap = new HashMap<Integer, String>();
@@ -110,11 +111,12 @@ public class Resources {
 				}
 			}
 			try {
+				AnimationData data;
 				if(width == null) {
-					textures.put(name, new AnimationData(TextureLoader.getTexture("PNG",
-							ResourceLoader.getResourceAsStream(path))));
+					data = new AnimationData(TextureLoader.getTexture("PNG",
+							ResourceLoader.getResourceAsStream(path)));
 				} else {
-					textures.put(name, new AnimationData(TextureLoader.getTexture("PNG",
+					data = new AnimationData(TextureLoader.getTexture("PNG",
 							ResourceLoader.getResourceAsStream(path)),
 							width.intValue(),
 							height.intValue(),
@@ -124,11 +126,14 @@ public class Resources {
 							offsetY.intValue(),
 							freeze.intValue(),
 							hitframes,
-							audioMap));
+							audioMap);
 					System.out.println(" - " + name + ": " + path + "\n - "
 							+ width + " " + height + " " + frames + " "
 							+ columns + " " + freeze);
 				}
+				if(speed != null)
+					data.speed = speed.floatValue();
+				textures.put(name, data);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
