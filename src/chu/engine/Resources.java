@@ -2,10 +2,17 @@ package chu.engine;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.Audio;
@@ -47,148 +54,8 @@ public class Resources {
 		bitmapFonts = new HashMap<String, BitmapFont>();
 		try {
 			// Textures
-			textures.put("whoops", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/whoops.png")),
-					32, 32, 1, 1, 0, 0, -1));
-			textures.put("roy_sword_critical", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/roy_sword_critical.png")),
-					142, 102, 96, 12, 75, 99, 0, 47));
-			textures.put("roy_sword_attack", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/roy_sword_attack.png")),
-					124, 102, 82, 11, 76, 100, 0, 34));
-			textures.put("roy_sword_dodge", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/roy_sword_dodge.png")),
-					38, 33, 2, 2, 16, 29, 0));
-			textures.put("eliwood_lance_attack", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/eliwood_lance_attack.png")),
-					143, 89, 35, 6, 100, 81, 0, 16));
-			textures.put("eliwood_lance_critical", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/eliwood_lance_critical.png")),
-					153, 82, 40, 7, 95, 74, 0, 22));
-			textures.put("eliwood_lance_dodge", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/eliwood_lance_dodge.png")),
-					44, 53, 2, 2, 22, 48, 0));
-			textures.put("eliwood_sword_attack", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/eliwood_sword_attack.png")),
-					144, 106, 40, 7, 100, 101, 0, 21));
-			textures.put("eliwood_sword_critical", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/eliwood_sword_critical.png")),
-					205, 126, 59, 8, 138, 101, 0, 41));
-			textures.put("eliwood_sword_dodge", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/eliwood_sword_dodge.png")),
-					60, 49, 2, 2, 39, 46, 0));
-			textures.put("lyn_sword_attack", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/lyn_sword_attack.png")),
-					118, 119, 37, 7, 83, 101, 0, 13));
-			textures.put("lyn_sword_critical", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/lyn_sword_critical.png")),
-					220, 144, 115, 9, 137, 92, -1, 34, 37, 40, 43, 46, 49, 63));
-			textures.put("lyn_sword_dodge", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/lyn_sword_dodge.png")),
-					25, 34, 2, 2, 9, 33, 0));
-			textures.put("lyn_bow_attack", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/lyn_bow_attack.png")),
-					40, 52, 13, 4, 25, 49, 0, 12));
-			textures.put("lyn_bow_critical", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/lyn_bow_critical.png")),
-					47, 52, 24, 5, 25, 49, 0, 23));
-			textures.put("lyn_bow_dodge", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/lyn_bow_dodge.png")),
-					36, 33, 2, 2, 19, 28, 0));
-			
-			
-			textures.put("sage_magic_attack", new TextureData(
-					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
-							"res/battle_anim/sage_magic_attack.png")),
-					74, 60, 38, 8, 30, 43, 8, 16));
-			textures.put("sage_magic_critical", new TextureData(
-					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
-							"res/battle_anim/sage_magic_critical.png")),
-					74, 60, 60, 8, 30, 43, 8, 38));
-			textures.put("sage_magic_dodge", new TextureData(
-					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
-							"res/battle_anim/sage_magic_dodge.png")),
-					28, 35, 2, 2, 18, 31, 0));
-			textures.put("sage_staff_attack", new TextureData(
-					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
-							"res/battle_anim/sage_staff_attack.png")), 
-					34, 41, 5, 5, 21, 37, 0, 2));
-			textures.put("sage_staff_dodge", new TextureData(
-					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
-							"res/battle_anim/sage_staff_dodge.png")),
-					36, 35, 2, 2, 19, 31, 0));
-			
-			textures.put("assassin_sword_attack", new TextureData(
-					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
-							"res/battle_anim/assassin_sword_attack.png")),
-					90, 43, 47, 7, 68, 40, 0, 21));
-			textures.put("assassin_sword_critical", new TextureData(
-					TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(
-							"res/battle_anim/assassin_sword_critical.png")),
-					123, 108, 61, 8, 101, 96, 0, 39));
-			textures.put("assassin_sword_dodge", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/assassin_sword_dodge.png")),
-					33, 34, 2, 2, 17, 31, 0));
-			
-			
-			textures.put("hit_effect_attack", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_attack.png")),
-					240, 160, 9, 3, 88, 110, -1));
-			textures.put("hit_effect_critical", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_critical_alt2.png")),
-					240, 160, 9, 3, 88, 110, -1));
-			textures.put("hit_effect_elfire", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_elfire.png")),
-					240, 160, 15, 4, 88, 110, -1));
-			textures.put("hit_effect_heal", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/hit_effect_heal.png")),
-					72, 72, 30, 6, 46, 46, -1));
-			textures.put("miss", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/miss.png"))));
-			
-			textures.put("magic_effect_elfire", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/magic_effect_elfire.png")),
-					240, 160, 12, 4, 160, 104, -1));
-			textures.put("bg_effect_elfire", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/battle_anim/bg_effect_elfire.png")),
-					1, 1, 32, 16, 0, 0, -1));
-			textures.put("roy_sword_critical", new TextureData(
-					TextureLoader.getTexture("PNG",	ResourceLoader.getResourceAsStream(
-							"res/battle_anim/roy_sword_critical.png")),
-					142, 102, 96, 12, 75, 99, 0, 47));
-			
+			loadTextures();
 
-			textures.put("zone_colors", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/gui/zone_colors.png"))));
-			textures.put("gui_selectArrow", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/gui/selectArrow.png")),
-					8, 8, 6, 6, 0, 0, -1));
-			textures.put("gui_tickEmpty", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/gui/tickEmpty.png"))));
-			textures.put("gui_tickFilled", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/gui/tickFilled.png"))));
-			textures.put("gui_weaponIcon", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/weaponIcon.png"))));
-			textures.put("gui_battleStats", new TextureData(TextureLoader.getTexture("PNG",
-					ResourceLoader.getResourceAsStream("res/gui/battleStats.png"))));
-			
 			//Load bitmap fonts
 			loadBitmapFonts();
 			
@@ -216,6 +83,61 @@ public class Resources {
 		return getTextureData(string).texture;
 	}
 	
+	private static void loadTextures() {
+		// TODO Load textures from JSON
+		InputStream file = ResourceLoader.getResourceAsStream("res/resources.json");
+		Scanner in = new Scanner(file);
+		StringBuilder sb = new StringBuilder();
+		while(in.hasNextLine()) {
+			sb.append(in.nextLine());
+		}
+		String json = sb.toString();
+		JSONObject resources = (JSONObject) JSONValue.parse(json);
+		JSONArray txArray = (JSONArray) resources.get("textures");
+		for(Object obj : txArray) {
+			JSONObject texture = (JSONObject) obj;
+			String name = (String)texture.get("name");
+			String path = (String)texture.get("path");
+			Number width = (Number)texture.get("width");
+			Number height = (Number)texture.get("height");
+			Number frames = (Number)texture.get("frames");
+			Number columns = (Number)texture.get("columns");
+			Number freeze = (Number)texture.get("freeze");
+			Number offsetX = (Number)texture.get("offsetX");
+			Number offsetY = (Number)texture.get("offsetY");
+			JSONArray hitArray = (JSONArray) texture.get("hitframes");
+			int[] hitframes;
+			if(hitArray != null) {
+				hitframes = new int[hitArray.size()];
+				for(int i=0; i<hitframes.length; i++) {
+					hitframes[i] = ((Number)hitArray.get(i)).intValue();
+				}
+			} else {
+				hitframes = new int[0];
+			}
+			try {
+				if(width == null) {
+					textures.put(name, new TextureData(TextureLoader.getTexture("PNG",
+							ResourceLoader.getResourceAsStream(path))));
+				} else {
+					textures.put(name, new TextureData(TextureLoader.getTexture("PNG",
+							ResourceLoader.getResourceAsStream(path)),
+							width.intValue(),
+							height.intValue(),
+							frames.intValue(),
+							columns.intValue(),
+							offsetX.intValue(),
+							offsetY.intValue(),
+							freeze.intValue(),
+							hitframes));
+					System.out.println(" - "+name+": " +path+"\n - "+width+" "+height+" "+frames+" "+columns+" "+freeze);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	public static BitmapFont getBitmapFont(String name) {
 		return bitmapFonts.get(name);
 	}

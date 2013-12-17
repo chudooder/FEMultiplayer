@@ -95,24 +95,65 @@ public class FEMultiplayer extends Game{
 		Unit u5 = UnitFactory.getUnit("Roy");
 		u5.equip(0);
 		p1.getParty().addUnit(u5);
+		
+		Unit u6 = UnitFactory.getUnit("Hector");
+		u6.addToInventory(WeaponFactory.getWeapon("Wo Dao"));
+		u6.equip(0);
+		p1.getParty().addUnit(u6);
+		
+		Unit u7 = UnitFactory.getUnit("Eirika");
+		u7.equip(0);
+		p2.getParty().addUnit(u7);
+		
+		Unit u8 = UnitFactory.getUnit("Ephraim");
+		u8.equip(0);
+		p2.getParty().addUnit(u8);
+		
+		Unit u9 = UnitFactory.getUnit("Matthew");
+		u9.addToInventory(WeaponFactory.getWeapon("Silver Sword"));
+		u9.equip(0);
+		p1.getParty().addUnit(u9);
+		Unit u10 = UnitFactory.getUnit("Gilliam");
+		u10.addToInventory(WeaponFactory.getWeapon("Ladle"));
+		u10.addToInventory(WeaponFactory.getWeapon("Horseslayer"));
+		u10.equip(0);
+		p1.getParty().addUnit(u10);
+		
+		
 
 		u1.setLevel(20);
 		u2.setLevel(20);
 		u3.setLevel(20);
 		u4.setLevel(20);
 		u5.setLevel(20);
+		u6.setLevel(20);
+		u7.setLevel(20);
+		u8.setLevel(20);
+		u9.setLevel(20);
+		u10.setLevel(20);
 		
 		u1.fillHp();
 		u2.fillHp();
 		u3.fillHp();
 		u4.fillHp();
+		u5.fillHp();
+		u6.fillHp();
+		u7.fillHp();
+		u8.fillHp();
+		u9.fillHp();
+		u10.fillHp();
 		
 		map = new OverworldStage(new Grid(20,10, Terrain.PLAIN), p1);
 		map.addUnit(u1, 0, 0);
-		map.addUnit(u2, 3, 3);
+		map.addUnit(u2, 2, 1);
 		map.addUnit(u3, 1, 1);
 		map.addUnit(u4, 2, 0);
 		map.addUnit(u5, 2, 3);
+		map.addUnit(u6, 4, 2);
+		map.addUnit(u7, 6, 3);
+		map.addUnit(u8, 2, 2);
+		map.addUnit(u9, 0, 2);
+		map.addUnit(u10,3, 4);
 		map.setControl(true);
 		
 		
