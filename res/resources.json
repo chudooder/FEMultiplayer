@@ -32,6 +32,10 @@
 					"sound":	"sheath"
 				},
 				{
+					"frame":	21,
+					"sound":	"fire"
+				},
+				{
 					"frame":	34,
 					"sound":	"sword_swipe5"
 				},
@@ -44,12 +48,12 @@
 					"sound":	"sword_swipe4"
 				},
 				{
-					"frame":	59,
-					"sound":	"sword_swipe5"
-				},
-				{
 					"frame":	70,
 					"sound":	"sheath"
+				},
+				{
+					"frame":	77,
+					"sound":	"jump"
 				}
 			]
 		},
@@ -82,12 +86,12 @@
 					"sound":	"sword_swipe4"
 				},
 				{
-					"frame":	49,
-					"sound":	"sword_swipe4"
-				},
-				{
 					"frame":	54,
 					"sound":	"sheath"
+				},
+				{
+					"frame":	63,
+					"sound":	"jump"
 				}
 			]
 		},
@@ -160,7 +164,10 @@
 			"freeze":	0,
 			"hitframes":[7],
 			"soundMap": [
-				
+				{
+					"frame":	6,
+					"sound":	"lance_throw"
+				}
 			]
 		},
 		{
@@ -228,7 +235,42 @@
 			"freeze":	0,
 			"hitframes":[21],
 			"soundMap": [
-				
+				{
+					"frame":	1,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	2,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	12,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	15,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	16,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	26,
+					"sound":	"spin"
+				},
+				{
+					"frame":	27,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	35,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	37,
+					"sound":	"catch"
+				}
 			]
 		},
 		{
@@ -243,7 +285,46 @@
 			"freeze":	0,
 			"hitframes":[41],
 			"soundMap": [
-				
+				{
+					"frame":	3,
+					"sound":	"horse_whinny"
+				},
+				{
+					"frame":	15,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	27,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	30,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	31,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	40,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	42,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	44,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	53,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	55,
+					"sound":	"horse_step"
+				},
 			]
 		},
 		{
@@ -269,7 +350,22 @@
 			"freeze":	0,
 			"hitframes":[13],
 			"soundMap": [
-				
+				{
+					"frame":	2,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	5,
+					"sound":	"jump"
+				},
+				{
+					"frame":	12,
+					"sound":	"sword_swipe2"
+				},
+				{
+					"frame":	16,
+					"sound":	"jump"
+				},
 			]
 		},
 		{
@@ -285,28 +381,36 @@
 			"hitframes":[34, 37, 40, 43, 46, 49, 63],
 			"soundMap": [
 				{
+					"frame":1,
+					"sound":"sword_swipe1"
+				},
+				{
+					"frame":4,
+					"sound":"sheath"
+				},
+				{
 					"frame":34,
-					"sound":"hit_normal"
+					"sound":"sword_swipe2"
 				},
 				{
 					"frame":37,
-					"sound":"hit_normal"
+					"sound":"sword_swipe2"
 				},
 				{
 					"frame":40,
-					"sound":"hit_normal"
+					"sound":"sword_swipe1"
 				},
 				{
 					"frame":43,
-					"sound":"hit_normal"
+					"sound":"sword_swipe2"
 				},
 				{
 					"frame":46,
-					"sound":"hit_normal"
+					"sound":"sword_swipe3"
 				},
 				{
 					"frame":49,
-					"sound":"hit_normal"
+					"sound":"sword_swipe1"
 				}
 				
 			]
@@ -322,6 +426,55 @@
 			"offsetY":	33,
 			"freeze":	0
 		},
+		{
+			"name":		"lyn_bow_attack",
+			"path":		"res/battle_anim/lyn_bow_attack.png",
+			"width":	40,
+			"height":	52,
+			"frames":	13,
+			"columns":	4,
+			"offsetX":	24,
+			"offsetY":	49,
+			"freeze":	0,
+			"hitframes":[12],
+			"soundMap": [
+				{
+					"frame":	8,
+					"sound":	"bow_set"
+				},
+				{
+					"frame":	12,
+					"sound":	"bow_shoot"
+				}
+			]
+		},
+		{
+			"name":		"lyn_bow_critical",
+			"path":		"res/battle_anim/lyn_bow_critical.png",
+			"width":	47,
+			"height":	52,
+			"frames":	24,
+			"columns":	5,
+			"offsetX":	24,
+			"offsetY":	49,
+			"freeze":	0,
+			"hitframes":[23],
+			"soundMap": [
+				{
+					"frame":	5,
+					"sound":	"spin_long"
+				},
+				{
+					"frame":	19,
+					"sound":	"bow_set"
+				},
+				{
+					"frame":	23,
+					"sound":	"bow_shoot"
+				}
+			]
+		},
+			
 		{
 			"name":		"sage_magic_attack",
 			"path":		"res/battle_anim/sage_magic_attack.png",
@@ -401,7 +554,22 @@
 			"freeze":	0,
 			"hitframes":[21],
 			"soundMap": [
-				
+				{
+					"frame":	4,
+					"sound":	"clink"
+				},
+				{
+					"frame":	18,
+					"sound":	"sword_swipe2"
+				},
+				{
+					"frame":	26,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	37,
+					"sound":	"cape"
+				},
 			]
 		},
 		{
@@ -416,7 +584,38 @@
 			"freeze":	0,
 			"hitframes":[39],
 			"soundMap": [
-				
+				{
+					"frame":	4,
+					"sound":	"sword_swipe1"
+				},
+				{
+					"frame":	8,
+					"sound":	"spin_short"
+				},
+				{
+					"frame":	13,
+					"sound":	"clink"
+				},
+				{
+					"frame":	28,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	32,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	36,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	44,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	53,
+					"sound":	"cape"
+				},
 			]
 		},
 		{
@@ -502,7 +701,34 @@
 			"freeze":	0,
 			"hitframes":[11],
 			"soundMap": [
-				
+				{
+					"frame":	5,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	7,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	8,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	10,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	13,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	22,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	23,
+					"sound":	"horse_step"
+				},
 			]
 		},
 		{
@@ -517,7 +743,30 @@
 			"freeze":	0,
 			"hitframes":[15],
 			"soundMap": [
-				
+				{
+					"frame":	6,
+					"sound":	"spin_short"
+				},
+				{
+					"frame":	14,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	16,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	17,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	26,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	27,
+					"sound":	"horse_step"
+				},
 			]
 		},
 		{
@@ -537,11 +786,61 @@
 					"sound":	"horse_step"
 				},
 				{
-					"frame":	7,
-					"sound":	"horse_whinny"
+					"frame":	8,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	12,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	16,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	18,
+					"sound":	"spin_short"
+				},
+				{
+					"frame":	21,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	26,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	28,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	29,
+					"sound":	"horse_step"
+				}
+			]
+		},
+		{
+			"name":		"ephraim_lance_critical",
+			"path":		"res/battle_anim/ephraim_lance_critical.png",
+			"width":	122,
+			"height":	80,
+			"frames":	30,
+			"columns":	6,
+			"offsetX":	73,
+			"offsetY":	76,
+			"freeze":	0,
+			"hitframes":[21],
+			"soundMap": [
+				{
+					"frame":	2,
+					"sound":	"horse_step"
 				},
 				{
 					"frame":	6,
+					"sound":	"horse_whinny"
+				},
+				{
+					"frame":	7,
 					"sound":	"spin_long"
 				},
 				{
@@ -564,21 +863,6 @@
 					"frame":	28,
 					"sound":	"horse_step"
 				}
-			]
-		},
-		{
-			"name":		"ephraim_lance_critical",
-			"path":		"res/battle_anim/ephraim_lance_critical.png",
-			"width":	122,
-			"height":	80,
-			"frames":	30,
-			"columns":	6,
-			"offsetX":	73,
-			"offsetY":	76,
-			"freeze":	0,
-			"hitframes":[21],
-			"soundMap": [
-				
 			]
 		},
 		{
@@ -610,27 +894,31 @@
 			"soundMap": [
 				{
 					"frame":	1,
-					"sound":	"spin"
+					"sound":	"axe_swipe4"
 				},
 				{
 					"frame":	8,
-					"sound":	"spin"
+					"sound":	"axe_swipe4"
 				},
 				{
 					"frame":	16,
-					"sound":	"spin"
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	24,
+					"sound":	"axe_swipe4"
 				},
 				{
 					"frame":	32,
-					"sound":	"spin"
+					"sound":	"axe_swipe4"
 				},
 				{
 					"frame":	40,
-					"sound":	"spin"
+					"sound":	"axe_swipe4"
 				},
 				{
 					"frame":	48,
-					"sound":	"spin"
+					"sound":	"axe_swipe4"
 				},
 			]
 		},
@@ -717,7 +1005,18 @@
 			"freeze":	0,
 			"hitframes":[20],
 			"soundMap": [
-				
+				{
+					"frame":	8,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	19,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	28,
+					"sound":	"cape"
+				},
 			]
 		},
 		{
@@ -732,7 +1031,18 @@
 			"freeze":	0,
 			"hitframes":[20],
 			"soundMap": [
-				
+				{
+					"frame":	8,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	19,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	27,
+					"sound":	"cape"
+				},
 			]
 		},
 		{
@@ -747,7 +1057,18 @@
 			"freeze":	0,
 			"hitframes":[20],
 			"soundMap": [
-				
+				{
+					"frame":	8,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	19,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	28,
+					"sound":	"cape"
+				},
 			]
 		},
 		{
@@ -762,7 +1083,18 @@
 			"freeze":	0,
 			"hitframes":[20],
 			"soundMap": [
-				
+				{
+					"frame":	8,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	19,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	28,
+					"sound":	"cape"
+				},
 			]
 		},
 		{

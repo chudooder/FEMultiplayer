@@ -35,7 +35,6 @@ public class HitEffect extends Entity {
 				super.update();
 				if(prevFrame != getFrame()) {
 					if(soundMap.get(getFrame()) != null) {
-						System.out.println(soundMap.get(getFrame()));
 						AudioPlayer.playAudio(soundMap.get(getFrame()), 1, 1);
 					}
 				}

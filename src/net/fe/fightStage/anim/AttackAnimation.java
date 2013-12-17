@@ -58,7 +58,6 @@ public abstract class AttackAnimation extends Animation {
 				}
 			}
 			if(soundMap.get(getFrame()) != null) {
-				System.out.println(soundMap.get(getFrame()));
 				AudioPlayer.playAudio(soundMap.get(getFrame()), 1, 1);
 			}
 		}

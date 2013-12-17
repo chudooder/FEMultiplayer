@@ -17,7 +17,7 @@ public class NormalAttack extends AttackAnimation {
 
 	@Override
 	public void onHit() {
-		AudioPlayer.playAudio("hit0", 1, 1);
+		AudioPlayer.playAudio("hit_normal", 1, 1);
 	}
 
 }

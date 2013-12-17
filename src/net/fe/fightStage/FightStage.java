@@ -176,11 +176,6 @@ public class FightStage extends Stage {
 			} else {
 				// System.out.println(rec.animation + "! " + rec.defender.name
 				// + " took " + rec.damage + " damage!");
-				if(rec.animation.contains("Critical")) {
-//					AudioPlayer.playAudio("crit", 1, 1);
-				} else {
-//					AudioPlayer.playAudio("hit"+(int)(Math.random()*3), 1, 1);
-				}
 				defender.setHp(defender.getHp() - rec.damage);
 				attacker.setHp(attacker.getHp() + rec.drain);
 				dhp.setHp(dhp.getHp() - rec.damage);
@@ -200,6 +195,7 @@ public class FightStage extends Stage {
 		} else if (currentEvent == HURTED) {
 			if (dhp.getHp() == 0) {
 				d.dying = true;
+				AudioPlayer.playAudio("die", 1, 1);
 				currentEvent = DYING;
 			} else {
 				currentEvent = RETURNING;

@@ -68,6 +68,7 @@ public class FEMultiplayer extends Game{
 
 		Unit u1 = UnitFactory.getUnit("Lyn");
 		u1.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
+		u1.addToInventory(WeaponFactory.getWeapon("Debug Bow"));
 		u1.equip(1);
 		p1.getParty().addUnit(u1);
 		
@@ -92,7 +93,6 @@ public class FEMultiplayer extends Game{
 		
 		Unit u5 = UnitFactory.getUnit("Roy");
 		u5.equip(0);
-		u5.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
 		p1.getParty().addUnit(u5);
 		
 		Unit u6 = UnitFactory.getUnit("Hector");
@@ -110,6 +110,7 @@ public class FEMultiplayer extends Game{
 		
 		Unit u9 = UnitFactory.getUnit("Matthew");
 		u9.addToInventory(WeaponFactory.getWeapon("Silver Sword"));
+		u9.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
 		u9.equip(0);
 		p1.getParty().addUnit(u9);
 		
