@@ -27,7 +27,30 @@
 			"freeze":	0,
 			"hitframes":[47],
 			"soundMap": [
-				
+				{
+					"frame":	1,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	34,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	43,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	51,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	59,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	70,
+					"sound":	"sheath"
+				}
 			]
 		},
 		{
@@ -42,7 +65,30 @@
 			"freeze":	0,
 			"hitframes":[34],
 			"soundMap": [
-				
+				{
+					"frame":	1,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	28,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	31,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	40,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	49,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	54,
+					"sound":	"sheath"
+				}
 			]
 		},
 		{
@@ -68,6 +114,52 @@
 			"freeze":	0,
 			"hitframes":[16],
 			"soundMap": [
+				{
+					"frame":	2,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	5,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	7,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	11,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	21,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	22,
+					"sound":	"horse_step"
+				}
+				{
+					"frame":	23,
+					"sound":	"horse_step"
+				}
+				{
+					"frame":	30,
+					"sound":	"horse_step"
+				}
+			]
+		},
+		{
+			"name":		"eliwood_javelin_attack",
+			"path":		"res/battle_anim/eliwood_javelin_attack.png",
+			"width":	83,
+			"height":	59,
+			"frames":	9,
+			"columns":	3,
+			"offsetX":	47,
+			"offsetY":	53,
+			"freeze":	0,
+			"hitframes":[7],
+			"soundMap": [
 				
 			]
 		},
@@ -83,7 +175,34 @@
 			"freeze":	0,
 			"hitframes":[22],
 			"soundMap": [
-				
+				{
+					"frame":	2,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	7,
+					"sound":	"horse_whinny"
+				},
+				{
+					"frame":	15,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	16,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	25,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	27,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	28,
+					"sound":	"horse_step"
+				}
 			]
 		},
 		{
@@ -167,27 +286,27 @@
 			"soundMap": [
 				{
 					"frame":34,
-					"sound":"hit"
+					"sound":"hit_normal"
 				},
 				{
 					"frame":37,
-					"sound":"hit"
+					"sound":"hit_normal"
 				},
 				{
 					"frame":40,
-					"sound":"hit"
+					"sound":"hit_normal"
 				},
 				{
 					"frame":43,
-					"sound":"hit"
+					"sound":"hit_normal"
 				},
 				{
 					"frame":46,
-					"sound":"hit"
+					"sound":"hit_normal"
 				},
 				{
 					"frame":49,
-					"sound":"hit"
+					"sound":"hit_normal"
 				}
 				
 			]
@@ -413,7 +532,38 @@
 			"freeze":	0,
 			"hitframes":[22],
 			"soundMap": [
-				
+				{
+					"frame":	2,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	7,
+					"sound":	"horse_whinny"
+				},
+				{
+					"frame":	6,
+					"sound":	"spin_long"
+				},
+				{
+					"frame":	15,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	16,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	25,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	27,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	28,
+					"sound":	"horse_step"
+				}
 			]
 		},
 		{
@@ -458,7 +608,30 @@
 			"freeze":	0,
 			"hitframes":[60],
 			"soundMap": [
-				
+				{
+					"frame":	1,
+					"sound":	"spin"
+				},
+				{
+					"frame":	8,
+					"sound":	"spin"
+				},
+				{
+					"frame":	16,
+					"sound":	"spin"
+				},
+				{
+					"frame":	32,
+					"sound":	"spin"
+				},
+				{
+					"frame":	40,
+					"sound":	"spin"
+				},
+				{
+					"frame":	48,
+					"sound":	"spin"
+				},
 			]
 		},
 		{
@@ -593,6 +766,62 @@
 			]
 		},
 		{
+			"name":		"hero_axe_attack",
+			"path":		"res/battle_anim/hero_axe_attack.png",
+			"width":	113,
+			"height":	108,
+			"frames":	59,
+			"columns":	8,
+			"offsetX":	77,
+			"offsetY":	98,
+			"freeze":	-1,
+			"hitframes":[17],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"hero_axe_dodge",
+			"path":		"res/battle_anim/hero_axe_dodge.png",
+			"width":	42,
+			"height":	40,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	13,
+			"offsetY":	31,
+			"freeze":	0,
+		},
+		{
+			"name":		"hero_sword_attack",
+			"path":		"res/battle_anim/hero_sword_attack.png",
+			"width":	111,
+			"height":	108,
+			"frames":	55,
+			"columns":	8,
+			"offsetX":	77,
+			"offsetY":	98,
+			"freeze":	-1,
+			"hitframes":[15],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"hero_sword_critical",
+			"path":		"res/battle_anim/hero_sword_critical.png",
+			"width":	118,
+			"height":	109,
+			"frames":	185,
+			"columns":	14,
+			"offsetX":	82,
+			"offsetY":	100,
+			"freeze":	-1,
+			"hitframes":[63],
+			"soundMap": [
+				
+			]
+		},
+		{
 			"name":		"hit_effect_attack",
 			"path":		"res/battle_anim/hit_effect_attack.png",
 			"width":	240,
@@ -605,7 +834,7 @@
 			"soundMap": [
 				{
 					"frame": 0,
-					"sound":"hit"
+					"sound":"hit_normal"
 				}
 			]
 		},
@@ -622,7 +851,7 @@
 			"soundMap": [
 				{
 					"frame": 0,
-					"sound":"crit"
+					"sound":"hit_crit"
 				}
 			]
 		},
@@ -637,10 +866,7 @@
 			"offsetY":	110,
 			"freeze":	-1,
 			"soundMap": [
-				{
-					"frame": 3,
-					"sound":"elfire"
-				}
+				
 			]
 		},
 		{
@@ -736,6 +962,13 @@
 			"name":		"gui_battleStats",
 			"path":		"res/gui/battleStats.png"
 		},
-		
+		{
+			"name":		"proj_arrow",
+			"path":		"res/battle_anim/proj_arrow.png"
+		}
+				{
+			"name":		"proj_javelin",
+			"path":		"res/battle_anim/proj_javelin.png"
+		}
 	]
 }

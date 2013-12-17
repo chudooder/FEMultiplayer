@@ -43,9 +43,9 @@ public class Zone extends Entity {
 			Renderer.drawRectangle(x, y, x+16, y+16, renderDepth, color);
 			Color mult;
 			if(color == MOVE_DARK || color == ATTACK_DARK || color == HEAL_DARK)
-				mult = new Color(0.6f, 0.6f, 0.6f, 0.5f);
+				mult = new Color(1f, 1f, 1f, 0.5f);
 			else
-				mult = new Color(1f, 1f, 1f, .5f);
+				mult = new Color(1f, 1f, 1f, .75f);
 			Transform t = new Transform();
 			t.setColor(mult.multiply(color));
 			if(color == MOVE_DARK || color == MOVE_LIGHT) {

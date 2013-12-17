@@ -1,18 +1,18 @@
 package net.fe.fightStage.anim;
 
 import chu.engine.Game;
-import chu.engine.TextureData;
+import chu.engine.AnimationData;
 import chu.engine.anim.Animation;
 
 public class DodgeAnimation extends Animation {
 	
 	public static final float DODGE_DURATION = 0.25f;
-	public static final int NORMAL_SPEED = 60;
+	public static final float NORMAL_SPEED = .06f;
 	
 	private float dodgeTimer;
 	private boolean dodging;
 
-	public DodgeAnimation(TextureData data) {
+	public DodgeAnimation(AnimationData data) {
 		super(data.texture, data.frameWidth, data.frameHeight, data.frames,
 				data.columns, data.offsetX, data.offsetY,
 				DodgeAnimation.NORMAL_SPEED);

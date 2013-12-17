@@ -65,10 +65,6 @@ public class FEMultiplayer extends Game{
 //		client = new Client();
 		/* OpenGL final setup */
 		glEnable(GL_LINE_SMOOTH);
-		
-		
-		
-		
 
 		Unit u1 = UnitFactory.getUnit("Lyn");
 		u1.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
@@ -83,8 +79,10 @@ public class FEMultiplayer extends Game{
 
 		Unit u2 = UnitFactory.getUnit("Eliwood");
 		u2.addToInventory(WeaponFactory.getWeapon("Brave Lance"));
+		u2.addToInventory(WeaponFactory.getWeapon("Debug Lance"));
+		u2.addToInventory(WeaponFactory.getWeapon("Javelin"));
 		u2.equip(1);
-		p2.getParty().addUnit(u2);
+		p1.getParty().addUnit(u2);
 		
 		Unit u4 = UnitFactory.getUnit("Lute");
 		u4.addToInventory(WeaponFactory.getWeapon("Elfire"));
@@ -94,6 +92,7 @@ public class FEMultiplayer extends Game{
 		
 		Unit u5 = UnitFactory.getUnit("Roy");
 		u5.equip(0);
+		u5.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
 		p1.getParty().addUnit(u5);
 		
 		Unit u6 = UnitFactory.getUnit("Hector");
@@ -113,11 +112,19 @@ public class FEMultiplayer extends Game{
 		u9.addToInventory(WeaponFactory.getWeapon("Silver Sword"));
 		u9.equip(0);
 		p1.getParty().addUnit(u9);
+		
 		Unit u10 = UnitFactory.getUnit("Gilliam");
-		u10.addToInventory(WeaponFactory.getWeapon("Ladle"));
+		u10.addToInventory(WeaponFactory.getWeapon("Debug Axe"));
 		u10.addToInventory(WeaponFactory.getWeapon("Horseslayer"));
 		u10.equip(0);
 		p1.getParty().addUnit(u10);
+		
+		Unit u11 = UnitFactory.getUnit("Raven");
+		u11.addToInventory(WeaponFactory.getWeapon("Killer Axe"));
+		u11.addToInventory(WeaponFactory.getWeapon("Tree Branch"));
+		u11.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
+		u11.equip(0);
+		p1.getParty().addUnit(u11);
 		
 		
 
@@ -131,6 +138,7 @@ public class FEMultiplayer extends Game{
 		u8.setLevel(20);
 		u9.setLevel(20);
 		u10.setLevel(20);
+		u11.setLevel(20);
 		
 		u1.fillHp();
 		u2.fillHp();
@@ -142,6 +150,7 @@ public class FEMultiplayer extends Game{
 		u8.fillHp();
 		u9.fillHp();
 		u10.fillHp();
+		u11.fillHp();
 		
 		map = new OverworldStage(new Grid(20,10, Terrain.PLAIN), p1);
 		map.addUnit(u1, 0, 0);
@@ -153,7 +162,8 @@ public class FEMultiplayer extends Game{
 		map.addUnit(u7, 6, 3);
 		map.addUnit(u8, 2, 2);
 		map.addUnit(u9, 0, 2);
-		map.addUnit(u10,3, 4);
+		map.addUnit(u10, 3, 4);
+		map.addUnit(u11, 4, 0);
 		map.setControl(true);
 		
 		

@@ -1,12 +1,12 @@
 package net.fe.fightStage.anim;
 
 import net.fe.fightStage.FightStage;
-import chu.engine.TextureData;
+import chu.engine.AnimationData;
 import chu.engine.anim.AudioPlayer;
 
 public class MagicAttack extends AttackAnimation{
 
-	public MagicAttack(TextureData data, FightStage stage,
+	public MagicAttack(AnimationData data, FightStage stage,
 			AnimationArgs animArgs) {
 		super(data, stage, animArgs);
 	}

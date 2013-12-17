@@ -177,9 +177,9 @@ public class FightStage extends Stage {
 				// System.out.println(rec.animation + "! " + rec.defender.name
 				// + " took " + rec.damage + " damage!");
 				if(rec.animation.contains("Critical")) {
-					AudioPlayer.playAudio("kuritiku_hittu", 1, 1);
+//					AudioPlayer.playAudio("crit", 1, 1);
 				} else {
-					AudioPlayer.playAudio("hit"+(int)(Math.random()*3), 1, 1);
+//					AudioPlayer.playAudio("hit"+(int)(Math.random()*3), 1, 1);
 				}
 				defender.setHp(defender.getHp() - rec.damage);
 				attacker.setHp(attacker.getHp() + rec.drain);
