@@ -125,17 +125,17 @@ public class Unit extends GriddedEntity {
 		Renderer.drawLine(x+1,y+13.5f, x+1+hpLength, y+13.5f, 1, OverworldStage.UNIT_DEPTH-0.01f, Color.red, Color.green);
 	}
 
-	public void levelUp() {
-		if (stats.get("Lvl") == 20) {
-			return;
-		}
-		stats.put("Lvl", stats.get("Lvl") + 1);
-		for (String stat : growths.keySet()) {
-			stats.put(stat, stats.get(stat)
-					+ (float) (growths.get(stat) / 100.0));
-		}
-		fillHp();
-	}
+//	public void levelUp() {
+//		if (stats.get("Lvl") == 20) {
+//			return;
+//		}
+//		stats.put("Lvl", stats.get("Lvl") + 1);
+//		for (String stat : growths.keySet()) {
+//			stats.put(stat, stats.get(stat)
+//					+ (float) (growths.get(stat) / 100.0));
+//		}
+//		fillHp();
+//	}
 
 	public void setLevel(int lv) {
 		if (lv > 20 || lv < 1) {
@@ -144,8 +144,9 @@ public class Unit extends GriddedEntity {
 		stats.put("Lvl", (float) lv);
 		lv--;
 		for (String stat : growths.keySet()) {
-			stats.put(stat, bases.get(stat)
-					+ (float) (lv * growths.get(stat) / 100.0));
+			float newStat = bases.get(stat)
+					+ (float) (lv * growths.get(stat) / 100.0);
+			stats.put(stat, Math.min(newStat, 35));
 		}
 		fillHp();
 	}
