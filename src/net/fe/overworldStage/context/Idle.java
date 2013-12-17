@@ -14,26 +14,40 @@ public class Idle extends CursorContext {
 	}
 	
 	public void startContext(){
-		super.startContext();
-		stage.clearCmdString();
-		Unit u = getHoveredUnit();
-		if(u!=null && !u.hasMoved()){
-			addZones(u);
+		boolean movable = false;
+		for(Unit u: stage.getPlayer().getParty()){
+			if(!u.hasMoved()){
+				movable = true;
+			}
 		}
+		if(movable){
+			super.startContext();
+			Unit u = getHoveredUnit();
+			if(u!=null && !u.hasMoved()){
+				addZones(u);
+			}
+		} else {
+			stage.end();
+		}
+	}
+	
+	
+	public void cleanUp(){
+		removeZones();
 	}
 
 	@Override
 	public void onSelect() {
 		Unit u = getHoveredUnit();
 		if(u!=null && u.getParty() == player.getParty() && !u.hasMoved()){
-			removeZones();
 			new UnitSelected(stage, this, u).startContext();
 		}
 		if(u == null){
-			//TODO end
+			new EndMenu(stage, this).startContext();
 		}
 
 	}
+
 
 	@Override
 	public void onCancel() {

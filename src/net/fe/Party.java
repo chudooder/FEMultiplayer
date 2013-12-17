@@ -1,12 +1,13 @@
 package net.fe;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.newdawn.slick.Color;
 
 import net.fe.unit.Unit;
 
-public class Party {
+public class Party implements Iterable<Unit>{
 	private Color color;
 	private ArrayList<Unit> units;
 	private ArrayList<Party> allies;
@@ -61,6 +62,11 @@ public class Party {
 	
 	public Color getColor(){
 		return color;
+	}
+
+	@Override
+	public Iterator<Unit> iterator() {
+		return units.iterator();
 	}
 
 }

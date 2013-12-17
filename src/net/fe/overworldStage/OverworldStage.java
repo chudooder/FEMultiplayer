@@ -67,7 +67,8 @@ public class OverworldStage extends Stage {
 		return player;
 	}
 	
-	public void returnToNeutral(){
+	public void reset(){
+		context.cleanUp();
 		for(Entity e: entities){
 			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor)){
 				removeEntity(e);
@@ -152,6 +153,7 @@ public class OverworldStage extends Stage {
 	}
 
 	void setContext(OverworldContext c) {
+		context.cleanUp();
 		context = c;
 	}
 	
@@ -164,10 +166,13 @@ public class OverworldStage extends Stage {
 	}
 	
 	public void end(){
+		clearCmdString();
+		selectedUnit = null;
+		reset();
 		//TODO implement
 	}
 	
-	public void clearCmdString(){
+	private void clearCmdString(){
 		movX = 0;
 		movY = 0;
 		currentCmdString.clear();
@@ -191,5 +196,6 @@ public class OverworldStage extends Stage {
 	
 	public void send(){
 		FEMultiplayer.send(new UnitIdentifier(selectedUnit), movX, movY, currentCmdString.toArray());
+		clearCmdString();
 	}
 }

@@ -35,13 +35,11 @@ public class AttackWeapon extends OverworldContext{
 		attacker.moved();
 		cursor.setXCoord(attacker.getXCoord());
 		cursor.setYCoord(attacker.getYCoord());
-		stage.returnToNeutral();
+		stage.reset();
 	}
-
-	@Override
-	public void onCancel() {
+	
+	public void cleanUp(){
 		stage.removeEntity(preview);
-		prev.startContext();
 	}
 
 	@Override

@@ -17,6 +17,10 @@ public abstract class MenuContext<T> extends OverworldContext{
 		super.startContext();
 		stage.setMenu(menu);
 	}
+	
+	public void cleanUp(){
+		stage.setMenu(null);
+	}
 
 	public void onSelect(){
 		onSelect(menu.getSelection());

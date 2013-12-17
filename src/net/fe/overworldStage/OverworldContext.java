@@ -17,7 +17,9 @@ public abstract class OverworldContext {
 
 	public abstract void onSelect();
 
-	public abstract void onCancel();
+	public void onCancel(){
+		prev.startContext();
+	}
 
 	public abstract void onUp();
 	
@@ -29,6 +31,10 @@ public abstract class OverworldContext {
 	
 	public void startContext(){
 		stage.setContext(this);
+	}
+	
+	public void cleanUp(){
+		
 	}
 
 	protected Unit getHoveredUnit() {
