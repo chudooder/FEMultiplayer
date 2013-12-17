@@ -146,7 +146,8 @@ public class Unit extends GriddedEntity {
 		for (String stat : growths.keySet()) {
 			float newStat = bases.get(stat)
 					+ (float) (lv * growths.get(stat) / 100.0);
-			stats.put(stat, Math.min(newStat, 35));
+			float max = stat.equals("HP")? 60: 35;
+			stats.put(stat, Math.min(newStat, max));
 		}
 		fillHp();
 	}
