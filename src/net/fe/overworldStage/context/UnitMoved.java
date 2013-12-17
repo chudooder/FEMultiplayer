@@ -37,6 +37,60 @@ public class UnitMoved extends MenuContext<String> {
 		stage.setMovX(unit.getXCoord() - unit.getOrigX());
 		stage.setMovY(unit.getYCoord() - unit.getOrigY());
 	}
+	
+	public void cleanUp(){
+		super.cleanUp();
+		stage.removeEntity(zone);
+	}
+	
+	@Override
+	public void onSelect(String selectedItem) {
+		// TODO
+		stage.setMenu(null);
+		if (selectedItem.equals("Wait")) {
+			stage.addCmd("Wait");
+			stage.send();
+			unit.moved();
+			stage.reset();	
+		} else if (selectedItem.equals("Attack") || selectedItem.equals("Heal")) {
+			new AttackTarget(stage, this, zone, unit,
+					selectedItem.equals("Heal")).startContext();
+		} else if (selectedItem.equals("Item")){
+			new ItemCmd(stage, this, unit).startContext();
+		}
+	}
+
+	public void onChange() {
+		updateZones();
+	}
+	
+
+	@Override
+	public void onCancel() {
+		if (!fromTrade)
+			return; // You can't cancel this.
+		super.onCancel();
+	}
+
+	public void updateZones() {
+		stage.removeEntity(zone);
+		if (menu.getSelection().equals("Attack")) {
+			zone = new Zone(grid.getRange(
+					new Node(unit.getXCoord(), unit.getYCoord()),
+					unit.getTotalWepRange(false)), Zone.ATTACK_DARK);
+			stage.addEntity(zone);
+		} else if (menu.getSelection().equals("Heal")) {
+			zone = new Zone(grid.getRange(
+					new Node(unit.getXCoord(), unit.getYCoord()),
+					unit.getTotalWepRange(true)), Zone.HEAL_DARK);
+			stage.addEntity(zone);
+		} else if (menu.getSelection().equals("Trade")) {
+			zone = new Zone(grid.getRange(
+					new Node(unit.getXCoord(), unit.getYCoord()), 1),
+					Zone.MOVE_DARK);
+			stage.addEntity(zone);
+		}
+	}
 
 	public List<String> getCommands(Unit u) {
 		// TODO Rescue
@@ -88,55 +142,8 @@ public class UnitMoved extends MenuContext<String> {
 		return list;
 	}
 
-	@Override
-	public void onSelect(String selectedItem) {
-		// TODO
-		stage.setMenu(null);
-		if (selectedItem.equals("Wait")) {
-			stage.addCmd("Wait");
-			stage.send();
-			unit.moved();
-			stage.returnToNeutral();	
-		} else if (selectedItem.equals("Attack") || selectedItem.equals("Heal")) {
-			new AttackTarget(stage, this, zone, unit,
-					selectedItem.equals("Heal")).startContext();
-		} else if (selectedItem.equals("Item")){
-			new ItemCmd(stage, this, unit).startContext();
-		}
-	}
+	
 
-	public void onChange() {
-		updateZones();
-	}
-
-	public void updateZones() {
-		stage.removeEntity(zone);
-		if (menu.getSelection().equals("Attack")) {
-			zone = new Zone(grid.getRange(
-					new Node(unit.getXCoord(), unit.getYCoord()),
-					unit.getTotalWepRange(false)), Zone.ATTACK_DARK);
-			stage.addEntity(zone);
-		} else if (menu.getSelection().equals("Heal")) {
-			zone = new Zone(grid.getRange(
-					new Node(unit.getXCoord(), unit.getYCoord()),
-					unit.getTotalWepRange(true)), Zone.HEAL_DARK);
-			stage.addEntity(zone);
-		} else if (menu.getSelection().equals("Trade")) {
-			zone = new Zone(grid.getRange(
-					new Node(unit.getXCoord(), unit.getYCoord()), 1),
-					Zone.MOVE_DARK);
-			stage.addEntity(zone);
-		}
-	}
-
-	@Override
-	public void onCancel() {
-		if (!fromTrade)
-			return; // You can't cancel this.
-		stage.setMenu(null);
-		stage.removeEntity(zone);
-		prev.startContext();
-	}
 
 	@Override
 	public void onLeft() {

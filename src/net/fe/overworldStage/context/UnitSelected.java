@@ -30,6 +30,13 @@ public class UnitSelected extends CursorContext {
 		
 		updatePath();
 	}
+	
+	public void cleanUp(){
+		stage.removeEntity(attack);
+		stage.removeEntity(move);
+		stage.removeEntity(heal);
+		stage.removeEntity(path);
+	}
 
 	@Override
 	public void onSelect() {
@@ -39,10 +46,6 @@ public class UnitSelected extends CursorContext {
 			selected.move(path, new Command() {
 				@Override
 				public void execute() {
-					stage.removeEntity(attack);
-					stage.removeEntity(move);
-					stage.removeEntity(heal);
-					stage.removeEntity(path);
 					new UnitMoved(stage, UnitSelected.this,
 							selected, true).startContext();
 				}
@@ -52,13 +55,9 @@ public class UnitSelected extends CursorContext {
 
 	@Override
 	public void onCancel() {
-		stage.removeEntity(move);
-		stage.removeEntity(attack);
-		stage.removeEntity(heal);
-		stage.removeEntity(path);
 		cursor.setXCoord(selected.getOrigX());
 		cursor.setYCoord(selected.getOrigY());
-		prev.startContext();
+		super.onCancel();
 	}
 
 	public void cursorChanged() {

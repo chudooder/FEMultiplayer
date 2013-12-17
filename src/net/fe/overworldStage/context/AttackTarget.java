@@ -32,7 +32,7 @@ public class AttackTarget extends SelectTargetContext {
 			unit.moved();
 			cursor.setXCoord(unit.getXCoord());
 			cursor.setYCoord(unit.getYCoord());
-			stage.returnToNeutral();
+			stage.reset();
 		} else {
 			new AttackWeapon(stage, this, unit, u).startContext();
 		}

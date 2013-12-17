@@ -29,11 +29,6 @@ public class ItemCmd extends MenuContext<ItemDisplay>{
 	}
 
 	@Override
-	public void onCancel() {
-		stage.setMenu(null);
-		prev.startContext();
-	}
-	@Override
 	public void onLeft() {
 		// TODO Auto-generated method stub
 		
