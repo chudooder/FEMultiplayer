@@ -31,23 +31,15 @@ public class Resources {
 	
 	
 	private static HashMap<String, Audio> audio;
-	private static HashMap<String, TextureData> textures;
-	private static HashMap<String, TrueTypeFont> fonts;
+	private static HashMap<String, AnimationData> textures;
 	private static HashMap<String, BitmapFont> bitmapFonts;
 	
 	static {
 		audio = new HashMap<String, Audio>();
-		textures = new HashMap<String, TextureData>() {
+		textures = new HashMap<String, AnimationData>() {
 			@Override
-			public TextureData put(String string, TextureData data) {
+			public AnimationData put(String string, AnimationData data) {
 				System.out.println(string + "(texture) loaded.");
-				return super.put(string, data);
-			}
-		};
-		fonts = new HashMap<String, TrueTypeFont>() {
-			@Override
-			public TrueTypeFont put(String string, TrueTypeFont data) {
-				System.out.println(string + "(font) loaded.");
 				return super.put(string, data);
 			}
 		};
@@ -60,17 +52,8 @@ public class Resources {
 			loadBitmapFonts();
 			
 			//load audio
-			audio.put("hit0", AudioLoader.getAudio("WAV",
-					ResourceLoader.getResourceAsStream("res/battle_sounds/hit1.wav")));
-			audio.put("hit1", AudioLoader.getAudio("WAV",
-					ResourceLoader.getResourceAsStream("res/battle_sounds/hit2.wav")));
-			audio.put("hit2", AudioLoader.getAudio("WAV",
-					ResourceLoader.getResourceAsStream("res/battle_sounds/hit3.wav")));
-			audio.put("crit", AudioLoader.getAudio("WAV",
-					ResourceLoader.getResourceAsStream("res/battle_sounds/crit.wav")));
-			audio.put("kuritiku_hittu", AudioLoader.getAudio("WAV",
-					ResourceLoader.getResourceAsStream("res/battle_sounds/kuritiku.wav")));
-			
+			audio.put("miss", AudioLoader.getAudio("WAV",
+					ResourceLoader.getResourceAsStream("res/battle_sounds/miss.wav")));
 			
 		} catch (IOException e) {
 			int max = GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE);
@@ -82,7 +65,7 @@ public class Resources {
 	public static Texture getTexture(String string) {
 		return getTextureData(string).texture;
 	}
-	
+
 	private static void loadTextures() {
 		// TODO Load textures from JSON
 		InputStream file = ResourceLoader.getResourceAsStream("res/resources.json");
@@ -106,6 +89,9 @@ public class Resources {
 			Number offsetX = (Number)texture.get("offsetX");
 			Number offsetY = (Number)texture.get("offsetY");
 			JSONArray hitArray = (JSONArray) texture.get("hitframes");
+			JSONArray audioArray = (JSONArray) texture.get("soundMap");
+			HashMap<Integer, String> audioMap = new HashMap<Integer, String>();
+			
 			int[] hitframes;
 			if(hitArray != null) {
 				hitframes = new int[hitArray.size()];
@@ -115,12 +101,20 @@ public class Resources {
 			} else {
 				hitframes = new int[0];
 			}
+			
+			if(audioArray != null) {
+				for(Object obj2 : audioArray) {
+					JSONObject audio = (JSONObject) obj2; 
+					audioMap.put(((Number)audio.get("frame")).intValue(), 
+							(String)audio.get("sound"));
+				}
+			}
 			try {
 				if(width == null) {
-					textures.put(name, new TextureData(TextureLoader.getTexture("PNG",
+					textures.put(name, new AnimationData(TextureLoader.getTexture("PNG",
 							ResourceLoader.getResourceAsStream(path))));
 				} else {
-					textures.put(name, new TextureData(TextureLoader.getTexture("PNG",
+					textures.put(name, new AnimationData(TextureLoader.getTexture("PNG",
 							ResourceLoader.getResourceAsStream(path)),
 							width.intValue(),
 							height.intValue(),
@@ -129,8 +123,11 @@ public class Resources {
 							offsetX.intValue(),
 							offsetY.intValue(),
 							freeze.intValue(),
-							hitframes));
-					System.out.println(" - "+name+": " +path+"\n - "+width+" "+height+" "+frames+" "+columns+" "+freeze);
+							hitframes,
+							audioMap));
+					System.out.println(" - " + name + ": " + path + "\n - "
+							+ width + " " + height + " " + frames + " "
+							+ columns + " " + freeze);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -171,8 +168,8 @@ public class Resources {
 		}
 	}
 
-	public static TextureData getTextureData(String string) {
-		TextureData t = textures.get(string);
+	public static AnimationData getTextureData(String string) {
+		AnimationData t = textures.get(string);
 		if(t != null) {
 			return t;
 		} else {
@@ -180,7 +177,7 @@ public class Resources {
 			System.out.println("Warn:" + string + " not explicitly defined");
 			for(String loc: searchFolders){
 				try{
-					TextureData txt = new TextureData(TextureLoader.getTexture("PNG",
+					AnimationData txt = new AnimationData(TextureLoader.getTexture("PNG",
 							ResourceLoader.getResourceAsStream(
 								"res/" + loc + "/" + string + ".png"
 							)));
@@ -216,12 +213,21 @@ public class Resources {
 		}
 	}
 
-	public static TrueTypeFont getFont(String fontName) {
-		return fonts.get(fontName);
-	}
-
 	public static Audio getAudio(String name) {
-		return audio.get(name);
+		Audio a = audio.get(name);
+		if(a == null) {
+			System.out.println("Warn:" + name + " not explicitly defined");
+			try{
+				Audio b = AudioLoader.getAudio("WAV",
+						ResourceLoader.getResourceAsStream("res/battle_sounds/"+name+".wav"));
+				audio.put(name, b);
+				return b;
+			} catch (Exception e){
+				return null;
+			}
+		} else {
+			return a;
+		}
 	}
 
 }

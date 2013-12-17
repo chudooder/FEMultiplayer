@@ -6,7 +6,7 @@ import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.opengl.Texture;
 
 public 
-class TextureData {
+class AnimationData {
 	public Texture texture;
 	public int frames;
 	public int columns;
@@ -16,9 +16,10 @@ class TextureData {
 	public int offsetY;
 	public int freeze;
 	public int[] hitframes;
-	public HashMap<Integer, Audio> soundMap;
+	public HashMap<Integer, String> soundMap;
 	
-	public TextureData(Texture t, int w, int h, int r, int c, int x, int y, int f, int[] frames) {
+	public AnimationData(Texture t, int w, int h, int r, int c, int x, int y,
+			int f, int[] frames, HashMap<Integer, String> soundMap) {
 		texture = t;
 		this.frames = r;
 		columns = c;
@@ -28,10 +29,10 @@ class TextureData {
 		frameHeight = h;
 		freeze = f;
 		hitframes = frames;
-		soundMap = new HashMap<Integer, Audio>();
+		this.soundMap = soundMap;
 	}
 	
-	public TextureData(Texture t) {
+	public AnimationData(Texture t) {
 		texture = t;
 		frames = 1;
 		columns = 1;

@@ -25,10 +25,10 @@ public class BattlePreview extends Entity {
 		sprites = new ArrayList<Sprite>();
 		rightArrow = new Sprite();
 		rightArrow.addAnimation("default",
-				Resources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 100);
+				Resources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 0.1f);
 		leftArrow = new Sprite();
 		leftArrow.addAnimation("default",
-				Resources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 100);
+				Resources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 0.1f);
 		x2 = new CirclingSprite(2.2f, 1.2f, true);
 		x2.addAnimation("default", Resources.getTexture("x2"));
 		x4 = new CirclingSprite(2.2f, 1.2f, true);
@@ -158,6 +158,7 @@ public class BattlePreview extends Entity {
 		private float period;
 		private boolean clockwise;
 		public CirclingSprite(float radius, float period, boolean clockwise) {
+			super();
 			timer = 0;
 			this.radius = radius;
 			this.period = period;

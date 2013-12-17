@@ -3,7 +3,7 @@ package net.fe.fightStage.anim;
 import net.fe.fightStage.FightStage;
 import chu.engine.Entity;
 import chu.engine.Resources;
-import chu.engine.TextureData;
+import chu.engine.AnimationData;
 import chu.engine.anim.Animation;
 import chu.engine.anim.Transform;
 
@@ -14,10 +14,10 @@ public class MagicEffect extends Entity {
 		super(0, 0);
 		this.args = args;
 		// TODO Get the magic animation
-		TextureData data = getTexture(args.unit.getWeapon().name.toLowerCase());
+		AnimationData data = getTexture(args.unit.getWeapon().name.toLowerCase());
 		Animation anim = new Animation(data.texture, data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
-				data.offsetY, 20) {
+				data.offsetY, 0.02f) {
 			@Override
 			public void done() {
 				setFrame(0);
@@ -43,7 +43,7 @@ public class MagicEffect extends Entity {
 		
 	}
 
-	public static TextureData getTexture(String name) {
+	public static AnimationData getTexture(String name) {
 		return Resources.getTextureData("magic_effect_" + name);
 	}
 

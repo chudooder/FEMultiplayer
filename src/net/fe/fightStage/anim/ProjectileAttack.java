@@ -1,14 +1,16 @@
 package net.fe.fightStage.anim;
 
 import net.fe.fightStage.FightStage;
-import chu.engine.TextureData;
+import chu.engine.AnimationData;
 import chu.engine.anim.AudioPlayer;
 
 public class ProjectileAttack extends AttackAnimation{
 	private boolean weFailed;
-	public ProjectileAttack(TextureData data, FightStage stage,
+	private AnimationArgs animArgs;
+	public ProjectileAttack(AnimationData data, FightStage stage,
 			AnimationArgs animArgs) {
 		super(data, stage, animArgs);
+		this.animArgs = animArgs;
 	}
 	
 	public void done(){
@@ -40,13 +42,14 @@ public class ProjectileAttack extends AttackAnimation{
 				animationArgs.wepAnimName, 
 				FightStage.FLOOR - 25,
 				stage, animationArgs.left,
-				animationArgs.wepAnimName.equals("javelin")));
+				animationArgs.wepAnimName.equals("javelin"),
+				animArgs));
 		onHit();
 	}
 
 	@Override
 	public void onHit() {
-		AudioPlayer.playAudio("hit"+(int)(Math.random()*3), 1, 1);
+		AudioPlayer.playAudio("hit", 1, 1);
 	}
 
 }

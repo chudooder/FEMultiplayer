@@ -27,10 +27,10 @@ public class Sprite {
 	 * @param width Width of a single frame in pixels
 	 * @param height Height of a single frame in pixels
 	 * @param frames Number of frames in the animation
-	 * @param speed Speed of the animation in frames per second
+	 * @param f Speed of the animation in frames per second
 	 */
-	public void addAnimation(String name, Texture tex, int width, int height, int rows, int columns, int speed) {
-		Animation anim = new Animation(tex, width, height, rows, columns, speed);
+	public void addAnimation(String name, Texture tex, int width, int height, int rows, int columns, float f) {
+		Animation anim = new Animation(tex, width, height, rows, columns, f);
 		animations.put(name.toUpperCase(), anim);
 		currentAnimation = anim;
 		curAnimName = name;
@@ -174,8 +174,8 @@ public class Sprite {
 				x + width - offX, y + height - offY, depth, transform);
 	}
 
-	public void setSpeed(int i) {
-		currentAnimation.setSpeed(i);
+	public void setSpeed(float newSpeed) {
+		currentAnimation.setSpeed(newSpeed);
 	}
 	
 	public String getAnimationName() {

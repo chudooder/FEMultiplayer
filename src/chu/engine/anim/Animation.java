@@ -11,12 +11,12 @@ public class Animation {
 	private int rows;
 	private int columns;
 	private int currentFrame;
-	private int counter;
+	private float counter;
 	private int length;
 	private int offsetX;
 	private int offsetY;
 	protected Sprite sprite;
-	protected int speed;			//Time for each frame in milliseconds
+	protected float speed;			//Time for each frame in seconds
 	
 	public Animation(Texture t) {
 		texture = t;
@@ -26,9 +26,11 @@ public class Animation {
 		rows = 1;
 		columns = 1;
 		speed = 0;
+		currentFrame = 0;
+		counter = 0;
 	}
 	
-	public Animation(Texture t, int width, int height, int length, int columns, int speed) {
+	public Animation(Texture t, int width, int height, int length, int columns, float speed) {
 		this(t);
 		this.width = width;
 		this.height = height;
@@ -38,9 +40,12 @@ public class Animation {
 		this.speed = speed;
 		this.offsetX = 0;
 		this.offsetY = 0;
+		this.currentFrame = 0;
+		counter = 0;
 	}
 	
-	public Animation(Texture t, int width, int height, int length, int columns, int offsetX, int offsetY, int speed) {
+	public Animation(Texture t, int width, int height, int length, int columns,
+			int offsetX, int offsetY, float speed) {
 		this(t);
 		this.width = width;
 		this.height = height;
@@ -50,6 +55,8 @@ public class Animation {
 		this.speed = speed;
 		this.offsetX = offsetX;
 		this.offsetY = offsetY;
+		this.currentFrame = 0;
+		counter = 0;
 	}
 	
 	public int getLength() { return length; }
@@ -64,8 +71,8 @@ public class Animation {
 	
 	
 	public void update() {
-		if(speed != 0) counter += Game.getDelta();
-		if(speed != 0 && counter/1000000 > Math.abs(speed)) {
+		if(speed != 0) counter += Game.getDeltaSeconds();
+		if(speed != 0 && counter > Math.abs(speed)) {
 			increment();
 			counter = 0;
 		}
@@ -92,8 +99,8 @@ public class Animation {
 		this.currentFrame = i;
 	}
 
-	public void setSpeed(int i) {
-		speed = i;
+	public void setSpeed(float newSpeed) {
+		speed = newSpeed;
 	}
 
 	public void setSprite(Sprite sprite2) {
