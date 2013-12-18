@@ -25,6 +25,7 @@
 			"offsetX":	75,
 			"offsetY":	99,
 			"freeze":	0,
+			"speed":	0.045,
 			"hitframes":[47],
 			"soundMap": [
 				{
@@ -54,6 +55,10 @@
 				{
 					"frame":	77,
 					"sound":	"jump"
+				},
+				{
+					"frame":	91,
+					"sound":	"land"
 				}
 			]
 		},
@@ -67,6 +72,7 @@
 			"offsetX":	76,
 			"offsetY":	100,
 			"freeze":	0,
+			"speed":	0.045,
 			"hitframes":[34],
 			"soundMap": [
 				{
@@ -92,6 +98,10 @@
 				{
 					"frame":	63,
 					"sound":	"jump"
+				}
+				{
+					"frame":	76,
+					"sound":	"land"
 				}
 			]
 		},
@@ -141,11 +151,11 @@
 				{
 					"frame":	22,
 					"sound":	"horse_step"
-				}
+				},
 				{
 					"frame":	23,
 					"sound":	"horse_step"
-				}
+				},
 				{
 					"frame":	30,
 					"sound":	"horse_step"
@@ -366,6 +376,10 @@
 					"frame":	16,
 					"sound":	"jump"
 				},
+				{
+					"frame":	26,
+					"sound":	"land"
+				},
 			]
 		},
 		{
@@ -487,7 +501,10 @@
 			"freeze":	8,
 			"hitframes":[16],
 			"soundMap": [
-				
+				{
+					"frame":	1,
+					"sound":	"magic_charge"
+				}
 			]
 		},
 		{
@@ -897,9 +914,25 @@
 			"offsetX":	68,
 			"offsetY":	50,
 			"freeze":	0,
+			"speed":	0.035,
 			"hitframes":[9],
 			"soundMap": [
-				
+				{
+					"frame":	8,
+					"sound":	"lance_throw"
+				},
+				{
+					"frame":	14,
+					"sound":	"clink"
+				},
+				{
+					"frame":	18,
+					"sound":	"clink"
+				},
+				{
+					"frame":	29,
+					"sound":	"catch"
+				},
 			]
 		},
 		{
@@ -943,6 +976,22 @@
 					"frame":	48,
 					"sound":	"axe_swipe4"
 				},
+				{
+					"frame":	59,
+					"sound":	"lance_throw"
+				},
+				{
+					"frame":	64,
+					"sound":	"clink"
+				},
+				{
+					"frame":	68,
+					"sound":	"clink"
+				},
+				{
+					"frame":	79,
+					"sound":	"catch"
+				},
 			]
 		},
 		{
@@ -985,9 +1034,25 @@
 			"offsetX":	84,
 			"offsetY":	50,
 			"freeze":	0,
+			"speed":	0.035,
 			"hitframes":[10],
 			"soundMap": [
-				
+				{
+					"frame":	9,
+					"sound":	"lance_throw"
+				},
+				{
+					"frame":	14,
+					"sound":	"clink"
+				},
+				{
+					"frame":	19,
+					"sound":	"clink"
+				},
+				{
+					"frame":	29,
+					"sound":	"catch"
+				}
 			]
 		},
 		{
@@ -1000,9 +1065,53 @@
 			"offsetX":	84,
 			"offsetY":	93,
 			"freeze":	0,
+			"speed":	0.035,
 			"hitframes":[52],
 			"soundMap": [
-				
+				{
+					"frame":	1,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	8,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	16,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	24,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	32,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	40,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	48,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	51,
+					"sound":	"lance_throw"
+				},
+				{
+					"frame":	56,
+					"sound":	"clink"
+				},
+				{
+					"frame":	60,
+					"sound":	"clink"
+				},
+				{
+					"frame":	71,
+					"sound":	"catch"
+				},
 			]
 		},
 		{
@@ -1129,10 +1238,29 @@
 			"columns":	8,
 			"offsetX":	77,
 			"offsetY":	98,
-			"freeze":	-1,
+			"freeze":	0,
 			"hitframes":[17],
 			"soundMap": [
-				
+				{
+					"frame":	5,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	16,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	25,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	35,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	38,
+					"sound":	"cape"
+				},
 			]
 		},
 		{
@@ -1144,7 +1272,7 @@
 			"columns":	2,
 			"offsetX":	13,
 			"offsetY":	31,
-			"freeze":	0,
+			"freeze":	0
 		},
 		{
 			"name":		"hero_sword_attack",
@@ -1155,11 +1283,30 @@
 			"columns":	8,
 			"offsetX":	77,
 			"offsetY":	98,
-			"freeze":	-1,
+			"freeze":	0,
 			"hitframes":[15],
-			"speed":	0.035,
+			"speed":	0.04,
 			"soundMap": [
-				
+				{
+					"frame":	5,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	14,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	22,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	33,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	36,
+					"sound":	"cape"
+				},
 			]
 		},
 		{
@@ -1173,9 +1320,428 @@
 			"offsetY":	100,
 			"freeze":	-1,
 			"hitframes":[63],
-			"speed":	0.035,
+			"speed":	0.04,
 			"soundMap": [
-				
+				{
+					"frame":	7,
+					"sound":	"spin"
+				},
+				{
+					"frame":	24,
+					"sound":	"jump"
+				},
+				{
+					"frame":	62,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	117,
+					"sound":	"catch"
+				},
+				{
+					"frame":	149,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	162,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	167,
+					"sound":	"cape"
+				},
+			]
+		},
+		{
+			"name":		"paladin_lance_attack",
+			"path":		"res/battle_anim/paladin_lance_attack.png",
+			"width":	121,
+			"height":	100,
+			"frames":	30,
+			"columns":	6,
+			"offsetX":	75,
+			"offsetY":	88,
+			"freeze":	0,
+			"hitframes":[7],
+			"speed":	0.055,
+			"soundMap": [
+				{
+					"frame":	1,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	5,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	6,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	8,
+					"sound":	"sword_swipe2"
+				},
+				{
+					"frame":	20,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	22,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	26,
+					"sound":	"horse_step"
+				},
+			]
+		},
+		{
+			"name":		"paladin_lance_critical",
+			"path":		"res/battle_anim/paladin_lance_critical.png",
+			"width":	143,
+			"height":	100,
+			"frames":	72,
+			"columns":	9,
+			"offsetX":	75,
+			"offsetY":	88,
+			"freeze":	0,
+			"hitframes":[49],
+			"speed":	0.055,
+			"soundMap": [
+				{
+					"frame":	1,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	3,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	4,
+					"sound":	"horse_whinny"
+				},
+				{
+					"frame":	5,
+					"sound":	"spin_short"
+				},
+				{
+					"frame":	17,
+					"sound":	"horse_gallop"
+				},
+				{
+					"frame":	24,
+					"sound":	"horse_gallop"
+				},
+				{
+					"frame":	31,
+					"sound":	"horse_gallop"
+				},
+				{
+					"frame":	38,
+					"sound":	"horse_gallop"
+				},
+				{
+					"frame":	45,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	46,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	48,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	51,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	53,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	62,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	64,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	68,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	70,
+					"sound":	"horse_step"
+				},
+			]
+		},
+		{
+			"name":		"paladin_sword_attack",
+			"path":		"res/battle_anim/paladin_sword_attack.png",
+			"width":	121,
+			"height":	89,
+			"frames":	29,
+			"columns":	6,
+			"offsetX":	75,
+			"offsetY":	77,
+			"freeze":	0,
+			"hitframes":[7],
+			"speed":	0.055,
+			"soundMap": [
+				{
+					"frame":	1,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	5,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	6,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	8,
+					"sound":	"sword_swipe2"
+				},
+				{
+					"frame":	20,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	22,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	26,
+					"sound":	"horse_step"
+				},
+			]
+		},
+		{
+			"name":		"paladin_sword_critical",
+			"path":		"res/battle_anim/paladin_sword_critical.png",
+			"width":	143,
+			"height":	89,
+			"frames":	71,
+			"columns":	9,
+			"offsetX":	75,
+			"offsetY":	77,
+			"freeze":	0,
+			"hitframes":[49],
+			"speed":	0.055,
+			"soundMap": [
+				{
+					"frame":	1,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	3,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	4,
+					"sound":	"horse_whinny"
+				},
+				{
+					"frame":	5,
+					"sound":	"spin_short"
+				},
+				{
+					"frame":	17,
+					"sound":	"horse_gallop"
+				},
+				{
+					"frame":	24,
+					"sound":	"horse_gallop"
+				},
+				{
+					"frame":	31,
+					"sound":	"horse_gallop"
+				},
+				{
+					"frame":	38,
+					"sound":	"horse_gallop"
+				},
+				{
+					"frame":	45,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	46,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	48,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	51,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	53,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	62,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	64,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	68,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	70,
+					"sound":	"horse_step"
+				},
+			]
+		},
+		{
+			"name":		"swordmaster_sword_attack",
+			"path":		"res/battle_anim/swordmaster_sword_attack.png",
+			"width":	133,
+			"height":	105,
+			"frames":	40,
+			"columns":	7,
+			"offsetX":	73,
+			"offsetY":	101,
+			"freeze":	0,
+			"hitframes":[18],
+			"speed":	0.055,
+			"soundMap": [
+				{
+					"frame":	6,
+					"sound":	"cape"
+				},
+				{
+					"frame":	8,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	13,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	15,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	17,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	19,
+					"sound":	"jump"
+				},
+				{
+					"frame":	34,
+					"sound":	"land"
+				},
+			]
+		},
+		{
+			"name":		"swordmaster_sword_critical",
+			"path":		"res/battle_anim/swordmaster_sword_critical.png",
+			"width":	201,
+			"height":	141,
+			"frames":	72,
+			"columns":	9,
+			"offsetX":	107,
+			"offsetY":	101,
+			"freeze":	0,
+			"hitframes":[51],
+			"speed":	0.055,
+			"soundMap": [
+				{
+					"frame":	6,
+					"sound":	"cape"
+				},
+				{
+					"frame":	8,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	37,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	40,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	43,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	46,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	49,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	52,
+					"sound":	"jump"
+				},
+				{
+					"frame":	65,
+					"sound":	"land"
+				},
+			]
+		},
+		{
+			"name":		"valkyrie_magic_attack",
+			"path":		"res/battle_anim/valkyrie_magic_attack.png",
+			"width":	68,
+			"height":	78,
+			"frames":	22,
+			"columns":	5,
+			"offsetX":	27,
+			"offsetY":	74,
+			"freeze":	0,
+			"hitframes":[19],
+			"speed":	0.055,
+			"soundMap": [
+				{
+					"frame":	3,
+					"sound":	"magic_charge"
+				}
+			]
+		},
+		{
+			"name":		"valkyrie_magic_critical",
+			"path":		"res/battle_anim/valkyrie_magic_critical.png",
+			"width":	68,
+			"height":	78,
+			"frames":	31,
+			"columns":	6,
+			"offsetX":	27,
+			"offsetY":	74,
+			"freeze":	0,
+			"hitframes":[28],
+			"speed":	0.055,
+			"soundMap": [
+				{
+					"frame":	3,
+					"sound":	"magic_charge"
+				}
+				{
+					"frame":	8,
+					"sound":	"magic_charge"
+				}
+				{
+					"frame":	13,
+					"sound":	"magic_charge"
+				}
 			]
 		},
 		{
@@ -1322,8 +1888,8 @@
 		{
 			"name":		"proj_arrow",
 			"path":		"res/battle_anim/proj_arrow.png"
-		}
-				{
+		},
+		{
 			"name":		"proj_javelin",
 			"path":		"res/battle_anim/proj_javelin.png"
 		}
