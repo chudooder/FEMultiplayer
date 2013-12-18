@@ -69,62 +69,63 @@ public class FEMultiplayer extends Game{
 		Unit u1 = UnitFactory.getUnit("Lyn");
 		u1.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
 		u1.addToInventory(WeaponFactory.getWeapon("Debug Bow"));
-		u1.equip(1);
+		u1.equipFirstWeapon(1);
 		p1.getParty().addUnit(u1);
 		
 		Unit u3 = UnitFactory.getUnit("Erk");
 		u3.addToInventory(WeaponFactory.getWeapon("Elfire"));
 		u3.addToInventory(WeaponFactory.getWeapon("Physic"));
-		u3.equip(1);
+		u3.addToInventory(WeaponFactory.getWeapon("Recover"));
+		u3.equipFirstWeapon(1);
 		p1.getParty().addUnit(u3);
 
 		Unit u2 = UnitFactory.getUnit("Eliwood");
 		u2.addToInventory(WeaponFactory.getWeapon("Brave Lance"));
 		u2.addToInventory(WeaponFactory.getWeapon("Debug Lance"));
 		u2.addToInventory(WeaponFactory.getWeapon("Javelin"));
-		u2.equip(1);
+		u2.equipFirstWeapon(1);
 		p1.getParty().addUnit(u2);
 		
 		Unit u4 = UnitFactory.getUnit("Lute");
 		u4.addToInventory(WeaponFactory.getWeapon("Elfire"));
 		u4.addToInventory(WeaponFactory.getWeapon("Heal"));
-		u4.equip(0);
+		u4.equipFirstWeapon(1);
 		p2.getParty().addUnit(u4);
 		
 		Unit u5 = UnitFactory.getUnit("Roy");
-		u5.equip(0);
+		u5.equipFirstWeapon(1);
 		p1.getParty().addUnit(u5);
 		
 		Unit u6 = UnitFactory.getUnit("Hector");
 		u6.addToInventory(WeaponFactory.getWeapon("Wo Dao"));
-		u6.equip(0);
+		u6.equipFirstWeapon(1);
 		p1.getParty().addUnit(u6);
 		
 		Unit u7 = UnitFactory.getUnit("Eirika");
-		u7.equip(0);
+		u7.equipFirstWeapon(1);
 		p2.getParty().addUnit(u7);
 		
 		Unit u8 = UnitFactory.getUnit("Ephraim");
-		u8.equip(0);
+		u8.equipFirstWeapon(1);
 		p2.getParty().addUnit(u8);
 		
 		Unit u9 = UnitFactory.getUnit("Matthew");
 		u9.addToInventory(WeaponFactory.getWeapon("Silver Sword"));
 		u9.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
-		u9.equip(0);
+		u9.equipFirstWeapon(1);
 		p1.getParty().addUnit(u9);
 		
 		Unit u10 = UnitFactory.getUnit("Gilliam");
 		u10.addToInventory(WeaponFactory.getWeapon("Debug Axe"));
 		u10.addToInventory(WeaponFactory.getWeapon("Horseslayer"));
-		u10.equip(0);
+		u10.equipFirstWeapon(1);
 		p1.getParty().addUnit(u10);
 		
 		Unit u11 = UnitFactory.getUnit("Raven");
 		u11.addToInventory(WeaponFactory.getWeapon("Killer Axe"));
 		u11.addToInventory(WeaponFactory.getWeapon("Tree Branch"));
 		u11.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
-		u11.equip(0);
+		u11.equipFirstWeapon(1);
 		p1.getParty().addUnit(u11);
 		
 		

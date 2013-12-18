@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import net.fe.overworldStage.*;
 import net.fe.unit.*;
 
-public class AttackWeapon extends OverworldContext{
+public class AttackPreview extends OverworldContext{
 	private Unit attacker;
 	private Unit defender;
 	private BattlePreview preview;
 	private ArrayList<Weapon> weapons;
 	private int index;
-	public AttackWeapon(OverworldStage s, OverworldContext prevContext, Unit a, Unit d) {
+	public AttackPreview(OverworldStage s, OverworldContext prevContext, Unit a, Unit d) {
 		super(s, prevContext);
 		attacker = a;
 		defender = d;

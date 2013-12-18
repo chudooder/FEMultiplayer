@@ -52,10 +52,11 @@ public class UnitMoved extends MenuContext<String> {
 			stage.send();
 			unit.moved();
 			stage.reset();	
-		} else if (selectedItem.equals("Attack") || selectedItem.equals("Heal")) {
-			new AttackTarget(stage, this, zone, unit,
-					selectedItem.equals("Heal")).startContext();
-		} else if (selectedItem.equals("Item")){
+		} else if (selectedItem.equals("Attack")) {
+			new AttackTarget(stage, this, zone, unit).startContext();
+		} else if (selectedItem.equals("Heal")){
+			new HealTarget(stage, this, zone, unit).startContext();
+		} else if (selectedItem.equals("Item")){	
 			new ItemCmd(stage, this, unit).startContext();
 		}
 	}
