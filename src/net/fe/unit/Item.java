@@ -23,4 +23,8 @@ public abstract class Item {
 	public int getMaxUses(){
 		return maxUses;
 	}
+	
+	public void setUsesDEBUGGING(int uses){
+		this.uses = uses;
+	}
 }

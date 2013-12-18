@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import chu.engine.Game;
@@ -162,6 +163,36 @@ public class Unit extends GriddedEntity {
 		setHp(get("HP"));
 	}
 
+	//Inventory
+	public Iterable<Item> getInventory() {
+		return inventory;
+	}
+	
+	public int findItem(Item i){
+		return inventory.indexOf(i);
+	}
+	
+	public void removeFromInventory(Item item){
+		inventory.remove(item);
+	}
+	
+	public void addToInventory(Item item) {
+		if(inventory.size() < 4)
+			inventory.add(item);
+	}
+	
+	public Set<Integer> getTotalWepRange(boolean staff) {
+		Set<Integer> range = new HashSet<Integer>();
+		for (Item i : getInventory()) {
+			if (!(i instanceof Weapon))
+				continue;
+			Weapon w = (Weapon) i;
+			if (staff == (w.type == Weapon.Type.STAFF) && equippable(w))
+				range.addAll(w.range);
+		}
+		return range;
+	}
+	
 	public void equip(Weapon w) {
 		if (equippable(w)) {
 			weapon = w;
@@ -227,11 +258,26 @@ public class Unit extends GriddedEntity {
 	}
 
 	public int use(int index) {
-		return inventory.get(index).use(this);
+		return use(inventory.get(index), true);
+	}
+	
+	public int use(int index, boolean destroy){
+		return use(inventory.get(index), destroy);
+	}
+	
+	public int use(Item i){
+		return use(i, true);
 	}
 
-	public int use(Item i) {
-		return i.use(this);
+	public int use(Item i, boolean destroy) {
+		int ans = i.use(this);
+		if(i.getUses() <= 0 && destroy){
+			if(i == weapon){
+				weapon = null;
+			}
+			inventory.remove(i);
+		}
+		return ans;
 	}
 
 	public ArrayList<CombatTrigger> getTriggers() {
@@ -244,6 +290,7 @@ public class Unit extends GriddedEntity {
 
 	// Combat statistics
 	public int hit() {
+		if(weapon == null) return 0;
 		return weapon.hit + 2 * get("Skl") + get("Lck") / 2
 				+ (tempMods.get("Hit") != null ? tempMods.get("Hit") : 0);
 	}
@@ -255,6 +302,7 @@ public class Unit extends GriddedEntity {
 	}
 
 	public int crit() {
+		if(weapon == null) return 0;
 		return weapon.crit + get("Skl") / 2 + clazz.crit
 				+ (tempMods.get("Crit") != null ? tempMods.get("Crit") : 0);
 	}
@@ -303,28 +351,10 @@ public class Unit extends GriddedEntity {
 		return weapon;
 	}
 
-	public Set<Integer> getTotalWepRange(boolean staff) {
-		Set<Integer> range = new HashSet<Integer>();
-		for (Item i : getInventory()) {
-			if (!(i instanceof Weapon))
-				continue;
-			Weapon w = (Weapon) i;
-			if (staff == (w.type == Weapon.Type.STAFF) && equippable(w))
-				range.addAll(w.range);
-		}
-		return range;
-	}
-
-	public void addToInventory(Item item) {
-		if(inventory.size() < 4)
-			inventory.add(item);
-	}
-
 	public Terrain getTerrain() {
 		return ((OverworldStage) stage).getTerrain(xcoord, ycoord);
 	}
 
-	// Debugging
 	public String toString() {
 		return name + " HP" + hp + "\n" + stats;
 	}
@@ -351,9 +381,6 @@ public class Unit extends GriddedEntity {
 		return moved;
 	}
 
-	public Iterable<Item> getInventory() {
-		return inventory;
-	}
 
 	public int getOrigX() {
 		return origX;
@@ -376,9 +403,6 @@ public class Unit extends GriddedEntity {
 		if (dying)
 			((OverworldStage) stage).setControl(false);
 	}
-	
-	public int findItem(Item i){
-		return inventory.indexOf(i);
-	}
+
 
 }

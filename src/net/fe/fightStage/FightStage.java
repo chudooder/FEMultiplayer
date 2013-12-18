@@ -131,6 +131,7 @@ public class FightStage extends Stage {
 	}
 
 	private void processAttackQueue() {
+		//TODO Weapon usage
 		final AttackRecord rec = attackQ.get(0);
 		Unit attacker = FEMultiplayer.getUnit(rec.attacker);
 		Unit defender = FEMultiplayer.getUnit(rec.defender);
@@ -171,6 +172,9 @@ public class FightStage extends Stage {
 				d.sprite.setFrame(0);
 				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
 				addEntity(new MissEffect(defender == left));
+				if(attacker.getWeapon().isMagic()){
+					attacker.use(attacker.getWeapon());
+				}
 
 				setCurrentEvent(HURTING);
 			} else {
@@ -180,6 +184,7 @@ public class FightStage extends Stage {
 				attacker.setHp(attacker.getHp() + rec.drain);
 				dhp.setHp(dhp.getHp() - rec.damage);
 				ahp.setHp(ahp.getHp() + rec.drain, false);
+				attacker.use(attacker.getWeapon());
 				if(rec.damage > 0) startShaking(crit ? 1.3f : .5f);
 				
 				setCurrentEvent(HURTING);

@@ -71,6 +71,8 @@ public class FEMultiplayer extends Game{
 		u1.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
 		u1.addToInventory(WeaponFactory.getWeapon("Debug Bow"));
 		u1.addToInventory(HealingItem.CONCOCTION.getCopy());
+		u1.use(3);
+		u1.use(3);
 		u1.equipFirstWeapon(1);
 		p1.getParty().addUnit(u1);
 		
@@ -134,10 +136,10 @@ public class FEMultiplayer extends Game{
 
 		u1.setLevel(20);
 		u2.setLevel(20);
-		u3.setLevel(20);
+		u3.setLevel(1);
 		u4.setLevel(20);
 		u5.setLevel(20);
-		u6.setLevel(20);
+		u6.setLevel(1);
 		u7.setLevel(20);
 		u8.setLevel(20);
 		u9.setLevel(20);
