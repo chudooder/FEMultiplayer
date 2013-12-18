@@ -45,7 +45,7 @@ public class UnitMoved extends MenuContext<String> {
 	
 	@Override
 	public void onSelect(String selectedItem) {
-		// TODO
+		// TODO Finish this
 		stage.setMenu(null);
 		if (selectedItem.equals("Wait")) {
 			stage.addCmd("Wait");

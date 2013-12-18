@@ -103,7 +103,7 @@ public class BattlePreview extends Entity {
 				attacker.getPartyColor());
 		Renderer.drawString("default_med", attacker.name, x + 2, y + 2,
 				renderDepth);
-		new ItemDisplay((int) x + 7, (int) y + 16, attacker.getWeapon())
+		new ItemDisplay((int) x + 7, (int) y + 16, attacker.getWeapon(), false)
 				.render();
 		leftArrow.render(x, y + 21, renderDepth);
 		rightArrow.renderTransformed(x + 90, y + 21, renderDepth, flip);
@@ -148,7 +148,7 @@ public class BattlePreview extends Entity {
 				defender.getPartyColor());
 		Renderer.drawString("default_med", defender.name, x + 2, y + 98,
 				renderDepth);
-		new ItemDisplay((int) x + 7, (int) y + 112, defender.getWeapon())
+		new ItemDisplay((int) x + 7, (int) y + 112, defender.getWeapon(), false)
 				.render();
 	}
 	

@@ -35,7 +35,7 @@ public class HUD extends Entity {
 		renderDepth = FightStage.HUD_DEPTH;
 
 		stage.addEntity(new ItemDisplay(FightStage.CENTRAL_AXIS + sign * 39
-				- 37, FightStage.FLOOR + 13, u1.getWeapon()));
+				- 37, FightStage.FLOOR + 13, u1.getWeapon(), false));
 	}
 
 	public void render() {

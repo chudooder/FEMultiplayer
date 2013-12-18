@@ -26,7 +26,7 @@ public class HealTarget extends SelectTargetContext {
 			Unit u) {
 		super(stage, context, z, u, true);
 		// TODO Positioning
-		selector = new StaffSelector(0, 150, new ArrayList<Weapon>());
+		selector = new StaffSelector(0, 0, new ArrayList<Weapon>());
 	}
 
 	@Override
@@ -120,7 +120,7 @@ class StaffSelector extends Entity {
 				FightStage.BORDER_LIGHT);
 		Renderer.drawRectangle(x+2, y+2, x + 88, y + 18, renderDepth,
 				FightStage.NEUTRAL);
-		new ItemDisplay((int) x + 12, (int) y + 1, staves.get(index)).render();
+		new ItemDisplay((int) x + 12, (int) y + 1, staves.get(index), false).render();
 		leftArrow.render(x+3, y+6, renderDepth);
 		Transform t = new Transform();
 		t.flipHorizontal();

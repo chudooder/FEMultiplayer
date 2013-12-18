@@ -10,7 +10,6 @@ public class EndMenu extends MenuContext<String> {
 	public EndMenu(OverworldStage stage, OverworldContext prev) {
 		super(stage, prev, new Menu<String>());
 		menu.addItem("End");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -22,13 +21,11 @@ public class EndMenu extends MenuContext<String> {
 
 	@Override
 	public void onLeft() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onRight() {
-		// TODO Auto-generated method stub
 		
 	}
 

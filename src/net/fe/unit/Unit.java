@@ -165,12 +165,20 @@ public class Unit extends GriddedEntity {
 	public void equip(Weapon w) {
 		if (equippable(w)) {
 			weapon = w;
+			if(stage != null){
+				((OverworldStage) stage).addCmd("Equip");
+				((OverworldStage) stage).addCmd(new UnitIdentifier(this));
+				((OverworldStage) stage).addCmd(findItem(w));
+			}
 			inventory.remove(w);
 			inventory.add(0, w);
 		}
 	}
 
 	public boolean equippable(Weapon w) {
+		if(w.pref!= null){
+			return name.equals(w.pref);
+		}
 		return clazz.usableWeapon.contains(w.type);
 
 	}
@@ -203,12 +211,19 @@ public class Unit extends GriddedEntity {
 		return weps;
 	}
 
-	public void equipFirstWeapon(int range) {
-		equip(equippableWeapons(range).get(0));
-	}
-
-	public void equipFirstStaff(int range) {
-		equip(equippableWeapons(range).get(0));
+	public int equipFirstWeapon(int range) {
+		for (int i = 0; i < inventory.size(); i++) {
+			Item it = inventory.get(i);
+			if (it instanceof Weapon) {
+				Weapon w = (Weapon) it;
+				if (equippable(w) && w.type != Weapon.Type.STAFF
+						&& w.range.contains(range)) {
+					equip(w);
+					return i;
+				}
+			}
+		}
+		return -1;
 	}
 
 	public int use(int index) {
@@ -360,6 +375,10 @@ public class Unit extends GriddedEntity {
 		dying = b;
 		if (dying)
 			((OverworldStage) stage).setControl(false);
+	}
+	
+	public int findItem(Item i){
+		return inventory.indexOf(i);
 	}
 
 }

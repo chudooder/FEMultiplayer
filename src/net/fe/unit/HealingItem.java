@@ -15,7 +15,12 @@ public class HealingItem extends Item {
 	}
 	public int use(Unit user){
 		super.use(user);
-		user.setHp(user.getHp() + amount);
+		int maxHeal = user.get("HP") - user.getHp();
+		user.setHp(user.getHp() + Math.min(amount, maxHeal));
 		return amount;
+	}
+	
+	public HealingItem getCopy(){
+		return new HealingItem(name, amount, id);
 	}
 }

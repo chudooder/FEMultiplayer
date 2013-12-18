@@ -22,7 +22,8 @@ public class InventoryMenu extends Menu<ItemDisplay> {
 		Iterator<Item> inv = unit.getInventory().iterator();
 		for(int i = 0; i < 4; i++){
 			if(inv.hasNext()){
-				items.add(new ItemDisplay(0,0, inv.next()));
+				Item it = inv.next();
+				items.add(new ItemDisplay(0,0, it, unit.getWeapon() == it));
 			} else {
 				items.add(null);
 			}

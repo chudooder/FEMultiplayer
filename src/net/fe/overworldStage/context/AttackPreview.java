@@ -16,7 +16,7 @@ public class AttackPreview extends OverworldContext{
 		attacker = a;
 		defender = d;
 		//TODO Positioning
-		preview = new BattlePreview(0, 150, a, d, Grid.getDistance(a, d));
+		preview = new BattlePreview(321, 0, a, d, Grid.getDistance(a, d));
 		
 	}
 	
@@ -44,13 +44,11 @@ public class AttackPreview extends OverworldContext{
 
 	@Override
 	public void onUp() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onDown() {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -19,6 +19,7 @@ import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
 import net.fe.transition.OverworldFightTransition;
+import net.fe.unit.HealingItem;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitFactory;
 import net.fe.unit.UnitIdentifier;
@@ -69,6 +70,7 @@ public class FEMultiplayer extends Game{
 		Unit u1 = UnitFactory.getUnit("Lyn");
 		u1.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
 		u1.addToInventory(WeaponFactory.getWeapon("Debug Bow"));
+		u1.addToInventory(HealingItem.CONCOCTION.getCopy());
 		u1.equipFirstWeapon(1);
 		p1.getParty().addUnit(u1);
 		
@@ -76,6 +78,7 @@ public class FEMultiplayer extends Game{
 		u3.addToInventory(WeaponFactory.getWeapon("Elfire"));
 		u3.addToInventory(WeaponFactory.getWeapon("Physic"));
 		u3.addToInventory(WeaponFactory.getWeapon("Recover"));
+		u3.addToInventory(HealingItem.VULNERARY.getCopy());
 		u3.equipFirstWeapon(1);
 		p1.getParty().addUnit(u3);
 
@@ -110,8 +113,7 @@ public class FEMultiplayer extends Game{
 		p2.getParty().addUnit(u8);
 		
 		Unit u9 = UnitFactory.getUnit("Matthew");
-		u9.addToInventory(WeaponFactory.getWeapon("Silver Sword"));
-		u9.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
+		u9.addToInventory(WeaponFactory.getWeapon("Killing Edge"));
 		u9.equipFirstWeapon(1);
 		p1.getParty().addUnit(u9);
 		
@@ -143,6 +145,7 @@ public class FEMultiplayer extends Game{
 		u11.setLevel(20);
 		
 		u1.fillHp();
+		u1.setHp(1);
 		u2.fillHp();
 		u3.fillHp();
 		u4.fillHp();
@@ -217,7 +220,8 @@ public class FEMultiplayer extends Game{
 //		client.close();
 	}
 	
-	public static void reportFightResults(FightStage stage){ //TODO get parameters that make sense
+	public static void reportFightResults(FightStage stage){ 
+		//TODO report weapon usage, stun trigger
 		for(int i=0; i<2; i++) {
 			if(stage.getUnit(i).getHp() <= 0) {
 				stage.getUnit(i).setDying(true);

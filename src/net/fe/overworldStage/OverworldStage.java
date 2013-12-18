@@ -79,7 +79,7 @@ public class OverworldStage extends Stage {
 	public void removeExtraneousEntities(Entity... keep){
 		List<Entity> keeps = Arrays.asList(keep);
 		for(Entity e: entities){
-			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor || 
+			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor || e instanceof UnitInfo ||
 					keeps.contains(e))){
 				removeEntity(e);
 			}
@@ -175,7 +175,7 @@ public class OverworldStage extends Stage {
 	}
 	
 	public void end(){
-		clearCmdString();
+		send();
 		selectedUnit = null;
 		removeExtraneousEntities();
 		//TODO implement
