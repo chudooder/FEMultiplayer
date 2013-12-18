@@ -38,6 +38,6 @@ public abstract class OverworldContext {
 	}
 
 	protected Unit getHoveredUnit() {
-		return stage.getUnit(cursor.getXCoord(), cursor.getYCoord());
+		return stage.getHoveredUnit();
 	}
 }

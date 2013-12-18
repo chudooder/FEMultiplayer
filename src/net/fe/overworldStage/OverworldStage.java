@@ -48,6 +48,7 @@ public class OverworldStage extends Stage {
 		player = p;
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
+		addEntity(new UnitInfo(cursor));
 		currentCmdString = new ArrayList<Object>();
 		setControl(true);
 		context = new Idle(this, p);
@@ -205,5 +206,9 @@ public class OverworldStage extends Stage {
 	public void send(){
 		FEMultiplayer.send(new UnitIdentifier(selectedUnit), movX, movY, currentCmdString.toArray());
 		clearCmdString();
+	}
+	
+	public Unit getHoveredUnit() {
+		return getUnit(cursor.getXCoord(), cursor.getYCoord());
 	}
 }

@@ -301,7 +301,8 @@ public class Unit extends GriddedEntity {
 	}
 
 	public void addToInventory(Item item) {
-		inventory.add(item);
+		if(inventory.size() < 4)
+			inventory.add(item);
 	}
 
 	public Terrain getTerrain() {

@@ -20,7 +20,7 @@ public class InventoryMenu extends Menu<ItemDisplay> {
 	public void onStep(){
 		items.clear();
 		Iterator<Item> inv = unit.getInventory().iterator();
-		for(int i = 0; i < 5; i++){
+		for(int i = 0; i < 4; i++){
 			if(inv.hasNext()){
 				items.add(new ItemDisplay(0,0, inv.next()));
 			} else {

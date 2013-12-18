@@ -197,6 +197,10 @@ public class Renderer {
 		if(clip != null && !clip.persistent) clip.destroy();
 	}
 	
+	public static void drawString(String fontName, int num, float x, float y, float depth) {
+		drawString(fontName, num+"", x, y, depth);
+	}
+	
 	public static void drawString(String fontName, String string, float x, float y, float depth) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
