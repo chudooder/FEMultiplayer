@@ -31,8 +31,9 @@ public abstract class SelectTargetContext extends OverworldContext {
 	
 	public void cleanUp(){
 		stage.removeEntity(zone);
-		cursor.setXCoord(unit.getXCoord());
-		cursor.setYCoord(unit.getYCoord());
+		//Not sure why this is here.
+//		cursor.setXCoord(unit.getXCoord());
+//		cursor.setYCoord(unit.getYCoord());
 	}
 
 	private void findTargets(Unit unit, boolean friendly) {
@@ -90,6 +91,10 @@ public abstract class SelectTargetContext extends OverworldContext {
 		selected++;
 		selected%= targets.size();
 		updateCursor();
+	}
+	
+	public Unit getCurrentTarget(){
+		return targets.get(selected);
 	}
 
 	public void updateCursor() {

@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import net.fe.overworldStage.*;
 import net.fe.unit.*;
 
-public class AttackWeapon extends OverworldContext{
+public class AttackPreview extends OverworldContext{
 	private Unit attacker;
 	private Unit defender;
 	private BattlePreview preview;
 	private ArrayList<Weapon> weapons;
 	private int index;
-	public AttackWeapon(OverworldStage s, OverworldContext prevContext, Unit a, Unit d) {
+	public AttackPreview(OverworldStage s, OverworldContext prevContext, Unit a, Unit d) {
 		super(s, prevContext);
 		attacker = a;
 		defender = d;
 		//TODO Positioning
-		preview = new BattlePreview(0, 150, a, d, Grid.getDistance(a, d));
+		preview = new BattlePreview(321, 0, a, d, Grid.getDistance(a, d));
 		
 	}
 	
@@ -44,13 +44,11 @@ public class AttackWeapon extends OverworldContext{
 
 	@Override
 	public void onUp() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onDown() {
-		// TODO Auto-generated method stub
 		
 	}
 

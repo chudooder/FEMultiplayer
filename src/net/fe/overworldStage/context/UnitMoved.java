@@ -45,17 +45,18 @@ public class UnitMoved extends MenuContext<String> {
 	
 	@Override
 	public void onSelect(String selectedItem) {
-		// TODO
+		// TODO Finish this
 		stage.setMenu(null);
 		if (selectedItem.equals("Wait")) {
 			stage.addCmd("Wait");
 			stage.send();
 			unit.moved();
 			stage.reset();	
-		} else if (selectedItem.equals("Attack") || selectedItem.equals("Heal")) {
-			new AttackTarget(stage, this, zone, unit,
-					selectedItem.equals("Heal")).startContext();
-		} else if (selectedItem.equals("Item")){
+		} else if (selectedItem.equals("Attack")) {
+			new AttackTarget(stage, this, zone, unit).startContext();
+		} else if (selectedItem.equals("Heal")){
+			new HealTarget(stage, this, zone, unit).startContext();
+		} else if (selectedItem.equals("Item")){	
 			new ItemCmd(stage, this, unit).startContext();
 		}
 	}

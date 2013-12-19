@@ -13,7 +13,6 @@ public class MagicEffect extends Entity {
 	public MagicEffect(final AnimationArgs args) {
 		super(0, 0);
 		this.args = args;
-		// TODO Get the magic animation
 		AnimationData data = getTexture(args.unit.getWeapon().name.toLowerCase());
 		Animation anim = new Animation(data.texture, data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,

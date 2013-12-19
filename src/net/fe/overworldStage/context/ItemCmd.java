@@ -1,9 +1,11 @@
 package net.fe.overworldStage.context;
 
+import net.fe.overworldStage.Healthbar;
 import net.fe.overworldStage.InventoryMenu;
 import net.fe.overworldStage.MenuContext;
 import net.fe.overworldStage.OverworldContext;
 import net.fe.overworldStage.OverworldStage;
+import net.fe.unit.HealingItem;
 import net.fe.unit.Item;
 import net.fe.unit.ItemDisplay;
 import net.fe.unit.Unit;
@@ -23,19 +25,36 @@ public class ItemCmd extends MenuContext<ItemDisplay>{
 				unit.equip((Weapon)i);
 				menu.setSelection(0);
 			}
-		} else {
-			//TODO Healing
+		} else if (i instanceof HealingItem){
+			if(unit.getHp() == unit.get("HP")) return;
+			stage.addCmd("Use");
+			stage.addCmd(unit.findItem(i));
+			stage.send();
+			
+			stage.setMenu(null);
+			
+			int oHp = unit.getHp();
+			unit.use(i);
+			//TODO Positioning
+			stage.addEntity(new Healthbar(
+					320, 20 , oHp, 
+					unit.getHp(), unit.get("HP")){
+				@Override
+				public void done() {
+					destroy();
+					unit.moved();
+					ItemCmd.this.stage.reset();
+				}
+			});
 		}
 	}
 
 	@Override
 	public void onLeft() {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void onRight() {
-		// TODO Auto-generated method stub
 		
 	}
 	

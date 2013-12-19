@@ -55,7 +55,7 @@ public class Projectile extends Entity {
 				destroy();
 			}
 		}
-		//TODO Destroy if out of bounds
+		//Destroy if out of bounds
 		if(x > 500 || x < -500)
 			destroy();
 	}

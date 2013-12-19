@@ -48,6 +48,7 @@ public class OverworldStage extends Stage {
 		player = p;
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
+		addEntity(new UnitInfo(cursor));
 		currentCmdString = new ArrayList<Object>();
 		setControl(true);
 		context = new Idle(this, p);
@@ -78,7 +79,7 @@ public class OverworldStage extends Stage {
 	public void removeExtraneousEntities(Entity... keep){
 		List<Entity> keeps = Arrays.asList(keep);
 		for(Entity e: entities){
-			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor || 
+			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor || e instanceof UnitInfo ||
 					keeps.contains(e))){
 				removeEntity(e);
 			}
@@ -174,7 +175,7 @@ public class OverworldStage extends Stage {
 	}
 	
 	public void end(){
-		clearCmdString();
+		send();
 		selectedUnit = null;
 		removeExtraneousEntities();
 		//TODO implement
@@ -205,5 +206,9 @@ public class OverworldStage extends Stage {
 	public void send(){
 		FEMultiplayer.send(new UnitIdentifier(selectedUnit), movX, movY, currentCmdString.toArray());
 		clearCmdString();
+	}
+	
+	public Unit getHoveredUnit() {
+		return getUnit(cursor.getXCoord(), cursor.getYCoord());
 	}
 }

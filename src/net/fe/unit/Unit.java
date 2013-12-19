@@ -35,7 +35,7 @@ public class Unit extends GriddedEntity {
 	private Path path;
 	private float rX, rY;
 	private Command callback;
-	
+
 	private int origX, origY;
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
@@ -55,23 +55,23 @@ public class Unit extends GriddedEntity {
 		}
 
 		fillHp();
-		
+
 		renderDepth = OverworldStage.UNIT_DEPTH;
 	}
 
 	public void move(Path p, Command callback) {
 		this.path = p.getCopy();
 		path.removeFirst();
-		if(path.size() != 0) {
+		if (path.size() != 0) {
 			Node next = path.removeFirst();
 			rX = -(next.x - xcoord) * 16;
 			rY = -(next.y - ycoord) * 16;
 			xcoord = next.x;
 			ycoord = next.y;
-			
+
 		}
 		this.callback = callback;
-		
+
 	}
 
 	public void onStep() {
@@ -80,7 +80,8 @@ public class Unit extends GriddedEntity {
 		float rYOld = rY;
 		rX = rX - Math.signum(rX) * Game.getDeltaSeconds() * 500;
 		rY = rY - Math.signum(rY) * Game.getDeltaSeconds() * 500;
-		if (path != null && (rXOld*rX < 0 || rYOld*rY < 0 || (rXOld == rX && rYOld == rY))) {
+		if (path != null
+				&& (rXOld * rX < 0 || rYOld * rY < 0 || (rXOld == rX && rYOld == rY))) {
 			if (path.size() == 0) {
 				// We made it to destination
 				rX = 0;
@@ -98,12 +99,13 @@ public class Unit extends GriddedEntity {
 			}
 		}
 	}
-	
+
 	public void endStep() {
-		if(dying) alpha -= Game.getDeltaSeconds();
-		if(alpha < 0) {
-			((OverworldStage)stage).setControl(true);
-			((OverworldStage)stage).removeUnit(this);
+		if (dying)
+			alpha -= Game.getDeltaSeconds();
+		if (alpha < 0) {
+			((OverworldStage) stage).setControl(true);
+			((OverworldStage) stage).removeUnit(this);
 		}
 	}
 
@@ -117,25 +119,29 @@ public class Unit extends GriddedEntity {
 	}
 
 	public void render() {
-		Color c = !moved? getPartyColor(): Color.gray;
+		Color c = !moved ? getPartyColor() : Color.gray;
 		c.a = alpha;
-		Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX, y + 14 +rY, OverworldStage.UNIT_DEPTH, c);
-		Renderer.drawString("default_med", name.charAt(0) + "" + name.charAt(1), x + 2 + rX, y + 1 + rY, OverworldStage.UNIT_DEPTH);
-		int hpLength = hp*13/get("HP");
-		Renderer.drawLine(x+1,y+13.5f, x+1+hpLength, y+13.5f, 1, OverworldStage.UNIT_DEPTH-0.01f, Color.red, Color.green);
+		Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX,
+				y + 14 + rY, OverworldStage.UNIT_DEPTH, c);
+		Renderer.drawString("default_med",
+				name.charAt(0) + "" + name.charAt(1), x + 2 + rX, y + 1 + rY,
+				OverworldStage.UNIT_DEPTH);
+		int hpLength = hp * 13 / get("HP");
+		Renderer.drawLine(x + 1, y + 13.5f, x + 1 + hpLength, y + 13.5f, 1,
+				OverworldStage.UNIT_DEPTH - 0.01f, Color.red, Color.green);
 	}
 
-//	public void levelUp() {
-//		if (stats.get("Lvl") == 20) {
-//			return;
-//		}
-//		stats.put("Lvl", stats.get("Lvl") + 1);
-//		for (String stat : growths.keySet()) {
-//			stats.put(stat, stats.get(stat)
-//					+ (float) (growths.get(stat) / 100.0));
-//		}
-//		fillHp();
-//	}
+	// public void levelUp() {
+	// if (stats.get("Lvl") == 20) {
+	// return;
+	// }
+	// stats.put("Lvl", stats.get("Lvl") + 1);
+	// for (String stat : growths.keySet()) {
+	// stats.put(stat, stats.get(stat)
+	// + (float) (growths.get(stat) / 100.0));
+	// }
+	// fillHp();
+	// }
 
 	public void setLevel(int lv) {
 		if (lv > 20 || lv < 1) {
@@ -146,7 +152,7 @@ public class Unit extends GriddedEntity {
 		for (String stat : growths.keySet()) {
 			float newStat = bases.get(stat)
 					+ (float) (lv * growths.get(stat) / 100.0);
-			float max = stat.equals("HP")? 60: 35;
+			float max = stat.equals("HP") ? 60 : 35;
 			stats.put(stat, Math.min(newStat, max));
 		}
 		fillHp();
@@ -156,46 +162,34 @@ public class Unit extends GriddedEntity {
 		setHp(get("HP"));
 	}
 
-	public void equip(int index) {
-		if (equippable(index)){
-			weapon = (Weapon) inventory.remove(index);
-			inventory.add(0, weapon);
-		} else
-			throw new IllegalArgumentException("Cannot equip that item");
-
-	}
-	
-	public void equip(Weapon w){
-		if (equippable(w)){
-			weapon = w; 
+	public void equip(Weapon w) {
+		if (equippable(w)) {
+			weapon = w;
+			if(stage != null){
+				((OverworldStage) stage).addCmd("Equip");
+				((OverworldStage) stage).addCmd(new UnitIdentifier(this));
+				((OverworldStage) stage).addCmd(findItem(w));
+			}
 			inventory.remove(w);
 			inventory.add(0, w);
 		}
 	}
 
-	public boolean equippable(int index) {
-		if (inventory.get(index) instanceof Weapon) {
-			Weapon w = (Weapon) inventory.get(index);
-			if (w.pref != null) {
-				return name.equals(w.pref);
-			}
-			return clazz.usableWeapon.contains(w.type);
-		}
-		return false;
-	}
-	
-
 	public boolean equippable(Weapon w) {
+		if(w.pref!= null){
+			return name.equals(w.pref);
+		}
 		return clazz.usableWeapon.contains(w.type);
-	
+
 	}
-	
-	public ArrayList<Weapon> equippableWeapons(int range){
+
+	public ArrayList<Weapon> equippableWeapons(int range) {
 		ArrayList<Weapon> weps = new ArrayList<Weapon>();
-		for(Item i : inventory){
-			if(i instanceof Weapon){
+		for (Item i : inventory) {
+			if (i instanceof Weapon) {
 				Weapon w = (Weapon) i;
-				if(w.type != Weapon.Type.STAFF && w.range.contains(range)){
+				if (equippable(w) && w.type != Weapon.Type.STAFF
+						&& w.range.contains(range)) {
 					weps.add(w);
 				}
 			}
@@ -203,35 +197,40 @@ public class Unit extends GriddedEntity {
 		return weps;
 	}
 	
-	public void equipFirstWeapon(int range){
-		for(Item i : inventory){
-			if(i instanceof Weapon){
+	public ArrayList<Weapon> equippableStaves(int range) {
+		ArrayList<Weapon> weps = new ArrayList<Weapon>();
+		for (Item i : inventory) {
+			if (i instanceof Weapon) {
 				Weapon w = (Weapon) i;
-				if(w.type != Weapon.Type.STAFF && w.range.contains(range)){
-					equip(w);
-					return;
+				if (equippable(w) && w.type == Weapon.Type.STAFF
+						&& w.range.contains(range)) {
+					weps.add(w);
 				}
 			}
 		}
+		return weps;
 	}
-	
-	public void equipFirstStaff(int range){
-		for(Item i : inventory){
-			if(i instanceof Weapon){
-				Weapon w = (Weapon) i;
-				if(w.type == Weapon.Type.STAFF && w.range.contains(range)){
+
+	public int equipFirstWeapon(int range) {
+		for (int i = 0; i < inventory.size(); i++) {
+			Item it = inventory.get(i);
+			if (it instanceof Weapon) {
+				Weapon w = (Weapon) it;
+				if (equippable(w) && w.type != Weapon.Type.STAFF
+						&& w.range.contains(range)) {
 					equip(w);
-					return;
+					return i;
 				}
 			}
 		}
+		return -1;
 	}
-	
-	public int use(int index){
+
+	public int use(int index) {
 		return inventory.get(index).use(this);
 	}
-	
-	public int use(Item i){
+
+	public int use(Item i) {
 		return i.use(this);
 	}
 
@@ -303,20 +302,22 @@ public class Unit extends GriddedEntity {
 	public Weapon getWeapon() {
 		return weapon;
 	}
-	
-	public Set<Integer> getTotalWepRange(boolean staff){
+
+	public Set<Integer> getTotalWepRange(boolean staff) {
 		Set<Integer> range = new HashSet<Integer>();
-		for(Item i: getInventory()){
-			if(!(i instanceof Weapon)) continue;
+		for (Item i : getInventory()) {
+			if (!(i instanceof Weapon))
+				continue;
 			Weapon w = (Weapon) i;
-			if(staff == (w.type == Weapon.Type.STAFF) && equippable(w))
+			if (staff == (w.type == Weapon.Type.STAFF) && equippable(w))
 				range.addAll(w.range);
 		}
 		return range;
 	}
 
 	public void addToInventory(Item item) {
-		inventory.add(item);
+		if(inventory.size() < 4)
+			inventory.add(item);
 	}
 
 	public Terrain getTerrain() {
@@ -372,7 +373,12 @@ public class Unit extends GriddedEntity {
 
 	public void setDying(boolean b) {
 		dying = b;
-		if(dying) ((OverworldStage)stage).setControl(false);
+		if (dying)
+			((OverworldStage) stage).setControl(false);
+	}
+	
+	public int findItem(Item i){
+		return inventory.indexOf(i);
 	}
 
 }
