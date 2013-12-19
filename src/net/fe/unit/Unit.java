@@ -9,9 +9,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import chu.engine.AnimationData;
 import chu.engine.Game;
 import chu.engine.GriddedEntity;
+import chu.engine.Resources;
+import chu.engine.anim.Animation;
 import chu.engine.anim.Renderer;
+import chu.engine.anim.Transform;
 import net.fe.Command;
 import net.fe.Party;
 import net.fe.fightStage.*;
@@ -38,6 +42,8 @@ public class Unit extends GriddedEntity {
 	private Command callback;
 
 	private int origX, origY;
+	
+	public static final float MAP_ANIM_SPEED = 0.2f;
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
@@ -56,8 +62,25 @@ public class Unit extends GriddedEntity {
 		}
 
 		fillHp();
+		
+		for(String s: Arrays.asList("idle", "selected", "left", "right", "up", "down")){
+			String a = s;
+			if(s.equals("left") || s.equals("right"))
+				a = "side";
+			sprite.addAnimation(s.toUpperCase(), new Animation(
+					Resources.getTexture(functionalClassName() + "_map_" + a),
+					24, 24, 4, 4, 5, 5, MAP_ANIM_SPEED));
+		}
 
 		renderDepth = OverworldStage.UNIT_DEPTH;
+	}
+	
+	public String functionalClassName(){
+		String prefix = clazz.name;
+		if(prefix.equals("Lord")){
+			prefix = name;
+		}
+		return prefix;
 	}
 
 	public void move(Path p, Command callback) {
@@ -72,15 +95,21 @@ public class Unit extends GriddedEntity {
 
 		}
 		this.callback = callback;
-
+		this.renderDepth+=0.001f;
+	}
+	
+	public void beginStep(){
+		super.beginStep();
+		String anim = getMapSprite();
+		sprite.setAnimation(anim);
 	}
 
 	public void onStep() {
 		super.onStep();
 		float rXOld = rX;
 		float rYOld = rY;
-		rX = rX - Math.signum(rX) * Game.getDeltaSeconds() * 500;
-		rY = rY - Math.signum(rY) * Game.getDeltaSeconds() * 500;
+		rX = rX - Math.signum(rX) * Game.getDeltaSeconds() * 250;
+		rY = rY - Math.signum(rY) * Game.getDeltaSeconds() * 250;
 		if (path != null
 				&& (rXOld * rX < 0 || rYOld * rY < 0 || (rXOld == rX && rYOld == rY))) {
 			if (path.size() == 0) {
@@ -89,6 +118,7 @@ public class Unit extends GriddedEntity {
 				rY = 0;
 				path = null;
 				callback.execute();
+				this.renderDepth-=0.001f;
 			} else {
 				Node next = path.removeFirst();
 				rX = -(next.x - xcoord) * 16;
@@ -99,6 +129,7 @@ public class Unit extends GriddedEntity {
 				y = ycoord * 16;
 			}
 		}
+		
 	}
 
 	public void endStep() {
@@ -120,29 +151,41 @@ public class Unit extends GriddedEntity {
 	}
 
 	public void render() {
-		Color c = !moved ? getPartyColor() : Color.gray;
-		c.a = alpha;
-		Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX,
-				y + 14 + rY, OverworldStage.UNIT_DEPTH, c);
-		Renderer.drawString("default_med",
-				name.charAt(0) + "" + name.charAt(1), x + 2 + rX, y + 1 + rY,
-				OverworldStage.UNIT_DEPTH);
-		int hpLength = hp * 13 / get("HP");
-		Renderer.drawLine(x + 1, y + 13.5f, x + 1 + hpLength, y + 13.5f, 1,
-				OverworldStage.UNIT_DEPTH - 0.01f, Color.red, Color.green);
+		if(Resources.hasTexture(functionalClassName() + "_map_idle")){
+			Transform t = new Transform();
+			if(sprite.getAnimationName().equals("RIGHT")){
+				t.flipHorizontal();
+				t.setTranslation(8, 0);
+			}
+			//TODO Colors
+			sprite.renderTransformed(x+1+rX, y+1+rY, renderDepth, t);
+		} else {
+			Color c = !moved ? getPartyColor() : Color.gray;
+			c.a = alpha;
+			Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX,
+					y + 14 + rY, OverworldStage.UNIT_DEPTH, c);
+			Renderer.drawString("default_med",
+					name.charAt(0) + "" + name.charAt(1), x + 2 + rX, y + 1 + rY,
+					OverworldStage.UNIT_DEPTH);
+			int hpLength = hp * 13 / get("HP");
+			Renderer.drawLine(x + 1, y + 13.5f, x + 1 + hpLength, y + 13.5f, 1,
+					OverworldStage.UNIT_DEPTH - 0.01f, Color.red, Color.green);
+		}
 	}
-
-	// public void levelUp() {
-	// if (stats.get("Lvl") == 20) {
-	// return;
-	// }
-	// stats.put("Lvl", stats.get("Lvl") + 1);
-	// for (String stat : growths.keySet()) {
-	// stats.put(stat, stats.get(stat)
-	// + (float) (growths.get(stat) / 100.0));
-	// }
-	// fillHp();
-	// }
+	
+	private String getMapSprite(){
+		if(path!=null){
+			if(rX > 0) return "left";
+			if(rX < 0) return "right";
+			if(rY < 0) return "up";
+			return "down";
+			
+		}
+		if(!moved && ((OverworldStage) stage).getHoveredUnit() == this){
+			return "selected";
+		} 
+		return "idle";
+	}
 
 	public void setLevel(int lv) {
 		if (lv > 20 || lv < 1) {
