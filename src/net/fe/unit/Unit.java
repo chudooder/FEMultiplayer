@@ -160,7 +160,7 @@ public class Unit extends GriddedEntity {
 			//TODO Colors
 			sprite.renderTransformed(x+1+rX, y+1+rY, renderDepth, t);
 		} else {
-			Color c = !moved ? getPartyColor() : Color.gray;
+			Color c = !moved ? getPartyColor() : new Color(128, 128, 128);
 			c.a = alpha;
 			Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX,
 					y + 14 + rY, OverworldStage.UNIT_DEPTH, c);

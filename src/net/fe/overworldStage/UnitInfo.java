@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
 
 import net.fe.unit.Item;
 import net.fe.unit.ItemDisplay;
@@ -45,6 +46,11 @@ public class UnitInfo extends Entity{
 		Renderer.drawRectangle(x+4, y+4, x+88, y+80, renderDepth, BORDER_DARK);
 		Renderer.drawRectangle(x+5, y+5, x+87, y+79, renderDepth, BORDER_LIGHT);
 		Renderer.drawRectangle(x+6, y+6, x+86, y+78, renderDepth, Color.gray);
+		Texture mugshot = Resources.getTexture(u.name.toLowerCase()+"_mugshot");
+		Renderer.addClip(x+6, y+6, 80, 72, false);
+		Renderer.render(mugshot, 0, 0, 1, 1, x+46-mugshot.getImageWidth()/2, 
+				y+78-mugshot.getImageHeight(), 
+				x+46+mugshot.getImageWidth()/2, y+78, renderDepth-0.01f);
 		
 		//Stats
 		

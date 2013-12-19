@@ -27,7 +27,7 @@ import chu.engine.anim.BitmapFont;
 
 public class Resources {
 	private static String[] searchFolders = 
-		{"battle_anim", "battle_anim/static", "gui", "map_anim"};
+		{"battle_anim", "battle_anim/static", "map_mugshots", "gui", "map_anim"};
 	
 	
 	private static HashMap<String, Audio> audio;
