@@ -69,6 +69,9 @@ public class UnitFactory {
 			growths.put("Res", resGrowth);
 			growths.put("Lck", lckGrowth);
 			
+			if(clazz == null){
+				System.err.println(line);
+			}
 			Unit u = new Unit(name, clazz, bases, growths);
 			if(name.equals("Roy")){
 				u.addToInventory(WeaponFactory.getWeapon("Sealed Sword"));

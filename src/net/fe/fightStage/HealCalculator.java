@@ -18,6 +18,8 @@ public class HealCalculator {
 		ArrayList<AttackRecord> q = new ArrayList<AttackRecord>();
 		final int heal = Math.min(healer.get("Mag") / 2 + healer.getWeapon().mt, 
 				healee.get("HP") - healee.getHp());
+//		healer.use(healer.getWeapon()); //TODO activate when server
+//		healee.setHp(healee.getHp() + heal);
 		AttackRecord a = new AttackRecord();
 		a.animation = "Heal";
 		a.attacker = new UnitIdentifier(healer);

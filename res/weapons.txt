@@ -71,5 +71,5 @@ Physic		Staff	1-15	10	100	0	7	3750	-	-	-
 # Debug items
 Debug Sword	Sword	1	10	100	200	20	1000	-	-	-
 Debug Axe	Axe	1	10	100	200	20	1000	-	-	-
-Debug Bow	Bow	2-9	10	100	200	20	1000	-	-	-
+Debug Bow	Bow	2-3	10	100	0	1	1000	-	-	-
 Debug Lance	Lance	1	10	100	200	20	1000	-	-	-

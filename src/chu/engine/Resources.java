@@ -27,7 +27,7 @@ import chu.engine.anim.BitmapFont;
 
 public class Resources {
 	private static String[] searchFolders = 
-		{"battle_anim", "battle_anim/static", "gui"};
+		{"battle_anim", "battle_anim/static", "gui", "map_anim"};
 	
 	
 	private static HashMap<String, Audio> audio;
@@ -64,6 +64,29 @@ public class Resources {
 
 	public static Texture getTexture(String string) {
 		return getTextureData(string).texture;
+	}
+	
+	public static boolean hasTexture(String string){
+		return textures.containsKey(string);
+	}
+	
+	public static AnimationData getMapTexture(String name){
+		AnimationData t = textures.get(name);
+		if(t!=null) return t;
+		System.out.println("Warn:" + name + " not explicitly defined");
+		for(String loc: searchFolders){
+			try{
+				AnimationData txt = new AnimationData(TextureLoader.getTexture("PNG",
+						ResourceLoader.getResourceAsStream(
+							"res/" + loc + "/" + name + ".png"
+						)), 96, 24, 4, 4, 4, 4, 0, null, null);
+				textures.put(name, txt);
+				return txt;
+			} catch (Exception e){
+				
+			}
+		}
+		return textures.get("whoops");
 	}
 
 	private static void loadTextures() {
@@ -138,6 +161,7 @@ public class Resources {
 				e.printStackTrace();
 			}
 		}
+		in.close();
 	}
 
 	public static BitmapFont getBitmapFont(String name) {
@@ -171,6 +195,7 @@ public class Resources {
 				System.out.println(name+"(bitmap font) loaded");
 			}
 		}
+		in.close();
 	}
 
 	public static AnimationData getTextureData(String string) {

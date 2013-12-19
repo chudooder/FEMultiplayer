@@ -16,6 +16,7 @@ public class Class {
 		usableWeapon = Arrays.asList(types);
 		this.name = name;
 	}
+	
 	public static Class createClass(String name){
 		//Lords
 		if(name.equals("Roy"))

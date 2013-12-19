@@ -26,20 +26,24 @@ public class CombatCalculator {
 		calculate();
 	}
 	private void calculate() {
+		// TODO Remove when moved to server
 		int hpLeft = left.getHp();
 		int hpRight = right.getHp();
+		int leftUses = left.getWeapon().getUses();
+		int rightUses = right.getWeapon().getUses();
+		
 		// Determine turn order
 		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
-		if (shouldAttack(left,right,range,true))
+		if (shouldAttack(left,right,range))
 			attackOrder.add(true);
-		if (shouldAttack(right,left,range,false))
+		if (shouldAttack(right,left,range))
 			attackOrder.add(false);
 		if (left.get("Spd") >= right.get("Spd") + 4 
-				&& shouldAttack(left,right,range,false)) {
+				&& shouldAttack(left,right,range)) {
 			attackOrder.add(true);
 		}
 		if (right.get("Spd") >= left.get("Spd") + 4
-				&& shouldAttack(right,left,range,false)) {
+				&& shouldAttack(right,left,range)) {
 			attackOrder.add(false);
 		}
 
@@ -49,16 +53,19 @@ public class CombatCalculator {
 				attack(i, nextAttack.poll());
 			}
 		}
+		
+		//TODO remove on server
 		left.setHp(hpLeft);
 		right.setHp(hpRight);
+		left.getWeapon().setUsesDEBUGGING(leftUses);
+		right.getWeapon().setUsesDEBUGGING(rightUses);
 	}
 	
-	public static boolean shouldAttack(Unit a, Unit d, int range, boolean first){
+	public static boolean shouldAttack(Unit a, Unit d, int range){
 		if(a.getWeapon() == null) return false;
+		if(a.getWeapon().getUses() == 0) return false;
 		if(!a.getWeapon().range.contains(range)) return false;
-		if(a.getWeapon().type == Weapon.Type.STAFF && !first) return false;
-		if((a.getWeapon().type == Weapon.Type.STAFF)
-				!= (a.getParty().isAlly(d.getParty()))) return false;
+		if(a.getWeapon().type == Weapon.Type.STAFF) return false;
 		return true;
 	}
 	
@@ -69,6 +76,7 @@ public class CombatCalculator {
 	private void attack(boolean leftAttacking, String currentEffect) {
 		Unit a = leftAttacking?left: right;
 		Unit d = leftAttacking?right: left;
+		if(!shouldAttack(a, d, range)) return;
 		int damage = 0;
 		int drain = 0;
 		String animation = "Attack";
@@ -115,9 +123,9 @@ public class CombatCalculator {
 				+ a.getWeapon().triMod(d.getWeapon()) * 15)) {
 			miss = true;
 			if (a.getWeapon().isMagic())
-				a.use(a.getWeapon());
+				a.use(a.getWeapon(), false); //TODO Remove on server
 		} else {
-			a.use(a.getWeapon());
+			a.use(a.getWeapon(), false); //TODO Remove on server
 		}
 		if (RNG.get() < a.crit() - d.dodge()) {
 			crit = 3;
