@@ -76,7 +76,7 @@ public class FEMultiplayer extends Game{
 		u1.equipFirstWeapon(1);
 		p1.getParty().addUnit(u1);
 		
-		Unit u3 = UnitFactory.getUnit("Erk");
+		Unit u3 = UnitFactory.getUnit("Priscilla");
 		u3.addToInventory(WeaponFactory.getWeapon("Elfire"));
 		u3.addToInventory(WeaponFactory.getWeapon("Physic"));
 		u3.addToInventory(WeaponFactory.getWeapon("Recover"));
@@ -132,6 +132,28 @@ public class FEMultiplayer extends Game{
 		u11.equipFirstWeapon(1);
 		p1.getParty().addUnit(u11);
 		
+		Unit u12 = UnitFactory.getUnit("Dart");
+		u12.addToInventory(WeaponFactory.getWeapon("Debug Axe"));
+		u12.addToInventory(WeaponFactory.getWeapon("Iron Axe"));
+		u12.addToInventory(WeaponFactory.getWeapon("Hand Axe"));
+		u12.equipFirstWeapon(1);
+		p1.getParty().addUnit(u12);
+		
+		Unit u13 = UnitFactory.getUnit("Kent");
+		u13.addToInventory(WeaponFactory.getWeapon("Horseslayer"));
+		u13.addToInventory(WeaponFactory.getWeapon("Debug Lance"));
+		u13.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
+		u13.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
+		u13.equipFirstWeapon(1);
+		p1.getParty().addUnit(u13);
+		
+		Unit u14 = UnitFactory.getUnit("Joshua");
+		u14.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
+		u14.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
+		u14.equipFirstWeapon(1);
+		p1.getParty().addUnit(u14);
+		
+		
 		
 
 		u1.setLevel(20);
@@ -145,6 +167,9 @@ public class FEMultiplayer extends Game{
 		u9.setLevel(20);
 		u10.setLevel(20);
 		u11.setLevel(20);
+		u12.setLevel(20);
+		u13.setLevel(20);
+		u14.setLevel(20);
 		
 		u1.fillHp();
 		u1.setHp(1);
@@ -158,6 +183,9 @@ public class FEMultiplayer extends Game{
 		u9.fillHp();
 		u10.fillHp();
 		u11.fillHp();
+		u12.fillHp();
+		u13.fillHp();
+		u14.fillHp();
 		
 		map = new OverworldStage(new Grid(20,10, Terrain.PLAIN), p1);
 		map.addUnit(u1, 0, 0);
@@ -171,6 +199,9 @@ public class FEMultiplayer extends Game{
 		map.addUnit(u9, 6, 2);
 		map.addUnit(u10, 3, 4);
 		map.addUnit(u11, 4, 0);
+		map.addUnit(u12, 5, 2);
+		map.addUnit(u13, 5, 3);
+		map.addUnit(u14, 0, 1);
 		map.setControl(true);
 		
 		

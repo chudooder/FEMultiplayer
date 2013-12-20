@@ -246,8 +246,8 @@ public class Renderer {
 		return camera;
 	}
     
-    public static void addClip(int x0, int y0, int w, int h, boolean persistent) {
-    	clip = new RectClip(x0, y0, w, h, persistent);
+    public static void addClip(float f, float g, float h, float i, boolean persistent) {
+    	clip = new RectClip(f, g, h, i, persistent);
     }
     
     public static void removeClip() {
@@ -256,11 +256,11 @@ public class Renderer {
     
     static class RectClip {
     	boolean persistent;
-    	public RectClip(int x0, int y0, int w, int h, boolean p) {
+    	public RectClip(float x0, float y0, float w, float h, boolean p) {
     		persistent = p;
     		glEnable(GL_SCISSOR_TEST);
 //    		System.out.println(scaleX*x0+" "+(Game.getWindowHeight()-y0-scaleY*h)+" "+scaleX*w+" "+scaleY*h);
-    		glScissor(x0, Game.getWindowHeight()-y0-h, w, h);
+    		glScissor((int)x0, (int)(Game.getWindowHeight()-y0-h), (int)w, (int)h);
     	}
     	
     	public void destroy() {
