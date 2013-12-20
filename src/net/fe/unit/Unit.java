@@ -63,14 +63,20 @@ public class Unit extends GriddedEntity {
 
 		fillHp();
 		
-		for(String s: Arrays.asList("idle", "selected", "left", "right", "up", "down")){
-			String a = s;
-			if(s.equals("left") || s.equals("right"))
-				a = "side";
-			sprite.addAnimation(s.toUpperCase(), new Animation(
-					Resources.getTexture(functionalClassName() + "_map_" + a),
-					24, 24, 4, 4, 5, 5, MAP_ANIM_SPEED));
-		}
+		sprite.addAnimation("IDLE", new MapAnimation(functionalClassName() + 
+				"_map_idle", false));
+		sprite.addAnimation("SELECTED", new MapAnimation(functionalClassName() + 
+				"_map_selected", false));
+		sprite.addAnimation("LEFT", new MapAnimation(functionalClassName() + 
+				"_map_side", true));
+		sprite.addAnimation("RIGHT", new MapAnimation(functionalClassName() + 
+				"_map_side", true));
+		sprite.addAnimation("UP", new MapAnimation(functionalClassName() + 
+				"_map_up", true));
+		sprite.addAnimation("DOWN", new MapAnimation(functionalClassName() + 
+				"_map_down", true));
+
+		sprite.setAnimation("IDLE");
 
 		renderDepth = OverworldStage.UNIT_DEPTH;
 	}
@@ -100,8 +106,14 @@ public class Unit extends GriddedEntity {
 	
 	public void beginStep(){
 		super.beginStep();
-		String anim = getMapSprite();
-		sprite.setAnimation(anim);
+		if(path != null){
+			String name;
+			if(rX > 0) 		name = "left";
+			else if(rX < 0) name = "right";
+			else if(rY < 0) name = "down";
+			else 			name = "up";
+			sprite.setAnimation(name);
+		}
 	}
 
 	public void onStep() {
@@ -155,9 +167,14 @@ public class Unit extends GriddedEntity {
 			Transform t = new Transform();
 			if(sprite.getAnimationName().equals("RIGHT")){
 				t.flipHorizontal();
-				t.setTranslation(8, 0);
+				t.setTranslation(14, 0); //Why do we have to do this?
 			}
 			//TODO Colors
+			Color c = !moved ? getPartyColor() : Color.gray;
+			Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX,
+					y + 14 + rY, renderDepth+0.001f, c);
+			
+			
 			sprite.renderTransformed(x+1+rX, y+1+rY, renderDepth, t);
 		} else {
 			Color c = !moved ? getPartyColor() : Color.gray;
@@ -167,24 +184,11 @@ public class Unit extends GriddedEntity {
 			Renderer.drawString("default_med",
 					name.charAt(0) + "" + name.charAt(1), x + 2 + rX, y + 1 + rY,
 					OverworldStage.UNIT_DEPTH);
-			int hpLength = hp * 13 / get("HP");
-			Renderer.drawLine(x + 1, y + 13.5f, x + 1 + hpLength, y + 13.5f, 1,
-					OverworldStage.UNIT_DEPTH - 0.01f, Color.red, Color.green);
-		}
-	}
-	
-	private String getMapSprite(){
-		if(path!=null){
-			if(rX > 0) return "left";
-			if(rX < 0) return "right";
-			if(rY < 0) return "up";
-			return "down";
 			
 		}
-		if(!moved && ((OverworldStage) stage).getHoveredUnit() == this){
-			return "selected";
-		} 
-		return "idle";
+//		int hpLength = hp * 13 / get("HP");
+//		Renderer.drawLine(x + 1, y + 14.5f, x + 1 + hpLength, y + 13.5f, 1,
+//				OverworldStage.UNIT_DEPTH - 0.01f, Color.red, Color.green);
 	}
 
 	public void setLevel(int lv) {
@@ -416,6 +420,7 @@ public class Unit extends GriddedEntity {
 
 	public void moved() {
 		moved = true;
+		sprite.setAnimation("IDLE");
 		origX = xcoord;
 		origY = ycoord;
 	}

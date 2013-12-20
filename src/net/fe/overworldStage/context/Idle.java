@@ -22,10 +22,7 @@ public class Idle extends CursorContext {
 		}
 		if(movable){
 			super.startContext();
-			Unit u = getHoveredUnit();
-			if(u!=null && !u.hasMoved()){
-				addZones(u);
-			}
+			cursorChanged();
 		} else {
 			stage.end();
 		}
@@ -53,12 +50,22 @@ public class Idle extends CursorContext {
 	public void onCancel() {
 		//Nothing
 	}
-
-	public void cursorChanged(){
+	
+	public void cursorWillChange(){
 		removeZones();
 		Unit u = getHoveredUnit();
 		if(u!=null && !u.hasMoved()){
+			u.sprite.setAnimation("IDLE");
+		}
+	}
+
+	public void cursorChanged(){
+		Unit u = getHoveredUnit();
+		if(u!=null && !u.hasMoved()){
 			addZones(u);
+			if(u.getParty() == stage.getPlayer().getParty()){
+				u.sprite.setAnimation("SELECTED");
+			}
 		}
 	}
 	

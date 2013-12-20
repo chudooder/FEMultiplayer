@@ -15,10 +15,12 @@ public abstract class MenuContext<T> extends OverworldContext{
 	
 	public void startContext(){
 		super.startContext();
+		cursor.off();
 		stage.setMenu(menu);
 	}
 	
 	public void cleanUp(){
+		cursor.on();
 		stage.setMenu(null);
 	}
 

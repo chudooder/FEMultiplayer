@@ -78,7 +78,10 @@ public class Weapon extends Item{
 	public int triMod(Weapon other){ 
 		if(other == null) return 0;
 		if(this.name.contains("reaver") || other.name.contains("reaver")){
-			return -type.triangleModifier(other.type);
+			if(this.name.contains("reaver") && other.name.contains("reaver")){
+				return -type.triangleModifier(other.type);
+			}
+			return -2*type.triangleModifier(other.type);
 		}
 		return type.triangleModifier(other.type);
 	}

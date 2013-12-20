@@ -16,6 +16,7 @@ public class UnitSelected extends CursorContext {
 	
 	public void startContext(){
 		super.startContext();
+		selected.sprite.setAnimation("DOWN");
 		grid.move(selected, selected.getOrigX(), selected.getOrigY(), false);
 		this.move = new Zone(grid.getPossibleMoves(selected), Zone.MOVE_DARK);
 		this.attack = Zone.minus(new Zone(grid.getAttackRange(selected),
@@ -58,6 +59,10 @@ public class UnitSelected extends CursorContext {
 		cursor.setXCoord(selected.getOrigX());
 		cursor.setYCoord(selected.getOrigY());
 		super.onCancel();
+	}
+	
+	public void cursorWillChange(){
+		//Nothing
 	}
 
 	public void cursorChanged() {
