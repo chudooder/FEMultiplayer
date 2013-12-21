@@ -45,7 +45,7 @@ public class UnitInfo extends Entity{
 		//Mugshot
 		Renderer.drawRectangle(x+4, y+4, x+88, y+80, renderDepth, BORDER_DARK);
 		Renderer.drawRectangle(x+5, y+5, x+87, y+79, renderDepth, BORDER_LIGHT);
-		Renderer.drawRectangle(x+6, y+6, x+86, y+78, renderDepth, Color.gray);
+		Renderer.drawRectangle(x+6, y+6, x+86, y+78, renderDepth, NEUTRAL.darker(0.5f));
 		Texture mugshot = Resources.getTexture(u.name.toLowerCase()+"_mugshot");
 		Renderer.addClip(x+6, y+6, 80, 72, false);
 		Renderer.render(mugshot, 0, 0, 1, 1, x+46-mugshot.getImageWidth()/2, 

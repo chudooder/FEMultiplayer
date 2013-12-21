@@ -114,6 +114,20 @@ public class Unit extends GriddedEntity {
 			else 			name = "up";
 			sprite.setAnimation(name);
 		}
+		renderDepth = calcRenderDepth();
+	}
+	
+	private float calcRenderDepth(){
+		float depth = OverworldStage.UNIT_DEPTH;
+		float movingDiff = (OverworldStage.UNIT_DEPTH - OverworldStage.UNIT_MAX_DEPTH)/2;
+		Grid g = ((OverworldStage) stage).grid;
+		float yDiff = movingDiff/g.width;
+		float xDiff = yDiff/g.height;
+		
+		if(path!=null) depth -= movingDiff;
+		depth -= ycoord*yDiff;
+		depth -= (g.width-xcoord)*xDiff;
+		return depth;
 	}
 
 	public void onStep() {
@@ -170,9 +184,9 @@ public class Unit extends GriddedEntity {
 				t.setTranslation(14, 0); //Why do we have to do this?
 			}
 			//TODO Colors
-			Color c = !moved ? getPartyColor() : Color.gray;
-			Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX,
-					y + 14 + rY, renderDepth+0.001f, c);
+			if(moved){
+				Renderer.setColor(Color.gray);
+			}
 			
 			
 			sprite.renderTransformed(x+1+rX, y+1+rY, renderDepth, t);

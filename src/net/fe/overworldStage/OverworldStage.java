@@ -34,6 +34,7 @@ public class OverworldStage extends Stage {
 	public static final float ZONE_DEPTH = 0.8f;
 	public static final float PATH_DEPTH = 0.75f;
 	public static final float UNIT_DEPTH = 0.5f;
+	public static final float UNIT_MAX_DEPTH = 0.4f;
 	public static final float MENU_DEPTH = 0.1f;
 	public static final float CURSOR_DEPTH = 0.2f;
 
