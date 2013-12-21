@@ -44,9 +44,11 @@ public class UnitSelected extends CursorContext {
 		if (path == null) return;
 		if (move.getNodes().contains(new Node(cursor.getXCoord(), cursor.getYCoord()))) {
 			grid.move(selected, cursor.getXCoord(),	cursor.getYCoord(), true);
+			stage.setControl(false);
 			selected.move(path, new Command() {
 				@Override
 				public void execute() {
+					stage.setControl(true);
 					new UnitMoved(stage, UnitSelected.this,
 							selected, true).startContext();
 				}

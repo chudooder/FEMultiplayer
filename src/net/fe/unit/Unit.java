@@ -101,7 +101,6 @@ public class Unit extends GriddedEntity {
 
 		}
 		this.callback = callback;
-		this.renderDepth+=0.001f;
 	}
 	
 	public void beginStep(){
@@ -114,7 +113,7 @@ public class Unit extends GriddedEntity {
 			else 			name = "up";
 			sprite.setAnimation(name);
 		}
-		renderDepth = calcRenderDepth();
+		renderDepth = OverworldStage.UNIT_DEPTH;
 	}
 	
 	private float calcRenderDepth(){
@@ -144,7 +143,6 @@ public class Unit extends GriddedEntity {
 				rY = 0;
 				path = null;
 				callback.execute();
-				this.renderDepth-=0.001f;
 			} else {
 				Node next = path.removeFirst();
 				rX = -(next.x - xcoord) * 16;
@@ -164,6 +162,7 @@ public class Unit extends GriddedEntity {
 		if (alpha < 0) {
 			((OverworldStage) stage).setControl(true);
 			((OverworldStage) stage).removeUnit(this);
+			dying = false;
 		}
 	}
 
@@ -184,14 +183,19 @@ public class Unit extends GriddedEntity {
 				t.setTranslation(14, 0); //Why do we have to do this?
 			}
 			//TODO Colors
+			Color mod;
 			if(moved){
-				Renderer.setColor(Color.gray);
+				mod = new Color(Color.gray);
+			} else {
+				mod = new Color(Color.white);
 			}
-			
-			
+			if(dying)
+				mod.a = alpha;
+			Renderer.setColor(mod);
 			sprite.renderTransformed(x+1+rX, y+1+rY, renderDepth, t);
+			Renderer.setColor(null);
 		} else {
-			Color c = !moved ? getPartyColor() : new Color(128, 128, 128);
+			Color c = !moved ? new Color(getPartyColor()) : new Color(128, 128, 128);
 			c.a = alpha;
 			Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX,
 					y + 14 + rY, OverworldStage.UNIT_DEPTH, c);
@@ -200,6 +204,7 @@ public class Unit extends GriddedEntity {
 					OverworldStage.UNIT_DEPTH);
 			
 		}
+		Renderer.setColor(null);
 //		int hpLength = hp * 13 / get("HP");
 //		Renderer.drawLine(x + 1, y + 14.5f, x + 1 + hpLength, y + 13.5f, 1,
 //				OverworldStage.UNIT_DEPTH - 0.01f, Color.red, Color.green);

@@ -20,6 +20,7 @@ public class Party implements Iterable<Unit>{
 		units = new ArrayList<Unit>();
 		allies = new ArrayList<Party>();
 		allies.add(this);
+		color = TEAM_BLUE;
 	}
 	
 	public Party(ArrayList<Unit> units) {

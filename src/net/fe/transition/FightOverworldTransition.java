@@ -80,7 +80,7 @@ public class FightOverworldTransition extends Transition {
 		Renderer.pushMatrix();
 		Renderer.scale(0.5f, 0.5f);
 		// Render overworld stage (with transparency)
-		Renderer.drawRectangle(0, 0, Game.getWindowWidth(), Game.getWindowHeight(), 0.1f, 
+		Renderer.drawRectangle(0, 0, Game.getWindowWidth(), Game.getWindowHeight(), 0.0f, 
 				new Color(0.0f, 0.0f, 0.0f, Math.min(1.0f, timer*5)));
 		Renderer.setColor(new Color(1f, 1f, 1f, fightAlpha));
 		if(timer > 0.4) fightAlpha += 6*delta;
