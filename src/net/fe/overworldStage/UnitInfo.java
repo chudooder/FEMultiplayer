@@ -19,12 +19,13 @@ public class UnitInfo extends Entity{
 	public UnitInfo(Cursor c) {
 		//TODO Positioning
 		super(0, 160);
-		renderDepth = OverworldStage.MENU_DEPTH;
+		renderDepth = 0.8f;
 	}
 	
 	public void render(){
 		Unit u = ((OverworldStage) stage).getHoveredUnit();
 		if(u == null) return;
+		if(u.isDying()) return;
 		
 		//Main Box
 		Renderer.drawRectangle(x, y, x+320, y+84, renderDepth, BORDER_DARK);

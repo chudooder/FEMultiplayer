@@ -113,7 +113,7 @@ public class Unit extends GriddedEntity {
 			else 			name = "up";
 			sprite.setAnimation(name);
 		}
-		renderDepth = OverworldStage.UNIT_DEPTH;
+		renderDepth = calcRenderDepth();
 	}
 	
 	private float calcRenderDepth(){
@@ -191,9 +191,8 @@ public class Unit extends GriddedEntity {
 			}
 			if(dying)
 				mod.a = alpha;
-			Renderer.setColor(mod);
+			t.setColor(mod);
 			sprite.renderTransformed(x+1+rX, y+1+rY, renderDepth, t);
-			Renderer.setColor(null);
 		} else {
 			Color c = !moved ? new Color(getPartyColor()) : new Color(128, 128, 128);
 			c.a = alpha;
@@ -204,7 +203,6 @@ public class Unit extends GriddedEntity {
 					OverworldStage.UNIT_DEPTH);
 			
 		}
-		Renderer.setColor(null);
 //		int hpLength = hp * 13 / get("HP");
 //		Renderer.drawLine(x + 1, y + 14.5f, x + 1 + hpLength, y + 13.5f, 1,
 //				OverworldStage.UNIT_DEPTH - 0.01f, Color.red, Color.green);
@@ -469,6 +467,10 @@ public class Unit extends GriddedEntity {
 		dying = b;
 		if (dying)
 			((OverworldStage) stage).setControl(false);
+	}
+	
+	public boolean isDying(){
+		return dying;
 	}
 
 
