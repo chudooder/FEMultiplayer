@@ -5,6 +5,7 @@ import static org.lwjgl.opengl.GL11.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.Stack;
 
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBVertexShader;
@@ -21,6 +22,7 @@ public class Renderer {
 	private static RectClip clip;
 	private static final int SCALE_FILTER = GL_NEAREST;
 	private static Color color;
+	private static Stack<RendererState> stateStack;
 	private static int program;
 	private static int vertexShader;
 	private static int fragmentShader;
@@ -30,6 +32,7 @@ public class Renderer {
 		clip = null;
 		color = Color.white;
 		program = ARBShaderObjects.glCreateProgramObjectARB();
+		stateStack = new Stack<RendererState>();
 		linkProgram();
 	}
 
@@ -242,10 +245,18 @@ public class Renderer {
 	
 	public static void pushMatrix() {
 		glPushMatrix();
+		RendererState state = new RendererState();
+		state.color = color;
+		state.clip = clip;
+		stateStack.push(state);
 	}
 	
 	public static void popMatrix() {
 		glPopMatrix();
+		RendererState state = stateStack.pop();
+		color = state.color;
+		clip = state.clip;
+		stateStack.push(state);
 	}
 	
 	public void useVertexShader(String shaderName) {
@@ -412,4 +423,8 @@ public class Renderer {
     	}
     }
 
+    static class RendererState {
+		Color color;
+		RectClip clip;
+	}
 }
