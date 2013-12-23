@@ -5,11 +5,13 @@ import static org.lwjgl.opengl.GL11.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Stack;
 
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL20;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
@@ -23,17 +25,19 @@ public class Renderer {
 	private static final int SCALE_FILTER = GL_NEAREST;
 	private static Color color;
 	private static Stack<RendererState> stateStack;
-	private static int program;
-	private static int vertexShader;
-	private static int fragmentShader;
+	private static HashMap<String, Integer> programs;
+	private static int currentProgram;
 
 	static {
+		stateStack = new Stack<RendererState>();
+		programs = new HashMap<String, Integer>();
 		camera = new Camera(null, 0, 0);
 		clip = null;
 		color = Color.white;
-		program = ARBShaderObjects.glCreateProgramObjectARB();
-		stateStack = new Stack<RendererState>();
-		linkProgram();
+		// Set up palette swap program
+		programs.put("default", createProgram("default", "default"));
+		currentProgram = programs.get("default");
+		linkProgram(currentProgram);
 	}
 
 	/***
@@ -87,6 +91,7 @@ public class Renderer {
 	public static void renderTransformed(Texture t, float tx0, float ty0,
 			float tx1, float ty1, float x0, float y0, float x1, float y1,
 			float depth, Transform transform) {
+		ARBShaderObjects.glUseProgramObjectARB(currentProgram);
 		t.bind();
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
@@ -133,6 +138,7 @@ public class Renderer {
 
 		glPopMatrix();
 		if(clip != null && !clip.persistent) clip.destroy();
+		ARBShaderObjects.glUseProgramObjectARB(0);
 	}
 
 	public static void drawSquare(float x, float y, float s, float depth,
@@ -259,44 +265,6 @@ public class Renderer {
 		stateStack.push(state);
 	}
 	
-	public void useVertexShader(String shaderName) {
-		 try {
-			vertexShader = createShader("shaders/"+shaderName+".vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
-			if(vertexShader == 0) throw new Exception();
-			ARBShaderObjects.glAttachObjectARB(program, vertexShader);
-		} catch (Exception e) {
-			System.err.println("Unable to create vertex shader: "+shaderName);
-			e.printStackTrace();
-		}
-	}
-	
-	public void useFragmentShader(String shaderName) {
-		try {
-			fragmentShader = createShader("shaders/"+shaderName+".frag",ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
-			if(fragmentShader == 0) throw new Exception();
-			ARBShaderObjects.glAttachObjectARB(program, fragmentShader);
-			ARBShaderObjects.glLinkProgramARB(program);
-	        linkProgram();
-		} catch (Exception e) {
-			System.err.println("Unable to create fragment shader: "+shaderName);
-			e.printStackTrace();
-		}
-	}
-	
-	private static void linkProgram() {
-		ARBShaderObjects.glLinkProgramARB(program);
-        if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL_FALSE) {
-            System.err.println(getLogInfo(program));
-            return;
-        }
-        
-        ARBShaderObjects.glValidateProgramARB(program);
-        if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL_FALSE) {
-        	System.err.println(getLogInfo(program));
-        	return;
-        }
-	}
-
 	public static void setCamera(Camera c) {
 		camera = c;
 	}
@@ -318,7 +286,7 @@ public class Renderer {
     * is the same.
     * @param the name and path to the vertex shader
     */
-    private int createShader(String filename, int shaderType) throws Exception {
+    private static int createShader(String filename, int shaderType) throws Exception {
     	int shader = 0;
     	try {
 	        shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
@@ -340,10 +308,61 @@ public class Renderer {
     	}
     }
     
-    private static String getLogInfo(int obj) {
+    private static int createProgram(String vertShader, String fragShader) {
+    	int prog = ARBShaderObjects.glCreateProgramObjectARB();
+    	bindVertexShader(vertShader, prog);
+    	bindFragmentShader(fragShader, prog);
+    	setTextureUnits(prog);
+    	return prog;
+    }
+    
+    public static void bindVertexShader(String shaderName, int program) {
+		 try {
+			int vertexShader = createShader("shaders/"+shaderName+".vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
+			if(vertexShader == 0) throw new Exception();
+			ARBShaderObjects.glAttachObjectARB(program, vertexShader);
+		} catch (Exception e) {
+			System.err.println("Unable to create vertex shader: "+shaderName);
+			e.printStackTrace();
+		}
+	}
+
+	public static void bindFragmentShader(String shaderName, int program) {
+		try {
+			int fragmentShader = createShader("shaders/"+shaderName+".frag",ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
+			if(fragmentShader == 0) throw new Exception();
+			ARBShaderObjects.glAttachObjectARB(program, fragmentShader);
+		} catch (Exception e) {
+			System.err.println("Unable to create fragment shader: "+shaderName);
+			e.printStackTrace();
+		}
+	}
+
+	private static void linkProgram(int program) {
+		ARBShaderObjects.glLinkProgramARB(program);
+	    if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL_FALSE) {
+	        System.err.println(getLogInfo(program));
+	        return;
+	    }
+	    
+	    ARBShaderObjects.glValidateProgramARB(program);
+	    if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL_FALSE) {
+	    	System.err.println(getLogInfo(program));
+	    	return;
+	    }
+	}
+
+	private static String getLogInfo(int obj) {
         return ARBShaderObjects.glGetInfoLogARB(obj, 
         		ARBShaderObjects.glGetObjectParameteriARB(obj,
         				ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
+    }
+    
+    private static void setTextureUnits(int programId) {
+        int loc = GL20.glGetUniformLocation(programId, "texture0");
+        GL20.glUniform1i(loc, 0);
+        int loc2 = GL20.glGetUniformLocation(programId, "texture1");
+        GL20.glUniform1i(loc2, 1);
     }
     
     /**
@@ -353,13 +372,10 @@ public class Renderer {
      * @return
      * @throws Exception
      */
-    private String readFileAsString(String filename) throws Exception {
+    private static String readFileAsString(String filename) throws Exception {
         StringBuilder source = new StringBuilder();
-        
         FileInputStream in = new FileInputStream(filename);
-        
         Exception exception = null;
-        
         BufferedReader reader;
         try{
             reader = new BufferedReader(new InputStreamReader(in,"UTF-8"));
