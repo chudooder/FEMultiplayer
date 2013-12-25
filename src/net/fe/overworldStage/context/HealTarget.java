@@ -124,7 +124,7 @@ class StaffSelector extends Entity {
 		leftArrow.render(x+3, y+6, renderDepth);
 		Transform t = new Transform();
 		t.flipHorizontal();
-		rightArrow.renderTransformed(x + 87, y+6, renderDepth, t);
+		rightArrow.render(x + 87, y+6, renderDepth, t);
 	}
 
 }

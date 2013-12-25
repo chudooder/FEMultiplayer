@@ -5,12 +5,16 @@ import static org.lwjgl.opengl.GL11.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.Stack;
 
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
@@ -26,7 +30,6 @@ public class Renderer {
 	private static Color color;
 	private static Stack<RendererState> stateStack;
 	private static HashMap<String, Integer> programs;
-	private static int currentProgram;
 
 	static {
 		stateStack = new Stack<RendererState>();
@@ -35,9 +38,13 @@ public class Renderer {
 		clip = null;
 		color = Color.white;
 		// Set up palette swap program
+		programs.put("paletteSwap", createProgram("paletteSwap", "paletteSwap"));
 		programs.put("default", createProgram("default", "default"));
-		currentProgram = programs.get("default");
-		linkProgram(currentProgram);
+		GL13.glActiveTexture(GL13.GL_TEXTURE1);
+		Texture palette = Resources.getTexture("unit_colors");
+		System.out.println(palette.getTextureWidth());
+		glBindTexture(GL_TEXTURE_2D, palette.getTextureID());
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 	}
 
 	/***
@@ -64,60 +71,47 @@ public class Renderer {
 	 */
 	public static void render(Texture t, float tx0, float ty0, float tx1,
 			float ty1, float x0, float y0, float x1, float y1, float depth) {
-		color.bind();
-		t.bind();
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		// Compensation for non power of 2 images
-		float txi = tx0*t.getImageWidth()/t.getTextureWidth();
-		float tyi = ty0*t.getImageHeight()/t.getTextureHeight();
-		float txf = tx1*t.getImageWidth()/t.getTextureWidth();
-		float tyf = ty1*t.getImageHeight()/t.getTextureHeight();
-
-		// draw quad
-		glBegin(GL_QUADS);
-		glTexCoord2f(txi, tyi);
-		glVertex3f(x0, y0, depth);
-		glTexCoord2f(txf, tyi);
-		glVertex3f(x1, y0, depth);
-		glTexCoord2f(txf, tyf);
-		glVertex3f(x1, y1, depth);
-		glTexCoord2f(txi, tyf);
-		glVertex3f(x0, y1, depth);
-		glEnd();
-		if(clip != null && !clip.persistent) clip.destroy();
+		render(t, tx0, ty0, tx1, ty1, x0, y0, x1, y1, depth, null, "default");
+	}
+	
+	public static void render(Texture t, float tx0, float ty0, float tx1,
+			float ty1, float x0, float y0, float x1, float y1, float depth, Transform transform) {
+		render(t, tx0, ty0, tx1, ty1, x0, y0, x1, y1, depth, transform, "default");
 	}
 
-	public static void renderTransformed(Texture t, float tx0, float ty0,
+	public static void render(Texture t, float tx0, float ty0,
 			float tx1, float ty1, float x0, float y0, float x1, float y1,
-			float depth, Transform transform) {
-		ARBShaderObjects.glUseProgramObjectARB(currentProgram);
-		t.bind();
+			float depth, Transform transform, String shader) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		Color c = transform.color.multiply(color);
-		glColor4f(c.r, c.g, c.b, c.a);
+		ARBShaderObjects.glUseProgramObjectARB(programs.get(shader));
+		t.bind();
 		glPushMatrix();
-		glTranslatef(x0, y0, depth);
-		glTranslatef(transform.translateX, transform.translateY, 0);
-		glScalef(transform.scaleX, transform.scaleY, 0);
-		glTranslatef(-x0 + (x0 + x1) / 2, -y0 + (y0 + y1) / 2, 0);
-		glRotatef(transform.rotation / (float) Math.PI * 180, 0, 0, 1);
-		glTranslatef(-(x0 + x1) / 2, -(y0 + y1) / 2, -depth);
-
-		// do flip operations
-		if (transform.flipHorizontal) {
-			float temp = tx0;
-			tx0 = tx1;
-			tx1 = temp;
+		if(transform != null) {
+			Color c = transform.color.multiply(color);
+			glColor4f(c.r, c.g, c.b, c.a);
+			glTranslatef(x0, y0, depth);
+			glTranslatef(transform.translateX, transform.translateY, 0);
+			glScalef(transform.scaleX, transform.scaleY, 0);
+			glTranslatef(-x0 + (x0 + x1) / 2, -y0 + (y0 + y1) / 2, 0);
+			glRotatef(transform.rotation / (float) Math.PI * 180, 0, 0, 1);
+			glTranslatef(-(x0 + x1) / 2, -(y0 + y1) / 2, -depth);
+	
+			// do flip operations
+			if (transform.flipHorizontal) {
+				float temp = tx0;
+				tx0 = tx1;
+				tx1 = temp;
+			}
+	
+			if (transform.flipVertical) {
+				float temp = ty0;
+				ty0 = ty1;
+				ty1 = temp;
+			}
+		} else {
+			glColor4f(color.r, color.g, color.b, color.a);
 		}
-
-		if (transform.flipVertical) {
-			float temp = ty0;
-			ty0 = ty1;
-			ty1 = temp;
-		}
-		
 		// Compensation for non power of 2 images
 		float txi = tx0*t.getImageWidth()/t.getTextureWidth();
 		float tyi = ty0*t.getImageHeight()/t.getTextureHeight();
@@ -148,25 +142,12 @@ public class Renderer {
 
 	public static void drawRectangle(float x0, float y0, float x1, float y1,
 			float depth, Color c) {
-		c = c.multiply(color);
-		glDisable(GL_TEXTURE_2D);
-		glColor4f(c.r, c.g, c.b, c.a);
-
-		// glLoadIdentity();
-		glBegin(GL_QUADS);
-		glVertex3f(x0, y0, depth);
-		glVertex3f(x1, y0, depth);
-		glVertex3f(x1, y1, depth);
-		glVertex3f(x0, y1, depth);
-		glEnd();
-		glEnable(GL_TEXTURE_2D);
-		if(clip != null && !clip.persistent) clip.destroy();
+		drawRectangle(x0, y0, x1, y1, depth, c, c, c, c);
 	}
 
 	public static void drawRectangle(float x0, float y0, float x1, float y1,
 			float depth, Color c0, Color c1, Color c2, Color c3) {
 		glDisable(GL_TEXTURE_2D);
-		// glLoadIdentity();
 		glBegin(GL_QUADS);
 		c0 = c0.multiply(color);
 		c1 = c1.multiply(color);
@@ -223,16 +204,13 @@ public class Renderer {
 	}
 	
 	public static void drawString(String fontName, String string, float x, float y, float depth) {
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		Resources.getBitmapFont(fontName).render(string, x, y, depth);
-		if(clip != null && !clip.persistent) clip.destroy();
+		drawString(fontName, string, x, y, depth, null);
 	}
 	
-	public static void drawTransformedString(String fontName, String string, float x, float y, float depth, Transform t) {
+	public static void drawString(String fontName, String string, float x, float y, float depth, Transform t) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		Resources.getBitmapFont(fontName).renderTransformed(string, x, y, depth, t);
+		Resources.getBitmapFont(fontName).render(string, x, y, depth, t);
 		if(clip != null && !clip.persistent) clip.destroy();
 	}
 	
@@ -309,62 +287,60 @@ public class Renderer {
     }
     
     private static int createProgram(String vertShader, String fragShader) {
+    	// Create program object
     	int prog = ARBShaderObjects.glCreateProgramObjectARB();
-    	bindVertexShader(vertShader, prog);
-    	bindFragmentShader(fragShader, prog);
-    	setTextureUnits(prog);
-    	return prog;
-    }
-    
-    public static void bindVertexShader(String shaderName, int program) {
-		 try {
-			int vertexShader = createShader("shaders/"+shaderName+".vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
+    	System.out.println("Program: "+prog);
+    	// Create vertex shader
+    	try {
+			int vertexShader = createShader("shaders/"+vertShader+".vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
 			if(vertexShader == 0) throw new Exception();
-			ARBShaderObjects.glAttachObjectARB(program, vertexShader);
+			ARBShaderObjects.glAttachObjectARB(prog, vertexShader);
 		} catch (Exception e) {
-			System.err.println("Unable to create vertex shader: "+shaderName);
+			System.err.println("Unable to create vertex shader: "+vertShader);
 			e.printStackTrace();
 		}
-	}
-
-	public static void bindFragmentShader(String shaderName, int program) {
-		try {
-			int fragmentShader = createShader("shaders/"+shaderName+".frag",ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
+    	// Create fragment shader
+    	try {
+			int fragmentShader = createShader("shaders/"+fragShader+".frag",ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
 			if(fragmentShader == 0) throw new Exception();
-			ARBShaderObjects.glAttachObjectARB(program, fragmentShader);
+			ARBShaderObjects.glAttachObjectARB(prog, fragmentShader);
 		} catch (Exception e) {
-			System.err.println("Unable to create fragment shader: "+shaderName);
+			System.err.println("Unable to create fragment shader: "+fragShader);
 			e.printStackTrace();
 		}
-	}
-
-	private static void linkProgram(int program) {
-		ARBShaderObjects.glLinkProgramARB(program);
-	    if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL_FALSE) {
-	        System.err.println(getLogInfo(program));
-	        return;
+    	// Link program
+    	ARBShaderObjects.glLinkProgramARB(prog);
+	    if (ARBShaderObjects.glGetObjectParameteriARB(prog, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL_FALSE) {
+	        System.err.println(getLogInfo(prog));
+	        System.out.println("crap");
+	        return -1;
 	    }
 	    
-	    ARBShaderObjects.glValidateProgramARB(program);
-	    if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL_FALSE) {
-	    	System.err.println(getLogInfo(program));
-	    	return;
+	    // Use program
+	    ARBShaderObjects.glUseProgramObjectARB(prog);
+	    // Bind texture units to uniforms
+	    int loc = GL20.glGetUniformLocation(prog, "texture1");
+        GL20.glUniform1i(loc, 0);
+        int loc2 = GL20.glGetUniformLocation(prog, "texture2");
+        GL20.glUniform1i(loc2, 1);
+        System.out.println("Texture units: "+ loc + " " + loc2);
+        
+	    // Validate program
+	    ARBShaderObjects.glValidateProgramARB(prog);
+	    if (ARBShaderObjects.glGetObjectParameteriARB(prog, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL_FALSE) {
+	    	System.err.println(getLogInfo(prog));
+	    	System.out.println("shit");
+	    	return -1;
 	    }
-	}
+    	return prog;
+    }
 
 	private static String getLogInfo(int obj) {
         return ARBShaderObjects.glGetInfoLogARB(obj, 
         		ARBShaderObjects.glGetObjectParameteriARB(obj,
         				ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
     }
-    
-    private static void setTextureUnits(int programId) {
-        int loc = GL20.glGetUniformLocation(programId, "texture0");
-        GL20.glUniform1i(loc, 0);
-        int loc2 = GL20.glGetUniformLocation(programId, "texture1");
-        GL20.glUniform1i(loc2, 1);
-    }
-    
+	
     /**
      * I copied this method from the lwjgl website but this code makes me want
      * to kill myself. I might fix later
@@ -443,4 +419,5 @@ public class Renderer {
 		Color color;
 		RectClip clip;
 	}
+    
 }

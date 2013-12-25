@@ -37,7 +37,7 @@ public class MagicEffect extends Entity {
 			t.flipHorizontal();
 			offset *=-1;
 		}
-		sprite.renderTransformed(FightStage.CENTRAL_AXIS + offset,				
+		sprite.render(FightStage.CENTRAL_AXIS + offset,				
 				FightStage.FLOOR, 0, t);
 		
 	}

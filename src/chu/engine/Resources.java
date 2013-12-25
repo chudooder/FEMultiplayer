@@ -47,6 +47,8 @@ public class Resources {
 		try {
 			// Textures
 			loadTextures();
+			textures.put("unit_colors", new AnimationData(TextureLoader.getTexture("PNG", 
+					ResourceLoader.getResourceAsStream("res/palette/unit_colors_condensed.png"))));
 
 			//Load bitmap fonts
 			loadBitmapFonts();
@@ -204,7 +206,7 @@ public class Resources {
 			return t;
 		} else {
 			//try to get it, in case we forgot
-			System.out.println("Warn:" + string + " not explicitly defined");
+			System.err.println("Warn: " + string + " not explicitly defined");
 			for(String loc: searchFolders){
 				try{
 					AnimationData txt = new AnimationData(TextureLoader.getTexture("PNG",
@@ -246,7 +248,7 @@ public class Resources {
 	public static Audio getAudio(String name) {
 		Audio a = audio.get(name);
 		if(a == null) {
-			System.out.println("Warn:" + name + " not explicitly defined");
+			System.err.println("Warn: " + name + " not explicitly defined");
 			try{
 				Audio b = AudioLoader.getAudio("WAV",
 						ResourceLoader.getResourceAsStream("res/battle_sounds/"+name+".wav"));

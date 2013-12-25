@@ -56,7 +56,7 @@ public class HitEffect extends Entity {
 			t.flipHorizontal();
 			offset *= -1;
 		}
-		sprite.renderTransformed(FightStage.CENTRAL_AXIS + offset,
+		sprite.render(FightStage.CENTRAL_AXIS + offset,
 				FightStage.FLOOR, renderDepth, t);
 	}
 

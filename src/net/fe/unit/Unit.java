@@ -192,7 +192,7 @@ public class Unit extends GriddedEntity {
 			if(dying)
 				mod.a = alpha;
 			t.setColor(mod);
-			sprite.renderTransformed(x+1+rX, y+1+rY, renderDepth, t);
+			sprite.render(x+1+rX, y+1+rY, renderDepth, t, "paletteSwap");
 		} else {
 			Color c = !moved ? new Color(getPartyColor()) : new Color(128, 128, 128);
 			c.a = alpha;

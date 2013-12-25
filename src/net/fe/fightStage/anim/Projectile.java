@@ -44,7 +44,7 @@ public class Projectile extends Entity {
 	public void render(){
 		Transform t = new Transform();
 		if(dir == 1) t.flipHorizontal();
-		sprite.renderTransformed(x, y, renderDepth, t);
+		sprite.render(x, y, renderDepth, t);
 	}
 	
 	public void endStep(){

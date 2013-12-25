@@ -107,7 +107,7 @@ public class BattlePreview extends Entity {
 		new ItemDisplay((int) x + 7, (int) y + 16, attacker.getWeapon(), false)
 				.render();
 		leftArrow.render(x, y + 21, renderDepth);
-		rightArrow.renderTransformed(x + 90, y + 21, renderDepth, flip);
+		rightArrow.render(x + 90, y + 21, renderDepth, flip);
 
 		// Attacker stats
 

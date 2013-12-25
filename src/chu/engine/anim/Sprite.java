@@ -117,22 +117,11 @@ public class Sprite {
 	 * @param depth
 	 */
 	public void render(float x, float y, float depth) {
-		if(currentAnimation == null) return;
-		
-		int width = currentAnimation.getWidth();
-		int height = currentAnimation.getHeight();
-		int frameX = currentAnimation.getFrame() % currentAnimation.getColumns();
-		int frameY = currentAnimation.getFrame() / currentAnimation.getColumns();
-		int offX = currentAnimation.getOffsetX();
-		int offY = currentAnimation.getOffsetY();
-		float x0 = ((float)frameX * width)/currentAnimation.getImageWidth();
-		float x1 = ((float)(frameX+1) * width)/currentAnimation.getImageWidth();
-		float y0 = ((float)frameY * height)/currentAnimation.getImageHeight();
-		float y1 = ((float)(frameY+1) * height)/currentAnimation.getImageHeight();
-		Texture texture = currentAnimation.getTexture();
-		
-		Renderer.render(texture, x0, y0, x1, y1, x-offX, y-offY, x+width-offX, y+height-offY, depth);
-		
+		this.render(x, y, depth, null, "default");
+	}
+	
+	public void render(float x, float y, float depth, Transform t) {
+		this.render(x, y, depth, t, "default");
 	}
 
 	/**
@@ -149,8 +138,9 @@ public class Sprite {
 	 * @param y
 	 * @param depth
 	 * @param transform
+	 * @param shader 
 	 */
-	public void renderTransformed(float x, float y, float depth, Transform transform) {
+	public void render(float x, float y, float depth, Transform transform, String shader) {
 		if(currentAnimation == null) return;
 		
 		int width = currentAnimation.getWidth();
@@ -158,20 +148,22 @@ public class Sprite {
 		int frameX = currentAnimation.getFrame() % currentAnimation.getColumns();
 		int frameY = currentAnimation.getFrame() / currentAnimation.getColumns();
 		int offX = currentAnimation.getOffsetX();
-		if(transform.flipHorizontal) {
-			offX = -offX + width;
-		}
-		int offY = currentAnimation.getOffsetY();
-		if(transform.flipVertical) {
-			offY = -offY + height;
+		int offY = currentAnimation.getOffsetY();;
+		if(transform != null) {
+			if(transform.flipHorizontal) {
+				offX = -offX + width;
+			}
+			if(transform.flipVertical) {
+				offY = -offY + height;
+			}
 		}
 		float x0 = ((float)frameX * width)/currentAnimation.getImageWidth();
 		float x1 = ((float)(frameX+1) * width)/currentAnimation.getImageWidth();
 		float y0 = ((float)frameY * height)/currentAnimation.getImageHeight();
 		float y1 = ((float)(frameY+1) * height)/currentAnimation.getImageHeight();
 		Texture texture = currentAnimation.getTexture();
-		Renderer.renderTransformed(texture, x0, y0, x1, y1, x - offX, y - offY,
-				x + width - offX, y + height - offY, depth, transform);
+		Renderer.render(texture, x0, y0, x1, y1, x - offX, y - offY,
+				x + width - offX, y + height - offY, depth, transform, shader);
 	}
 
 	public void setSpeed(float newSpeed) {

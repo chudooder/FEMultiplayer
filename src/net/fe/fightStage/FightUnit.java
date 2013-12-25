@@ -65,10 +65,10 @@ public class FightUnit extends Entity {
 //		int y1 = FightStage.FLOOR - sprite.getCurrentAnimation().getOffsetY();
 		if(left) {
 			t.flipHorizontal();
-			sprite.renderTransformed(FightStage.CENTRAL_AXIS - distanceFromCenter, 
+			sprite.render(FightStage.CENTRAL_AXIS - distanceFromCenter, 
 					FightStage.FLOOR, renderDepth, t);
 		} else {
-			sprite.renderTransformed(FightStage.CENTRAL_AXIS + distanceFromCenter,
+			sprite.render(FightStage.CENTRAL_AXIS + distanceFromCenter,
 					FightStage.FLOOR, renderDepth, t);
 		}
 	}

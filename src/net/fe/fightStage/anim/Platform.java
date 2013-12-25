@@ -29,7 +29,7 @@ public class Platform extends Entity {
 		if (!left) {
 			t.flipHorizontal();
 		}
-		Renderer.renderTransformed(texture, 0, 0, 1, 1, x, y, x + 120, y + 40,
+		Renderer.render(texture, 0, 0, 1, 1, x, y, x + 120, y + 40,
 				1, t);
 	}
 
