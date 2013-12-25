@@ -183,16 +183,14 @@ public class Unit extends GriddedEntity {
 				t.setTranslation(14, 0); //Why do we have to do this?
 			}
 			//TODO Colors
-			Color mod;
-			if(moved){
-				mod = new Color(Color.gray);
-			} else {
-				mod = new Color(Color.white);
-			}
+			Color mod = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 			if(dying)
 				mod.a = alpha;
 			t.setColor(mod);
-			sprite.render(x+1+rX, y+1+rY, renderDepth, t, "paletteSwap");
+			if(moved)
+				sprite.render(x+1+rX, y+1+rY, renderDepth, t, "greyscale");
+			else
+				sprite.render(x+1+rX, y+1+rY, renderDepth, t, "paletteSwap");
 		} else {
 			Color c = !moved ? new Color(getPartyColor()) : new Color(128, 128, 128);
 			c.a = alpha;

@@ -40,6 +40,7 @@ public class Renderer {
 		// Set up palette swap program
 		programs.put("paletteSwap", createProgram("paletteSwap", "paletteSwap"));
 		programs.put("default", createProgram("default", "default"));
+		programs.put("greyscale", createProgram("default", "greyscale"));
 		GL13.glActiveTexture(GL13.GL_TEXTURE1);
 		Texture palette = Resources.getTexture("unit_colors");
 		System.out.println(palette.getTextureWidth());
