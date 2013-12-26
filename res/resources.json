@@ -163,24 +163,6 @@
 			]
 		},
 		{
-			"name":		"eliwood_javelin_attack",
-			"path":		"res/battle_anim/eliwood_javelin_attack.png",
-			"width":	83,
-			"height":	59,
-			"frames":	9,
-			"columns":	3,
-			"offsetX":	47,
-			"offsetY":	53,
-			"freeze":	0,
-			"hitframes":[7],
-			"soundMap": [
-				{
-					"frame":	6,
-					"sound":	"lance_throw"
-				}
-			]
-		},
-		{
 			"name":		"eliwood_lance_critical",
 			"path":		"res/battle_anim/eliwood_lance_critical.png",
 			"width":	153,
@@ -224,6 +206,57 @@
 		},
 		{
 			"name":		"eliwood_lance_dodge",
+			"path":		"res/battle_anim/eliwood_lance_dodge.png",
+			"width":	44,
+			"height":	53,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	22,
+			"offsetY":	48,
+			"freeze":	0
+		},
+		{
+			"name":		"eliwood_javelin_attack",
+			"path":		"res/battle_anim/eliwood_javelin_attack.png",
+			"width":	83,
+			"height":	59,
+			"frames":	9,
+			"columns":	3,
+			"offsetX":	47,
+			"offsetY":	53,
+			"freeze":	0,
+			"hitframes":[7],
+			"soundMap": [
+				{
+					"frame":	6,
+					"sound":	"lance_throw"
+				}
+			]
+		},
+		{
+			"name":		"eliwood_javelin_critical",
+			"path":		"res/battle_anim/eliwood_javelin_critical.png",
+			"width":	85,
+			"height":	74,
+			"frames":	15,
+			"columns":	4,
+			"offsetX":	47,
+			"offsetY":	68,
+			"freeze":	0,
+			"hitframes":[13],
+			"soundMap": [
+				{
+					"frame":	5,
+					"sound":	"spin_short"
+				}
+				{
+					"frame":	12,
+					"sound":	"lance_throw"
+				}
+			]
+		},
+		{
+			"name":		"eliwood_javelin_dodge",
 			"path":		"res/battle_anim/eliwood_lance_dodge.png",
 			"width":	44,
 			"height":	53,
@@ -463,6 +496,17 @@
 			]
 		},
 		{
+			"name":		"lyn_bow_dodge",
+			"path":		"res/battle_anim/lyn_bow_dodge.png",
+			"width":	36,
+			"height":	33,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	16,
+			"offsetY":	26,
+			"freeze":	0
+		},
+		{
 			"name":		"lyn_bow_critical",
 			"path":		"res/battle_anim/lyn_bow_critical.png",
 			"width":	47,
@@ -656,7 +700,8 @@
 			"offsetX":	68,
 			"offsetY":	69,
 			"freeze":	0,
-			"hitframes":[3],
+			"speed":	0.06,
+			"hitframes":[4],
 			"soundMap": [
 				{
 					"frame":	2,
@@ -678,7 +723,7 @@
 			"offsetX":	68,
 			"offsetY":	90,
 			"freeze":	0,
-			"hitframes":[34],
+			"hitframes":[35],
 			"soundMap": [
 				{
 					"frame":	4,
@@ -699,6 +744,17 @@
 			]
 		},
 		{
+			"name":		"berserker_axe_dodge",
+			"path":		"res/battle_anim/berserker_axe_dodge.png",
+			"width":	37,
+			"height":	59,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	19,
+			"offsetY":	56,
+			"freeze":	0
+		},
+		{
 			"name":		"berserker_handaxe_attack",
 			"path":		"res/battle_anim/berserker_handaxe_attack.png",
 			"width":	69,
@@ -708,6 +764,7 @@
 			"offsetX":	39,
 			"offsetY":	40,
 			"freeze":	0,
+			"speed":	0.06,
 			"hitframes":[2],
 			"soundMap": [
 				
@@ -727,6 +784,17 @@
 			"soundMap": [
 				
 			]
+		},
+		{
+			"name":		"berserker_handaxe_dodge",
+			"path":		"res/battle_anim/berserker_handaxe_dodge.png",
+			"width":	39,
+			"height":	41,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	18,
+			"offsetY":	38,
+			"freeze":	0
 		},
 		{
 			"name":		"eirika_sword_attack",
@@ -807,6 +875,17 @@
 					"sound":	"horse_step"
 				},
 			]
+		},
+		{
+			"name":		"eirika_sword_dodge",
+			"path":		"res/battle_anim/eirika_sword_dodge.png",
+			"width":	48,
+			"height":	49,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	20,
+			"offsetY":	45,
+			"freeze":	0
 		},
 		{
 			"name":		"ephraim_lance_attack",
@@ -905,6 +984,68 @@
 			]
 		},
 		{
+			"name":		"ephraim_lance_dodge",
+			"path":		"res/battle_anim/ephraim_lance_dodge.png",
+			"width":	48,
+			"height":	57,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	18,
+			"offsetY":	53,
+			"freeze":	0
+		},
+		{
+			"name":		"ephraim_javelin_attack",
+			"path":		"res/battle_anim/ephraim_javelin_attack.png",
+			"width":	77,
+			"height":	57,
+			"frames":	7,
+			"columns":	3,
+			"offsetX":	46,
+			"offsetY":	53,
+			"freeze":	0,
+			"hitframes":[5],
+			"soundMap": [
+				{
+					"frame":	4,
+					"sound":	"lance_throw"
+				}
+			]
+		},
+		{
+			"name":		"ephraim_javelin_critical",
+			"path":		"res/battle_anim/ephraim_javelin_critical.png",
+			"width":	88,
+			"height":	70,
+			"frames":	11,
+			"columns":	4,
+			"offsetX":	46,
+			"offsetY":	66,
+			"freeze":	0,
+			"hitframes":[9],
+			"soundMap": [
+				{
+					"frame":	4,
+					"sound":	"spin_short"
+				}
+				{
+					"frame":	8,
+					"sound":	"lance_throw"
+				}
+			]
+		},
+		{
+			"name":		"ephraim_javelin_dodge",
+			"path":		"res/battle_anim/ephraim_javelin_dodge.png",
+			"width":	44,
+			"height":	54,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	18,
+			"offsetY":	51,
+			"freeze":	0
+		},
+		{
 			"name":		"general_axe_attack",
 			"path":		"res/battle_anim/general_axe_attack.png",
 			"width":	115,
@@ -995,6 +1136,17 @@
 			]
 		},
 		{
+			"name":		"general_axe_dodge",
+			"path":		"res/battle_anim/general_axe_dodge.png",
+			"width":	47,
+			"height":	44,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	25,
+			"offsetY":	43,
+			"freeze":	0
+		},
+		{
 			"name":		"general_handaxe_attack",
 			"path":		"res/battle_anim/general_handaxe_attack.png",
 			"width":	197,
@@ -1023,6 +1175,17 @@
 			"soundMap": [
 				
 			]
+		},
+		{
+			"name":		"general_handaxe_dodge",
+			"path":		"res/battle_anim/general_handaxe_dodge.png",
+			"width":	43,
+			"height":	44,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	21,
+			"offsetY":	43,
+			"freeze":	0
 		},
 		{
 			"name":		"general_lance_attack",
@@ -1121,8 +1284,8 @@
 			"height":	44,
 			"frames":	2,
 			"columns":	2,
-			"offsetX":	39,
-			"offsetY":	38,
+			"offsetX":	38,
+			"offsetY":	43,
 			"freeze":	0
 		},
 		{

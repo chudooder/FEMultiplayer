@@ -27,6 +27,7 @@ import net.fe.unit.WeaponFactory;
 
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.openal.SoundStore;
 
 import chu.engine.Game;
@@ -88,9 +89,9 @@ public class FEMultiplayer extends Game{
 		Unit u2 = UnitFactory.getUnit("Eliwood");
 		u2.addToInventory(WeaponFactory.getWeapon("Brave Lance"));
 		u2.addToInventory(WeaponFactory.getWeapon("Debug Lance"));
-		u2.addToInventory(WeaponFactory.getWeapon("Javelin"));
+		u2.addToInventory(WeaponFactory.getWeapon("Debug Javelin"));
 		u2.equipFirstWeapon(1);
-		p2.getParty().addUnit(u2);
+		p1.getParty().addUnit(u2);
 		
 		Unit u4 = UnitFactory.getUnit("Lute");
 		u4.addToInventory(WeaponFactory.getWeapon("Elfire"));
@@ -105,23 +106,25 @@ public class FEMultiplayer extends Game{
 		Unit u6 = UnitFactory.getUnit("Hector");
 		u6.addToInventory(WeaponFactory.getWeapon("Wo Dao"));
 		u6.equipFirstWeapon(1);
-		p1.getParty().addUnit(u6);
+		p2.getParty().addUnit(u6);
 		
 		Unit u7 = UnitFactory.getUnit("Eirika");
 		u7.equipFirstWeapon(1);
 		p2.getParty().addUnit(u7);
 		
 		Unit u8 = UnitFactory.getUnit("Ephraim");
+		u8.addToInventory(WeaponFactory.getWeapon("Debug Javelin"));
 		u8.equipFirstWeapon(1);
 		p1.getParty().addUnit(u8);
 		
 		Unit u9 = UnitFactory.getUnit("Matthew");
+		u9.addToInventory(WeaponFactory.getWeapon("Noodle"));
 		u9.addToInventory(WeaponFactory.getWeapon("Killing Edge"));
 		u9.equipFirstWeapon(1);
-		p1.getParty().addUnit(u9);
+		p2.getParty().addUnit(u9);
 		
 		Unit u10 = UnitFactory.getUnit("Gilliam");
-		u10.addToInventory(WeaponFactory.getWeapon("Debug Axe"));
+		u10.addToInventory(WeaponFactory.getWeapon("Iron Axe"));
 		u10.addToInventory(WeaponFactory.getWeapon("Horseslayer"));
 		u10.equipFirstWeapon(1);
 		p1.getParty().addUnit(u10);
@@ -197,7 +200,7 @@ public class FEMultiplayer extends Game{
 		map.addUnit(u6, 4, 2);
 		map.addUnit(u7, 6, 3);
 		map.addUnit(u8, 2, 2);
-		map.addUnit(u9, 6, 2);
+		map.addUnit(u9, 4, 1);
 		map.addUnit(u10, 3, 4);
 		map.addUnit(u11, 4, 0);
 		map.addUnit(u12, 5, 2);
