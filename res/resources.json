@@ -593,6 +593,21 @@
 			]
 		},
 		{
+			"name":		"sage_staff_critical",
+			"path":		"res/battle_anim/sage_staff_attack.png",
+			"width":	34,
+			"height":	41,
+			"frames":	5,
+			"columns":	5,
+			"offsetX":	21,
+			"offsetY":	37,
+			"freeze":	0,
+			"hitframes":[2],
+			"soundMap": [
+				
+			]
+		},
+		{
 			"name":		"sage_staff_dodge",
 			"path":		"res/battle_anim/sage_staff_dodge.png",
 			"width":	36,

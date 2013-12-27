@@ -25,6 +25,7 @@ public class OverworldStage extends Stage {
 
 	private Player player;
 	private boolean onControl;
+	private float[] repeatTimers;
 	
 	private ArrayList<Object> currentCmdString;
 	private int movX, movY;
@@ -53,6 +54,7 @@ public class OverworldStage extends Stage {
 		currentCmdString = new ArrayList<Object>();
 		setControl(true);
 		context = new Idle(this, p);
+		repeatTimers = new float[4];
 	}
 	
 	public void setMenu(Menu<?> m){
@@ -129,21 +131,33 @@ public class OverworldStage extends Stage {
 		}
 		if (onControl) {
 			HashMap<Integer, Boolean> keys = Game.getKeys();
-			if (keys.containsKey(Keyboard.KEY_UP) && keys.get(Keyboard.KEY_UP))
+			if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {
 				context.onUp();
-			if (keys.containsKey(Keyboard.KEY_DOWN)
-					&& keys.get(Keyboard.KEY_DOWN))
+				System.out.println("yes");
+				repeatTimers[0] = 0.15f;
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) && repeatTimers[1] == 0) {
 				context.onDown();
-			if (keys.containsKey(Keyboard.KEY_LEFT)
-					&& keys.get(Keyboard.KEY_LEFT))
+				repeatTimers[1] = 0.15f;
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) && repeatTimers[2] == 0) {
 				context.onLeft();
-			if (keys.containsKey(Keyboard.KEY_RIGHT)
-					&& keys.get(Keyboard.KEY_RIGHT))
+				repeatTimers[2] = 0.15f;
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) && repeatTimers[3] == 0) {
 				context.onRight();
+				repeatTimers[3] = 0.15f;
+			}
 			if (keys.containsKey(Keyboard.KEY_Z) && keys.get(Keyboard.KEY_Z))
 				context.onSelect();
 			if (keys.containsKey(Keyboard.KEY_X) && keys.get(Keyboard.KEY_X))
 				context.onCancel();
+		}
+		for(int i=0; i<repeatTimers.length; i++) {
+			if(repeatTimers[i] > 0) {
+				repeatTimers[i] -= Game.getDeltaSeconds();
+				if(repeatTimers[i] < 0) repeatTimers[i] = 0;
+			}
 		}
 	}
 
