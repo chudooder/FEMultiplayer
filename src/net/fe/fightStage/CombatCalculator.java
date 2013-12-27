@@ -212,15 +212,17 @@ public class CombatCalculator {
 		boolean effective = a.getWeapon().effective.contains(d.getTheClass().name)
 				|| (d.getTheClass().name.equals("Lord") 
 						&& a.getWeapon().effective.contains(d.name));
+		int base;
 		if (a.getWeapon().isMagic()) {
-			return a.get("Mag")
+			base = a.get("Mag")
 					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
 					* (effective ? 3: 1) - d.get("Res");
 		} else {
-			return  a.get("Str")
+			base = a.get("Str")
 					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
 					* (effective? 3:1) - d.get("Def");
 		}
+		return Math.max(base, 0);
 	}
 	
 }
