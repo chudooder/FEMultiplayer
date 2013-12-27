@@ -2070,6 +2070,10 @@
 		{
 			"name":		"proj_javelin",
 			"path":		"res/battle_anim/proj_javelin.png"
-		}
+		},
+		{
+			"name":		"terrain_tiles",
+			"path":		"res/terrain_tiles.png"
+		},		
 	]
 }
