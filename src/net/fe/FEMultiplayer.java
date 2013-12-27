@@ -110,7 +110,7 @@ public class FEMultiplayer extends Game{
 		
 		Unit u7 = UnitFactory.getUnit("Eirika");
 		u7.equipFirstWeapon(1);
-		p2.getParty().addUnit(u7);
+		p1.getParty().addUnit(u7);
 		
 		Unit u8 = UnitFactory.getUnit("Ephraim");
 		u8.addToInventory(WeaponFactory.getWeapon("Debug Javelin"));
