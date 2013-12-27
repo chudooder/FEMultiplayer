@@ -133,7 +133,6 @@ public class OverworldStage extends Stage {
 			HashMap<Integer, Boolean> keys = Game.getKeys();
 			if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {
 				context.onUp();
-				System.out.println("yes");
 				repeatTimers[0] = 0.15f;
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) && repeatTimers[1] == 0) {
