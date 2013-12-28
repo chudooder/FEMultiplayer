@@ -118,12 +118,13 @@ public class Unit extends GriddedEntity {
 	
 	private float calcRenderDepth(){
 		float depth = OverworldStage.UNIT_DEPTH;
-		float movingDiff = (OverworldStage.UNIT_DEPTH - OverworldStage.UNIT_MAX_DEPTH)/2;
+		float highlightDiff = (OverworldStage.UNIT_DEPTH - OverworldStage.UNIT_MAX_DEPTH)/2;
 		Grid g = ((OverworldStage) stage).grid;
-		float yDiff = movingDiff/g.width;
+		float yDiff = highlightDiff/g.width;
 		float xDiff = yDiff/g.height;
 		
-		if(path!=null) depth -= movingDiff;
+		if(path!=null) depth -= highlightDiff;
+		if(((OverworldStage) stage).getHoveredUnit() == this) depth -= highlightDiff;
 		depth -= ycoord*yDiff;
 		depth -= (g.width-xcoord)*xDiff;
 		return depth;
