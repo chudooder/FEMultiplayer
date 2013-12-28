@@ -8,6 +8,7 @@ import java.util.List;
 import net.fe.FEMultiplayer;
 import net.fe.Player;
 import net.fe.overworldStage.context.Idle;
+import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 
@@ -129,6 +130,7 @@ public class OverworldStage extends Stage {
 		for (Entity e : entities) {
 			e.beginStep();
 		}
+		MapAnimation.updateAll();
 		if (onControl) {
 			HashMap<Integer, Boolean> keys = Game.getKeys();
 			if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {

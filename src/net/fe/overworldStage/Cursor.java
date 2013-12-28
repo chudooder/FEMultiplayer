@@ -10,7 +10,7 @@ public class Cursor extends GriddedEntity{
 	private float rx;
 	private float ry;
 	
-	private static final float SPEED = 200f;
+	private static final float SPEED = 1000f;
 	public Cursor(int xx, int yy) {
 		super(xx, yy);
 		sprite.addAnimation("default", new Animation(Resources.getTexture("cursor"),
@@ -18,34 +18,34 @@ public class Cursor extends GriddedEntity{
 		renderDepth = OverworldStage.CURSOR_DEPTH;
 		on = true;
 	}
-	
-	public void onStep(){
-		sprite.update();
-		float delta = Game.getDeltaSeconds();
-		//TODO: What does this variable do
-		time+= delta;
-		if(time >=1.5){
-			time -=1.5;
-		}
-		if(rx != x) {
-			float signum = Math.signum(x-rx);
-			rx += signum*SPEED*delta;
-			if(Math.signum(x-rx) != signum) {
-				rx = x;
-			}
-		}
-		if(ry != y) {
-			float signum = Math.signum(y-ry);
-			ry += signum*SPEED*delta;
-			if(Math.signum(y-ry) != signum) {
-				ry = y;
-			}
-		}
-	}
+//	
+//	public void onStep(){
+//		sprite.update();
+//		float delta = Game.getDeltaSeconds();
+//		//TODO: What does this variable do
+//		time+= delta;
+//		if(time >=1.5){
+//			time -=1.5;
+//		}
+//		if(rx != x) {
+//			float signum = Math.signum(x-rx);
+//			rx += signum*SPEED*delta;
+//			if(Math.signum(x-rx) != signum) {
+//				rx = x;
+//			}
+//		}
+//		if(ry != y) {
+//			float signum = Math.signum(y-ry);
+//			ry += signum*SPEED*delta;
+//			if(Math.signum(y-ry) != signum) {
+//				ry = y;
+//			}
+//		}
+//	}
 	
 	public void render(){
 		if(((OverworldStage) stage).hasControl() && on) {
-			sprite.render(rx, ry, renderDepth);
+			sprite.render(x, y, renderDepth);
 		}
 	}
 
