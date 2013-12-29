@@ -22,6 +22,9 @@ import net.fe.fightStage.*;
 import net.fe.overworldStage.*;
 
 public class Unit extends GriddedEntity {
+	
+	private static PaletteSwapper paletteSwap = 
+			new PaletteSwapper(Resources.getTexture("unit_colors"));
 	private HashMap<String, Float> stats;
 	private HashMap<String, Integer> bases;
 	private int hp;
@@ -44,6 +47,10 @@ public class Unit extends GriddedEntity {
 	private int origX, origY;
 	
 	public static final float MAP_ANIM_SPEED = 0.2f;
+	
+	static {
+		paletteSwap.setUpPalette();
+	}
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {

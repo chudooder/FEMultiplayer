@@ -37,15 +37,8 @@ public class Renderer {
 		camera = new Camera(null, 0, 0);
 		clip = null;
 		color = Color.white;
-		// Set up palette swap program
-		programs.put("paletteSwap", createProgram("paletteSwap", "paletteSwap"));
 		programs.put("default", createProgram("default", "default"));
 		programs.put("greyscale", createProgram("default", "greyscale"));
-		GL13.glActiveTexture(GL13.GL_TEXTURE1);
-		Texture palette = Resources.getTexture("unit_colors");
-		System.out.println(palette.getTextureWidth());
-		glBindTexture(GL_TEXTURE_2D, palette.getTextureID());
-		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 	}
 
 	/***
@@ -400,6 +393,10 @@ public class Renderer {
         }
         
         return source.toString();
+    }
+    
+    public static void addProgram(String name, String vertShader, String fragShader) {
+    	programs.put(name, createProgram(vertShader, fragShader));
     }
     
     static class RectClip {
