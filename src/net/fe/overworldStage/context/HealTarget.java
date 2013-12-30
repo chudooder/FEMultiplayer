@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chu.engine.Entity;
-import chu.engine.Resources;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Sprite;
 import chu.engine.anim.Transform;
+import net.fe.FEResources;
 import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldContext;
@@ -79,10 +79,10 @@ class StaffSelector extends Entity {
 		renderDepth = OverworldStage.MENU_DEPTH;
 		rightArrow = new Sprite();
 		rightArrow.addAnimation("default",
-				Resources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 0.1f);
+				FEResources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 0.1f);
 		leftArrow = new Sprite();
 		leftArrow.addAnimation("default",
-				Resources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 0.1f);
+				FEResources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 0.1f);
 	}
 	
 	public void onStep(){

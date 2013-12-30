@@ -31,7 +31,6 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.openal.SoundStore;
 
 import chu.engine.Game;
-import chu.engine.Resources;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
 import chu.engine.network.Client;
@@ -246,7 +245,7 @@ public class FEMultiplayer extends Game{
 				currentStage.processRemoveStack();
 				Renderer.getCamera().lookThrough();
 				currentStage.render();
-				Resources.getBitmapFont("stat_numbers").render(
+				FEResources.getBitmapFont("stat_numbers").render(
 						(int)(1.0f/getDeltaSeconds())+"", 440f, 0f, 0f);
 				currentStage.endStep();
 			}

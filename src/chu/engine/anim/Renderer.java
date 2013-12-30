@@ -10,6 +10,8 @@ import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.Stack;
 
+import net.fe.FEResources;
+
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.ARBShaderObjects;
@@ -20,7 +22,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.Game;
-import chu.engine.Resources;
 
 public class Renderer {
 
@@ -204,7 +205,7 @@ public class Renderer {
 	public static void drawString(String fontName, String string, float x, float y, float depth, Transform t) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		Resources.getBitmapFont(fontName).render(string, x, y, depth, t);
+		FEResources.getBitmapFont(fontName).render(string, x, y, depth, t);
 		if(clip != null && !clip.persistent) clip.destroy();
 	}
 	

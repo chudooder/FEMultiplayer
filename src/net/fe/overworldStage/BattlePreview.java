@@ -2,12 +2,12 @@ package net.fe.overworldStage;
 
 import java.util.ArrayList;
 
+import net.fe.FEResources;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.unit.*;
 import chu.engine.Entity;
 import chu.engine.Game;
-import chu.engine.Resources;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Sprite;
 import chu.engine.anim.Transform;
@@ -26,14 +26,14 @@ public class BattlePreview extends Entity {
 		sprites = new ArrayList<Sprite>();
 		rightArrow = new Sprite();
 		rightArrow.addAnimation("default",
-				Resources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 0.1f);
+				FEResources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 0.1f);
 		leftArrow = new Sprite();
 		leftArrow.addAnimation("default",
-				Resources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 0.1f);
+				FEResources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 0.1f);
 		x2 = new CirclingSprite(2.2f, 1.2f, true);
-		x2.addAnimation("default", Resources.getTexture("x2"));
+		x2.addAnimation("default", FEResources.getTexture("x2"));
 		x4 = new CirclingSprite(2.2f, 1.2f, true);
-		x4.addAnimation("default", Resources.getTexture("x4"));
+		x4.addAnimation("default", FEResources.getTexture("x4"));
 		sprites.add(rightArrow);
 		sprites.add(leftArrow);
 		sprites.add(x2);

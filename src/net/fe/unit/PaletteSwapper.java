@@ -6,7 +6,6 @@ import static org.lwjgl.opengl.GL11.glBindTexture;
 import org.lwjgl.opengl.GL13;
 import org.newdawn.slick.opengl.Texture;
 
-import chu.engine.Resources;
 import chu.engine.anim.Renderer;
 
 public class PaletteSwapper {

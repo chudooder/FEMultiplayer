@@ -1,8 +1,8 @@
 package net.fe.fightStage.anim;
 
+import net.fe.FEResources;
 import net.fe.fightStage.FightStage;
 import chu.engine.Entity;
-import chu.engine.Resources;
 import chu.engine.AnimationData;
 import chu.engine.anim.Animation;
 import chu.engine.anim.Transform;
@@ -43,7 +43,7 @@ public class MagicEffect extends Entity {
 	}
 
 	public static AnimationData getTexture(String name) {
-		return Resources.getTextureData("magic_effect_" + name);
+		return FEResources.getTextureData("magic_effect_" + name);
 	}
 
 }

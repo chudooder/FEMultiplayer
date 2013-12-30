@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import net.fe.FEResources;
 import net.fe.fightStage.FightStage;
 import net.fe.unit.Weapon;
 import chu.engine.Entity;
-import chu.engine.Resources;
 import chu.engine.AnimationData;
 import chu.engine.anim.Animation;
 import chu.engine.anim.AudioPlayer;
@@ -61,7 +61,7 @@ public class HitEffect extends Entity {
 	}
 
 	public static AnimationData getHitTexture(String name) {
-		return Resources.getTextureData("hit_effect_" + name);
+		return FEResources.getTextureData("hit_effect_" + name);
 	}
 
 	public static List<HitEffect> getEffects(AnimationArgs animArgs,

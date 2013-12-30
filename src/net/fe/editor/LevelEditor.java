@@ -21,7 +21,7 @@ public class LevelEditor extends Game {
 
 	public static void main(String[] args) {
 		LevelEditor game = new LevelEditor();
-		game.init(640, 480, "Fire Emblem Level Editor");
+		game.init(960, 640, "Fire Emblem Level Editor");
 		game.loop();
 	}
 	

@@ -1,5 +1,6 @@
 package net.fe.fightStage;
 
+import net.fe.FEResources;
 import net.fe.fightStage.anim.AnimationArgs;
 import net.fe.fightStage.anim.AttackAnimation;
 import net.fe.fightStage.anim.DodgeAnimation;
@@ -9,7 +10,6 @@ import org.newdawn.slick.Color;
 
 import chu.engine.Entity;
 import chu.engine.Game;
-import chu.engine.Resources;
 import chu.engine.anim.Transform;
 
 public class FightUnit extends Entity {
@@ -33,13 +33,13 @@ public class FightUnit extends Entity {
 		filename.append("_");
 		String base = filename.toString().toLowerCase();
 		
-		DodgeAnimation dodge = new DodgeAnimation(Resources.getTextureData(base+"dodge"));
+		DodgeAnimation dodge = new DodgeAnimation(FEResources.getTextureData(base+"dodge"));
 		sprite.addAnimation("DODGE", dodge);
 		AttackAnimation crit = AttackAnimation.createAnimation(
-				Resources.getTextureData(base+"critical"), s, animArgs);
+				FEResources.getTextureData(base+"critical"), s, animArgs);
 		sprite.addAnimation("CRIT", crit);
 		AttackAnimation attack = AttackAnimation.createAnimation(
-				Resources.getTextureData(base+"attack"), s, animArgs);
+				FEResources.getTextureData(base+"attack"), s, animArgs);
 		sprite.addAnimation("ATTACK", attack);
 		
 		

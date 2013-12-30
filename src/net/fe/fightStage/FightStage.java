@@ -3,6 +3,7 @@ package net.fe.fightStage;
 import java.util.ArrayList;
 
 import net.fe.FEMultiplayer;
+import net.fe.FEResources;
 import net.fe.fightStage.anim.AnimationArgs;
 import net.fe.fightStage.anim.AttackAnimation;
 import net.fe.fightStage.anim.DodgeAnimation;
@@ -21,7 +22,6 @@ import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.Entity;
 import chu.engine.Game;
-import chu.engine.Resources;
 import chu.engine.Stage;
 import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
@@ -95,7 +95,7 @@ public class FightStage extends Stage {
 		addEntity(new Platform(right.getTerrain(), false, range));
 		addEntity(new HUD(left, right, this));
 		addEntity(new HUD(right, left, this));
-		bg = Resources.getTexture(right.getTerrain().toString().toLowerCase()
+		bg = FEResources.getTexture(right.getTerrain().toString().toLowerCase()
 				+ "_bg");
 
 		this.attackQ = attackQ;

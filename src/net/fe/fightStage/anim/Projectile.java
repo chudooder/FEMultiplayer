@@ -1,10 +1,10 @@
 package net.fe.fightStage.anim;
 
+import net.fe.FEResources;
 import net.fe.fightStage.FightStage;
 import net.fe.unit.Weapon;
 import chu.engine.Entity;
 import chu.engine.Game;
-import chu.engine.Resources;
 import chu.engine.anim.Transform;
 
 public class Projectile extends Entity {
@@ -19,9 +19,9 @@ public class Projectile extends Entity {
 		super(0,y);
 		// TODO getTextures
 		if(args.wepAnimName.equals("javelin"))
-			sprite.addAnimation("default", Resources.getTexture("proj_javelin"));
+			sprite.addAnimation("default", FEResources.getTexture("proj_javelin"));
 		else
-			sprite.addAnimation("default", Resources.getTexture("proj_arrow"));
+			sprite.addAnimation("default", FEResources.getTexture("proj_arrow"));
 		if(left){
 			x = FightStage.CENTRAL_AXIS - f.distanceToHead();
 			destination = FightStage.CENTRAL_AXIS + f.distanceToHead();

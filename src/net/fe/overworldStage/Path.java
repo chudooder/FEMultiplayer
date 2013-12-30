@@ -3,8 +3,8 @@ package net.fe.overworldStage;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import net.fe.FEResources;
 import chu.engine.Entity;
-import chu.engine.Resources;
 import chu.engine.anim.Tileset;
 
 public class Path extends Entity{
@@ -14,7 +14,7 @@ public class Path extends Entity{
 		super(0,0);
 		path = new LinkedList<Node>();
 		renderDepth = OverworldStage.PATH_DEPTH;
-		arrows = new Tileset(Resources.getTexture("move_arrows"), 16, 16);
+		arrows = new Tileset(FEResources.getTexture("move_arrows"), 16, 16);
 	}
 	
 	public void add(Node n) {
