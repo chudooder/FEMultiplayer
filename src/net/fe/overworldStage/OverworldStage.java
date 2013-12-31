@@ -85,7 +85,7 @@ public class OverworldStage extends Stage {
 		List<Entity> keeps = Arrays.asList(keep);
 		for(Entity e: entities){
 			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor || e instanceof UnitInfo ||
-					keeps.contains(e))){
+					e instanceof TerrainInfo || keeps.contains(e))){
 				removeEntity(e);
 			}
 		}
