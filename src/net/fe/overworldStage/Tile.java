@@ -11,14 +11,15 @@ import chu.engine.anim.Tileset;
 public class Tile extends GriddedEntity{
 	private Terrain terrain;
 	private int id;
-	private Tileset tileset;
-	public Tile(int x, int y, Terrain t){
+	private static transient Tileset tileset;
+	static {
+		tileset = new Tileset(FEResources.getTexture("terrain_tiles"), 16, 16);
+	}
+	public Tile(int x, int y, int id) {
 		super(x,y);
 		renderDepth = OverworldStage.TILE_DEPTH;
-		terrain = t;
-		//TODO: Load from a level file
-		id = 6;
-		tileset = new Tileset(FEResources.getTexture("terrain_tiles"), 16, 16);
+		this.id = id;
+		terrain = Terrain.PLAIN;		
 	}
 	
 	public void render(){

@@ -1,7 +1,9 @@
 package net.fe.editor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
+import net.fe.overworldStage.Terrain;
 import net.fe.overworldStage.Tile;
 
 /**
@@ -22,8 +24,14 @@ import net.fe.overworldStage.Tile;
  */
 public class Level implements Serializable {
 	private static final long serialVersionUID = -3556853678338788517L;
-	int width;
-	int height;
-	//TODO: Game modes, spawns
-	Tile[] tiles;
+	public int width;
+	public int height;
+	public int[][] tiles;
+	
+	public Level(int w, int h, int[][] t) {
+		width = w;
+		height = h;
+		tiles = t;
+	}
+	
 }

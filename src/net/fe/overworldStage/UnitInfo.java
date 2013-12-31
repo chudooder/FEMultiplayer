@@ -13,12 +13,13 @@ import net.fe.unit.Item;
 import net.fe.unit.ItemDisplay;
 import net.fe.unit.Unit;
 import chu.engine.Entity;
+import chu.engine.Game;
 import chu.engine.anim.Renderer;
 
 public class UnitInfo extends Entity{
 	public UnitInfo(Cursor c) {
 		//TODO Positioning
-		super(0, 160);
+		super(0, Game.getWindowHeight()-84);
 		renderDepth = 0.8f;
 	}
 	

@@ -1,7 +1,13 @@
 package net.fe.editor;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
+
+import net.fe.overworldStage.Terrain;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -47,11 +53,19 @@ public class LevelEditorStage extends Stage {
 			}
 		} else {
 			if (Mouse.isButtonDown(0)) {
-				tiles[(Game.getWindowHeight() - Mouse.getY()) / 16][Mouse
-						.getX() / 16] = selectedID;
+				try {
+					tiles[(Game.getWindowHeight() - Mouse.getY()) / 16][Mouse
+							.getX() / 16] = selectedID;
+				} catch (ArrayIndexOutOfBoundsException e) {
+					System.err.println("Tried to place tile out of bounds");
+				}
 			} else if (Mouse.isButtonDown(1)) {
-				tiles[(Game.getWindowHeight() - Mouse.getY()) / 16][Mouse
+				try {
+					tiles[(Game.getWindowHeight() - Mouse.getY()) / 16][Mouse
 						.getX() / 16] = 0;
+				} catch (ArrayIndexOutOfBoundsException e) {
+					System.err.println("Tried to place tile out of bounds");
+				}
 			}
 			HashMap<Integer, Boolean> keys = Game.getKeys();
 			for (int key : keys.keySet()) {
@@ -64,6 +78,24 @@ public class LevelEditorStage extends Stage {
 						modifySize(-1, 0);
 					} else if (key == Keyboard.KEY_D) {
 						modifySize(1, 0);
+					} else if (key == Keyboard.KEY_F1) { 
+						Level level = new Level(tiles[0].length, tiles.length, tiles);
+						File file = new File("levels/test.lvl");
+		                FileOutputStream fo;
+		                ObjectOutputStream oos;
+		                try {
+		                        fo = new FileOutputStream(file);
+		                        oos = new ObjectOutputStream(fo);
+		                        oos.writeObject(level);
+		                        oos.close();
+		                        System.out.println("Level serialization successful.");
+		                } catch (FileNotFoundException e) {
+		                        System.out.println("Invalid file path!");
+		                        e.printStackTrace();
+		                } catch (IOException e) {
+		                        System.err.println("Failed to create object output stream");
+		                        e.printStackTrace();
+		                }
 					}
 				}
 			}
