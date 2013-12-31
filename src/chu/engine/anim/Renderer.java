@@ -284,7 +284,6 @@ public class Renderer {
     private static int createProgram(String vertShader, String fragShader) {
     	// Create program object
     	int prog = ARBShaderObjects.glCreateProgramObjectARB();
-    	System.out.println("Program: "+prog);
     	// Create vertex shader
     	try {
 			int vertexShader = createShader("shaders/"+vertShader+".vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
@@ -318,7 +317,6 @@ public class Renderer {
         GL20.glUniform1i(loc, 0);
         int loc2 = GL20.glGetUniformLocation(prog, "texture2");
         GL20.glUniform1i(loc2, 1);
-        System.out.println("Texture units: "+ loc + " " + loc2);
         
 	    // Validate program
 	    ARBShaderObjects.glValidateProgramARB(prog);

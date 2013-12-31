@@ -1,13 +1,17 @@
 package net.fe.editor;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
+import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.Terrain;
+import net.fe.overworldStage.Tile;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -42,6 +46,18 @@ public class LevelEditorStage extends Stage {
 	public LevelEditorStage() {
 		selectedID = 0;
 		tiles = new int[3][3];
+		try {
+            FileInputStream in = new FileInputStream(new File("levels/test.lvl"));
+            ObjectInputStream ois = new ObjectInputStream(in);
+            Level level = (Level) ois.readObject();
+            tiles = level.tiles;
+            ois.close();
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 	}
 
 	@Override

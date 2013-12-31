@@ -18,7 +18,6 @@ import chu.engine.anim.Renderer;
 
 public class UnitInfo extends Entity{
 	public UnitInfo(Cursor c) {
-		//TODO Positioning
 		super(0, Game.getWindowHeight()-84);
 		renderDepth = 0.8f;
 	}

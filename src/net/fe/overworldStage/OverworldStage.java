@@ -52,6 +52,7 @@ public class OverworldStage extends Stage {
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
 		addEntity(new UnitInfo(cursor));
+		addEntity(new TerrainInfo(cursor));
 		currentCmdString = new ArrayList<Object>();
 		setControl(true);
 		context = new Idle(this, p);
@@ -228,15 +229,20 @@ public class OverworldStage extends Stage {
 		return getUnit(cursor.getXCoord(), cursor.getYCoord());
 	}
 	
+	public Terrain getHoveredTerrain() {
+		return grid.getTerrain(cursor.getXCoord(), cursor.getYCoord());
+	}
+	
 	public void loadLevel(String levelName) {
         try {
             FileInputStream in = new FileInputStream(new File("levels/"+levelName+".lvl"));
             ObjectInputStream ois = new ObjectInputStream(in);
             Level level = (Level) ois.readObject();
-            grid = new Grid(level.width, level.height, Terrain.PLAIN);
+            grid = new Grid(level.width, level.height, Terrain.NONE);
             for(int i=0; i<level.tiles.length; i++) {
             	for(int j=0; j<level.tiles[0].length; j++) {
             		Tile tile = new Tile(j, i, level.tiles[i][j]);
+            		grid.setTerrain(j, i, tile.getTerrain());
             		addEntity(tile);
             	}
             }

@@ -197,7 +197,7 @@ public class FEMultiplayer extends Game{
 		map.addUnit(u4, 2, 0);
 		map.addUnit(u5, 2, 3);
 		map.addUnit(u6, 4, 2);
-		map.addUnit(u7, 6, 3);
+		map.addUnit(u7, 8, 3);
 		map.addUnit(u8, 2, 2);
 		map.addUnit(u9, 4, 1);
 		map.addUnit(u10, 3, 4);
