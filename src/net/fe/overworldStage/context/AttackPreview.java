@@ -2,6 +2,7 @@ package net.fe.overworldStage.context;
 
 import java.util.ArrayList;
 
+import chu.engine.anim.AudioPlayer;
 import net.fe.overworldStage.*;
 import net.fe.unit.*;
 
@@ -28,10 +29,10 @@ public class AttackPreview extends OverworldContext{
 
 	@Override
 	public void onSelect() {
+		AudioPlayer.playAudio("select", 1, 1);
 		stage.addCmd("Attack");
 		stage.addCmd(new UnitIdentifier(defender));
 		stage.send();
-	
 		attacker.moved();
 		cursor.setXCoord(attacker.getXCoord());
 		cursor.setYCoord(attacker.getYCoord());

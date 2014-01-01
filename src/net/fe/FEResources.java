@@ -56,7 +56,7 @@ public class FEResources {
 			
 			//load audio
 			audio.put("miss", AudioLoader.getAudio("WAV",
-					ResourceLoader.getResourceAsStream("res/battle_sounds/miss.wav")));
+					ResourceLoader.getResourceAsStream("res/sfx/miss.wav")));
 			
 		} catch (IOException e) {
 			int max = GL11.glGetInteger(GL11.GL_MAX_TEXTURE_SIZE);
@@ -252,7 +252,7 @@ public class FEResources {
 			System.err.println("Warn: " + name + " not explicitly defined");
 			try{
 				Audio b = AudioLoader.getAudio("WAV",
-						ResourceLoader.getResourceAsStream("res/battle_sounds/"+name+".wav"));
+						ResourceLoader.getResourceAsStream("res/sfx/"+name+".wav"));
 				audio.put(name, b);
 				return b;
 			} catch (Exception e){

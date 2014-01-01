@@ -1,5 +1,9 @@
 package net.fe.overworldStage.context;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import chu.engine.anim.AudioPlayer;
 import net.fe.Player;
 import net.fe.overworldStage.*;
 import net.fe.unit.Unit;
@@ -7,10 +11,12 @@ import net.fe.unit.Unit;
 public class Idle extends CursorContext {
 	private Player player;
 	private Zone move,attack,heal;
+	private boolean canPlaySound;
 	
 	public Idle(OverworldStage s, Player p) {
 		super(s, null);
 		player = p;
+		canPlaySound = true;
 	}
 	
 	public void startContext(){
@@ -36,6 +42,7 @@ public class Idle extends CursorContext {
 	@Override
 	public void onSelect() {
 		Unit u = getHoveredUnit();
+		AudioPlayer.playAudio("select", 1, 1);
 		if(u!=null && u.getParty() == player.getParty() && !u.hasMoved()){
 			new UnitSelected(stage, this, u).startContext();
 		}
@@ -61,6 +68,7 @@ public class Idle extends CursorContext {
 
 	public void cursorChanged(){
 		Unit u = getHoveredUnit();
+		AudioPlayer.playAudio("cursor", 1, 1);
 		if(u!=null && !u.hasMoved()){
 			addZones(u);
 			if(u.getParty() == stage.getPlayer().getParty()){

@@ -2039,20 +2039,6 @@
 			]
 		},
 		{
-			"name":		"hit_effect_elfire",
-			"path":		"res/battle_anim/hit_effect_elfire.png",
-			"width":	240,
-			"height":	160,
-			"frames":	15,
-			"columns":	4,
-			"offsetX":	88,
-			"offsetY":	110,
-			"freeze":	-1,
-			"soundMap": [
-				
-			]
-		},
-		{
 			"name":		"hit_effect_heal",
 			"path":		"res/battle_anim/hit_effect_heal.png",
 			"width":	72,
@@ -2109,7 +2095,45 @@
 			"columns":	16,
 			"offsetX":	0,
 			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"hit_effect_elfire",
+			"path":		"res/battle_anim/hit_effect_elfire.png",
+			"width":	240,
+			"height":	160,
+			"frames":	15,
+			"columns":	4,
+			"offsetX":	88,
+			"offsetY":	110,
 			"freeze":	-1,
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"bg_effect_fimbulvetr",
+			"path":		"res/battle_anim/bg_effect_fimbulvetr.png",
+			"width":	1,
+			"height":	1,
+			"frames":	44,
+			"columns":	8,
+			"offsetX":	0,
+			"offsetY":	0,
+			"speed":	0.055,
+			"freeze":	-1
+		},
+		{
+			"name":		"hit_effect_fimbulvetr",
+			"path":		"res/battle_anim/hit_effect_fimbulvetr.png",
+			"width":	240,
+			"height":	160,
+			"frames":	44,
+			"columns":	4,
+			"offsetX":	80,
+			"offsetY":	104,
+			"freeze":	-1,
+			"speed":	0.055,
 			"soundMap": [
 				
 			]

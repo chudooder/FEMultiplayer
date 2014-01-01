@@ -1,6 +1,7 @@
 package net.fe.fightStage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.fe.FEMultiplayer;
 import net.fe.FEResources;
@@ -23,6 +24,7 @@ import org.newdawn.slick.opengl.Texture;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.Stage;
+import chu.engine.anim.Animation;
 import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
 
@@ -159,8 +161,9 @@ public class FightStage extends Stage {
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
 		} else if (currentEvent == ATTACKED) {
-			for (HitEffect h : HitEffect.getEffects(a.getAnimArgs(),
-					rec.animation)) {
+			List<HitEffect> hitEffects = 
+					HitEffect.getEffects(a.getAnimArgs(), rec.animation);
+			for (HitEffect h : hitEffects) {
 				addEntity(h);
 			}
 			processAddStack();
@@ -184,9 +187,16 @@ public class FightStage extends Stage {
 				attacker.setHp(attacker.getHp() + rec.drain);
 				dhp.setHp(dhp.getHp() - rec.damage);
 				ahp.setHp(ahp.getHp() + rec.drain, false);
+				if(rec.damage > 0) {
+					if(attacker.getWeapon().isMagic()) {
+						Animation anim = hitEffects.get(0).sprite.getCurrentAnimation();
+						System.out.println(anim.getLength() * anim.getSpeed());
+						startShaking(anim.getLength() * anim.getSpeed(), 3);
+					} else {
+						startShaking(crit ? 1.3f : .5f, 5);
+					}
+				}
 				attacker.use(attacker.getWeapon());
-				if(rec.damage > 0) startShaking(crit ? 1.3f : .5f);
-				
 				setCurrentEvent(HURTING);
 			}
 
@@ -277,10 +287,10 @@ public class FightStage extends Stage {
 		processRemoveStack();
 	}
 
-	private void startShaking(float time) {
+	private void startShaking(float time, int intensity) {
 		shakeTimer = time;
 		prevShakeTimer = time;
-		float dist = Math.min(shakeTimer * 9, 5);
+		float dist = intensity;
 		shakeX = -dist;
 		shakeY = -dist;
 	}

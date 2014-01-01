@@ -1,5 +1,6 @@
 package net.fe.overworldStage.context;
 
+import chu.engine.anim.AudioPlayer;
 import net.fe.overworldStage.Healthbar;
 import net.fe.overworldStage.InventoryMenu;
 import net.fe.overworldStage.MenuContext;
@@ -20,6 +21,7 @@ public class ItemCmd extends MenuContext<ItemDisplay>{
 	@Override
 	public void onSelect(ItemDisplay selectedItem) {
 		Item i = selectedItem.getItem();
+		AudioPlayer.playAudio("select", 1, 1);
 		if(i instanceof Weapon){
 			if(unit.equippable((Weapon) i)){
 				unit.equip((Weapon)i);

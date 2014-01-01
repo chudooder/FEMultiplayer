@@ -119,4 +119,8 @@ public class Animation {
 		return offsetY;
 	}
 
+	public float getSpeed() {
+		return speed;
+	}
+
 }

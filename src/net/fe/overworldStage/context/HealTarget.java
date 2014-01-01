@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chu.engine.Entity;
+import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Sprite;
 import chu.engine.anim.Transform;
@@ -31,6 +32,7 @@ public class HealTarget extends SelectTargetContext {
 
 	@Override
 	public void unitSelected(Unit u) {
+		AudioPlayer.playAudio("select", 1, 1);
 		unit.equip(selector.getSelected());
 		stage.addCmd("Heal");
 		stage.addCmd(new UnitIdentifier(u));
@@ -52,6 +54,7 @@ public class HealTarget extends SelectTargetContext {
 
 	public void updateCursor() {
 		super.updateCursor();
+		AudioPlayer.playAudio("cursor", 1, 1);
 		selector.setStaves(unit.equippableStaves(Grid.getDistance(unit,
 				getCurrentTarget())));
 	}
