@@ -28,7 +28,7 @@ public enum Terrain {
 	
 	
 
-	Terrain(int baseMoveCost, int avo, int def, int health) {
+	Terrain(int baseMoveCost, int def, int avo, int health) {
 		this.baseMoveCost = baseMoveCost;
 		avoidBonus = avo;
 		defenseBonus = def;

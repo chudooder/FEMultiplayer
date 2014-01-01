@@ -207,7 +207,7 @@ public class FEResources {
 			return t;
 		} else {
 			//try to get it, in case we forgot
-			System.err.println("Warn: " + string + " not explicitly defined");
+//			System.err.println("Warn: " + string + " not explicitly defined");
 			for(String loc: searchFolders){
 				try{
 					AnimationData txt = new AnimationData(TextureLoader.getTexture("PNG",
@@ -249,7 +249,7 @@ public class FEResources {
 	public static Audio getAudio(String name) {
 		Audio a = audio.get(name);
 		if(a == null) {
-			System.err.println("Warn: " + name + " not explicitly defined");
+//			System.err.println("Warn: " + name + " not explicitly defined");
 			try{
 				Audio b = AudioLoader.getAudio("WAV",
 						ResourceLoader.getResourceAsStream("res/sfx/"+name+".wav"));
