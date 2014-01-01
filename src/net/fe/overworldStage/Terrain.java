@@ -17,7 +17,8 @@ public enum Terrain {
 	FORT(2,1,15,10), 
 	SEA(127,0,10,0), 
 	DESERT(2,0,5,0),
-	WALL(127,0,0,0);
+	WALL(127,0,0,0), 
+	NONE(127,0,0,0);
 
 	private int baseMoveCost;
 	public final int avoidBonus;

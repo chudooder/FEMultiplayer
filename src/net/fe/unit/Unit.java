@@ -12,16 +12,19 @@ import java.util.Set;
 import chu.engine.AnimationData;
 import chu.engine.Game;
 import chu.engine.GriddedEntity;
-import chu.engine.Resources;
 import chu.engine.anim.Animation;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Transform;
 import net.fe.Command;
 import net.fe.Party;
+import net.fe.FEResources;
 import net.fe.fightStage.*;
 import net.fe.overworldStage.*;
 
 public class Unit extends GriddedEntity {
+	
+	private static PaletteSwapper paletteSwap = 
+			new PaletteSwapper(FEResources.getTexture("unit_colors"));
 	private HashMap<String, Float> stats;
 	private HashMap<String, Integer> bases;
 	private int hp;
@@ -44,6 +47,10 @@ public class Unit extends GriddedEntity {
 	private int origX, origY;
 	
 	public static final float MAP_ANIM_SPEED = 0.2f;
+	
+	static {
+		paletteSwap.setUpPalette();
+	}
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
@@ -177,7 +184,7 @@ public class Unit extends GriddedEntity {
 	}
 
 	public void render() {
-		if(Resources.hasTexture(functionalClassName() + "_map_idle")){
+		if(FEResources.hasTexture(functionalClassName() + "_map_idle")){
 			Transform t = new Transform();
 			if(sprite.getAnimationName().equals("RIGHT")){
 				t.flipHorizontal();

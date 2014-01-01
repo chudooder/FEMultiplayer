@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import net.fe.FEResources;
 import net.fe.fightStage.FightStage;
 import net.fe.unit.Weapon;
 import chu.engine.Entity;
-import chu.engine.Resources;
 import chu.engine.AnimationData;
 import chu.engine.anim.Animation;
 import chu.engine.anim.AudioPlayer;
@@ -22,7 +22,7 @@ public class HitEffect extends Entity {
 		final AnimationData data = getHitTexture(name);
 		Animation anim = new Animation(data.texture, data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
-				data.offsetY, 0.02f) {
+				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
 			HashMap<Integer, String> soundMap = data.soundMap;
 			{
 				if(soundMap.get(0) != null) {
@@ -44,6 +44,7 @@ public class HitEffect extends Entity {
 				destroy();
 			}
 		};
+		System.out.println(name + " " + anim.getLength() + " " + anim.getSpeed());
 		sprite.addAnimation("default", anim);
 		renderDepth = FightStage.EFFECT_DEPTH;
 	}
@@ -61,7 +62,7 @@ public class HitEffect extends Entity {
 	}
 
 	public static AnimationData getHitTexture(String name) {
-		return Resources.getTextureData("hit_effect_" + name);
+		return FEResources.getTextureData("hit_effect_" + name);
 	}
 
 	public static List<HitEffect> getEffects(AnimationArgs animArgs,

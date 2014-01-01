@@ -31,7 +31,6 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.openal.SoundStore;
 
 import chu.engine.Game;
-import chu.engine.Resources;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
 import chu.engine.network.Client;
@@ -94,6 +93,7 @@ public class FEMultiplayer extends Game{
 		p1.getParty().addUnit(u2);
 		
 		Unit u4 = UnitFactory.getUnit("Lute");
+		u4.addToInventory(WeaponFactory.getWeapon("Fimbulvetr"));
 		u4.addToInventory(WeaponFactory.getWeapon("Elfire"));
 		u4.addToInventory(WeaponFactory.getWeapon("Heal"));
 		u4.equipFirstWeapon(1);
@@ -191,16 +191,16 @@ public class FEMultiplayer extends Game{
 		u13.fillHp();
 		u14.fillHp();
 		
-		map = new OverworldStage(new Grid(20,10, Terrain.PLAIN), p1);
+		map = new OverworldStage("test", p1);
 		map.addUnit(u1, 0, 0);
 		map.addUnit(u2, 2, 1);
 		map.addUnit(u3, 1, 1);
 		map.addUnit(u4, 2, 0);
 		map.addUnit(u5, 2, 3);
 		map.addUnit(u6, 4, 2);
-		map.addUnit(u7, 6, 3);
+		map.addUnit(u7, 8, 3);
 		map.addUnit(u8, 2, 2);
-		map.addUnit(u9, 4, 1);
+		map.addUnit(u9, 3, 6);
 		map.addUnit(u10, 3, 4);
 		map.addUnit(u11, 4, 0);
 		map.addUnit(u12, 5, 2);
@@ -246,7 +246,7 @@ public class FEMultiplayer extends Game{
 				currentStage.processRemoveStack();
 				Renderer.getCamera().lookThrough();
 				currentStage.render();
-				Resources.getBitmapFont("stat_numbers").render(
+				FEResources.getBitmapFont("stat_numbers").render(
 						(int)(1.0f/getDeltaSeconds())+"", 440f, 0f, 0f);
 				currentStage.endStep();
 			}

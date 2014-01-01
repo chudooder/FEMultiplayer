@@ -1,5 +1,9 @@
 package net.fe.overworldStage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,6 +11,7 @@ import java.util.List;
 
 import net.fe.FEMultiplayer;
 import net.fe.Player;
+import net.fe.editor.Level;
 import net.fe.overworldStage.context.Idle;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
@@ -40,18 +45,14 @@ public class OverworldStage extends Stage {
 	public static final float MENU_DEPTH = 0.2f;
 	public static final float CURSOR_DEPTH = 0.15f;
 
-	public OverworldStage(Grid g, Player p) {
+	public OverworldStage(String levelName, Player p) {
 		super();
-		grid = g;
-		for (int x = 0; x < g.width; x++) {
-			for (int y = 0; y < g.height; y++) {
-				addEntity(new Tile(x, y, g.getTerrain(x, y)));
-			}
-		}
+		loadLevel(levelName);
 		player = p;
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
 		addEntity(new UnitInfo(cursor));
+		addEntity(new TerrainInfo(cursor));
 		currentCmdString = new ArrayList<Object>();
 		setControl(true);
 		context = new Idle(this, p);
@@ -84,7 +85,7 @@ public class OverworldStage extends Stage {
 		List<Entity> keeps = Arrays.asList(keep);
 		for(Entity e: entities){
 			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor || e instanceof UnitInfo ||
-					keeps.contains(e))){
+					e instanceof TerrainInfo || keeps.contains(e))){
 				removeEntity(e);
 			}
 		}
@@ -227,5 +228,31 @@ public class OverworldStage extends Stage {
 	
 	public Unit getHoveredUnit() {
 		return getUnit(cursor.getXCoord(), cursor.getYCoord());
+	}
+	
+	public Terrain getHoveredTerrain() {
+		return grid.getTerrain(cursor.getXCoord(), cursor.getYCoord());
+	}
+	
+	public void loadLevel(String levelName) {
+        try {
+            FileInputStream in = new FileInputStream(new File("levels/"+levelName+".lvl"));
+            ObjectInputStream ois = new ObjectInputStream(in);
+            Level level = (Level) ois.readObject();
+            grid = new Grid(level.width, level.height, Terrain.NONE);
+            for(int i=0; i<level.tiles.length; i++) {
+            	for(int j=0; j<level.tiles[0].length; j++) {
+            		Tile tile = new Tile(j, i, level.tiles[i][j]);
+            		grid.setTerrain(j, i, tile.getTerrain());
+            		addEntity(tile);
+            	}
+            }
+            ois.close();
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 	}
 }

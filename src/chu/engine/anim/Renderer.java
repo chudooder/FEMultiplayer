@@ -10,6 +10,8 @@ import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.Stack;
 
+import net.fe.FEResources;
+
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.ARBShaderObjects;
@@ -20,7 +22,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.Game;
-import chu.engine.Resources;
 
 public class Renderer {
 
@@ -37,15 +38,9 @@ public class Renderer {
 		camera = new Camera(null, 0, 0);
 		clip = null;
 		color = Color.white;
-		// Set up palette swap program
-		programs.put("paletteSwap", createProgram("paletteSwap", "paletteSwap"));
 		programs.put("default", createProgram("default", "default"));
 		programs.put("greyscale", createProgram("default", "greyscale"));
-		GL13.glActiveTexture(GL13.GL_TEXTURE1);
-		Texture palette = Resources.getTexture("unit_colors");
-		System.out.println(palette.getTextureWidth());
-		glBindTexture(GL_TEXTURE_2D, palette.getTextureID());
-		GL13.glActiveTexture(GL13.GL_TEXTURE0);
+		programs.put("lighten", createProgram("default", "lighten"));
 	}
 
 	/***
@@ -211,7 +206,7 @@ public class Renderer {
 	public static void drawString(String fontName, String string, float x, float y, float depth, Transform t) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		Resources.getBitmapFont(fontName).render(string, x, y, depth, t);
+		FEResources.getBitmapFont(fontName).render(string, x, y, depth, t);
 		if(clip != null && !clip.persistent) clip.destroy();
 	}
 	
@@ -290,7 +285,6 @@ public class Renderer {
     private static int createProgram(String vertShader, String fragShader) {
     	// Create program object
     	int prog = ARBShaderObjects.glCreateProgramObjectARB();
-    	System.out.println("Program: "+prog);
     	// Create vertex shader
     	try {
 			int vertexShader = createShader("shaders/"+vertShader+".vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
@@ -324,7 +318,6 @@ public class Renderer {
         GL20.glUniform1i(loc, 0);
         int loc2 = GL20.glGetUniformLocation(prog, "texture2");
         GL20.glUniform1i(loc2, 1);
-        System.out.println("Texture units: "+ loc + " " + loc2);
         
 	    // Validate program
 	    ARBShaderObjects.glValidateProgramARB(prog);
@@ -400,6 +393,10 @@ public class Renderer {
         }
         
         return source.toString();
+    }
+    
+    public static void addProgram(String name, String vertShader, String fragShader) {
+    	programs.put(name, createProgram(vertShader, fragShader));
     }
     
     static class RectClip {

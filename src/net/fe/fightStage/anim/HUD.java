@@ -1,11 +1,11 @@
 package net.fe.fightStage.anim;
 
+import net.fe.FEResources;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.unit.ItemDisplay;
 import net.fe.unit.Unit;
 import chu.engine.Entity;
-import chu.engine.Resources;
 import chu.engine.anim.Renderer;
 
 public class HUD extends Entity {
@@ -69,7 +69,7 @@ public class HUD extends Entity {
 				FightStage.FLOOR + 4, FightStage.CENTRAL_AXIS + sign * 78,
 				FightStage.FLOOR + 30, renderDepth, unit.getPartyColor());
 		
-		Renderer.render(Resources.getTexture("gui_battleStats"), 0, 0, 1, 1, FightStage.CENTRAL_AXIS
+		Renderer.render(FEResources.getTexture("gui_battleStats"), 0, 0, 1, 1, FightStage.CENTRAL_AXIS
 				+ sign * 98 - 18, FightStage.FLOOR+5, FightStage.CENTRAL_AXIS
 				+ sign * 98 - 3, FightStage.FLOOR+29, renderDepth);
 

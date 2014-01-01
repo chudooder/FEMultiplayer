@@ -1,12 +1,12 @@
 package net.fe.overworldStage;
 
+import net.fe.FEResources;
 import net.fe.fightStage.FightStage;
 
 import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.Entity;
 import chu.engine.Game;
-import chu.engine.Resources;
 import chu.engine.anim.Renderer;
 
 public abstract class Healthbar extends Entity {
@@ -43,14 +43,14 @@ public abstract class Healthbar extends Entity {
 		Renderer.drawRectangle(x-22, y-4, x+83, y+18, renderDepth, FightStage.NEUTRAL);
 		int offY = 0;
 		int offX = 0;
-		int width = Resources.getBitmapFont("stat_numbers").getStringWidth((int)displayedHealth + "");
+		int width = FEResources.getBitmapFont("stat_numbers").getStringWidth((int)displayedHealth + "");
 		if(totalHealth <= 40) {
 			Renderer.drawString("stat_numbers", (int)displayedHealth + "", x-5-width, y-2, renderDepth);
 		} else {
 			Renderer.drawString("stat_numbers", (int)displayedHealth + "", x-5-width, y+2, renderDepth);
 		}
 		for (int hp = 1; hp <= totalHealth; hp++) {
-			Texture t = Resources
+			Texture t = FEResources
 					.getTexture(hp <= displayedHealth ? "gui_tickFilled"
 							: "gui_tickEmpty");
 			Renderer.render(t, 0, 0, 1, 1, x + offX, y + offY, x + offX + 2, y

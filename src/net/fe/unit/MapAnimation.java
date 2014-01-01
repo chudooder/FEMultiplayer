@@ -1,7 +1,7 @@
 package net.fe.unit;
 
+import net.fe.FEResources;
 import chu.engine.Game;
-import chu.engine.Resources;
 import chu.engine.anim.Animation;
 
 public class MapAnimation extends Animation {
@@ -9,7 +9,7 @@ public class MapAnimation extends Animation {
 	private static int synchroFrame;
 	private static float counter;
 	public MapAnimation(String name, boolean walking){
-		super(Resources.getTexture(name), 48, 48, 4, 4, 17, 17, 0);
+		super(FEResources.getTexture(name), 48, 48, 4, 4, 17, 17, 0);
 		synchro = !walking;
 		speed = 0.15f;
 	}

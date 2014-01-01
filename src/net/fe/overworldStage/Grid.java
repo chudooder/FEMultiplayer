@@ -150,7 +150,7 @@ public class Grid{
 			set.add(curr);
 			for(Node n: curr.getNeighbors(this)){
 				if(!set.contains(n)){
-					n.d = curr.d + terrain[y][x].getMoveCost(u.getTheClass());
+					n.d = curr.d + terrain[n.y][n.x].getMoveCost(u.getTheClass());
 					if(grid[n.y][n.x] != null && grid[n.y][n.x].getParty() != u.getParty()) {
 						n.d += 128;
 					}

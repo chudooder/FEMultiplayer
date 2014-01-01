@@ -1,7 +1,7 @@
 package net.fe.overworldStage;
+import net.fe.FEResources;
 import chu.engine.Game;
 import chu.engine.GriddedEntity;
-import chu.engine.Resources;
 import chu.engine.anim.Animation;
 
 public class Cursor extends GriddedEntity{
@@ -13,7 +13,7 @@ public class Cursor extends GriddedEntity{
 	private static final float SPEED = 1000f;
 	public Cursor(int xx, int yy) {
 		super(xx, yy);
-		sprite.addAnimation("default", new Animation(Resources.getTexture("cursor"),
+		sprite.addAnimation("default", new Animation(FEResources.getTexture("cursor"),
 				24, 24, 16, 16, 4, 4, 0.05f));
 		renderDepth = OverworldStage.CURSOR_DEPTH;
 		on = true;

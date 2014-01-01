@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import chu.engine.anim.AudioPlayer;
 import net.fe.overworldStage.Menu;
 import net.fe.overworldStage.MenuContext;
 import net.fe.overworldStage.Node;
@@ -47,6 +48,7 @@ public class UnitMoved extends MenuContext<String> {
 	public void onSelect(String selectedItem) {
 		// TODO Finish this
 		stage.setMenu(null);
+		AudioPlayer.playAudio("select", 1, 1);
 		if (selectedItem.equals("Wait")) {
 			stage.addCmd("Wait");
 			stage.send();

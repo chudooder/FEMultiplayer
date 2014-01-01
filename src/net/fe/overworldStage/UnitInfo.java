@@ -8,17 +8,17 @@ import java.util.Iterator;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import net.fe.FEResources;
 import net.fe.unit.Item;
 import net.fe.unit.ItemDisplay;
 import net.fe.unit.Unit;
 import chu.engine.Entity;
-import chu.engine.Resources;
+import chu.engine.Game;
 import chu.engine.anim.Renderer;
 
 public class UnitInfo extends Entity{
 	public UnitInfo(Cursor c) {
-		//TODO Positioning
-		super(0, 160);
+		super(0, Game.getWindowHeight()-84);
 		renderDepth = 0.8f;
 	}
 	
@@ -40,14 +40,14 @@ public class UnitInfo extends Entity{
 		Renderer.drawString("default_med", u.name + "   Lv" + u.get("Lvl"), 
 				x+92, y+4, renderDepth);
 		String hp = "HP " + u.getHp() + "/" + u.get("HP");
-		int width = Resources.getBitmapFont("default_med").getStringWidth(hp);
+		int width = FEResources.getBitmapFont("default_med").getStringWidth(hp);
 		Renderer.drawString("default_med", hp, x+316-width, y+4, renderDepth);
 		
 		//Mugshot
 		Renderer.drawRectangle(x+4, y+4, x+88, y+80, renderDepth, BORDER_DARK);
 		Renderer.drawRectangle(x+5, y+5, x+87, y+79, renderDepth, BORDER_LIGHT);
 		Renderer.drawRectangle(x+6, y+6, x+86, y+78, renderDepth, NEUTRAL.darker(0.5f));
-		Texture mugshot = Resources.getTexture(u.name.toLowerCase()+"_mugshot");
+		Texture mugshot = FEResources.getTexture(u.name.toLowerCase()+"_mugshot");
 		Renderer.addClip(x+6, y+6, 80, 72, false);
 		Renderer.render(mugshot, 0, 0, 1, 1, x+46-mugshot.getImageWidth()/2, 
 				y+78-mugshot.getImageHeight(), 
@@ -59,7 +59,7 @@ public class UnitInfo extends Entity{
 		for(String stat: Arrays.asList("Str","Mag","Skl","Spd")){
 			Renderer.drawString("default_med", stat, x+92, y+y0, renderDepth);
 			int statN = u.get(stat);
-			width = Resources.getBitmapFont("default_med").getStringWidth(statN+"");
+			width = FEResources.getBitmapFont("default_med").getStringWidth(statN+"");
 			Renderer.drawString("default_med", statN, 
 					x+122-(width-1)/2, y+y0, renderDepth);
 			y0+=15;
@@ -69,7 +69,7 @@ public class UnitInfo extends Entity{
 		for(String stat: Arrays.asList("Lck","Def","Res","Mov")){
 			Renderer.drawString("default_med", stat, x+152, y+y0, renderDepth);
 			int statN = u.get(stat);
-			width = Resources.getBitmapFont("default_med").getStringWidth(statN+"");
+			width = FEResources.getBitmapFont("default_med").getStringWidth(statN+"");
 			Renderer.drawString("default_med", statN, 
 					x+182-(width-1)/2, y+y0, renderDepth);
 			y0+=15;
