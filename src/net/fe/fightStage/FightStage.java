@@ -209,7 +209,7 @@ public class FightStage extends Stage {
 			setCurrentEvent(HURTED);
 		} else if (currentEvent == HURTED) {
 			if (dhp.getHp() == 0) {
-				d.dying = true;
+				d.state = FightUnit.FLASHING;
 				AudioPlayer.playAudio("die", 1, 1);
 				currentEvent = DYING;
 			} else {

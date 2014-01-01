@@ -15,16 +15,24 @@ import chu.engine.anim.Transform;
 public class FightUnit extends Entity {
 	private boolean left;
 	private int distanceFromCenter;
-	public boolean dying;
+	public int state;
 	private float alpha;
 	private AnimationArgs animArgs;
+	private float flashTimer;
+	private int flashes;
+	
+	public static final int ALIVE = 0;
+	public static final int FLASHING = 1;
+	public static final int FADING = 2;
 	
 	public FightUnit(AnimationArgs animArgs, FightStage s){
 		super(0,0);
 		this.left = animArgs.left;
 		distanceFromCenter = FightStage.rangeToHeadDistance(animArgs.range);
-		dying = false;
+		state = ALIVE;
 		alpha = 1;
+		flashTimer = 0;
+		flashes = 0;
 		this.animArgs = animArgs;
 		StringBuilder filename = new StringBuilder();
 		filename.append(animArgs.userclass);
@@ -48,7 +56,15 @@ public class FightUnit extends Entity {
 	
 	@Override
 	public void beginStep() {
-		if(dying && alpha > 0) {
+		if(state == FLASHING) {
+			flashTimer += Game.getDeltaSeconds();
+			if(flashTimer > 0.05f) {
+				alpha = 1-alpha;
+				flashTimer -= 0.05f;
+				flashes++;
+				if(flashes >= 12) state = FADING;
+			}
+		} else if(state == FADING && alpha > 0) {
 			alpha -= .75*Game.getDeltaSeconds();
 			if(alpha < 0) {
 				((FightStage)stage).setCurrentEvent(FightStage.RETURNING);
@@ -60,16 +76,17 @@ public class FightUnit extends Entity {
 	@Override
 	public void render() {
 		Transform t = new Transform();
-		if(dying)
+		if(state != ALIVE) {
 			t.setColor(new Color(255, 255, 255, alpha));
-//		int y1 = FightStage.FLOOR - sprite.getCurrentAnimation().getOffsetY();
+		}
+		String program = (state == FADING ? "lighten" : "default");
 		if(left) {
 			t.flipHorizontal();
 			sprite.render(FightStage.CENTRAL_AXIS - distanceFromCenter, 
-					FightStage.FLOOR, renderDepth, t);
+					FightStage.FLOOR, renderDepth, t, program);
 		} else {
 			sprite.render(FightStage.CENTRAL_AXIS + distanceFromCenter,
-					FightStage.FLOOR, renderDepth, t);
+					FightStage.FLOOR, renderDepth, t, program);
 		}
 	}
 	

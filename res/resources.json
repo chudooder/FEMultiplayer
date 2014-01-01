@@ -424,7 +424,7 @@
 			"columns":	9,
 			"offsetX":	137,
 			"offsetY":	92,
-			"freeze":	-1,
+			"freeze":	0,
 			"hitframes":[34, 37, 40, 43, 46, 49, 63],
 			"soundMap": [
 				{

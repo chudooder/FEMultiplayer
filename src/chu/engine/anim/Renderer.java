@@ -40,6 +40,7 @@ public class Renderer {
 		color = Color.white;
 		programs.put("default", createProgram("default", "default"));
 		programs.put("greyscale", createProgram("default", "greyscale"));
+		programs.put("lighten", createProgram("default", "lighten"));
 	}
 
 	/***
