@@ -198,6 +198,7 @@ public class OverworldStage extends Stage {
 	}
 	
 	private void clearCmdString(){
+		selectedUnit = null;
 		movX = 0;
 		movY = 0;
 		currentCmdString.clear();
