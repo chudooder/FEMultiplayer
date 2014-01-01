@@ -10,7 +10,7 @@ import net.fe.fightStage.anim.AttackAnimation;
 import net.fe.fightStage.anim.DodgeAnimation;
 import net.fe.fightStage.anim.HUD;
 import net.fe.fightStage.anim.HitEffect;
-import net.fe.fightStage.anim.Message;
+import net.fe.fightStage.anim.SkillIndicator;
 import net.fe.fightStage.anim.MissEffect;
 import net.fe.fightStage.anim.Platform;
 import net.fe.overworldStage.Grid;
@@ -52,9 +52,9 @@ public class FightStage extends Stage {
 	public static final int CENTRAL_AXIS = 120;
 	public static final int FLOOR = 104;
 
-	public static Color BORDER_DARK = new Color(0x483828);
-	public static Color BORDER_LIGHT = new Color(0xf8f0c8);
-	public static Color NEUTRAL = new Color(0xb0a878);
+	public static final Color BORDER_DARK = new Color(0x483828);
+	public static final Color BORDER_LIGHT = new Color(0xf8f0c8);
+	public static final Color NEUTRAL = new Color(0xb0a878);
 
 	public static final float HP_DEPTH = 0.14f;
 	public static final float HUD_DEPTH = 0.15f;
@@ -152,7 +152,7 @@ public class FightStage extends Stage {
 			// //Debug
 			ArrayList<String> messages = analyzeAnimation(rec.animation, "(a)", true);
 			for (int i = 0; i < messages.size(); i++) {
-				addEntity(new Message(messages.get(i), attacker == left, i));
+				addEntity(new SkillIndicator(messages.get(i), attacker == left, i));
 			}
 			a.setAnimation(rec.animation);
 			a.sprite.setSpeed(((AttackAnimation)a.sprite.getCurrentAnimation()).getDefaultSpeed());
@@ -202,7 +202,7 @@ public class FightStage extends Stage {
 
 			ArrayList<String> messages = analyzeAnimation(rec.animation, "(d)", true);
 			for (int i = 0; i < messages.size(); i++) {
-				addEntity(new Message(messages.get(i), attacker == left, i));
+				addEntity(new SkillIndicator(messages.get(i), attacker == left, i));
 			}
 		} else if (currentEvent == HURTING) {
 			// Try to go to HURTED

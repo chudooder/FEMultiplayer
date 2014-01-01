@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.fightStage.HealCalculator;
+import net.fe.network.Client;
+import net.fe.network.Message;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
@@ -33,8 +35,6 @@ import org.newdawn.slick.openal.SoundStore;
 import chu.engine.Game;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
-import chu.engine.network.Client;
-import chu.engine.network.Message;
 
 public class FEMultiplayer extends Game{
 	private static Stage currentStage;
@@ -42,9 +42,11 @@ public class FEMultiplayer extends Game{
 	private static ArrayList<Message> serverMessages;
 	
 	private static ArrayList<Player> players;
+	private static Player localPlayer;
 	
 	public static Player turn;
 	public static OverworldStage map;
+	public static LobbyStage lobby;
 	
 	public static void main(String[] args) {
 		FEMultiplayer game = new FEMultiplayer();
@@ -57,6 +59,7 @@ public class FEMultiplayer extends Game{
 		super.init(width, height, name);
 		players = new ArrayList<Player>();
 		Player p1 = new Player((byte) 0);
+		localPlayer = p1;
 		Player p2 = new Player((byte) 1);
 		players.add(p1);
 		players.add(p2);
@@ -64,7 +67,8 @@ public class FEMultiplayer extends Game{
 		p2.getParty().setColor(Party.TEAM_RED);
 		
 		//TODO: Implement client
-//		client = new Client();
+		client = new Client();
+		client.start();
 		/* OpenGL final setup */
 		glEnable(GL_LINE_SMOOTH);
 
@@ -156,9 +160,6 @@ public class FEMultiplayer extends Game{
 		u14.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
 		u14.equipFirstWeapon(1);
 		p2.getParty().addUnit(u14);
-		
-		
-		
 
 		u1.setLevel(20);
 		u2.setLevel(20);
@@ -208,8 +209,8 @@ public class FEMultiplayer extends Game{
 		map.addUnit(u14, 0, 1);
 		map.setControl(true);
 		
-		
-		currentStage = map;
+		lobby = new LobbyStage();
+		currentStage = lobby;
 		serverMessages = new ArrayList<Message>();
 		
 	}
@@ -232,11 +233,10 @@ public class FEMultiplayer extends Game{
 			        GL_STENCIL_BUFFER_BIT);
 			glClearDepth(1.0f);
 			getInput();
-			//TODO: Client
-//			serverMessages.clear();
-//			serverMessages.addAll(client.getMessages());
-//			for(Message m : serverMessages)
-//				client.messages.remove(m);
+			serverMessages.clear();
+			serverMessages.addAll(client.getMessages());
+			for(Message m : serverMessages)
+				client.messages.remove(m);
 			SoundStore.get().poll(0);
 			glPushMatrix();
 			if(!paused) {
@@ -289,6 +289,10 @@ public class FEMultiplayer extends Game{
 			FightStage to = new FightStage(u, healee, calc.getAttackQueue());
 			currentStage.addEntity(new OverworldFightTransition(to, u, healee));
 		}
+	}
+	
+	public static Player getLocalPlayer() {
+		return localPlayer;
 	}
 
 	

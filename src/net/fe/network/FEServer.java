@@ -1,7 +1,7 @@
-package net.fe;
+package net.fe.network;
 
+import net.fe.LobbyStage;
 import chu.engine.Game;
-import chu.engine.network.Server;
 import chu.engine.Stage;
 
 /**
@@ -11,11 +11,22 @@ import chu.engine.Stage;
  */
 public class FEServer extends Game {
 	
-	private static Server server;
-	private static Stage currentStage;
+	private Server server;
+	private Stage currentStage;
 	
 	public static void main(String[] args) {
-		server = new Server(21255);
+		FEServer feserver = new FEServer();
+		feserver.loop();
+	}
+	
+	public FEServer() {
+		Thread serverThread = new Thread() {
+			public void run() {
+				server = new Server(21255);
+			}
+		};
+		currentStage = new LobbyStage();
+		serverThread.start();
 	}
 	
 	@Override
@@ -25,7 +36,8 @@ public class FEServer extends Game {
 	
 	@Override
 	public void loop() {
-		while(server != null) {
+		boolean yes = true;
+		while(yes) {
 			time = System.nanoTime();
 			currentStage.beginStep();
 			currentStage.onStep();
