@@ -1887,7 +1887,6 @@
 			"offsetY":	74,
 			"freeze":	0,
 			"hitframes":[19],
-			"speed":	0.055,
 			"soundMap": [
 				{
 					"frame":	3,
@@ -1906,7 +1905,6 @@
 			"offsetY":	74,
 			"freeze":	0,
 			"hitframes":[28],
-			"speed":	0.055,
 			"soundMap": [
 				{
 					"frame":	3,
@@ -1921,6 +1919,90 @@
 					"sound":	"magic_charge"
 				}
 			]
+		},
+		{
+			"name":		"valkyrie_magic_dodge",
+			"path":		"res/battle_anim/valkyrie_magic_dodge.png",
+			"width":	41,
+			"height":	48,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	16,
+			"offsetY":	45,
+			"freeze":	0
+		},
+		{
+			"name":		"valkyrie_staff_attack",
+			"path":		"res/battle_anim/valkyrie_staff_attack.png",
+			"width":	50,
+			"height":	68,
+			"frames":	15,
+			"columns":	4,
+			"offsetX":	16,
+			"offsetY":	64,
+			"freeze":	0,
+			"hitframes":[7],
+			"speed":	0.055,
+			"soundMap": [
+				{
+					"frame":	2,
+					"sound":	"horse_step"
+				}
+				{
+					"frame":	4,
+					"sound":	"horse_step"
+				}
+				{
+					"frame":	12,
+					"sound":	"horse_step"
+				}
+				{
+					"frame":	13,
+					"sound":	"horse_step"
+				}
+			]
+		},
+		{
+			"name":		"valkyrie_staff_critical",
+			"path":		"res/battle_anim/valkyrie_staff_attack.png",
+			"width":	50,
+			"height":	68,
+			"frames":	15,
+			"columns":	4,
+			"offsetX":	16,
+			"offsetY":	64,
+			"freeze":	0,
+			"hitframes":[7],
+			"speed":	0.055,
+			"soundMap": [
+				{
+					"frame":	2,
+					"sound":	"horse_step"
+				}
+				{
+					"frame":	4,
+					"sound":	"horse_step"
+				}
+				{
+					"frame":	12,
+					"sound":	"horse_step"
+				}
+				{
+					"frame":	13,
+					"sound":	"horse_step"
+				}
+			]
+		},
+		{
+			"name":		"valkyrie_staff_dodge",
+			"path":		"res/battle_anim/valkyrie_staff_dodge.png",
+			"width":	41,
+			"height":	57,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	16,
+			"offsetY":	54,
+			"freeze":	0
 		},
 		{
 			"name":		"hit_effect_attack",
@@ -2064,6 +2146,10 @@
 			"path":		"res/gui/battleStats.png"
 		},
 		{
+			"name":		"dragon_separator",
+			"path":		"res/gui/dragons.png"
+		},
+		{
 			"name":		"proj_arrow",
 			"path":		"res/battle_anim/proj_arrow.png"
 		},
@@ -2075,9 +2161,5 @@
 			"name":		"terrain_tiles",
 			"path":		"res/terrain_tiles.png"
 		},
-		{
-			"name":		"dragon_separator",
-			"path":		"res/gui/dragons.png"
-		},				
 	]
 }
