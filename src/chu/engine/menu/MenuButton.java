@@ -13,7 +13,7 @@ public abstract class MenuButton extends Entity {
 	
 	private float width;
 	private float height;
-	private boolean hover;
+	protected boolean hover;
 
 	public MenuButton(float x, float y) {
 		super(x, y);

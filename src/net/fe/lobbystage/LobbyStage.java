@@ -21,6 +21,7 @@ import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
+import chu.engine.anim.Transform;
 import chu.engine.menu.MenuButton;
 
 /**
@@ -45,6 +46,14 @@ public class LobbyStage extends ServerLobby {
 			public void onClick() {
 				FEMultiplayer.getLocalPlayer().joinTeam(Player.TEAM_SPECTATOR);
 			}
+			@Override
+			public void render() {
+				if(hover) {
+					sprite.render(x, y, renderDepth, null, "lighten");
+				} else {
+					sprite.render(x, y, renderDepth);
+				}
+			}
 		};
 		MenuButton playButton = new MenuButton(409, 57, 64, 32) {
 			{
@@ -53,6 +62,14 @@ public class LobbyStage extends ServerLobby {
 			@Override
 			public void onClick() {
 				FEMultiplayer.getLocalPlayer().joinTeam(Player.TEAM_RED);
+			}
+			@Override
+			public void render() {
+				if(hover) {
+					sprite.render(x, y, renderDepth, null, "lighten");
+				} else {
+					sprite.render(x, y, renderDepth);
+				}
 			}
 		};
 		MenuButton unassignButton = new MenuButton(409, 92, 64, 32) {
@@ -63,8 +80,15 @@ public class LobbyStage extends ServerLobby {
 			public void onClick() {
 				FEMultiplayer.getLocalPlayer().joinTeam(Player.TEAM_UNASSIGNED);
 			}
+			@Override
+			public void render() {
+				if(hover) {
+					sprite.render(x, y, renderDepth, null, "lighten");
+				} else {
+					sprite.render(x, y, renderDepth);
+				}
+			}
 		};
-		//TODO: Exit game
 		MenuButton exitButton = new MenuButton(409, 127, 64, 32) {
 			{
 				sprite.addAnimation("default", FEResources.getTexture("exit_button"));
@@ -72,6 +96,14 @@ public class LobbyStage extends ServerLobby {
 			@Override
 			public void onClick() {
 				FEMultiplayer.getClient().quit();
+			}
+			@Override
+			public void render() {
+				if(hover) {
+					sprite.render(x, y, renderDepth, null, "lighten");
+				} else {
+					sprite.render(x, y, renderDepth);
+				}
 			}
 		};
 		addEntity(spectateButton);
@@ -142,25 +174,30 @@ public class LobbyStage extends ServerLobby {
 		int a = 0;
 		int b = 0;
 		int c = 0;
-		final int yspacing = 24;
+		final int tightSpacing = 16;
+		final int wideSpacing = 24;
 		for(Player p : players.values()) {
+			Transform t = new Transform();
+			if(p.getID() == FEMultiplayer.getClient().getID()) {
+				t.setColor(new Color(90,200,90));
+			}
 			if(p.getTeam() == Player.TEAM_UNASSIGNED) {
-				Renderer.drawString("default_med", p.getName(), 324, 27+(a++)*yspacing, 0.8f);
+				Renderer.drawString("default_med", p.getName(), 324, 27+(a++)*tightSpacing, 0.8f, t);
 			} else if(p.getTeam() == Player.TEAM_SPECTATOR) {
-				Renderer.drawString("default_med", p.getName(), 324, 115+(b++)*yspacing, 0.8f);
+				Renderer.drawString("default_med", p.getName(), 324, 115+(b++)*tightSpacing, 0.8f, t);
 			} else {
-				Renderer.drawString("default_med", p.getName(), 8, 24+c*yspacing, 0.8f);
+				Renderer.drawString("default_med", p.getName(), 8, 24+c*wideSpacing, 0.8f, t);
 				for(int i=0; i<p.getParty().size(); i++) {
 					Unit u = p.getParty().getUnit(i);
 					final int xspacing = 18;
 					if(FEResources.hasTexture(u.functionalClassName() + "_map_idle")) {
-						u.sprite.render(60+xspacing*i, 24+c*yspacing, 0.8f);
+						u.sprite.render(60+xspacing*i, 24+c*wideSpacing, 0.8f);
 					} else {
-						Renderer.drawRectangle(60+xspacing*i, 24+c*yspacing, 
-								75+xspacing*i, 40+c*yspacing, 0.8f, Color.red);
+						Renderer.drawRectangle(60+xspacing*i, 24+c*wideSpacing, 
+								75+xspacing*i, 40+c*wideSpacing, 0.8f, Color.red);
 						Renderer.drawString("default_med",
 								u.name.charAt(0) + "" + u.name.charAt(1), 62+xspacing*i, 
-								26+c*yspacing, 0.8f);
+								26+c*wideSpacing, 0.8f);
 					}
 				}
 				c++;
