@@ -1,9 +1,16 @@
 package net.fe.lobbystage;
 
-import net.fe.FEResources;
+import java.util.List;
 
+import net.fe.FEMultiplayer;
+import net.fe.FEResources;
+import net.fe.network.message.ChatMessage;
+
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
+import chu.engine.Game;
+import chu.engine.KeyboardEvent;
 import chu.engine.anim.BitmapFont;
 import chu.engine.anim.Renderer;
 import chu.engine.menu.TextInputBox;
@@ -18,6 +25,20 @@ public class ChatInputBox extends TextInputBox {
 		super(6, 294, 250, 20, "default_med");
 	}
 	
+	public void beginStep() {
+		super.beginStep();
+		if(hasFocus) {
+			List<KeyboardEvent> keys = Game.getKeys();
+			for(KeyboardEvent ke : keys) {
+				if(ke.state) {
+					if(ke.key == Keyboard.KEY_RETURN) { 
+						send();
+					}
+				}
+			}
+		}
+	}
+	
 	public void render() {
 		BitmapFont font = FEResources.getBitmapFont("default_med");
 		if(hasFocus) {
@@ -28,6 +49,15 @@ public class ChatInputBox extends TextInputBox {
 			Renderer.drawRectangle(x, y, x+width, y+height, renderDepth, UNFOCUSED);
 		}
 		Renderer.drawString("default_med", input.toString(), x+2, y+5, renderDepth-0.01f);
+	}
+
+	public void send() {
+		if(input.length() == 0) return;
+		byte id = FEMultiplayer.getClient().getID();
+		FEMultiplayer.getClient().sendMessage(
+				new ChatMessage(id, input.toString()));
+		input.delete(0, input.length());
+		cursorPos = 0;
 	}
 
 }

@@ -36,8 +36,11 @@ public class LobbyStage extends ServerLobby {
 	public static final Color NEUTRAL = new Color(0xb0a878);
 	public static final Color NEUTRAL_DARK = new Color(0x58543c);
 	
+	private ChatInputBox chatInput;
+	
 	public LobbyStage() {
 		super();
+		chatInput = new ChatInputBox();
 		MenuButton spectateButton = new MenuButton(409, 22, 64, 32) {
 			{
 				sprite.addAnimation("default", FEResources.getTexture("spectate_button"));
@@ -106,11 +109,29 @@ public class LobbyStage extends ServerLobby {
 				}
 			}
 		};
+		MenuButton sendButton = new MenuButton(259, 294, 47, 20) {
+			{
+				sprite.addAnimation("default", FEResources.getTexture("send_button"));
+			}
+			@Override
+			public void onClick() {
+				chatInput.send();
+			}
+			@Override
+			public void render() {
+				if(hover) {
+					sprite.render(x, y, renderDepth, null, "lighten");
+				} else {
+					sprite.render(x, y, renderDepth);
+				}
+			}
+		};
 		addEntity(spectateButton);
 		addEntity(playButton);
 		addEntity(unassignButton);
 		addEntity(exitButton);
-		addEntity(new ChatInputBox());
+		addEntity(sendButton);
+		addEntity(chatInput);
 	}
 
 	@Override

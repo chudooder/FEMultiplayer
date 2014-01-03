@@ -2190,6 +2190,10 @@
 			"path":		"res/gui/unassign_button.png"
 		},
 		{
+			"name":		"send_button",
+			"path":		"res/gui/send_button.png"
+		},
+		{
 			"name":		"proj_arrow",
 			"path":		"res/battle_anim/proj_arrow.png"
 		},

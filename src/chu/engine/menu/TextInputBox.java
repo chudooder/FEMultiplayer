@@ -64,12 +64,8 @@ public abstract class TextInputBox extends Entity {
 							input.deleteCharAt(cursorPos-1);
 							cursorPos--;
 						}
-						else if(ke.key == Keyboard.KEY_RETURN && input.length() > 0) { 
-							byte id = FEMultiplayer.getClient().getID();
-							FEMultiplayer.getClient().sendMessage(
-									new ChatMessage(id, input.toString()));
-							input.delete(0, input.length());
-							cursorPos = 0;
+						else if(ke.key == Keyboard.KEY_DELETE && cursorPos < input.length()) { 
+							input.deleteCharAt(cursorPos);
 						}
 					}
 				}
