@@ -9,13 +9,15 @@ import java.net.Socket;
 
 import net.fe.network.message.ClientInit;
 import net.fe.network.message.JoinLobby;
+import net.fe.network.message.QuitMessage;
 
 public class ServerListener extends Thread {
 	
 	private Socket socket = null;
-	ObjectOutputStream out;
-	ObjectInputStream in;
-	Server main;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
+	private Server main;
+	private boolean clientQuit;
 	final byte[] begin = new byte[]{0x42,0x45,0x47,0x49,0x4e};
 	
 	public ServerListener(Server main, Socket socket) {
@@ -27,7 +29,7 @@ public class ServerListener extends Thread {
 			out.flush();
 			in = new ObjectInputStream(socket.getInputStream());
 			System.out.println("LISTENER: I/O streams initialized");
-			sendMessage(new ClientInit(0, main.getCount()));
+			sendMessage(new ClientInit(0, main.getCount(), main.getPlayers()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -37,7 +39,9 @@ public class ServerListener extends Thread {
 		try {
 			System.out.println("LISTENER: Start");
 			Message message;
-			while((message = (Message) in.readObject()) != null) {
+			clientQuit = false;
+			while(!clientQuit) {
+				message = (Message) in.readObject();
 				processInput(message);
 			}
 			System.out.println("LISTENER: Exit");
@@ -49,13 +53,17 @@ public class ServerListener extends Thread {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} finally {
+			main.clients.remove(this);
 		}
 	}
 	
 	public void processInput(Message message) {
-		if(message instanceof JoinLobby) {
-			sendMessage(message);
+		if(message instanceof QuitMessage) {
+			clientQuit = true;
 		}
+		main.broadcastMessage(message);
+		main.messages.add(message);
 	}
 	
 	public void sendMessage(Message message) {

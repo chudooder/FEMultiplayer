@@ -1,5 +1,8 @@
 package net.fe.network;
 
+import java.util.ArrayList;
+
+import net.fe.FEResources;
 import net.fe.LobbyStage;
 import chu.engine.Game;
 import chu.engine.Stage;
@@ -12,26 +15,27 @@ import chu.engine.Stage;
 public class FEServer extends Game {
 	
 	private Server server;
-	private Stage currentStage;
+	private static Stage currentStage;
 	
 	public static void main(String[] args) {
 		FEServer feserver = new FEServer();
+		feserver.init();
 		feserver.loop();
 	}
 	
 	public FEServer() {
+		server = new Server();
 		Thread serverThread = new Thread() {
 			public void run() {
-				server = new Server(21255);
+				server.start(21255);
 			}
 		};
-		currentStage = new LobbyStage();
+		currentStage = new ServerLobby();
 		serverThread.start();
 	}
 	
-	@Override
-	public void init(int width, int height, String name) {
-		// don't do anything
+	public void init() {
+		messages = new ArrayList<Message>();
 	}
 	
 	@Override
@@ -39,11 +43,19 @@ public class FEServer extends Game {
 		boolean yes = true;
 		while(yes) {
 			time = System.nanoTime();
+			messages.clear();
+			messages.addAll(server.messages);
+			for(Message m : messages)
+				server.messages.remove(m);
 			currentStage.beginStep();
 			currentStage.onStep();
 			currentStage.endStep();
 			timeDelta = System.nanoTime()-time;
 		}
+	}
+	
+	public static Stage getCurrentStage() {
+		return currentStage;
 	}
 
 }

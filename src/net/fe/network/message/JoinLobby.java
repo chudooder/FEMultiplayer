@@ -1,17 +1,18 @@
 package net.fe.network.message;
 
+import net.fe.Player;
 import net.fe.network.Message;
 
 public class JoinLobby extends Message {
 	private static final long serialVersionUID = 2466162881020245626L;
-	String nick;
-	public JoinLobby(int origin, String nick) {
+	public Player player;
+	public JoinLobby(int origin, Player player) {
 		super(origin);
-		this.nick = nick;
+		this.player = player;
 	}
 	
 	public String toString() {
-		return "JOIN "+origin+" "+nick;
+		return "JOIN "+origin+" "+player;
 	}
 
 }

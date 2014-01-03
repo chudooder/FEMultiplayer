@@ -4,15 +4,24 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import chu.engine.Stage;
+import net.fe.Player;
 
 public class Server {
 	ServerSocket serverSocket;
 	boolean closeRequested = false;
-	volatile ArrayList<ServerListener> clients; 
-	byte counter = 0;
+	volatile ArrayList<ServerListener> clients;
+	public volatile ArrayList<Message> messages;
+	byte counter = 1;
 	
-	public Server(int port) {
+	public Server() {
+		messages = new ArrayList<Message>();
 		clients = new ArrayList<ServerListener>();
+	}
+	
+	public void start(int port) {
 		try {
 			serverSocket = new ServerSocket(port);
 			System.out.println("SERVER: Waiting for connections...");
@@ -34,7 +43,7 @@ public class Server {
 	 * Sends a message to all clients
 	 * @param line
 	 */
-	public void sendMessage(Message message) {
+	public void broadcastMessage(Message message) {
 		for(ServerListener out : clients) {
 			out.sendMessage(message);
 		}
@@ -51,5 +60,14 @@ public class Server {
 	
 	public byte getCount() {
 		return counter;
+	}
+
+	public HashMap<Integer, Player> getPlayers() {
+		Stage stage = FEServer.getCurrentStage();
+		if(stage instanceof ServerLobby) {
+			return ((ServerLobby)stage).players;
+		} else {
+			return null;
+		}
 	}
 }

@@ -45,6 +45,17 @@ public class FEResources {
 			}
 		};
 		bitmapFonts = new HashMap<String, BitmapFont>();
+	}
+
+	public static Texture getTexture(String string) {
+		return getTextureData(string).texture;
+	}
+	
+	public static boolean hasTexture(String string){
+		return textures.containsKey(string);
+	}
+	
+	public static void loadResources() {
 		try {
 			// Textures
 			loadTextures();
@@ -64,15 +75,6 @@ public class FEResources {
 			e.printStackTrace();
 		}
 	}
-
-	public static Texture getTexture(String string) {
-		return getTextureData(string).texture;
-	}
-	
-	public static boolean hasTexture(String string){
-		return textures.containsKey(string);
-	}
-	
 	public static AnimationData getMapTexture(String name){
 		AnimationData t = textures.get(name);
 		if(t!=null) return t;

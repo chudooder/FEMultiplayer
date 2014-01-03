@@ -27,13 +27,13 @@ public abstract class MenuButton extends Entity {
 		height = h;
 	}
 	
-	public abstract void onEnter();
-	public abstract void onClick();
-	public abstract void onExit();
+	public void onEnter(){};
+	public void onClick(){};
+	public void onExit(){};
 	
 	public void beginStep() {
 		int mX = Mouse.getX();
-		int mY = 480 - Mouse.getY();
+		int mY = Game.getWindowHeight() - Mouse.getY();
 		boolean newHover = (mX >= x && mX < x + width && mY >= y && mY < y + height);
 		if(newHover && !hover) {
 			onEnter();

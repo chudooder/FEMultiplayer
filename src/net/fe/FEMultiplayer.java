@@ -39,8 +39,6 @@ import chu.engine.anim.Renderer;
 public class FEMultiplayer extends Game{
 	private static Stage currentStage;
 	private static Client client;
-	private static ArrayList<Message> serverMessages;
-	
 	private static ArrayList<Player> players;
 	private static Player localPlayer;
 	
@@ -63,6 +61,7 @@ public class FEMultiplayer extends Game{
 		Player p2 = new Player((byte) 1);
 		players.add(p1);
 		players.add(p2);
+		FEResources.loadResources();
 		p1.getParty().setColor(Party.TEAM_BLUE);
 		p2.getParty().setColor(Party.TEAM_RED);
 		
@@ -211,7 +210,7 @@ public class FEMultiplayer extends Game{
 		
 		lobby = new LobbyStage();
 		currentStage = lobby;
-		serverMessages = new ArrayList<Message>();
+		messages = new ArrayList<Message>();
 		
 	}
 	
@@ -233,9 +232,9 @@ public class FEMultiplayer extends Game{
 			        GL_STENCIL_BUFFER_BIT);
 			glClearDepth(1.0f);
 			getInput();
-			serverMessages.clear();
-			serverMessages.addAll(client.getMessages());
-			for(Message m : serverMessages)
+			messages.clear();
+			messages.addAll(client.getMessages());
+			for(Message m : messages)
 				client.messages.remove(m);
 			SoundStore.get().poll(0);
 			glPushMatrix();
@@ -256,7 +255,7 @@ public class FEMultiplayer extends Game{
 		}
 		AL.destroy();
 		Display.destroy();
-//		client.close();
+		if(client.isOpen()) client.quit();
 	}
 	
 	public static void reportFightResults(FightStage stage){ 
@@ -302,6 +301,10 @@ public class FEMultiplayer extends Game{
 
 	public static Stage getOverworldStage() {
 		return map;
+	}
+	
+	public static Client getClient() {
+		return client;
 	}
 
 }

@@ -2174,6 +2174,22 @@
 			"path":		"res/gui/dragons.png"
 		},
 		{
+			"name":		"spectate_button",
+			"path":		"res/gui/spectate_button.png"
+		},
+		{
+			"name":		"play_button",
+			"path":		"res/gui/play_button.png"
+		},
+		{
+			"name":		"exit_button",
+			"path":		"res/gui/exit_button.png"
+		},
+		{
+			"name":		"unassign_button",
+			"path":		"res/gui/unassign_button.png"
+		},
+		{
 			"name":		"proj_arrow",
 			"path":		"res/battle_anim/proj_arrow.png"
 		},

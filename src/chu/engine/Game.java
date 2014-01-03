@@ -1,7 +1,10 @@
 package chu.engine;
 import static org.lwjgl.opengl.GL11.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
+import net.fe.network.Message;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -17,6 +20,7 @@ public abstract class Game {
 	protected boolean paused = false;
 	protected static HashMap<Integer, Boolean> keys;
 	protected static HashMap<MouseEvent, Boolean> mouseEvents;
+	protected static ArrayList<Message> messages;
 	protected long time;
 	protected static long timeDelta;
 	
@@ -86,6 +90,10 @@ public abstract class Game {
 	
 	public static HashMap<MouseEvent, Boolean> getMouseEvents() {
 		return mouseEvents;
+	}
+	
+	public static ArrayList<Message> getMessages() {
+		return messages;
 	}
 
 	public static long getDelta() {

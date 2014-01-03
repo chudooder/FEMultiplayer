@@ -11,14 +11,16 @@ import java.util.ArrayList;
 import net.fe.FEMultiplayer;
 import net.fe.network.message.ClientInit;
 import net.fe.network.message.JoinLobby;
+import net.fe.network.message.QuitMessage;
 
 public class Client {
 	
-	Socket serverSocket;
-	ObjectOutputStream out;
-	ObjectInputStream in;
-	Thread serverIn;
-	boolean open = true;
+	private Socket serverSocket;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
+	private Thread serverIn;
+	private boolean open = true;
+	private boolean closeRequested = false;
 	byte id;
 	public volatile ArrayList<Message> messages;
 	
@@ -63,24 +65,37 @@ public class Client {
 	private void processInput(Message message) {
 		if(message instanceof ClientInit) {
 			id = ((ClientInit)message).clientID;
+			FEMultiplayer.getLocalPlayer().setClientID(id);
 			System.out.println("CLIENT: Recieved ID "+id+" from server");
 			// Send a join lobby request
-			sendMessage(new JoinLobby(id, FEMultiplayer.getLocalPlayer().getName()));
+			sendMessage(new JoinLobby(id, FEMultiplayer.getLocalPlayer()));
+		} else if (message instanceof QuitMessage) {
+			if(message.origin == id && closeRequested) {
+				close();
+			}
 		}
+		messages.add(message);
 	}
 	
 	public ArrayList<Message> getMessages() {
 		return messages;
 	}
 	
-	public void close() {
+	private void close() {
 		try {
 			in.close();
 			out.close();
 			serverSocket.close();
+			open = false;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void quit() {
+		sendMessage(new QuitMessage(id));
+		// simple security to prevent clients closing other clients
+		closeRequested = true;
 	}
 	
 	public void sendMessage(Message message) {
@@ -90,5 +105,9 @@ public class Client {
 		} catch (IOException e) {
 			System.err.println("CLIENT Unable to send message!");
 		}
+	}
+	
+	public boolean isOpen() {
+		return open;
 	}
 }
