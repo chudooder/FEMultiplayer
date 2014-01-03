@@ -12,6 +12,8 @@ import net.fe.network.Chat;
 import net.fe.network.Message;
 import net.fe.network.message.JoinLobby;
 import net.fe.network.message.QuitMessage;
+import net.fe.overworldStage.OverworldStage;
+import net.fe.unit.Unit;
 
 import org.newdawn.slick.Color;
 
@@ -140,13 +142,28 @@ public class LobbyStage extends ServerLobby {
 		int a = 0;
 		int b = 0;
 		int c = 0;
+		final int yspacing = 24;
 		for(Player p : players.values()) {
 			if(p.getTeam() == Player.TEAM_UNASSIGNED) {
-				Renderer.drawString("default_med", p.getName(), 324, 27+(a++)*16, 0.8f);
+				Renderer.drawString("default_med", p.getName(), 324, 27+(a++)*yspacing, 0.8f);
 			} else if(p.getTeam() == Player.TEAM_SPECTATOR) {
-				Renderer.drawString("default_med", p.getName(), 324, 115+(b++)*16, 0.8f);
+				Renderer.drawString("default_med", p.getName(), 324, 115+(b++)*yspacing, 0.8f);
 			} else {
-				Renderer.drawString("default_med", p.getName(), 8, 24+(c++)*16, 0.8f);
+				Renderer.drawString("default_med", p.getName(), 8, 24+c*yspacing, 0.8f);
+				for(int i=0; i<p.getParty().size(); i++) {
+					Unit u = p.getParty().getUnit(i);
+					final int xspacing = 18;
+					if(FEResources.hasTexture(u.functionalClassName() + "_map_idle")) {
+						u.sprite.render(60+xspacing*i, 24+c*yspacing, 0.8f);
+					} else {
+						Renderer.drawRectangle(60+xspacing*i, 24+c*yspacing, 
+								75+xspacing*i, 40+c*yspacing, 0.8f, Color.red);
+						Renderer.drawString("default_med",
+								u.name.charAt(0) + "" + u.name.charAt(1), 62+xspacing*i, 
+								26+c*yspacing, 0.8f);
+					}
+				}
+				c++;
 			}
 		}
 		

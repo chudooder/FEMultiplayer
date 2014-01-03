@@ -24,6 +24,7 @@ public abstract class Game {
 	protected static ArrayList<Message> messages;
 	protected long time;
 	protected static long timeDelta;
+	protected static boolean glContextExists;
 	
 	public void init(int width, int height, String name) {
 		time = System.nanoTime();
@@ -38,6 +39,7 @@ public abstract class Game {
 			Keyboard.create();
 			Keyboard.enableRepeatEvents(true);
 			Mouse.create();
+			glContextExists = true;
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -121,5 +123,9 @@ public abstract class Game {
 	
 	public static int getWindowHeight() {
 		return windowHeight;
+	}
+
+	public static boolean glContextExists() {
+		return glContextExists;
 	}
 }

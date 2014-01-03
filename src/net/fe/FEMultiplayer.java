@@ -190,21 +190,21 @@ public class FEMultiplayer extends Game{
 		u14.fillHp();
 		
 		map = new OverworldStage("test", p1);
-		map.addUnit(u1, 0, 0);
-		map.addUnit(u2, 2, 1);
-		map.addUnit(u3, 1, 1);
-		map.addUnit(u4, 2, 0);
-		map.addUnit(u5, 2, 3);
-		map.addUnit(u6, 4, 2);
-		map.addUnit(u7, 8, 3);
-		map.addUnit(u8, 2, 2);
-		map.addUnit(u9, 3, 6);
-		map.addUnit(u10, 3, 4);
-		map.addUnit(u11, 4, 0);
-		map.addUnit(u12, 5, 2);
-		map.addUnit(u13, 5, 3);
-		map.addUnit(u14, 0, 1);
-		map.setControl(true);
+//		map.addUnit(u1, 0, 0);
+//		map.addUnit(u2, 2, 1);
+//		map.addUnit(u3, 1, 1);
+//		map.addUnit(u4, 2, 0);
+//		map.addUnit(u5, 2, 3);
+//		map.addUnit(u6, 4, 2);
+//		map.addUnit(u7, 8, 3);
+//		map.addUnit(u8, 2, 2);
+//		map.addUnit(u9, 3, 6);
+//		map.addUnit(u10, 3, 4);
+//		map.addUnit(u11, 4, 0);
+//		map.addUnit(u12, 5, 2);
+//		map.addUnit(u13, 5, 3);
+//		map.addUnit(u14, 0, 1);
+//		map.setControl(true);
 		
 		client = new Client();
 		client.start();

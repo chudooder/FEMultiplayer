@@ -1,5 +1,7 @@
 package net.fe.unit;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,11 +80,30 @@ public class Unit extends GriddedEntity implements Serializable {
 				"_map_up", true));
 		sprite.addAnimation("DOWN", new MapAnimation(functionalClassName() + 
 				"_map_down", true));
-
 		sprite.setAnimation("IDLE");
 
 		renderDepth = OverworldStage.UNIT_DEPTH;
 	}
+	
+	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+        tempMods = new HashMap<String, Integer>();
+        if(Game.glContextExists()) {
+    		sprite.addAnimation("IDLE", new MapAnimation(functionalClassName() + 
+    				"_map_idle", false));
+    		sprite.addAnimation("SELECTED", new MapAnimation(functionalClassName() + 
+    				"_map_selected", false));
+    		sprite.addAnimation("LEFT", new MapAnimation(functionalClassName() + 
+    				"_map_side", true));
+    		sprite.addAnimation("RIGHT", new MapAnimation(functionalClassName() + 
+    				"_map_side", true));
+    		sprite.addAnimation("UP", new MapAnimation(functionalClassName() + 
+    				"_map_up", true));
+    		sprite.addAnimation("DOWN", new MapAnimation(functionalClassName() + 
+    				"_map_down", true));
+    		sprite.setAnimation("IDLE");
+        }
+    }
 	
 	public String functionalClassName(){
 		String prefix = clazz.name;
