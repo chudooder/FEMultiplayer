@@ -4,6 +4,10 @@ public class GriddedEntity extends Entity {
 
 	protected int xcoord;
 	protected int ycoord;
+	
+	public GriddedEntity() {
+		this(0, 0);
+	}
 
 	public GriddedEntity(int xx, int yy) {
 		super(xx * 16, yy * 16);

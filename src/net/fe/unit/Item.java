@@ -1,7 +1,10 @@
 package net.fe.unit;
 
+import java.io.Serializable;
 
-public abstract class Item {
+
+public abstract class Item implements Serializable {
+	private static final long serialVersionUID = 210303763886733870L;
 	public final String name;
 	private int maxUses;
 	private int uses;

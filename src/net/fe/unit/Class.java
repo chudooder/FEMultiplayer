@@ -1,11 +1,13 @@
 package net.fe.unit;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 import net.fe.fightStage.*;
 
-public class Class {
+public class Class implements Serializable {
+	private static final long serialVersionUID = 9144407404798873761L;
 	public final int crit;
 	public final CombatTrigger masterSkill;
 	public final List<Weapon.Type> usableWeapon;

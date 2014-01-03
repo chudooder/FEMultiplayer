@@ -1,30 +1,32 @@
 package net.fe.unit;
 
-import org.newdawn.slick.Color;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import chu.engine.AnimationData;
+import net.fe.Command;
+import net.fe.FEResources;
+import net.fe.Party;
+import net.fe.fightStage.CombatTrigger;
+import net.fe.overworldStage.Grid;
+import net.fe.overworldStage.Node;
+import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.Path;
+import net.fe.overworldStage.Terrain;
+
+import org.newdawn.slick.Color;
+
 import chu.engine.Game;
 import chu.engine.GriddedEntity;
-import chu.engine.anim.Animation;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Transform;
-import net.fe.Command;
-import net.fe.Party;
-import net.fe.FEResources;
-import net.fe.fightStage.*;
-import net.fe.overworldStage.*;
 
-public class Unit extends GriddedEntity {
+public class Unit extends GriddedEntity implements Serializable {
 	
-	private static PaletteSwapper paletteSwap = 
-			new PaletteSwapper(FEResources.getTexture("unit_colors"));
+	private static final long serialVersionUID = -5101031417704315547L;
 	private HashMap<String, Float> stats;
 	private HashMap<String, Integer> bases;
 	private int hp;
@@ -32,25 +34,21 @@ public class Unit extends GriddedEntity {
 	private HashMap<String, Integer> growths;
 	private Weapon weapon;
 	private ArrayList<Item> inventory;
-	private HashMap<String, Integer> tempMods;
 	public final String name;
 	private Party team;
-	private boolean dying;
-	private float alpha;
+	
+	private transient HashMap<String, Integer> tempMods;
+	private transient boolean dying;
+	private transient float alpha;
 	// TODO Rescue
-
-	private boolean moved;
-	private Path path;
-	private float rX, rY;
-	private Command callback;
+	private transient boolean moved;
+	private transient Path path;
+	private transient float rX, rY;
+	private transient Command callback;
 
 	private int origX, origY;
 	
 	public static final float MAP_ANIM_SPEED = 0.2f;
-	
-	static {
-		paletteSwap.setUpPalette();
-	}
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
@@ -67,9 +65,7 @@ public class Unit extends GriddedEntity {
 		for (String s : bases.keySet()) {
 			stats.put(s, bases.get(s).floatValue());
 		}
-
 		fillHp();
-		
 		sprite.addAnimation("IDLE", new MapAnimation(functionalClassName() + 
 				"_map_idle", false));
 		sprite.addAnimation("SELECTED", new MapAnimation(functionalClassName() + 

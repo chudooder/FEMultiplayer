@@ -4,7 +4,7 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Astra extends CombatTrigger {
-	private int counter;
+	private transient int counter;
 	public Astra(){
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE + YOUR_TURN_MOD + YOUR_TURN_POST);
 	}

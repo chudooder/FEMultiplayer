@@ -66,9 +66,6 @@ public class FEMultiplayer extends Game{
 		p1.getParty().setColor(Party.TEAM_BLUE);
 		p2.getParty().setColor(Party.TEAM_RED);
 		
-		//TODO: Implement client
-		client = new Client();
-		client.start();
 		/* OpenGL final setup */
 		glEnable(GL_LINE_SMOOTH);
 
@@ -209,6 +206,8 @@ public class FEMultiplayer extends Game{
 		map.addUnit(u14, 0, 1);
 		map.setControl(true);
 		
+		client = new Client();
+		client.start();
 		lobby = new LobbyStage();
 		currentStage = lobby;
 		messages = new ArrayList<Message>();

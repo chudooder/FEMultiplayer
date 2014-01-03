@@ -4,7 +4,7 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Aether extends CombatTrigger {
-	private int phase;
+	private transient int phase;
 	
 	private static final int SOL = 0;
 	private static final int LUNA = 1;

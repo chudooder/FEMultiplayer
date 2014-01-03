@@ -5,7 +5,8 @@ import java.util.*;
 import net.fe.fightStage.Brave;
 import net.fe.fightStage.CombatTrigger;
 
-public class Weapon extends Item{
+public class Weapon extends Item {
+	private static final long serialVersionUID = 6496663141806177211L;
 	public HashMap<String, Integer> modifiers;
 	public int mt, hit, crit;
 	public List<Integer> range;

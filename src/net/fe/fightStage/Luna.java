@@ -4,7 +4,7 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Luna extends CombatTrigger {
-	private boolean ranged;
+	private transient boolean ranged;
 	public Luna(boolean rangeok){
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE);
 		ranged = rangeok;
