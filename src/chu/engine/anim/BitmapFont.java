@@ -72,6 +72,10 @@ public class BitmapFont {
 		return width;
 	}
 	
+	public boolean containsCharacter(char c) {
+		return glyphs.containsKey(c);
+	}
+	
 	private class Glyph {
 		int pos;
 		int width;

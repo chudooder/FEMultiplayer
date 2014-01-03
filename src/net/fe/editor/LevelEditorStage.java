@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.List;
 
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.Terrain;
@@ -21,6 +22,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.Game;
+import chu.engine.KeyboardEvent;
 import chu.engine.Stage;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Tileset;
@@ -83,18 +85,18 @@ public class LevelEditorStage extends Stage {
 					System.err.println("Tried to place tile out of bounds");
 				}
 			}
-			HashMap<Integer, Boolean> keys = Game.getKeys();
-			for (int key : keys.keySet()) {
-				if (keys.get(key)) {
-					if (key == Keyboard.KEY_S) {
+			List<KeyboardEvent> keys = Game.getKeys();
+			for (KeyboardEvent ke : keys) {
+				if (ke.state) {
+					if (ke.key == Keyboard.KEY_S) {
 						modifySize(0, 1);
-					} else if (key == Keyboard.KEY_W) {
+					} else if (ke.key == Keyboard.KEY_W) {
 						modifySize(0, -1);
-					} else if (key == Keyboard.KEY_A) {
+					} else if (ke.key == Keyboard.KEY_A) {
 						modifySize(-1, 0);
-					} else if (key == Keyboard.KEY_D) {
+					} else if (ke.key == Keyboard.KEY_D) {
 						modifySize(1, 0);
-					} else if (key == Keyboard.KEY_F1) { 
+					} else if (ke.key == Keyboard.KEY_F1) { 
 						Level level = new Level(tiles[0].length, tiles.length, tiles);
 						File file = new File("levels/test.lvl");
 		                FileOutputStream fo;

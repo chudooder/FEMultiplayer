@@ -21,6 +21,7 @@ import org.lwjgl.input.Keyboard;
 
 import chu.engine.Entity;
 import chu.engine.Game;
+import chu.engine.KeyboardEvent;
 import chu.engine.Stage;
 
 public class OverworldStage extends Stage {
@@ -133,7 +134,7 @@ public class OverworldStage extends Stage {
 		}
 		MapAnimation.updateAll();
 		if (onControl) {
-			HashMap<Integer, Boolean> keys = Game.getKeys();
+			List<KeyboardEvent> keys = Game.getKeys();
 			if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {
 				context.onUp();
 				repeatTimers[0] = 0.15f;
@@ -150,10 +151,14 @@ public class OverworldStage extends Stage {
 				context.onRight();
 				repeatTimers[3] = 0.15f;
 			}
-			if (keys.containsKey(Keyboard.KEY_Z) && keys.get(Keyboard.KEY_Z))
-				context.onSelect();
-			if (keys.containsKey(Keyboard.KEY_X) && keys.get(Keyboard.KEY_X))
-				context.onCancel();
+			for(KeyboardEvent ke : keys) {
+				if(ke.state) {
+					if(ke.key == Keyboard.KEY_Z) 
+						context.onSelect();
+					else if (ke.key == Keyboard.KEY_X)
+						context.onCancel(); 
+				}
+			}
 		}
 		for(int i=0; i<repeatTimers.length; i++) {
 			if(repeatTimers[i] > 0) {

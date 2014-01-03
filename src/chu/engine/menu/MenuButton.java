@@ -1,6 +1,7 @@
 package chu.engine.menu;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.lwjgl.input.Mouse;
 
@@ -42,9 +43,9 @@ public abstract class MenuButton extends Entity {
 			onExit();
 			hover = false;
 		}
-		HashMap<MouseEvent, Boolean> mouseEvents = Game.getMouseEvents();
-		for(MouseEvent event : mouseEvents.keySet()) {
-			if(hover && event.button == 0 && mouseEvents.get(event)) {
+		List<MouseEvent> mouseEvents = Game.getMouseEvents();
+		for(MouseEvent event : mouseEvents) {
+			if(hover && event.button == 0 && event.state) {
 				onClick();
 				break;
 			}

@@ -1,11 +1,15 @@
-package net.fe;
+package net.fe.lobbystage;
 
 import static net.fe.fightStage.FightStage.NEUTRAL;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import net.fe.FEMultiplayer;
+import net.fe.FEResources;
+import net.fe.Player;
+import net.fe.network.Chat;
 import net.fe.network.Message;
-import net.fe.network.ServerLobby;
 import net.fe.network.message.JoinLobby;
 import net.fe.network.message.QuitMessage;
 
@@ -27,7 +31,7 @@ public class LobbyStage extends ServerLobby {
 	public static final Color BORDER_DARK = new Color(0x483828);
 	public static final Color BORDER_LIGHT = new Color(0xf8f0c8);
 	public static final Color NEUTRAL = new Color(0xb0a878);
-	public static final Color NEUTRAL_DARK = NEUTRAL.darker(0.5f);
+	public static final Color NEUTRAL_DARK = new Color(0x58543c);
 	
 	public LobbyStage() {
 		super();
@@ -72,6 +76,7 @@ public class LobbyStage extends ServerLobby {
 		addEntity(playButton);
 		addEntity(unassignButton);
 		addEntity(exitButton);
+		addEntity(new ChatInputBox());
 	}
 
 	@Override
@@ -107,7 +112,7 @@ public class LobbyStage extends ServerLobby {
 	@Override
 	public void render() {
 		super.render();
-		// Draw boxes
+		// Draw and label boxes
 		Renderer.drawRectangle(0, 0, 480, 320, 1.0f, NEUTRAL);
 		Renderer.drawRectangle(1, 1, 479, 319, 1.0f, BORDER_DARK);
 		Renderer.drawRectangle(2, 2, 478, 318, 1.0f, BORDER_LIGHT);
@@ -119,7 +124,7 @@ public class LobbyStage extends ServerLobby {
 		Renderer.drawRectangle(x, y, x+300, y+164, 1.0f, NEUTRAL_DARK);
 		y = y + 164 + 16;
 		Renderer.drawString("default_med", "Chat", x, y-14, 0.9f);
-		Renderer.drawRectangle(x, y, x+300, 314, 1.0f, NEUTRAL_DARK);
+		Renderer.drawRectangle(x, y, x+300, y+89, 1.0f, NEUTRAL_DARK);
 		y = 22;
 		x = x + 300 + 16;
 		Renderer.drawString("default_med", "Unassigned Players", x, y-14, 0.9f);
@@ -131,6 +136,7 @@ public class LobbyStage extends ServerLobby {
 		Renderer.drawString("default_med", "Game info", x, y-14, 0.9f);
 		Renderer.drawRectangle(x, y, 474, 314, 1.0f, NEUTRAL_DARK);
 		
+		// Draw players in correct locations
 		int a = 0;
 		int b = 0;
 		int c = 0;
@@ -142,6 +148,14 @@ public class LobbyStage extends ServerLobby {
 			} else {
 				Renderer.drawString("default_med", p.getName(), 8, 24+(c++)*16, 0.8f);
 			}
+		}
+		
+		//Draw chat
+		x = 6;
+		y = 202;
+		List<String> chats = chat.getLast(5);
+		for(int i=0; i<5; i++) {
+			Renderer.drawString("default_med", chats.get(i), x+2, y+2+i*16, 0.8f);
 		}
 	}
 }

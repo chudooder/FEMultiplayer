@@ -3,7 +3,8 @@ package net.fe.network;
 import java.util.ArrayList;
 
 import net.fe.FEResources;
-import net.fe.LobbyStage;
+import net.fe.lobbystage.LobbyStage;
+import net.fe.lobbystage.ServerLobby;
 import chu.engine.Game;
 import chu.engine.Stage;
 

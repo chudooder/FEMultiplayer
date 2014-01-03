@@ -110,4 +110,8 @@ public class Client {
 	public boolean isOpen() {
 		return open;
 	}
+
+	public byte getID() {
+		return id;
+	}
 }

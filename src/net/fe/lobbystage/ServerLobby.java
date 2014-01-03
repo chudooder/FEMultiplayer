@@ -1,9 +1,12 @@
-package net.fe.network;
+package net.fe.lobbystage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.fe.Player;
+import net.fe.network.Chat;
+import net.fe.network.Message;
+import net.fe.network.message.ChatMessage;
 import net.fe.network.message.ClientInit;
 import net.fe.network.message.JoinLobby;
 import net.fe.network.message.JoinTeam;
@@ -18,10 +21,12 @@ import chu.engine.Stage;
  */
 public class ServerLobby extends Stage {
 
-	protected HashMap<Integer, Player> players;
+	public HashMap<Integer, Player> players;
+	protected Chat chat;
 	
 	public ServerLobby() {
 		players = new HashMap<Integer, Player>();
+		chat = new Chat();
 	}
 	@Override
 	public void beginStep() {
@@ -41,6 +46,10 @@ public class ServerLobby extends Stage {
 			else if(message instanceof QuitMessage) {
 				QuitMessage quit = (QuitMessage)message;
 				players.remove(quit.origin);
+			}
+			else if(message instanceof ChatMessage) {
+				ChatMessage chatMsg = (ChatMessage)message;
+				chat.add(players.get(chatMsg.origin), chatMsg.text);
 			}
 		}
 	}

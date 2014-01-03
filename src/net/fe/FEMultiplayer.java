@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.fightStage.HealCalculator;
+import net.fe.lobbystage.LobbyStage;
 import net.fe.network.Client;
 import net.fe.network.Message;
 import net.fe.overworldStage.Grid;

@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import chu.engine.Stage;
 import net.fe.Player;
+import net.fe.lobbystage.ServerLobby;
 
 public class Server {
 	ServerSocket serverSocket;
