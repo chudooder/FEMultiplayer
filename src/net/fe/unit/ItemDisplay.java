@@ -15,6 +15,7 @@ public class ItemDisplay extends Entity{
 		this.equip = equip;
 	}
 	public void render(){
+		if(item == null) return;
 		int row = item.id/8;
 		int col = item.id%8;
 		Renderer.render(FEResources.getTexture("gui_weaponIcon"), 

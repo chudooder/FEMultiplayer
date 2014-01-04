@@ -1,6 +1,5 @@
 package net.fe.overworldStage.context;
 
-import chu.engine.anim.AudioPlayer;
 import net.fe.overworldStage.*;
 import net.fe.unit.Unit;
 
@@ -18,7 +17,6 @@ public class AttackTarget extends SelectTargetContext {
 
 	@Override
 	public void unitSelected(Unit u) {
-		AudioPlayer.playAudio("select", 1, 1);
 		new AttackPreview(stage, this, unit, u).startContext();
 	}
 

@@ -58,7 +58,7 @@ public class UnitInfo extends Entity{
 		int y0 = 22;
 		for(String stat: Arrays.asList("Str","Mag","Skl","Spd")){
 			Renderer.drawString("default_med", stat, x+92, y+y0, renderDepth);
-			int statN = u.get(stat);
+			int statN = u.getBase(stat);
 			width = FEResources.getBitmapFont("default_med").getStringWidth(statN+"");
 			Renderer.drawString("default_med", statN, 
 					x+122-(width-1)/2, y+y0, renderDepth);
@@ -68,7 +68,7 @@ public class UnitInfo extends Entity{
 		y0 = 22;
 		for(String stat: Arrays.asList("Lck","Def","Res","Mov")){
 			Renderer.drawString("default_med", stat, x+152, y+y0, renderDepth);
-			int statN = u.get(stat);
+			int statN = u.getBase(stat);
 			width = FEResources.getBitmapFont("default_med").getStringWidth(statN+"");
 			Renderer.drawString("default_med", statN, 
 					x+182-(width-1)/2, y+y0, renderDepth);

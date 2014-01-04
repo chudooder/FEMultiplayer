@@ -60,6 +60,8 @@ public class UnitMoved extends MenuContext<String> {
 			new HealTarget(stage, this, zone, unit).startContext();
 		} else if (selectedItem.equals("Item")){	
 			new ItemCmd(stage, this, unit).startContext();
+		} else if (selectedItem.equals("Trade")){
+			new TradeTarget(stage, this, zone, unit).startContext();
 		}
 	}
 
@@ -70,8 +72,9 @@ public class UnitMoved extends MenuContext<String> {
 
 	@Override
 	public void onCancel() {
-		if (!fromTrade)
+		if (fromTrade){
 			return; // You can't cancel this.
+		}
 		super.onCancel();
 	}
 
@@ -144,9 +147,6 @@ public class UnitMoved extends MenuContext<String> {
 
 		return list;
 	}
-
-	
-
 
 	@Override
 	public void onLeft() {

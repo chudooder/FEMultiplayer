@@ -29,8 +29,8 @@ public class CombatCalculator {
 		// TODO Remove when moved to server
 		int hpLeft = left.getHp();
 		int hpRight = right.getHp();
-		int leftUses = left.getWeapon().getUses();
-		int rightUses = right.getWeapon().getUses();
+		int leftUses = left.getWeapon()!=null?left.getWeapon().getUses():0;
+		int rightUses = right.getWeapon()!=null?right.getWeapon().getUses():0;
 		
 		// Determine turn order
 		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
@@ -57,8 +57,10 @@ public class CombatCalculator {
 		//TODO remove on server
 		left.setHp(hpLeft);
 		right.setHp(hpRight);
-		left.getWeapon().setUsesDEBUGGING(leftUses);
-		right.getWeapon().setUsesDEBUGGING(rightUses);
+		if(left.getWeapon()!=null)
+			left.getWeapon().setUsesDEBUGGING(leftUses);
+		if(right.getWeapon()!=null)
+			right.getWeapon().setUsesDEBUGGING(rightUses);
 	}
 	
 	public static boolean shouldAttack(Unit a, Unit d, int range){

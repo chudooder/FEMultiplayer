@@ -52,7 +52,7 @@ public class UnitSelected extends CursorContext {
 				public void execute() {
 					stage.setControl(true);
 					new UnitMoved(stage, UnitSelected.this,
-							selected, true).startContext();
+							selected, false).startContext();
 				}
 			});
 		}

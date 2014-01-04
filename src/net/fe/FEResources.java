@@ -38,6 +38,8 @@ public class FEResources {
 	static {
 		audio = new HashMap<String, Audio>();
 		textures = new HashMap<String, AnimationData>() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public AnimationData put(String string, AnimationData data) {
 				System.out.println(string + "(texture) loaded.");

@@ -154,7 +154,7 @@ public class FEMultiplayer extends Game{
 		Unit u14 = UnitFactory.getUnit("Joshua");
 		u14.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
 		u14.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
-		u14.equipFirstWeapon(1);
+//		u14.equipFirstWeapon(1);
 		p2.getParty().addUnit(u14);
 		
 		
