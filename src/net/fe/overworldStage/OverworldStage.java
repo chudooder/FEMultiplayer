@@ -60,7 +60,6 @@ public class OverworldStage extends Stage {
 	}
 	
 	public void setMenu(Menu<?> m){
-		System.out.println(m);
 		removeEntity(menu);
 		menu = m;
 		if(m!=null){

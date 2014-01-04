@@ -22,10 +22,11 @@ public class UnitMoved extends MenuContext<String> {
 			boolean fromTrade) {
 		super(stage, prev, new Menu<String>(0, 0));
 		unit = u;
+		this.fromTrade = fromTrade;
 		for (String cmd : getCommands(unit)) {
 			menu.addItem(cmd);
 		}
-		this.fromTrade = fromTrade;
+		
 	}
 
 	public void startContext() {
@@ -49,7 +50,7 @@ public class UnitMoved extends MenuContext<String> {
 		// TODO Finish this
 		AudioPlayer.playAudio("select", 1, 1);
 		if (selectedItem.equals("Wait")) {
-			stage.addCmd("Wait");
+			stage.addCmd("WAIT");
 			stage.send();
 			unit.moved();
 			stage.reset();	
@@ -136,8 +137,10 @@ public class UnitMoved extends MenuContext<String> {
 				break;
 			}
 		}
-		if (fromTrade)
+		if (fromTrade){
 			trade = false;
+			System.out.println("Cant Trade");
+		}
 		if (trade)
 			list.add("Trade");
 

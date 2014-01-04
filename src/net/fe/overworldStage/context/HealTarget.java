@@ -36,7 +36,7 @@ public class HealTarget extends SelectTargetContext {
 	@Override
 	public void unitSelected(Unit u) {
 		unit.equip(selector.getSelected());
-		stage.addCmd("Heal");
+		stage.addCmd("HEAL");
 		stage.addCmd(new UnitIdentifier(u));
 		stage.send();
 

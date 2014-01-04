@@ -271,7 +271,7 @@ public class Unit extends GriddedEntity {
 		if (equippable(w)) {
 			weapon = w;
 			if(stage != null){
-				((OverworldStage) stage).addCmd("Equip");
+				((OverworldStage) stage).addCmd("EQUIP");
 				((OverworldStage) stage).addCmd(new UnitIdentifier(this));
 				((OverworldStage) stage).addCmd(findItem(w));
 			}

@@ -1,6 +1,5 @@
 package net.fe.overworldStage.context;
 
-import java.util.Collections;
 import java.util.List;
 
 import net.fe.overworldStage.*;
@@ -21,9 +20,9 @@ public class TradeContext extends OverworldContext {
 		tradee.clearSelection();
 		marked = -1;
 		
-		trader.x = 201;
+		trader.x = 225;
 		trader.y = 0;
-		tradee.x = 351;
+		tradee.x = 341;
 		tradee.y = 0;
 	}
 	
@@ -55,6 +54,7 @@ public class TradeContext extends OverworldContext {
 			curr.setSelection(0);
 		} else {
 			//Trade
+			
 			if(swap(marked, getIndex())) traded = true;
 			marked = -1;
 			trader.unmark();
@@ -67,6 +67,8 @@ public class TradeContext extends OverworldContext {
 			if(!traded){
 				super.onCancel();
 			} else {
+				cursor.setXCoord(u1.getXCoord());
+				cursor.setYCoord(u1.getYCoord());
 				new UnitMoved(stage, this, u1, true).startContext();
 			}
 		} else {
@@ -149,7 +151,19 @@ public class TradeContext extends OverworldContext {
 		int fromIndex = i1%4;
 		int toIndex = i2%4;
 		
-		System.out.println("Trade " + i1 + " to " + i2);
+		stage.addCmd("TRADE");
+		
+		if(from == inv1)
+			stage.addCmd(new UnitIdentifier(u1));
+		else
+			stage.addCmd(new UnitIdentifier(u2));
+		stage.addCmd(fromIndex);
+		
+		if(to == inv1)
+			stage.addCmd(new UnitIdentifier(u1));
+		else
+			stage.addCmd(new UnitIdentifier(u2));
+		stage.addCmd(toIndex);
 		
 		//BEGIN Crazy list ops
 		//Check for meaningless trade
