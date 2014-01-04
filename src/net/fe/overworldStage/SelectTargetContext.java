@@ -31,10 +31,9 @@ public abstract class SelectTargetContext extends OverworldContext {
 	}
 	
 	public void cleanUp(){
+		super.cleanUp();
 		stage.removeEntity(zone);
-		//Reset the position of the cursor on cancels
-		cursor.setXCoord(unit.getXCoord());
-		cursor.setYCoord(unit.getYCoord());
+
 	}
 
 	private void findTargets(Unit unit, boolean friendly) {
@@ -102,7 +101,11 @@ public abstract class SelectTargetContext extends OverworldContext {
 
 	@Override
 	public void onCancel() {
-		prev.startContext();
+		super.onCancel();
+		//Reset the position of the cursor on cancels
+		
+		cursor.setXCoord(unit.getXCoord());
+		cursor.setYCoord(unit.getYCoord());
 	}
 
 }

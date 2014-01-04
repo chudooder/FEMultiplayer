@@ -47,7 +47,6 @@ public class UnitMoved extends MenuContext<String> {
 	@Override
 	public void onSelect(String selectedItem) {
 		// TODO Finish this
-		stage.setMenu(null);
 		AudioPlayer.playAudio("select", 1, 1);
 		if (selectedItem.equals("Wait")) {
 			stage.addCmd("Wait");
