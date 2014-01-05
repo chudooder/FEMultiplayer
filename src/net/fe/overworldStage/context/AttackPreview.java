@@ -17,7 +17,7 @@ public class AttackPreview extends OverworldContext{
 		attacker = a;
 		defender = d;
 		//TODO Positioning
-		preview = new BattlePreview(321, 0, a, d, Grid.getDistance(a, d));
+		preview = new BattlePreview(225, 0, a, d, Grid.getDistance(a, d));
 		
 	}
 	
@@ -30,7 +30,7 @@ public class AttackPreview extends OverworldContext{
 	@Override
 	public void onSelect() {
 		AudioPlayer.playAudio("select", 1, 1);
-		stage.addCmd("Attack");
+		stage.addCmd("ATTACK");
 		stage.addCmd(new UnitIdentifier(defender));
 		stage.send();
 		attacker.moved();

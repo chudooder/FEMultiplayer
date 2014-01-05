@@ -168,6 +168,7 @@ public class OverworldStage extends ServerOverworldStage {
 	}
 	
 	private void clearCmdString(){
+		selectedUnit = null;
 		movX = 0;
 		movY = 0;
 		currentCmdString.clear();

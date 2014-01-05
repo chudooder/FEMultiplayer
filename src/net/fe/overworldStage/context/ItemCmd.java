@@ -29,7 +29,7 @@ public class ItemCmd extends MenuContext<ItemDisplay>{
 			}
 		} else if (i instanceof HealingItem){
 			if(unit.getHp() == unit.get("HP")) return;
-			stage.addCmd("Use");
+			stage.addCmd("USE");
 			stage.addCmd(unit.findItem(i));
 			stage.send();
 			

@@ -59,6 +59,7 @@ public class Menu<T> extends Entity {
 	
 	public void down(){
 		selection = (selection+1)%items.size();
+		if(selection == marked) down();
 	}
 	
 	public void up(){
@@ -66,10 +67,12 @@ public class Menu<T> extends Entity {
 		if(selection < 0){
 			selection+= items.size();
 		}
+		if(selection == marked) up();
 	}
 	
 	public void setSelection(int index){
 		selection = index;
+		if(selection == marked) down();
 	}
 	
 	public T getSelection(){

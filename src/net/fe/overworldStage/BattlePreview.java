@@ -72,7 +72,7 @@ public class BattlePreview extends Entity {
 			if(attacker.getWeapon().name.contains("Brave")) aMult*=2;
 			
 		}
-		if (defender.getWeapon().range.contains(range)) {
+		if (defender.getWeapon() != null && defender.getWeapon().range.contains(range)) {
 			dHit = String.format(
 					"%d",
 					Math.max(0,

@@ -22,10 +22,11 @@ public class UnitMoved extends MenuContext<String> {
 			boolean fromTrade) {
 		super(stage, prev, new Menu<String>(0, 0));
 		unit = u;
+		this.fromTrade = fromTrade;
 		for (String cmd : getCommands(unit)) {
 			menu.addItem(cmd);
 		}
-		this.fromTrade = fromTrade;
+		
 	}
 
 	public void startContext() {
@@ -47,10 +48,9 @@ public class UnitMoved extends MenuContext<String> {
 	@Override
 	public void onSelect(String selectedItem) {
 		// TODO Finish this
-		stage.setMenu(null);
 		AudioPlayer.playAudio("select", 1, 1);
 		if (selectedItem.equals("Wait")) {
-			stage.addCmd("Wait");
+			stage.addCmd("WAIT");
 			stage.send();
 			unit.moved();
 			stage.reset();	
@@ -60,6 +60,8 @@ public class UnitMoved extends MenuContext<String> {
 			new HealTarget(stage, this, zone, unit).startContext();
 		} else if (selectedItem.equals("Item")){	
 			new ItemCmd(stage, this, unit).startContext();
+		} else if (selectedItem.equals("Trade")){
+			new TradeTarget(stage, this, zone, unit).startContext();
 		}
 	}
 
@@ -70,8 +72,9 @@ public class UnitMoved extends MenuContext<String> {
 
 	@Override
 	public void onCancel() {
-		if (!fromTrade)
+		if (fromTrade){
 			return; // You can't cancel this.
+		}
 		super.onCancel();
 	}
 
@@ -134,8 +137,10 @@ public class UnitMoved extends MenuContext<String> {
 				break;
 			}
 		}
-		if (fromTrade)
+		if (fromTrade){
 			trade = false;
+			System.out.println("Cant Trade");
+		}
 		if (trade)
 			list.add("Trade");
 
@@ -144,9 +149,6 @@ public class UnitMoved extends MenuContext<String> {
 
 		return list;
 	}
-
-	
-
 
 	@Override
 	public void onLeft() {

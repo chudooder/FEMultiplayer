@@ -3,6 +3,7 @@ package net.fe.overworldStage;
 import java.util.ArrayList;
 import java.util.List;
 
+import chu.engine.anim.AudioPlayer;
 import net.fe.unit.Unit;
 
 public abstract class SelectTargetContext extends OverworldContext {
@@ -30,34 +31,28 @@ public abstract class SelectTargetContext extends OverworldContext {
 	}
 	
 	public void cleanUp(){
+		super.cleanUp();
 		stage.removeEntity(zone);
-		//Not sure why this is here.
-//		cursor.setXCoord(unit.getXCoord());
-//		cursor.setYCoord(unit.getYCoord());
+
 	}
 
 	private void findTargets(Unit unit, boolean friendly) {
 		targets.clear();
 		for (Node n : zone.getNodes()) {
 			Unit u = grid.getUnit(n.x, n.y);
-			if (u == null)
-				continue;
-			if(friendly) {
-				if (u.getParty().isAlly(stage.getCurrentPlayer().getParty()) 
-						&& u != unit && u.getHp() != u.get("HP")) {
-					targets.add(u);
-				}
-			} else {
-				if (!u.getParty().isAlly(stage.getCurrentPlayer().getParty()) 
-						&& u != unit) {
-					targets.add(u);
-				}
+			if(u!= null && validTarget(u)){
+				targets.add(u);
 			}
 		}
+	}
+	
+	public boolean validTarget(Unit u){
+		return friendly == u.getParty().isAlly(stage.getCurrentPlayer().getParty());
 	}
 
 	@Override
 	public void onSelect() {
+		AudioPlayer.playAudio("select", 1, 1);
 		unitSelected(grid.getUnit(cursor.getXCoord(), cursor.getYCoord()));
 	}
 
@@ -98,13 +93,18 @@ public abstract class SelectTargetContext extends OverworldContext {
 	}
 
 	public void updateCursor() {
+		AudioPlayer.playAudio("cursor", 1, 1);
 		cursor.setXCoord(targets.get(selected).getXCoord());
 		cursor.setYCoord(targets.get(selected).getYCoord());
 	}
 
 	@Override
 	public void onCancel() {
-		prev.startContext();
+		super.onCancel();
+		//Reset the position of the cursor on cancels
+		
+		cursor.setXCoord(unit.getXCoord());
+		cursor.setYCoord(unit.getYCoord());
 	}
 
 }

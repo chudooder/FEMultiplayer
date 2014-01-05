@@ -38,6 +38,8 @@ public class FEResources {
 	static {
 		audio = new HashMap<String, Audio>();
 		textures = new HashMap<String, AnimationData>() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			public AnimationData put(String string, AnimationData data) {
 				System.out.println(string + "(texture) loaded.");
@@ -209,7 +211,7 @@ public class FEResources {
 			return t;
 		} else {
 			//try to get it, in case we forgot
-			System.err.println("Warn: " + string + " not explicitly defined");
+//			System.err.println("Warn: " + string + " not explicitly defined");
 			for(String loc: searchFolders){
 				try{
 					AnimationData txt = new AnimationData(TextureLoader.getTexture("PNG",
@@ -251,7 +253,7 @@ public class FEResources {
 	public static Audio getAudio(String name) {
 		Audio a = audio.get(name);
 		if(a == null) {
-			System.err.println("Warn: " + name + " not explicitly defined");
+//			System.err.println("Warn: " + name + " not explicitly defined");
 			try{
 				Audio b = AudioLoader.getAudio("WAV",
 						ResourceLoader.getResourceAsStream("res/sfx/"+name+".wav"));

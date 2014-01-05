@@ -19,7 +19,7 @@ public class Player implements Serializable {
 	public static final int TEAM_GREEN = 4;
 	public static final int TEAM_PURPLE = 5;
 	
-	public Player(byte id) {
+	public Player(String name, byte id) {
 		party = new Party();
 		clientID = id;
 		nickname = "";

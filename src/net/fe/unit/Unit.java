@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import net.fe.Command;
@@ -256,7 +257,7 @@ public class Unit extends GriddedEntity implements Serializable {
 	}
 
 	//Inventory
-	public Iterable<Item> getInventory() {
+	public List<Item> getInventory() {
 		return inventory;
 	}
 	
@@ -289,13 +290,17 @@ public class Unit extends GriddedEntity implements Serializable {
 		if (equippable(w)) {
 			weapon = w;
 			if(stage != null){
-				((OverworldStage) stage).addCmd("Equip");
+				((OverworldStage) stage).addCmd("EQUIP");
 				((OverworldStage) stage).addCmd(new UnitIdentifier(this));
 				((OverworldStage) stage).addCmd(findItem(w));
 			}
 			inventory.remove(w);
 			inventory.add(0, w);
 		}
+	}
+	
+	public void unequip(){
+		weapon = null;
 	}
 
 	public boolean equippable(Weapon w) {
@@ -348,6 +353,19 @@ public class Unit extends GriddedEntity implements Serializable {
 		}
 		return -1;
 	}
+	
+	public void reEquip(){
+		for (int i = 0; i < inventory.size(); i++) {
+			Item it = inventory.get(i);
+			if (it instanceof Weapon) {
+				Weapon w = (Weapon) it;
+				if (equippable(w)) {
+					equip(w);
+					return;
+				}
+			}
+		}
+	}
 
 	public int use(int index) {
 		return use(inventory.get(index), true);
@@ -364,10 +382,12 @@ public class Unit extends GriddedEntity implements Serializable {
 	public int use(Item i, boolean destroy) {
 		int ans = i.use(this);
 		if(i.getUses() <= 0 && destroy){
+			inventory.remove(i);
 			if(i == weapon){
 				weapon = null;
+				reEquip();
 			}
-			inventory.remove(i);
+			
 		}
 		return ans;
 	}
@@ -376,7 +396,8 @@ public class Unit extends GriddedEntity implements Serializable {
 		ArrayList<CombatTrigger> triggers = new ArrayList<CombatTrigger>();
 		if (clazz.masterSkill != null)
 			triggers.add(clazz.masterSkill);
-		triggers.addAll(weapon.getTriggers());
+		if(weapon!=null)
+			triggers.addAll(weapon.getTriggers());
 		return triggers;
 	}
 
