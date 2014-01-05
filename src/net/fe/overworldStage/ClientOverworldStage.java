@@ -188,10 +188,14 @@ public class ClientOverworldStage extends OverworldStage {
 	@Override
 	public void processCommands(CommandMessage message) {
 		final CommandMessage cmds = (CommandMessage) message;
+		boolean execute = true;
+		if(cmds.origin == FEMultiplayer.getClient().getID()) {
+			execute = false;
+		}
 		//TODO: command validation
 		// Get unit and path
 		final Unit unit = getUnit(cmds.unit);
-		Path p = grid.getShortestPath(unit, cmds.moveX, cmds.moveY);
+		Path p = grid.getShortestPath(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY);
 		// Parse commands
 		Command callback = new Command() {
 			@Override
@@ -201,7 +205,7 @@ public class ClientOverworldStage extends OverworldStage {
 		};
 		for(int i=0; i<cmds.commands.length; i++) {
 			Object obj = cmds.commands[i];
-			if(obj.equals("EQUIP")) {
+			if(obj.equals("EQUIP") && execute) {
 				Unit other = getUnit((UnitIdentifier) cmds.commands[++i]);
 				other.equip((Integer) cmds.commands[++i]);
 			}
@@ -216,8 +220,12 @@ public class ClientOverworldStage extends OverworldStage {
 				};
 			}
 		}
-		grid.move(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY, true);
-		unit.move(p, callback);
+		if(execute) {
+			grid.move(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY, true);
+			unit.move(p, callback);
+		} else {
+			callback.execute();
+		}
 	}
 	
 	public void setMovX(int x){
