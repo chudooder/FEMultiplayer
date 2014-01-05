@@ -13,6 +13,7 @@ import net.fe.FEMultiplayer;
 import net.fe.Player;
 import net.fe.editor.Level;
 import net.fe.overworldStage.context.Idle;
+import net.fe.overworldStage.context.WaitForMessages;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
@@ -48,7 +49,10 @@ public class OverworldStage extends ServerOverworldStage {
 		addEntity(new UnitInfo(cursor));
 		addEntity(new TerrainInfo(cursor));
 		setControl(true);
-		context = new Idle(this, getCurrentPlayer());
+		if(getCurrentPlayer().equals(FEMultiplayer.getLocalPlayer()))
+			context = new Idle(this, getCurrentPlayer());
+		else
+			context = new WaitForMessages(this, null);
 		repeatTimers = new float[4];
 		currentCmdString = new ArrayList<Object>();
 	}

@@ -65,7 +65,7 @@ public class LobbyStage extends ServerLobby {
 			}
 			@Override
 			public void onClick() {
-				FEMultiplayer.getLocalPlayer().joinTeam(Player.TEAM_RED);
+				FEMultiplayer.getLocalPlayer().joinTeam(Player.TEAM_PLAYERS);
 			}
 			@Override
 			public void render() {

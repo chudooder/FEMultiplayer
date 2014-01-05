@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.fe.FEMultiplayer;
+import net.fe.Party;
 import net.fe.Player;
 import net.fe.lobbystage.ServerLobby;
 import net.fe.network.message.ClientInit;
@@ -69,6 +70,9 @@ public class Client {
 		if(message instanceof ClientInit) {
 			id = ((ClientInit)message).clientID;
 			FEMultiplayer.getLocalPlayer().setClientID(id);
+			if(id == 2) {
+				FEMultiplayer.getLocalPlayer().getParty().setColor(Party.TEAM_RED);
+			}
 			System.out.println("CLIENT: Recieved ID "+id+" from server");
 			// Send a join lobby request
 			sendMessage(new JoinLobby(id, FEMultiplayer.getLocalPlayer()));
@@ -79,6 +83,13 @@ public class Client {
 		} else if(message instanceof StartGame) {
 			HashMap<Integer, Player> players = 
 					((ServerLobby)FEMultiplayer.getCurrentStage()).players;
+			// Set up global list of players
+			FEMultiplayer.players.clear();
+			for(Player p : players.values()) {
+				if(p.equals(FEMultiplayer.getLocalPlayer()))
+					FEMultiplayer.setLocalPlayer(p);
+				FEMultiplayer.players.add(p);
+			}
 			FEMultiplayer.setCurrentStage(new OverworldStage("test", players));
 		}
 		messages.add(message);

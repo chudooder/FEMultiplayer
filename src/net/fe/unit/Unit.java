@@ -467,7 +467,7 @@ public class Unit extends GriddedEntity implements Serializable {
 	public Terrain getTerrain() {
 		return ((OverworldStage) stage).getTerrain(xcoord, ycoord);
 	}
-
+	
 	public String toString() {
 		return name + " HP" + hp + "\n" + stats;
 	}

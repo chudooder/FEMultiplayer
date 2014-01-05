@@ -14,10 +14,7 @@ public class Player implements Serializable {
 	
 	public static final int TEAM_UNASSIGNED = 0;
 	public static final int TEAM_SPECTATOR = 1;
-	public static final int TEAM_RED = 2;
-	public static final int TEAM_BLUE = 3;
-	public static final int TEAM_GREEN = 4;
-	public static final int TEAM_PURPLE = 5;
+	public static final int TEAM_PLAYERS = 2;
 	
 	public Player(String name, byte id) {
 		party = new Party();
@@ -60,5 +57,9 @@ public class Player implements Serializable {
 
 	public void joinTeam(int team) {
 		FEMultiplayer.getClient().sendMessage(new JoinTeam(clientID, team));		
+	}
+	
+	public boolean equals(Player p) {
+		return p.clientID == clientID;
 	}
 }

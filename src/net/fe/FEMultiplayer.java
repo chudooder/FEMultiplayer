@@ -41,7 +41,7 @@ import chu.engine.anim.Renderer;
 public class FEMultiplayer extends Game{
 	private static Stage currentStage;
 	private static Client client;
-	private static ArrayList<Player> players;
+	public static ArrayList<Player> players;
 	private static Player localPlayer;
 	
 	public static Player turn;
@@ -172,12 +172,12 @@ public class FEMultiplayer extends Game{
 		
 		//Debugging
 		if(cmds.length < 2) return;
-		if(cmds[cmds.length - 2].equals("Attack")){
+		if(cmds[cmds.length - 2].equals("ATTACK")){
 			UnitIdentifier enemy = (UnitIdentifier) cmds[cmds.length-1];
 			CombatCalculator calc = new CombatCalculator(u, enemy);
 			FightStage to = new FightStage(u, enemy, calc.getAttackQueue());
 			currentStage.addEntity(new OverworldFightTransition(to, u, enemy));
-		} else if (cmds[cmds.length - 2].equals("Heal")){
+		} else if (cmds[cmds.length - 2].equals("HEAL")){
 			UnitIdentifier healee = (UnitIdentifier) cmds[cmds.length-1];
 			HealCalculator calc = new HealCalculator(u, healee);
 			FightStage to = new FightStage(u, healee, calc.getAttackQueue());
@@ -204,6 +204,10 @@ public class FEMultiplayer extends Game{
 
 	public static Stage getCurrentStage() {
 		return currentStage;
+	}
+
+	public static void setLocalPlayer(Player p) {
+		localPlayer = p;
 	}
 
 }

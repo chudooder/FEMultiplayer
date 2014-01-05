@@ -37,6 +37,7 @@ public class ServerOverworldStage extends Stage {
 			turnOrder.add(p);
 		}
 		currentPlayer = turnOrder.get(0);
+		processAddStack();
 	}
 	
 	public Player getPlayer(int i){
