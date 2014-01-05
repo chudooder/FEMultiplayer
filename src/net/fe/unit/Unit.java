@@ -39,6 +39,8 @@ public class Unit extends GriddedEntity {
 	private float alpha;
 	// TODO Rescue
 
+	private Unit rescuedUnit;
+
 	private boolean moved;
 	private Path path;
 	private float rX, rY;
@@ -108,6 +110,28 @@ public class Unit extends GriddedEntity {
 
 		}
 		this.callback = callback;
+	}
+	
+	public void rescue(Unit u){
+		rescuedUnit = u;
+		OverworldStage grid = (OverworldStage) stage;
+		grid.removeUnit(u);
+	}
+
+	
+	public void drop(int x, int y){
+		if(rescuedUnit == null) return;
+		OverworldStage grid = (OverworldStage) stage;
+		grid.addUnit(rescuedUnit, x, y);
+		rescuedUnit = null;
+	}
+	
+	
+	public void give(Unit u){
+		if(rescuedUnit == null) return;
+		if(u.rescuedUnit() != null) return;
+		u.rescue(rescuedUnit);
+		rescuedUnit = null;
 	}
 	
 	public void beginStep(){
@@ -426,6 +450,9 @@ public class Unit extends GriddedEntity {
 		if (Arrays.asList("Def", "Res").contains(stat)) {
 			ans += getTerrain().defenseBonus;
 		}
+		if((stat.equals("Spd") || stat.equals("Skl")) && rescuedUnit!=null){
+			ans/=2;
+		}
 		return ans;
 	}
 
@@ -501,6 +528,10 @@ public class Unit extends GriddedEntity {
 	
 	public boolean isDying(){
 		return dying;
+	}
+	
+	public Unit rescuedUnit(){
+		return rescuedUnit;
 	}
 
 
