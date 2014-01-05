@@ -19,6 +19,7 @@ import net.fe.lobbystage.LobbyStage;
 import net.fe.lobbystage.ServerLobby;
 import net.fe.network.Client;
 import net.fe.network.Message;
+import net.fe.network.message.CommandMessage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
@@ -169,7 +170,10 @@ public class FEMultiplayer extends Game{
 			System.out.print(o + " ");
 		}
 		System.out.println();
-		
+		client.sendMessage(new CommandMessage(u, moveX, moveY, cmds));
+	}
+	
+	public static void goToFightStage(UnitIdentifier u, Object... cmds) {
 		//Debugging
 		if(cmds.length < 2) return;
 		if(cmds[cmds.length - 2].equals("ATTACK")){
