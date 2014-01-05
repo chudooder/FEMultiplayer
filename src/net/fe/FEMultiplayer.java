@@ -12,16 +12,17 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 
 import java.util.ArrayList;
 
+import net.fe.fightStage.AttackRecord;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.fightStage.HealCalculator;
+import net.fe.lobbystage.ClientLobbyStage;
 import net.fe.lobbystage.LobbyStage;
-import net.fe.lobbystage.ServerLobby;
 import net.fe.network.Client;
 import net.fe.network.Message;
 import net.fe.network.message.CommandMessage;
 import net.fe.overworldStage.Grid;
-import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.overworldStage.Terrain;
 import net.fe.transition.OverworldFightTransition;
 import net.fe.unit.HealingItem;
@@ -46,8 +47,8 @@ public class FEMultiplayer extends Game{
 	private static Player localPlayer;
 	
 	public static Player turn;
-	public static OverworldStage map;
-	public static LobbyStage lobby;
+	public static ClientOverworldStage map;
+	public static ClientLobbyStage lobby;
 	
 	public static void main(String[] args) {
 		FEMultiplayer game = new FEMultiplayer();
@@ -104,7 +105,7 @@ public class FEMultiplayer extends Game{
 		
 		client = new Client();
 		client.start();
-		lobby = new LobbyStage();
+		lobby = new ClientLobbyStage();
 		currentStage = lobby;
 		messages = new ArrayList<Message>();
 		
@@ -170,23 +171,13 @@ public class FEMultiplayer extends Game{
 			System.out.print(o + " ");
 		}
 		System.out.println();
-		client.sendMessage(new CommandMessage(u, moveX, moveY, cmds));
+		client.sendMessage(new CommandMessage(u, moveX, moveY, null, cmds));
 	}
 	
-	public static void goToFightStage(UnitIdentifier u, Object... cmds) {
-		//Debugging
-		if(cmds.length < 2) return;
-		if(cmds[cmds.length - 2].equals("ATTACK")){
-			UnitIdentifier enemy = (UnitIdentifier) cmds[cmds.length-1];
-			CombatCalculator calc = new CombatCalculator(u, enemy);
-			FightStage to = new FightStage(u, enemy, calc.getAttackQueue());
-			currentStage.addEntity(new OverworldFightTransition(to, u, enemy));
-		} else if (cmds[cmds.length - 2].equals("HEAL")){
-			UnitIdentifier healee = (UnitIdentifier) cmds[cmds.length-1];
-			HealCalculator calc = new HealCalculator(u, healee);
-			FightStage to = new FightStage(u, healee, calc.getAttackQueue());
-			currentStage.addEntity(new OverworldFightTransition(to, u, healee));
-		}
+	public static void goToFightStage(UnitIdentifier u, UnitIdentifier other, 
+			ArrayList<AttackRecord> queue) {
+			FightStage to = new FightStage(u, other, queue);
+			currentStage.addEntity(new OverworldFightTransition(to, u, other));
 	}
 	
 	public static Player getLocalPlayer() {

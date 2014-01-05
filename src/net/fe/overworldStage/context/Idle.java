@@ -13,7 +13,7 @@ public class Idle extends CursorContext {
 	private Zone move,attack,heal;
 	private boolean canPlaySound;
 	
-	public Idle(OverworldStage s, Player p) {
+	public Idle(ClientOverworldStage s, Player p) {
 		super(s, null);
 		player = p;
 		canPlaySound = true;

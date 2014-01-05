@@ -11,7 +11,7 @@ import net.fe.FEResources;
 import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldContext;
-import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.overworldStage.SelectTargetContext;
 import net.fe.overworldStage.Zone;
 import net.fe.unit.ItemDisplay;
@@ -22,7 +22,7 @@ import net.fe.unit.Weapon;
 public class HealTarget extends SelectTargetContext {
 	private StaffSelector selector;
 
-	public HealTarget(OverworldStage stage, OverworldContext context, Zone z,
+	public HealTarget(ClientOverworldStage stage, OverworldContext context, Zone z,
 			Unit u) {
 		super(stage, context, z, u, true);
 		// TODO Positioning
@@ -80,7 +80,7 @@ class StaffSelector extends Entity {
 	public StaffSelector(float x, float y, List<Weapon> staves) {
 		super(x, y);
 		this.staves = staves;
-		renderDepth = OverworldStage.MENU_DEPTH;
+		renderDepth = ClientOverworldStage.MENU_DEPTH;
 		rightArrow = new Sprite();
 		rightArrow.addAnimation("default",
 				FEResources.getTexture("gui_selectArrow"), 8, 8, 6, 6, 0.1f);

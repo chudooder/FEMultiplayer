@@ -10,7 +10,7 @@ public class UnitSelected extends CursorContext {
 	private Unit selected;
 	private Path path;
 
-	public UnitSelected(OverworldStage s, OverworldContext prev, Unit u) {
+	public UnitSelected(ClientOverworldStage s, OverworldContext prev, Unit u) {
 		super(s, prev);
 		selected = u;
 	}

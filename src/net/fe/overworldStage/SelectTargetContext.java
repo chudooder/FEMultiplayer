@@ -13,7 +13,7 @@ public abstract class SelectTargetContext extends OverworldContext {
 	protected Unit unit;
 	protected boolean friendly;
 
-	public SelectTargetContext(OverworldStage stage, OverworldContext context, Zone z,
+	public SelectTargetContext(ClientOverworldStage stage, OverworldContext context, Zone z,
 			Unit u, boolean friendly) {
 		super(stage, context);
 		zone = z;

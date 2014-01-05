@@ -13,7 +13,7 @@ public class Path extends Entity{
 	public Path() {
 		super(0,0);
 		path = new LinkedList<Node>();
-		renderDepth = OverworldStage.PATH_DEPTH;
+		renderDepth = ClientOverworldStage.PATH_DEPTH;
 		arrows = new Tileset(FEResources.getTexture("move_arrows"), 16, 16);
 	}
 	

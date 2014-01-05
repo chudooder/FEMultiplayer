@@ -23,7 +23,7 @@ public class Menu<T> extends Entity {
 	public Menu(float x, float y) {
 		super(x, y);
 		this.items = new ArrayList<T>();
-		renderDepth = OverworldStage.MENU_DEPTH;
+		renderDepth = ClientOverworldStage.MENU_DEPTH;
 		width = 60;
 		height = 16;
 	}

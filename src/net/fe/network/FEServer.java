@@ -3,8 +3,11 @@ package net.fe.network;
 import java.util.ArrayList;
 
 import net.fe.FEResources;
+import net.fe.Player;
+import net.fe.lobbystage.ClientLobbyStage;
 import net.fe.lobbystage.LobbyStage;
-import net.fe.lobbystage.ServerLobby;
+import net.fe.unit.Unit;
+import net.fe.unit.UnitIdentifier;
 import chu.engine.Game;
 import chu.engine.Stage;
 
@@ -17,6 +20,7 @@ public class FEServer extends Game {
 	
 	private static Server server;
 	private static Stage currentStage;
+	public static ArrayList<Player> players;
 	
 	public static void main(String[] args) {
 		FEServer feserver = new FEServer();
@@ -25,18 +29,28 @@ public class FEServer extends Game {
 	}
 	
 	public FEServer() {
+		players = new ArrayList<Player>();
 		server = new Server();
 		Thread serverThread = new Thread() {
 			public void run() {
 				server.start(21255);
 			}
 		};
-		currentStage = new ServerLobby();
+		currentStage = new LobbyStage();
 		serverThread.start();
 	}
 	
 	public void init() {
 		messages = new ArrayList<Message>();
+	}
+	
+	public static Unit getUnit(UnitIdentifier id){
+		for(Player p: players){
+			if(!p.isSpectator() && p.getParty().getColor().equals(id.partyColor)){
+				return p.getParty().search(id.name);
+			}
+		}
+		return null;
 	}
 	
 	@Override

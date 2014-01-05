@@ -2,7 +2,7 @@ package net.fe.overworldStage;
 
 public abstract class MenuContext<T> extends OverworldContext{
 	protected Menu<T> menu;
-	public MenuContext(OverworldStage stage, OverworldContext prev, Menu<T> m){
+	public MenuContext(ClientOverworldStage stage, OverworldContext prev, Menu<T> m){
 		super(stage,prev);
 		menu = m;
 		//TODO Position

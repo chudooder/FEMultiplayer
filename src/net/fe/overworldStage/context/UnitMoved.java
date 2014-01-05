@@ -9,7 +9,7 @@ import net.fe.overworldStage.Menu;
 import net.fe.overworldStage.MenuContext;
 import net.fe.overworldStage.Node;
 import net.fe.overworldStage.OverworldContext;
-import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.overworldStage.Zone;
 import net.fe.unit.Unit;
 
@@ -18,7 +18,7 @@ public class UnitMoved extends MenuContext<String> {
 	private Zone zone;
 	private boolean fromTrade;
 
-	public UnitMoved(OverworldStage stage, OverworldContext prev, Unit u,
+	public UnitMoved(ClientOverworldStage stage, OverworldContext prev, Unit u,
 			boolean fromTrade) {
 		super(stage, prev, new Menu<String>(0, 0));
 		unit = u;

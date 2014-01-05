@@ -4,7 +4,7 @@ import net.fe.overworldStage.*;
 import net.fe.unit.Unit;
 
 public class AttackTarget extends SelectTargetContext {
-	public AttackTarget(OverworldStage stage, OverworldContext context, Zone z,
+	public AttackTarget(ClientOverworldStage stage, OverworldContext context, Zone z,
 			Unit u) {
 		super(stage, context, z, u, false);
 	}

@@ -3,12 +3,12 @@ package net.fe.overworldStage;
 import net.fe.unit.Unit;
 
 public abstract class OverworldContext {
-	protected OverworldStage stage;
+	protected ClientOverworldStage stage;
 	protected OverworldContext prev;
 	protected Cursor cursor;
 	protected Grid grid;
 
-	public OverworldContext(OverworldStage s, OverworldContext prevContext) {
+	public OverworldContext(ClientOverworldStage s, OverworldContext prevContext) {
 		stage = s;
 		prev = prevContext;
 		cursor = stage.cursor;

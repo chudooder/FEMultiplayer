@@ -4,7 +4,7 @@ import net.fe.FEMultiplayer;
 import net.fe.Transition;
 import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.Grid;
-import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 
@@ -14,7 +14,7 @@ import chu.engine.Game;
 import chu.engine.anim.Renderer;
 
 public class FightOverworldTransition extends Transition {
-	OverworldStage to;
+	ClientOverworldStage to;
 	private int state;
 	private float timer;
 	private float triAlpha;
@@ -28,11 +28,11 @@ public class FightOverworldTransition extends Transition {
 	/**
 	 * x0 ... y1 are the coords for the two tiles to fight over
 	 */
-	public FightOverworldTransition(OverworldStage to, UnitIdentifier u1, UnitIdentifier u2) {
+	public FightOverworldTransition(ClientOverworldStage to, UnitIdentifier u1, UnitIdentifier u2) {
 		this(to, FEMultiplayer.getUnit(u1), FEMultiplayer.getUnit(u2));
 	}
 	
-	public FightOverworldTransition(OverworldStage to, Unit a, Unit b) {
+	public FightOverworldTransition(ClientOverworldStage to, Unit a, Unit b) {
 		super(to);
 		this.to = to;
 		to.beginStep();

@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 import chu.engine.Stage;
 import net.fe.Player;
-import net.fe.lobbystage.ServerLobby;
+import net.fe.lobbystage.LobbyStage;
 
 public class Server {
 	ServerSocket serverSocket;
@@ -65,8 +65,8 @@ public class Server {
 
 	public HashMap<Integer, Player> getPlayers() {
 		Stage stage = FEServer.getCurrentStage();
-		if(stage instanceof ServerLobby) {
-			return ((ServerLobby)stage).players;
+		if(stage instanceof LobbyStage) {
+			return ((LobbyStage)stage).players;
 		} else {
 			return null;
 		}

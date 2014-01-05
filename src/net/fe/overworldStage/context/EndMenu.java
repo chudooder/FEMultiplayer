@@ -4,11 +4,11 @@ import chu.engine.anim.AudioPlayer;
 import net.fe.overworldStage.Menu;
 import net.fe.overworldStage.MenuContext;
 import net.fe.overworldStage.OverworldContext;
-import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.ClientOverworldStage;
 
 public class EndMenu extends MenuContext<String> {
 
-	public EndMenu(OverworldStage stage, OverworldContext prev) {
+	public EndMenu(ClientOverworldStage stage, OverworldContext prev) {
 		super(stage, prev, new Menu<String>());
 		menu.addItem("End");
 	}

@@ -1,11 +1,11 @@
 package net.fe.overworldStage.context;
 
 import net.fe.overworldStage.OverworldContext;
-import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.ClientOverworldStage;
 
 public class WaitForMessages extends OverworldContext {
 
-	public WaitForMessages(OverworldStage s, OverworldContext prevContext) {
+	public WaitForMessages(ClientOverworldStage s, OverworldContext prevContext) {
 		super(s, prevContext);
 	}
 

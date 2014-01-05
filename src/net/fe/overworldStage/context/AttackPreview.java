@@ -12,7 +12,7 @@ public class AttackPreview extends OverworldContext{
 	private BattlePreview preview;
 	private ArrayList<Weapon> weapons;
 	private int index;
-	public AttackPreview(OverworldStage s, OverworldContext prevContext, Unit a, Unit d) {
+	public AttackPreview(ClientOverworldStage s, OverworldContext prevContext, Unit a, Unit d) {
 		super(s, prevContext);
 		attacker = a;
 		defender = d;

@@ -10,12 +10,12 @@ import java.util.HashMap;
 import net.fe.FEMultiplayer;
 import net.fe.Party;
 import net.fe.Player;
-import net.fe.lobbystage.ServerLobby;
+import net.fe.lobbystage.LobbyStage;
 import net.fe.network.message.ClientInit;
 import net.fe.network.message.JoinLobby;
 import net.fe.network.message.QuitMessage;
 import net.fe.network.message.StartGame;
-import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.ClientOverworldStage;
 
 public class Client {
 	
@@ -82,7 +82,7 @@ public class Client {
 			}
 		} else if(message instanceof StartGame) {
 			HashMap<Integer, Player> players = 
-					((ServerLobby)FEMultiplayer.getCurrentStage()).players;
+					((LobbyStage)FEMultiplayer.getCurrentStage()).players;
 			// Set up global list of players
 			FEMultiplayer.players.clear();
 			for(Player p : players.values()) {
@@ -90,7 +90,9 @@ public class Client {
 					FEMultiplayer.setLocalPlayer(p);
 				FEMultiplayer.players.add(p);
 			}
-			FEMultiplayer.setCurrentStage(new OverworldStage("test", players));
+			ClientOverworldStage stage = new ClientOverworldStage("test", players);
+			FEMultiplayer.map = stage;
+			FEMultiplayer.setCurrentStage(stage);
 		}
 		messages.add(message);
 	}

@@ -59,7 +59,7 @@ public class Tile extends GriddedEntity{
 
 	public Tile(int x, int y, int id) {
 		super(x,y);
-		renderDepth = OverworldStage.TILE_DEPTH;
+		renderDepth = ClientOverworldStage.TILE_DEPTH;
 		this.id = id;
 		tileset = new Tileset(FEResources.getTexture("terrain_tiles"), 16, 16);
 		setTerrain(getTerrainFromID(id));

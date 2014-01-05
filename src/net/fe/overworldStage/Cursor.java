@@ -15,7 +15,7 @@ public class Cursor extends GriddedEntity{
 		super(xx, yy);
 		sprite.addAnimation("default", new Animation(FEResources.getTexture("cursor"),
 				24, 24, 16, 16, 4, 4, 0.05f));
-		renderDepth = OverworldStage.CURSOR_DEPTH;
+		renderDepth = ClientOverworldStage.CURSOR_DEPTH;
 		on = true;
 	}
 //	
@@ -44,7 +44,7 @@ public class Cursor extends GriddedEntity{
 //	}
 	
 	public void render(){
-		if(((OverworldStage) stage).hasControl() && on) {
+		if(((ClientOverworldStage) stage).hasControl() && on) {
 			sprite.render(x, y, renderDepth);
 		}
 	}

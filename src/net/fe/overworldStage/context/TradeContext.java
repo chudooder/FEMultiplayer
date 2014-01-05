@@ -10,7 +10,7 @@ public class TradeContext extends OverworldContext {
 	private Menu<ItemDisplay> trader, tradee, curr;
 	private boolean traded;
 	private int marked;
-	public TradeContext(OverworldStage s, OverworldContext prevContext, Unit u1, Unit u2) {
+	public TradeContext(ClientOverworldStage s, OverworldContext prevContext, Unit u1, Unit u2) {
 		super(s, prevContext);
 		this.u1 = u1;
 		this.u2 = u2;

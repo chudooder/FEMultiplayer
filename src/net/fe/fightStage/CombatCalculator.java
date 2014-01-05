@@ -5,8 +5,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import net.fe.FEMultiplayer;
 import net.fe.RNG;
+import net.fe.network.FEServer;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
@@ -18,8 +18,8 @@ public class CombatCalculator {
 	private int range;
 	private Queue<String> nextAttack;
 	public CombatCalculator(UnitIdentifier u1, UnitIdentifier u2){
-		left = FEMultiplayer.getUnit(u1);
-		right = FEMultiplayer.getUnit(u2);
+		left = FEServer.getUnit(u1);
+		right = FEServer.getUnit(u2);
 		range = Grid.getDistance(left, right);
 		attackQueue = new ArrayList<AttackRecord>();
 		nextAttack = new LinkedList<String>();

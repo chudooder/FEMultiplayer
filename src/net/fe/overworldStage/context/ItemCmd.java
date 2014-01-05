@@ -5,7 +5,7 @@ import net.fe.overworldStage.Healthbar;
 import net.fe.overworldStage.InventoryMenu;
 import net.fe.overworldStage.MenuContext;
 import net.fe.overworldStage.OverworldContext;
-import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.unit.HealingItem;
 import net.fe.unit.Item;
 import net.fe.unit.ItemDisplay;
@@ -14,7 +14,7 @@ import net.fe.unit.Weapon;
 
 public class ItemCmd extends MenuContext<ItemDisplay>{
 	private Unit unit;
-	public ItemCmd(OverworldStage stage, OverworldContext prev, Unit u) {
+	public ItemCmd(ClientOverworldStage stage, OverworldContext prev, Unit u) {
 		super(stage, prev, new InventoryMenu(u));
 		unit = u;
 	}

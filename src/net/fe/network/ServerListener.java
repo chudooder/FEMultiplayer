@@ -9,15 +9,22 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.List;
 
+import net.fe.FEMultiplayer;
 import net.fe.Player;
-import net.fe.lobbystage.ServerLobby;
+import net.fe.fightStage.CombatCalculator;
+import net.fe.fightStage.FightStage;
+import net.fe.fightStage.HealCalculator;
+import net.fe.lobbystage.LobbyStage;
 import net.fe.network.message.ClientInit;
+import net.fe.network.message.CommandMessage;
 import net.fe.network.message.JoinLobby;
 import net.fe.network.message.QuitMessage;
 import net.fe.network.message.ReadyMessage;
 import net.fe.network.message.StartGame;
+import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.overworldStage.OverworldStage;
-import net.fe.overworldStage.ServerOverworldStage;
+import net.fe.transition.OverworldFightTransition;
+import net.fe.unit.UnitIdentifier;
 
 public class ServerListener extends Thread {
 	
@@ -69,6 +76,11 @@ public class ServerListener extends Thread {
 	public void processInput(Message message) {
 		if(message instanceof QuitMessage) {
 			clientQuit = true;
+		}
+		else if(message instanceof CommandMessage) {
+			// If the unit attacked, we need to generate battle results
+			main.messages.add(message);
+			return;	// Wait for the server's overworld stage to get results
 		}
 		main.broadcastMessage(message);
 		main.messages.add(message);

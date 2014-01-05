@@ -39,7 +39,7 @@ public class BattlePreview extends Entity {
 		sprites.add(x2);
 		sprites.add(x4);
 		this.range = range;
-		this.renderDepth = OverworldStage.MENU_DEPTH;
+		this.renderDepth = ClientOverworldStage.MENU_DEPTH;
 	}
 
 	public void onStep() {

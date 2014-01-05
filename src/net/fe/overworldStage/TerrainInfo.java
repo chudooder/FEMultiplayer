@@ -15,7 +15,7 @@ public class TerrainInfo extends Entity {
 	}
 	
 	public void render() {
-		Terrain terrain = ((OverworldStage)stage).getHoveredTerrain();
+		Terrain terrain = ((ClientOverworldStage)stage).getHoveredTerrain();
 		
 		//Main box
 		Renderer.drawRectangle(x, y, x+50, y+84, renderDepth, BORDER_DARK);

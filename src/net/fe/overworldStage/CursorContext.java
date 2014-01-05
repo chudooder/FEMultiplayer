@@ -1,7 +1,7 @@
 package net.fe.overworldStage;
 
 public abstract class CursorContext extends OverworldContext {
-	public CursorContext(OverworldStage s, OverworldContext prevContext) {
+	public CursorContext(ClientOverworldStage s, OverworldContext prevContext) {
 		super(s, prevContext);
 	}
 	

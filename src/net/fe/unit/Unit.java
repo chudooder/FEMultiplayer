@@ -16,6 +16,7 @@ import net.fe.Party;
 import net.fe.fightStage.CombatTrigger;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.Node;
+import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Path;
 import net.fe.overworldStage.Terrain;
@@ -83,7 +84,7 @@ public class Unit extends GriddedEntity implements Serializable {
 				"_map_down", true));
 		sprite.setAnimation("IDLE");
 
-		renderDepth = OverworldStage.UNIT_DEPTH;
+		renderDepth = ClientOverworldStage.UNIT_DEPTH;
 	}
 	
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
@@ -129,6 +130,13 @@ public class Unit extends GriddedEntity implements Serializable {
 		this.callback = callback;
 	}
 	
+	public void moveInstant(int moveX, int moveY) {
+		xcoord += moveX;
+		ycoord += moveY;
+		rX = 0;
+		rY = 0;
+	}
+	
 	public void beginStep(){
 		super.beginStep();
 		if(path != null){
@@ -143,14 +151,14 @@ public class Unit extends GriddedEntity implements Serializable {
 	}
 	
 	private float calcRenderDepth(){
-		float depth = OverworldStage.UNIT_DEPTH;
-		float highlightDiff = (OverworldStage.UNIT_DEPTH - OverworldStage.UNIT_MAX_DEPTH)/2;
-		Grid g = ((OverworldStage) stage).grid;
+		float depth = ClientOverworldStage.UNIT_DEPTH;
+		float highlightDiff = (ClientOverworldStage.UNIT_DEPTH - ClientOverworldStage.UNIT_MAX_DEPTH)/2;
+		Grid g = ((ClientOverworldStage) stage).grid;
 		float yDiff = highlightDiff/g.width;
 		float xDiff = yDiff/g.height;
 		
 		if(path!=null) depth -= highlightDiff;
-		if(((OverworldStage) stage).getHoveredUnit() == this) depth -= highlightDiff;
+		if(((ClientOverworldStage) stage).getHoveredUnit() == this) depth -= highlightDiff;
 		depth -= ycoord*yDiff;
 		depth -= (g.width-xcoord)*xDiff;
 		return depth;
@@ -187,8 +195,8 @@ public class Unit extends GriddedEntity implements Serializable {
 		if (dying)
 			alpha -= Game.getDeltaSeconds();
 		if (alpha < 0) {
-			((OverworldStage) stage).setControl(true);
-			((OverworldStage) stage).removeUnit(this);
+			((ClientOverworldStage) stage).setControl(true);
+			((ClientOverworldStage) stage).removeUnit(this);
 			dying = false;
 		}
 	}
@@ -219,7 +227,6 @@ public class Unit extends GriddedEntity implements Serializable {
 			} else {
 				if(team.getColor().equals(Party.TEAM_RED)) {
 					sprite.render(x+1+rX, y+1+rY, renderDepth, t, "paletteSwap");
-					System.out.println("i tried");
 				} else {
 					sprite.render(x+1+rX, y+1+rY, renderDepth, t, "default");
 				}
@@ -228,10 +235,10 @@ public class Unit extends GriddedEntity implements Serializable {
 			Color c = !moved ? new Color(getPartyColor()) : new Color(128, 128, 128);
 			c.a = alpha;
 			Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX,
-					y + 14 + rY, OverworldStage.UNIT_DEPTH, c);
+					y + 14 + rY, ClientOverworldStage.UNIT_DEPTH, c);
 			Renderer.drawString("default_med",
 					name.charAt(0) + "" + name.charAt(1), x + 2 + rX, y + 1 + rY,
-					OverworldStage.UNIT_DEPTH);
+					ClientOverworldStage.UNIT_DEPTH);
 			
 		}
 //		int hpLength = hp * 13 / get("HP");
@@ -292,10 +299,20 @@ public class Unit extends GriddedEntity implements Serializable {
 		if (equippable(w)) {
 			weapon = w;
 			if(stage != null){
-				((OverworldStage) stage).addCmd("EQUIP");
-				((OverworldStage) stage).addCmd(new UnitIdentifier(this));
-				((OverworldStage) stage).addCmd(findItem(w));
+				((ClientOverworldStage) stage).addCmd("EQUIP");
+				((ClientOverworldStage) stage).addCmd(new UnitIdentifier(this));
+				((ClientOverworldStage) stage).addCmd(findItem(w));
 			}
+			inventory.remove(w);
+			inventory.add(0, w);
+		}
+	}
+	
+	// For use in command message processing only
+	public void equip(int i) {
+		Weapon w = (Weapon)inventory.get(i);
+		if (equippable(w)) {
+			weapon = w;
 			inventory.remove(w);
 			inventory.add(0, w);
 		}
@@ -517,12 +534,11 @@ public class Unit extends GriddedEntity implements Serializable {
 	public void setDying(boolean b) {
 		dying = b;
 		if (dying)
-			((OverworldStage) stage).setControl(false);
+			((ClientOverworldStage) stage).setControl(false);
 	}
 	
 	public boolean isDying(){
 		return dying;
 	}
-
 
 }

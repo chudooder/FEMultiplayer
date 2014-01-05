@@ -35,7 +35,7 @@ public class Zone extends Entity {
 		this.color = c;
 		frame = 0;
 		tiles = new Tileset(FEResources.getTexture("zone_colors"), 15, 15);
-		renderDepth = OverworldStage.ZONE_DEPTH;
+		renderDepth = ClientOverworldStage.ZONE_DEPTH;
 	}
 	public void render(){
 		for(Node n: zone){

@@ -23,7 +23,7 @@ public class UnitInfo extends Entity{
 	}
 	
 	public void render(){
-		Unit u = ((OverworldStage) stage).getHoveredUnit();
+		Unit u = ((ClientOverworldStage) stage).getHoveredUnit();
 		if(u == null) return;
 		if(u.isDying()) return;
 		
