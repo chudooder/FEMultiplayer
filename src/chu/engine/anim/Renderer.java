@@ -41,6 +41,7 @@ public class Renderer {
 		programs.put("default", createProgram("default", "default"));
 		programs.put("greyscale", createProgram("default", "greyscale"));
 		programs.put("lighten", createProgram("default", "lighten"));
+		programs.put("paletteSwap", createProgram("paletteSwap", "paletteSwap"));
 	}
 
 	/***

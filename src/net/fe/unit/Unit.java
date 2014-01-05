@@ -217,10 +217,12 @@ public class Unit extends GriddedEntity implements Serializable {
 			if(moved) {
 				sprite.render(x+1+rX, y+1+rY, renderDepth, t, "greyscale");
 			} else {
-				if(team.getColor() == Party.TEAM_RED)
+				if(team.getColor().equals(Party.TEAM_RED)) {
 					sprite.render(x+1+rX, y+1+rY, renderDepth, t, "paletteSwap");
-				else
+					System.out.println("i tried");
+				} else {
 					sprite.render(x+1+rX, y+1+rY, renderDepth, t, "default");
+				}
 			}
 		} else {
 			Color c = !moved ? new Color(getPartyColor()) : new Color(128, 128, 128);
