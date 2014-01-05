@@ -56,8 +56,8 @@ public class FEMultiplayer extends Game{
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
 		players = new ArrayList<Player>();
-		Player p1 = new Player((byte) 0);
-		Player p2 = new Player((byte) 1);
+		Player p1 = new Player("Altea", (byte) 0);
+		Player p2 = new Player("Gra", (byte) 1);
 		players.add(p1);
 		players.add(p2);
 		p1.getParty().setColor(Party.TEAM_BLUE);
