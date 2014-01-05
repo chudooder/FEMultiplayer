@@ -103,6 +103,7 @@ public class Unit extends GriddedEntity implements Serializable {
     				"_map_down", true));
     		sprite.setAnimation("IDLE");
         }
+        alpha = 1.0f;
     }
 	
 	public String functionalClassName(){

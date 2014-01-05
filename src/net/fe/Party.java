@@ -10,9 +10,9 @@ import net.fe.unit.Unit;
 
 public class Party implements Iterable<Unit>, Serializable{
 	private static final long serialVersionUID = 1334090578185765598L;
-	private transient Color color;
+	private Color color;
 	private ArrayList<Unit> units;
-	private transient ArrayList<Party> allies;
+	private ArrayList<Party> allies;
 	
 	public static final Color TEAM_RED = new Color(220,0,0);
 	public static final Color TEAM_GREEN = new Color(0,190,0);

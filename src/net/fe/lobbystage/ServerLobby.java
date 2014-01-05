@@ -14,6 +14,7 @@ import net.fe.network.message.JoinTeam;
 import net.fe.network.message.QuitMessage;
 import net.fe.network.message.ReadyMessage;
 import net.fe.network.message.StartGame;
+import net.fe.overworldStage.ServerOverworldStage;
 import chu.engine.Game;
 import chu.engine.Stage;
 
@@ -68,12 +69,16 @@ public class ServerLobby extends Stage {
 
 	@Override
 	public void endStep() {
+		if(players.size() == 0) return;
 		for(Player p : players.values()) {
 			if(!p.ready) {
 				return;
 			}
 		}
 		FEServer.getServer().broadcastMessage(new StartGame(0));
+		HashMap<Integer, Player> players = 
+				((ServerLobby)FEServer.getCurrentStage()).players;
+		FEServer.setCurrentStage(new ServerOverworldStage("test", players));
 	}
 
 }

@@ -2194,6 +2194,14 @@
 			"path":		"res/gui/send_button.png"
 		},
 		{
+			"name":		"ready_button",
+			"path":		"res/gui/ready_button.png"
+		},
+		{
+			"name":		"cursor",
+			"path":		"res/gui/cursor.png"
+		},
+		{
 			"name":		"proj_arrow",
 			"path":		"res/battle_anim/proj_arrow.png"
 		},

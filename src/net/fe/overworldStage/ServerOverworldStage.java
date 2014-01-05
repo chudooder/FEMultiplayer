@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import net.fe.Player;
@@ -14,23 +15,28 @@ import chu.engine.Stage;
 
 public class ServerOverworldStage extends Stage {
 	public Grid grid;
-	private List<Player> players;
+	private HashMap<Integer, Player> players;
+	private ArrayList<Player> turnOrder;
 	private Player currentPlayer;
 
-	public ServerOverworldStage(String levelName, List<Player> players) {
+	public ServerOverworldStage(String levelName, HashMap<Integer, Player> players) {
 		super();
 		loadLevel(levelName);
 		this.players = players;
 		int x = 0;
 		//TODO: real spawn locations
-		for(Player p : players) {
+		for(Player p : players.values()) {
 			for(int i=0; i<p.getParty().size(); i++) {
 				Unit u = p.getParty().getUnit(i);
 				addUnit(u, x, 0);
 				x++;
 			}
 		}
-		currentPlayer = players.get(0);
+		turnOrder = new ArrayList<Player>();
+		for(Player p : players.values()) {
+			turnOrder.add(p);
+		}
+		currentPlayer = turnOrder.get(0);
 	}
 	
 	public Player getPlayer(int i){
@@ -79,9 +85,7 @@ public class ServerOverworldStage extends Stage {
             grid = new Grid(level.width, level.height, Terrain.NONE);
             for(int i=0; i<level.tiles.length; i++) {
             	for(int j=0; j<level.tiles[0].length; j++) {
-            		Tile tile = new Tile(j, i, level.tiles[i][j]);
-            		grid.setTerrain(j, i, tile.getTerrain());
-            		addEntity(tile);
+            		grid.setTerrain(j, i, Tile.getTerrainFromID(level.tiles[i][j]));
             	}
             }
             ois.close();

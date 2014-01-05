@@ -16,6 +16,7 @@ import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.fightStage.HealCalculator;
 import net.fe.lobbystage.LobbyStage;
+import net.fe.lobbystage.ServerLobby;
 import net.fe.network.Client;
 import net.fe.network.Message;
 import net.fe.overworldStage.Grid;
@@ -59,9 +60,7 @@ public class FEMultiplayer extends Game{
 		players = new ArrayList<Player>();
 		Player p1 = new Player((byte) 0);
 		localPlayer = p1;
-		Player p2 = new Player((byte) 1);
 		players.add(p1);
-		players.add(p2);
 		FEResources.loadResources();
 		p1.getParty().setColor(Party.TEAM_BLUE);
 		
@@ -201,6 +200,10 @@ public class FEMultiplayer extends Game{
 	
 	public static Client getClient() {
 		return client;
+	}
+
+	public static Stage getCurrentStage() {
+		return currentStage;
 	}
 
 }

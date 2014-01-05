@@ -1,17 +1,20 @@
 package net.fe.network;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import net.fe.FEMultiplayer;
+import net.fe.Player;
+import net.fe.lobbystage.ServerLobby;
 import net.fe.network.message.ClientInit;
 import net.fe.network.message.JoinLobby;
 import net.fe.network.message.QuitMessage;
+import net.fe.network.message.StartGame;
+import net.fe.overworldStage.OverworldStage;
 
 public class Client {
 	
@@ -73,6 +76,10 @@ public class Client {
 			if(message.origin == id && closeRequested) {
 				close();
 			}
+		} else if(message instanceof StartGame) {
+			HashMap<Integer, Player> players = 
+					((ServerLobby)FEMultiplayer.getCurrentStage()).players;
+			FEMultiplayer.setCurrentStage(new OverworldStage("test", players));
 		}
 		messages.add(message);
 	}

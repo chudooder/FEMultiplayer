@@ -11,7 +11,7 @@ import chu.engine.anim.Tileset;
 public class Tile extends GriddedEntity{
 	private Terrain terrain;
 	private int id;
-	private static transient Tileset tileset;
+	private Tileset tileset;
 	/**
 	 * P - Plain
 	 * A - pAth
@@ -56,24 +56,13 @@ public class Tile extends GriddedEntity{
 			"PSASAASSSFSSSSSAWWWWWWWPW" +
 			"WAAAAWWWWWWWWWWWPFWFFWFWP" +
 			"WAAPAWWWWWWWWWWWPFWFFWFFF";
-	static {
-		tileset = new Tileset(FEResources.getTexture("terrain_tiles"), 16, 16);
-	}
+
 	public Tile(int x, int y, int id) {
 		super(x,y);
 		renderDepth = OverworldStage.TILE_DEPTH;
 		this.id = id;
-		char ch = terrainMap.charAt(id);
-		if(ch == 'P') setTerrain(Terrain.PLAIN);
-		else if(ch == 'W') setTerrain(Terrain.WALL);
-		else if(ch == 'A') setTerrain(Terrain.PATH);
-		else if(ch == 'S') setTerrain(Terrain.SEA);
-		else if(ch == 'F') setTerrain(Terrain.FOREST);
-		else if(ch == 'L') setTerrain(Terrain.FLOOR);
-		else if(ch == 'K') setTerrain(Terrain.PEAK);
-		else if(ch == 'M') setTerrain(Terrain.MOUNTAIN);
-		else if(ch == 'T') setTerrain(Terrain.FORT);
-		else setTerrain(Terrain.NONE);
+		tileset = new Tileset(FEResources.getTexture("terrain_tiles"), 16, 16);
+		setTerrain(getTerrainFromID(id));
 	}
 	
 	public void render(){
@@ -82,6 +71,22 @@ public class Tile extends GriddedEntity{
 
 	public Terrain getTerrain() {
 		return terrain;
+	}
+	
+	public static Terrain getTerrainFromID(int id) {
+		char ch = terrainMap.charAt(id);
+		Terrain t;
+		if(ch == 'P') t = Terrain.PLAIN;
+		else if(ch == 'W') t = Terrain.WALL;
+		else if(ch == 'A') t = Terrain.PATH;
+		else if(ch == 'S') t = Terrain.SEA;
+		else if(ch == 'F') t = Terrain.FOREST;
+		else if(ch == 'L') t = Terrain.FLOOR;
+		else if(ch == 'K') t = Terrain.PEAK;
+		else if(ch == 'M') t = Terrain.MOUNTAIN;
+		else if(ch == 'T') t = Terrain.FORT;
+		else t = Terrain.NONE;
+		return t;
 	}
 
 	public void setTerrain(Terrain terrain) {
