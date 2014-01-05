@@ -21,7 +21,7 @@ public class Idle extends CursorContext {
 	
 	public void startContext(){
 		boolean movable = false;
-		for(Unit u: stage.getPlayer().getParty()){
+		for(Unit u: stage.getCurrentPlayer().getParty()){
 			if(!u.hasMoved()){
 				movable = true;
 			}
@@ -71,7 +71,7 @@ public class Idle extends CursorContext {
 		AudioPlayer.playAudio("cursor", 1, 1);
 		if(u!=null && !u.hasMoved()){
 			addZones(u);
-			if(u.getParty() == stage.getPlayer().getParty()){
+			if(u.getParty() == stage.getCurrentPlayer().getParty()){
 				u.sprite.setAnimation("SELECTED");
 			}
 		}

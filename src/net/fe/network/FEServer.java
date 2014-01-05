@@ -15,7 +15,7 @@ import chu.engine.Stage;
  */
 public class FEServer extends Game {
 	
-	private Server server;
+	private static Server server;
 	private static Stage currentStage;
 	
 	public static void main(String[] args) {
@@ -57,6 +57,14 @@ public class FEServer extends Game {
 	
 	public static Stage getCurrentStage() {
 		return currentStage;
+	}
+	
+	public static void setCurrentStage(Stage stage) {
+		currentStage = stage;
+	}
+
+	public static Server getServer() {
+		return server;
 	}
 
 }

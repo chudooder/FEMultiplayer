@@ -103,7 +103,7 @@ public class UnitMoved extends MenuContext<String> {
 				unit.getTotalWepRange(false));
 		for (Node n : range) {
 			Unit p = grid.getUnit(n.x, n.y);
-			if (p != null && !stage.getPlayer().getParty().isAlly(p.getParty())) {
+			if (p != null && !stage.getCurrentPlayer().getParty().isAlly(p.getParty())) {
 				attack = true;
 				break;
 			}
@@ -116,7 +116,7 @@ public class UnitMoved extends MenuContext<String> {
 				unit.getTotalWepRange(true));
 		for (Node n : range) {
 			Unit p = grid.getUnit(n.x, n.y);
-			if (p != null && stage.getPlayer().getParty().isAlly(p.getParty())
+			if (p != null && stage.getCurrentPlayer().getParty().isAlly(p.getParty())
 					&& p.getHp() != p.get("HP")) {
 				heal = true;
 				break;
@@ -129,7 +129,7 @@ public class UnitMoved extends MenuContext<String> {
 		range = grid.getRange(new Node(u.getXCoord(), u.getYCoord()), 1);
 		for (Node n : range) {
 			Unit p = grid.getUnit(n.x, n.y);
-			if (p != null && stage.getPlayer().getParty().isAlly(p.getParty())) {
+			if (p != null && stage.getCurrentPlayer().getParty().isAlly(p.getParty())) {
 				trade = true;
 				break;
 			}

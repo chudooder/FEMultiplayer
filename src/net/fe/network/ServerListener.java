@@ -10,6 +10,8 @@ import java.net.Socket;
 import net.fe.network.message.ClientInit;
 import net.fe.network.message.JoinLobby;
 import net.fe.network.message.QuitMessage;
+import net.fe.network.message.ReadyMessage;
+import net.fe.overworldStage.ServerOverworldStage;
 
 public class ServerListener extends Thread {
 	
@@ -62,6 +64,7 @@ public class ServerListener extends Thread {
 		if(message instanceof QuitMessage) {
 			clientQuit = true;
 		}
+			
 		main.broadcastMessage(message);
 		main.messages.add(message);
 	}

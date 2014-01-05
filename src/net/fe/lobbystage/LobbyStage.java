@@ -12,6 +12,7 @@ import net.fe.network.Chat;
 import net.fe.network.Message;
 import net.fe.network.message.JoinLobby;
 import net.fe.network.message.QuitMessage;
+import net.fe.network.message.ReadyMessage;
 import net.fe.overworldStage.OverworldStage;
 import net.fe.unit.Unit;
 
@@ -126,11 +127,29 @@ public class LobbyStage extends ServerLobby {
 				}
 			}
 		};
+		MenuButton readyButton = new MenuButton(409, 162, 64, 32) {
+			{
+				sprite.addAnimation("default", FEResources.getTexture("ready_button"));
+			}
+			@Override
+			public void onClick() {
+				FEMultiplayer.getClient().sendMessage(new ReadyMessage());
+			}
+			@Override
+			public void render() {
+				if(hover) {
+					sprite.render(x, y, renderDepth, null, "lighten");
+				} else {
+					sprite.render(x, y, renderDepth);
+				}
+			}
+		};
 		addEntity(spectateButton);
 		addEntity(playButton);
 		addEntity(unassignButton);
 		addEntity(exitButton);
 		addEntity(sendButton);
+		addEntity(readyButton);
 		addEntity(chatInput);
 	}
 
@@ -156,7 +175,6 @@ public class LobbyStage extends ServerLobby {
 
 	@Override
 	public void endStep() {
-		super.endStep();
 		for(Entity e : entities) {
 			e.endStep();
 		}

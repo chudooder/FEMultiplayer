@@ -43,12 +43,12 @@ public abstract class SelectTargetContext extends OverworldContext {
 			if (u == null)
 				continue;
 			if(friendly) {
-				if (u.getParty().isAlly(stage.getPlayer().getParty()) 
+				if (u.getParty().isAlly(stage.getCurrentPlayer().getParty()) 
 						&& u != unit && u.getHp() != u.get("HP")) {
 					targets.add(u);
 				}
 			} else {
-				if (!u.getParty().isAlly(stage.getPlayer().getParty()) 
+				if (!u.getParty().isAlly(stage.getCurrentPlayer().getParty()) 
 						&& u != unit) {
 					targets.add(u);
 				}

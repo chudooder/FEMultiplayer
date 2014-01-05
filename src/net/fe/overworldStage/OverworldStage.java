@@ -1,17 +1,11 @@
 package net.fe.overworldStage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import net.fe.FEMultiplayer;
 import net.fe.Player;
-import net.fe.editor.Level;
 import net.fe.overworldStage.context.Idle;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
@@ -22,21 +16,16 @@ import org.lwjgl.input.Keyboard;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
-import chu.engine.Stage;
 
-public class OverworldStage extends Stage {
-	public Grid grid;
+public class OverworldStage extends ServerOverworldStage {
 	private OverworldContext context;
 	public final Cursor cursor;
 	private Menu<?> menu;
-
-	private Player player;
 	private boolean onControl;
 	private float[] repeatTimers;
-	
-	private ArrayList<Object> currentCmdString;
 	private int movX, movY;
 	private Unit selectedUnit;
+	protected ArrayList<Object> currentCmdString;
 	
 	public static final float TILE_DEPTH = 1;
 	public static final float ZONE_DEPTH = 0.9f;
@@ -46,18 +35,17 @@ public class OverworldStage extends Stage {
 	public static final float MENU_DEPTH = 0.2f;
 	public static final float CURSOR_DEPTH = 0.15f;
 
-	public OverworldStage(String levelName, Player p) {
-		super();
+	public OverworldStage(String levelName, List<Player> p) {
+		super(levelName, p);
 		loadLevel(levelName);
-		player = p;
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
 		addEntity(new UnitInfo(cursor));
 		addEntity(new TerrainInfo(cursor));
-		currentCmdString = new ArrayList<Object>();
 		setControl(true);
-		context = new Idle(this, p);
+		context = new Idle(this, getCurrentPlayer());
 		repeatTimers = new float[4];
+		currentCmdString = new ArrayList<Object>();
 	}
 	
 	public void setMenu(Menu<?> m){
@@ -72,14 +60,10 @@ public class OverworldStage extends Stage {
 		return menu;
 	}
 	
-	public Player getPlayer(){
-		return player;
-	}
-	
 	public void reset(){
 		context.cleanUp();
 		removeExtraneousEntities();
-		new Idle(this, player).startContext();
+		new Idle(this, getCurrentPlayer()).startContext();
 	}
 	
 	public void removeExtraneousEntities(Entity... keep){
@@ -90,36 +74,6 @@ public class OverworldStage extends Stage {
 				removeEntity(e);
 			}
 		}
-	}
-
-	public Terrain getTerrain(int x, int y) {
-		return grid.getTerrain(x, y);
-	}
-
-	public Unit getUnit(int x, int y) {
-		return grid.getUnit(x, y);
-	}
-
-	public boolean addUnit(Unit u, int x, int y) {
-		if (grid.addUnit(u, x, y)) {
-			this.addEntity(u);
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public Unit removeUnit(int x, int y) {
-		Unit u = grid.removeUnit(x, y);
-		if (u != null) {
-			this.removeEntity(u);
-		}
-		return u;
-	}
-	
-	public void removeUnit(Unit u) {
-		grid.removeUnit(u.getXCoord(), u.getYCoord());
-		this.removeEntity(u);
 	}
 	
 	public void render(){
@@ -236,27 +190,5 @@ public class OverworldStage extends Stage {
 	
 	public Terrain getHoveredTerrain() {
 		return grid.getTerrain(cursor.getXCoord(), cursor.getYCoord());
-	}
-	
-	public void loadLevel(String levelName) {
-        try {
-            FileInputStream in = new FileInputStream(new File("levels/"+levelName+".lvl"));
-            ObjectInputStream ois = new ObjectInputStream(in);
-            Level level = (Level) ois.readObject();
-            grid = new Grid(level.width, level.height, Terrain.NONE);
-            for(int i=0; i<level.tiles.length; i++) {
-            	for(int j=0; j<level.tiles[0].length; j++) {
-            		Tile tile = new Tile(j, i, level.tiles[i][j]);
-            		grid.setTerrain(j, i, tile.getTerrain());
-            		addEntity(tile);
-            	}
-            }
-            ois.close();
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
 	}
 }

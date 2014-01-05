@@ -64,7 +64,6 @@ public class FEMultiplayer extends Game{
 		players.add(p2);
 		FEResources.loadResources();
 		p1.getParty().setColor(Party.TEAM_BLUE);
-		p2.getParty().setColor(Party.TEAM_RED);
 		
 		/* OpenGL final setup */
 		glEnable(GL_LINE_SMOOTH);
@@ -92,119 +91,16 @@ public class FEMultiplayer extends Game{
 		u2.addToInventory(WeaponFactory.getWeapon("Debug Javelin"));
 		u2.equipFirstWeapon(1);
 		p1.getParty().addUnit(u2);
-		
-		Unit u4 = UnitFactory.getUnit("Lute");
-		u4.addToInventory(WeaponFactory.getWeapon("Fimbulvetr"));
-		u4.addToInventory(WeaponFactory.getWeapon("Elfire"));
-		u4.addToInventory(WeaponFactory.getWeapon("Heal"));
-		u4.equipFirstWeapon(1);
-		p1.getParty().addUnit(u4);
-		
-		Unit u5 = UnitFactory.getUnit("Roy");
-		u5.equipFirstWeapon(1);
-		p1.getParty().addUnit(u5);
-		
-		Unit u6 = UnitFactory.getUnit("Hector");
-		u6.addToInventory(WeaponFactory.getWeapon("Wo Dao"));
-		u6.equipFirstWeapon(1);
-		p2.getParty().addUnit(u6);
-		
-		Unit u7 = UnitFactory.getUnit("Eirika");
-		u7.equipFirstWeapon(1);
-		p1.getParty().addUnit(u7);
-		
-		Unit u8 = UnitFactory.getUnit("Ephraim");
-		u8.addToInventory(WeaponFactory.getWeapon("Debug Javelin"));
-		u8.equipFirstWeapon(1);
-		p1.getParty().addUnit(u8);
-		
-		Unit u9 = UnitFactory.getUnit("Matthew");
-		u9.addToInventory(WeaponFactory.getWeapon("Noodle"));
-		u9.addToInventory(WeaponFactory.getWeapon("Killing Edge"));
-		u9.equipFirstWeapon(1);
-		p2.getParty().addUnit(u9);
-		
-		Unit u10 = UnitFactory.getUnit("Gilliam");
-		u10.addToInventory(WeaponFactory.getWeapon("Iron Axe"));
-		u10.addToInventory(WeaponFactory.getWeapon("Horseslayer"));
-		u10.equipFirstWeapon(1);
-		p1.getParty().addUnit(u10);
-		
-		Unit u11 = UnitFactory.getUnit("Raven");
-		u11.addToInventory(WeaponFactory.getWeapon("Killer Axe"));
-		u11.addToInventory(WeaponFactory.getWeapon("Tree Branch"));
-		u11.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
-		u11.equipFirstWeapon(1);
-		p1.getParty().addUnit(u11);
-		
-		Unit u12 = UnitFactory.getUnit("Dart");
-		u12.addToInventory(WeaponFactory.getWeapon("Debug Axe"));
-		u12.addToInventory(WeaponFactory.getWeapon("Iron Axe"));
-		u12.addToInventory(WeaponFactory.getWeapon("Hand Axe"));
-		u12.equipFirstWeapon(1);
-		p1.getParty().addUnit(u12);
-		
-		Unit u13 = UnitFactory.getUnit("Kent");
-		u13.addToInventory(WeaponFactory.getWeapon("Horseslayer"));
-		u13.addToInventory(WeaponFactory.getWeapon("Debug Lance"));
-		u13.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
-		u13.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
-		u13.equipFirstWeapon(1);
-		p1.getParty().addUnit(u13);
-		
-		Unit u14 = UnitFactory.getUnit("Joshua");
-		u14.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
-		u14.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
-		u14.equipFirstWeapon(1);
-		p2.getParty().addUnit(u14);
 
 		u1.setLevel(20);
 		u2.setLevel(20);
-		u3.setLevel(1);
-		u4.setLevel(20);
-		u5.setLevel(20);
-		u6.setLevel(1);
-		u7.setLevel(20);
-		u8.setLevel(20);
-		u9.setLevel(20);
-		u10.setLevel(20);
-		u11.setLevel(20);
-		u12.setLevel(20);
-		u13.setLevel(20);
-		u14.setLevel(20);
+		u3.setLevel(20);
 		
 		u1.fillHp();
-		u1.setHp(1);
 		u2.fillHp();
 		u3.fillHp();
-		u4.fillHp();
-		u5.fillHp();
-		u6.fillHp();
-		u7.fillHp();
-		u8.fillHp();
-		u9.fillHp();
-		u10.fillHp();
-		u11.fillHp();
-		u12.fillHp();
-		u13.fillHp();
-		u14.fillHp();
 		
-		map = new OverworldStage("test", p1);
-//		map.addUnit(u1, 0, 0);
-//		map.addUnit(u2, 2, 1);
-//		map.addUnit(u3, 1, 1);
-//		map.addUnit(u4, 2, 0);
-//		map.addUnit(u5, 2, 3);
-//		map.addUnit(u6, 4, 2);
-//		map.addUnit(u7, 8, 3);
-//		map.addUnit(u8, 2, 2);
-//		map.addUnit(u9, 3, 6);
-//		map.addUnit(u10, 3, 4);
-//		map.addUnit(u11, 4, 0);
-//		map.addUnit(u12, 5, 2);
-//		map.addUnit(u13, 5, 3);
-//		map.addUnit(u14, 0, 1);
-//		map.setControl(true);
+//		map = new OverworldStage("test", p1);
 		
 		client = new Client();
 		client.start();

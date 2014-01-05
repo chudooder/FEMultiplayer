@@ -5,12 +5,15 @@ import java.util.HashMap;
 
 import net.fe.Player;
 import net.fe.network.Chat;
+import net.fe.network.FEServer;
 import net.fe.network.Message;
 import net.fe.network.message.ChatMessage;
 import net.fe.network.message.ClientInit;
 import net.fe.network.message.JoinLobby;
 import net.fe.network.message.JoinTeam;
 import net.fe.network.message.QuitMessage;
+import net.fe.network.message.ReadyMessage;
+import net.fe.network.message.StartGame;
 import chu.engine.Game;
 import chu.engine.Stage;
 
@@ -51,6 +54,10 @@ public class ServerLobby extends Stage {
 				ChatMessage chatMsg = (ChatMessage)message;
 				chat.add(players.get(chatMsg.origin), chatMsg.text);
 			}
+			else if(message instanceof ReadyMessage) {
+				players.get(message.origin).ready = !players.get(message.origin).ready;
+				chat.add(players.get(message.origin), "Ready!");
+			}
 		}
 	}
 
@@ -61,7 +68,12 @@ public class ServerLobby extends Stage {
 
 	@Override
 	public void endStep() {
-		
+		for(Player p : players.values()) {
+			if(!p.ready) {
+				return;
+			}
+		}
+		FEServer.getServer().broadcastMessage(new StartGame(0));
 	}
 
 }

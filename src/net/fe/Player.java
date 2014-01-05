@@ -10,6 +10,7 @@ public class Player implements Serializable {
 	private byte clientID;
 	private String nickname;
 	private int team;
+	public boolean ready;
 	
 	public static final int TEAM_UNASSIGNED = 0;
 	public static final int TEAM_SPECTATOR = 1;
@@ -26,6 +27,7 @@ public class Player implements Serializable {
 			nickname += (char)('A'+(int)(Math.random()*26))+"";
 		}
 		team = 0;
+		ready = false;
 	}
 	
 	public boolean isSpectator() {

@@ -100,6 +100,7 @@ public class Client {
 	
 	public void sendMessage(Message message) {
 		try {
+			message.origin = id;
 			out.writeObject(message);
 			System.out.println("CLIENT: Sent message ["+message.toString()+"]");
 		} catch (IOException e) {
