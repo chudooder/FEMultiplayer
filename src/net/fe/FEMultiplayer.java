@@ -100,6 +100,7 @@ public class FEMultiplayer extends Game{
 		u1.fillHp();
 		u2.fillHp();
 		u3.fillHp();
+		u3.setHp(1);
 		
 //		map = new OverworldStage("test", p1);
 		

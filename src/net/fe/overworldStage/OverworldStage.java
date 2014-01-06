@@ -14,6 +14,7 @@ import net.fe.fightStage.HealCalculator;
 import net.fe.network.FEServer;
 import net.fe.network.Message;
 import net.fe.network.message.CommandMessage;
+import net.fe.overworldStage.context.ItemCmd;
 import net.fe.unit.Item;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
@@ -119,7 +120,7 @@ public class OverworldStage extends Stage {
 		//TODO: command validation
 		// After validation, update the unit position
 		// Move it instantly since this is the server stage
-		Unit unit = getUnit(cmds.unit);
+		final Unit unit = getUnit(cmds.unit);
 		grid.move(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY, false);
 		unit.moved();
 		// Parse commands
@@ -139,6 +140,10 @@ public class OverworldStage extends Stage {
 				Item temp = u1.getInventory().get(i1);
 				u1.getInventory().set(i1, u2.getInventory().get(i2));
 				u2.getInventory().set(i2, temp);
+			}
+			else if(obj.equals("USE")) {
+				int index = (Integer)cmds.commands[++i];
+				unit.use(index);
 			}
 			else if(obj.equals("ATTACK")) {
 				//This updates HP so we're ok

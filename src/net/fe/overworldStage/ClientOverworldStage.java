@@ -222,6 +222,20 @@ public class ClientOverworldStage extends OverworldStage {
 					u2.getInventory().set(i2, temp);
 				}
 			}
+			else if(obj.equals("USE")) {
+				int oHp = unit.getHp();
+				int index = (Integer)cmds.commands[++i];
+				unit.use(index);
+				//TODO Positioning
+				addEntity(new Healthbar(
+						320, 20 , oHp, 
+						unit.getHp(), unit.get("HP")){
+					@Override
+					public void done() {
+						destroy();
+					}
+				});
+			}
 			else if(obj.equals("ATTACK") || obj.equals("HEAL")) {
 				final UnitIdentifier other = (UnitIdentifier) cmds.commands[++i];
 				callback = new Command() {
