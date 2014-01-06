@@ -26,11 +26,6 @@ public class CombatCalculator {
 		calculate();
 	}
 	private void calculate() {
-		int hpLeft = left.getHp();
-		int hpRight = right.getHp();
-		int leftUses = left.getWeapon()!=null?left.getWeapon().getUses():0;
-		int rightUses = right.getWeapon()!=null?right.getWeapon().getUses():0;
-		
 		// Determine turn order
 		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
 		if (shouldAttack(left,right,range))
@@ -52,13 +47,6 @@ public class CombatCalculator {
 				attack(i, nextAttack.poll());
 			}
 		}
-		
-		left.setHp(hpLeft);
-		right.setHp(hpRight);
-		if(left.getWeapon()!=null)
-			left.getWeapon().setUsesDEBUGGING(leftUses);
-		if(right.getWeapon()!=null)
-			right.getWeapon().setUsesDEBUGGING(rightUses);
 	}
 	
 	public static boolean shouldAttack(Unit a, Unit d, int range){
