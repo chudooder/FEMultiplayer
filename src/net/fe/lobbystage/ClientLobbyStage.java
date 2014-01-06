@@ -37,11 +37,11 @@ public class ClientLobbyStage extends LobbyStage {
 	public static final Color NEUTRAL = new Color(0xb0a878);
 	public static final Color NEUTRAL_DARK = new Color(0x58543c);
 	
-	private ChatInputBox chatInput;
+	private LobbyChatBox chatInput;
 	
 	public ClientLobbyStage() {
 		super();
-		chatInput = new ChatInputBox();
+		chatInput = new LobbyChatBox();
 		MenuButton spectateButton = new MenuButton(409, 22, 64, 32) {
 			{
 				sprite.addAnimation("default", FEResources.getTexture("spectate_button"));

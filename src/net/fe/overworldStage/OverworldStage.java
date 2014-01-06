@@ -11,8 +11,10 @@ import net.fe.Player;
 import net.fe.editor.Level;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.HealCalculator;
+import net.fe.network.Chat;
 import net.fe.network.FEServer;
 import net.fe.network.Message;
+import net.fe.network.message.ChatMessage;
 import net.fe.network.message.CommandMessage;
 import net.fe.overworldStage.context.ItemCmd;
 import net.fe.unit.Item;
@@ -23,6 +25,7 @@ import chu.engine.Stage;
 
 public class OverworldStage extends Stage {
 	public Grid grid;
+	protected Chat chat;
 	private HashMap<Integer, Player> players;
 	private ArrayList<Player> turnOrder;
 	private Player currentPlayer;
@@ -31,6 +34,7 @@ public class OverworldStage extends Stage {
 		super();
 		loadLevel(levelName);
 		this.players = players;
+		chat = new Chat();
 		int x = 0;
 		//TODO: real spawn locations
 		for(Player p : players.values()) {
@@ -111,6 +115,10 @@ public class OverworldStage extends Stage {
 		for(Message message : Game.getMessages()) {
 			if(message instanceof CommandMessage) {
 				processCommands((CommandMessage)message);
+			}
+			else if(message instanceof ChatMessage) {
+				ChatMessage chatMsg = (ChatMessage)message;
+				chat.add(players.get(chatMsg.origin), chatMsg.text);
 			}
 		}
 	}

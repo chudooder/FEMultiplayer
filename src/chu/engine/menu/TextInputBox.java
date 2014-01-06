@@ -34,16 +34,6 @@ public abstract class TextInputBox extends Entity {
 	}
 	
 	public void beginStep() {
-		List<MouseEvent> mouseEvents = Game.getMouseEvents();
-		for(MouseEvent event : mouseEvents) {
-			if(event.button == 0) {
-				if(inBounds(event.x, Game.getWindowHeight()-event.y)) {
-					hasFocus = true;
-				} else {
-					hasFocus = false;
-				}
-			}
-		}
 		if(hasFocus) {
 			List<KeyboardEvent> keys = Game.getKeys();
 			for(KeyboardEvent ke : keys) {
@@ -73,7 +63,7 @@ public abstract class TextInputBox extends Entity {
 		}
 	}
 	
-	private boolean inBounds(float otherX, float otherY) {
+	protected boolean inBounds(float otherX, float otherY) {
 		if(otherX < x || otherX >= x+width 
 				|| otherY < y || otherY >= y+height) {
 			return false;

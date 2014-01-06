@@ -13,6 +13,7 @@ import net.fe.Command;
 import net.fe.FEMultiplayer;
 import net.fe.Player;
 import net.fe.editor.Level;
+import net.fe.network.Chat;
 import net.fe.network.message.CommandMessage;
 import net.fe.overworldStage.context.Idle;
 import net.fe.overworldStage.context.WaitForMessages;
@@ -51,6 +52,7 @@ public class ClientOverworldStage extends OverworldStage {
 		addEntity(cursor);
 		addEntity(new UnitInfo(cursor));
 		addEntity(new TerrainInfo(cursor));
+		addEntity(new OverworldChat(this.chat));
 		setControl(true);
 		if(getCurrentPlayer().equals(FEMultiplayer.getLocalPlayer()))
 			context = new Idle(this, getCurrentPlayer());

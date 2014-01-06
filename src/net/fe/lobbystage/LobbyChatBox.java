@@ -11,21 +11,32 @@ import org.newdawn.slick.Color;
 
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
+import chu.engine.MouseEvent;
 import chu.engine.anim.BitmapFont;
 import chu.engine.anim.Renderer;
 import chu.engine.menu.TextInputBox;
 
-public class ChatInputBox extends TextInputBox {
+public class LobbyChatBox extends TextInputBox {
 	
 	private static final Color UNFOCUSED = new Color(0x58543c);
 	private static final Color FOCUSED = new Color(0x817b58);
 	private static final Color CURSOR = new Color(0xeeeeee);
 
-	public ChatInputBox() {
+	public LobbyChatBox() {
 		super(6, 294, 250, 20, "default_med");
 	}
 	
 	public void beginStep() {
+		List<MouseEvent> mouseEvents = Game.getMouseEvents();
+		for(MouseEvent event : mouseEvents) {
+			if(event.button == 0) {
+				if(inBounds(event.x, Game.getWindowHeight()-event.y)) {
+					hasFocus = true;
+				} else {
+					hasFocus = false;
+				}
+			}
+		}
 		super.beginStep();
 		if(hasFocus) {
 			List<KeyboardEvent> keys = Game.getKeys();
