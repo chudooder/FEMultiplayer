@@ -230,18 +230,49 @@ public class ClientOverworldStage extends OverworldStage {
 				}
 			}
 			else if(obj.equals("USE")) {
-				int oHp = unit.getHp();
-				int index = (Integer)cmds.commands[++i];
-				unit.use(index);
-				//TODO Positioning
-				addEntity(new Healthbar(
-						320, 20 , oHp, 
-						unit.getHp(), unit.get("HP")){
-					@Override
-					public void done() {
-						destroy();
+				final int oHp = unit.getHp();
+				final int index = (Integer)cmds.commands[++i];
+				callback = new Command() {
+					public void execute() {
+						unit.use(index);
+						unit.moved();
+						//TODO Positioning
+						addEntity(new Healthbar(
+								320, 20 , oHp, 
+								unit.getHp(), unit.get("HP")){
+							@Override
+							public void done() {
+								destroy();
+							}
+						});
 					}
-				});
+				};
+			}
+			else if(obj.equals("RESCUE")) {
+				final Unit rescuee = getUnit((UnitIdentifier) cmds.commands[++i]);
+				callback = new Command() {
+					public void execute() {
+						unit.moved();
+						unit.rescue(rescuee);
+					}
+				};
+			}
+			else if(obj.equals("TAKE")) {
+				if(execute) {
+					Unit other = getUnit((UnitIdentifier) cmds.commands[++i]);
+					other.give(unit);
+				}
+			}
+			else if(obj.equals("DROP")) {
+				final int dropX = (Integer) cmds.commands[++i];
+				final int dropY = (Integer) cmds.commands[++i];
+				callback = new Command() {
+					public void execute() {
+						unit.moved();
+						unit.rescuedUnit().moved();
+						unit.drop(dropX, dropY);
+					}
+				};
 			}
 			else if(obj.equals("ATTACK") || obj.equals("HEAL")) {
 				final UnitIdentifier other = (UnitIdentifier) cmds.commands[++i];

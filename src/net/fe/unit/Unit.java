@@ -147,7 +147,7 @@ public class Unit extends GriddedEntity implements Serializable {
 	public void give(Unit u){
 		if(rescuedUnit == null) return;
 		if(u.rescuedUnit() != null) return;
-		u.rescue(rescuedUnit);
+		u.setRescuedUnit(rescuedUnit);
 		rescuedUnit = null;
 	}
 	
@@ -562,4 +562,7 @@ public class Unit extends GriddedEntity implements Serializable {
 		return rescuedUnit;
 	}
 
+	public void setRescuedUnit(Unit unit) {
+		rescuedUnit = unit;
+	}
 }

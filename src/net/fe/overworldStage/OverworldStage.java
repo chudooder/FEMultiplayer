@@ -153,6 +153,19 @@ public class OverworldStage extends Stage {
 				int index = (Integer)cmds.commands[++i];
 				unit.use(index);
 			}
+			else if(obj.equals("RESCUE")) {
+				Unit rescuee = getUnit((UnitIdentifier) cmds.commands[++i]);
+				unit.rescue(rescuee);
+			}
+			else if(obj.equals("TAKE")) {
+				Unit other = getUnit((UnitIdentifier) cmds.commands[++i]);
+				other.give(unit);
+			}
+			else if(obj.equals("DROP")) {
+				int dropX = (Integer) cmds.commands[++i];
+				int dropY = (Integer) cmds.commands[++i];
+				unit.drop(dropX, dropY);
+			}
 			else if(obj.equals("ATTACK")) {
 				//This updates HP so we're ok
 				CombatCalculator calc = new CombatCalculator(cmds.unit, (UnitIdentifier) cmds.commands[++i]);
