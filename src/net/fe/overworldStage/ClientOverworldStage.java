@@ -188,6 +188,11 @@ public class ClientOverworldStage extends OverworldStage {
 		currentCmdString.add(cmd);
 	}
 	
+	public void addCmd(Object... cmd){
+		for(Object o: cmd)
+			currentCmdString.add(o);
+	}
+	
 	@Override
 	public void processCommands(CommandMessage message) {
 		final CommandMessage cmds = (CommandMessage) message;
@@ -302,5 +307,9 @@ public class ClientOverworldStage extends OverworldStage {
 	
 	public Terrain getHoveredTerrain() {
 		return grid.getTerrain(cursor.getXCoord(), cursor.getYCoord());
+	}
+
+	public Unit getSelectedUnit() {
+		return selectedUnit;
 	}
 }

@@ -40,11 +40,10 @@ public class Unit extends GriddedEntity implements Serializable {
 	private ArrayList<Item> inventory;
 	public final String name;
 	private Party team;
-	
 	private transient HashMap<String, Integer> tempMods;
 	private transient boolean dying;
 	private transient float alpha;
-	// TODO Rescue
+	private transient Unit rescuedUnit;
 	private transient boolean moved;
 	private transient Path path;
 	private transient float rX, rY;
@@ -130,11 +129,26 @@ public class Unit extends GriddedEntity implements Serializable {
 		this.callback = callback;
 	}
 	
-	public void moveInstant(int moveX, int moveY) {
-		xcoord += moveX;
-		ycoord += moveY;
-		rX = 0;
-		rY = 0;
+	public void rescue(Unit u){
+		rescuedUnit = u;
+		OverworldStage grid = (OverworldStage) stage;
+		grid.removeUnit(u);
+	}
+
+	
+	public void drop(int x, int y){
+		if(rescuedUnit == null) return;
+		OverworldStage grid = (OverworldStage) stage;
+		grid.addUnit(rescuedUnit, x, y);
+		rescuedUnit = null;
+	}
+	
+	
+	public void give(Unit u){
+		if(rescuedUnit == null) return;
+		if(u.rescuedUnit() != null) return;
+		u.rescue(rescuedUnit);
+		rescuedUnit = null;
 	}
 	
 	public void beginStep(){
@@ -464,6 +478,9 @@ public class Unit extends GriddedEntity implements Serializable {
 		if (Arrays.asList("Def", "Res").contains(stat)) {
 			ans += getTerrain().defenseBonus;
 		}
+		if((stat.equals("Spd") || stat.equals("Skl")) && rescuedUnit!=null){
+			ans/=2;
+		}
 		return ans;
 	}
 
@@ -539,6 +556,10 @@ public class Unit extends GriddedEntity implements Serializable {
 	
 	public boolean isDying(){
 		return dying;
+	}
+	
+	public Unit rescuedUnit(){
+		return rescuedUnit;
 	}
 
 }
