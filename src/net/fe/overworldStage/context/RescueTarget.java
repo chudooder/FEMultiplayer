@@ -24,8 +24,6 @@ public class RescueTarget extends SelectTargetContext {
 		stage.addCmd("RESCUE");
 		stage.addCmd(new UnitIdentifier(u));
 		stage.send();
-//		unit.moved();
-//		unit.rescue(u);
 		cursor.setXCoord(unit.getXCoord());
 		cursor.setYCoord(unit.getYCoord());
 		stage.reset();

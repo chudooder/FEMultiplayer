@@ -55,7 +55,7 @@ public class UnitMoved extends MenuContext<String> {
 		if (selectedItem.equals("Wait")) {
 			stage.addCmd("WAIT");
 			stage.send();
-			unit.moved();
+			unit.setMoved(true);
 			stage.reset();	
 		} else if (selectedItem.equals("Attack")) {
 			new AttackTarget(stage, this, zone, unit).startContext();

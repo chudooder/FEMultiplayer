@@ -1,6 +1,5 @@
 package net.fe.overworldStage.context;
 
-import net.fe.Player;
 import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.overworldStage.CursorContext;
 import net.fe.overworldStage.Zone;
@@ -8,29 +7,15 @@ import net.fe.unit.Unit;
 import chu.engine.anim.AudioPlayer;
 
 public class WaitForMessages extends CursorContext {
-	private Player player;
 	private Zone move,attack,heal;
-	private boolean canPlaySound;
 	
-	public WaitForMessages(ClientOverworldStage s, Player p) {
+	public WaitForMessages(ClientOverworldStage s) {
 		super(s, null);
-		player = p;
-		canPlaySound = true;
 	}
 	
 	public void startContext(){
-		boolean movable = false;
-		for(Unit u: stage.getCurrentPlayer().getParty()){
-			if(!u.hasMoved()){
-				movable = true;
-			}
-		}
-		if(movable){
-			super.startContext();
-			cursorChanged();
-		} else {
-			stage.end();
-		}
+		super.startContext();
+		cursorChanged();
 	}
 	
 	

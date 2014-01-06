@@ -50,8 +50,6 @@ public class DropTarget extends OverworldContext {
 		AudioPlayer.playAudio("select", 1, 1);
 		stage.addCmd("DROP", getCurrentTarget().x, getCurrentTarget().y);
 		stage.send();
-		unit.moved();
-		unit.rescuedUnit().moved();
 		cursor.setXCoord(unit.getXCoord());
 		cursor.setYCoord(unit.getYCoord());
 		stage.reset();

@@ -44,7 +44,7 @@ public class ItemCmd extends MenuContext<ItemDisplay>{
 				@Override
 				public void done() {
 					destroy();
-					unit.moved();
+					unit.setMoved(true);
 					ItemCmd.this.stage.reset();
 				}
 			});

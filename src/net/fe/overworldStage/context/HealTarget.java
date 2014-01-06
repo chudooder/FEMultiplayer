@@ -40,7 +40,7 @@ public class HealTarget extends SelectTargetContext {
 		stage.addCmd(new UnitIdentifier(u));
 		stage.send();
 
-		unit.moved();
+		unit.setMoved(true);
 		cursor.setXCoord(unit.getXCoord());
 		cursor.setYCoord(unit.getYCoord());
 		stage.reset();

@@ -33,7 +33,7 @@ public class AttackPreview extends OverworldContext{
 		stage.addCmd("ATTACK");
 		stage.addCmd(new UnitIdentifier(defender));
 		stage.send();
-		attacker.moved();
+		attacker.setMoved(true);
 		cursor.setXCoord(attacker.getXCoord());
 		cursor.setYCoord(attacker.getYCoord());
 		stage.reset();

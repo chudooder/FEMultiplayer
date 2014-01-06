@@ -520,11 +520,13 @@ public class Unit extends GriddedEntity implements Serializable {
 		return team;
 	}
 
-	public void moved() {
-		moved = true;
-		sprite.setAnimation("IDLE");
-		origX = xcoord;
-		origY = ycoord;
+	public void setMoved(boolean status) {
+		moved = status;
+		if(moved) {
+			sprite.setAnimation("IDLE");
+			origX = xcoord;
+			origY = ycoord;
+		}
 	}
 
 	public boolean hasMoved() {

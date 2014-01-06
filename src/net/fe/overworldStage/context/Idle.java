@@ -11,27 +11,27 @@ import net.fe.unit.Unit;
 public class Idle extends CursorContext {
 	private Player player;
 	private Zone move,attack,heal;
-	private boolean canPlaySound;
 	
 	public Idle(ClientOverworldStage s, Player p) {
 		super(s, null);
 		player = p;
-		canPlaySound = true;
 	}
 	
 	public void startContext(){
-		boolean movable = false;
-		for(Unit u: stage.getCurrentPlayer().getParty()){
-			if(!u.hasMoved()){
-				movable = true;
-			}
-		}
-		if(movable){
-			super.startContext();
-			cursorChanged();
-		} else {
-			stage.end();
-		}
+//		boolean movable = false;
+//		for(Unit u: stage.getCurrentPlayer().getParty()){
+//			if(!u.hasMoved()){
+//				movable = true;
+//			}
+//		}
+//		if(movable){
+//			super.startContext();
+//			cursorChanged();
+//		} else {
+//			stage.end();
+//		}
+		super.startContext();
+		cursorChanged();
 	}
 	
 	

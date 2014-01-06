@@ -47,7 +47,11 @@ public class Chat {
 		}
 		
 		public String toString() {
-			return player.getName() + ": " + line;
+			if(player == null) {
+				return line;
+			} else {
+				return player.getName() + ": " + line;
+			}
 		}
 	}
 	

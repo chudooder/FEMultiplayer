@@ -8,7 +8,7 @@ public class StunTrigger extends TerrainTrigger{
 		
 		Unit u = g.getUnit(x, y);
 		if(FEMultiplayer.turn.getParty() == u.getParty()){
-			u.moved();
+			u.setMoved(true);
 			g.getTerrain(x, y).removeTrigger(this);
 		}
 		

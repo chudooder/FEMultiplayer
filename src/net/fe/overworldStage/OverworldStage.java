@@ -16,6 +16,7 @@ import net.fe.network.FEServer;
 import net.fe.network.Message;
 import net.fe.network.message.ChatMessage;
 import net.fe.network.message.CommandMessage;
+import net.fe.network.message.EndTurn;
 import net.fe.overworldStage.context.ItemCmd;
 import net.fe.unit.Item;
 import net.fe.unit.Unit;
@@ -28,7 +29,7 @@ public class OverworldStage extends Stage {
 	protected Chat chat;
 	private HashMap<Integer, Player> players;
 	private ArrayList<Player> turnOrder;
-	private Player currentPlayer;
+	private int currentPlayer;
 
 	public OverworldStage(String levelName, HashMap<Integer, Player> players) {
 		super();
@@ -45,10 +46,13 @@ public class OverworldStage extends Stage {
 			}
 		}
 		turnOrder = new ArrayList<Player>();
+		System.out.print("Turn order: ");
 		for(Player p : players.values()) {
 			turnOrder.add(p);
+			System.out.print(p.getName()+" ");
 		}
-		currentPlayer = turnOrder.get(0);
+		System.out.println();
+		currentPlayer = 0;
 		processAddStack();
 	}
 	
@@ -57,7 +61,13 @@ public class OverworldStage extends Stage {
 	}
 	
 	public Player getCurrentPlayer() {
-		return currentPlayer;
+		return turnOrder.get(currentPlayer);
+	}
+	
+	public Player getNextPlayer() {
+		int i = currentPlayer + 1;
+		if(i >= turnOrder.size()) i = 0;
+		return turnOrder.get(i);
 	}
 
 	public Terrain getTerrain(int x, int y) {
@@ -120,9 +130,25 @@ public class OverworldStage extends Stage {
 				ChatMessage chatMsg = (ChatMessage)message;
 				chat.add(players.get(chatMsg.origin), chatMsg.text);
 			}
+			else if(message instanceof EndTurn) {
+				doEndTurn(message.origin);
+				currentPlayer++;
+				if(currentPlayer >= turnOrder.size()) {
+					currentPlayer = 0;
+				}
+			}
 		}
 	}
 	
+	protected void doEndTurn(int playerID) {
+		//TODO: End turn triggers here
+		for(Player p : players.values()) {
+			for(Unit u : p.getParty()) {
+				u.setMoved(false);
+			}
+		}
+	}
+
 	public void processCommands(CommandMessage message) {
 		CommandMessage cmds = (CommandMessage) message;
 		//TODO: command validation
@@ -130,7 +156,7 @@ public class OverworldStage extends Stage {
 		// Move it instantly since this is the server stage
 		final Unit unit = getUnit(cmds.unit);
 		grid.move(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY, false);
-		unit.moved();
+		unit.setMoved(true);
 		// Parse commands
 		
 		for(int i=0; i<cmds.commands.length; i++) {

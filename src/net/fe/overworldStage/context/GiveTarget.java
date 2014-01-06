@@ -24,7 +24,7 @@ public class GiveTarget extends SelectTargetContext {
 		stage.addCmd("GIVE");
 		stage.addCmd(new UnitIdentifier(u));
 		stage.send();
-		unit.moved();
+		unit.setMoved(true);
 		unit.give(u);
 		cursor.setXCoord(unit.getXCoord());
 		cursor.setYCoord(unit.getYCoord());

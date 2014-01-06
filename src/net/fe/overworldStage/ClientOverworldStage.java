@@ -15,6 +15,7 @@ import net.fe.Player;
 import net.fe.editor.Level;
 import net.fe.network.Chat;
 import net.fe.network.message.CommandMessage;
+import net.fe.network.message.EndTurn;
 import net.fe.overworldStage.context.Idle;
 import net.fe.overworldStage.context.WaitForMessages;
 import net.fe.unit.Item;
@@ -57,7 +58,7 @@ public class ClientOverworldStage extends OverworldStage {
 		if(getCurrentPlayer().equals(FEMultiplayer.getLocalPlayer()))
 			context = new Idle(this, getCurrentPlayer());
 		else
-			context = new WaitForMessages(this, null);
+			context = new WaitForMessages(this);
 		repeatTimers = new float[4];
 		currentCmdString = new ArrayList<Object>();
 	}
@@ -84,7 +85,7 @@ public class ClientOverworldStage extends OverworldStage {
 		List<Entity> keeps = Arrays.asList(keep);
 		for(Entity e: entities){
 			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor || e instanceof UnitInfo ||
-					e instanceof TerrainInfo || keeps.contains(e))){
+					e instanceof TerrainInfo || e instanceof OverworldChat ||  keeps.contains(e))){
 				removeEntity(e);
 			}
 		}
@@ -171,10 +172,21 @@ public class ClientOverworldStage extends OverworldStage {
 	}
 	
 	public void end(){
-		send();
+		FEMultiplayer.getClient().sendMessage(new EndTurn());
 		selectedUnit = null;
 		removeExtraneousEntities();
-		//TODO implement
+	}
+	
+	@Override
+	protected void doEndTurn(int playerID) {
+		super.doEndTurn(playerID);
+		context.cleanUp();
+		if(FEMultiplayer.getLocalPlayer().getID() == getNextPlayer().getID()){
+			context = new Idle(this, FEMultiplayer.getLocalPlayer());
+		} else {
+			context = new WaitForMessages(this);
+		}
+
 	}
 	
 	private void clearCmdString(){
@@ -203,12 +215,11 @@ public class ClientOverworldStage extends OverworldStage {
 		//TODO: command validation
 		// Get unit and path
 		final Unit unit = getUnit(cmds.unit);
-		Path p = grid.getShortestPath(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY);
 		// Parse commands
 		Command callback = new Command() {
 			@Override
 			public void execute() {
-				unit.moved();
+				unit.setMoved(true);
 			}
 		};
 		for(int i=0; i<cmds.commands.length; i++) {
@@ -232,27 +243,29 @@ public class ClientOverworldStage extends OverworldStage {
 			else if(obj.equals("USE")) {
 				final int oHp = unit.getHp();
 				final int index = (Integer)cmds.commands[++i];
-				callback = new Command() {
-					public void execute() {
-						unit.use(index);
-						unit.moved();
-						//TODO Positioning
-						addEntity(new Healthbar(
-								320, 20 , oHp, 
-								unit.getHp(), unit.get("HP")){
-							@Override
-							public void done() {
-								destroy();
-							}
-						});
-					}
-				};
+				if(execute) {
+					callback = new Command() {
+						public void execute() {
+							unit.use(index);
+							unit.setMoved(true);
+							//TODO Positioning
+							addEntity(new Healthbar(
+									320, 20 , oHp, 
+									unit.getHp(), unit.get("HP")){
+								@Override
+								public void done() {
+									destroy();
+								}
+							});
+						}
+					};
+				}
 			}
 			else if(obj.equals("RESCUE")) {
 				final Unit rescuee = getUnit((UnitIdentifier) cmds.commands[++i]);
 				callback = new Command() {
 					public void execute() {
-						unit.moved();
+						unit.setMoved(true);
 						unit.rescue(rescuee);
 					}
 				};
@@ -268,8 +281,8 @@ public class ClientOverworldStage extends OverworldStage {
 				final int dropY = (Integer) cmds.commands[++i];
 				callback = new Command() {
 					public void execute() {
-						unit.moved();
-						unit.rescuedUnit().moved();
+						unit.setMoved(true);
+						unit.rescuedUnit().setMoved(true);
 						unit.drop(dropX, dropY);
 					}
 				};
@@ -278,7 +291,7 @@ public class ClientOverworldStage extends OverworldStage {
 				final UnitIdentifier other = (UnitIdentifier) cmds.commands[++i];
 				callback = new Command() {
 					public void execute() {
-						unit.moved();
+						unit.setMoved(true);
 						FEMultiplayer.goToFightStage(cmds.unit, 
 								other, cmds.attackRecords);
 					}
@@ -286,6 +299,7 @@ public class ClientOverworldStage extends OverworldStage {
 			}
 		}
 		if(execute) {
+			Path p = grid.getShortestPath(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY);
 			grid.move(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY, true);
 			unit.move(p, callback);
 		} else {
