@@ -26,7 +26,6 @@ public class CombatCalculator {
 		calculate();
 	}
 	private void calculate() {
-		// TODO Remove when moved to server
 		int hpLeft = left.getHp();
 		int hpRight = right.getHp();
 		int leftUses = left.getWeapon()!=null?left.getWeapon().getUses():0;
@@ -54,7 +53,6 @@ public class CombatCalculator {
 			}
 		}
 		
-		//TODO remove on server
 		left.setHp(hpLeft);
 		right.setHp(hpRight);
 		if(left.getWeapon()!=null)

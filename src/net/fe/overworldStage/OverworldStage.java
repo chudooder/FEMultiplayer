@@ -14,6 +14,7 @@ import net.fe.fightStage.HealCalculator;
 import net.fe.network.FEServer;
 import net.fe.network.Message;
 import net.fe.network.message.CommandMessage;
+import net.fe.unit.Item;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 import chu.engine.Game;
@@ -129,11 +130,23 @@ public class OverworldStage extends Stage {
 				Unit other = getUnit((UnitIdentifier) cmds.commands[++i]);
 				other.equip((Integer) cmds.commands[++i]);
 			}
+			else if(obj.equals("TRADE")) {
+				Unit u1 = getUnit((UnitIdentifier) cmds.commands[++i]);
+				int i1 = (Integer)cmds.commands[++i];
+				Unit u2 = getUnit((UnitIdentifier) cmds.commands[++i]);
+				int i2 = (Integer)cmds.commands[++i];
+				//Swap the two items
+				Item temp = u1.getInventory().get(i1);
+				u1.getInventory().set(i1, u2.getInventory().get(i2));
+				u2.getInventory().set(i2, temp);
+			}
 			else if(obj.equals("ATTACK")) {
+				//This updates HP so we're ok
 				CombatCalculator calc = new CombatCalculator(cmds.unit, (UnitIdentifier) cmds.commands[++i]);
 				cmds.attackRecords = calc.getAttackQueue();
 			}
 			else if(obj.equals("HEAL")) {
+				//This updates HP so we're ok
 				HealCalculator calc = new HealCalculator(cmds.unit, (UnitIdentifier) cmds.commands[++i]);
 				cmds.attackRecords = calc.getAttackQueue();
 			}

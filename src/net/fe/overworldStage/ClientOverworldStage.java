@@ -16,6 +16,7 @@ import net.fe.editor.Level;
 import net.fe.network.message.CommandMessage;
 import net.fe.overworldStage.context.Idle;
 import net.fe.overworldStage.context.WaitForMessages;
+import net.fe.unit.Item;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
@@ -208,6 +209,18 @@ public class ClientOverworldStage extends OverworldStage {
 			if(obj.equals("EQUIP") && execute) {
 				Unit other = getUnit((UnitIdentifier) cmds.commands[++i]);
 				other.equip((Integer) cmds.commands[++i]);
+			}
+			else if(obj.equals("TRADE")) {
+				Unit u1 = getUnit((UnitIdentifier) cmds.commands[++i]);
+				int i1 = (Integer)cmds.commands[++i];
+				Unit u2 = getUnit((UnitIdentifier) cmds.commands[++i]);
+				int i2 = (Integer)cmds.commands[++i];
+				//Swap the two items
+				if(execute) {
+					Item temp = u1.getInventory().get(i1);
+					u1.getInventory().set(i1, u2.getInventory().get(i2));
+					u2.getInventory().set(i2, temp);
+				}
 			}
 			else if(obj.equals("ATTACK") || obj.equals("HEAL")) {
 				final UnitIdentifier other = (UnitIdentifier) cmds.commands[++i];
