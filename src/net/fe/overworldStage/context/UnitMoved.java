@@ -1,6 +1,7 @@
 package net.fe.overworldStage.context;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -17,12 +18,14 @@ public class UnitMoved extends MenuContext<String> {
 	private Unit unit;
 	private Zone zone;
 	private boolean fromTrade;
+	private boolean fromTake;
 
 	public UnitMoved(OverworldStage stage, OverworldContext prev, Unit u,
-			boolean fromTrade) {
+			boolean fromTrade, boolean fromTake) {
 		super(stage, prev, new Menu<String>(0, 0));
 		unit = u;
 		this.fromTrade = fromTrade;
+		this.fromTake = fromTake;
 		for (String cmd : getCommands(unit)) {
 			menu.addItem(cmd);
 		}
@@ -62,7 +65,16 @@ public class UnitMoved extends MenuContext<String> {
 			new ItemCmd(stage, this, unit).startContext();
 		} else if (selectedItem.equals("Trade")){
 			new TradeTarget(stage, this, zone, unit).startContext();
+		} else if (selectedItem.equals("Rescue")){
+			new RescueTarget(stage, this, zone, unit).startContext();
+		} else if (selectedItem.equals("Give")){
+			new GiveTarget(stage, this, zone, unit).startContext();
+		} else if (selectedItem.equals("Take")){
+			new TakeTarget(stage, this, zone, unit).startContext();
+		} else if (selectedItem.equals("Drop")){
+			new DropTarget(stage, this, zone, unit).startContext();
 		}
+			
 	}
 
 	public void onChange() {
@@ -90,7 +102,8 @@ public class UnitMoved extends MenuContext<String> {
 					new Node(unit.getXCoord(), unit.getYCoord()),
 					unit.getTotalWepRange(true)), Zone.HEAL_DARK);
 			stage.addEntity(zone);
-		} else if (menu.getSelection().equals("Trade")) {
+		} else if (Arrays.asList("Trade", "Give", "Take", "Drop", "Rescue")
+				.contains(menu.getSelection())) {
 			zone = new Zone(grid.getRange(
 					new Node(unit.getXCoord(), unit.getYCoord()), 1),
 					Zone.MOVE_DARK);
@@ -101,6 +114,7 @@ public class UnitMoved extends MenuContext<String> {
 	public List<String> getCommands(Unit u) {
 		// TODO Rescue
 		List<String> list = new ArrayList<String>();
+		
 		boolean attack = false;
 		Set<Node> range = grid.getRange(new Node(u.getXCoord(), u.getYCoord()),
 				unit.getTotalWepRange(false));
@@ -111,7 +125,7 @@ public class UnitMoved extends MenuContext<String> {
 				break;
 			}
 		}
-		if (attack)
+		if (attack && !fromTake)
 			list.add("Attack");
 
 		boolean heal = false;
@@ -125,25 +139,44 @@ public class UnitMoved extends MenuContext<String> {
 				break;
 			}
 		}
-		if (heal)
+		if (heal && !fromTake)
 			list.add("Heal");
 
+		//TODO Give command untested
 		boolean trade = false;
+		boolean rescue = false;
+		boolean give = false;
+		boolean take = false;
+		boolean drop = false;
 		range = grid.getRange(new Node(u.getXCoord(), u.getYCoord()), 1);
 		for (Node n : range) {
 			Unit p = grid.getUnit(n.x, n.y);
 			if (p != null && stage.getPlayer().getParty().isAlly(p.getParty())) {
 				trade = true;
-				break;
+				if(p.rescuedUnit() == null && unit.rescuedUnit() == null){
+					rescue = true;
+				} else if (p.rescuedUnit() == null && unit.rescuedUnit() != null){
+					give = true;
+				} else if (p.rescuedUnit() != null && unit.rescuedUnit() == null){
+					take = true;
+				}
 			}
+			if(p == null && unit.rescuedUnit() != null){
+				drop = true;
+			}
+			
 		}
-		if (fromTrade){
-			trade = false;
-			System.out.println("Cant Trade");
-		}
-		if (trade)
+		if (trade && !fromTrade && !fromTake)
 			list.add("Trade");
-
+		if (rescue && !fromTrade && !fromTake)
+			list.add("Rescue");
+		if (give && !fromTrade && !fromTake)
+			list.add("Give");
+		if (take && !fromTrade && !fromTake)
+			list.add("Take");
+		if (drop && !fromTrade)
+			list.add("Drop");
+		
 		list.add("Item");
 		list.add("Wait");
 

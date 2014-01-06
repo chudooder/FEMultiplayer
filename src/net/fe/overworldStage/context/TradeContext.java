@@ -69,7 +69,7 @@ public class TradeContext extends OverworldContext {
 			} else {
 				cursor.setXCoord(u1.getXCoord());
 				cursor.setYCoord(u1.getYCoord());
-				new UnitMoved(stage, this, u1, true).startContext();
+				new UnitMoved(stage, this, u1, true, false).startContext();
 			}
 		} else {
 			Menu<ItemDisplay> m1, m2;

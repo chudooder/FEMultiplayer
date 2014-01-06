@@ -205,8 +205,9 @@ public class OverworldStage extends Stage {
 		currentCmdString.clear();
 	}
 	
-	public void addCmd(Object cmd){
-		currentCmdString.add(cmd);
+	public void addCmd(Object... cmd){
+		for(Object o: cmd)
+			currentCmdString.add(o);
 	}
 	
 	public void setMovX(int x){

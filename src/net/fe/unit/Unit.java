@@ -37,7 +37,6 @@ public class Unit extends GriddedEntity {
 	private Party team;
 	private boolean dying;
 	private float alpha;
-	// TODO Rescue
 
 	private Unit rescuedUnit;
 

@@ -209,6 +209,8 @@ public class FEMultiplayer extends Game{
 		map.setControl(true);
 		
 		
+		
+		
 		currentStage = map;
 		serverMessages = new ArrayList<Message>();
 		
