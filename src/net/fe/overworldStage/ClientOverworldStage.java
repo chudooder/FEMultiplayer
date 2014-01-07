@@ -11,6 +11,7 @@ import java.util.List;
 
 import net.fe.Command;
 import net.fe.FEMultiplayer;
+import net.fe.Party;
 import net.fe.Player;
 import net.fe.editor.Level;
 import net.fe.network.Chat;
@@ -55,10 +56,13 @@ public class ClientOverworldStage extends OverworldStage {
 		addEntity(new TerrainInfo(cursor));
 		addEntity(new OverworldChat(this.chat));
 		setControl(true);
-		if(getCurrentPlayer().equals(FEMultiplayer.getLocalPlayer()))
+		if(getCurrentPlayer().equals(FEMultiplayer.getLocalPlayer())) {
 			context = new Idle(this, getCurrentPlayer());
-		else
+			addEntity(new TurnDisplay(true, Party.TEAM_BLUE));
+		} else {
 			context = new WaitForMessages(this);
+			addEntity(new TurnDisplay(false, Party.TEAM_RED));
+		}
 		repeatTimers = new float[4];
 		currentCmdString = new ArrayList<Object>();
 	}
@@ -183,8 +187,10 @@ public class ClientOverworldStage extends OverworldStage {
 		context.cleanUp();
 		if(FEMultiplayer.getLocalPlayer().getID() == getNextPlayer().getID()){
 			context = new Idle(this, FEMultiplayer.getLocalPlayer());
+			addEntity(new TurnDisplay(true, Party.TEAM_BLUE));
 		} else {
 			context = new WaitForMessages(this);
+			addEntity(new TurnDisplay(false, Party.TEAM_RED));
 		}
 
 	}

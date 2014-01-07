@@ -2198,6 +2198,22 @@
 			"path":		"res/gui/ready_button.png"
 		},
 		{
+			"name":		"blue_flash",
+			"path":		"res/gui/blue_flash.png"
+		},
+		{
+			"name":		"red_flash",
+			"path":		"res/gui/red_flash.png"
+		},
+		{
+			"name":		"enemy_phase",
+			"path":		"res/gui/enemy_phase.png"
+		},
+		{
+			"name":		"player_phase",
+			"path":		"res/gui/player_phase.png"
+		},
+		{
 			"name":		"cursor",
 			"path":		"res/gui/cursor.png"
 		},

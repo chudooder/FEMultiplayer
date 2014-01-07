@@ -3,6 +3,7 @@ package net.fe.network;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class Client {
 		try {
 			System.out.println("CLIENT: Connecting to server at port 21255...");
 			serverSocket = new Socket(
-					java.net.InetAddress.getLocalHost().getHostName(), 
+					InetAddress.getLocalHost().getHostAddress(), 
 					21255);
 			System.out.println("CLIENT: Successfully connected!");
 			out = new ObjectOutputStream(serverSocket.getOutputStream());
