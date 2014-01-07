@@ -105,8 +105,8 @@ public class FEMultiplayer extends Game{
 		
 //		map = new OverworldStage("test", p1);
 		
-		client = new Client();
-		client.start();
+//		client = new Client();
+//		client.start();
 		lobby = new ClientLobbyStage();
 		currentStage = new TeamBuilderStage();
 		messages = new ArrayList<Message>();
@@ -132,9 +132,11 @@ public class FEMultiplayer extends Game{
 			glClearDepth(1.0f);
 			getInput();
 			messages.clear();
-			messages.addAll(client.getMessages());
-			for(Message m : messages)
-				client.messages.remove(m);
+			if(client != null){
+				messages.addAll(client.getMessages());
+				for(Message m : messages)
+					client.messages.remove(m);
+			}
 			SoundStore.get().poll(0);
 			glPushMatrix();
 			if(!paused) {
@@ -154,7 +156,7 @@ public class FEMultiplayer extends Game{
 		}
 		AL.destroy();
 		Display.destroy();
-		if(client.isOpen()) client.quit();
+		if(client != null && client.isOpen()) client.quit();
 	}
 	
 	public static void reportFightResults(FightStage stage){ 
