@@ -48,10 +48,13 @@ public class Unit extends GriddedEntity implements Serializable {
 	private transient Path path;
 	private transient float rX, rY;
 	private transient Command callback;
+	private boolean rescued;
+	private float counter;
 
 	private int origX, origY;
 	
 	public static final float MAP_ANIM_SPEED = 0.2f;
+	public static final int MOVE_SPEED = 250;
 
 	public Unit(String name, Class c, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
@@ -117,28 +120,33 @@ public class Unit extends GriddedEntity implements Serializable {
 
 	public void move(Path p, Command callback) {
 		this.path = p.getCopy();
-		path.removeFirst();
-		if (path.size() != 0) {
-			Node next = path.removeFirst();
-			rX = -(next.x - xcoord) * 16;
-			rY = -(next.y - ycoord) * 16;
-			xcoord = next.x;
-			ycoord = next.y;
-
-		}
 		this.callback = callback;
 	}
 	
 	public void rescue(Unit u){
+		final int oldX = u.xcoord;
+		final int oldY = u.ycoord;
 		rescuedUnit = u;
-		OverworldStage grid = (OverworldStage) stage;
-		grid.removeUnit(u);
+		rescuedUnit.rescued = true;
+		final OverworldStage grid = (OverworldStage) stage;
+		Path p = new Path();
+		p.add(new Node(this.xcoord, this.ycoord));
+		rescuedUnit.move(p, new Command(){
+			@Override
+			public void execute() {
+				rescuedUnit.xcoord = oldX;
+				rescuedUnit.ycoord = oldY;
+				grid.removeUnit(rescuedUnit);
+				System.out.println("Rescued " + rescuedUnit.name);
+			}
+		});
 	}
 
 	
 	public void drop(int x, int y){
 		if(rescuedUnit == null) return;
-		OverworldStage grid = (OverworldStage) stage;
+		rescuedUnit.rescued = false;
+		final OverworldStage grid = (OverworldStage) stage;
 		grid.addUnit(rescuedUnit, x, y);
 		rescuedUnit.rX = this.x - x * 16;
 		rescuedUnit.rY = this.y - y * 16;
@@ -159,8 +167,8 @@ public class Unit extends GriddedEntity implements Serializable {
 			String name;
 			if(rX > 0) 		name = "left";
 			else if(rX < 0) name = "right";
-			else if(rY < 0) name = "down";
-			else 			name = "up";
+			else if(rY > 0) name = "up";
+			else 			name = "down";
 			sprite.setAnimation(name);
 		}
 		renderDepth = calcRenderDepth();
@@ -168,6 +176,9 @@ public class Unit extends GriddedEntity implements Serializable {
 	
 	private float calcRenderDepth(){
 		float depth = ClientOverworldStage.UNIT_DEPTH;
+		if(rescued){
+			return depth-0.0001f;
+		}
 		float highlightDiff = (ClientOverworldStage.UNIT_DEPTH - ClientOverworldStage.UNIT_MAX_DEPTH)/2;
 		Grid g = ((ClientOverworldStage) stage).grid;
 		float yDiff = highlightDiff/g.width;
@@ -204,9 +215,7 @@ public class Unit extends GriddedEntity implements Serializable {
 					y = ycoord * 16;
 				}
 			}
-		}
-		
-		
+		}		
 	}
 
 	public void endStep() {
@@ -259,9 +268,14 @@ public class Unit extends GriddedEntity implements Serializable {
 					ClientOverworldStage.UNIT_DEPTH);
 			
 		}
-//		int hpLength = hp * 13 / get("HP");
-//		Renderer.drawLine(x + 1, y + 14.5f, x + 1 + hpLength, y + 13.5f, 1,
-//				OverworldStage.UNIT_DEPTH - 0.01f, Color.red, Color.green);
+		if(rescuedUnit!=null){
+			counter+=Game.getDeltaSeconds();
+			counter%=1;
+			if(counter > 0.5){
+				Renderer.render(FEResources.getTexture("rescue"), 
+						0, 0, 1, 1, x+9, y+7, x+9+8, y+7+8, renderDepth);
+			}
+		}
 	}
 
 	public void setLevel(int lv) {
