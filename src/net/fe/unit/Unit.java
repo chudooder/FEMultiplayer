@@ -39,6 +39,8 @@ public class Unit extends GriddedEntity {
 	private float alpha;
 
 	private Unit rescuedUnit;
+	private boolean rescued;
+	private float counter;
 
 	private boolean moved;
 	private Path path;
@@ -48,6 +50,7 @@ public class Unit extends GriddedEntity {
 	private int origX, origY;
 	
 	public static final float MAP_ANIM_SPEED = 0.2f;
+	public static final int MOVE_SPEED = 250;
 	
 	static {
 		paletteSwap.setUpPalette();
@@ -99,29 +102,36 @@ public class Unit extends GriddedEntity {
 
 	public void move(Path p, Command callback) {
 		this.path = p.getCopy();
-		path.removeFirst();
-		if (path.size() != 0) {
-			Node next = path.removeFirst();
-			rX = -(next.x - xcoord) * 16;
-			rY = -(next.y - ycoord) * 16;
-			xcoord = next.x;
-			ycoord = next.y;
-
-		}
 		this.callback = callback;
 	}
 	
 	public void rescue(Unit u){
+		final int oldX = u.xcoord;
+		final int oldY = u.ycoord;
 		rescuedUnit = u;
-		OverworldStage grid = (OverworldStage) stage;
-		grid.removeUnit(u);
+		rescuedUnit.rescued = true;
+		final OverworldStage grid = (OverworldStage) stage;
+		Path p = new Path();
+		p.add(new Node(this.xcoord, this.ycoord));
+		rescuedUnit.move(p, new Command(){
+			@Override
+			public void execute() {
+				rescuedUnit.xcoord = oldX;
+				rescuedUnit.ycoord = oldY;
+				grid.removeUnit(rescuedUnit);
+				System.out.println("Rescued " + rescuedUnit.name);
+			}
+		});
 	}
 
 	
 	public void drop(int x, int y){
 		if(rescuedUnit == null) return;
-		OverworldStage grid = (OverworldStage) stage;
+		rescuedUnit.rescued = false;
+		final OverworldStage grid = (OverworldStage) stage;
 		grid.addUnit(rescuedUnit, x, y);
+		rescuedUnit.rX = this.x - x*16;
+		rescuedUnit.rY = this.y - y*16;
 		rescuedUnit = null;
 	}
 	
@@ -129,7 +139,7 @@ public class Unit extends GriddedEntity {
 	public void give(Unit u){
 		if(rescuedUnit == null) return;
 		if(u.rescuedUnit() != null) return;
-		u.rescue(rescuedUnit);
+		u.rescuedUnit = rescuedUnit;
 		rescuedUnit = null;
 	}
 	
@@ -139,8 +149,8 @@ public class Unit extends GriddedEntity {
 			String name;
 			if(rX > 0) 		name = "left";
 			else if(rX < 0) name = "right";
-			else if(rY < 0) name = "down";
-			else 			name = "up";
+			else if(rY > 0) name = "up";
+			else 			name = "down";
 			sprite.setAnimation(name);
 		}
 		renderDepth = calcRenderDepth();
@@ -148,6 +158,9 @@ public class Unit extends GriddedEntity {
 	
 	private float calcRenderDepth(){
 		float depth = OverworldStage.UNIT_DEPTH;
+		if(rescued){
+			return depth-0.0001f;
+		}
 		float highlightDiff = (OverworldStage.UNIT_DEPTH - OverworldStage.UNIT_MAX_DEPTH)/2;
 		Grid g = ((OverworldStage) stage).grid;
 		float yDiff = highlightDiff/g.width;
@@ -164,27 +177,29 @@ public class Unit extends GriddedEntity {
 		super.onStep();
 		float rXOld = rX;
 		float rYOld = rY;
-		rX = rX - Math.signum(rX) * Game.getDeltaSeconds() * 250;
-		rY = rY - Math.signum(rY) * Game.getDeltaSeconds() * 250;
-		if (path != null
-				&& (rXOld * rX < 0 || rYOld * rY < 0 || (rXOld == rX && rYOld == rY))) {
-			if (path.size() == 0) {
-				// We made it to destination
-				rX = 0;
-				rY = 0;
-				path = null;
-				callback.execute();
-			} else {
-				Node next = path.removeFirst();
-				rX = -(next.x - xcoord) * 16;
-				rY = -(next.y - ycoord) * 16;
-				xcoord = next.x;
-				ycoord = next.y;
-				x = xcoord * 16;
-				y = ycoord * 16;
+		rX = rX - Math.signum(rX) * Game.getDeltaSeconds() * MOVE_SPEED;
+		rY = rY - Math.signum(rY) * Game.getDeltaSeconds() * MOVE_SPEED;
+		if(rXOld * rX < 0 || rYOld * rY < 0 || (rXOld == rX && rYOld == rY)){
+			rX=0;
+			rY=0;
+			if (path != null) {
+				if (path.size() == 0) {
+					// We made it to destination
+					path = null;
+					callback.execute();
+					System.out.println();
+				} else {
+					Node next = path.removeFirst();
+					System.out.print(next+ " ");
+					rX = -(next.x - xcoord) * 16;
+					rY = -(next.y - ycoord) * 16;
+					xcoord = next.x;
+					ycoord = next.y;
+					x = xcoord * 16;
+					y = ycoord * 16;
+				}
 			}
-		}
-		
+		}		
 	}
 
 	public void endStep() {
@@ -236,9 +251,14 @@ public class Unit extends GriddedEntity {
 					OverworldStage.UNIT_DEPTH);
 			
 		}
-//		int hpLength = hp * 13 / get("HP");
-//		Renderer.drawLine(x + 1, y + 14.5f, x + 1 + hpLength, y + 13.5f, 1,
-//				OverworldStage.UNIT_DEPTH - 0.01f, Color.red, Color.green);
+		if(rescuedUnit!=null){
+			counter+=Game.getDeltaSeconds();
+			counter%=1;
+			if(counter > 0.5){
+				Renderer.render(FEResources.getTexture("rescue"), 
+						0, 0, 1, 1, x+9, y+7, x+9+8, y+7+8, renderDepth);
+			}
+		}
 	}
 
 	public void setLevel(int lv) {

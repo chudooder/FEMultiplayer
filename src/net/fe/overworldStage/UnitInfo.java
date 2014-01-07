@@ -14,11 +14,12 @@ import net.fe.unit.ItemDisplay;
 import net.fe.unit.Unit;
 import chu.engine.Entity;
 import chu.engine.Game;
+import chu.engine.anim.BitmapFont;
 import chu.engine.anim.Renderer;
 
 public class UnitInfo extends Entity{
 	public UnitInfo(Cursor c) {
-		super(0, Game.getWindowHeight()-84);
+		super(50, Game.getWindowHeight()-84);
 		renderDepth = 0.8f;
 	}
 	
@@ -76,24 +77,52 @@ public class UnitInfo extends Entity{
 		}
 		
 		//Inventory
-		Renderer.drawRectangle(x+208, y+20, x+318, y+82, renderDepth, 
+		Renderer.drawRectangle(x+208, y+20, x+318, y+82, renderDepth,
 				NEUTRAL.darker(0.5f));
 		Iterator<Item> inv = u.getInventory().iterator();
 		y0 = 20;
-		for(int i = 0; i < 4; i++){
-			if(inv.hasNext()){
+		for (int i = 0; i < 4; i++) {
+			if (inv.hasNext()) {
 				Item it = inv.next();
-				new ItemDisplay(x+210, y+ y0, it, u.getWeapon()==it).render();
+				new ItemDisplay(x + 210, y + y0, it, u.getWeapon() == it).render();
 				int uses = it.getUses();
-				int offX = uses<10? 7: 0;
-				offX+=90;
-				Renderer.drawString("default_med", uses + "",
-					x+210+offX, y+2 + y0, renderDepth);
-			} 
-			y0+=15;
+				int offX = uses < 10 ? 7 : 0;
+				offX += 90;
+				Renderer.drawString("default_med", uses + "", x + 210 + offX, y
+						+ 2 + y0, renderDepth);
+			}
+			y0 += 15;
 		}
-		
 
+		// Rescued Unit
+		Unit rescued = u.rescuedUnit();
+		if (rescued != null) {
+			// Main box
+			Renderer.drawRectangle(x + 320, y, x + 110 + 320, y + 84,
+					renderDepth, BORDER_DARK);
+			Renderer.drawRectangle(x + 321, y + 1, x + 109 + 320, y + 83,
+					renderDepth, BORDER_LIGHT);
+			Renderer.drawRectangle(x + 322, y + 2, x + 108 + 320, y + 82,
+					renderDepth, NEUTRAL);
+			// Terrain name ribbon
+			Renderer.drawRectangle(x + 323, y + 3, x + 107 + 320, y + 30,
+					renderDepth, NEUTRAL.darker(0.5f));
+			BitmapFont def = FEResources.getBitmapFont("default_med");
+			width = def.getStringWidth("Rescued");
+			Renderer.drawString("default_med", "RESCUED", x + 320 + 55 - width / 2,
+					y + 10, renderDepth);
+			// Separator
+			Renderer.render(FEResources.getTexture("dragon_separator"), 0, 0,
+					1, 1, x + 37 + 320, y + 32, x + 75 + 320, y + 41, renderDepth);
+
+			// Info
+			Renderer.drawString("default_med",
+					rescued.name + "  Lv" + rescued.get("Lvl"), x + 325, y + 47,
+					renderDepth);
+			Renderer.drawString("default_med",
+					"HP " + rescued.getHp() + "/" + rescued.get("HP"), x + 325, y + 63,
+					renderDepth);
+		}
 	}
 
 }

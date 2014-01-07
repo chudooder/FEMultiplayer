@@ -10,7 +10,7 @@ import chu.engine.anim.Renderer;
 public class TerrainInfo extends Entity {
 
 	public TerrainInfo(Cursor c) {
-		super(Game.getWindowWidth()-50, Game.getWindowHeight()-84);
+		super(0, Game.getWindowHeight()-84);
 		renderDepth = 0.8f;
 	}
 	

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.fe.FEMultiplayer;
+import net.fe.FEResources;
 import net.fe.Player;
 import net.fe.editor.Level;
 import net.fe.overworldStage.context.Idle;
@@ -22,6 +23,7 @@ import org.lwjgl.input.Keyboard;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.Stage;
+import chu.engine.anim.Renderer;
 
 public class OverworldStage extends Stage {
 	public Grid grid;
