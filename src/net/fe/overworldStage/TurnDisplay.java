@@ -46,7 +46,7 @@ public class TurnDisplay extends Entity {
 			xpos += FLY_IN_SPEED*Game.getDeltaSeconds();
 		else
 			xpos += SLOW_SPEED*Game.getDeltaSeconds();
-		flash.render(-xpos, 100, renderDepth);
+		flash.render(-30-xpos, 100, renderDepth);
 		text.render(xpos, 100, renderDepth);
 	}
 	
