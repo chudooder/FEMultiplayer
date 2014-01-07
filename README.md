@@ -38,7 +38,9 @@ We deliberately took out some gameplay elements because of the single-match, mul
 System requirements
 -------------------
 Java 6 or newer
+
 An internet connection
+
 A graphics card (or integrated graphics)
 
 
@@ -47,5 +49,7 @@ Special thanks
 Jeff Mickel
 
 FEPlanet
+
 SerenesForest
+
 Intelligent Systems
