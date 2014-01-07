@@ -12,6 +12,7 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 
 import java.util.ArrayList;
 
+import net.fe.builderStage.TeamBuilderStage;
 import net.fe.fightStage.AttackRecord;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
@@ -104,10 +105,10 @@ public class FEMultiplayer extends Game{
 		
 //		map = new OverworldStage("test", p1);
 		
-		client = new Client();
-		client.start();
-		lobby = new ClientLobbyStage();
-		currentStage = lobby;
+//		client = new Client();
+//		client.start();
+//		lobby = new ClientLobbyStage();
+		currentStage = new TeamBuilderStage();
 		messages = new ArrayList<Message>();
 		
 	}
@@ -130,10 +131,10 @@ public class FEMultiplayer extends Game{
 			        GL_STENCIL_BUFFER_BIT);
 			glClearDepth(1.0f);
 			getInput();
-			messages.clear();
-			messages.addAll(client.getMessages());
-			for(Message m : messages)
-				client.messages.remove(m);
+//			messages.clear();
+//			messages.addAll(client.getMessages());
+//			for(Message m : messages)
+//				client.messages.remove(m);
 			SoundStore.get().poll(0);
 			glPushMatrix();
 			if(!paused) {

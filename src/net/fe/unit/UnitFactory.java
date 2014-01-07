@@ -1,5 +1,6 @@
 package net.fe.unit;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -98,5 +99,13 @@ public class UnitFactory {
 	
 	public static Unit getUnit(String name){
 		return units.get(name).getCopy();
+	}
+	
+	public static ArrayList<Unit> getAllUnits() {
+		ArrayList<Unit> ans = new ArrayList<Unit>();
+		for(Unit u : units.values()) {
+			ans.add(u.getCopy());
+		}
+		return ans;
 	}
 }
