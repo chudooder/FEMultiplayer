@@ -105,10 +105,10 @@ public class FEMultiplayer extends Game{
 		
 //		map = new OverworldStage("test", p1);
 		
-//		client = new Client();
-//		client.start();
-//		lobby = new ClientLobbyStage();
-		currentStage = new TeamBuilderStage();
+		client = new Client();
+		client.start();
+		lobby = new ClientLobbyStage();
+		currentStage = lobby;
 		messages = new ArrayList<Message>();
 		
 	}
@@ -131,10 +131,10 @@ public class FEMultiplayer extends Game{
 			        GL_STENCIL_BUFFER_BIT);
 			glClearDepth(1.0f);
 			getInput();
-//			messages.clear();
-//			messages.addAll(client.getMessages());
-//			for(Message m : messages)
-//				client.messages.remove(m);
+			messages.clear();
+			messages.addAll(client.getMessages());
+			for(Message m : messages)
+				client.messages.remove(m);
 			SoundStore.get().poll(0);
 			glPushMatrix();
 			if(!paused) {

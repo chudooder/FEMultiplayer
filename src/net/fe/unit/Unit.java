@@ -140,6 +140,8 @@ public class Unit extends GriddedEntity implements Serializable {
 		if(rescuedUnit == null) return;
 		OverworldStage grid = (OverworldStage) stage;
 		grid.addUnit(rescuedUnit, x, y);
+		rescuedUnit.rX = this.x - x * 16;
+		rescuedUnit.rY = this.y - y * 16;
 		rescuedUnit = null;
 	}
 	
@@ -184,24 +186,26 @@ public class Unit extends GriddedEntity implements Serializable {
 		float rYOld = rY;
 		rX = rX - Math.signum(rX) * Game.getDeltaSeconds() * 250;
 		rY = rY - Math.signum(rY) * Game.getDeltaSeconds() * 250;
-		if (path != null
-				&& (rXOld * rX < 0 || rYOld * rY < 0 || (rXOld == rX && rYOld == rY))) {
-			if (path.size() == 0) {
-				// We made it to destination
-				rX = 0;
-				rY = 0;
-				path = null;
-				callback.execute();
-			} else {
-				Node next = path.removeFirst();
-				rX = -(next.x - xcoord) * 16;
-				rY = -(next.y - ycoord) * 16;
-				xcoord = next.x;
-				ycoord = next.y;
-				x = xcoord * 16;
-				y = ycoord * 16;
+		if(rXOld * rX < 0 || rYOld * rY < 0 || (rXOld == rX && rYOld == rY)){
+			rX = 0;
+			rY = 0;
+			if (path != null) {
+				if (path.size() == 0) {
+					// We made it to destination					
+					path = null;
+					callback.execute();
+				} else {
+					Node next = path.removeFirst();
+					rX = -(next.x - xcoord) * 16;
+					rY = -(next.y - ycoord) * 16;
+					xcoord = next.x;
+					ycoord = next.y;
+					x = xcoord * 16;
+					y = ycoord * 16;
+				}
 			}
 		}
+		
 		
 	}
 
