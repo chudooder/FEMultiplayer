@@ -108,7 +108,7 @@ public class FEMultiplayer extends Game{
 		client = new Client();
 		client.start();
 		lobby = new ClientLobbyStage();
-		currentStage = lobby;
+		currentStage = new TeamBuilderStage();
 		messages = new ArrayList<Message>();
 		
 	}
