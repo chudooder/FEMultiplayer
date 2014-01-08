@@ -161,7 +161,10 @@ public class UnitMoved extends MenuContext<String> {
 					take = true;
 				}
 			}
-			if(p == null && unit.rescuedUnit() != null){
+			if(p == null && unit.rescuedUnit() != null && 
+					grid.getTerrain(n.x, n.y).getMoveCost(
+					unit.rescuedUnit().getTheClass()) < unit
+					.rescuedUnit().get("Mov")){
 				drop = true;
 			}
 			
