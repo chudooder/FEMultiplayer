@@ -48,8 +48,8 @@ public class ClientOverworldStage extends OverworldStage {
 	public static final float MENU_DEPTH = 0.2f;
 	public static final float CURSOR_DEPTH = 0.15f;
 
-	public ClientOverworldStage(String levelName, HashMap<Integer, Player> p) {
-		super(levelName, p);
+	public ClientOverworldStage(String levelName, ArrayList<Player> players) {
+		super(levelName, players);
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
 		addEntity(new UnitInfo(cursor));

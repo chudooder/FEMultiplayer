@@ -28,7 +28,7 @@ public class Player implements Serializable {
 	}
 	
 	public boolean isSpectator() {
-		return party.size() == 0;
+		return team == TEAM_SPECTATOR;
 	}
 	
 	public Party getParty() {

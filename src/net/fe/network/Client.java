@@ -86,12 +86,15 @@ public class Client {
 					((LobbyStage)FEMultiplayer.getCurrentStage()).players;
 			// Set up global list of players
 			FEMultiplayer.players.clear();
+			ArrayList<Player> ans = new ArrayList<Player>();
 			for(Player p : players.values()) {
 				if(p.equals(FEMultiplayer.getLocalPlayer()))
 					FEMultiplayer.setLocalPlayer(p);
-				FEMultiplayer.players.add(p);
+				if(!p.isSpectator())
+					ans.add(p);
 			}
-			ClientOverworldStage stage = new ClientOverworldStage("test", players);
+			FEMultiplayer.players.addAll(ans);
+			ClientOverworldStage stage = new ClientOverworldStage("test", ans);
 			FEMultiplayer.map = stage;
 			FEMultiplayer.setCurrentStage(stage);
 		}

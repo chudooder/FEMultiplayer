@@ -1,4 +1,3 @@
-#version 130
 
 varying vec4 vertColor;
 uniform sampler2D texture0;

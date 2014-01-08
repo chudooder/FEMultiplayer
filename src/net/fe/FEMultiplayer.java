@@ -35,6 +35,7 @@ import net.fe.unit.WeaponFactory;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 import org.newdawn.slick.openal.SoundStore;
 
 import chu.engine.Game;
@@ -61,6 +62,7 @@ public class FEMultiplayer extends Game{
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
 		players = new ArrayList<Player>();
+//		System.out.println(GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
 		Player p1 = new Player("Chu", (byte) 0);
 		localPlayer = p1;
 		players.add(p1);
