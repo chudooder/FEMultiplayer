@@ -1,9 +1,8 @@
-#version 130
+#version 110
 
-precision mediump float;
 uniform sampler2D texture1;
 uniform sampler2D texture2;
-varying highp vec4 vertColor;
+varying vec4 vertColor;
 
 void main() {
         vec4 fragmentColor = texture2D(texture1, gl_TexCoord[0].st);

@@ -9,6 +9,7 @@ import org.newdawn.slick.Color;
 
 import net.fe.unit.Unit;
 import net.fe.unit.UnitFactory;
+import net.fe.unit.UnitIcon;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
@@ -17,25 +18,31 @@ import chu.engine.anim.Renderer;
 
 public class TeamBuilderStage extends Stage {
 	
-	private ArrayList<Unit> units;
+	private List<Unit> units;
 	private Cursor cursor;
+	private float[] repeatTimers;
 	
 	//CONFIG
-	private int name = 0, clazz = 70, lv = 140, hgap = 30; //xvals
+	private int name = 20, clazz = 90, lv = 160, hgap = 30; //xvals
 	private int yStart = 20, vgap = 20;
 	
 	public TeamBuilderStage() {
-		units = UnitFactory.getAllUnits();
+		repeatTimers = new float[4];
+		units = UnitFactory.getAllUnits().subList(0, 7);
 		
 		cursor = new Cursor(0, yStart-4, 480, vgap, units.size());
 		addEntity(cursor);
+		
+		int y = yStart;
+		for(Unit u: units){
+			addEntity(new UnitIcon(u, 0, y-2, 0));
+			y+=vgap;
+		}
 	}
 	
 	@Override
 	public void render() {
 		super.render();
-		int name = 0, clazz = 70, lv = 140, hgap = 30; //xvals
-		int yStart = 20, vgap = 20;
 		List<String> stats = Arrays.asList(
 			"Lvl", "HP", "Str", "Mag", "Skl", "Spd", "Lck", "Def", "Res", "Mov"
 		);
@@ -64,11 +71,36 @@ public class TeamBuilderStage extends Stage {
 	@Override
 	public void beginStep() {
 		List<KeyboardEvent> keys = Game.getKeys();
-		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+		if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {
+			repeatTimers[0] = 0.15f;
 			cursor.up();
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) && repeatTimers[1] == 0) {
+			repeatTimers[1] = 0.15f;
 			cursor.down();
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) && repeatTimers[2] == 0) {
+			repeatTimers[2] = 0.15f;
+		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) && repeatTimers[3] == 0) {
+			repeatTimers[3] = 0.15f;
+		}
+		for(KeyboardEvent ke : keys) {
+			if(ke.state) {
+				if(ke.key == Keyboard.KEY_Z) {
+					
+				} else if (ke.key == Keyboard.KEY_X){
+					
+				}
+					
+			}
+		}
+	
+		for(int i=0; i<repeatTimers.length; i++) {
+			if(repeatTimers[i] > 0) {
+				repeatTimers[i] -= Game.getDeltaSeconds();
+				if(repeatTimers[i] < 0) repeatTimers[i] = 0;
+			}
 		}
 		
 	}
@@ -100,6 +132,7 @@ class Cursor extends Entity{
 	private int initialY;
 	private int height;
 	private int max;
+	private boolean instant;
 	public Cursor(int x, int y, int width, int height, int max) {
 		super(x, y);
 		this.width = width;
@@ -111,10 +144,15 @@ class Cursor extends Entity{
 	
 	public void onStep(){
 		int supposedY = initialY + index*height;
-		float dy = supposedY - y;
-		y+= Math.signum(dy) * Game.getDeltaSeconds() * 300;
-		if((supposedY - y) * dy < 0){
+		if(instant){
 			y = supposedY;
+			instant = false;
+		} else {
+			float dy = supposedY - y;
+			y+= Math.signum(dy) * Game.getDeltaSeconds() * 300;
+			if((supposedY - y) * dy < 0){
+				y = supposedY;
+			}
 		}
 	}
 	
@@ -124,12 +162,18 @@ class Cursor extends Entity{
 	
 	public void up(){
 		index--;
-		if(index<0) index+= max;
+		if(index<0){
+			index+= max;
+			instant = true;
+		}
 	}
 	
 	public void down(){
 		index++;
-		index%= max;
+		if(index >= max){
+			index -= max;
+			instant = true;
+		}
 	}
 	
 	public int getIndex(){

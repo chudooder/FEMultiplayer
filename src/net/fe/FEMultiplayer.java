@@ -35,6 +35,7 @@ import net.fe.unit.WeaponFactory;
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 import org.newdawn.slick.openal.SoundStore;
 
 import chu.engine.Game;
@@ -52,14 +53,16 @@ public class FEMultiplayer extends Game{
 	public static ClientLobbyStage lobby;
 	
 	public static void main(String[] args) {
+		
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
 		game.loop();
-		
+
 	}
 	
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
+		System.out.println(GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
 		players = new ArrayList<Player>();
 		Player p1 = new Player("Chu", (byte) 0);
 		localPlayer = p1;
@@ -69,6 +72,7 @@ public class FEMultiplayer extends Game{
 		
 		/* OpenGL final setup */
 		glEnable(GL_LINE_SMOOTH);
+		
 
 		Unit u1 = UnitFactory.getUnit("Lyn");
 		u1.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
