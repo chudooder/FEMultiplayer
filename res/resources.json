@@ -2005,6 +2005,223 @@
 			"freeze":	0
 		},
 		{
+			"name":		"warrior_axe_attack",
+			"path":		"res/battle_anim/warrior_axe_attack.png",
+			"width":	113,
+			"height":	87,
+			"frames":	19,
+			"columns":	5,
+			"offsetX":	66,
+			"offsetY":	77,
+			"freeze":	0,
+			"hitframes":[8],
+			"soundMap": [
+				{
+					"frame":	2,
+					"sound":	"axe_swipe3"
+				},
+				{
+					"frame":	6,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	11,
+					"sound":	"land"
+				},
+			]
+		},
+		{
+			"name":		"warrior_axe_critical",
+			"path":		"res/battle_anim/warrior_axe_critical.png",
+			"width":	117,
+			"height":	89,
+			"frames":	72,
+			"columns":	9,
+			"offsetX":	66,
+			"offsetY":	78,
+			"freeze":	0,
+			"hitframes":[36],
+			"soundMap": [
+				{
+					"frame":	8,
+					"sound":	"axe_swipe3"
+				},
+				{
+					"frame":	11,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	15,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	19,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	23,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	27,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	31,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	35,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	41,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	64,
+					"sound":	"catch"
+				},
+			]
+		},
+		{
+			"name":		"warrior_axe_dodge",
+			"path":		"res/battle_anim/warrior_axe_dodge.png",
+			"width":	49,
+			"height":	42,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	14,
+			"offsetY":	38,
+			"freeze":	0,
+		},
+		{
+			"name":		"warrior_bow_attack",
+			"path":		"res/battle_anim/warrior_bow_attack.png",
+			"width":	101,
+			"height":	52,
+			"frames":	12,
+			"columns":	4,
+			"offsetX":	56,
+			"offsetY":	48,
+			"freeze":	0,
+			"hitframes":[10],
+			"soundMap": [
+				{
+					"frame":	6,
+					"sound":	"bow_set"
+				},
+				{
+					"frame":	10,
+					"sound":	"bow_shoot"
+				},
+			]
+		},
+		{
+			"name":		"warrior_bow_critical",
+			"path":		"res/battle_anim/warrior_bow_critical.png",
+			"width":	164,
+			"height":	72,
+			"frames":	20,
+			"columns":	5,
+			"offsetX":	120,
+			"offsetY":	64,
+			"freeze":	0,
+			"hitframes":[17],
+			"soundMap": [
+				{
+					"frame": 3,
+					"sound":"sword_swipe3"
+				},
+				{
+					"frame": 9,
+					"sound":"sword_swipe4"
+				},
+				{
+					"frame": 12,
+					"sound":"bow_set"
+				},
+				{
+					"frame": 17,
+					"sound":"bow_shoot"
+				}
+			]
+		},
+		{
+			"name":		"warrior_bow_dodge",
+			"path":		"res/battle_anim/warrior_bow_dodge.png",
+			"width":	52,
+			"height":	54,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	14,
+			"offsetY":	50,
+			"freeze":	0,
+		},
+		{
+			"name":		"warrior_handaxe_attack",
+			"path":		"res/battle_anim/warrior_handaxe_attack.png",
+			"width":	76,
+			"height":	43,
+			"frames":	14,
+			"columns":	4,
+			"offsetX":	36,
+			"offsetY":	39,
+			"freeze":	0,
+			"hitframes":[9],
+			"soundMap": [
+				{
+					"frame": 5,
+					"sound":"axe_swipe2"
+				},
+				{
+					"frame": 8,
+					"sound":"lance_throw"
+				},
+				{
+					"frame": 12,
+					"sound":"catch"
+				}
+			]
+		},
+		{
+			"name":		"warrior_handaxe_critical",
+			"path":		"res/battle_anim/warrior_handaxe_critical.png",
+			"width":	76,
+			"height":	48,
+			"frames":	16,
+			"columns":	4,
+			"offsetX":	36,
+			"offsetY":	44,
+			"freeze":	0,
+			"hitframes":[10],
+			"soundMap": [
+				{
+					"frame": 5,
+					"sound":"spin_short"
+				},
+				{
+					"frame": 10,
+					"sound":"lance_throw"
+				},
+				{
+					"frame": 14,
+					"sound":"catch"
+				}
+			]
+		},
+		{
+			"name":		"warrior_handaxe_dodge",
+			"path":		"res/battle_anim/warrior_handaxe_dodge.png",
+			"width":	49,
+			"height":	42,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	14,
+			"offsetY":	38,
+			"freeze":	0,
+		},
+		{
 			"name":		"hit_effect_attack",
 			"path":		"res/battle_anim/hit_effect_attack.png",
 			"width":	240,
