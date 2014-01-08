@@ -7,6 +7,7 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
+import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitFactory;
 import net.fe.unit.UnitIcon;
@@ -70,6 +71,12 @@ public class TeamBuilderStage extends Stage {
 
 	@Override
 	public void beginStep() {
+		for (Entity e : entities) {
+			e.beginStep();
+		}
+		processAddStack();
+		processRemoveStack();
+		MapAnimation.updateAll();
 		List<KeyboardEvent> keys = Game.getKeys();
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {
 			repeatTimers[0] = 0.15f;
