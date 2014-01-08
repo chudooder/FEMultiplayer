@@ -35,9 +35,11 @@ public class TeamBuilderStage extends Stage {
 		addEntity(cursor);
 		
 		int y = yStart;
+		float d = 0.1f;
 		for(Unit u: units){
-			addEntity(new UnitIcon(u, 0, y-2, 0));
+			addEntity(new UnitIcon(u, 0, y-2, d));
 			y+=vgap;
+			d-=0.001f;
 		}
 	}
 	
