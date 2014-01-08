@@ -2005,6 +2005,47 @@
 			"freeze":	0
 		},
 		{
+			"name":		"marth_sword_attack",
+			"path":		"res/battle_anim/marth_sword_attack.png",
+			"width":	96,
+			"height":	67,
+			"frames":	29,
+			"columns":	8,
+			"offsetX":	73,
+			"offsetY":	54,
+			"freeze":	0,
+			"hitframes":[6],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"marth_sword_critical",
+			"path":		"res/battle_anim/marth_sword_critical.png",
+			"width":	114,
+			"height":	101,
+			"frames":	70,
+			"columns":	9,
+			"offsetX":	74,
+			"offsetY":	97,
+			"freeze":	0,
+			"hitframes":[38],
+			"soundMap": [
+
+			]
+		},
+		{
+			"name":		"marth_sword_dodge",
+			"path":		"res/battle_anim/valkyrie_staff_dodge.png",
+			"width":	56,
+			"height":	42,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	27,
+			"offsetY":	37,
+			"freeze":	0
+		},
+		{
 			"name":		"hit_effect_attack",
 			"path":		"res/battle_anim/hit_effect_attack.png",
 			"width":	240,
