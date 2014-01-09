@@ -2016,7 +2016,22 @@
 			"freeze":	0,
 			"hitframes":[6],
 			"soundMap": [
-				
+				{
+					"frame":	5,
+					"sound":	"sword_swipe2"
+				},
+				{
+					"frame":	13,
+					"sound":	"sword_swipe1"
+				},
+				{
+					"frame":	19,
+					"sound":	"cape"
+				},
+				{
+					"frame":	23,
+					"sound":	"land"
+				},
 			]
 		},
 		{
@@ -2031,7 +2046,34 @@
 			"freeze":	0,
 			"hitframes":[38],
 			"soundMap": [
-
+				{
+					"frame":	15,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	18,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	25,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	32,
+					"sound":	"sword_swipe1"
+				},
+				{
+					"frame":	37,
+					"sound":	"sword_swipe2"
+				},
+				{
+					"frame":	59,
+					"sound":	"land"
+				},
+				{
+					"frame":	62,
+					"sound":	"cape"
+				}
 			]
 		},
 		{
