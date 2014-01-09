@@ -30,6 +30,7 @@ public class TeamBuilderStage extends Stage {
 	public TeamBuilderStage() {
 		repeatTimers = new float[4];
 		units = UnitFactory.getAllUnits().subList(0, 7);
+		units.add(UnitFactory.getUnit("Marth"));
 		
 		cursor = new Cursor(0, yStart-4, 480, vgap, units.size());
 		addEntity(cursor);
