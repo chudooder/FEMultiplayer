@@ -451,6 +451,13 @@ public class Unit extends GriddedEntity implements Serializable {
 			triggers.addAll(weapon.getTriggers());
 		return triggers;
 	}
+	
+	//Development
+	public static int getExpCost(int level){
+		return level * 50 + 500;
+	}
+	
+
 
 	// Combat statistics
 	public int hit() {
