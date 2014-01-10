@@ -1303,6 +1303,49 @@
 			"offsetY":	43,
 			"freeze":	0
 		},
+
+		{
+			"name":		"general_javelin_attack",
+			"path":		"res/battle_anim/general_javelin_attack.png",
+			"width":	92,
+			"height":	57,
+			"frames":	11,
+			"columns":	11,
+			"offsetX":	41,
+			"offsetY":	43,
+			"freeze":	0,
+			"hitframes":[5],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"general_javelin_critical",
+			"path":		"res/battle_anim/general_javelin_critical.png",
+			"width":	107,
+			"height":	82,
+			"frames":	17,
+			"columns":	17,
+			"offsetX":	59,
+			"offsetY":	75,
+			"freeze":	0,
+			"speed":	0.035,
+			"hitframes":[11],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"general_javelin_dodge",
+			"path":		"res/battle_anim/general_lance_dodge.png",
+			"width":	62,
+			"height":	44,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	38,
+			"offsetY":	43,
+			"freeze":	0
+		},
 		{
 			"name":		"hector_axe_attack",
 			"path":		"res/battle_anim/hector_axe_attack.png",
