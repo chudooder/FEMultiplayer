@@ -10,3 +10,4 @@ swordmaster_sword_dodge
 warrior_axe_dodge
 warrior_bow_dodge
 warrior_handaxe_*
+ike_*
