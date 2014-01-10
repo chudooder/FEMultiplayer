@@ -44,7 +44,7 @@
 				{
 					"frame":	37,
 					"sound":	"cape"
-				},
+				}
 			]
 		},
 		{
@@ -483,7 +483,7 @@
 				{
 					"frame":	5,
 					"sound":	"spin_short"
-				}
+				},
 				{
 					"frame":	12,
 					"sound":	"lance_throw"
@@ -2061,7 +2061,6 @@
 			]
 		},
 		{
-<<<<<<< HEAD
 			"name":		"warrior_axe_attack",
 			"path":		"res/battle_anim/warrior_axe_attack.png",
 			"width":	113,
@@ -2142,8 +2141,6 @@
 			]
 		},
 		{
-=======
->>>>>>> branch 'builder' of https://github.com/chudooder/FEMultiplayer.git
 			"name":		"warrior_axe_dodge",
 			"path":		"res/battle_anim/warrior_axe_dodge.png",
 			"width":	49,
