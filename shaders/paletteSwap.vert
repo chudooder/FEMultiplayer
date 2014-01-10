@@ -1,5 +1,6 @@
 #version 110
 
+
 varying vec4 vertColor;
 uniform sampler2D texture0;
 uniform sampler1D texture1;

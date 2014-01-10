@@ -26,18 +26,18 @@ import chu.engine.Stage;
 public class OverworldStage extends Stage {
 	public Grid grid;
 	protected Chat chat;
-	private HashMap<Integer, Player> players;
+	private ArrayList<Player> players;
 	private ArrayList<Player> turnOrder;
 	private int currentPlayer;
 
-	public OverworldStage(String levelName, HashMap<Integer, Player> players) {
+	public OverworldStage(String levelName, ArrayList<Player> players) {
 		super();
 		loadLevel(levelName);
 		this.players = players;
 		chat = new Chat();
 		int x = 0;
 		//TODO: real spawn locations
-		for(Player p : players.values()) {
+		for(Player p : players) {
 			for(int i=0; i<p.getParty().size(); i++) {
 				Unit u = p.getParty().getUnit(i);
 				addUnit(u, x, 0);
@@ -46,7 +46,7 @@ public class OverworldStage extends Stage {
 		}
 		turnOrder = new ArrayList<Player>();
 		System.out.print("Turn order: ");
-		for(Player p : players.values()) {
+		for(Player p : players) {
 			turnOrder.add(p);
 			System.out.print(p.getName()+" ");
 		}
@@ -141,7 +141,7 @@ public class OverworldStage extends Stage {
 	
 	protected void doEndTurn(int playerID) {
 		//TODO: End turn triggers here
-		for(Player p : players.values()) {
+		for(Player p : players) {
 			for(Unit u : p.getParty()) {
 				u.setMoved(false);
 			}
@@ -206,7 +206,7 @@ public class OverworldStage extends Stage {
 	}
 
 	protected Unit getUnit(UnitIdentifier id) {
-		for(Player p: players.values()){
+		for(Player p: players){
 			if(!p.isSpectator() && p.getParty().getColor().equals(id.partyColor)){
 				return p.getParty().search(id.name);
 			}

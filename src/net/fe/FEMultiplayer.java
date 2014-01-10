@@ -64,6 +64,7 @@ public class FEMultiplayer extends Game{
 		super.init(width, height, name);
 		System.out.println(GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
 		players = new ArrayList<Player>();
+//		System.out.println(GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
 		Player p1 = new Player("Chu", (byte) 0);
 		localPlayer = p1;
 		players.add(p1);
