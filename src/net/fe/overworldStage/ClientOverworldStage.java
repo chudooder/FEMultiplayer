@@ -33,6 +33,7 @@ import chu.engine.KeyboardEvent;
 public class ClientOverworldStage extends OverworldStage {
 	private OverworldContext context;
 	public final Cursor cursor;
+	UnitInfo unitInfo;
 	private Menu<?> menu;
 	private boolean onControl;
 	private float[] repeatTimers;
@@ -52,7 +53,8 @@ public class ClientOverworldStage extends OverworldStage {
 		super(levelName, players);
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
-		addEntity(new UnitInfo(cursor));
+		unitInfo = new UnitInfo();
+		addEntity(unitInfo);
 		addEntity(new TerrainInfo(cursor));
 		addEntity(new OverworldChat(this.chat));
 		setControl(true);

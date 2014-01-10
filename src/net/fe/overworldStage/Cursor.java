@@ -18,6 +18,11 @@ public class Cursor extends GriddedEntity{
 		renderDepth = ClientOverworldStage.CURSOR_DEPTH;
 		on = true;
 	}
+	
+	public void onStep(){
+		ClientOverworldStage s = ((ClientOverworldStage) stage);
+		s.unitInfo.setUnit(s.getHoveredUnit());
+	}
 //	
 //	public void onStep(){
 //		sprite.update();

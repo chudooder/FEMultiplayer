@@ -564,6 +564,7 @@ public class Unit extends GriddedEntity implements Serializable {
 	}
 
 	public Color getPartyColor() {
+		if(team == null) return Party.TEAM_BLUE;
 		return team.getColor();
 	}
 

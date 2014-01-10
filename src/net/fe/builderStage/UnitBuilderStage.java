@@ -9,6 +9,7 @@ import net.fe.FEMultiplayer;
 import net.fe.FEResources;
 import net.fe.overworldStage.InventoryMenu;
 import net.fe.overworldStage.ItemMenu;
+import net.fe.overworldStage.UnitInfo;
 import net.fe.unit.ItemDisplay;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
@@ -42,6 +43,10 @@ public class UnitBuilderStage extends Stage {
 		
 		addEntity(inv);
 		
+		UnitInfo ui = new UnitInfo(0,0);
+		ui.setUnit(u);
+		addEntity(ui);
+		
 		shop = new ItemMenu(SHOP_X, SHOP_Y){{
 			drawCost = true;
 			width = 135;
@@ -52,12 +57,12 @@ public class UnitBuilderStage extends Stage {
 		
 		addEntity(shop);
 		
-		levelUp = new Button(INVENTORY_X, INVENTORY_Y + 100, "Level Up", Color.green){
+		levelUp = new Button(INVENTORY_X, INVENTORY_Y + 90, "Level Up", Color.green){
 			public void onStep(){
 				text = "Level Up: " +Unit.getExpCost(unit.get("Lvl") + 1) + " EXP";
 			}
 		};
-		levelDown = new Button(INVENTORY_X, INVENTORY_Y + 124, "Level Down", Color.red){
+		levelDown = new Button(INVENTORY_X, INVENTORY_Y + 114, "Level Down", Color.red){
 			public void onStep(){
 				text = "Level Down: " +Unit.getExpCost(unit.get("Lvl")) + " EXP";
 			}
