@@ -50,7 +50,7 @@ public class WeaponFactory {
 			w.setMaxUses(Integer.parseInt(args[6]));
 			
 			if(!args[7].equals("-")){
-				w.worth = Integer.parseInt(args[7]);
+				w.setCost(Integer.parseInt(args[7]));
 			}
 			
 			if(args[8].equals("Mount")){

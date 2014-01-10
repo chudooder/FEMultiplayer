@@ -7,6 +7,7 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
+import net.fe.FEMultiplayer;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitFactory;
@@ -22,10 +23,13 @@ public class TeamBuilderStage extends Stage {
 	private List<Unit> units;
 	private Cursor cursor;
 	private float[] repeatTimers;
+	private int funds;
+	private int exp;
 	
 	//CONFIG
-	private int name = 20, clazz = 90, lv = 160, hgap = 30; //xvals
-	private int yStart = 20, vgap = 20;
+	private static int name = 20, clazz = 90, lv = 160, hgap = 30; //xvals
+	private static int yStart = 20, vgap = 20;
+	private static int FUNDS = 48000, EXP = 84000;
 	
 	public TeamBuilderStage() {
 		repeatTimers = new float[4];
@@ -34,6 +38,9 @@ public class TeamBuilderStage extends Stage {
 		
 		cursor = new Cursor(0, yStart-4, 480, vgap, units.size());
 		addEntity(cursor);
+		
+		setFunds(FUNDS);
+		setExp(EXP);
 		
 		int y = yStart;
 		float d = 0.1f;
@@ -98,7 +105,7 @@ public class TeamBuilderStage extends Stage {
 		for(KeyboardEvent ke : keys) {
 			if(ke.state) {
 				if(ke.key == Keyboard.KEY_Z) {
-					
+					FEMultiplayer.setCurrentStage(new UnitBuilderStage(units.get(cursor.getIndex()), this));
 				} else if (ke.key == Keyboard.KEY_X){
 					
 				}
@@ -133,6 +140,24 @@ public class TeamBuilderStage extends Stage {
 		processAddStack();
 		processRemoveStack();
 	}
+
+	public int getFunds() {
+		return funds;
+	}
+
+	public void setFunds(int funds) {
+		this.funds = funds;
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+	
+	
 
 }
 

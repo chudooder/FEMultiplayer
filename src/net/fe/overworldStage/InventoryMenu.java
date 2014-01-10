@@ -5,13 +5,11 @@ import java.util.Iterator;
 import chu.engine.anim.Renderer;
 import net.fe.unit.*;
 
-public class InventoryMenu extends Menu<ItemDisplay> {
+public class InventoryMenu extends ItemMenu {
 	private Unit unit;
 	public InventoryMenu(Unit u, float x, float y) {
 		super(x, y);
-		width = 98;
 		unit = u;
-		height = 17;
 	}
 	
 	public InventoryMenu(Unit u){
@@ -28,17 +26,5 @@ public class InventoryMenu extends Menu<ItemDisplay> {
 				items.add(null);
 			}
 		}
-	}
-	public void renderItem(ItemDisplay w, int offsetY){
-		if(w == null) return;
-		w.x = this.x;
-		w.y = this.y + offsetY;
-		w.render();
-			int uses = w.getItem().getUses();
-			int offX = uses<10? 7: 0;
-			offX+=80;
-			Renderer.drawString("default_med", 
-				uses + "",
-				x+offX, y + offsetY+2, renderDepth);
 	}
 }

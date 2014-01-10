@@ -78,13 +78,14 @@ public class LobbyStage extends Stage {
 		}
 		// Set up global list of players
 		FEServer.players.clear();
+		ArrayList<Player> ans = new ArrayList<Player>();
 		for(Player p : players.values()) {
-			FEServer.players.add(p);
+			if(!p.isSpectator())
+				ans.add(p);
 		}
+		FEServer.players.addAll(ans);
 		FEServer.getServer().broadcastMessage(new StartGame(0));
-		HashMap<Integer, Player> players = 
-				((LobbyStage)FEServer.getCurrentStage()).players;
-		FEServer.setCurrentStage(new OverworldStage("test", players));
+		FEServer.setCurrentStage(new OverworldStage("test", ans));
 	}
 
 }

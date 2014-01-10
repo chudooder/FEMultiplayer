@@ -8,6 +8,7 @@ public abstract class Item implements Serializable {
 	public final String name;
 	private int maxUses;
 	private int uses;
+	private int cost;
 	public int id;
 	public Item(String name){
 		this.name = name;
@@ -29,5 +30,13 @@ public abstract class Item implements Serializable {
 	
 	public void setUsesDEBUGGING(int uses){
 		this.uses = uses;
+	}
+	
+	public int getCost(){
+		return cost;
+	}
+	
+	public void setCost(int gold){
+		cost = gold;
 	}
 }

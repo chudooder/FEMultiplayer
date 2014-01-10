@@ -2061,6 +2061,7 @@
 			]
 		},
 		{
+<<<<<<< HEAD
 			"name":		"warrior_axe_attack",
 			"path":		"res/battle_anim/warrior_axe_attack.png",
 			"width":	113,
@@ -2141,6 +2142,8 @@
 			]
 		},
 		{
+=======
+>>>>>>> branch 'builder' of https://github.com/chudooder/FEMultiplayer.git
 			"name":		"warrior_axe_dodge",
 			"path":		"res/battle_anim/warrior_axe_dodge.png",
 			"width":	49,
@@ -2404,6 +2407,87 @@
 			"offsetX":	16,
 			"offsetY":	54,
 			"freeze":	0
+		},
+		
+		{
+			"name":		"warrior_axe_attack",
+			"path":		"res/battle_anim/warrior_axe_attack.png",
+			"width":	113,
+			"height":	87,
+			"frames":	19,
+			"columns":	5,
+			"offsetX":	66,
+			"offsetY":	77,
+			"freeze":	0,
+			"hitframes":[8],
+			"soundMap": [
+				{
+					"frame":	2,
+					"sound":	"axe_swipe3"
+				},
+				{
+					"frame":	6,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	11,
+					"sound":	"land"
+				},
+			]
+		},
+		{
+			"name":		"warrior_axe_critical",
+			"path":		"res/battle_anim/warrior_axe_critical.png",
+			"width":	117,
+			"height":	89,
+			"frames":	72,
+			"columns":	9,
+			"offsetX":	66,
+			"offsetY":	78,
+			"freeze":	0,
+			"hitframes":[36],
+			"soundMap": [
+				{
+					"frame":	8,
+					"sound":	"axe_swipe3"
+				},
+				{
+					"frame":	11,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	15,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	19,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	23,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	27,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	31,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	35,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	41,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	64,
+					"sound":	"catch"
+				},
+			]
 		},
 		
 		{

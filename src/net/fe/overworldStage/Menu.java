@@ -70,6 +70,10 @@ public class Menu<T> extends Entity {
 		if(selection == marked) up();
 	}
 	
+	public int size(){
+		return items.size();
+	}
+	
 	public void setSelection(int index){
 		selection = index;
 		if(selection == marked) down();
@@ -98,6 +102,10 @@ public class Menu<T> extends Entity {
 	
 	public void restoreSelection(){
 		cleared = false;
+	}
+	
+	public boolean hasSelection(){
+		return !cleared;
 	}
 	
 	public void mark(int i){

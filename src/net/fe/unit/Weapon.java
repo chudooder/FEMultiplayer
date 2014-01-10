@@ -12,7 +12,6 @@ public class Weapon extends Item {
 	public List<Integer> range;
 	public Type type;
 	public ArrayList<String> effective;
-	public int worth;
 	public String pref;
 
 	
@@ -108,7 +107,7 @@ public class Weapon extends Item {
 		w.hit = hit;
 		w.crit = crit;
 		w.setMaxUses(getMaxUses());
-		w.worth = worth;
+		w.setCost(getCost());
 		w.effective = new ArrayList<String>(effective);
 		w.pref = pref;
 		w.modifiers = new HashMap<String, Integer>(modifiers);
