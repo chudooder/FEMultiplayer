@@ -1399,6 +1399,17 @@
 			]
 		},
 		{
+			"name":		"hector_axe_dodge",
+			"path":		"res/battle_anim/hector_axe_dodge.png",
+			"width":	43,
+			"height":	43,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	14,
+			"offsetY":	37,
+			"freeze":	0
+		},
+		{
 			"name":		"hector_sword_attack",
 			"path":		"res/battle_anim/hector_sword_attack.png",
 			"width":	119,

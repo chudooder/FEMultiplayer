@@ -1,0 +1,12 @@
+MISSING
+hector_sword_dodge
+hector_handaxe_*
+hero_handaxe_*
+paladin_lance_dodge
+paladin_javelin_*
+roy_flareblade_*
+sniper_bow_dodge
+swordmaster_sword_dodge
+warrior_axe_dodge
+warrior_bow_dodge
+warrior_handaxe_*
