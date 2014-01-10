@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 
 import net.fe.Command;
@@ -455,6 +456,35 @@ public class Unit extends GriddedEntity implements Serializable {
 	//Development
 	public static int getExpCost(int level){
 		return level * 50 + 500;
+	}
+	
+	public int squeezeExp(){
+		int exp = 0;
+		while(get("Lvl") != 1){
+			exp += getExpCost(get("Lvl"));
+			setLevel(get("Lvl") - 1);
+		}
+		return exp;
+	}
+	
+	public int squeezeGold(){
+		int gold = 0;
+		ListIterator<Item> items = inventory.listIterator();
+		while(items.hasNext()){
+			Item i = items.next();
+			boolean remove = true;
+			if(i instanceof Weapon){
+				Weapon w = (Weapon) i;
+				if(w.pref.equals(name)){
+					remove = false;
+				}
+			}
+			if(remove){
+				items.remove();
+				gold+= i.getCost();
+			}
+		}
+		return gold;
 	}
 	
 

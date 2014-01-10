@@ -29,7 +29,7 @@ public class TeamBuilderStage extends Stage {
 	//CONFIG
 	private static int name = 20, clazz = 90, lv = 160, hgap = 30; //xvals
 	private static int yStart = 20, vgap = 20;
-	private static int FUNDS = 48000; 
+	private static int FUNDS = 48000, EXP = 10500;
 	
 	public TeamBuilderStage() {
 		repeatTimers = new float[4];
@@ -38,6 +38,9 @@ public class TeamBuilderStage extends Stage {
 		
 		cursor = new Cursor(0, yStart-4, 480, vgap, units.size());
 		addEntity(cursor);
+		
+		setFunds(FUNDS);
+		setExp(EXP);
 		
 		int y = yStart;
 		float d = 0.1f;
@@ -137,6 +140,24 @@ public class TeamBuilderStage extends Stage {
 		processAddStack();
 		processRemoveStack();
 	}
+
+	public int getFunds() {
+		return funds;
+	}
+
+	public void setFunds(int funds) {
+		this.funds = funds;
+	}
+
+	public int getExp() {
+		return exp;
+	}
+
+	public void setExp(int exp) {
+		this.exp = exp;
+	}
+	
+	
 
 }
 
