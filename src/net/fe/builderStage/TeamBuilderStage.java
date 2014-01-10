@@ -29,7 +29,7 @@ public class TeamBuilderStage extends Stage {
 	//CONFIG
 	private static int name = 20, clazz = 90, lv = 160, hgap = 30; //xvals
 	private static int yStart = 20, vgap = 20;
-	private static int FUNDS = 48000, EXP = 10500;
+	private static int FUNDS = 48000, EXP = 84000;
 	
 	public TeamBuilderStage() {
 		repeatTimers = new float[4];

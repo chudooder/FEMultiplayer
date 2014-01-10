@@ -31,7 +31,7 @@ public class UnitBuilderStage extends Stage {
 	
 	//CONFIG
 	public static final int
-	INVENTORY_X = 50, INVENTORY_Y = 100, SHOP_X = 220, SHOP_Y = 100;
+	INVENTORY_X = 50, INVENTORY_Y = 100, SHOP_X = 300, SHOP_Y = 100;
 	
 	public UnitBuilderStage(Unit u, TeamBuilderStage s){
 		back = s;
@@ -57,14 +57,20 @@ public class UnitBuilderStage extends Stage {
 		
 		addEntity(shop);
 		
-		levelUp = new Button(INVENTORY_X, INVENTORY_Y + 90, "Level Up", Color.green){
+		levelUp = new Button(INVENTORY_X, INVENTORY_Y + 85, "Level Up", Color.green){
 			public void onStep(){
-				text = "Level Up: " +Unit.getExpCost(unit.get("Lvl") + 1) + " EXP";
+				String exp =  Unit.getExpCost(unit.get("Lvl") + 1)+"";
+				if(unit.get("Lvl") == 20)
+					exp = "--";
+				text = "Level Up: " +exp + " EXP";
 			}
 		};
-		levelDown = new Button(INVENTORY_X, INVENTORY_Y + 114, "Level Down", Color.red){
+		levelDown = new Button(INVENTORY_X, INVENTORY_Y + 109, "Level Down", Color.red){
 			public void onStep(){
-				text = "Level Down: " +Unit.getExpCost(unit.get("Lvl")) + " EXP";
+				String exp =  Unit.getExpCost(unit.get("Lvl"))+"";
+				if(unit.get("Lvl") == 1)
+					exp = "--";
+				text = "Level Down: " + exp + " EXP";
 			}
 		};;
 		
@@ -76,6 +82,8 @@ public class UnitBuilderStage extends Stage {
 	
 	public void render(){
 		super.render();
+		Renderer.drawString("default_med", "Funds: " + back.getFunds(), INVENTORY_X, INVENTORY_Y + 150, 0);
+		Renderer.drawString("default_med", "EXP: " + back.getExp(), INVENTORY_X, INVENTORY_Y + 166, 0);
 	}
 	
 	@Override
@@ -202,7 +210,21 @@ public class UnitBuilderStage extends Stage {
 
 		@Override
 		public void select() {
-			// TODO Auto-generated method stub
+			if(levelUp.hovered()){
+				if(unit.get("Lvl") != 20){
+					int cost = Unit.getExpCost(unit.get("Lvl") + 1);
+					if(cost <= back.getExp()){
+						unit.setLevel(unit.get("Lvl") + 1);
+						back.setExp(back.getExp() - cost);
+					}
+				}
+			} else if(levelDown.hovered()){
+				if(unit.get("Lvl") != 1){
+					int cost = Unit.getExpCost(unit.get("Lvl"));
+					unit.setLevel(unit.get("Lvl")-1);
+					back.setExp(back.getExp() + cost);
+				}
+			} 
 		}
 
 		@Override
