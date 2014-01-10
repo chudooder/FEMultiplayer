@@ -1,0 +1,20 @@
+MISSING ANIMATIONS
+hector_sword_dodge
+hector_handaxe_*
+hero_handaxe_*
+paladin_lance_dodge
+paladin_javelin_*
+roy_flareblade_*
+swordmaster_sword_dodge
+sorceror_*
+ike_*
+
+MISSING JSON
+sniper_*
+
+LATER_UPDATE
+sniperf_*
+falconknight_*
+swordmasterf_*
+sagef_*
+assassinf_*
