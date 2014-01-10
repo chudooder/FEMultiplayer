@@ -1485,6 +1485,49 @@
 			]
 		},
 		{
+			"name":		"hero_axe_critical",
+			"path":		"res/battle_anim/hero_axe_critical.png",
+			"width":	118,
+			"height":	109,
+			"frames":	185,
+			"columns":	14,
+			"offsetX":	82,
+			"offsetY":	100,
+			"freeze":	-1,
+			"hitframes":[63],
+			"speed":	0.04,
+			"soundMap": [
+				{
+					"frame":	7,
+					"sound":	"spin"
+				},
+				{
+					"frame":	24,
+					"sound":	"jump"
+				},
+				{
+					"frame":	62,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	117,
+					"sound":	"catch"
+				},
+				{
+					"frame":	149,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	162,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	167,
+					"sound":	"cape"
+				},
+			]
+		},
+		{
 			"name":		"hero_axe_dodge",
 			"path":		"res/battle_anim/hero_axe_dodge.png",
 			"width":	42,
