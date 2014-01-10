@@ -1,14 +1,16 @@
-MISSING
+MISSING ANIMATIONS
 hector_sword_dodge
 hector_handaxe_*
 hero_handaxe_*
 paladin_lance_dodge
 paladin_javelin_*
 roy_flareblade_*
-sniper_bow_dodge
 swordmaster_sword_dodge
 sorceror_*
 ike_*
+
+MISSING JSON
+sniper_*
 
 LATER_UPDATE
 sniperf_*
