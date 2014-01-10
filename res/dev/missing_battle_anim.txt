@@ -7,7 +7,12 @@ paladin_javelin_*
 roy_flareblade_*
 sniper_bow_dodge
 swordmaster_sword_dodge
-warrior_axe_dodge
-warrior_bow_dodge
-warrior_handaxe_*
+sorceror_*
 ike_*
+
+LATER_UPDATE
+sniperf_*
+falconknight_*
+swordmasterf_*
+sagef_*
+assassinf_*
