@@ -1,5 +1,6 @@
 package net.fe.builderStage;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import net.fe.FEResources;
@@ -71,10 +72,12 @@ public class ShopMenu extends Entity {
 			if(shops[i].x >= x - 140 && shops[i].x <= x + 140)
 				shops[i].render();
 			
-			String shader = "default";
-			if(i == selected) shader = "lighten";
+			Color c = new Color(0.5f,0.5f,0.5f);
+			if(i == selected) c = new Color(Color.white);
 			float iconX = x + i*15;
-			Renderer.render(shopIcons[i], 0, 0, 1, 1, iconX, y-15, iconX + 15, y, renderDepth, null, shader);
+			Renderer.setColor(c);
+			Renderer.render(shopIcons[i], 0, 0, 1, 1, iconX, y-15, iconX + 15, y, renderDepth);
+			Renderer.setColor(Color.white);
 		}
 		Renderer.removeClip();
 		
