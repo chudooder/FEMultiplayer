@@ -1,8 +1,6 @@
 package net.fe.builderStage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
@@ -10,7 +8,6 @@ import org.newdawn.slick.Color;
 import net.fe.FEMultiplayer;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
-import net.fe.unit.UnitFactory;
 import net.fe.unit.UnitIcon;
 import chu.engine.Entity;
 import chu.engine.Game;
@@ -25,6 +22,7 @@ public class TeamBuilderStage extends Stage {
 	private float[] repeatTimers;
 	private int funds;
 	private int exp;
+	private TeamSelectionStage select;
 	
 	//CONFIG
 	private static int name = 20, clazz = 90, lv = 160, hgap = 30; //xvals
@@ -33,8 +31,9 @@ public class TeamBuilderStage extends Stage {
 	
 	public TeamBuilderStage() {
 		repeatTimers = new float[4];
-		units = UnitFactory.getAllUnits().subList(0, 7);
-		units.add(UnitFactory.getUnit("Marth"));
+		
+		select = new TeamSelectionStage(this);
+		units = select.getSelectedUnits();
 		
 		cursor = new Cursor(0, yStart-4, 480, vgap, units.size());
 		addEntity(cursor);
@@ -42,6 +41,25 @@ public class TeamBuilderStage extends Stage {
 		setFunds(FUNDS);
 		setExp(EXP);
 		
+		int y = yStart;
+		float d = 0.1f;
+		for(Unit u: units){
+			addEntity(new UnitIcon(u, 0, y-2, d));
+			y+=vgap;
+			d-=0.001f;
+		}
+	}
+	
+	public void setUnits(List<Unit> units){
+		this.units.removeAll(units);
+		for(Unit u: this.units){
+			funds += u.squeezeGold();
+			exp += u.squeezeExp();
+		}
+		this.units = units;
+		for(Entity e: entities){
+			if(e instanceof UnitIcon) e.destroy();
+		}
 		int y = yStart;
 		float d = 0.1f;
 		for(Unit u: units){
@@ -107,7 +125,8 @@ public class TeamBuilderStage extends Stage {
 				if(ke.key == Keyboard.KEY_Z) {
 					FEMultiplayer.setCurrentStage(new UnitBuilderStage(units.get(cursor.getIndex()), this));
 				} else if (ke.key == Keyboard.KEY_X){
-					
+					select.refresh();
+					FEMultiplayer.setCurrentStage(select);
 				}
 					
 			}

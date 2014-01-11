@@ -108,4 +108,22 @@ public class UnitFactory {
 		}
 		return ans;
 	}
+	
+	public static ArrayList<Unit> getLords(){
+		ArrayList<Unit> ans = new ArrayList<Unit>();
+		for(Unit u : units.values()) {
+			if(u.getTheClass().name.equals("Lord"))
+				ans.add(u.getCopy());
+		}
+		return ans;
+	}
+	
+	public static ArrayList<Unit> getVassals(){
+		ArrayList<Unit> ans = new ArrayList<Unit>();
+		for(Unit u : units.values()) {
+			if(!u.getTheClass().name.equals("Lord"))
+				ans.add(u.getCopy());
+		}
+		return ans;
+	}
 }

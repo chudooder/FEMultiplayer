@@ -229,7 +229,7 @@ public class Unit extends GriddedEntity implements Serializable {
 		}
 	}
 
-	public Unit getCopy() {
+	Unit getCopy() {
 		Unit copy = new Unit(name, clazz, bases, growths);
 		copy.setLevel(stats.get("Lvl").intValue());
 		for (Item i : inventory) {
