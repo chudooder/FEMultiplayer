@@ -62,7 +62,6 @@ public class FEMultiplayer extends Game{
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
 		players = new ArrayList<Player>();
-//		System.out.println(GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
 		Player p1 = new Player("Chu", (byte) 0);
 		localPlayer = p1;
 		players.add(p1);
@@ -110,7 +109,7 @@ public class FEMultiplayer extends Game{
 		client = new Client();
 		client.start();
 		lobby = new ClientLobbyStage();
-		currentStage = new TeamBuilderStage();
+		currentStage = lobby;
 		messages = new ArrayList<Message>();
 		
 	}
