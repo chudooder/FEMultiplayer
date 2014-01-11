@@ -115,4 +115,16 @@ public class Weapon extends Item {
 		return w;
 		
 	}
+
+	@Override
+	public int compareTo(Item that) {
+		if(that instanceof Weapon){
+			int first = this.type.compareTo(((Weapon) that).type);
+			if(first != 0) return first;
+			int second = this.getCost() - that.getCost();
+			return second;
+		} else {
+			return -1;
+		}
+	}
 }

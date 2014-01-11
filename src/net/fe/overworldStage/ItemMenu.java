@@ -1,5 +1,8 @@
 package net.fe.overworldStage;
 
+import java.util.Collections;
+import java.util.Comparator;
+
 import chu.engine.anim.Renderer;
 import net.fe.FEResources;
 import net.fe.unit.ItemDisplay;
@@ -9,7 +12,7 @@ public class ItemMenu extends Menu<ItemDisplay> {
 	protected boolean drawCost;
 	public ItemMenu(float x, float y){
 		super(x,y);
-		width = 98;
+		setWidth(98);
 		height = 17;
 		drawUses = true;
 	}
@@ -36,6 +39,15 @@ public class ItemMenu extends Menu<ItemDisplay> {
 			int width = FEResources.getBitmapFont("default_med").getStringWidth(cost);
 			Renderer.drawString("default_med", cost, x+133-width, y+offsetY + 2, renderDepth);
 		}
+	}
+	
+	public void sortItems(){
+		Collections.sort(items, new Comparator<ItemDisplay>(){
+			@Override
+			public int compare(ItemDisplay i1, ItemDisplay i2) {
+				return i1.getItem().compareTo(i2.getItem());
+			}
+		});
 	}
 	
 }

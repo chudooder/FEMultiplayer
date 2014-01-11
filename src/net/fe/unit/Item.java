@@ -3,7 +3,7 @@ package net.fe.unit;
 import java.io.Serializable;
 
 
-public abstract class Item implements Serializable {
+public abstract class Item implements Serializable, Comparable<Item>{
 	private static final long serialVersionUID = 210303763886733870L;
 	public final String name;
 	private int maxUses;
@@ -39,4 +39,6 @@ public abstract class Item implements Serializable {
 	public void setCost(int gold){
 		cost = gold;
 	}
+	
+	public abstract Item getCopy();
 }

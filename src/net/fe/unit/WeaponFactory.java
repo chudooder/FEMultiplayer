@@ -78,4 +78,8 @@ public class WeaponFactory {
 	public static Weapon getWeapon(String name){
 		return weapons.get(name).getCopy();
 	}
+	
+	public static Iterable<Weapon> getAllWeapons(){
+		return weapons.values();
+	}
 }

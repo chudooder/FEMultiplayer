@@ -24,4 +24,12 @@ public class HealingItem extends Item {
 	public HealingItem getCopy(){
 		return new HealingItem(name, amount, id, getCost());
 	}
+	@Override
+	public int compareTo(Item that) {
+		if(that instanceof HealingItem){
+			return amount - ((HealingItem) that).amount;
+		} else {
+			return 1;
+		}
+	}
 }

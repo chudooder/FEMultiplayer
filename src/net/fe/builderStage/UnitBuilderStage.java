@@ -10,6 +10,7 @@ import net.fe.FEResources;
 import net.fe.overworldStage.InventoryMenu;
 import net.fe.overworldStage.ItemMenu;
 import net.fe.overworldStage.UnitInfo;
+import net.fe.unit.Item;
 import net.fe.unit.ItemDisplay;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
@@ -22,7 +23,7 @@ import chu.engine.anim.Renderer;
 
 public class UnitBuilderStage extends Stage {
 	private Unit unit;
-	private ItemMenu shop;
+	private ShopMenu shop;
 	private InventoryMenu inv;
 	private float[] repeatTimers = new float[4];
 	private TeamBuilderStage back;
@@ -31,14 +32,14 @@ public class UnitBuilderStage extends Stage {
 	
 	//CONFIG
 	public static final int
-	INVENTORY_X = 50, INVENTORY_Y = 100, SHOP_X = 300, SHOP_Y = 100;
+	INVENTORY_X = 100, INVENTORY_Y = 115, SHOP_X = 330, SHOP_Y = 40;
 	
 	public UnitBuilderStage(Unit u, TeamBuilderStage s){
 		back = s;
 		unit = u;
 		inv = new InventoryMenu(u, INVENTORY_X, INVENTORY_Y){{
 			drawCost = true;
-			width = 135;
+			setWidth(135);
 		}};
 		
 		addEntity(inv);
@@ -47,12 +48,7 @@ public class UnitBuilderStage extends Stage {
 		ui.setUnit(u);
 		addEntity(ui);
 		
-		shop = new ItemMenu(SHOP_X, SHOP_Y){{
-			drawCost = true;
-			width = 135;
-		}};
-		shop.addItem(new ItemDisplay(0,0,WeaponFactory.getWeapon("Iron Sword"), false));
-		shop.addItem(new ItemDisplay(0,0,WeaponFactory.getWeapon("Steel Sword"), false));
+		shop = new ShopMenu(SHOP_X, SHOP_Y);
 		shop.clearSelection();
 		
 		addEntity(shop);
@@ -224,12 +220,60 @@ public class UnitBuilderStage extends Stage {
 					unit.setLevel(unit.get("Lvl")-1);
 					back.setExp(back.getExp() + cost);
 				}
-			} 
+			} else {
+				if(inv.getSelection() != null){
+					Item i = inv.getSelection().getItem();
+					back.setFunds(back.getFunds() + i.getCost());
+					unit.removeFromInventory(i);
+				} else {
+					inv.clearSelection();
+					shop.restoreSelection();
+					state = new Shop();
+				}
+			}
 		}
 
 		@Override
 		public void cancel() {
 			FEMultiplayer.setCurrentStage(back);
+		}
+		
+	}
+	
+	private class Shop extends State{
+		@Override
+		public void up() {
+			shop.up();
+		}
+
+		@Override
+		public void down() {
+			shop.down();
+		}
+
+		@Override
+		public void left() {
+			shop.left();
+		}
+
+		@Override
+		public void right() {
+			shop.right();
+		}
+
+		@Override
+		public void select() {
+			Item i = shop.getItem();
+			back.setFunds(back.getFunds() - i.getCost());
+			unit.addToInventory(i);
+			cancel();
+		}
+
+		@Override
+		public void cancel() {
+			inv.restoreSelection();
+			shop.clearSelection();
+			state = new Normal();
 		}
 		
 	}

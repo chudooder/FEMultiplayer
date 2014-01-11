@@ -74,4 +74,4 @@ Debug Axe	Axe	1	10	100	200	20	1000	-	-	-
 Debug Bow	Bow	1-3	10	100	0	1	1000	-	-	-
 Debug Lance	Lance	1	10	100	200	20	1000	-	-	-
 Debug Javelin	Lance	1-2	10	100	200	20	1000	-	-	-
-Noodle		Sword	1	0	0	0	20	9999	-	-	-		
+Debug Noodle		Sword	1	0	0	0	20	9999	-	-	-		
