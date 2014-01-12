@@ -175,6 +175,12 @@ public class TeamBuilderStage extends Stage {
 	public void setExp(int exp) {
 		this.exp = exp;
 	}
+
+	public void refresh() {
+		cursor.destroy();
+		cursor = new Cursor(0, yStart-4, 480, vgap, units.size());
+		addEntity(cursor);
+	}
 	
 	
 
@@ -211,10 +217,14 @@ class Cursor extends Entity{
 	}
 	
 	public void render(){
-		Renderer.drawRectangle(x, y, x+width, y+height, renderDepth, new Color(128,128,213,128));
+		if(max == 0)
+			Renderer.drawString("default_med", "Press X to select units", 200, 154, renderDepth);
+		else
+			Renderer.drawRectangle(x, y, x+width, y+height, renderDepth, new Color(128,128,213,128));
 	}
 	
 	public void up(){
+		if(max == 0) return;
 		index--;
 		if(index<0){
 			index+= max;
@@ -223,6 +233,7 @@ class Cursor extends Entity{
 	}
 	
 	public void down(){
+		if(max == 0) return;
 		index++;
 		if(index >= max){
 			index -= max;

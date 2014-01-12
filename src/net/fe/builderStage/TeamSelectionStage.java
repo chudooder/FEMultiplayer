@@ -108,6 +108,7 @@ public class TeamSelectionStage extends Stage {
 						cursor.select();
 					} else {
 						builderStage.setUnits(getSelectedUnits());
+						builderStage.refresh();
 						FEMultiplayer.setCurrentStage(builderStage);
 					}
 				} 
