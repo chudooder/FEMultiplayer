@@ -62,6 +62,15 @@ public class UnitBuilderStage extends Stage {
 					exp = "--";
 				text = "Level Up: " +exp + " EXP";
 			}
+			public void execute() {
+				if(unit.get("Lvl") != 20){
+					int cost = Unit.getExpCost(unit.get("Lvl") + 1);
+					if(cost <= back.getExp()){
+						unit.setLevel(unit.get("Lvl") + 1);
+						back.setExp(back.getExp() - cost);
+					}
+				}
+			}
 		};
 		levelDown = new Button(INVENTORY_X, INVENTORY_Y + 109, "Level Down", Color.red, 135){
 			public void onStep(){
@@ -69,6 +78,13 @@ public class UnitBuilderStage extends Stage {
 				if(unit.get("Lvl") == 1)
 					exp = "--";
 				text = "Level Down: " + exp + " EXP";
+			}
+			public void execute() {
+				if(unit.get("Lvl") != 1){
+					int cost = Unit.getExpCost(unit.get("Lvl"));
+					unit.setLevel(unit.get("Lvl")-1);
+					back.setExp(back.getExp() + cost);
+				}
 			}
 		};;
 		
@@ -209,19 +225,9 @@ public class UnitBuilderStage extends Stage {
 		@Override
 		public void select() {
 			if(levelUp.hovered()){
-				if(unit.get("Lvl") != 20){
-					int cost = Unit.getExpCost(unit.get("Lvl") + 1);
-					if(cost <= back.getExp()){
-						unit.setLevel(unit.get("Lvl") + 1);
-						back.setExp(back.getExp() - cost);
-					}
-				}
+				levelUp.execute();
 			} else if(levelDown.hovered()){
-				if(unit.get("Lvl") != 1){
-					int cost = Unit.getExpCost(unit.get("Lvl"));
-					unit.setLevel(unit.get("Lvl")-1);
-					back.setExp(back.getExp() + cost);
-				}
+				levelDown.execute();
 			} else {
 				if(inv.getSelection() != null){
 					Item i = inv.getSelection().getItem();

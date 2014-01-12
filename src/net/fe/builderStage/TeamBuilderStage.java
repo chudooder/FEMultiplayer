@@ -181,9 +181,6 @@ public class TeamBuilderStage extends Stage {
 		cursor = new Cursor(0, yStart-4, 480, vgap, units.size());
 		addEntity(cursor);
 	}
-	
-	
-
 }
 
 class Cursor extends Entity{

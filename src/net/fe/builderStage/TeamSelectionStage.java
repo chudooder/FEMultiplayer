@@ -18,7 +18,10 @@ public class TeamSelectionStage extends Stage {
 	private UnitList lordList;
 	private TeamBuilderStage builderStage;
 	private Cursor cursor;
+	private Button[] buttons;
 	private Button ok;
+	private Button classSort;
+	private Button nameSort;
 	
 	private int maxUnits = 8;
 	private float[] repeatTimers = new float[4];
@@ -26,15 +29,12 @@ public class TeamSelectionStage extends Stage {
 	//CONFIG
 	public static final int 
 	UNIT_LIST_X = 42, UNIT_LIST_Y  = 100, LORD_LIST_X = 42, LORD_LIST_Y = 40,
-	OK_BUTTON_X = 330, OK_BUTTON_Y = 280;
+	OK_BUTTON_X = 330, BUTTON_Y = 297, CS_BUTTON_X = 50, NS_BUTTON_X = 170;
 	
 	
 	public TeamSelectionStage(TeamBuilderStage stage){
 		builderStage = stage;
 		cursor = new Cursor();
-		ok = new Button(OK_BUTTON_X, OK_BUTTON_Y, "OK", Color.green, 95);
-		addEntity(cursor);
-		addEntity(ok);
 
 		List<Unit> vassals = UnitFactory.getVassals();
 		List<Unit> lords = UnitFactory.getLords();
@@ -47,10 +47,39 @@ public class TeamSelectionStage extends Stage {
 		vassalList.addUnits(vassals);
 		addEntity(vassalList);
 		
+		ok = new Button(OK_BUTTON_X, BUTTON_Y, "OK", Color.green, 95) {
+			public void execute() {
+				builderStage.setUnits(getSelectedUnits());
+				builderStage.refresh();
+				FEMultiplayer.setCurrentStage(builderStage);
+			}
+		};
+		classSort = new Button(CS_BUTTON_X, BUTTON_Y, "Sort By Class", Color.gray, 95) {
+			public void execute() {
+				vassalList.sort(new SortByClass());
+				vassalList.refresh();
+			}
+		};
+		nameSort = new Button(NS_BUTTON_X, BUTTON_Y, "Sort By Name", Color.gray, 95) {
+			public void execute() {
+				vassalList.sort(new SortByName());
+				vassalList.refresh();
+			}
+		};
+		
+		buttons = new Button[3];
+		buttons[0] = ok;
+		buttons[1] = nameSort;
+		buttons[2] = classSort;
+		addEntity(cursor);
+		addEntity(ok);
+		addEntity(classSort);
+		addEntity(nameSort);
+		
 		Collections.shuffle(vassals);
 		Collections.shuffle(lords);
 		
-		for(int i = 0; i < 8; i++){
+		for(int i = 0; i < 7; i++){
 			selectUnit(vassals.get(i));
 		}
 		selectUnit(lords.get(0));
@@ -104,13 +133,7 @@ public class TeamSelectionStage extends Stage {
 		for(KeyboardEvent ke : keys) {
 			if(ke.state) {
 				if(ke.key == Keyboard.KEY_Z) {
-					if(cursor.on){
-						cursor.select();
-					} else {
-						builderStage.setUnits(getSelectedUnits());
-						builderStage.refresh();
-						FEMultiplayer.setCurrentStage(builderStage);
-					}
+					cursor.select();
 				} 
 			}
 		}
@@ -124,9 +147,12 @@ public class TeamSelectionStage extends Stage {
 	}
 	
 	private void up(){
+		if(cursor.index < 0)
+			buttons[-cursor.index-1].setHover(false);
 		if(cursor.on){
 			boolean below = cursor.index >= lordList.size();
 			cursor.index -= UnitList.UNITS_PER_ROW;
+			if(cursor.index < -1) cursor.index = -1;
 			if(cursor.index < lordList.size() && below){
 				cursor.index = lordList.size() - 1;
 			}
@@ -139,6 +165,8 @@ public class TeamSelectionStage extends Stage {
 	}
 	
 	private void down(){
+		if(cursor.index < 0)
+			buttons[-cursor.index-1].setHover(false);
 		if(cursor.on){
 			boolean above = cursor.index < lordList.size();
 			cursor.index += UnitList.UNITS_PER_ROW;
@@ -149,36 +177,36 @@ public class TeamSelectionStage extends Stage {
 		} else {
 			cursor.index = 0;
 			cursor.on = true;
-			ok.setHover(false);
 		}
 	}
 	
 	private void left(){
-		if(cursor.on){
-			cursor.index --;
-			checkFlow();
-		} else {
-			cursor.index = lordList.size() + vassalList.size() - 1;
-			cursor.on = true;
-			ok.setHover(false);
-		}
+		if(cursor.index < 0)
+			buttons[-cursor.index-1].setHover(false);
+		cursor.index --;
+		checkFlow();
 	}
 	
 	private void right(){
-		if(cursor.on){
-			cursor.index ++;
-			checkFlow();
-		} else {
-			cursor.index = 0;
-			cursor.on = true;
-			ok.setHover(false);
-		}
+		if(cursor.index < 0)
+			buttons[-cursor.index-1].setHover(false);
+		cursor.index ++;
+		checkFlow();
 	}
 	
 	private void checkFlow(){
-		if(cursor.index < 0 || cursor.index >= lordList.size() + vassalList.size()){
+		if(cursor.index >= lordList.size() + vassalList.size()) {
+			cursor.index = -buttons.length;
+		}
+		if(-cursor.index > buttons.length) {
+			cursor.on = true;
+			cursor.index = lordList.size() + vassalList.size() - 1;
+		}
+		if(cursor.index < 0){
 			cursor.on = false;
-			ok.setHover(true);
+			buttons[-cursor.index-1].setHover(true);
+		} else {
+			cursor.on = true;
 		}
 	}
 
@@ -233,6 +261,8 @@ public class TeamSelectionStage extends Stage {
 						vassalList.selectUnit(vassalList.unitAt(index - lordList.size()));
 					}
 				}
+			} else {
+				buttons[-cursor.index-1].execute();
 			}
 		}
 		
@@ -242,5 +272,19 @@ public class TeamSelectionStage extends Stage {
 					y + UnitList.HEIGHT-1, renderDepth, new Color(0.7f,0.7f,1,0.4f));
 		}
 		
+	}
+	
+	private class SortByClass implements Comparator<UnitSet> {
+		@Override
+		public int compare(UnitSet arg0, UnitSet arg1) {
+			return arg0.unit.getTheClass().name.compareTo(arg1.unit.getTheClass().name);
+		}
+	}
+	
+	private class SortByName implements Comparator<UnitSet> {
+		@Override
+		public int compare(UnitSet arg0, UnitSet arg1) {
+			return arg0.unit.name.compareTo(arg1.unit.name);
+		}
 	}
 }

@@ -121,6 +121,10 @@ public class UnitList extends Entity {
 		return selectedUnits.size();
 	}
 
+	public void sort(Comparator<UnitSet> sort) {
+		Collections.sort(units, sort);
+	}
+
 }
 
 class UnitSet{

@@ -5,7 +5,7 @@ import org.newdawn.slick.Color;
 import chu.engine.Entity;
 import chu.engine.anim.Renderer;
 
-public class Button extends Entity{
+public abstract class Button extends Entity{
 	protected String text;
 	private Color color;
 	private boolean hover;
@@ -34,4 +34,6 @@ public class Button extends Entity{
 	public boolean hovered(){
 		return hover;
 	}
+	
+	public abstract void execute();
 }
