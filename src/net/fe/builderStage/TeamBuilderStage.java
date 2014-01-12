@@ -38,7 +38,14 @@ public class TeamBuilderStage extends Stage {
 		select = new TeamSelectionStage(this);
 		units = select.getSelectedUnits();
 		
-		fight = new Button(390, 290, "Fight!", Color.green, 80);
+		fight = new Button(390, 290, "Fight!", Color.green, 80){
+			@Override
+			public void execute() {
+				// TODO Go to the lobby
+				
+			}
+			
+		};
 		addEntity(fight);
 		
 		cursor = new Cursor(9, yStart-4, 462, vgap, units.size());
@@ -158,7 +165,10 @@ public class TeamBuilderStage extends Stage {
 		for(KeyboardEvent ke : keys) {
 			if(ke.state) {
 				if(ke.key == Keyboard.KEY_Z) {
-					FEMultiplayer.setCurrentStage(new UnitBuilderStage(units.get(cursor.getIndex()), this));
+					if(cursor.on)
+						FEMultiplayer.setCurrentStage(new UnitBuilderStage(units.get(cursor.getIndex()), this));
+					else
+						fight.execute();
 				} else if (ke.key == Keyboard.KEY_X){
 					select.refresh();
 					FEMultiplayer.setCurrentStage(select);
@@ -210,9 +220,13 @@ public class TeamBuilderStage extends Stage {
 	public void setExp(int exp) {
 		this.exp = exp;
 	}
-	
-	
 
+	public void refresh() {
+		cursor.destroy();
+		cursor = new Cursor(9, yStart-4, 462, vgap, units.size());
+		cursor.on = true;
+		addEntity(cursor);
+	}
 }
 
 class Cursor extends Entity{
@@ -247,11 +261,16 @@ class Cursor extends Entity{
 	}
 	
 	public void render(){
-		if(on)
-		Renderer.drawRectangle(x, y, x+width, y+height, renderDepth, new Color(128,128,213,128));
+		if(on){
+		if(max == 0)
+			Renderer.drawString("default_med", "Press X to select units", 200, 154, renderDepth);
+		else
+			Renderer.drawRectangle(x, y, x+width, y+height, renderDepth, new Color(128,128,213,128));
+		}
 	}
 	
 	public void up(){
+		if(max == 0) return;
 		index--;
 		if(index<0){
 			index+= max;
@@ -260,6 +279,7 @@ class Cursor extends Entity{
 	}
 	
 	public void down(){
+		if(max == 0) return;
 		index++;
 		if(index >= max){
 			index -= max;

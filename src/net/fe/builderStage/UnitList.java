@@ -151,6 +151,10 @@ public class UnitList extends Entity {
 		return scrollPos;
 	}
 
+	public void sort(Comparator<UnitSet> sort) {
+		Collections.sort(units, sort);
+	}
+
 }
 
 class UnitSet{
