@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import net.fe.Command;
 import net.fe.FEMultiplayer;
 import net.fe.Party;
 import net.fe.Player;
 import net.fe.editor.Level;
+import net.fe.editor.SpawnPoint;
 import net.fe.network.Chat;
 import net.fe.network.message.CommandMessage;
 import net.fe.network.message.EndTurn;
@@ -25,6 +27,7 @@ import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 
 import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.Color;
 
 import chu.engine.Entity;
 import chu.engine.Game;
@@ -342,6 +345,26 @@ public class ClientOverworldStage extends OverworldStage {
             		grid.setTerrain(j, i, tile.getTerrain());
             		addEntity(tile);
             	}
+            }
+            
+            // Add units
+            Set<SpawnPoint> spawns = level.spawns;
+            for(Player p : players) {
+            	Color team = p.getParty().getColor();
+    			for(int i=0; i<p.getParty().size(); i++) {
+    				SpawnPoint remove = null;
+                	for(SpawnPoint sp : spawns) {
+                		if(sp.team.equals(team)) {
+                			System.out.println(sp.x+","+sp.y);
+            				Unit u = p.getParty().getUnit(i);
+            				System.out.println(u);
+            				addUnit(u, sp.x, sp.y);
+            				remove = sp;
+            				break;
+                		}
+                	}
+                	spawns.remove(remove);
+    			}
             }
             ois.close();
             in.close();

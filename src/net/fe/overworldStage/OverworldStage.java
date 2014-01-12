@@ -6,9 +6,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
+
+import org.newdawn.slick.Color;
 
 import net.fe.Player;
 import net.fe.editor.Level;
+import net.fe.editor.SpawnPoint;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.HealCalculator;
 import net.fe.network.Chat;
@@ -26,24 +30,14 @@ import chu.engine.Stage;
 public class OverworldStage extends Stage {
 	public Grid grid;
 	protected Chat chat;
-	private ArrayList<Player> players;
+	protected ArrayList<Player> players;
 	private ArrayList<Player> turnOrder;
 	private int currentPlayer;
 
 	public OverworldStage(String levelName, ArrayList<Player> players) {
 		super();
-		loadLevel(levelName);
 		this.players = players;
 		chat = new Chat();
-		int x = 0;
-		//TODO: real spawn locations
-		for(Player p : players) {
-			for(int i=0; i<p.getParty().size(); i++) {
-				Unit u = p.getParty().getUnit(i);
-				addUnit(u, x, 0);
-				x++;
-			}
-		}
 		turnOrder = new ArrayList<Player>();
 		System.out.print("Turn order: ");
 		for(Player p : players) {
@@ -52,6 +46,7 @@ public class OverworldStage extends Stage {
 		}
 		System.out.println();
 		currentPlayer = 0;
+		loadLevel(levelName);
 		processAddStack();
 	}
 	
@@ -109,6 +104,26 @@ public class OverworldStage extends Stage {
             	for(int j=0; j<level.tiles[0].length; j++) {
             		grid.setTerrain(j, i, Tile.getTerrainFromID(level.tiles[i][j]));
             	}
+            }
+            
+            // Add units
+            Set<SpawnPoint> spawns = level.spawns;
+            for(Player p : players) {
+            	Color team = p.getParty().getColor();
+    			for(int i=0; i<p.getParty().size(); i++) {
+    				SpawnPoint remove = null;
+                	for(SpawnPoint sp : spawns) {
+                		if(sp.team.equals(team)) {
+                			System.out.println(sp.x+","+sp.y);
+            				Unit u = p.getParty().getUnit(i);
+            				System.out.println(u);
+            				addUnit(u, sp.x, sp.y);
+            				remove = sp;
+            				break;
+                		}
+                	}
+                	spawns.remove(remove);
+    			}
             }
             ois.close();
             in.close();

@@ -2,6 +2,7 @@ package net.fe.editor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Set;
 
 import net.fe.overworldStage.Terrain;
 import net.fe.overworldStage.Tile;
@@ -27,11 +28,13 @@ public class Level implements Serializable {
 	public int width;
 	public int height;
 	public int[][] tiles;
+	public Set<SpawnPoint> spawns;
 	
-	public Level(int w, int h, int[][] t) {
+	public Level(int w, int h, int[][] t, Set<SpawnPoint> s) {
 		width = w;
 		height = h;
 		tiles = t;
+		spawns = s;
 	}
 	
 }

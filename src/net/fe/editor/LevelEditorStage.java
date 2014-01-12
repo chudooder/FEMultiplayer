@@ -7,9 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import net.fe.Party;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.Terrain;
 import net.fe.overworldStage.Tile;
@@ -33,6 +37,7 @@ public class LevelEditorStage extends Stage {
 	private static Tileset tileset;
 	private int selectedID;
 	private int[][] tiles;
+	private Set<SpawnPoint> spawns;
 
 	static {
 		try {
@@ -48,11 +53,14 @@ public class LevelEditorStage extends Stage {
 	public LevelEditorStage() {
 		selectedID = 0;
 		tiles = new int[3][3];
+		spawns = new HashSet<SpawnPoint>();
 		try {
             FileInputStream in = new FileInputStream(new File("levels/test.lvl"));
             ObjectInputStream ois = new ObjectInputStream(in);
             Level level = (Level) ois.readObject();
             tiles = level.tiles;
+            spawns = level.spawns;
+            if(spawns == null) spawns = new HashSet<SpawnPoint>();
             ois.close();
             in.close();
         } catch (IOException e) {
@@ -96,8 +104,43 @@ public class LevelEditorStage extends Stage {
 						modifySize(-1, 0);
 					} else if (ke.key == Keyboard.KEY_D) {
 						modifySize(1, 0);
+					} else if (ke.key == Keyboard.KEY_Z) {
+						SpawnPoint spawn = new SpawnPoint(
+								Mouse.getX() / 16,
+								(Game.getWindowHeight() - Mouse.getY()) / 16,
+								Party.TEAM_BLUE);
+						if(!spawns.add(spawn)) {
+							System.err.println("Spawnpoint already exists");
+						} else {
+							System.out.println("Spawnpoint added at ("+spawn.x+", "+spawn.y+")");
+						}
+					} else if (ke.key == Keyboard.KEY_X) { 
+						SpawnPoint spawn = new SpawnPoint(
+								Mouse.getX() / 16,
+								(Game.getWindowHeight() - Mouse.getY()) / 16,
+								Party.TEAM_RED);
+						if(!spawns.add(spawn)) {
+							System.err.println("Spawnpoint already exists");
+						} else {
+							System.out.println("Spawnpoint added at ("+spawn.x+", "+spawn.y+")");
+						}
+					} else if (ke.key == Keyboard.KEY_C) { 
+						SpawnPoint spawn = new SpawnPoint(
+								Mouse.getX() / 16,
+								(Game.getWindowHeight() - Mouse.getY()) / 16,
+								Party.TEAM_GREEN);
+						if(!spawns.add(spawn)) {
+							System.err.println("Spawnpoint already exists");
+						} else {
+							System.out.println("Spawnpoint added at ("+spawn.x+", "+spawn.y+")");
+						}
+					} else if (ke.key == Keyboard.KEY_V) { 
+						spawns.remove(new SpawnPoint(
+								Mouse.getX() / 16,
+								(Game.getWindowHeight() - Mouse.getY()) / 16,
+								null));
 					} else if (ke.key == Keyboard.KEY_F1) { 
-						Level level = new Level(tiles[0].length, tiles.length, tiles);
+						Level level = new Level(tiles[0].length, tiles.length, tiles, spawns);
 						File file = new File("levels/test.lvl");
 		                FileOutputStream fo;
 		                ObjectOutputStream oos;
@@ -152,6 +195,12 @@ public class LevelEditorStage extends Stage {
 					tileset.render(j * 16, i * 16, tiles[i][j] % 25,
 							tiles[i][j] / 25, 0.5f);
 				}
+			}
+			
+			for(SpawnPoint sp : spawns) {
+				Color c = new Color(sp.team);
+				c.a = 0.3f;
+				Renderer.drawSquare(sp.x*16, sp.y*16, 16, 0.4f, c);
 			}
 
 			int x = tiles[0].length * 16;
