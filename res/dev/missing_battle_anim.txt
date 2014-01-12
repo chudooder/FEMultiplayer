@@ -6,7 +6,7 @@ paladin_lance_dodge
 paladin_javelin_*
 roy_flareblade_*
 swordmaster_sword_dodge
-sorceror_*
+sorcerer_*
 ike_*
 
 MISSING JSON

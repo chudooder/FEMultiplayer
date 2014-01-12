@@ -475,7 +475,7 @@ public class Unit extends GriddedEntity implements Serializable {
 			boolean remove = true;
 			if(i instanceof Weapon){
 				Weapon w = (Weapon) i;
-				if(w.pref.equals(name)){
+				if(w.pref != null){
 					remove = false;
 				}
 			}

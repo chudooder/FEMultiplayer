@@ -5,6 +5,7 @@ import java.util.List;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
+import net.fe.Button;
 import net.fe.FEMultiplayer;
 import net.fe.FEResources;
 import net.fe.overworldStage.InventoryMenu;
@@ -14,6 +15,7 @@ import net.fe.unit.Item;
 import net.fe.unit.ItemDisplay;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
+import net.fe.unit.Weapon;
 import net.fe.unit.WeaponFactory;
 import chu.engine.Entity;
 import chu.engine.Game;
@@ -53,7 +55,7 @@ public class UnitBuilderStage extends Stage {
 		
 		addEntity(shop);
 		
-		levelUp = new Button(INVENTORY_X, INVENTORY_Y + 85, "Level Up", Color.green){
+		levelUp = new Button(INVENTORY_X, INVENTORY_Y + 85, "Level Up", Color.green, 135){
 			public void onStep(){
 				String exp =  Unit.getExpCost(unit.get("Lvl") + 1)+"";
 				if(unit.get("Lvl") == 20)
@@ -61,7 +63,7 @@ public class UnitBuilderStage extends Stage {
 				text = "Level Up: " +exp + " EXP";
 			}
 		};
-		levelDown = new Button(INVENTORY_X, INVENTORY_Y + 109, "Level Down", Color.red){
+		levelDown = new Button(INVENTORY_X, INVENTORY_Y + 109, "Level Down", Color.red, 135){
 			public void onStep(){
 				String exp =  Unit.getExpCost(unit.get("Lvl"))+"";
 				if(unit.get("Lvl") == 1)
@@ -223,8 +225,10 @@ public class UnitBuilderStage extends Stage {
 			} else {
 				if(inv.getSelection() != null){
 					Item i = inv.getSelection().getItem();
-					back.setFunds(back.getFunds() + i.getCost());
-					unit.removeFromInventory(i);
+					if(!(i instanceof Weapon && ((Weapon) i).pref != null)){
+						back.setFunds(back.getFunds() + i.getCost());
+						unit.removeFromInventory(i);
+					}
 				} else {
 					inv.clearSelection();
 					shop.restoreSelection();
@@ -278,36 +282,7 @@ public class UnitBuilderStage extends Stage {
 		
 	}
 	
-	private class Button extends Entity{
-		protected String text;
-		private Color color;
-		private boolean hover;
-		public Button(float x, float y, String text, Color color) {
-			super(x, y);
-			this.text = text;
-			this.color = color;
-		}
-		
 
-		
-		public void render(){
-			int width = FEResources.getBitmapFont("default_med").getStringWidth(text);
-			Color c = new Color(color);
-			if(!hover)
-				c = c.darker();
-			Renderer.drawRectangle(x, y, x+135, y+20, renderDepth, c);
-			Renderer.drawString("default_med", text, x+67-width/2 + 2, y + 4, renderDepth);
-			
-		}
-		
-		public void setHover(boolean hover){
-			this.hover = hover;
-		}
-		
-		public boolean hovered(){
-			return hover;
-		}
-	}
 }
 
 
