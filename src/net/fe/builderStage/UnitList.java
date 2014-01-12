@@ -7,6 +7,7 @@ import org.newdawn.slick.Color;
 import net.fe.fightStage.FightStage;
 import net.fe.unit.*;
 import chu.engine.Entity;
+import chu.engine.Game;
 import chu.engine.anim.Renderer;
 
 public class UnitList extends Entity {
@@ -15,6 +16,7 @@ public class UnitList extends Entity {
 	private HashMap<Unit, UnitSet> lookup;
 	private int height;
 	private int scrollPos;
+	private float scrollOffset;
 	
 	//CONFIG
 	public static final int WIDTH = 80;
@@ -30,6 +32,16 @@ public class UnitList extends Entity {
 	}
 	
 	public void onStep(){
+		int scrollOffsetS = scrollPos * HEIGHT;
+		float dy = scrollOffsetS - scrollOffset;
+		if(Math.abs(dy) > HEIGHT){
+			scrollOffset = scrollOffsetS;
+		} else {
+			scrollOffset += Math.signum(dy) * Game.getDeltaSeconds() * 300;
+			if((scrollOffsetS - scrollOffset) * dy < 0){
+				scrollOffset = scrollOffsetS;
+			}
+		}
 		for(UnitSet u: units){
 			u.icon.onStep();
 		}
@@ -49,9 +61,10 @@ public class UnitList extends Entity {
 				y + HEIGHT* height, 
 				1, FightStage.NEUTRAL);
 		
+		Renderer.addClip(x, y-4, WIDTH*UNITS_PER_ROW, height*HEIGHT, true);
 		for(int i = scrollPos * UNITS_PER_ROW; i < (scrollPos + height) * UNITS_PER_ROW && i < units.size(); i++){
 			UnitSet set = units.get(i);
-			set.icon.y = y + set.row * HEIGHT + 4 - scrollPos * HEIGHT;
+			set.icon.y = y + set.row * HEIGHT + 4 - scrollOffset;
 			float x = set.icon.x;
 			float y = set.icon.y;
 			set.icon.render();
@@ -60,10 +73,11 @@ public class UnitList extends Entity {
 			Renderer.drawString("default_med", set.unit.name, x + 18, y + 2, 0);
 			Renderer.setColor(null);
 		}
+		Renderer.removeClip();
 		
 		float percent = height/((size()-1)/UNITS_PER_ROW+1.0f);
 		float scrollbarH = percent * (height * HEIGHT-2) - 1;
-		float scrollbarPos = (y + height * HEIGHT/((size()-1)/UNITS_PER_ROW+1.0f) * scrollPos+1);
+		float scrollbarPos = (y + height * HEIGHT/((size()-1)/UNITS_PER_ROW+1.0f) * scrollOffset/HEIGHT+1);
 		float scrollbarX = (x + UNITS_PER_ROW * WIDTH - 3);
 		
 		if(percent != 1){

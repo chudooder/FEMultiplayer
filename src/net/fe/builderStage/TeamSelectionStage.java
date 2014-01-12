@@ -107,6 +107,10 @@ public class TeamSelectionStage extends Stage {
 	public void refresh(){
 		lordList.refresh();
 		vassalList.refresh();
+		cursor.index = 0;
+		cursor.on = true;
+		ok.setHover(false);
+		checkFlow();
 	}
 	@Override
 	public void beginStep() {
@@ -246,13 +250,30 @@ public class TeamSelectionStage extends Stage {
 		}
 		
 		public void onStep(){
+			int supposedX, supposedY;
 			if(index < lordList.size()){
-				x = LORD_LIST_X + (index% UnitList.UNITS_PER_ROW) * UnitList.WIDTH;
-				y = LORD_LIST_Y + (index/ UnitList.UNITS_PER_ROW) * UnitList.HEIGHT - lordList.getScrollPos() * UnitList.HEIGHT;
+				supposedX = LORD_LIST_X + (index% UnitList.UNITS_PER_ROW) * UnitList.WIDTH;
+				supposedY = LORD_LIST_Y + (index/ UnitList.UNITS_PER_ROW) * UnitList.HEIGHT - lordList.getScrollPos() * UnitList.HEIGHT;
 			} else {
 				int index = this.index - lordList.size();
-				x = UNIT_LIST_X + (index% UnitList.UNITS_PER_ROW) * UnitList.WIDTH;
-				y = UNIT_LIST_Y + (index/ UnitList.UNITS_PER_ROW) * UnitList.HEIGHT - vassalList.getScrollPos() * UnitList.HEIGHT;
+				supposedX = UNIT_LIST_X + (index% UnitList.UNITS_PER_ROW) * UnitList.WIDTH;
+				supposedY = UNIT_LIST_Y + (index/ UnitList.UNITS_PER_ROW) * UnitList.HEIGHT - vassalList.getScrollPos() * UnitList.HEIGHT;
+			}
+			if(Math.abs(supposedX - x) > UnitList.WIDTH || 
+					Math.abs(supposedY-y) > UnitList.HEIGHT){
+				y = supposedY;
+				x = supposedX;
+			} else {
+				float dy = supposedY - y;
+				y+= Math.signum(dy) * Game.getDeltaSeconds() * 300;
+				if((supposedY - y) * dy < 0){
+					y = supposedY;
+				}
+				float dX = supposedX - x;
+				x+= Math.signum(dX) * Game.getDeltaSeconds() * 1200;
+				if((supposedX - x) * dX < 0){
+					x = supposedX;
+				}
 			}
 		}
 		

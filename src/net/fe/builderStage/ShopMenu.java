@@ -4,6 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
 import net.fe.FEResources;
+import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.*;
 import net.fe.unit.*;
 import chu.engine.Entity;
@@ -19,7 +20,7 @@ public class ShopMenu extends Entity {
 	private int cameraX;
 	private boolean instant;
 	
-	public static final int HEIGHT = 300;
+	public static final int HEIGHT = 200;
 	public static final int WIDTH = 135;
 	public ShopMenu(float x, float y) {
 		super(x, y);
