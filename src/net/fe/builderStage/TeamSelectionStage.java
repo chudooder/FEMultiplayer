@@ -39,11 +39,11 @@ public class TeamSelectionStage extends Stage {
 		List<Unit> vassals = UnitFactory.getVassals();
 		List<Unit> lords = UnitFactory.getLords();
 		
-		lordList = new UnitList(LORD_LIST_X, LORD_LIST_Y);
+		lordList = new UnitList(LORD_LIST_X, LORD_LIST_Y, 2);
 		lordList.addUnits(lords);
 		addEntity(lordList);
 		
-		vassalList = new UnitList(UNIT_LIST_X, UNIT_LIST_Y);
+		vassalList = new UnitList(UNIT_LIST_X, UNIT_LIST_Y, 5);
 		vassalList.addUnits(vassals);
 		addEntity(vassalList);
 		
@@ -129,12 +129,13 @@ public class TeamSelectionStage extends Stage {
 			if(cursor.index < lordList.size() && below){
 				cursor.index = lordList.size() - 1;
 			}
-			checkFlow();
+			
 		} else {
 			cursor.index = lordList.size() + vassalList.size() - 1;
 			cursor.on = true;
 			ok.setHover(false);
 		}
+		checkFlow();
 	}
 	
 	private void down(){
@@ -144,41 +145,55 @@ public class TeamSelectionStage extends Stage {
 			if(cursor.index >= lordList.size() && above){
 				cursor.index = lordList.size();
 			}
-			checkFlow();
+			
 		} else {
 			cursor.index = 0;
 			cursor.on = true;
 			ok.setHover(false);
 		}
+		checkFlow();
 	}
 	
 	private void left(){
 		if(cursor.on){
 			cursor.index --;
-			checkFlow();
+			
 		} else {
 			cursor.index = lordList.size() + vassalList.size() - 1;
 			cursor.on = true;
 			ok.setHover(false);
 		}
+		checkFlow();
 	}
 	
 	private void right(){
 		if(cursor.on){
 			cursor.index ++;
-			checkFlow();
+			
 		} else {
 			cursor.index = 0;
 			cursor.on = true;
 			ok.setHover(false);
 		}
+		checkFlow();
 	}
 	
 	private void checkFlow(){
 		if(cursor.index < 0 || cursor.index >= lordList.size() + vassalList.size()){
 			cursor.on = false;
 			ok.setHover(true);
+		} else {
+			if(cursor.index < lordList.size()){
+				lordList.scrollTo(cursor.index);
+			} else {
+				vassalList.scrollTo(cursor.index - lordList.size());
+			}
 		}
+	}
+	
+	public void render(){
+		Renderer.drawString("default_med", "Select Units", UNIT_LIST_X, 5, 1);
+		super.render();
 	}
 
 	@Override
@@ -207,11 +222,11 @@ public class TeamSelectionStage extends Stage {
 		public void onStep(){
 			if(index < lordList.size()){
 				x = LORD_LIST_X + (index% UnitList.UNITS_PER_ROW) * UnitList.WIDTH;
-				y = LORD_LIST_Y + (index/ UnitList.UNITS_PER_ROW) * UnitList.HEIGHT;
+				y = LORD_LIST_Y + (index/ UnitList.UNITS_PER_ROW) * UnitList.HEIGHT - lordList.getScrollPos() * UnitList.HEIGHT;
 			} else {
 				int index = this.index - lordList.size();
 				x = UNIT_LIST_X + (index% UnitList.UNITS_PER_ROW) * UnitList.WIDTH;
-				y = UNIT_LIST_Y + (index/ UnitList.UNITS_PER_ROW) * UnitList.HEIGHT;
+				y = UNIT_LIST_Y + (index/ UnitList.UNITS_PER_ROW) * UnitList.HEIGHT - vassalList.getScrollPos() * UnitList.HEIGHT;
 			}
 		}
 		

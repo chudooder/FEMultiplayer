@@ -34,7 +34,7 @@ public class UnitBuilderStage extends Stage {
 	
 	//CONFIG
 	public static final int
-	INVENTORY_X = 100, INVENTORY_Y = 115, SHOP_X = 330, SHOP_Y = 40;
+	INVENTORY_X = 100, INVENTORY_Y = 115, SHOP_X = 335, SHOP_Y = 20;
 	
 	public UnitBuilderStage(Unit u, TeamBuilderStage s){
 		back = s;
@@ -46,7 +46,7 @@ public class UnitBuilderStage extends Stage {
 		
 		addEntity(inv);
 		
-		UnitInfo ui = new UnitInfo(0,0);
+		UnitInfo ui = new UnitInfo(5,5);
 		ui.setUnit(u);
 		addEntity(ui);
 		
@@ -80,6 +80,7 @@ public class UnitBuilderStage extends Stage {
 	
 	public void render(){
 		super.render();
+		Renderer.drawString("default_med", "Items", INVENTORY_X, INVENTORY_Y - 14, 0);
 		Renderer.drawString("default_med", "Funds: " + back.getFunds(), INVENTORY_X, INVENTORY_Y + 150, 0);
 		Renderer.drawString("default_med", "EXP: " + back.getExp(), INVENTORY_X, INVENTORY_Y + 166, 0);
 	}

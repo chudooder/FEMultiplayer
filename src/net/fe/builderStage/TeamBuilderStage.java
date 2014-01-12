@@ -5,7 +5,9 @@ import java.util.*;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
+import net.fe.Button;
 import net.fe.FEMultiplayer;
+import net.fe.fightStage.FightStage;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIcon;
@@ -23,10 +25,11 @@ public class TeamBuilderStage extends Stage {
 	private int funds;
 	private int exp;
 	private TeamSelectionStage select;
+	private Button fight;
 	
 	//CONFIG
-	private static int name = 20, clazz = 90, lv = 160, hgap = 30; //xvals
-	private static int yStart = 20, vgap = 20;
+	private static int name = 30, clazz = 100, lv = 170, hgap = 30; //xvals
+	private static int yStart = 40, vgap = 20, table_ystart = 10;
 	private static int FUNDS = 48000, EXP = 84000;
 	
 	public TeamBuilderStage() {
@@ -35,7 +38,11 @@ public class TeamBuilderStage extends Stage {
 		select = new TeamSelectionStage(this);
 		units = select.getSelectedUnits();
 		
-		cursor = new Cursor(0, yStart-4, 480, vgap, units.size());
+		fight = new Button(390, 290, "Fight!", Color.green, 80);
+		addEntity(fight);
+		
+		cursor = new Cursor(9, yStart-4, 462, vgap, units.size());
+		cursor.on = true;
 		addEntity(cursor);
 		
 		setFunds(FUNDS);
@@ -44,7 +51,7 @@ public class TeamBuilderStage extends Stage {
 		int y = yStart;
 		float d = 0.1f;
 		for(Unit u: units){
-			addEntity(new UnitIcon(u, 0, y-2, d));
+			addEntity(new UnitIcon(u, 10, y-2, d));
 			y+=vgap;
 			d-=0.001f;
 		}
@@ -63,7 +70,7 @@ public class TeamBuilderStage extends Stage {
 		int y = yStart;
 		float d = 0.1f;
 		for(Unit u: units){
-			addEntity(new UnitIcon(u, 0, y-2, d));
+			addEntity(new UnitIcon(u, 10, y-2, d));
 			y+=vgap;
 			d-=0.001f;
 		}
@@ -76,13 +83,20 @@ public class TeamBuilderStage extends Stage {
 			"Lvl", "HP", "Str", "Mag", "Skl", "Spd", "Lck", "Def", "Res", "Mov"
 		);
 		
-		Renderer.drawString("default_med", "Name", name, 0, 0);
-		Renderer.drawString("default_med", "Class", clazz, 0, 0);
+		Renderer.drawBorderedRectangle(9, table_ystart-2, 471, table_ystart+14, 1f, 
+				FightStage.NEUTRAL, FightStage.BORDER_LIGHT, FightStage.BORDER_DARK);
+		
+		Renderer.drawString("default_med", "Name", name, table_ystart, 0);
+		Renderer.drawString("default_med", "Class", clazz, table_ystart, 0);
 		int x = lv;
 		for(String s: stats){
-			Renderer.drawString("default_med", s, x, 0, 0);
+			Renderer.drawString("default_med", s, x, table_ystart, 0);
 			x+= hgap;
 		}
+		
+		Renderer.drawBorderedRectangle(
+				9, yStart-6, 471, yStart + vgap * units.size()-2, 1f, 
+				FightStage.NEUTRAL, FightStage.BORDER_LIGHT, FightStage.BORDER_DARK);
 		
 		int y = yStart;
 		for(Unit u: units){
@@ -108,11 +122,32 @@ public class TeamBuilderStage extends Stage {
 		List<KeyboardEvent> keys = Game.getKeys();
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {
 			repeatTimers[0] = 0.15f;
-			cursor.up();
+			if(!cursor.on){
+				fight.setHover(false);
+				cursor.on = true;
+				cursor.index = cursor.max - 1;
+				cursor.instant = true;
+			}else if(cursor.index == 0){
+				cursor.on = false;
+				fight.setHover(true);
+			} else {
+				cursor.up();
+			}
+			
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) && repeatTimers[1] == 0) {
 			repeatTimers[1] = 0.15f;
-			cursor.down();
+			if(!cursor.on){
+				fight.setHover(false);
+				cursor.on = true;
+				cursor.index = 0;
+				cursor.instant = true;
+			}else if(cursor.index == cursor.max -1){
+				cursor.on = false;
+				fight.setHover(true);
+			} else {
+				cursor.down();
+			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) && repeatTimers[2] == 0) {
 			repeatTimers[2] = 0.15f;
@@ -181,12 +216,13 @@ public class TeamBuilderStage extends Stage {
 }
 
 class Cursor extends Entity{
-	private int index;
+	int index;
 	private int width;
 	private int initialY;
 	private int height;
-	private int max;
-	private boolean instant;
+	int max;
+	boolean instant;
+	boolean on;
 	public Cursor(int x, int y, int width, int height, int max) {
 		super(x, y);
 		this.width = width;
@@ -211,6 +247,7 @@ class Cursor extends Entity{
 	}
 	
 	public void render(){
+		if(on)
 		Renderer.drawRectangle(x, y, x+width, y+height, renderDepth, new Color(128,128,213,128));
 	}
 	

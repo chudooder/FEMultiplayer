@@ -13,14 +13,17 @@ public class UnitList extends Entity {
 	private ArrayList<UnitSet> units;
 	private List<Unit> selectedUnits;
 	private HashMap<Unit, UnitSet> lookup;
+	private int height;
+	private int scrollPos;
 	
 	//CONFIG
 	public static final int WIDTH = 80;
 	public static final int HEIGHT = 24;
 	public static final int UNITS_PER_ROW = 5;
 	
-	public UnitList(float x, float y) {
+	public UnitList(float x, float y, int height) {
 		super(x, y);
+		this.height = height;
 		units = new ArrayList<UnitSet>();
 		selectedUnits = new ArrayList<Unit>();
 		lookup = new HashMap<Unit, UnitSet>();
@@ -35,17 +38,20 @@ public class UnitList extends Entity {
 	public void render(){
 		Renderer.drawRectangle(x-2, y-2, 
 				x+WIDTH * UNITS_PER_ROW+2, 
-				y + HEIGHT* ((size()-1)/UNITS_PER_ROW+1)+2, 
+				y + HEIGHT* height +2, 
 				1, FightStage.BORDER_DARK);
 		Renderer.drawRectangle(x-1, y-1, 
 				x+WIDTH * UNITS_PER_ROW +1, 
-				y + HEIGHT* ((size()-1)/UNITS_PER_ROW+1)+1, 
+				y + HEIGHT* height +1, 
 				1, FightStage.BORDER_LIGHT);
 		Renderer.drawRectangle(x, y, 
 				x+WIDTH * UNITS_PER_ROW, 
-				y + HEIGHT* ((size()-1)/UNITS_PER_ROW+1), 
+				y + HEIGHT* height, 
 				1, FightStage.NEUTRAL);
-		for(UnitSet set: units){
+		
+		for(int i = scrollPos * UNITS_PER_ROW; i < (scrollPos + height) * UNITS_PER_ROW && i < units.size(); i++){
+			UnitSet set = units.get(i);
+			set.icon.y = y + set.row * HEIGHT + 4 - scrollPos * HEIGHT;
 			float x = set.icon.x;
 			float y = set.icon.y;
 			set.icon.render();
@@ -53,6 +59,15 @@ public class UnitList extends Entity {
 				Renderer.setColor(new Color(0.5f,0.5f,0.5f));
 			Renderer.drawString("default_med", set.unit.name, x + 18, y + 2, 0);
 			Renderer.setColor(null);
+		}
+		
+		float percent = height/((size()-1)/UNITS_PER_ROW+1.0f);
+		float scrollbarH = percent * (height * HEIGHT-2) - 1;
+		float scrollbarPos = (y + height * HEIGHT/((size()-1)/UNITS_PER_ROW+1.0f) * scrollPos+1);
+		float scrollbarX = (x + UNITS_PER_ROW * WIDTH - 3);
+		
+		if(percent != 1){
+			Renderer.drawRectangle(scrollbarX, scrollbarPos, scrollbarX+2, scrollbarPos+scrollbarH, 0, Color.gray);
 		}
 	}
 	
@@ -66,6 +81,7 @@ public class UnitList extends Entity {
 			}
 		});
 		for(int i = 0; i < units.size(); i++){
+			units.get(i).row = i/ UNITS_PER_ROW;
 			units.get(i).icon.x = x + (i% UNITS_PER_ROW) * WIDTH + 4;
 			units.get(i).icon.y = y + (i/ UNITS_PER_ROW) * HEIGHT + 4;
 		}
@@ -120,12 +136,27 @@ public class UnitList extends Entity {
 	public int numberSelected(){
 		return selectedUnits.size();
 	}
+	
+	public void scrollTo(int index){
+		int row = index / UNITS_PER_ROW;
+		if(row < scrollPos){
+			scrollPos = row;
+		}
+		if(row >= scrollPos + height){
+			scrollPos = row - height +1;
+		}
+	}
+	
+	public int getScrollPos(){
+		return scrollPos;
+	}
 
 }
 
 class UnitSet{
 	public Unit unit;
 	public UnitIcon icon;
+	public int row;
 	
 	public UnitSet(Unit u){
 		unit = u;
