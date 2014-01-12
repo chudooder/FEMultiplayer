@@ -45,6 +45,7 @@ public class TeamSelectionStage extends Stage {
 		
 		vassalList = new UnitList(UNIT_LIST_X, UNIT_LIST_Y);
 		vassalList.addUnits(vassals);
+		vassalList.sort(new SortByName());
 		addEntity(vassalList);
 		
 		ok = new Button(OK_BUTTON_X, BUTTON_Y, "OK", Color.green, 95) {
