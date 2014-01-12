@@ -41,4 +41,11 @@ public abstract class Item implements Serializable, Comparable<Item>{
 	}
 	
 	public abstract Item getCopy();
+	
+	public static Item getItem(String name){
+		if(name.equals("Vulnerary")) return HealingItem.VULNERARY.getCopy();
+		if(name.equals("Concoction")) return HealingItem.CONCOCTION.getCopy();
+		if(name.equals("Elixir")) return HealingItem.ELIXIR.getCopy();
+		return WeaponFactory.getWeapon(name);
+	}
 }

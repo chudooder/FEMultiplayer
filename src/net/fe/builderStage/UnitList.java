@@ -139,6 +139,15 @@ public class UnitList extends Entity {
 		return units.get(index).unit;
 	}
 	
+	public Unit getUnit(String name){
+		for(UnitSet set: units){
+			if(set.unit.name.equals(name)){
+				return set.unit;
+			}
+		}
+		return null;
+	}
+	
 	public boolean isSelected(int index){
 		return selectedUnits.contains(unitAt(index));
 	}

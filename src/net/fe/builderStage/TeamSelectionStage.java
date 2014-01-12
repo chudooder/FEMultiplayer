@@ -88,11 +88,26 @@ public class TeamSelectionStage extends Stage {
 		refresh();
 	}
 	
+	public Unit getUnit(String name){
+		Unit u = lordList.getUnit(name);
+		if(u == null) u = vassalList.getUnit(name);
+		return u;
+	}
+	
 	public void selectUnit(Unit u){
 		if(u.getTheClass().name.equals("Lord")){
 			lordList.selectUnit(u);
 		} else {
 			vassalList.selectUnit(u);
+		}
+	}
+	
+	public void deselectAll(){
+		for(Unit u: lordList.getSelectedUnits()){
+			lordList.deSelectUnit(u);
+		}
+		for(Unit u: vassalList.getSelectedUnits()){
+			vassalList.deSelectUnit(u);
 		}
 	}
 	
@@ -165,6 +180,7 @@ public class TeamSelectionStage extends Stage {
 		} else {
 			cursor.index = lordList.size() + vassalList.size() - 1;
 			cursor.on = true;
+			cursor.instant = true;
 			ok.setHover(false);
 		}
 		checkFlow();
@@ -182,6 +198,7 @@ public class TeamSelectionStage extends Stage {
 			
 		} else {
 			cursor.index = 0;
+			cursor.instant = true;
 			cursor.on = true;
 		}
 		checkFlow();
@@ -199,6 +216,9 @@ public class TeamSelectionStage extends Stage {
 			buttons[-cursor.index-1].setHover(false);
 		cursor.index ++;
 		checkFlow();
+		if(cursor.index == 0){
+			cursor.instant = true;
+		}
 	}
 	
 	private void checkFlow(){
@@ -207,6 +227,7 @@ public class TeamSelectionStage extends Stage {
 		}
 		if(-cursor.index > buttons.length) {
 			cursor.on = true;
+			cursor.instant = true;
 			cursor.index = lordList.size() + vassalList.size() - 1;
 			vassalList.scrollTo(vassalList.size() - 1);
 		}
@@ -241,15 +262,23 @@ public class TeamSelectionStage extends Stage {
 		}
 	}
 	
+	public int getMaxUnits(){
+		return maxUnits;
+	}
+	
 	private class Cursor extends Entity{
 		int index;
 		boolean on = true;
+		boolean instant = false;
 		public Cursor() {
 			super(0,0);
 			renderDepth = 0.5f;
 		}
 		
 		public void onStep(){
+			if(!on){
+				return;
+			}
 			int supposedX, supposedY;
 			if(index < lordList.size()){
 				supposedX = LORD_LIST_X + (index% UnitList.UNITS_PER_ROW) * UnitList.WIDTH;
@@ -260,7 +289,8 @@ public class TeamSelectionStage extends Stage {
 				supposedY = UNIT_LIST_Y + (index/ UnitList.UNITS_PER_ROW) * UnitList.HEIGHT - vassalList.getScrollPos() * UnitList.HEIGHT;
 			}
 			if(Math.abs(supposedX - x) > UnitList.WIDTH || 
-					Math.abs(supposedY-y) > UnitList.HEIGHT){
+					Math.abs(supposedY-y) > UnitList.HEIGHT || instant){
+				instant = false;
 				y = supposedY;
 				x = supposedX;
 			} else {
