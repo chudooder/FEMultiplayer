@@ -362,7 +362,7 @@ public class TeamBuilderStage extends Stage {
 			int lv = Integer.parseInt(teamData[i][1]);
 			while(u.get("Lvl") != lv){
 				int expCost = Unit.getExpCost(u.get("Lvl") + 1);
-				if(expCost < exp){
+				if(expCost <= exp){
 					exp -= expCost;
 					u.setLevel(u.get("Lvl")+1);
 				} else {
@@ -374,7 +374,7 @@ public class TeamBuilderStage extends Stage {
 				if(itemName != null){
 					Item item = Item.getItem(itemName);
 					int goldCost = item.getCost();
-					if(goldCost < funds){
+					if(goldCost <= funds){
 						funds -= goldCost;
 						u.addToInventory(item);
 					} 

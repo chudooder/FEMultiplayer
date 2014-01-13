@@ -275,9 +275,11 @@ public class UnitBuilderStage extends Stage {
 		@Override
 		public void select() {
 			Item i = shop.getItem();
-			back.setFunds(back.getFunds() - i.getCost());
-			unit.addToInventory(i);
-			cancel();
+			if(i.getCost() <= back.getFunds()){
+				back.setFunds(back.getFunds() - i.getCost());
+				unit.addToInventory(i);
+				cancel();
+			}
 		}
 
 		@Override
