@@ -219,7 +219,7 @@ public class FEResources {
 			return t;
 		} else {
 			//try to get it, in case we forgot
-//			System.err.println("Warn: " + string + " not explicitly defined");
+			System.err.println("Warn: " + string + " not explicitly defined");
 			for(String loc: searchFolders){
 				try{
 					AnimationData txt = new AnimationData(TextureLoader.getTexture("PNG",

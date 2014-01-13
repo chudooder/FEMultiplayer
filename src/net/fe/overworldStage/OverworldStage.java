@@ -3,12 +3,14 @@ package net.fe.overworldStage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.util.ResourceLoader;
 
 import net.fe.Player;
 import net.fe.editor.Level;
@@ -96,7 +98,7 @@ public class OverworldStage extends Stage {
 	
 	public void loadLevel(String levelName) {
         try {
-            FileInputStream in = new FileInputStream(new File("levels/"+levelName+".lvl"));
+        	InputStream in = ResourceLoader.getResourceAsStream("levels/"+levelName+".lvl");
             ObjectInputStream ois = new ObjectInputStream(in);
             Level level = (Level) ois.readObject();
             grid = new Grid(level.width, level.height, Terrain.NONE);

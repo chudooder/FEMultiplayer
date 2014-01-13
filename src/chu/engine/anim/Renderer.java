@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
@@ -20,6 +21,7 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.Game;
 
@@ -388,7 +390,7 @@ public class Renderer {
      */
     private static String readFileAsString(String filename) throws Exception {
         StringBuilder source = new StringBuilder();
-        FileInputStream in = new FileInputStream(filename);
+        InputStream in = ResourceLoader.getResourceAsStream(filename);
         Exception exception = null;
         BufferedReader reader;
         try{
