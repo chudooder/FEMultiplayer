@@ -1978,6 +1978,47 @@
 			"freeze":	0
 		},
 		{
+			"name":		"sorcerer_magic_attack",
+			"path":		"res/battle_anim/sorcerer_magic_attack.png",
+			"width":	68,
+			"height":	51,
+			"frames":	16,
+			"columns":	8,
+			"offsetX":	27,
+			"offsetY":	47,
+			"freeze":	0,
+			"hitframes":[13],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"sorcerer_magic_critical",
+			"path":		"res/battle_anim/sorcerer_magic_critical.png",
+			"width":	80,
+			"height":	111,
+			"frames":	61,
+			"columns":	8,
+			"offsetX":	37,
+			"offsetY":	100,
+			"freeze":	0,
+			"hitframes":[58],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"sorcerer_magic_dodge",
+			"path":		"res/battle_anim/sorcerer_magic_dodge.png",
+			"width":	46,
+			"height":	38,
+			"frames":	3,
+			"columns":	3,
+			"offsetX":	22,
+			"offsetY":	34,
+			"freeze":	0
+		},
+		{
 			"name":		"swordmaster_sword_attack",
 			"path":		"res/battle_anim/swordmaster_sword_attack.png",
 			"width":	133,

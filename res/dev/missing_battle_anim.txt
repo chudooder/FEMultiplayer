@@ -10,6 +10,13 @@ ike_*
 MISSING JSON
 sniper_*
 
+NEED SOUNDS
+sage_magic_critical
+sorcerer_magic_*
+
+TEST SPEED
+sorcerer_*
+
 LATER_UPDATE
 sniperf_*
 falconknight_*
