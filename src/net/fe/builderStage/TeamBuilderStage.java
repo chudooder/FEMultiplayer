@@ -141,7 +141,7 @@ public class TeamBuilderStage extends Stage {
 	
 	public static String convertPath(String path){
 		if(!path.endsWith(EXT)){
-			return path+EXT;
+			return path+"."+EXT;
 		} else {
 			return path;
 		}
@@ -253,7 +253,7 @@ public class TeamBuilderStage extends Stage {
 			if(!cursor.on){
 				buttons[currButton].setHover(false);
 				currButton++;
-				currButton%=0;
+				currButton%=3;
 				buttons[currButton].setHover(true);
 			}
 		}

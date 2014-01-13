@@ -142,7 +142,9 @@ public class OverworldStage extends Stage {
 			}
 			else if(message instanceof ChatMessage) {
 				ChatMessage chatMsg = (ChatMessage)message;
-				chat.add(players.get(chatMsg.origin), chatMsg.text);
+				for(Player p : players)
+					if(p.getID() == chatMsg.origin)
+						chat.add(p, chatMsg.text);
 			}
 			else if(message instanceof EndTurn) {
 				doEndTurn(message.origin);
