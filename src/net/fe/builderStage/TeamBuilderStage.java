@@ -141,7 +141,7 @@ public class TeamBuilderStage extends Stage {
 		int y = yStart;
 		float d = 0.1f;
 		for(Unit u: units){
-			addEntity(new UnitIcon(u, 10, y-2, d));
+			addEntity(new UnitIcon(u, 11, y-2, d));
 			y+=vgap;
 			d-=0.001f;
 		}
@@ -234,7 +234,7 @@ public class TeamBuilderStage extends Stage {
 			if(!cursor.on){
 				buttons[currButton].setHover(false);
 				currButton++;
-				currButton%=0;
+				currButton%=3;
 				buttons[currButton].setHover(true);
 			}
 		}
