@@ -43,13 +43,14 @@ public class TeamBuilderStage extends Stage {
 	private Button fight, save, load;
 	private Button[] buttons;
 	private int currButton;
+	private boolean control = true;
 	
 	//CONFIG
 	private static int name = 30, clazz = 100, lv = 170, hgap = 30; //xvals
 	private static int yStart = 40, vgap = 20, table_ystart = 10;
 	private static int FUNDS = 48000, EXP = 84000;
 	
-	public static final String EXT = "femt";
+	
 	
 	public TeamBuilderStage() {
 		repeatTimers = new float[4];
@@ -76,22 +77,7 @@ public class TeamBuilderStage extends Stage {
 		save = new Button(220, 290, "Save", Color.blue, 80){
 			@Override
 			public void execute() {
-				JFileChooser chooser = new JFileChooser();
-				chooser.setFileFilter(new FileNameExtensionFilter(
-						"FE Multiplayer Team", EXT));
-				chooser.setCurrentDirectory(new File("."));
-				int ret = chooser.showSaveDialog(null);
-				if(ret == JFileChooser.APPROVE_OPTION){
-					FileOutputStream out;
-					try {
-						out = new FileOutputStream(convertPath(chooser.getSelectedFile().toString()));
-						saveTeam(new ObjectOutputStream(out));
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
+				new TeamNameInput(true).setStage(TeamBuilderStage.this);
 			}
 			
 		};
@@ -101,22 +87,7 @@ public class TeamBuilderStage extends Stage {
 		load = new Button(305, 290, "Load", Color.blue, 80){
 			@Override
 			public void execute() {
-				JFileChooser chooser = new JFileChooser();
-				chooser.setFileFilter(new FileNameExtensionFilter(
-						"FE Multiplayer Team", EXT));
-				chooser.setCurrentDirectory(new File("."));
-				int ret = chooser.showOpenDialog(null);
-				if(ret == JFileChooser.APPROVE_OPTION){
-					FileInputStream in;
-					try {
-						in = new FileInputStream(convertPath(chooser.getSelectedFile().toString()));
-						loadTeam(new ObjectInputStream(in));
-					} catch (FileNotFoundException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
+				new TeamNameInput(false).setStage(TeamBuilderStage.this);
 			}
 		};
 		buttons[1] = load;
@@ -140,13 +111,7 @@ public class TeamBuilderStage extends Stage {
 		}
 	}
 	
-	public static String convertPath(String path){
-		if(!path.endsWith(EXT)){
-			return path+"."+EXT;
-		} else {
-			return path;
-		}
-	}
+	
 	
 	public void setUnits(List<Unit> units){
 		this.units.removeAll(units);
@@ -169,37 +134,38 @@ public class TeamBuilderStage extends Stage {
 	
 	@Override
 	public void render() {
-		super.render();
+		
 		List<String> stats = Arrays.asList(
 			"Lvl", "HP", "Str", "Mag", "Skl", "Spd", "Lck", "Def", "Res", "Mov"
 		);
 		
-		Renderer.drawBorderedRectangle(9, table_ystart-2, 471, table_ystart+14, 1f, 
+		Renderer.drawBorderedRectangle(9, table_ystart-2, 471, table_ystart+14, 0.9f, 
 				FightStage.NEUTRAL, FightStage.BORDER_LIGHT, FightStage.BORDER_DARK);
 		
-		Renderer.drawString("default_med", "Name", name, table_ystart, 0);
-		Renderer.drawString("default_med", "Class", clazz, table_ystart, 0);
+		Renderer.drawString("default_med", "Name", name, table_ystart, 0.5f);
+		Renderer.drawString("default_med", "Class", clazz, table_ystart, 0.5f);
 		int x = lv;
 		for(String s: stats){
-			Renderer.drawString("default_med", s, x, table_ystart, 0);
+			Renderer.drawString("default_med", s, x, table_ystart, 0.5f);
 			x+= hgap;
 		}
 		
 		Renderer.drawBorderedRectangle(
-				9, yStart-6, 471, yStart + vgap * units.size()-2, 1f, 
+				9, yStart-6, 471, yStart + vgap * units.size()-2, 0.9f, 
 				FightStage.NEUTRAL, FightStage.BORDER_LIGHT, FightStage.BORDER_DARK);
 		
 		int y = yStart;
 		for(Unit u: units){
-			Renderer.drawString("default_med", u.name, name, y, 0);
-			Renderer.drawString("default_med", u.getTheClass().name, clazz, y, 0);
+			Renderer.drawString("default_med", u.name, name, y, 0.5f);
+			Renderer.drawString("default_med", u.getTheClass().name, clazz, y, 0.5f);
 			x = lv;
 			for(String s: stats){
-				Renderer.drawString("default_med", u.getBase(s), x, y, 0);
+				Renderer.drawString("default_med", u.getBase(s), x, y, 0.5f);
 				x+= hgap;
 			}
 			y+=vgap;
 		}
+		super.render();
 	}
 
 	@Override
@@ -210,76 +176,77 @@ public class TeamBuilderStage extends Stage {
 		processAddStack();
 		processRemoveStack();
 		MapAnimation.updateAll();
-		List<KeyboardEvent> keys = Game.getKeys();
-		if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {
-			repeatTimers[0] = 0.15f;
-			if(!cursor.on){
-				buttons[currButton].setHover(false);
-				cursor.on = true;
-				cursor.index = cursor.max - 1;
-				cursor.instant = true;
-			}else if(cursor.index == 0){
-				cursor.on = false;
-				buttons[currButton].setHover(true);
-			} else {
-				cursor.up();
-			}
-			
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) && repeatTimers[1] == 0) {
-			repeatTimers[1] = 0.15f;
-			if(!cursor.on){
-				buttons[currButton].setHover(false);
-				cursor.on = true;
-				cursor.index = 0;
-				cursor.instant = true;
-			}else if(cursor.index == cursor.max -1){
-				cursor.on = false;
-				buttons[currButton].setHover(true);
-			} else {
-				cursor.down();
-			}
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) && repeatTimers[2] == 0) {
-			repeatTimers[2] = 0.15f;
-			if(!cursor.on){
-				buttons[currButton].setHover(false);
-				currButton--;
-				if(currButton < 0) currButton+=3;
-				buttons[currButton].setHover(true);
-			}
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) && repeatTimers[3] == 0) {
-			repeatTimers[3] = 0.15f;
-			if(!cursor.on){
-				buttons[currButton].setHover(false);
-				currButton++;
-				currButton%=3;
-				buttons[currButton].setHover(true);
-			}
-		}
-		for(KeyboardEvent ke : keys) {
-			if(ke.state) {
-				if(ke.key == Keyboard.KEY_Z) {
-					if(cursor.on)
-						FEMultiplayer.setCurrentStage(new UnitBuilderStage(units.get(cursor.getIndex()), this));
-					else
-						buttons[currButton].execute();
-				} else if (ke.key == Keyboard.KEY_X){
-					select.refresh();
-					FEMultiplayer.setCurrentStage(select);
+		if(control){
+			List<KeyboardEvent> keys = Game.getKeys();
+			if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {
+				repeatTimers[0] = 0.15f;
+				if(!cursor.on){
+					buttons[currButton].setHover(false);
+					cursor.on = true;
+					cursor.index = cursor.max - 1;
+					cursor.instant = true;
+				}else if(cursor.index == 0){
+					cursor.on = false;
+					buttons[currButton].setHover(true);
+				} else {
+					cursor.up();
 				}
-					
+				
 			}
-		}
-	
-		for(int i=0; i<repeatTimers.length; i++) {
-			if(repeatTimers[i] > 0) {
-				repeatTimers[i] -= Game.getDeltaSeconds();
-				if(repeatTimers[i] < 0) repeatTimers[i] = 0;
+			if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) && repeatTimers[1] == 0) {
+				repeatTimers[1] = 0.15f;
+				if(!cursor.on){
+					buttons[currButton].setHover(false);
+					cursor.on = true;
+					cursor.index = 0;
+					cursor.instant = true;
+				}else if(cursor.index == cursor.max -1){
+					cursor.on = false;
+					buttons[currButton].setHover(true);
+				} else {
+					cursor.down();
+				}
 			}
-		}
+			if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) && repeatTimers[2] == 0) {
+				repeatTimers[2] = 0.15f;
+				if(!cursor.on){
+					buttons[currButton].setHover(false);
+					currButton--;
+					if(currButton < 0) currButton+=3;
+					buttons[currButton].setHover(true);
+				}
+			}
+			if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) && repeatTimers[3] == 0) {
+				repeatTimers[3] = 0.15f;
+				if(!cursor.on){
+					buttons[currButton].setHover(false);
+					currButton++;
+					currButton%=3;
+					buttons[currButton].setHover(true);
+				}
+			}
+			for(KeyboardEvent ke : keys) {
+				if(ke.state) {
+					if(ke.key == Keyboard.KEY_Z) {
+						if(cursor.on)
+							FEMultiplayer.setCurrentStage(new UnitBuilderStage(units.get(cursor.getIndex()), this));
+						else
+							buttons[currButton].execute();
+					} else if (ke.key == Keyboard.KEY_X){
+						select.refresh();
+						FEMultiplayer.setCurrentStage(select);
+					}
+						
+				}
+			}
 		
+			for(int i=0; i<repeatTimers.length; i++) {
+				if(repeatTimers[i] > 0) {
+					repeatTimers[i] -= Game.getDeltaSeconds();
+					if(repeatTimers[i] < 0) repeatTimers[i] = 0;
+				}
+			}
+		}
 	}
 
 	@Override
@@ -392,6 +359,14 @@ public class TeamBuilderStage extends Stage {
 		
 		return true;
 	}
+
+	public boolean hasControl() {
+		return control;
+	}
+
+	public void setControl(boolean control) {
+		this.control = control;
+	}
 }
 
 class Cursor extends Entity{
@@ -407,7 +382,7 @@ class Cursor extends Entity{
 		this.width = width;
 		this.height = height;
 		this.initialY = y;
-		renderDepth = 0.5f;
+		renderDepth = 0.6f;
 		this.max = max;
 	}
 	
