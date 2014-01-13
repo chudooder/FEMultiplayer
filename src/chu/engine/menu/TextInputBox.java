@@ -75,4 +75,7 @@ public abstract class TextInputBox extends Entity {
 		return font.containsCharacter(c);
 	}
 
+	public String getInput() {
+		return input.toString();
+	}
 }

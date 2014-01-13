@@ -19,10 +19,7 @@ public class Player implements Serializable {
 	public Player(String name, byte id) {
 		party = new Party();
 		clientID = id;
-		nickname = "";
-		for(int i=0; i<5; i++) {
-			nickname += (char)('A'+(int)(Math.random()*26))+"";
-		}
+		nickname = name;
 		team = 0;
 		ready = false;
 	}
@@ -61,5 +58,9 @@ public class Player implements Serializable {
 	
 	public boolean equals(Player p) {
 		return p.clientID == clientID;
+	}
+
+	public void setName(String nickname) {
+		this.nickname = nickname;
 	}
 }
