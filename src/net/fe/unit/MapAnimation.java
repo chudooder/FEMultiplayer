@@ -9,7 +9,9 @@ public class MapAnimation extends Animation {
 	private static int synchroFrame;
 	private static float counter;
 	public MapAnimation(String name, boolean walking){
-		super(FEResources.getTexture(name), 48, 48, 4, 4, 17, 17, 0);
+		super(FEResources.getTexture(name), 48, 
+				name.equals("swordmaster_map_selected")?60:48,
+						4, 4, 17, name.equals("swordmaster_map_selected")?29:17, 0);
 		synchro = !walking;
 		speed = 0.15f;
 	}

@@ -72,4 +72,8 @@ public class Party implements Iterable<Unit>, Serializable{
 		return units.iterator();
 	}
 
+	public void clear() {
+		units.clear();
+	}
+
 }

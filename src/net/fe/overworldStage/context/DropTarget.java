@@ -13,23 +13,23 @@ public class DropTarget extends OverworldContext {
 	protected int selected;
 	protected Unit unit;
 
-	public DropTarget(ClientOverworldStage stage, OverworldContext context, Zone z,
-			Unit u) {
+	public DropTarget(ClientOverworldStage stage, OverworldContext context,
+			Zone z, Unit u) {
 		super(stage, context);
 		zone = z;
 		targets = new ArrayList<Node>();
 		this.unit = u;
-		
+
 	}
-	
-	public void startContext(){
+
+	public void startContext() {
 		super.startContext();
 		findTargets(unit);
 		stage.addEntity(zone);
 		updateCursor();
 	}
-	
-	public void cleanUp(){
+
+	public void cleanUp() {
 		super.cleanUp();
 		stage.removeEntity(zone);
 
@@ -39,7 +39,10 @@ public class DropTarget extends OverworldContext {
 		targets.clear();
 		for (Node n : zone.getNodes()) {
 			Unit u = grid.getUnit(n.x, n.y);
-			if(u == null){
+			if (u == null
+					&& grid.getTerrain(n.x, n.y).getMoveCost(
+							unit.rescuedUnit().getTheClass()) < unit
+							.rescuedUnit().get("Mov")) {
 				targets.add(n);
 			}
 		}
@@ -73,19 +76,19 @@ public class DropTarget extends OverworldContext {
 
 	public void prevTarget() {
 		selected--;
-		if(selected < 0){
-			selected+=targets.size();
+		if (selected < 0) {
+			selected += targets.size();
 		}
 		updateCursor();
 	}
 
 	public void nextTarget() {
 		selected++;
-		selected%= targets.size();
+		selected %= targets.size();
 		updateCursor();
 	}
-	
-	public Node getCurrentTarget(){
+
+	public Node getCurrentTarget() {
 		return targets.get(selected);
 	}
 
@@ -98,8 +101,8 @@ public class DropTarget extends OverworldContext {
 	@Override
 	public void onCancel() {
 		super.onCancel();
-		//Reset the position of the cursor on cancels
-		
+		// Reset the position of the cursor on cancels
+
 		cursor.setXCoord(unit.getXCoord());
 		cursor.setYCoord(unit.getYCoord());
 	}

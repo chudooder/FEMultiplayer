@@ -11,10 +11,12 @@ import java.util.HashMap;
 import net.fe.FEMultiplayer;
 import net.fe.Party;
 import net.fe.Player;
+import net.fe.builderStage.TeamBuilderStage;
 import net.fe.lobbystage.LobbyStage;
 import net.fe.network.message.ClientInit;
 import net.fe.network.message.JoinLobby;
 import net.fe.network.message.QuitMessage;
+import net.fe.network.message.StartBuilding;
 import net.fe.network.message.StartGame;
 import net.fe.overworldStage.ClientOverworldStage;
 
@@ -81,7 +83,7 @@ public class Client {
 			if(message.origin == id && closeRequested) {
 				close();
 			}
-		} else if(message instanceof StartGame) {
+		} else if(message instanceof StartBuilding) {
 			HashMap<Integer, Player> players = 
 					((LobbyStage)FEMultiplayer.getCurrentStage()).players;
 			// Set up global list of players
@@ -94,8 +96,7 @@ public class Client {
 					ans.add(p);
 			}
 			FEMultiplayer.players.addAll(ans);
-			ClientOverworldStage stage = new ClientOverworldStage("test", ans);
-			FEMultiplayer.map = stage;
+			TeamBuilderStage stage = new TeamBuilderStage();
 			FEMultiplayer.setCurrentStage(stage);
 		}
 		messages.add(message);

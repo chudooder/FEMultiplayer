@@ -9,7 +9,7 @@ public abstract class MenuContext<T> extends OverworldContext{
 		m.x = 225;
 		m.y = 0;
 		if(cursor.getXCoord() > stage.grid.width - 5){
-			m.x = cursor.x - m.width;
+			m.x = cursor.x - m.getWidth();
 		}
 		
 	}

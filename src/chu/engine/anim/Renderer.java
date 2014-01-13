@@ -178,6 +178,12 @@ public class Renderer {
 			float depth, Color c) {
 		drawRectangle(x0, y0, x1, y1, depth, c, c, c, c);
 	}
+	
+	public static void drawBorderedRectangle(float x0, float y0, float x1, float y1, float depth, Color... c){
+		for(int i = c.length - 1; i >= 0; i--){
+			drawRectangle(x0 - i, y0 - i, x1 + i, y1 + i, depth, c[i]);
+		}
+	}
 
 	public static void drawRectangle(float x0, float y0, float x1, float y1,
 			float depth, Color c0, Color c1, Color c2, Color c3) {

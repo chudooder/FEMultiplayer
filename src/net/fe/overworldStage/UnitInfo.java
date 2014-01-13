@@ -18,13 +18,27 @@ import chu.engine.anim.BitmapFont;
 import chu.engine.anim.Renderer;
 
 public class UnitInfo extends Entity{
-	public UnitInfo(Cursor c) {
+	private Unit unit;
+	public UnitInfo() {
 		super(50, Game.getWindowHeight()-84);
 		renderDepth = 0.8f;
 	}
 	
+	public UnitInfo(float x, float y){
+		super(x, y);
+		renderDepth = 0.8f;
+	}
+	
+	public Unit getUnit(){
+		return unit;
+	}
+	
+	public void setUnit(Unit u){
+		unit = u;
+	}
+	
 	public void render(){
-		Unit u = ((ClientOverworldStage) stage).getHoveredUnit();
+		Unit u = unit;
 		if(u == null) return;
 		if(u.isDying()) return;
 		

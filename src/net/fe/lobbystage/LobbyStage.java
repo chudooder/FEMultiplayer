@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import net.fe.FEMultiplayer;
 import net.fe.Player;
+import net.fe.builderStage.WaitStage;
 import net.fe.network.Chat;
 import net.fe.network.FEServer;
 import net.fe.network.Message;
@@ -14,6 +15,7 @@ import net.fe.network.message.JoinLobby;
 import net.fe.network.message.JoinTeam;
 import net.fe.network.message.QuitMessage;
 import net.fe.network.message.ReadyMessage;
+import net.fe.network.message.StartBuilding;
 import net.fe.network.message.StartGame;
 import net.fe.overworldStage.OverworldStage;
 import chu.engine.Game;
@@ -84,8 +86,8 @@ public class LobbyStage extends Stage {
 				ans.add(p);
 		}
 		FEServer.players.addAll(ans);
-		FEServer.getServer().broadcastMessage(new StartGame(0));
-		FEServer.setCurrentStage(new OverworldStage("test", ans));
+		FEServer.getServer().broadcastMessage(new StartBuilding(0));
+		FEServer.setCurrentStage(new WaitStage());
 	}
 
 }

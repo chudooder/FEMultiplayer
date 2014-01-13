@@ -18,6 +18,7 @@ import net.fe.lobbystage.LobbyStage;
 import net.fe.network.message.ClientInit;
 import net.fe.network.message.CommandMessage;
 import net.fe.network.message.JoinLobby;
+import net.fe.network.message.PartyMessage;
 import net.fe.network.message.QuitMessage;
 import net.fe.network.message.ReadyMessage;
 import net.fe.network.message.StartGame;
@@ -81,6 +82,10 @@ public class ServerListener extends Thread {
 			// If the unit attacked, we need to generate battle results
 			main.messages.add(message);
 			return;	// Wait for the server's overworld stage to get results
+		}
+		else if(message instanceof PartyMessage) {
+			main.messages.add(message);
+			return;
 		}
 		main.broadcastMessage(message);
 		main.messages.add(message);

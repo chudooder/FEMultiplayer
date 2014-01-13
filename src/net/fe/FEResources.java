@@ -13,6 +13,7 @@ import java.util.Scanner;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.json.simple.parser.ParseException;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.Audio;
@@ -105,7 +106,14 @@ public class FEResources {
 			sb.append(in.nextLine());
 		}
 		String json = sb.toString();
-		JSONObject resources = (JSONObject) JSONValue.parse(json);
+		
+		JSONObject resources = null;
+		try {
+			resources = (JSONObject) JSONValue.parseWithException(json);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		JSONArray txArray = (JSONArray) resources.get("textures");
 		for(Object obj : txArray) {
 			JSONObject texture = (JSONObject) obj;

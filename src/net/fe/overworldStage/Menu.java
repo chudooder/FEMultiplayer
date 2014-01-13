@@ -11,7 +11,7 @@ import chu.engine.anim.Renderer;
 public class Menu<T> extends Entity {
 	protected List<T> items;
 	protected int selection;
-	protected int width;
+	private int width;
 	protected int height;
 	private boolean cleared;
 	
@@ -70,6 +70,10 @@ public class Menu<T> extends Entity {
 		if(selection == marked) up();
 	}
 	
+	public int size(){
+		return items.size();
+	}
+	
 	public void setSelection(int index){
 		selection = index;
 		if(selection == marked) down();
@@ -100,12 +104,24 @@ public class Menu<T> extends Entity {
 		cleared = false;
 	}
 	
+	public boolean hasSelection(){
+		return !cleared;
+	}
+	
 	public void mark(int i){
 		marked = i;
 	}
 	
 	public void unmark(){
 		marked = -1;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
 	}
 	
 }

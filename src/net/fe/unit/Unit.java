@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 
 import net.fe.Command;
@@ -228,7 +229,7 @@ public class Unit extends GriddedEntity implements Serializable {
 		}
 	}
 
-	public Unit getCopy() {
+	Unit getCopy() {
 		Unit copy = new Unit(name, clazz, bases, growths);
 		copy.setLevel(stats.get("Lvl").intValue());
 		for (Item i : inventory) {
@@ -451,6 +452,42 @@ public class Unit extends GriddedEntity implements Serializable {
 			triggers.addAll(weapon.getTriggers());
 		return triggers;
 	}
+	
+	//Development
+	public static int getExpCost(int level){
+		return level * 50 + 500;
+	}
+	
+	public int squeezeExp(){
+		int exp = 0;
+		while(get("Lvl") != 1){
+			exp += getExpCost(get("Lvl"));
+			setLevel(get("Lvl") - 1);
+		}
+		return exp;
+	}
+	
+	public int squeezeGold(){
+		int gold = 0;
+		ListIterator<Item> items = inventory.listIterator();
+		while(items.hasNext()){
+			Item i = items.next();
+			boolean remove = true;
+			if(i instanceof Weapon){
+				Weapon w = (Weapon) i;
+				if(w.pref != null){
+					remove = false;
+				}
+			}
+			if(remove){
+				items.remove();
+				gold+= i.getCost();
+			}
+		}
+		return gold;
+	}
+	
+
 
 	// Combat statistics
 	public int hit() {
@@ -527,6 +564,7 @@ public class Unit extends GriddedEntity implements Serializable {
 	}
 
 	public Color getPartyColor() {
+		if(team == null) return Party.TEAM_BLUE;
 		return team.getColor();
 	}
 

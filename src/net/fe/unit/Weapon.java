@@ -12,7 +12,6 @@ public class Weapon extends Item {
 	public List<Integer> range;
 	public Type type;
 	public ArrayList<String> effective;
-	public int worth;
 	public String pref;
 
 	
@@ -108,12 +107,24 @@ public class Weapon extends Item {
 		w.hit = hit;
 		w.crit = crit;
 		w.setMaxUses(getMaxUses());
-		w.worth = worth;
+		w.setCost(getCost());
 		w.effective = new ArrayList<String>(effective);
 		w.pref = pref;
 		w.modifiers = new HashMap<String, Integer>(modifiers);
 		w.id = id;
 		return w;
 		
+	}
+
+	@Override
+	public int compareTo(Item that) {
+		if(that instanceof Weapon){
+			int first = this.type.compareTo(((Weapon) that).type);
+			if(first != 0) return first;
+			int second = this.getCost() - that.getCost();
+			return second;
+		} else {
+			return -1;
+		}
 	}
 }
