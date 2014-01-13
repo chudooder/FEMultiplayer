@@ -31,13 +31,11 @@ public class Client {
 	byte id;
 	public volatile ArrayList<Message> messages;
 	
-	public Client() {
+	public Client(String ip, int port) {
 		messages = new ArrayList<Message>();
 		try {
-			System.out.println("CLIENT: Connecting to server at port 21255...");
-			serverSocket = new Socket(
-					InetAddress.getLocalHost().getHostAddress(), 
-					21255);
+			System.out.println("CLIENT: Connecting to server: "+ip+":"+port);
+			serverSocket = new Socket(ip, port);
 			System.out.println("CLIENT: Successfully connected!");
 			out = new ObjectOutputStream(serverSocket.getOutputStream());
 			out.flush();

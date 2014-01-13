@@ -20,33 +20,10 @@ public class Cursor extends GriddedEntity{
 	}
 	
 	public void onStep(){
+		sprite.update();
 		ClientOverworldStage s = ((ClientOverworldStage) stage);
 		s.unitInfo.setUnit(s.getHoveredUnit());
 	}
-//	
-//	public void onStep(){
-//		sprite.update();
-//		float delta = Game.getDeltaSeconds();
-//		//TODO: What does this variable do
-//		time+= delta;
-//		if(time >=1.5){
-//			time -=1.5;
-//		}
-//		if(rx != x) {
-//			float signum = Math.signum(x-rx);
-//			rx += signum*SPEED*delta;
-//			if(Math.signum(x-rx) != signum) {
-//				rx = x;
-//			}
-//		}
-//		if(ry != y) {
-//			float signum = Math.signum(y-ry);
-//			ry += signum*SPEED*delta;
-//			if(Math.signum(y-ry) != signum) {
-//				ry = y;
-//			}
-//		}
-//	}
 	
 	public void render(){
 		if(((ClientOverworldStage) stage).hasControl() && on) {

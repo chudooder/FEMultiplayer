@@ -2740,6 +2740,10 @@
 			"path":		"res/gui/send_button.png"
 		},
 		{
+			"name":		"connect_button",
+			"path":		"res/gui/connect_button.png"
+		},
+		{
 			"name":		"ready_button",
 			"path":		"res/gui/ready_button.png"
 		},

@@ -64,7 +64,7 @@ public class FEMultiplayer extends Game{
 		super.init(width, height, name);
 		System.out.println(GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
 		players = new ArrayList<Player>();
-		Player p1 = new Player("Chu", (byte) 0);
+		Player p1 = new Player("Player", (byte) 0);
 		localPlayer = p1;
 		players.add(p1);
 		FEResources.loadResources();
@@ -109,10 +109,7 @@ public class FEMultiplayer extends Game{
 		
 //		map = new OverworldStage("test", p1);
 		
-		client = new Client();
-		client.start();
-		lobby = new ClientLobbyStage();
-		currentStage = lobby;
+		currentStage = new ConnectStage();
 		messages = new ArrayList<Message>();
 		
 	}
@@ -124,6 +121,14 @@ public class FEMultiplayer extends Game{
 			}
 		}
 		return null;
+	}
+	
+	public static void connect(String nickname, String ip) {
+		getLocalPlayer().setName(nickname);
+		lobby = new ClientLobbyStage();
+		setCurrentStage(lobby);
+		client = new Client(ip, 21255);
+		client.start();
 	}
 
 	@Override
