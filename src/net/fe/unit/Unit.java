@@ -390,6 +390,16 @@ public class Unit extends GriddedEntity implements Serializable {
 		}
 		return weps;
 	}
+	
+	public void initializeEquipment(){
+		for(Item it: inventory){
+			if(it instanceof Weapon){
+				if(equippable((Weapon)it)){
+					equip((Weapon) it);
+				}
+			}
+		}
+	}
 
 	public int equipFirstWeapon(int range) {
 		for (int i = 0; i < inventory.size(); i++) {

@@ -35,6 +35,11 @@ public class ClientWaitStage extends WaitStage {
 			}
 		}
 		if(start) {
+			for(Player p : FEMultiplayer.players) {
+				for(Unit u : p.getParty()) {
+					u.initializeEquipment();
+				}
+			}
 			FEMultiplayer.map = new ClientOverworldStage("test", FEMultiplayer.players);
 			FEMultiplayer.setCurrentStage(FEMultiplayer.map);
 		}

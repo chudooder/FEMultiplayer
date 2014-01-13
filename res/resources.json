@@ -1516,7 +1516,7 @@
 		},
 		{
 			"name":		"marth_sword_dodge",
-			"path":		"res/battle_anim/valkyrie_staff_dodge.png",
+			"path":		"res/battle_anim/marth_sword_dodge.png",
 			"width":	56,
 			"height":	42,
 			"frames":	2,
