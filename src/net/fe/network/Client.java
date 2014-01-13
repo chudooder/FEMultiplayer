@@ -36,8 +36,8 @@ public class Client {
 		try {
 			System.out.println("CLIENT: Connecting to server at port 21255...");
 			serverSocket = new Socket(
-					"72.182.101.155",
-//					InetAddress.getLocalHost().getHostAddress(), 
+//					"72.182.101.155",
+					InetAddress.getLocalHost().getHostAddress(), 
 					21255);
 			System.out.println("CLIENT: Successfully connected!");
 			out = new ObjectOutputStream(serverSocket.getOutputStream());

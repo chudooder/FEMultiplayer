@@ -25,6 +25,7 @@ import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitFactory;
 import net.fe.unit.UnitIcon;
+import net.fe.unit.Weapon;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
@@ -373,6 +374,9 @@ public class TeamBuilderStage extends Stage {
 				String itemName = teamData[i][j];
 				if(itemName != null){
 					Item item = Item.getItem(itemName);
+					if(item instanceof Weapon && ((Weapon)item).pref != null) {
+						continue;
+					}
 					int goldCost = item.getCost();
 					if(goldCost <= funds){
 						funds -= goldCost;
