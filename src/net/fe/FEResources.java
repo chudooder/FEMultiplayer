@@ -60,13 +60,16 @@ public class FEResources {
 	
 	public static void loadResources() {
 		try {
+			//Load bitmap fonts
+			loadBitmapFonts();
+			LoadStage.renderInitial();
+			
 			// Textures
 			loadTextures();
 			textures.put("unit_colors", new AnimationData(TextureLoader.getTexture("PNG", 
 					ResourceLoader.getResourceAsStream("res/palette/unit_colors_condensed.png"))));
 
-			//Load bitmap fonts
-			loadBitmapFonts();
+			
 			
 			//load audio
 			audio.put("miss", AudioLoader.getAudio("WAV",
@@ -98,6 +101,7 @@ public class FEResources {
 	}
 
 	private static void loadTextures() {
+		long startTime = System.nanoTime();
 		// TODO Load textures from JSON
 		InputStream file = ResourceLoader.getResourceAsStream("res/resources.json");
 		Scanner in = new Scanner(file);
@@ -115,6 +119,7 @@ public class FEResources {
 			e1.printStackTrace();
 		}
 		JSONArray txArray = (JSONArray) resources.get("textures");
+		LoadStage.setMaximum(txArray.size());
 		for(Object obj : txArray) {
 			JSONObject texture = (JSONObject) obj;
 			String name = (String)texture.get("name");
@@ -172,6 +177,10 @@ public class FEResources {
 				if(speed != null)
 					data.speed = speed.floatValue();
 				textures.put(name, data);
+				if((System.nanoTime() - startTime)/1000000.0f > 100){
+					LoadStage.update(textures.size());
+					LoadStage.render();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
