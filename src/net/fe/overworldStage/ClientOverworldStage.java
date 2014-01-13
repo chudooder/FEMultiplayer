@@ -190,6 +190,7 @@ public class ClientOverworldStage extends OverworldStage {
 	protected void doEndTurn(int playerID) {
 		super.doEndTurn(playerID);
 		context.cleanUp();
+		send();
 		if(FEMultiplayer.getLocalPlayer().getID() == getNextPlayer().getID()){
 			context = new Idle(this, FEMultiplayer.getLocalPlayer());
 			addEntity(new TurnDisplay(true, Party.TEAM_BLUE));

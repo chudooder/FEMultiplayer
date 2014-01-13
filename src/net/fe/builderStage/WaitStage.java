@@ -3,6 +3,7 @@ package net.fe.builderStage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.fe.FEMultiplayer;
 import net.fe.Player;
 import net.fe.network.FEServer;
 import net.fe.network.Message;
@@ -58,6 +59,11 @@ public class WaitStage extends Stage {
 		}
 		
 		if(start) {
+			for(Player p : FEMultiplayer.players) {
+				for(Unit u : p.getParty()) {
+					u.initializeEquipment();
+				}
+			}
 			FEServer.setCurrentStage(new OverworldStage("test", FEServer.players));
 		}
 	}
