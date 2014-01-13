@@ -239,7 +239,7 @@ public class Unit extends GriddedEntity implements Serializable {
 	}
 
 	public void render() {
-		if(FEResources.hasTexture(functionalClassName() + "_map_idle")){
+		if(FEResources.hasTexture(functionalClassName().toLowerCase() + "_map_idle")){
 			Transform t = new Transform();
 			if(sprite.getAnimationName().equals("RIGHT")){
 				t.flipHorizontal();
@@ -396,6 +396,7 @@ public class Unit extends GriddedEntity implements Serializable {
 			if(it instanceof Weapon){
 				if(equippable((Weapon)it)){
 					equip((Weapon) it);
+					break;
 				}
 			}
 		}
