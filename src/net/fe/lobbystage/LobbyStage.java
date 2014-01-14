@@ -82,8 +82,9 @@ public class LobbyStage extends Stage {
 		FEServer.players.clear();
 		ArrayList<Player> ans = new ArrayList<Player>();
 		for(Player p : players.values()) {
-			if(!p.isSpectator())
-				ans.add(p);
+			if(p.isSpectator())
+				p.getParty().clear();
+			ans.add(p);
 		}
 		FEServer.players.addAll(ans);
 		FEServer.getServer().broadcastMessage(new StartBuilding(0));

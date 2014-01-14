@@ -41,12 +41,9 @@ public class OverworldStage extends Stage {
 		this.players = players;
 		chat = new Chat();
 		turnOrder = new ArrayList<Player>();
-		System.out.print("Turn order: ");
 		for(Player p : players) {
-			turnOrder.add(p);
-			System.out.print(p.getName()+" ");
+			if(!p.isSpectator()) turnOrder.add(p);
 		}
-		System.out.println();
 		currentPlayer = 0;
 		loadLevel(levelName);
 		processAddStack();
@@ -116,9 +113,7 @@ public class OverworldStage extends Stage {
     				SpawnPoint remove = null;
                 	for(SpawnPoint sp : spawns) {
                 		if(sp.team.equals(team)) {
-                			System.out.println(sp.x+","+sp.y);
             				Unit u = p.getParty().getUnit(i);
-            				System.out.println(u);
             				addUnit(u, sp.x, sp.y);
             				remove = sp;
             				break;
@@ -173,8 +168,10 @@ public class OverworldStage extends Stage {
 		// After validation, update the unit position
 		// Move it instantly since this is the server stage
 		final Unit unit = (cmds.unit == null ? null : getUnit(cmds.unit));
-		grid.move(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY, false);
-		unit.setMoved(true);
+		if(unit != null) {
+			grid.move(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY, false);
+			unit.setMoved(true);
+		}
 		// Parse commands
 		
 		for(int i=0; i<cmds.commands.length; i++) {
