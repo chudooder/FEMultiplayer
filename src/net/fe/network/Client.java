@@ -132,7 +132,7 @@ public class Client {
 		try {
 			message.origin = id;
 			out.writeObject(message);
-			System.out.println("CLIENT: Sent message ["+message.toString()+"]");
+//			System.out.println("CLIENT: Sent message ["+message.toString()+"]");
 		} catch (IOException e) {
 			System.err.println("CLIENT Unable to send message!");
 		}

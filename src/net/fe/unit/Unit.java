@@ -42,6 +42,8 @@ public class Unit extends GriddedEntity implements Serializable {
 	public final String name;
 	private Party team;
 	private transient HashMap<String, Integer> tempMods;
+	private transient HashMap<String, Integer> battleStats;
+	private transient Set<Unit> assist;
 	private transient boolean dying;
 	private transient float alpha;
 	private transient Unit rescuedUnit;
@@ -64,6 +66,12 @@ public class Unit extends GriddedEntity implements Serializable {
 		this.growths = growths;
 		inventory = new ArrayList<Item>();
 		tempMods = new HashMap<String, Integer>();
+		assist = new HashSet<Unit>();
+		battleStats = new HashMap<String, Integer>();
+        battleStats.put("Kills", 0);
+        battleStats.put("Assists", 0);
+        battleStats.put("Damage", 0);
+        battleStats.put("Healing", 0);
 		this.name = name;
 		alpha = 1.0f;
 		clazz = c;
@@ -93,6 +101,12 @@ public class Unit extends GriddedEntity implements Serializable {
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         tempMods = new HashMap<String, Integer>();
+        assist = new HashSet<Unit>();
+        battleStats = new HashMap<String, Integer>();
+        battleStats.put("Kills", 0);
+        battleStats.put("Assists", 0);
+        battleStats.put("Damage", 0);
+        battleStats.put("Healing", 0);
         if(Game.glContextExists()) {
     		sprite.addAnimation("IDLE", new MapAnimation(functionalClassName() + 
     				"_map_idle", false));
@@ -498,7 +512,26 @@ public class Unit extends GriddedEntity implements Serializable {
 		return gold;
 	}
 	
-
+	public void addBattleStat(String stat, int add) {
+		battleStats.put(stat, battleStats.get(stat) + add);
+		reportBattleStats();
+	}
+	
+	public int getBattleStat(String stat) {
+		return battleStats.get(stat);
+	}
+	
+	public void reportBattleStats() {
+		for(String s : battleStats.keySet()) {
+			System.out.print(s+": ");
+			System.out.print(battleStats.get(s)+" ");
+		}
+		System.out.println();
+	}
+	
+	public Set<Unit> getAssisters() {
+		return assist;
+	}
 
 	// Combat statistics
 	public int hit() {

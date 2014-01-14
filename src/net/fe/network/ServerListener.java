@@ -95,7 +95,7 @@ public class ServerListener extends Thread {
 		try {
 			out.writeObject(message);
 			out.flush();
-			System.out.println("SERVER sent message: [" + message.toString() + "]");
+//			System.out.println("SERVER sent message: [" + message.toString() + "]");
 		} catch (IOException e) {
 			System.err.println("SERVER Unable to send message!");
 		}
