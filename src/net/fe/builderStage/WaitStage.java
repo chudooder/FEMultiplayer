@@ -34,7 +34,7 @@ public class WaitStage extends Stage {
 		readyStatus = new HashMap<Byte, Boolean>();
 		sentStartMessage = false;
 		for(Player p : FEServer.players) {
-			readyStatus.put(p.getID(), false);
+			if(!p.isSpectator()) readyStatus.put(p.getID(), false);
 		}
 		messages = new ArrayList<PartyMessage>();
 	}
@@ -73,11 +73,8 @@ public class WaitStage extends Stage {
 				FEServer.getServer().broadcastMessage(pm);
 			}
 			FEServer.getServer().broadcastMessage(new StartGame(0));
-			System.out.println(FEServer.players.size());
 			for(Player p : FEServer.players) {
-				System.out.println(p.getParty().size());
 				for(Unit u : p.getParty()) {
-					System.out.println("Initialized equipment for "+u.name);
 					u.initializeEquipment();
 				}
 			}

@@ -91,8 +91,9 @@ public class Client {
 			for(Player p : players.values()) {
 				if(p.equals(FEMultiplayer.getLocalPlayer()))
 					FEMultiplayer.setLocalPlayer(p);
-				if(!p.isSpectator())
-					ans.add(p);
+				if(p.isSpectator())
+					p.getParty().clear();
+				ans.add(p);
 			}
 			FEMultiplayer.players.addAll(ans);
 			if(!FEMultiplayer.getLocalPlayer().isSpectator()) {

@@ -41,12 +41,9 @@ public class OverworldStage extends Stage {
 		this.players = players;
 		chat = new Chat();
 		turnOrder = new ArrayList<Player>();
-		System.out.print("Turn order: ");
 		for(Player p : players) {
-			turnOrder.add(p);
-			System.out.print(p.getName()+" ");
+			if(!p.isSpectator()) turnOrder.add(p);
 		}
-		System.out.println();
 		currentPlayer = 0;
 		loadLevel(levelName);
 		processAddStack();
