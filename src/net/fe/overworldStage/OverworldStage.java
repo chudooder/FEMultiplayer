@@ -173,8 +173,10 @@ public class OverworldStage extends Stage {
 		// After validation, update the unit position
 		// Move it instantly since this is the server stage
 		final Unit unit = (cmds.unit == null ? null : getUnit(cmds.unit));
-		grid.move(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY, false);
-		unit.setMoved(true);
+		if(unit != null) {
+			grid.move(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY, false);
+			unit.setMoved(true);
+		}
 		// Parse commands
 		
 		for(int i=0; i<cmds.commands.length; i++) {

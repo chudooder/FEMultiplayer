@@ -239,7 +239,7 @@ public class ClientOverworldStage extends OverworldStage {
 		Command callback = new Command() {
 			@Override
 			public void execute() {
-				unit.setMoved(true);
+				if(unit != null) unit.setMoved(true);
 			}
 		};
 		for(int i=0; i<cmds.commands.length; i++) {
@@ -318,7 +318,7 @@ public class ClientOverworldStage extends OverworldStage {
 				};
 			}
 		}
-		if(execute) {
+		if(execute && unit != null) {
 			Path p = grid.getShortestPath(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY);
 			grid.move(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY, true);
 			unit.move(p, callback);
