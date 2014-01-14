@@ -178,8 +178,6 @@ public class FEMultiplayer extends Game{
 	}
 	
 	public static void send(UnitIdentifier u, int moveX, int moveY, Object... cmds){
-		//TODO server stuff
-		System.out.print("SEND> " + u.name + " moved (" + moveX + "," + moveY + ") - ");
 		for(Object o: cmds){
 			System.out.print(o + " ");
 		}

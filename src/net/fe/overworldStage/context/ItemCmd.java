@@ -20,6 +20,7 @@ public class ItemCmd extends MenuContext<ItemDisplay>{
 	}
 	@Override
 	public void onSelect(ItemDisplay selectedItem) {
+		if(selectedItem == null) return;
 		Item i = selectedItem.getItem();
 		AudioPlayer.playAudio("select", 1, 1);
 		if(i instanceof Weapon){
