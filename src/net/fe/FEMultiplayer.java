@@ -216,4 +216,13 @@ public class FEMultiplayer extends Game{
 		localPlayer = p;
 	}
 
+	public static Player getPlayer(int id) {
+		for(Player p : players) {
+			if(p.getID() == id) {
+				return p;
+			}
+		}
+		return null;
+	}
+
 }

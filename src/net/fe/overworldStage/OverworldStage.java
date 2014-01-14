@@ -1,17 +1,12 @@
 package net.fe.overworldStage;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Set;
 
-import org.newdawn.slick.Color;
-import org.newdawn.slick.util.ResourceLoader;
-
+import net.fe.FEMultiplayer;
 import net.fe.Player;
 import net.fe.editor.Level;
 import net.fe.editor.SpawnPoint;
@@ -23,9 +18,14 @@ import net.fe.network.Message;
 import net.fe.network.message.ChatMessage;
 import net.fe.network.message.CommandMessage;
 import net.fe.network.message.EndTurn;
+import net.fe.overworldStage.objective.Objective;
 import net.fe.unit.Item;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.util.ResourceLoader;
+
 import chu.engine.Game;
 import chu.engine.Stage;
 
@@ -35,6 +35,7 @@ public class OverworldStage extends Stage {
 	protected ArrayList<Player> players;
 	private ArrayList<Player> turnOrder;
 	private int currentPlayer;
+	private Objective objective;
 
 	public OverworldStage(String levelName, ArrayList<Player> players) {
 		super();
@@ -160,6 +161,11 @@ public class OverworldStage extends Stage {
 				u.setMoved(false);
 			}
 		}
+		// Objective evaluation
+		int winner = objective.evaluate(this);
+		if(winner > 0) {
+			System.out.println("WE HAVE A WINNER ITS "+FEMultiplayer.getPlayer(winner).getName());
+		}
 	}
 
 	public void processCommands(CommandMessage message) {
@@ -239,6 +245,18 @@ public class OverworldStage extends Stage {
 	@Override
 	public void endStep() {
 		
+	}
+
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+	
+	public ArrayList<Player> getNonSpectators() {
+		ArrayList<Player> ans = new ArrayList<Player>();
+		for(Player p : players) {
+			if(!p.isSpectator()) ans.add(p);
+		}
+		return ans;
 	}
 
 }
