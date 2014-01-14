@@ -51,11 +51,11 @@ Killer Bow	Bow	2	9	75	30	10	1400	Flier	-	-
 Brave Bow	Bow	2	10	70	0	15	7500	Flier	-	-
 Short Bow	Bow	1-2	5	85	10	11	1760	Flier	-	-
 Longbow		Bow	2-3	5	65	0	10	2000	Flier	-	-
-Double Bow	Bow	1-3	18	85	5	12	16500	Flier	-	Str 5
+Double Bow	Bow	1-3	18	85	5	12	15000	Flier	-	Str 5
 Fire		Anima	1-2	5	90	0	20	560	-	-	-
 Elfire		Anima	1-2	10	85	0	15	1200	-	-	-
 Fimbulvetr	Anima	1-2	13	80	0	10	6000	-	-	-
-Excalibur	Anima	1-2	18	90	10	15	25000	Flier	-	Spd 5
+Excalibur	Anima	1-2	18	90	10	15	30000	Flier	-	Spd 5
 Lightning	Light	1-2	4	95	5	17	630	-	-	-
 Divine		Light	1-2	8	85	10	12	2500	-	-	-
 Aura		Light	1-2	12	85	15	10	8000	-	-	-
