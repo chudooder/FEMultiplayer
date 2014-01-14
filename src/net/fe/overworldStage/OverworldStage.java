@@ -19,6 +19,7 @@ import net.fe.network.message.ChatMessage;
 import net.fe.network.message.CommandMessage;
 import net.fe.network.message.EndTurn;
 import net.fe.overworldStage.objective.Objective;
+import net.fe.overworldStage.objective.RoutTheEnemy;
 import net.fe.unit.Item;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
@@ -40,6 +41,8 @@ public class OverworldStage extends Stage {
 	public OverworldStage(String levelName, ArrayList<Player> players) {
 		super();
 		this.players = players;
+		objective = new RoutTheEnemy();
+		System.out.println(objective.getDescription());
 		chat = new Chat();
 		turnOrder = new ArrayList<Player>();
 		for(Player p : players) {
@@ -50,8 +53,13 @@ public class OverworldStage extends Stage {
 		processAddStack();
 	}
 	
-	public Player getPlayer(int i){
-		return players.get(i);
+	public Player getPlayerByID(int id) {
+		for(Player p : players) {
+			if(p.getID() == id) {
+				return p;
+			}
+		}
+		return null;
 	}
 	
 	public Player getCurrentPlayer() {
@@ -164,7 +172,7 @@ public class OverworldStage extends Stage {
 		// Objective evaluation
 		int winner = objective.evaluate(this);
 		if(winner > 0) {
-			System.out.println("WE HAVE A WINNER ITS "+FEMultiplayer.getPlayer(winner).getName());
+			System.out.println("WE HAVE A WINNER ITS "+getPlayerByID(winner).getName());
 		}
 	}
 
