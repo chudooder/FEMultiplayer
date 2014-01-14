@@ -10,7 +10,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class WeaponFactory {
 	private static final List<String> mounted = 
-			Arrays.asList("Paladin", "Valkyrie", "Falcon Knight", 
+			Arrays.asList("Paladin", "Valkyrie", "Falconknight", 
 					"Ephraim", "Eirika", "Eliwood");
 	private static final List<String> armored =
 			Arrays.asList("Paladin", "General");
