@@ -62,7 +62,6 @@ public class FEResources {
 		try {
 			//Load bitmap fonts
 			loadBitmapFonts();
-			LoadStage.renderInitial();
 			
 			// Textures
 			loadTextures();

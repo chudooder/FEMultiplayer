@@ -21,17 +21,15 @@ public class LoadStage{
 	public static void update(int number){
 		percent = (number + 0f)/max;
 	}
-	public static void renderInitial(){
+
+	public static void render(){
+		int width = (int) (percent * 436);
 		glClear(GL_COLOR_BUFFER_BIT |
 		        GL_DEPTH_BUFFER_BIT |
 		        GL_STENCIL_BUFFER_BIT);
 		glClearDepth(1.0f);
 		Renderer.drawString("default_med", "FE: Multiplayer is loading...", 200, 150, 0);
 		Renderer.drawRectangle(20, 280, 460, 300, 0, Color.gray);
-		Display.update();
-	}
-	public static void render(){
-		int width = (int) (percent * 436);
 		Renderer.drawRectangle(22, 282, 22+width, 298, 0, Color.blue.darker());
 		Display.update();
 	}
