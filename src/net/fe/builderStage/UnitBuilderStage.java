@@ -225,7 +225,8 @@ public class UnitBuilderStage extends Stage {
 				for(String s: eff){
 					effText += ", " + s;
 				}
-				flavor.add("Effective against " + effText.substring(2) + " units");
+				if(effText.length() != 0)
+					flavor.add("Effective against " + effText.substring(2) + " units");
 			}
 			
 			if(flavor.size() != 0){
