@@ -12,6 +12,7 @@ import org.newdawn.slick.Color;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
 import chu.engine.MouseEvent;
+import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.BitmapFont;
 import chu.engine.anim.Renderer;
 import chu.engine.menu.TextInputBox;
@@ -64,6 +65,7 @@ public class LobbyChatBox extends TextInputBox {
 
 	public void send() {
 		if(input.length() == 0) return;
+		AudioPlayer.playAudio("cancel", 1, 1);
 		byte id = FEMultiplayer.getClient().getID();
 		FEMultiplayer.getClient().sendMessage(
 				new ChatMessage(id, input.toString()));

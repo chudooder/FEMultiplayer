@@ -1,5 +1,7 @@
 package net.fe.overworldStage;
 
+import chu.engine.anim.AudioPlayer;
+
 public abstract class MenuContext<T> extends OverworldContext{
 	protected Menu<T> menu;
 	public MenuContext(ClientOverworldStage stage, OverworldContext prev, Menu<T> m){
@@ -43,6 +45,6 @@ public abstract class MenuContext<T> extends OverworldContext{
 	
 	public abstract void onSelect(T selectedItem);
 	public void onChange(){
-		
+		AudioPlayer.playAudio("cursor2", 1, 1);
 	}
 }

@@ -29,6 +29,7 @@ public class UnitList extends Entity {
 		units = new ArrayList<UnitSet>();
 		selectedUnits = new ArrayList<Unit>();
 		lookup = new HashMap<Unit, UnitSet>();
+		renderDepth = 0.6f;
 	}
 	
 	public void onStep(){
@@ -51,15 +52,15 @@ public class UnitList extends Entity {
 		Renderer.drawRectangle(x-2, y-2, 
 				x+WIDTH * UNITS_PER_ROW+2, 
 				y + HEIGHT* height +2, 
-				1, FightStage.BORDER_DARK);
+				0.9f, FightStage.BORDER_DARK);
 		Renderer.drawRectangle(x-1, y-1, 
 				x+WIDTH * UNITS_PER_ROW +1, 
 				y + HEIGHT* height +1, 
-				1, FightStage.BORDER_LIGHT);
+				0.9f, FightStage.BORDER_LIGHT);
 		Renderer.drawRectangle(x, y, 
 				x+WIDTH * UNITS_PER_ROW, 
 				y + HEIGHT* height, 
-				1, FightStage.NEUTRAL);
+				0.9f, FightStage.NEUTRAL);
 		
 		Renderer.addClip(x, y-4, WIDTH*UNITS_PER_ROW, height*HEIGHT, true);
 		for(int i = scrollPos * UNITS_PER_ROW; i < (scrollPos + height) * UNITS_PER_ROW && i < units.size(); i++){
@@ -70,7 +71,7 @@ public class UnitList extends Entity {
 			set.icon.render();
 			if(!selectedUnits.contains(set.unit))
 				Renderer.setColor(new Color(0.5f,0.5f,0.5f));
-			Renderer.drawString("default_med", set.unit.name, x + 18, y + 2, 0);
+			Renderer.drawString("default_med", set.unit.name, x + 18, y + 2, renderDepth);
 			Renderer.setColor(null);
 		}
 		Renderer.removeClip();

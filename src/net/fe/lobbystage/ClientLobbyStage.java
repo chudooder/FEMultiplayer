@@ -21,6 +21,7 @@ import org.newdawn.slick.Color;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.Stage;
+import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Transform;
 import chu.engine.menu.MenuButton;
@@ -48,6 +49,7 @@ public class ClientLobbyStage extends LobbyStage {
 			}
 			@Override
 			public void onClick() {
+				AudioPlayer.playAudio("select", 1, 1);
 				FEMultiplayer.getLocalPlayer().joinTeam(Player.TEAM_SPECTATOR);
 			}
 			@Override
@@ -65,6 +67,7 @@ public class ClientLobbyStage extends LobbyStage {
 			}
 			@Override
 			public void onClick() {
+				AudioPlayer.playAudio("select", 1, 1);
 				FEMultiplayer.getLocalPlayer().joinTeam(Player.TEAM_PLAYERS);
 			}
 			@Override
@@ -82,6 +85,7 @@ public class ClientLobbyStage extends LobbyStage {
 			}
 			@Override
 			public void onClick() {
+				AudioPlayer.playAudio("select", 1, 1);
 				FEMultiplayer.getLocalPlayer().joinTeam(Player.TEAM_UNASSIGNED);
 			}
 			@Override
@@ -99,6 +103,7 @@ public class ClientLobbyStage extends LobbyStage {
 			}
 			@Override
 			public void onClick() {
+				AudioPlayer.playAudio("select", 1, 1);
 				FEMultiplayer.getClient().quit();
 			}
 			@Override
@@ -133,6 +138,7 @@ public class ClientLobbyStage extends LobbyStage {
 			}
 			@Override
 			public void onClick() {
+				AudioPlayer.playAudio("select", 1, 1);
 				FEMultiplayer.getClient().sendMessage(new ReadyMessage());
 			}
 			@Override

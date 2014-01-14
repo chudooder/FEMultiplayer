@@ -64,11 +64,12 @@ public class Idle extends CursorContext {
 		if(u!=null && !u.hasMoved()){
 			u.sprite.setAnimation("IDLE");
 		}
+		AudioPlayer.playAudio("cursor", 1, 1);
 	}
 
 	public void cursorChanged(){
 		Unit u = getHoveredUnit();
-		AudioPlayer.playAudio("cursor", 1, 1);
+		
 		if(u!=null && !u.hasMoved()){
 			addZones(u);
 			if(u.getParty() == stage.getCurrentPlayer().getParty()){

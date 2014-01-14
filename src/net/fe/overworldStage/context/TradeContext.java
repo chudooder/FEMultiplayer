@@ -2,6 +2,7 @@ package net.fe.overworldStage.context;
 
 import java.util.List;
 
+import chu.engine.anim.AudioPlayer;
 import net.fe.overworldStage.*;
 import net.fe.unit.*;
 
@@ -46,6 +47,7 @@ public class TradeContext extends OverworldContext {
 	@Override
 	public void onSelect() {
 		if(marked == -1){
+			AudioPlayer.playAudio("select", 1, 1);
 			marked = getIndex();
 			curr.mark(curr.getSelectedIndex());
 			curr.down();
@@ -54,7 +56,7 @@ public class TradeContext extends OverworldContext {
 			curr.setSelection(0);
 		} else {
 			//Trade
-			
+			AudioPlayer.playAudio("cancel", 1, 1);
 			if(swap(marked, getIndex())) traded = true;
 			marked = -1;
 			trader.unmark();
@@ -63,15 +65,18 @@ public class TradeContext extends OverworldContext {
 	}
 
 	public void onCancel() {
+		
 		if(marked == -1){
 			if(!traded){
 				super.onCancel();
 			} else {
+				AudioPlayer.playAudio("cancel", 1, 1);
 				cursor.setXCoord(u1.getXCoord());
 				cursor.setYCoord(u1.getYCoord());
 				new UnitMoved(stage, this, u1, true, false).startContext();
 			}
 		} else {
+			AudioPlayer.playAudio("cancel", 1, 1);
 			Menu<ItemDisplay> m1, m2;
 			if(marked < 4){
 				m1 = trader;
@@ -96,16 +101,18 @@ public class TradeContext extends OverworldContext {
 	@Override
 	public void onUp() {
 		curr.up();
-
+		AudioPlayer.playAudio("cursor2", 1, 1);
 	}
 
 	@Override
 	public void onDown() {
 		curr.down();
+		AudioPlayer.playAudio("cursor2", 1, 1);
 	}
 
 	@Override
 	public void onLeft() {
+		AudioPlayer.playAudio("cursor2", 1, 1);
 		int i = curr.getSelectedIndex();
 		switchMenu();
 		curr.setSelection(i);
@@ -113,6 +120,7 @@ public class TradeContext extends OverworldContext {
 
 	@Override
 	public void onRight() {
+		AudioPlayer.playAudio("cursor2", 1, 1);
 		int i = curr.getSelectedIndex();
 		switchMenu();
 		curr.setSelection(i);

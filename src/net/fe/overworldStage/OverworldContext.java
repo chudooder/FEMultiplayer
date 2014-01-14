@@ -1,5 +1,6 @@
 package net.fe.overworldStage;
 
+import chu.engine.anim.AudioPlayer;
 import net.fe.unit.Unit;
 
 public abstract class OverworldContext {
@@ -18,6 +19,7 @@ public abstract class OverworldContext {
 	public abstract void onSelect();
 
 	public void onCancel(){
+		AudioPlayer.playAudio("cancel", 1, 1);
 		prev.startContext();
 	}
 

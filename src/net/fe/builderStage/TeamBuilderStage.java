@@ -31,6 +31,7 @@ import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
 import chu.engine.Stage;
+import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
 
 public class TeamBuilderStage extends Stage {
@@ -192,7 +193,7 @@ public class TeamBuilderStage extends Stage {
 				} else {
 					cursor.up();
 				}
-				
+				AudioPlayer.playAudio("cursor2", 1, 1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) && repeatTimers[1] == 0) {
 				repeatTimers[1] = 0.15f;
@@ -207,6 +208,7 @@ public class TeamBuilderStage extends Stage {
 				} else {
 					cursor.down();
 				}
+				AudioPlayer.playAudio("cursor2", 1, 1);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) && repeatTimers[2] == 0) {
 				repeatTimers[2] = 0.15f;
@@ -215,6 +217,7 @@ public class TeamBuilderStage extends Stage {
 					currButton--;
 					if(currButton < 0) currButton+=3;
 					buttons[currButton].setHover(true);
+					AudioPlayer.playAudio("cursor2", 1, 1);
 				}
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) && repeatTimers[3] == 0) {
@@ -224,18 +227,22 @@ public class TeamBuilderStage extends Stage {
 					currButton++;
 					currButton%=3;
 					buttons[currButton].setHover(true);
+					AudioPlayer.playAudio("cursor2", 1, 1);
 				}
 			}
 			for(KeyboardEvent ke : keys) {
 				if(ke.state) {
 					if(ke.key == Keyboard.KEY_Z) {
+						AudioPlayer.playAudio("select", 1, 1);
 						if(cursor.on){
 							FEMultiplayer.setCurrentStage(new UnitBuilderStage(units.get(cursor.getIndex()), this));
 						} else {
 							buttons[currButton].setHover(false);
 							buttons[currButton].execute();
 						}
+						
 					} else if (ke.key == Keyboard.KEY_X){
+						AudioPlayer.playAudio("cancel", 1, 1);
 						select.refresh();
 						FEMultiplayer.setCurrentStage(select);
 					}

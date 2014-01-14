@@ -8,6 +8,7 @@ import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.MouseEvent;
 import chu.engine.Stage;
+import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.BitmapFont;
 import chu.engine.anim.Renderer;
 import chu.engine.menu.MenuButton;
@@ -117,6 +118,7 @@ public class ConnectStage extends Stage {
 		
 		@Override
 		public void onClick() {
+			AudioPlayer.playAudio("select", 1, 1);
 			FEMultiplayer.connect(name.getInput(), ip.getInput());
 		}
 		@Override

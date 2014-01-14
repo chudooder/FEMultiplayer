@@ -11,6 +11,7 @@ import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
 import chu.engine.Stage;
+import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
 
 public class TeamSelectionStage extends Stage {
@@ -169,6 +170,7 @@ public class TeamSelectionStage extends Stage {
 	private void up(){
 		if(cursor.index < 0)
 			buttons[-cursor.index-1].setHover(false);
+		AudioPlayer.playAudio("cursor", 1, 1);
 		if(cursor.on){
 			boolean below = cursor.index >= lordList.size();
 			cursor.index -= UnitList.UNITS_PER_ROW;
@@ -189,6 +191,7 @@ public class TeamSelectionStage extends Stage {
 	private void down(){
 		if(cursor.index < 0)
 			buttons[-cursor.index-1].setHover(false);
+		AudioPlayer.playAudio("cursor", 1, 1);
 		if(cursor.on){
 			boolean above = cursor.index < lordList.size();
 			cursor.index += UnitList.UNITS_PER_ROW;
@@ -205,6 +208,7 @@ public class TeamSelectionStage extends Stage {
 	}
 	
 	private void left(){
+		AudioPlayer.playAudio("cursor", 1, 1);
 		if(cursor.index < 0)
 			buttons[-cursor.index-1].setHover(false);
 		cursor.index --;
@@ -212,6 +216,7 @@ public class TeamSelectionStage extends Stage {
 	}
 	
 	private void right(){
+		AudioPlayer.playAudio("cursor", 1, 1);
 		if(cursor.index < 0)
 			buttons[-cursor.index-1].setHover(false);
 		cursor.index ++;
@@ -308,23 +313,29 @@ public class TeamSelectionStage extends Stage {
 		}
 		
 		public void select(){
+			
 			if(on){
 				if(index < lordList.size()){
 					if(lordList.isSelected(index)){
+						AudioPlayer.playAudio("select", 1, 1);
 						lordList.deSelectUnit(lordList.unitAt(index));
 					}
 					else if(lordList.numberSelected() == 0){
+						AudioPlayer.playAudio("select", 1, 1);
 						lordList.selectUnit(lordList.unitAt(index));
 					}
 				}
 				if(index >= lordList.size()){
 					if(vassalList.isSelected(index - lordList.size())){
+						AudioPlayer.playAudio("select", 1, 1);
 						vassalList.deSelectUnit(vassalList.unitAt(index - lordList.size()));
 					} else if (vassalList.numberSelected() < maxUnits - 1){
+						AudioPlayer.playAudio("select", 1, 1);
 						vassalList.selectUnit(vassalList.unitAt(index - lordList.size()));
 					}
 				}
 			} else {
+				AudioPlayer.playAudio("select", 1, 1);
 				buttons[-cursor.index-1].execute();
 			}
 		}

@@ -22,6 +22,7 @@ import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
 import chu.engine.Stage;
+import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
 
 public class UnitBuilderStage extends Stage {
@@ -179,6 +180,7 @@ public class UnitBuilderStage extends Stage {
 	private class Normal extends State {
 		@Override
 		public void up() {
+			AudioPlayer.playAudio("cursor2", 1, 1);
 			if(inv.hasSelection()){
 				if(inv.getSelectedIndex() == 0){
 					inv.clearSelection();
@@ -198,6 +200,7 @@ public class UnitBuilderStage extends Stage {
 
 		@Override
 		public void down() {
+			AudioPlayer.playAudio("cursor2", 1, 1);
 			if(inv.hasSelection()){
 				if(inv.getSelectedIndex() == inv.size() - 1){
 					inv.clearSelection();
@@ -227,18 +230,23 @@ public class UnitBuilderStage extends Stage {
 
 		@Override
 		public void select() {
+			
 			if(levelUp.hovered()){
+				AudioPlayer.playAudio("select", 1, 1);
 				levelUp.execute();
 			} else if(levelDown.hovered()){
+				AudioPlayer.playAudio("select", 1, 1);
 				levelDown.execute();
 			} else {
 				if(inv.getSelection() != null){
+					AudioPlayer.playAudio("cancel", 1, 1);
 					Item i = inv.getSelection().getItem();
 					if(!(i instanceof Weapon && ((Weapon) i).pref != null)){
 						back.setFunds(back.getFunds() + i.getCost());
 						unit.removeFromInventory(i);
 					}
 				} else {
+					AudioPlayer.playAudio("select", 1, 1);
 					inv.clearSelection();
 					shop.restoreSelection();
 					state = new Shop();
@@ -256,21 +264,25 @@ public class UnitBuilderStage extends Stage {
 	private class Shop extends State{
 		@Override
 		public void up() {
+			AudioPlayer.playAudio("cursor2", 1, 1);
 			shop.up();
 		}
 
 		@Override
 		public void down() {
+			AudioPlayer.playAudio("cursor2", 1, 1);
 			shop.down();
 		}
 
 		@Override
 		public void left() {
+			AudioPlayer.playAudio("sword_swipe2", 1, 1);
 			shop.left();
 		}
 
 		@Override
 		public void right() {
+			AudioPlayer.playAudio("sword_swipe2", 1, 1);
 			shop.right();
 		}
 
@@ -286,6 +298,7 @@ public class UnitBuilderStage extends Stage {
 
 		@Override
 		public void cancel() {
+			AudioPlayer.playAudio("cancel", 1, 1);
 			inv.restoreSelection();
 			shop.clearSelection();
 			state = new Normal();
