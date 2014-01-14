@@ -62,7 +62,7 @@ public class Class implements Serializable {
 		if(name.equals("Sorcerer"))
 			return new Class("Sorcerer", 0, new Luna(true), Weapon.Type.DARK, Weapon.Type.ANIMA);
 		if(name.equals("Falconknight"))
-			return new Class("Falconknight", 0, new Stun(), Weapon.Type.LANCE, Weapon.Type.SWORD);
+			return new Class("Falconknight", 0, new Crisis(), Weapon.Type.LANCE, Weapon.Type.SWORD);
 		return null;
 		
 	}
