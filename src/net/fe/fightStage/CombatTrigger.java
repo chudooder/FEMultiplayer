@@ -1,11 +1,11 @@
 package net.fe.fightStage;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.Serializable;
 
 import net.fe.unit.Unit;
 
-public abstract class CombatTrigger {
+public abstract class CombatTrigger implements Serializable {
+	private static final long serialVersionUID = 1328411947653920427L;
 	public final int nameModification;
 	public final int turnToRun;
 	
@@ -26,7 +26,7 @@ public abstract class CombatTrigger {
 		nameModification = mod;
 		turnToRun = turn;
 	}
-	public abstract boolean attempt(Unit user);
+	public abstract boolean attempt(Unit user, int range);
 	public boolean runPreAttack(CombatCalculator calc, Unit a, Unit d){
 		return true;
 	}

@@ -2,23 +2,85 @@ package chu.engine.anim;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+import java.util.HashMap;
+import java.util.Stack;
+
+import net.fe.FEResources;
+
+import org.lwjgl.opengl.ARBFragmentShader;
+import org.lwjgl.opengl.ARBVertexShader;
+import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.GL20;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.Game;
-import chu.engine.Resources;
 
 public class Renderer {
 
 	private static Camera camera;
 	private static RectClip clip;
 	private static final int SCALE_FILTER = GL_NEAREST;
-	private static int scaleX;
-	private static int scaleY;
+	private static Color color;
+	private static Stack<RendererState> stateStack;
+	private static HashMap<String, Integer> programs;
 
 	static {
+		System.out.println(GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
+		stateStack = new Stack<RendererState>();
+		programs = new HashMap<String, Integer>();
 		camera = new Camera(null, 0, 0);
 		clip = null;
+		color = Color.white;
+		programs.put("default", createProgram("default", "default"));
+		programs.put("greyscale", createProgram("default", "greyscale"));
+		programs.put("lighten", createProgram("default", "lighten"));
+		programs.put("paletteSwap", createProgram("paletteSwap", "paletteSwap"));
+		
+		// Palette swap 1D texture
+		ByteBuffer bb = ByteBuffer.allocateDirect(3*16);
+		// Blue colors
+		bb.put(0  , (byte)57);	//r
+		bb.put(1  , (byte)57);	//g
+		bb.put(2  , (byte)148);	//b
+		bb.put(3  , (byte)57);
+		bb.put(4  , (byte)82);
+		bb.put(5  , (byte)231);
+		bb.put(6  , (byte)41);
+		bb.put(7  , (byte)165);
+		bb.put(8  , (byte)255);
+		bb.put(9  , (byte)24);
+		bb.put(10 , (byte)247);
+		bb.put(11 , (byte)255);
+		// Red colors
+		bb.put(24, (byte)96);
+		bb.put(25, (byte)40);
+		bb.put(26, (byte)32);
+		bb.put(27, (byte)168);
+		bb.put(28, (byte)48);
+		bb.put(29, (byte)40);
+		bb.put(30, (byte)224);
+		bb.put(31, (byte)16);
+		bb.put(32, (byte)16);
+		bb.put(33, (byte)248);
+		bb.put(34, (byte)80);
+		bb.put(35, (byte)72);
+		// Load into texture
+		GL13.glActiveTexture(GL13.GL_TEXTURE1);
+		int texID = glGenTextures();
+		GL11.glBindTexture(GL_TEXTURE_1D, texID);
+		GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
+		GL11.glTexImage1D(GL_TEXTURE_1D, 0, GL_RGB, 16, 0, GL_RGB, GL_UNSIGNED_BYTE, bb);
+		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 	}
 
 	/***
@@ -45,59 +107,47 @@ public class Renderer {
 	 */
 	public static void render(Texture t, float tx0, float ty0, float tx1,
 			float ty1, float x0, float y0, float x1, float y1, float depth) {
-		Color.white.bind();
-		t.bind();
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		// Compensation for non power of 2 images
-		float txi = tx0*t.getImageWidth()/t.getTextureWidth();
-		float tyi = ty0*t.getImageHeight()/t.getTextureHeight();
-		float txf = tx1*t.getImageWidth()/t.getTextureWidth();
-		float tyf = ty1*t.getImageHeight()/t.getTextureHeight();
-
-		// draw quad
-		glBegin(GL_QUADS);
-		glTexCoord2f(txi, tyi);
-		glVertex3f(x0, y0, depth);
-		glTexCoord2f(txf, tyi);
-		glVertex3f(x1, y0, depth);
-		glTexCoord2f(txf, tyf);
-		glVertex3f(x1, y1, depth);
-		glTexCoord2f(txi, tyf);
-		glVertex3f(x0, y1, depth);
-		glEnd();
-		if(clip != null && !clip.persistent) clip.destroy();
+		render(t, tx0, ty0, tx1, ty1, x0, y0, x1, y1, depth, null, "default");
+	}
+	
+	public static void render(Texture t, float tx0, float ty0, float tx1,
+			float ty1, float x0, float y0, float x1, float y1, float depth, Transform transform) {
+		render(t, tx0, ty0, tx1, ty1, x0, y0, x1, y1, depth, transform, "default");
 	}
 
-	public static void renderTransformed(Texture t, float tx0, float ty0,
+	public static void render(Texture t, float tx0, float ty0,
 			float tx1, float ty1, float x0, float y0, float x1, float y1,
-			float depth, Transform transform) {
-		t.bind();
+			float depth, Transform transform, String shader) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		Color c = transform.color;
-		glColor4f(c.r, c.g, c.b, c.a);
+		ARBShaderObjects.glUseProgramObjectARB(programs.get(shader));
+		t.bind();
 		glPushMatrix();
-		glTranslatef(x0, y0, depth);
-		glTranslatef(transform.translateX, transform.translateY, 0);
-		glScalef(transform.scaleX, transform.scaleY, 0);
-		glTranslatef(-x0 + (x0 + x1) / 2, -y0 + (y0 + y1) / 2, 0);
-		glRotatef(transform.rotation / (float) Math.PI * 180, 0, 0, 1);
-		glTranslatef(-(x0 + x1) / 2, -(y0 + y1) / 2, -depth);
-
-		// do flip operations
-		if (transform.flipHorizontal) {
-			float temp = tx0;
-			tx0 = tx1;
-			tx1 = temp;
+		if(transform != null) {
+			Color c = transform.color.multiply(color);
+			glColor4f(c.r, c.g, c.b, c.a);
+			glTranslatef(x0, y0, depth);
+			glTranslatef(transform.translateX, transform.translateY, 0);
+			glScalef(transform.scaleX, transform.scaleY, 0);
+			glTranslatef(-x0 + (x0 + x1) / 2, -y0 + (y0 + y1) / 2, 0);
+			glRotatef(transform.rotation / (float) Math.PI * 180, 0, 0, 1);
+			glTranslatef(-(x0 + x1) / 2, -(y0 + y1) / 2, -depth);
+	
+			// do flip operations
+			if (transform.flipHorizontal) {
+				float temp = tx0;
+				tx0 = tx1;
+				tx1 = temp;
+			}
+	
+			if (transform.flipVertical) {
+				float temp = ty0;
+				ty0 = ty1;
+				ty1 = temp;
+			}
+		} else {
+			glColor4f(color.r, color.g, color.b, color.a);
 		}
-
-		if (transform.flipVertical) {
-			float temp = ty0;
-			ty0 = ty1;
-			ty1 = temp;
-		}
-		
 		// Compensation for non power of 2 images
 		float txi = tx0*t.getImageWidth()/t.getTextureWidth();
 		float tyi = ty0*t.getImageHeight()/t.getTextureHeight();
@@ -118,6 +168,7 @@ public class Renderer {
 
 		glPopMatrix();
 		if(clip != null && !clip.persistent) clip.destroy();
+		ARBShaderObjects.glUseProgramObjectARB(0);
 	}
 
 	public static void drawSquare(float x, float y, float s, float depth,
@@ -127,26 +178,23 @@ public class Renderer {
 
 	public static void drawRectangle(float x0, float y0, float x1, float y1,
 			float depth, Color c) {
-		c.bind();
-		glDisable(GL_TEXTURE_2D);
-		glColor4f(c.r, c.g, c.b, c.a);
-
-		// glLoadIdentity();
-		glBegin(GL_QUADS);
-		glVertex3f(x0, y0, depth);
-		glVertex3f(x1, y0, depth);
-		glVertex3f(x1, y1, depth);
-		glVertex3f(x0, y1, depth);
-		glEnd();
-		glEnable(GL_TEXTURE_2D);
-		if(clip != null && !clip.persistent) clip.destroy();
+		drawRectangle(x0, y0, x1, y1, depth, c, c, c, c);
+	}
+	
+	public static void drawBorderedRectangle(float x0, float y0, float x1, float y1, float depth, Color... c){
+		for(int i = c.length - 1; i >= 0; i--){
+			drawRectangle(x0 - i, y0 - i, x1 + i, y1 + i, depth, c[i]);
+		}
 	}
 
 	public static void drawRectangle(float x0, float y0, float x1, float y1,
 			float depth, Color c0, Color c1, Color c2, Color c3) {
 		glDisable(GL_TEXTURE_2D);
-		// glLoadIdentity();
 		glBegin(GL_QUADS);
+		c0 = c0.multiply(color);
+		c1 = c1.multiply(color);
+		c2 = c2.multiply(color);
+		c3 = c3.multiply(color);
 		glColor4f(c0.r, c0.g, c0.b, c0.a);
 		glVertex3f(x0, y0, depth);
 		glColor4f(c1.r, c1.g, c1.b, c1.a);
@@ -167,26 +215,12 @@ public class Renderer {
 
 		// glLoadIdentity();
 		glBegin(GL_LINES);
+		c1 = c1.multiply(color);
+		c2 = c2.multiply(color);
 		glColor4f(c1.r, c1.g, c1.b, c1.a);
 		glVertex3f(x0, y0, depth);
 		glColor4f(c2.r, c2.g, c2.b, c2.a);
 		glVertex3f(x, y, depth);
-		glEnd();
-		glEnable(GL_TEXTURE_2D);
-		if(clip != null && !clip.persistent) clip.destroy();
-	}
-
-	public static void drawLine(double x0, double y0, double x, double y,
-			float width, float depth, Color c1, Color c2) {
-		glDisable(GL_TEXTURE_2D);
-		glLineWidth(width);
-
-		// glLoadIdentity();
-		glBegin(GL_LINES);
-		glColor4f(c1.r, c1.g, c1.b, c1.a);
-		glVertex3d(x0, y0, depth);
-		glColor4f(c2.r, c2.g, c2.b, c2.a);
-		glVertex3d(x, y, depth);
 		glEnd();
 		glEnable(GL_TEXTURE_2D);
 		if(clip != null && !clip.persistent) clip.destroy();
@@ -196,6 +230,7 @@ public class Renderer {
 			float x2, float y2, float depth, Color c) {
 		c.bind();
 		glDisable(GL_TEXTURE_2D);
+		c = c.multiply(color);
 		glColor4f(c.r, c.g, c.b, c.a);
 		glBegin(GL_TRIANGLES);
 		glVertex3f(x0, y0, depth);
@@ -205,32 +240,19 @@ public class Renderer {
 		glEnable(GL_TEXTURE_2D);
 		if(clip != null && !clip.persistent) clip.destroy();
 	}
-
-	public static void drawTriangle(double x0, double y0, double x1, double y1,
-			double x2, double y2, float depth, Color c) {
-		c.bind();
-		glDisable(GL_TEXTURE_2D);
-		glColor4d(c.r, c.g, c.b, c.a);
-		glBegin(GL_TRIANGLES);
-		glVertex3d(x0, y0, depth);
-		glVertex3d(x1, y1, depth);
-		glVertex3d(x2, y2, depth);
-		glEnd();
-		glEnable(GL_TEXTURE_2D);
-		if(clip != null && !clip.persistent) clip.destroy();
+	
+	public static void drawString(String fontName, int num, float x, float y, float depth) {
+		drawString(fontName, num+"", x, y, depth);
 	}
 	
 	public static void drawString(String fontName, String string, float x, float y, float depth) {
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		Resources.getBitmapFont(fontName).render(string, x, y, depth);
-		if(clip != null && !clip.persistent) clip.destroy();
+		drawString(fontName, string, x, y, depth, null);
 	}
 	
-	public static void drawTransformedString(String fontName, String string, float x, float y, float depth, Transform t) {
+	public static void drawString(String fontName, String string, float x, float y, float depth, Transform t) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		Resources.getBitmapFont(fontName).renderTransformed(string, x, y, depth, t);
+		FEResources.getBitmapFont(fontName).render(string, x, y, depth, t);
 		if(clip != null && !clip.persistent) clip.destroy();
 	}
 	
@@ -238,21 +260,30 @@ public class Renderer {
 		glTranslatef(x, y, 0);
 	}
 	
-	public static void scale(int x, int y) {
-		scaleX = x;
-		scaleY = y;
+	public static void scale(float x, float y) {
 		glScalef(x, y, 0);
+	}
+	
+	public static void setColor(Color c) {
+		if(c == null) color = Color.white;
+		else color = c;
 	}
 	
 	public static void pushMatrix() {
 		glPushMatrix();
+		RendererState state = new RendererState();
+		state.color = color;
+		state.clip = clip;
+		stateStack.push(state);
 	}
 	
 	public static void popMatrix() {
 		glPopMatrix();
+		RendererState state = stateStack.pop();
+		color = state.color;
+		clip = state.clip;
+		stateStack.push(state);
 	}
-	
-	
 	
 	public static void setCamera(Camera c) {
 		camera = c;
@@ -262,21 +293,165 @@ public class Renderer {
 		return camera;
 	}
     
-    public static void addClip(int x0, int y0, int w, int h, boolean persistent) {
-    	clip = new RectClip(x0, y0, w, h, persistent);
+    public static void addClip(float f, float g, float h, float i, boolean persistent) {
+    	clip = new RectClip(f, g, h, i, persistent);
     }
     
     public static void removeClip() {
     	if(clip != null) clip.destroy();
     }
     
+    /*
+    * With the exception of syntax, setting up vertex and fragment shaders
+    * is the same.
+    * @param the name and path to the vertex shader
+    */
+    private static int createShader(String filename, int shaderType) throws Exception {
+    	int shader = 0;
+    	try {
+	        shader = ARBShaderObjects.glCreateShaderObjectARB(shaderType);
+	        
+	        if(shader == 0)
+	        	return 0;
+	        
+	        ARBShaderObjects.glShaderSourceARB(shader, readFileAsString(filename));
+	        ARBShaderObjects.glCompileShaderARB(shader);
+	        
+	        if (ARBShaderObjects.glGetObjectParameteriARB(shader, ARBShaderObjects.GL_OBJECT_COMPILE_STATUS_ARB) == GL_FALSE)
+	            throw new RuntimeException("Error creating shader: " + getLogInfo(shader));
+	        
+	        return shader;
+    	}
+    	catch(Exception exc) {
+    		ARBShaderObjects.glDeleteObjectARB(shader);
+    		throw exc;
+    	}
+    }
+    
+    private static int createProgram(String vertShader, String fragShader) {
+    	// Create program object
+    	int prog = ARBShaderObjects.glCreateProgramObjectARB();
+    	// Create vertex shader
+    	try {
+			int vertexShader = createShader("shaders/"+vertShader+".vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
+			if(vertexShader == 0) throw new Exception();
+			ARBShaderObjects.glAttachObjectARB(prog, vertexShader);
+		} catch (Exception e) {
+			System.err.println("Unable to create vertex shader: "+vertShader);
+			e.printStackTrace();
+		}
+    	// Create fragment shader
+    	try {
+			int fragmentShader = createShader("shaders/"+fragShader+".frag",ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
+			if(fragmentShader == 0) throw new Exception();
+			ARBShaderObjects.glAttachObjectARB(prog, fragmentShader);
+		} catch (Exception e) {
+			System.err.println("Unable to create fragment shader: "+fragShader);
+			e.printStackTrace();
+		}
+    	// Link program
+    	ARBShaderObjects.glLinkProgramARB(prog);
+	    if (ARBShaderObjects.glGetObjectParameteriARB(prog, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL_FALSE) {
+	        System.err.println(getLogInfo(prog));
+	        System.out.println("crap");
+	        return -1;
+	    }
+	    
+	    // Use program
+	    ARBShaderObjects.glUseProgramObjectARB(prog);
+	    // Bind texture units to uniforms
+	    int loc = GL20.glGetUniformLocation(prog, "texture1");
+        GL20.glUniform1i(loc, 0);
+        int loc2 = GL20.glGetUniformLocation(prog, "texture2");
+        GL20.glUniform1i(loc2, 1);
+        
+	    // Validate program
+	    ARBShaderObjects.glValidateProgramARB(prog);
+	    if (ARBShaderObjects.glGetObjectParameteriARB(prog, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL_FALSE) {
+	    	System.err.println(getLogInfo(prog));
+	    	System.out.println("shit");
+	    	return -1;
+	    }
+    	return prog;
+    }
+
+	private static String getLogInfo(int obj) {
+        return ARBShaderObjects.glGetInfoLogARB(obj, 
+        		ARBShaderObjects.glGetObjectParameteriARB(obj,
+        				ARBShaderObjects.GL_OBJECT_INFO_LOG_LENGTH_ARB));
+    }
+	
+    /**
+     * I copied this method from the lwjgl website but this code makes me want
+     * to kill myself. I might fix later
+     * @param filename
+     * @return
+     * @throws Exception
+     */
+    private static String readFileAsString(String filename) throws Exception {
+        StringBuilder source = new StringBuilder();
+        InputStream in = ResourceLoader.getResourceAsStream(filename);
+        Exception exception = null;
+        BufferedReader reader;
+        try{
+            reader = new BufferedReader(new InputStreamReader(in,"UTF-8"));
+            
+            Exception innerExc= null;
+            try {
+            	String line;
+                while((line = reader.readLine()) != null)
+                    source.append(line).append('\n');
+            }
+            catch(Exception exc) {
+            	exception = exc;
+            }
+            finally {
+            	try {
+            		reader.close();
+            	}
+            	catch(Exception exc) {
+            		if(innerExc == null)
+            			innerExc = exc;
+            		else
+            			exc.printStackTrace();
+            	}
+            }
+            
+            if(innerExc != null)
+            	throw innerExc;
+        }
+        catch(Exception exc) {
+        	exception = exc;
+        }
+        finally {
+        	try {
+        		in.close();
+        	}
+        	catch(Exception exc) {
+        		if(exception == null)
+        			exception = exc;
+        		else
+					exc.printStackTrace();
+        	}
+        	
+        	if(exception != null)
+        		throw exception;
+        }
+        
+        return source.toString();
+    }
+    
+    public static void addProgram(String name, String vertShader, String fragShader) {
+    	programs.put(name, createProgram(vertShader, fragShader));
+    }
+    
     static class RectClip {
     	boolean persistent;
-    	public RectClip(int x0, int y0, int w, int h, boolean p) {
+    	public RectClip(float x0, float y0, float w, float h, boolean p) {
     		persistent = p;
     		glEnable(GL_SCISSOR_TEST);
-    		System.out.println(scaleX*x0+" "+(Game.getWindowHeight()-y0-scaleY*h)+" "+scaleX*w+" "+scaleY*h);
-    		glScissor(scaleX*x0, Game.getWindowHeight()-y0-scaleY*h, scaleX*w, scaleY*h);
+//    		System.out.println(scaleX*x0+" "+(Game.getWindowHeight()-y0-scaleY*h)+" "+scaleX*w+" "+scaleY*h);
+    		glScissor((int)x0, (int)(Game.getWindowHeight()-y0-h), (int)w, (int)h);
     	}
     	
     	public void destroy() {
@@ -284,4 +459,9 @@ public class Renderer {
     	}
     }
 
+    static class RendererState {
+		Color color;
+		RectClip clip;
+	}
+    
 }

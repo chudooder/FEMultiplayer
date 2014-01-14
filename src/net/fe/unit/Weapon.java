@@ -5,15 +5,15 @@ import java.util.*;
 import net.fe.fightStage.Brave;
 import net.fe.fightStage.CombatTrigger;
 
-public class Weapon extends Item{
+public class Weapon extends Item {
+	private static final long serialVersionUID = 6496663141806177211L;
 	public HashMap<String, Integer> modifiers;
 	public int mt, hit, crit;
 	public List<Integer> range;
 	public Type type;
 	public ArrayList<String> effective;
-	public int worth;
 	public String pref;
-	public int id;
+
 	
 	public Weapon(String name) {
 		super(name);
@@ -78,7 +78,10 @@ public class Weapon extends Item{
 	public int triMod(Weapon other){ 
 		if(other == null) return 0;
 		if(this.name.contains("reaver") || other.name.contains("reaver")){
-			return -type.triangleModifier(other.type);
+			if(this.name.contains("reaver") && other.name.contains("reaver")){
+				return -type.triangleModifier(other.type);
+			}
+			return -2*type.triangleModifier(other.type);
 		}
 		return type.triangleModifier(other.type);
 	}
@@ -104,12 +107,24 @@ public class Weapon extends Item{
 		w.hit = hit;
 		w.crit = crit;
 		w.setMaxUses(getMaxUses());
-		w.worth = worth;
+		w.setCost(getCost());
 		w.effective = new ArrayList<String>(effective);
 		w.pref = pref;
 		w.modifiers = new HashMap<String, Integer>(modifiers);
 		w.id = id;
 		return w;
 		
+	}
+
+	@Override
+	public int compareTo(Item that) {
+		if(that instanceof Weapon){
+			int first = this.type.compareTo(((Weapon) that).type);
+			if(first != 0) return first;
+			int second = this.getCost() - that.getCost();
+			return second;
+		} else {
+			return -1;
+		}
 	}
 }

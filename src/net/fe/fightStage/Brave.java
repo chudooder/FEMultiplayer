@@ -8,7 +8,7 @@ public class Brave extends CombatTrigger{
 	}
 
 	@Override
-	public boolean attempt(Unit user) {
+	public boolean attempt(Unit user, int range) {
 		return true;
 	}
 
@@ -16,7 +16,7 @@ public class Brave extends CombatTrigger{
 	public void runPostAttack(CombatCalculator calc, boolean dir, Unit a, Unit d,
 			int damage, String currentEffect) {
 		if(d.getHp() > 0 && currentEffect.equals("None")){
-			calc.attack(dir, "Brave");
+			calc.addAttack("Brave");
 		}
 	}
 	

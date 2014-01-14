@@ -1,13 +1,16 @@
 package net.fe.fightStage.anim;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import net.fe.FEResources;
 import net.fe.fightStage.FightStage;
-
-import org.newdawn.slick.opengl.Texture;
-
+import net.fe.unit.Weapon;
 import chu.engine.Entity;
-import chu.engine.Resources;
-import chu.engine.TextureData;
+import chu.engine.AnimationData;
 import chu.engine.anim.Animation;
+import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Transform;
 
 public class HitEffect extends Entity {
@@ -16,34 +19,72 @@ public class HitEffect extends Entity {
 	public HitEffect(String name, boolean leftAttacking) {
 		super(0, 0);
 		left = leftAttacking;
-		TextureData data = getHitTexture(name);
+		final AnimationData data = getHitTexture(name);
 		Animation anim = new Animation(data.texture, data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
-				data.offsetY, 20) {
+				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
+			HashMap<Integer, String> soundMap = data.soundMap;
+			{
+				if(soundMap.get(0) != null) {
+					System.out.println(soundMap.get(0));
+					AudioPlayer.playAudio(soundMap.get(0), 1, 1);
+				}
+			}
+			public void update() {
+				int prevFrame = getFrame();
+				super.update();
+				if(prevFrame != getFrame()) {
+					if(soundMap.get(getFrame()) != null) {
+						AudioPlayer.playAudio(soundMap.get(getFrame()), 1, 1);
+					}
+				}
+			}
 			@Override
 			public void done() {
 				destroy();
 			}
 		};
+		System.out.println(name + " " + anim.getLength() + " " + anim.getSpeed());
 		sprite.addAnimation("default", anim);
-
 		renderDepth = FightStage.EFFECT_DEPTH;
 	}
 
 	@Override
 	public void render() {
 		Transform t = new Transform();
-		int offset = FightStage.rangeToHeadDistance(1) - 
-				((FightStage) stage).distanceToHead();
+		int offset = - ((FightStage) stage).distanceToHead();
 		if (left) {
 			t.flipHorizontal();
-			offset*=-1;
+			offset *= -1;
 		}
-		sprite.renderTransformed(FightStage.CENTRAL_AXIS - 120 + offset,
-				FightStage.FLOOR - 104, 0, t);
+		sprite.render(FightStage.CENTRAL_AXIS + offset,
+				FightStage.FLOOR, renderDepth, t);
 	}
 
-	public static TextureData getHitTexture(String name) {
-		return Resources.getTextureData("hit_effect_" + name);
+	public static AnimationData getHitTexture(String name) {
+		return FEResources.getTextureData("hit_effect_" + name);
+	}
+
+	public static List<HitEffect> getEffects(AnimationArgs animArgs,
+			String animation) {
+		List<HitEffect> effects = new ArrayList<HitEffect>();
+
+		if (animArgs.unit.getWeapon().isMagic()) {
+			effects.add(new HitEffect(animArgs.unit.getWeapon().name
+					.toLowerCase(), animArgs.left));
+		}
+		if (animArgs.unit.getWeapon().type == Weapon.Type.STAFF) {
+			effects.add(new HitEffect("heal", animArgs.left));
+		}
+		if (effects.size() == 0 && !animation.equals("Miss")) { // We have
+																// nothing.
+			effects.add(new HitEffect(
+					animation.contains("Critical") ? "critical" : "attack",
+					animArgs.left));
+		}
+
+		// TODO Skill Hit Effects
+
+		return effects;
 	}
 }

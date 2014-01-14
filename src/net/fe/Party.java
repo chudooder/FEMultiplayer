@@ -1,12 +1,15 @@
 package net.fe;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.newdawn.slick.Color;
 
 import net.fe.unit.Unit;
 
-public class Party {
+public class Party implements Iterable<Unit>, Serializable{
+	private static final long serialVersionUID = 1334090578185765598L;
 	private Color color;
 	private ArrayList<Unit> units;
 	private ArrayList<Party> allies;
@@ -19,10 +22,21 @@ public class Party {
 		units = new ArrayList<Unit>();
 		allies = new ArrayList<Party>();
 		allies.add(this);
+		color = TEAM_BLUE;
 	}
 	
 	public Party(ArrayList<Unit> units) {
 		this.units = units;
+		allies = new ArrayList<Party>();
+		allies.add(this);
+	}
+	
+	public void addAlly(Party p){
+		allies.add(p);
+	}
+	
+	public boolean isAlly(Party p){
+		return allies.contains(p);
 	}
 	
 	public void addUnit(Unit unit) {
@@ -51,6 +65,15 @@ public class Party {
 	
 	public Color getColor(){
 		return color;
+	}
+
+	@Override
+	public Iterator<Unit> iterator() {
+		return units.iterator();
+	}
+
+	public void clear() {
+		units.clear();
 	}
 
 }

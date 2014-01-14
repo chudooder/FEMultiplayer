@@ -1,6 +1,7 @@
 package chu.engine.menu;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.lwjgl.input.Mouse;
 
@@ -12,7 +13,7 @@ public abstract class MenuButton extends Entity {
 	
 	private float width;
 	private float height;
-	private boolean hover;
+	protected boolean hover;
 
 	public MenuButton(float x, float y) {
 		super(x, y);
@@ -27,13 +28,13 @@ public abstract class MenuButton extends Entity {
 		height = h;
 	}
 	
-	public abstract void onEnter();
-	public abstract void onClick();
-	public abstract void onExit();
+	public void onEnter(){};
+	public void onClick(){};
+	public void onExit(){};
 	
 	public void beginStep() {
 		int mX = Mouse.getX();
-		int mY = 480 - Mouse.getY();
+		int mY = Game.getWindowHeight() - Mouse.getY();
 		boolean newHover = (mX >= x && mX < x + width && mY >= y && mY < y + height);
 		if(newHover && !hover) {
 			onEnter();
@@ -42,9 +43,9 @@ public abstract class MenuButton extends Entity {
 			onExit();
 			hover = false;
 		}
-		HashMap<MouseEvent, Boolean> mouseEvents = Game.getMouseEvents();
-		for(MouseEvent event : mouseEvents.keySet()) {
-			if(hover && event.button == 0 && mouseEvents.get(event)) {
+		List<MouseEvent> mouseEvents = Game.getMouseEvents();
+		for(MouseEvent event : mouseEvents) {
+			if(hover && event.button == 0 && event.state) {
 				onClick();
 				break;
 			}

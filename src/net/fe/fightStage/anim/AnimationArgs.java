@@ -2,6 +2,8 @@ package net.fe.fightStage.anim;
 
 import net.fe.unit.Unit;
 import net.fe.unit.Weapon;
+import net.fe.unit.Weapon.Type;
+import net.fe.unit.WeaponFactory;
 
 public class AnimationArgs {
 	public String userclass;
@@ -20,23 +22,37 @@ public class AnimationArgs {
 		this.left = left;
 		this.range = range;
 		unit = u;
-		if(u.getWeapon().isMagic()){
+		Weapon w = u.getWeapon();
+		if(w == null){
+			Type wType = u.getTheClass().usableWeapon.get(0);
+			if(wType.isMagic()){
+				wepAnimName = "magic";
+				classification = "magic";
+			} else {
+				wepAnimName = wType.toString().toLowerCase();
+				classification = "normal";
+			}
+		}else if(w.isMagic()){
 			wepAnimName = "magic";
 			classification = "magic";
 		} else {
-			wepAnimName = u.getWeapon().type.toString().toLowerCase();
+			wepAnimName = w.type.toString().toLowerCase();
 			classification = "normal";
-			if(u.getWeapon().range.contains(range) && range > 1){
-				if(u.getWeapon().type == Weapon.Type.AXE){
+			if(w.range.contains(range) && range > 1){
+				if(w.type == Weapon.Type.AXE){
 					wepAnimName = "handaxe";
-					classification = "ranged";
+					classification = "normal";
 				}
-				if (u.getWeapon().type == Weapon.Type.LANCE){
+				if (w.type == Weapon.Type.LANCE){
 					wepAnimName = "javelin";
-					classification = "ranged";
+					classification = "normal";
 				} 
+				if (w.type == Weapon.Type.SWORD){
+					wepAnimName = "rangedsword";
+					classification = "normal";
+				}
 			}
-			if (u.getWeapon().type == Weapon.Type.BOW){
+			if (w.type == Weapon.Type.BOW){
 				this.classification = "ranged";
 			}
 		}

@@ -1,5 +1,6 @@
 package net.fe.unit;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -69,6 +70,9 @@ public class UnitFactory {
 			growths.put("Res", resGrowth);
 			growths.put("Lck", lckGrowth);
 			
+			if(clazz == null){
+				System.err.println(line);
+			}
 			Unit u = new Unit(name, clazz, bases, growths);
 			if(name.equals("Roy")){
 				u.addToInventory(WeaponFactory.getWeapon("Sealed Sword"));
@@ -95,5 +99,31 @@ public class UnitFactory {
 	
 	public static Unit getUnit(String name){
 		return units.get(name).getCopy();
+	}
+	
+	public static ArrayList<Unit> getAllUnits() {
+		ArrayList<Unit> ans = new ArrayList<Unit>();
+		for(Unit u : units.values()) {
+			ans.add(u.getCopy());
+		}
+		return ans;
+	}
+	
+	public static ArrayList<Unit> getLords(){
+		ArrayList<Unit> ans = new ArrayList<Unit>();
+		for(Unit u : units.values()) {
+			if(u.getTheClass().name.equals("Lord"))
+				ans.add(u.getCopy());
+		}
+		return ans;
+	}
+	
+	public static ArrayList<Unit> getVassals(){
+		ArrayList<Unit> ans = new ArrayList<Unit>();
+		for(Unit u : units.values()) {
+			if(!u.getTheClass().name.equals("Lord"))
+				ans.add(u.getCopy());
+		}
+		return ans;
 	}
 }

@@ -35,7 +35,6 @@ public abstract class Entity implements Comparable<Entity> {
 		if(sprite != null) sprite.update();
 		prevX = x;
 		prevY = y;
-		if(willBeRemoved) stage.removeEntity(this);
 	}
 	
 	public void beginStep() {

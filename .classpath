@@ -8,5 +8,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lwjgl-2.9.0/jar/slick-util.jar"/>
+	<classpathentry kind="lib" path="json-simple/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

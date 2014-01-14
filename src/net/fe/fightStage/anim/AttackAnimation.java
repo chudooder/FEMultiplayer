@@ -1,12 +1,11 @@
 package net.fe.fightStage.anim;
 
+import java.util.HashMap;
+
 import net.fe.fightStage.FightStage;
-import net.fe.unit.Unit;
-
-import org.newdawn.slick.opengl.Texture;
-
-import chu.engine.TextureData;
+import chu.engine.AnimationData;
 import chu.engine.anim.Animation;
+import chu.engine.anim.AudioPlayer;
 
 public abstract class AttackAnimation extends Animation {
 	
@@ -18,11 +17,13 @@ public abstract class AttackAnimation extends Animation {
 	protected AnimationArgs animationArgs;
 	protected FightStage stage;
 	protected int freeze;
+	protected HashMap<Integer, String> soundMap;
 	
-	public static final int NORMAL_SPEED = 55;
+	public static final float NORMAL_SPEED = .055f;
+	private float defaultSpeed = NORMAL_SPEED;
 	
 	//TODO You can't have a hit frame on the very last frame
-	public AttackAnimation(TextureData data, FightStage stage, AnimationArgs animArgs) {
+	public AttackAnimation(AnimationData data, FightStage stage, AnimationArgs animArgs) {
 		super(data.texture, data.frameWidth, data.frameHeight, data.frames,
                 data.columns, data.offsetX, data.offsetY, 0);
 		this.hitframes = data.hitframes;
@@ -30,6 +31,13 @@ public abstract class AttackAnimation extends Animation {
 		this.animationArgs = animArgs;
 		this.freeze = data.freeze;
 		this.loopUntil = -1;
+		this.soundMap = data.soundMap;
+		if(data.speed != 0) {
+			defaultSpeed = data.speed;
+		}
+		if(soundMap.get(0) != null) {
+			AudioPlayer.playAudio(soundMap.get(0), 1, 1);
+		}
 	}
 	
 	@Override
@@ -43,20 +51,18 @@ public abstract class AttackAnimation extends Animation {
 	public void update() {
 		int prevFrame = getFrame();
 		super.update();
-		for(int i : hitframes) {
-			if(prevFrame != getFrame() && getFrame() == i) {
-				onHit();
-//				if(unit.getWeapon().isMagic()){
-//					stage.addEntity(new MagicEffect(
-//							unit.getWeapon().name, stage.isLeft(unit)));
-//				} else {
-//					stage.setCurrentEvent(FightStage.ATTACKED);
-//				}
-//				if(freeze == 0){
-//					setSpeed(0);
-//				} else if(freeze > 0) {
-//					loopUntil = getFrame() + freeze;
-//				}
+		if(prevFrame != getFrame()) {
+			for(int j=0; j<hitframes.length; j++) {
+				int i = hitframes[j];
+				if(getFrame() == i) {
+					if(j == hitframes.length - 1)
+						onLastHit();
+					else
+						onHit();
+				}
+			}
+			if(soundMap.get(getFrame()) != null) {
+				AudioPlayer.playAudio(soundMap.get(getFrame()), 1, 1);
 			}
 		}
 		if(getFrame() == loopUntil) {
@@ -81,15 +87,19 @@ public abstract class AttackAnimation extends Animation {
 	}
 	
 	@Override
-	public void setSpeed(int speed) {
+	public void setSpeed(float speed) {
 		super.setSpeed(speed);
 		loopUntil = -1;
 	}
 	
+	public float getDefaultSpeed() {
+		return defaultSpeed;
+	}
 	
 	public abstract void onHit();
+	public abstract void onLastHit();
 	
-	public static AttackAnimation createAnimation(TextureData data, 
+	public static AttackAnimation createAnimation(AnimationData data, 
 			FightStage stage, AnimationArgs args){
 		if(args.classification.equals("normal")){
 			return new NormalAttack(data, stage, args);

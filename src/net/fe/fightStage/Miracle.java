@@ -10,7 +10,7 @@ public class Miracle extends CombatTrigger {
 	}
 
 	@Override
-	public boolean attempt(Unit user) {
+	public boolean attempt(Unit user, int range) {
 		return RNG.get() < user.get("Lck");
 	}
 	

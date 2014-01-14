@@ -1,7 +1,7 @@
 package net.fe.fightStage;
 
 import net.fe.RNG;
-import net.fe.overworldStage.OverworldStage;
+import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.overworldStage.StunTrigger;
 import net.fe.unit.Unit;
 
@@ -12,13 +12,13 @@ public class Stun extends CombatTrigger{
 	}
 
 	@Override
-	public boolean attempt(Unit user) {
+	public boolean attempt(Unit user, int range) {
 		return RNG.get() < user.get("Skl");
 	}
 
 	@Override
 	public boolean runPreAttack(CombatCalculator calc, Unit a, Unit d) {
-		((OverworldStage)d.stage).getTerrain(d.xcoord, d.ycoord).addTrigger(new StunTrigger());
+		((ClientOverworldStage)d.stage).getTerrain(d.getXCoord(), d.getYCoord()).addTrigger(new StunTrigger());
 		return true;
 	}
 	

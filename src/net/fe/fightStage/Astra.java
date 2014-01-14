@@ -4,13 +4,13 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Astra extends CombatTrigger {
-	private int counter;
+	private transient int counter;
 	public Astra(){
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE + YOUR_TURN_MOD + YOUR_TURN_POST);
 	}
 	@Override
-	public boolean attempt(Unit user) {
-		return RNG.get() < user.get("Skl")/2 || counter!=0;
+	public boolean attempt(Unit user, int range) {
+		return range == 1 && (RNG.get() < user.get("Skl")/2 || counter!=0);
 	}
 	
 	@Override
@@ -26,7 +26,7 @@ public class Astra extends CombatTrigger {
 		} else {
 			counter++;
 			if(d.getHp() > 0){
-				calc.attack(dir, "Astra");
+				calc.addAttack("Astra");
 			}
 		}
 	}

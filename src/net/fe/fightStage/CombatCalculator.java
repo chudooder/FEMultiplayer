@@ -2,9 +2,11 @@ package net.fe.fightStage;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
-import net.fe.FEMultiplayer;
 import net.fe.RNG;
+import net.fe.network.FEServer;
 import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
@@ -14,50 +16,55 @@ public class CombatCalculator {
 	private Unit left, right;
 	private ArrayList<AttackRecord> attackQueue;
 	private int range;
+	private Queue<String> nextAttack;
 	public CombatCalculator(UnitIdentifier u1, UnitIdentifier u2){
-		left = FEMultiplayer.getUnit(u1);
-		right = FEMultiplayer.getUnit(u2);
+		left = FEServer.getUnit(u1);
+		right = FEServer.getUnit(u2);
 		range = Grid.getDistance(left, right);
 		attackQueue = new ArrayList<AttackRecord>();
+		nextAttack = new LinkedList<String>();
 		calculate();
 	}
 	private void calculate() {
-		int hpLeft = left.getHp();
-		int hpRight = right.getHp();
 		// Determine turn order
 		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
-		if (shouldAttack(left,right,range,true))
+		if (shouldAttack(left,right,range))
 			attackOrder.add(true);
-		if (shouldAttack(right,left,range,false))
+		if (shouldAttack(right,left,range))
 			attackOrder.add(false);
 		if (left.get("Spd") >= right.get("Spd") + 4 
-				&& shouldAttack(left,right,range,false)) {
+				&& shouldAttack(left,right,range)) {
 			attackOrder.add(true);
 		}
 		if (right.get("Spd") >= left.get("Spd") + 4
-				&& shouldAttack(right,left,range,false)) {
+				&& shouldAttack(right,left,range)) {
 			attackOrder.add(false);
 		}
 
 		for (Boolean i : attackOrder) {
 			attack(i, "None");
+			while(!nextAttack.isEmpty()){
+				attack(i, nextAttack.poll());
+			}
 		}
-		left.setHp(hpLeft);
-		right.setHp(hpRight);
 	}
 	
-	public static boolean shouldAttack(Unit a, Unit d, int range, boolean first){
+	public static boolean shouldAttack(Unit a, Unit d, int range){
 		if(a.getWeapon() == null) return false;
+		if(a.getWeapon().getUses() == 0) return false;
 		if(!a.getWeapon().range.contains(range)) return false;
-		if(a.getWeapon().type == Weapon.Type.STAFF && !first) return false;
-		if((a.getWeapon().type == Weapon.Type.STAFF)
-				!= (a.getPartyColor().equals(d.getPartyColor()))) return false;
+		if(a.getWeapon().type == Weapon.Type.STAFF) return false;
 		return true;
 	}
+	
+	public void addAttack(String effect){
+		nextAttack.add(effect);
+	}
 
-	public void attack(boolean leftAttacking, String currentEffect) {
+	private void attack(boolean leftAttacking, String currentEffect) {
 		Unit a = leftAttacking?left: right;
 		Unit d = leftAttacking?right: left;
+		if(!shouldAttack(a, d, range)) return;
 		int damage = 0;
 		int drain = 0;
 		String animation = "Attack";
@@ -74,10 +81,10 @@ public class CombatCalculator {
 				new LinkedHashMap<CombatTrigger, Boolean>();
 		
 		for (CombatTrigger t : a.getTriggers()) {
-			aSuccess.put(t,t.attempt(a));
+			aSuccess.put(t,t.attempt(a, range));
 		}
 		for (CombatTrigger t : d.getTriggers()) {
-			dSuccess.put(t,t.attempt(a));
+			dSuccess.put(t,t.attempt(a, range));
 		}
 		
 		
@@ -104,7 +111,9 @@ public class CombatCalculator {
 				+ a.getWeapon().triMod(d.getWeapon()) * 15)) {
 			miss = true;
 			if (a.getWeapon().isMagic())
-				a.getWeapon().use(a);
+				a.use(a.getWeapon(), false); //TODO Remove on server
+		} else {
+			a.use(a.getWeapon(), false); //TODO Remove on server
 		}
 		if (RNG.get() < a.crit() - d.dodge()) {
 			crit = 3;
@@ -191,15 +200,17 @@ public class CombatCalculator {
 		boolean effective = a.getWeapon().effective.contains(d.getTheClass().name)
 				|| (d.getTheClass().name.equals("Lord") 
 						&& a.getWeapon().effective.contains(d.name));
+		int base;
 		if (a.getWeapon().isMagic()) {
-			return a.get("Mag")
+			base = a.get("Mag")
 					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
 					* (effective ? 3: 1) - d.get("Res");
 		} else {
-			return  a.get("Str")
+			base = a.get("Str")
 					+ (a.getWeapon().mt + a.getWeapon().triMod(d.getWeapon()))
 					* (effective? 3:1) - d.get("Def");
 		}
+		return Math.max(base, 0);
 	}
 	
 }

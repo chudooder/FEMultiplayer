@@ -1,6 +1,10 @@
 package chu.engine.anim;
 
+import net.fe.FEResources;
+
 import org.newdawn.slick.openal.Audio;
+
+import chu.engine.Game;
 
 public class AudioPlayer {
 
@@ -9,13 +13,26 @@ public class AudioPlayer {
 
 	public static void setCamera(Camera c) {
 		camera = c;
-		globalGain = -0.5f;
+		globalGain = 0f;
 	}
 
-	public static void playAudio(Audio audio, float pitch, float gain, float x,
+	public static void playAudio(String name, float pitch, float gain, float x,
 			float y, float z, float fade) {
+		Audio audio = FEResources.getAudio(name);
+		float cx, cy;
+		if(camera == null) {
+			cx = Game.getWindowWidth()/2;
+			cy = Game.getWindowHeight()/2;
+		} else {
+			cx = camera.getX();
+			cy = camera.getY();
+		}
 		audio.playAsSoundEffect(pitch, gain + globalGain, false, 
-				(x - camera.getX()) / fade,
-				(y - camera.getY()) / fade, z);
+				(x - cx) / fade, (y - cy) / fade, z);
+	}
+	
+	public static void playAudio(String name, float pitch, float gain) {
+		Audio audio = FEResources.getAudio(name);
+		audio.playAsSoundEffect(pitch, gain + globalGain, false);
 	}
 }

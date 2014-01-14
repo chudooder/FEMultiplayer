@@ -2,23 +2,44 @@ package chu.engine;
 
 public class GriddedEntity extends Entity {
 
-	public int xcoord;
-	public int ycoord;
+	protected int xcoord;
+	protected int ycoord;
+	
+	public GriddedEntity() {
+		this(0, 0);
+	}
 
 	public GriddedEntity(int xx, int yy) {
-		super(xx * 17 + 1, yy * 17 + 1);
+		super(xx * 16, yy * 16);
 		xcoord = xx;
 		ycoord = yy;
 	}
 
 	@Override
 	public void beginStep() {
-		x = xcoord * 17 + 1;
-		y = ycoord * 17 + 1;
+		x = xcoord * 16;
+		y = ycoord * 16;
 	}
 
 	@Override
 	public void endStep() {
 
+	}
+	
+	public int getXCoord(){
+		return xcoord;
+	}
+	
+	public int getYCoord(){
+		return ycoord;
+	}
+	
+	//ONLY THE GRID SHOULD CALL THESE METHODS.
+	public void gridSetXCoord(int x){
+		xcoord = x;
+	}
+	
+	public void gridSetYCoord(int y){
+		ycoord = y;
 	}
 }

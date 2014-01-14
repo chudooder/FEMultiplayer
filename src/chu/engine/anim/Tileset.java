@@ -45,5 +45,14 @@ public class Tileset {
 		Renderer.render(tileset, tx0, ty0, tx1, ty1, (int) x, (int) y,
 				(int) (x + tileWidth), (int) (y + tileHeight), depth);
 	}
+	
+	public void renderTransformed(float x, float y, int tx, int ty, float depth, Transform t) {
+		float tx0 = (float) tx / (width / tileWidth);
+		float ty0 = (float) ty / (height / tileHeight);
+		float tx1 = (float) (tx + 1) / (width / tileWidth);
+		float ty1 = (float) (ty + 1) / (height / tileHeight);
+		Renderer.render(tileset, tx0, ty0, tx1, ty1, (int) x, (int) y,
+				(int) (x + tileWidth), (int) (y + tileHeight), depth, t);
+	}
 
 }

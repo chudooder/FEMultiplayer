@@ -26,17 +26,17 @@ Dart		Berserker		8	34	12	0	8	8	3	6	1	11	6		70	65	10	20	60	35	20	15
 
 #Fire Emblem 8: Sacred Stones
 #Name		Class			Lv	HP	Str	Mag	Skl	Spd	Lck Def	Res	Con	Mov		HP	Str	Mag	Skl	Spd	Lck	Def	Res
-Eirika		Eirika			1	16	4	1	8	9	5	3	1	6	6		70	40	10	60	60	60	30	30
-Ephraim		Ephraim			4	23	8	2	9	11	8	7	2	9	6		80	55	10	55	45	50	35	25
+Eirika		Eirika			1	16	4	1	8	9	5	3	1	6	8		70	40	10	60	60	60	30	30
+Ephraim		Ephraim			4	23	8	2	9	11	8	7	2	9	8		80	55	10	55	45	50	35	25
 Franz		Paladin			1	20	7	1	5	7	2	6	1	10	8		80	40	10	40	50	40	25	20
 Gilliam		General			4	25	9	1	6	3	3	9	3	15	5		90	45	0	35	30	30	55	20
 Vanessa		Falconknight	1	17	5	5	7	11	4	6	5	6	8		50	35	20	55	60	50	20	30
 Ross		Berserker		-10	15	5	1	2	3	8	3	0	10	6		70	50	15	35	30	40	25	20
 Garcia      Hero            4   28  8   1   7   7   3   5   1   15  6       80  65  10  40  20  40  25  15
 Neimi		Sniper			1	17	4	2	5	6	4	3	2	6	6		55	45	10	50	60	50	15	35
-Artur		Sage			2	19	2	6	6	8	2	2	6	7	6		55	10	50	50	40	25	15	55
-Lute		Sage			1	17	2	6	6	7	8	3	5	4	6		45	10	65	30	45	45	15	40
-Natasha		Valkyrie		1	18	2	2	4	8	6	2	6	6	8		50	10	60	25	40	60	15	55
+Artur		Sage			2	19	2	6	6	8	2	2	6	7	6		55	10	40	50	40	25	15	55
+Lute		Sage			1	17	2	6	6	7	8	3	5	4	6		45	10	55	30	45	45	15	40
+Natasha		Valkyrie		1	18	2	2	4	8	6	2	6	6	8		50	10	50	25	40	60	15	55
 Joshua		Swordmaster		5	24	8	3	13	14	7	5	2	9	6		80	35	10	55	55	30	20	20
 Forde		Paladin			6	24	7	2	8	8	7	8	2	10	8		85	40	15	50	45	35	20	25
 Kyle		Paladin			5	25	9	1	6	7	6	9	1	11	8		90	50	10	40	40	20	25	20
@@ -45,15 +45,15 @@ Amelia		General			-10	16	4	0	3	4	6	2	3	14	5		60	35	20	40	40	50	30	15
 Gerik		Hero			10	32	14	5	13	13	8	10	4	14	6		90	45	10	40	30	30	35	25
 Marisa		Assassin		5	23	7	1	12	13	9	4	3	6	6		75	30	10	55	60	50	15	25	
 L'Arachel	Valkyrie		3	18	3	6	6	10	12	5	8	6	8		45	5	50	45	45	65	15	50
-Ewan		Sorcerer		-10	15	0	3	2	5	5	0	3	4	5		50	15	45	40	35	50	15	40
+Ewan		Sorcerer		-10	15	0	3	2	5	5	0	3	4	6		50	15	45	40	35	50	15	40
 Knoll		Sorcerer		10	22	2	13	9	8	0	2	10	5	7		70	10	50	40	35	20	10	45
 
 #Fire Emblem 9/10: Path of Radiance/Radiant Dawn
 #Name		Class			Lv	HP	Str	Mag	Skl	Spd	Lck Def	Res	Con	Mov		HP	Str	Mag	Skl	Spd	Lck	Def	Res
-Ike			Lord			1	19	5	1	6	7	6	5	0	10	6		70	45	20	45	50	30	35	35
+Ike			Ike				1	19	5	1	6	7	6	5	0	10	6		70	45	20	45	50	30	35	35
 Mia         Swordmaster     20  36  13  5   22  24  13  11  7   7   6       65  35  5   55  50  40  25  10
 Edward      Swordmaster     4   19  7   0   11  12  8   5   0   8   6       70  25  15  50  55  25  30  15
 
 #Fire Emblem 11: Shadow Dragon
 #Name		Class			Lv	HP	Str	Mag	Skl	Spd	Lck Def	Res	Con	Mov		HP	Str	Mag	Skl	Spd	Lck	Def	Res
-Marth		Lord			1	18	5	0	3	7	7	7	7	0	7		80	50	0	55	60	70	30	20
+Marth		Marth			1	18	5	0	3	7	7	7	7	0	7		80	50	0	55	60	70	30	20

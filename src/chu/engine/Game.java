@@ -1,7 +1,11 @@
 package chu.engine;
 import static org.lwjgl.opengl.GL11.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+
+import net.fe.network.Message;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
@@ -15,10 +19,12 @@ public abstract class Game {
 	protected static int windowWidth = 640;
 	protected static int windowHeight = 480;
 	protected boolean paused = false;
-	protected static HashMap<Integer, Boolean> keys;
-	protected static HashMap<MouseEvent, Boolean> mouseEvents;
+	protected static List<KeyboardEvent> keys;
+	protected static List<MouseEvent> mouseEvents;
+	protected static ArrayList<Message> messages;
 	protected long time;
 	protected static long timeDelta;
+	protected static boolean glContextExists;
 	
 	public void init(int width, int height, String name) {
 		time = System.nanoTime();
@@ -31,7 +37,9 @@ public abstract class Game {
 			Display.create();
 			Display.setTitle(name);
 			Keyboard.create();
+			Keyboard.enableRepeatEvents(true);
 			Mouse.create();
+			glContextExists = true;
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -54,8 +62,8 @@ public abstract class Game {
 		glOrtho(0, windowWidth, windowHeight, 0, 1, -1);		//It's basically a camera
 		glMatrixMode(GL_MODELVIEW);
 		
-		keys = new HashMap<Integer, Boolean>();
-		mouseEvents = new HashMap<MouseEvent, Boolean>();
+		keys = new ArrayList<KeyboardEvent>();
+		mouseEvents = new ArrayList<MouseEvent>();
 	}
 	
 	public abstract void loop();
@@ -65,8 +73,12 @@ public abstract class Game {
 		Keyboard.poll();
 		keys.clear();
 		while(Keyboard.next()) {
-			int keyEvent = Keyboard.getEventKey();
-			keys.put(keyEvent, Keyboard.getEventKeyState());
+			KeyboardEvent ke = new KeyboardEvent(
+					Keyboard.getEventKey(),
+					Keyboard.getEventCharacter(),
+					Keyboard.isRepeatEvent(),
+					Keyboard.getEventKeyState());
+			keys.add(ke);
 		}
 		Mouse.poll();
 		mouseEvents.clear();
@@ -75,17 +87,22 @@ public abstract class Game {
 					Mouse.getEventX(),
 					Mouse.getEventY(),
 					Mouse.getEventDWheel(),
-					Mouse.getEventButton());
-			mouseEvents.put(me, Mouse.getEventButtonState());
+					Mouse.getEventButton(),
+					Mouse.getEventButtonState());
+			mouseEvents.add(me);
 		}
 	}
 	
-	public static HashMap<Integer, Boolean> getKeys() {
+	public static List<KeyboardEvent> getKeys() {
 		return keys;
 	}
 	
-	public static HashMap<MouseEvent, Boolean> getMouseEvents() {
+	public static List<MouseEvent> getMouseEvents() {
 		return mouseEvents;
+	}
+	
+	public static ArrayList<Message> getMessages() {
+		return messages;
 	}
 
 	public static long getDelta() {
@@ -106,5 +123,9 @@ public abstract class Game {
 	
 	public static int getWindowHeight() {
 		return windowHeight;
+	}
+
+	public static boolean glContextExists() {
+		return glContextExists;
 	}
 }

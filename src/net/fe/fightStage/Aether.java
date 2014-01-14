@@ -4,7 +4,7 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Aether extends CombatTrigger {
-	private int phase;
+	private transient int phase;
 	
 	private static final int SOL = 0;
 	private static final int LUNA = 1;
@@ -14,13 +14,13 @@ public class Aether extends CombatTrigger {
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE + YOUR_TURN_POST + YOUR_TURN_DRAIN);
 	}
 	@Override
-	public boolean attempt(Unit user) {
-		return RNG.get() < user.get("Skl")/2 || phase != SOL;
+	public boolean attempt(Unit user, int range) {
+		return range == 1 && (RNG.get() < user.get("Skl")/2 || phase != SOL);
 	}
 	@Override
 	public boolean runPreAttack(CombatCalculator calc, Unit a, Unit d) {
 		if(phase == LUNA){
-			new Luna().runPreAttack(calc, a, d);
+			new Luna(false).runPreAttack(calc, a, d);
 		}
 		return true;
 	}
@@ -39,7 +39,7 @@ public class Aether extends CombatTrigger {
 		if(phase == SOL){
 			if(d.getHp() > 0){
 				phase = LUNA;
-				calc.attack(dir, "Aether");
+				calc.addAttack("Aether");
 			}
 		} else {
 			phase = SOL;

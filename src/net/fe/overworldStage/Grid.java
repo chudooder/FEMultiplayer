@@ -1,11 +1,13 @@
 package net.fe.overworldStage;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
-import chu.engine.Entity;
 import net.fe.unit.Unit;
+import net.fe.unit.UnitIdentifier;
 
 public class Grid{
 	private Unit[][] grid;
@@ -15,8 +17,8 @@ public class Grid{
 	public Grid(int width, int height, Terrain defaultTerrain) {
 		grid = new Unit[height][width];
 		terrain = new Terrain[height][width];
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 10; j++) {
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
 				terrain[j][i] = defaultTerrain;
 			}
 		}
@@ -36,9 +38,22 @@ public class Grid{
 		if (grid[y][x] != null)
 			return false;
 		grid[y][x] = u;
-		u.xcoord = x;
-		u.ycoord = y;
+		u.gridSetXCoord(x);
+		u.gridSetYCoord(y);
+		u.setOrigX(x);
+		u.setOrigY(y);
 		return true;
+	}
+	
+	public Unit findUnit(UnitIdentifier u){
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height; j++){
+				if(u.equals(new UnitIdentifier(getUnit(i,j)))){
+					return getUnit(i,j);
+				}
+			}
+		}
+		return null;
 	}
 
 	Unit removeUnit(int x, int y) {
@@ -47,6 +62,15 @@ public class Grid{
 		Unit ans = grid[y][x];
 		grid[y][x] = null;
 		return ans;
+	}
+	
+	public void move(Unit u, int x, int y, boolean animated){
+		grid[u.getYCoord()][u.getXCoord()] = null;
+		grid[y][x] = u;
+		if(!animated){
+			u.gridSetXCoord(x);
+			u.gridSetYCoord(y);
+		}
 	}
 
 	public Terrain getTerrain(int x, int y) {
@@ -63,10 +87,11 @@ public class Grid{
 
 	public Path getShortestPath(Unit unit, int x, int y) {
 		int move = unit.get("Mov");
+		if(grid[y][x] != null && grid[y][x] != unit) return null;
 		Set<Node> closed = new HashSet<Node>();
 		Set<Node> open = new HashSet<Node>();
 
-		Node start = new Node(unit.xcoord, unit.ycoord);
+		Node start = new Node(unit.getXCoord(), unit.getYCoord());
 		Node goal = new Node(x, y);
 		start.g = 0;
 		start.f = heuristic(start, goal);
@@ -76,24 +101,29 @@ public class Grid{
 			// get node in open with best f score
 			Node cur = null;
 			for (Node n : open) {
-				if (cur == null || n.f > cur.f) {
+				if (cur == null || n.f < cur.f) {
 					cur = n;
 				}
 			}
 			if (cur.equals(goal)) {
-				return getPath(goal);
+				return getPath(cur);
 			}
+			
 			open.remove(cur);
 			closed.add(cur);
-			for (Node n : cur.getNeighbors()) {
+			for (Node n : cur.getNeighbors(this)) {
 				int g = cur.g
 						+ terrain[n.y][n.x].getMoveCost(unit.getTheClass());
+				if(grid[n.y][n.x] != null && grid[n.y][n.x].getParty() != unit.getParty()) {
+					g += 128;
+				}
 				int f = g + heuristic(n, goal);
 				if (closed.contains(n) && f >= n.f) {
 					continue;
-				} else if (!closed.contains(n) || f < n.f) {
-					if (g > move)
+				} else if (!open.contains(n) || f < n.f) {
+					if (g > move){
 						continue;
+					}
 					n.parent = cur;
 					n.g = g;
 					n.f = f;
@@ -107,68 +137,88 @@ public class Grid{
 	}
 
 	public Set<Node> getPossibleMoves(Unit u) {
-		int x = u.xcoord;
-		int y = u.ycoord;
+		int x = u.getXCoord();
+		int y = u.getYCoord();
+		Node start = new Node(x,y);
+		start.d = 0;
 		Set<Node> set = new HashSet<Node>();
-		set.add(new Node(x, y));
-		int w = 0;
-		getPossibleMoves(u, x + 1, y, w, set);
-		getPossibleMoves(u, x - 1, y, w, set);
-		getPossibleMoves(u, x, y + 1, w, set);
-		getPossibleMoves(u, x, y - 1, w, set);
+		ArrayList<Node> q = new ArrayList<Node>();
+		q.add(new Node(x, y));
+		
+		while(q.size() > 0){
+			Node curr = q.remove(0);
+			set.add(curr);
+			for(Node n: curr.getNeighbors(this)){
+				if(!set.contains(n)){
+					n.d = curr.d + terrain[n.y][n.x].getMoveCost(u.getTheClass());
+					if(grid[n.y][n.x] != null && grid[n.y][n.x].getParty() != u.getParty()) {
+						n.d += 128;
+					}
+					if(n.d <= u.get("Mov")){
+						q.add(n);
+					}
+				}
+			}
+		}
+		
+		
 		return set;
 	}
-
-	private void getPossibleMoves(Unit u, int x, int y, int w, Set<Node> set) {
-		if (x < 0 || x > width - 1 || y < 0 || y > height - 1) {
-			return;
-		}
-		Node n = new Node(x, y);
-		if (set.contains(n))
-			return;
-		w += terrain[y][x].getMoveCost(u.getTheClass());
-		if (w > u.get("Mov"))
-			return;
-		set.add(n);
-		getPossibleMoves(u, x + 1, y, w, set);
-		getPossibleMoves(u, x - 1, y, w, set);
-		getPossibleMoves(u, x, y + 1, w, set);
-		getPossibleMoves(u, x, y - 1, w, set);
-	}
-
-	public Set<Node> getNodesWithRange(int x, int y, int distance) {
+	
+	public Set<Node> getAttackRange(Unit u){
+		Set<Node> move = getPossibleMoves(u);
 		Set<Node> set = new HashSet<Node>();
-		set.add(new Node(x, y));
-		int w = 0;
-		getNodesFixed(x + 1, y, w, distance, set);
-		getNodesFixed(x - 1, y, w, distance, set);
-		getNodesFixed(x, y + 1, w, distance, set);
-		getNodesFixed(x, y - 1, w, distance, set);
+		Set<Integer> range = u.getTotalWepRange(false);
+		for(Node n: move){
+			for(int i: range){
+				set.addAll(getRange(n, i));
+			}
+		}
 		return set;
 	}
-
-	private void getNodesFixed(int x, int y, int w, int dist, Set<Node> set) {
-		if (x < 0 || x > width - 1 || y < 0 || y > height - 1) {
-			return;
+	
+	public Set<Node> getHealRange(Unit u){
+		Set<Node> move = getPossibleMoves(u);
+		Set<Node> set = new HashSet<Node>();
+		Set<Integer> range = u.getTotalWepRange(true);
+		for(Node n: move){
+			set.addAll(getRange(n, range));
 		}
-		Node n = new Node(x, y);
-		if (set.contains(n))
-			return;
-		w++;
-		if (w > dist)
-			return;
-		set.add(n);
-		getNodesFixed(x + 1, y, w, dist, set);
-		getNodesFixed(x - 1, y, w, dist, set);
-		getNodesFixed(x, y + 1, w, dist, set);
-		getNodesFixed(x, y - 1, w, dist, set);
+		return set;
+	}
+	
+	public Set<Node> getRange(Node start, Collection<Integer> range){
+		int[] r = new int[range.size()];
+		Iterator<Integer> it = range.iterator();
+		for(int i = 0; i < range.size(); i++){
+			r[i] = it.next();
+		}
+		return getRange(start, r);
+	}
+	
+	public Set<Node> getRange(Node start, int... range){
+		Set<Node> set = new HashSet<Node>();
+		for(int r: range){
+			for(int dx = -r; dx <=r; dx++){
+				for(int dy = -r; dy <= r; dy++){
+					Node n = new Node(start.x + dx, start.y + dy);
+					if(n.x < 0 || n.x > width-1 ||n.y < 0 || n.y > height-1){
+						continue;
+					}
+					if(n.distance(start) == r && !set.contains(n)){
+						set.add(n);
+					}
+				}
+			}
+		}
+		return set;
 	}
 
 	private Path getPath(Node goal) {
 		Path path = new Path();
 		Node cur = goal;
 		do {
-			path.add(cur);
+			path.add(0,cur);
 			cur = cur.parent;
 		} while (cur != null);
 		return path;
@@ -184,6 +234,6 @@ public class Grid{
 	}
 
 	public static int getDistance(Unit a, Unit b) {
-		return getDistance(a.xcoord, a.ycoord, b.xcoord, b.ycoord);
+		return getDistance(a.getXCoord(), a.getYCoord(), b.getXCoord(), b.getYCoord());
 	}
 }

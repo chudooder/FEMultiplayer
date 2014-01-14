@@ -1,9 +1,10 @@
 package net.fe.fightStage.anim;
 
+import net.fe.FEResources;
 import net.fe.fightStage.FightStage;
+import net.fe.unit.Weapon;
 import chu.engine.Entity;
 import chu.engine.Game;
-import chu.engine.Resources;
 import chu.engine.anim.Transform;
 
 public class Projectile extends Entity {
@@ -14,10 +15,13 @@ public class Projectile extends Entity {
 	private String name;
 	
 	public Projectile(String name, float y, FightStage f, 
-			boolean left, boolean destroyOnHit){
+			boolean left, boolean destroyOnHit, AnimationArgs args){
 		super(0,y);
 		// TODO getTextures
-		sprite.addAnimation("default", Resources.getTexture("proj_arrow"));
+		if(args.wepAnimName.equals("javelin"))
+			sprite.addAnimation("default", FEResources.getTexture("proj_javelin"));
+		else
+			sprite.addAnimation("default", FEResources.getTexture("proj_arrow"));
 		if(left){
 			x = FightStage.CENTRAL_AXIS - f.distanceToHead();
 			destination = FightStage.CENTRAL_AXIS + f.distanceToHead();
@@ -34,13 +38,13 @@ public class Projectile extends Entity {
 	}
 	
 	public void onStep(){
-		x += dir*getVelocity(name)*30*Game.getDeltaSeconds();
+		x += dir*getVelocity(name)*40*Game.getDeltaSeconds();
 	}
 	
 	public void render(){
 		Transform t = new Transform();
 		if(dir == 1) t.flipHorizontal();
-		sprite.renderTransformed(x, y, renderDepth, t);
+		sprite.render(x, y, renderDepth, t);
 	}
 	
 	public void endStep(){
@@ -51,7 +55,7 @@ public class Projectile extends Entity {
 				destroy();
 			}
 		}
-		//TODO Destroy if out of bounds
+		//Destroy if out of bounds
 		if(x > 500 || x < -500)
 			destroy();
 	}
