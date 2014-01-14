@@ -58,7 +58,7 @@ public class WeaponFactory {
 			} else if (args[8].equals("Armor")){
 				w.effective.addAll(armored);
 			} else if (args[8].equals("Flier")){
-				w.effective.add("Falcon Knight");
+				w.effective.add("Falconknight");
 			}
 			
 			if(!args[9].equals("-")){

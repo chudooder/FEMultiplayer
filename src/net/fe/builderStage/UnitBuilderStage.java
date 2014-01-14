@@ -178,7 +178,7 @@ public class UnitBuilderStage extends Stage {
 		Renderer.drawString("default_med", i.name, 4, 268, 1);
 		if(i instanceof HealingItem){
 			HealingItem potion = (HealingItem) i;
-			Renderer.drawString("default_med", "Heals " + potion.amount + " HP", 10, 276, 1);
+			Renderer.drawString("default_med", "Heals " + potion.amount + " HP", 10, 292, 1);
 		} else if (shop.getItem() instanceof Weapon){
 			Weapon wep = (Weapon) i;
 			Renderer.drawString("default_med", "Mt " + wep.mt, 10, 284, 1);
@@ -202,6 +202,15 @@ public class UnitBuilderStage extends Stage {
 			}
 			if(wep.name.contains("reaver")){
 				flavor.add("Reverses the weapon triangle");
+			}
+			if(wep.name.contains("Kill") || wep.name.equals("Wo Dao")){
+				flavor.add("Has a high critical rate");
+			}
+			if(wep.getCost() == 15000){
+				flavor.add("A legendary weapon");
+			}
+			if(wep.getCost() == 30000){
+				flavor.add("Ultimate magic");
 			}
 			if(wep.pref != null) flavor.add(wep.pref + " only");
 			for(String stat: wep.modifiers.keySet()){
