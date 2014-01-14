@@ -228,7 +228,7 @@ public class ClientOverworldStage extends OverworldStage {
 		}
 		//TODO: command validation
 		// Get unit and path
-		final Unit unit = getUnit(cmds.unit);
+		final Unit unit = (cmds.unit == null ? null : getUnit(cmds.unit));
 		// Parse commands
 		Command callback = new Command() {
 			@Override
@@ -334,7 +334,10 @@ public class ClientOverworldStage extends OverworldStage {
 	}
 	
 	public void send(){
-		FEMultiplayer.send(new UnitIdentifier(selectedUnit), movX, movY, currentCmdString.toArray());
+		UnitIdentifier uid = null;
+		if(selectedUnit != null)
+			uid = new UnitIdentifier(selectedUnit);
+		FEMultiplayer.send(uid, movX, movY, currentCmdString.toArray());
 		clearCmdString();
 	}
 	
