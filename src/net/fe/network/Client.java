@@ -11,6 +11,7 @@ import java.util.HashMap;
 import net.fe.FEMultiplayer;
 import net.fe.Party;
 import net.fe.Player;
+import net.fe.builderStage.ClientWaitStage;
 import net.fe.builderStage.TeamBuilderStage;
 import net.fe.lobbystage.LobbyStage;
 import net.fe.network.message.ClientInit;
@@ -94,8 +95,13 @@ public class Client {
 					ans.add(p);
 			}
 			FEMultiplayer.players.addAll(ans);
-			TeamBuilderStage stage = new TeamBuilderStage();
-			FEMultiplayer.setCurrentStage(stage);
+			if(!FEMultiplayer.getLocalPlayer().isSpectator()) {
+				TeamBuilderStage stage = new TeamBuilderStage();
+				FEMultiplayer.setCurrentStage(stage);
+			} else {
+				ClientWaitStage stage = new ClientWaitStage();
+				FEMultiplayer.setCurrentStage(stage);
+			}
 		}
 		messages.add(message);
 	}
