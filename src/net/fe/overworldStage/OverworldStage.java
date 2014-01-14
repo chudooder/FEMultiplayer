@@ -116,9 +116,7 @@ public class OverworldStage extends Stage {
     				SpawnPoint remove = null;
                 	for(SpawnPoint sp : spawns) {
                 		if(sp.team.equals(team)) {
-                			System.out.println(sp.x+","+sp.y);
             				Unit u = p.getParty().getUnit(i);
-            				System.out.println(u);
             				addUnit(u, sp.x, sp.y);
             				remove = sp;
             				break;

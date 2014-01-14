@@ -24,6 +24,7 @@ public class WaitStage extends Stage {
 	
 	private HashMap<Byte, Boolean> readyStatus;
 	private ArrayList<PartyMessage> messages;
+	private boolean sentStartMessage;
 	
 	public WaitStage() {
 		init();
@@ -31,6 +32,7 @@ public class WaitStage extends Stage {
 	
 	protected void init() {
 		readyStatus = new HashMap<Byte, Boolean>();
+		sentStartMessage = false;
 		for(Player p : FEServer.players) {
 			readyStatus.put(p.getID(), false);
 		}
@@ -39,7 +41,6 @@ public class WaitStage extends Stage {
 
 	@Override
 	public void beginStep() {
-		boolean start = false;
 		for(Message message : Game.getMessages()) {
 			if(message instanceof PartyMessage) {
 				PartyMessage pm = (PartyMessage)message;
@@ -53,19 +54,8 @@ public class WaitStage extends Stage {
 				}
 				messages.add(pm);
 			}
-			else if(message instanceof StartGame) {
-				start = true;
-			}
 		}
 		
-		if(start) {
-			for(Player p : FEMultiplayer.players) {
-				for(Unit u : p.getParty()) {
-					u.initializeEquipment();
-				}
-			}
-			FEServer.setCurrentStage(new OverworldStage("test", FEServer.players));
-		}
 	}
 
 	@Override
@@ -75,14 +65,25 @@ public class WaitStage extends Stage {
 
 	@Override
 	public void endStep() {
-		for(boolean b : readyStatus.values()) {
-			if(!b) return;
+		if(!sentStartMessage) {
+			for(boolean b : readyStatus.values()) {
+				if(!b) return;
+			}
+			for(PartyMessage pm : messages) {
+				FEServer.getServer().broadcastMessage(pm);
+			}
+			FEServer.getServer().broadcastMessage(new StartGame(0));
+			System.out.println(FEServer.players.size());
+			for(Player p : FEServer.players) {
+				System.out.println(p.getParty().size());
+				for(Unit u : p.getParty()) {
+					System.out.println("Initialized equipment for "+u.name);
+					u.initializeEquipment();
+				}
+			}
+			FEServer.setCurrentStage(new OverworldStage("test", FEServer.players));
+			sentStartMessage = true;
 		}
-		for(PartyMessage pm : messages) {
-			FEServer.getServer().broadcastMessage(pm);
-		}
-		FEServer.getServer().broadcastMessage(new StartGame(0));
-		FEServer.setCurrentStage(new OverworldStage("test", FEServer.players));
 	}
 	
 }
