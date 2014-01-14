@@ -35,7 +35,7 @@ public class TeamSelectionStage extends Stage {
 	public TeamSelectionStage(TeamBuilderStage stage){
 		builderStage = stage;
 		cursor = new Cursor();
-
+		addEntity(new RunesBg(new Color(0xd2b48c)));
 		List<Unit> vassals = UnitFactory.getVassals();
 		List<Unit> lords = UnitFactory.getLords();
 		

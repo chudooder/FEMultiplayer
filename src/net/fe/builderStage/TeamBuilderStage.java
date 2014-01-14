@@ -18,6 +18,7 @@ import org.newdawn.slick.Color;
 
 import net.fe.Button;
 import net.fe.FEMultiplayer;
+import net.fe.RunesBg;
 import net.fe.fightStage.FightStage;
 import net.fe.network.message.PartyMessage;
 import net.fe.unit.Item;
@@ -54,7 +55,7 @@ public class TeamBuilderStage extends Stage {
 	
 	public TeamBuilderStage() {
 		repeatTimers = new float[4];
-		
+		addEntity(new RunesBg(new Color(0xd2b48c)));
 		select = new TeamSelectionStage(this);
 		units = select.getSelectedUnits();
 		
@@ -228,10 +229,12 @@ public class TeamBuilderStage extends Stage {
 			for(KeyboardEvent ke : keys) {
 				if(ke.state) {
 					if(ke.key == Keyboard.KEY_Z) {
-						if(cursor.on)
+						if(cursor.on){
 							FEMultiplayer.setCurrentStage(new UnitBuilderStage(units.get(cursor.getIndex()), this));
-						else
+						} else {
+							buttons[currButton].setHover(false);
 							buttons[currButton].execute();
+						}
 					} else if (ke.key == Keyboard.KEY_X){
 						select.refresh();
 						FEMultiplayer.setCurrentStage(select);

@@ -8,6 +8,7 @@ import org.newdawn.slick.Color;
 import net.fe.Button;
 import net.fe.FEMultiplayer;
 import net.fe.FEResources;
+import net.fe.RunesBg;
 import net.fe.overworldStage.InventoryMenu;
 import net.fe.overworldStage.ItemMenu;
 import net.fe.overworldStage.UnitInfo;
@@ -37,6 +38,7 @@ public class UnitBuilderStage extends Stage {
 	INVENTORY_X = 100, INVENTORY_Y = 115, SHOP_X = 335, SHOP_Y = 20;
 	
 	public UnitBuilderStage(Unit u, TeamBuilderStage s){
+		addEntity(new RunesBg(new Color(0xd2b48c)));
 		back = s;
 		unit = u;
 		inv = new InventoryMenu(u, INVENTORY_X, INVENTORY_Y){{

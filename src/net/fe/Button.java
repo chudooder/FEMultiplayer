@@ -1,5 +1,7 @@
 package net.fe;
 
+import net.fe.fightStage.FightStage;
+
 import org.newdawn.slick.Color;
 
 import chu.engine.Entity;
@@ -22,7 +24,7 @@ public abstract class Button extends Entity{
 		Color c = new Color(color);
 		if(!hover)
 			c = c.darker();
-		Renderer.drawRectangle(x, y, x+width, y+20, renderDepth, c);
+		Renderer.drawBorderedRectangle(x, y, x+width, y+20, renderDepth, c, FightStage.BORDER_LIGHT, FightStage.BORDER_DARK);
 		Renderer.drawString("default_med", text, x+width/2-stringWidth/2 + 2, y + 4, renderDepth);
 		
 	}

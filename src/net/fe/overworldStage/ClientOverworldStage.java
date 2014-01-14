@@ -15,6 +15,7 @@ import net.fe.Command;
 import net.fe.FEMultiplayer;
 import net.fe.Party;
 import net.fe.Player;
+import net.fe.RunesBg;
 import net.fe.editor.Level;
 import net.fe.editor.SpawnPoint;
 import net.fe.network.Chat;
@@ -46,7 +47,7 @@ public class ClientOverworldStage extends OverworldStage {
 	private Unit selectedUnit;
 	protected ArrayList<Object> currentCmdString;
 	
-	public static final float TILE_DEPTH = 1;
+	public static final float TILE_DEPTH = 0.95f;
 	public static final float ZONE_DEPTH = 0.9f;
 	public static final float PATH_DEPTH = 0.8f;
 	public static final float UNIT_DEPTH = 0.6f;
@@ -59,6 +60,11 @@ public class ClientOverworldStage extends OverworldStage {
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
 		unitInfo = new UnitInfo();
+		Color c= new Color(FEMultiplayer.getLocalPlayer().getParty().getColor());
+		c.r = Math.max(c.r, 0.5f);
+		c.g = Math.max(c.g, 0.5f);
+		c.b = Math.max(c.b, 0.5f);
+		addEntity(new RunesBg(c));
 		addEntity(unitInfo);
 		addEntity(new TerrainInfo(cursor));
 		addEntity(new OverworldChat(this.chat));

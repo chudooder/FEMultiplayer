@@ -2779,5 +2779,9 @@
 			"name":		"terrain_tiles",
 			"path":		"res/terrain_tiles.png"
 		},
+		{
+			"name":		"runes",
+			"path":		"res/gui/runes.png"
+		}
 	]
 }
