@@ -25,41 +25,41 @@ public class Class implements Serializable {
 		//Lords
 		if(name.equals("Roy"))
 			return new Class("Lord", 
-					"A mighty royal who commands armies.",
+					"A noble youth who commands armies.",
 					0, new Aether(), Weapon.Type.SWORD);
 		if(name.equals("Eliwood"))
 			return new Class("Lord", 
-					"A mighty royal who commands armies.",
+					"A courageous royal who commands armies.",
 					 0, new Sol(false), Weapon.Type.SWORD, Weapon.Type.LANCE);
 		if(name.equals("Lyn"))
 			return new Class("Lord", 
-					"A mighty royal who commands armies.",
+					"A serene youth who commands armies.",
 					 0, new Astra(), Weapon.Type.SWORD, Weapon.Type.BOW);
 		if(name.equals("Hector"))
 			return new Class("Lord", 
-					"A mighty royal who commands armies.",
+					"A mighty noble who commands armies.",
 					 0, new Luna(false), Weapon.Type.AXE, Weapon.Type.SWORD);
 		if(name.equals("Eirika"))
 			return new Class("Lord", 
-					"A mighty royal who commands armies.",
+					"A brave princess who commands armies.",
 					 0, new Luna(false), Weapon.Type.SWORD);
 		if(name.equals("Ephraim"))
 			return new Class("Lord", 
-					"A mighty royal who commands armies.",
+					"A skilled prince who commands armies.",
 					 0, new Sol(false), Weapon.Type.LANCE);
 		if(name.equals("Marth"))
 			return new Class("Lord", 
-					"A mighty royal who commands armies.",
+					"A legendary prince who commands armies.",
 					 0, new Aether(), Weapon.Type.SWORD);
 		if(name.equals("Ike"))
 			return new Class("Lord", 
-					"A mighty royal who commands armies.",
+					"A radiant hero who commands armies.",
 					 0, new Aether(), Weapon.Type.SWORD, Weapon.Type.AXE);
 		
 		//Other
 		if(name.equals("Sniper"))
 			return new Class("Sniper", 
-					"An expert bowman who has mastered the bow.",
+					"An expert archer who has mastered the bow.",
 					10, new Deadeye(), Weapon.Type.BOW);
 		if(name.equals("Hero"))
 			return new Class("Hero", 
@@ -71,11 +71,11 @@ public class Class implements Serializable {
 					10, new Luna(false), Weapon.Type.AXE);
 		if(name.equals("Warrior"))
 			return new Class("Warrior", 
-					"A fighter whose might is second to none.",
+					"An experienced fighter whose might is second to none.",
 					0, new Colossus(), Weapon.Type.AXE, Weapon.Type.BOW);
 		if(name.equals("Assassin"))
 			return new Class("Assassin", 
-					"A killer who lives in the shadows.",
+					"A deadly killer who lives in the shadows.",
 					10, new Lethality(), Weapon.Type.SWORD);
 		if(name.equals("Paladin"))
 			return new Class("Paladin", 
@@ -83,11 +83,11 @@ public class Class implements Serializable {
 					0, new Sol(false), Weapon.Type.LANCE, Weapon.Type.SWORD);
 		if(name.equals("Sage"))
 			return new Class("Sage", 
-					"A powerful magician who wields mighty magic.",
+					"A powerful magic user who wields mighty tomes.",
 					0, new Sol(true), Weapon.Type.ANIMA, Weapon.Type.STAFF);
 		if(name.equals("General"))
 			return new Class("General", 
-					"Armoured knights who possess  overpowering defence and offence.",
+					"Armoured knights who possess overpowering strength and defense.",
 					0, new Pavise(), Weapon.Type.AXE, Weapon.Type.LANCE);
 		if(name.equals("Valkyrie"))
 			return new Class("Valkyrie", 
@@ -95,15 +95,15 @@ public class Class implements Serializable {
 					0, new Miracle(), Weapon.Type.STAFF, Weapon.Type.LIGHT);
 		if(name.equals("Swordmaster"))
 			return new Class("Swordmaster",
-					"A sword expert who has reached the pinnacle of swordsmanship.",
+					"A seasoned myrmidon who has reached the pinnacle of swordsmanship.",
 					20, new Astra(), Weapon.Type.SWORD);
 		if(name.equals("Sorcerer"))
 			return new Class("Sorcerer",
-					"A warlock who wields potent dark magic.",
+					"A sinister warlock who wields potent dark magic.",
 					0, new Luna(true), Weapon.Type.DARK, Weapon.Type.ANIMA);
 		if(name.equals("Falconknight"))
 			return new Class("Falconknight", 
-					"Knights who control falcons with great mastery.",
+					"Knights who control pegasi with great mastery.",
 					0, new Crisis(), Weapon.Type.LANCE, Weapon.Type.SWORD);
 		return null;
 		

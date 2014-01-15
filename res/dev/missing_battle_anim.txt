@@ -2,10 +2,8 @@ MISSING ANIMATIONS
 hector_sword_dodge
 hector_handaxe_*
 hero_handaxe_*
-paladin_lance_dodge
 paladin_javelin_*
 roy_flareblade_*
-swordmaster_sword_dodge
 sorcerer_*
 ike_*
 

@@ -42,7 +42,7 @@ public class TeamBuilderStage extends Stage {
 	private int funds;
 	private int exp;
 	private TeamSelectionStage select;
-	private Button fight, save, load;
+	private Button fight, save, load, back;
 	private Button[] buttons;
 	private int currButton;
 	private boolean control = true;
@@ -60,8 +60,7 @@ public class TeamBuilderStage extends Stage {
 		select = new TeamSelectionStage(this);
 		units = select.getSelectedUnits();
 		
-		buttons = new Button[3];
-		currButton = 2;
+		buttons = new Button[4];
 		
 		fight = new Button(390, 290, "Fight!", Color.green, 80){
 			@Override
@@ -73,7 +72,7 @@ public class TeamBuilderStage extends Stage {
 			}
 			
 		};
-		buttons[2] = fight;
+		buttons[0] = fight;
 		addEntity(fight);
 		
 		save = new Button(220, 290, "Save", Color.blue, 80){
@@ -83,7 +82,7 @@ public class TeamBuilderStage extends Stage {
 			}
 			
 		};
-		buttons[0] = save;
+		buttons[2] = save;
 		addEntity(save);
 		
 		load = new Button(305, 290, "Load", Color.blue, 80){
@@ -92,8 +91,18 @@ public class TeamBuilderStage extends Stage {
 				new TeamNameInput(false).setStage(TeamBuilderStage.this);
 			}
 		};
-		buttons[1] = load;
+		buttons[3] = load;
 		addEntity(load);
+		
+		back = new Button(10,290, "Back to Unit Selection", Color.red, 120){
+			public void execute() {
+				AudioPlayer.playAudio("cancel", 1, 1);
+				select.refresh();
+				FEMultiplayer.setCurrentStage(select);
+			}
+		};
+		buttons[1] = back;
+		addEntity(back);
 		
 		
 		
@@ -215,7 +224,7 @@ public class TeamBuilderStage extends Stage {
 				if(!cursor.on){
 					buttons[currButton].setHover(false);
 					currButton--;
-					if(currButton < 0) currButton+=3;
+					if(currButton < 0) currButton+=4;
 					buttons[currButton].setHover(true);
 					AudioPlayer.playAudio("cursor2", 1, 1);
 				}
@@ -225,7 +234,7 @@ public class TeamBuilderStage extends Stage {
 				if(!cursor.on){
 					buttons[currButton].setHover(false);
 					currButton++;
-					currButton%=3;
+					currButton%=4;
 					buttons[currButton].setHover(true);
 					AudioPlayer.playAudio("cursor2", 1, 1);
 				}
