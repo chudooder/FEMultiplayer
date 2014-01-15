@@ -74,7 +74,7 @@ public class FEMultiplayer extends Game{
 		
 		UnitFactory.getUnit("Lyn");
 		
-		currentStage = new ConnectStage();
+		currentStage = new TitleStage();
 		messages = new ArrayList<Message>();
 		
 	}
