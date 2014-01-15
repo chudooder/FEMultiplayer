@@ -6,6 +6,7 @@ import org.newdawn.slick.opengl.Texture;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.anim.Renderer;
+import chu.engine.anim.Transform;
 
 public class RunesBg extends Entity {
 	private Color color;
@@ -27,9 +28,9 @@ public class RunesBg extends Entity {
 	}
 	
 	public void render(){
-		Renderer.setColor(color);
-		Renderer.render(runes, 0, 0, 2, 1, -position, 0, -position + 480 *2, 320, 1);
-		Renderer.setColor(null);
+		Transform t = new Transform();
+		t.setColor(color);
+		Renderer.render(runes, 0, 0, 2, 1, -position, 0, -position + 480 *2, 320, 1, t);
 	}
 
 }

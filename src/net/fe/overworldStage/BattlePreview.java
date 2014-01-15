@@ -20,7 +20,7 @@ public class BattlePreview extends Entity {
 
 	public BattlePreview(float x, float y, Unit a, Unit d, int range) {
 		super(x, y);
-		System.out.println(d.getPartyColor());
+//		System.out.println(d.getPartyColor());
 		attacker = a;
 		defender = d;
 		sprites = new ArrayList<Sprite>();

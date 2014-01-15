@@ -50,7 +50,7 @@ public class ClientWaitStage extends WaitStage {
 	}
 
 	public void render() {
-		Renderer.drawString("default_med", "Waiting for other players...", 100, 150, 0.0f);
+		Renderer.drawString("default_med", "Waiting for other players...", 200, 150, 0.0f);
 	}
 
 }

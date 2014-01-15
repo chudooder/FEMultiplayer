@@ -62,7 +62,6 @@ public class FEMultiplayer extends Game{
 	
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
-		System.out.println(GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
 		players = new ArrayList<Player>();
 		Player p1 = new Player("Player", (byte) 0);
 		localPlayer = p1;
@@ -74,40 +73,6 @@ public class FEMultiplayer extends Game{
 		glEnable(GL_LINE_SMOOTH);
 		
 		UnitFactory.getUnit("Lyn");
-//		Unit u1 = UnitFactory.getUnit("Lyn");
-//		u1.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
-//		u1.addToInventory(WeaponFactory.getWeapon("Debug Bow"));
-//		u1.addToInventory(HealingItem.CONCOCTION.getCopy());
-//		u1.use(3);
-//		u1.use(3);
-//		u1.equipFirstWeapon(1);
-//		p1.getParty().addUnit(u1);
-//		
-//		Unit u3 = UnitFactory.getUnit("Priscilla");
-//		u3.addToInventory(WeaponFactory.getWeapon("Elfire"));
-//		u3.addToInventory(WeaponFactory.getWeapon("Physic"));
-//		u3.addToInventory(WeaponFactory.getWeapon("Recover"));
-//		u3.addToInventory(HealingItem.VULNERARY.getCopy());
-//		u3.equipFirstWeapon(1);
-//		p1.getParty().addUnit(u3);
-//
-//		Unit u2 = UnitFactory.getUnit("Eliwood");
-//		u2.addToInventory(WeaponFactory.getWeapon("Brave Lance"));
-//		u2.addToInventory(WeaponFactory.getWeapon("Debug Lance"));
-//		u2.addToInventory(WeaponFactory.getWeapon("Debug Javelin"));
-//		u2.equipFirstWeapon(1);
-//		p1.getParty().addUnit(u2);
-//
-//		u1.setLevel(20);
-//		u2.setLevel(20);
-//		u3.setLevel(20);
-		
-//		u1.fillHp();
-//		u2.fillHp();
-//		u3.fillHp();
-//		u3.setHp(1);
-		
-//		map = new OverworldStage("test", p1);
 		
 		currentStage = new TitleStage();
 		messages = new ArrayList<Message>();

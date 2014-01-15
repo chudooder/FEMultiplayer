@@ -102,7 +102,8 @@ public class ClientOverworldStage extends OverworldStage {
 		List<Entity> keeps = Arrays.asList(keep);
 		for(Entity e: entities){
 			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor || e instanceof UnitInfo ||
-					e instanceof TerrainInfo || e instanceof OverworldChat || e instanceof RunesBg || keeps.contains(e))){
+					e instanceof TerrainInfo || e instanceof OverworldChat || e instanceof RunesBg ||
+					keeps.contains(e))){
 				removeEntity(e);
 			}
 		}

@@ -152,7 +152,6 @@ public class Unit extends GriddedEntity implements Serializable {
 				rescuedUnit.xcoord = oldX;
 				rescuedUnit.ycoord = oldY;
 				grid.removeUnit(rescuedUnit);
-				System.out.println("Rescued " + rescuedUnit.name);
 			}
 		});
 	}
@@ -514,7 +513,6 @@ public class Unit extends GriddedEntity implements Serializable {
 	
 	public void addBattleStat(String stat, int add) {
 		battleStats.put(stat, battleStats.get(stat) + add);
-		reportBattleStats();
 	}
 	
 	public int getBattleStat(String stat) {
