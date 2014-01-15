@@ -212,7 +212,7 @@ public class FightStage extends Stage {
 
 			ArrayList<String> messages = analyzeAnimation(rec.animation, "(d)", true);
 			for (int i = 0; i < messages.size(); i++) {
-				addEntity(new SkillIndicator(messages.get(i), attacker == left, i));
+				addEntity(new SkillIndicator(messages.get(i), attacker != left, i));
 			}
 		} else if (currentEvent == HURTING) {
 			// Try to go to HURTED

@@ -35,7 +35,7 @@ public abstract class AttackAnimation extends Animation {
 		if(data.speed != 0) {
 			defaultSpeed = data.speed;
 		}
-		if(soundMap.get(0) != null) {
+		if(soundMap!= null && soundMap.get(0) != null) {
 			AudioPlayer.playAudio(soundMap.get(0), 1, 1);
 		}
 	}

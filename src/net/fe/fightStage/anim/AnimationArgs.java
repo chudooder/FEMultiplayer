@@ -41,15 +41,15 @@ public class AnimationArgs {
 			if(w.range.contains(range) && range > 1){
 				if(w.type == Weapon.Type.AXE){
 					wepAnimName = "handaxe";
-					classification = "normal";
+					classification = "ranged";
 				}
 				if (w.type == Weapon.Type.LANCE){
 					wepAnimName = "javelin";
-					classification = "normal";
+					classification = "ranged";
 				} 
 				if (w.type == Weapon.Type.SWORD){
 					wepAnimName = "rangedsword";
-					classification = "normal";
+					classification = "ranged";
 				}
 			}
 			if (w.type == Weapon.Type.BOW){
