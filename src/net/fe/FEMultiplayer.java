@@ -109,7 +109,7 @@ public class FEMultiplayer extends Game{
 		
 //		map = new OverworldStage("test", p1);
 		
-		currentStage = new ConnectStage();
+		currentStage = new TitleStage();
 		messages = new ArrayList<Message>();
 		
 	}
