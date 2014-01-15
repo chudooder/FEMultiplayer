@@ -198,6 +198,12 @@ public class ClientOverworldStage extends OverworldStage {
 	protected void doEndTurn(int playerID) {
 		super.doEndTurn(playerID);
 		context.cleanUp();
+		// reset assists
+		for(Player p : players) {
+			for(Unit u : p.getParty()) {
+				u.getAssisters().clear();
+			}
+		}
 		send();
 		if(FEMultiplayer.getLocalPlayer().getID() == getNextPlayer().getID()){
 			context = new Idle(this, FEMultiplayer.getLocalPlayer());

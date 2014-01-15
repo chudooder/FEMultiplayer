@@ -185,12 +185,22 @@ public class FightStage extends Stage {
 				// + " took " + rec.damage + " damage!");
 				defender.setHp(defender.getHp() - rec.damage);
 				attacker.setHp(attacker.getHp() + rec.drain);
+				// battle stats
+				if(!defender.getPartyColor().equals(attacker.getPartyColor())) {
+					if(rec.damage > 0) {
+						defender.getAssisters().add(attacker);
+						attacker.addBattleStat("Damage", rec.damage);
+						attacker.addBattleStat("Healing", rec.drain);
+					}
+				} else {
+					attacker.addBattleStat("Healing", -rec.damage);
+				}
+				
 				dhp.setHp(dhp.getHp() - rec.damage);
 				ahp.setHp(ahp.getHp() + rec.drain, false);
 				if(rec.damage > 0) {
 					if(attacker.getWeapon().isMagic()) {
 						Animation anim = hitEffects.get(0).sprite.getCurrentAnimation();
-						System.out.println(anim.getLength() * anim.getSpeed());
 						startShaking(anim.getLength() * anim.getSpeed(), 3);
 					} else {
 						startShaking(crit ? 1.3f : .5f, 5);
@@ -210,6 +220,12 @@ public class FightStage extends Stage {
 		} else if (currentEvent == HURTED) {
 			if (dhp.getHp() == 0) {
 				d.state = FightUnit.FLASHING;
+				// battle stats
+				attacker.addBattleStat("Kills", 1);
+				defender.getAssisters().remove(attacker);
+				for(Unit u : defender.getAssisters()) {
+					u.addBattleStat("Assists", 1);
+				}
 				AudioPlayer.playAudio("die", 1, 1);
 				currentEvent = DYING;
 			} else {
