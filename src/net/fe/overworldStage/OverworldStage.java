@@ -17,6 +17,7 @@ import net.fe.network.FEServer;
 import net.fe.network.Message;
 import net.fe.network.message.ChatMessage;
 import net.fe.network.message.CommandMessage;
+import net.fe.network.message.EndGame;
 import net.fe.network.message.EndTurn;
 import net.fe.overworldStage.objective.Objective;
 import net.fe.overworldStage.objective.RoutTheEnemy;
@@ -172,7 +173,8 @@ public class OverworldStage extends Stage {
 		// Objective evaluation
 		int winner = objective.evaluate(this);
 		if(winner > 0) {
-			System.out.println("WE HAVE A WINNER ITS "+getPlayerByID(winner).getName());
+			FEServer.getServer().broadcastMessage(new EndGame(0, winner));
+			FEServer.resetToLobby();
 		}
 	}
 

@@ -15,7 +15,7 @@ public abstract class Healthbar extends Entity {
 	private float time;
 	public Healthbar(float x, float y, int hp0, int hp1, int hpT) {
 		super(x, y);
-		System.out.println(hp0 + "->" + hp1);
+//		System.out.println(hp0 + "->" + hp1);
 		this.hp1 = hp1;
 		this.displayedHealth = hp0;
 		this.totalHealth = hpT;

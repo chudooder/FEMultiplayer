@@ -20,6 +20,7 @@ public class FEServer extends Game {
 	
 	private static Server server;
 	private static Stage currentStage;
+	public static LobbyStage lobby;
 	public static ArrayList<Player> players;
 	
 	public static void main(String[] args) {
@@ -36,7 +37,8 @@ public class FEServer extends Game {
 				server.start(21255);
 			}
 		};
-		currentStage = new LobbyStage();
+		lobby = new LobbyStage();
+		currentStage = lobby;
 		serverThread.start();
 	}
 	
@@ -79,6 +81,13 @@ public class FEServer extends Game {
 
 	public static Server getServer() {
 		return server;
+	}
+
+	public static void resetToLobby() {
+		for(Player p : players) {
+			p.ready = false;
+		}
+		currentStage = lobby;
 	}
 
 }

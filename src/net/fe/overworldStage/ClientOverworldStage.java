@@ -19,10 +19,15 @@ import net.fe.RunesBg;
 import net.fe.editor.Level;
 import net.fe.editor.SpawnPoint;
 import net.fe.network.Chat;
+import net.fe.network.FEServer;
+import net.fe.network.Message;
+import net.fe.network.message.ChatMessage;
 import net.fe.network.message.CommandMessage;
+import net.fe.network.message.EndGame;
 import net.fe.network.message.EndTurn;
 import net.fe.overworldStage.context.Idle;
 import net.fe.overworldStage.context.WaitForMessages;
+import net.fe.transition.OverworldEndTransition;
 import net.fe.unit.Item;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
@@ -102,20 +107,27 @@ public class ClientOverworldStage extends OverworldStage {
 		List<Entity> keeps = Arrays.asList(keep);
 		for(Entity e: entities){
 			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor || e instanceof UnitInfo ||
-					e instanceof TerrainInfo || e instanceof OverworldChat ||  keeps.contains(e))){
+					e instanceof TerrainInfo || e instanceof OverworldChat || e instanceof RunesBg
+					|| keeps.contains(e))){
 				removeEntity(e);
 			}
 		}
 	}
 	
 	public void render(){
-//		Renderer.scale(2, 2);
 		super.render();
 	}
 
 	@Override
 	public void beginStep() {
 		super.beginStep();
+		for(Message message : Game.getMessages()) {
+			if(message instanceof EndGame) {
+				EndGame end = (EndGame) message;
+				String name = getPlayerByID(end.winner).getName();
+				addEntity(new OverworldEndTransition(new EndGameStage(players), name));
+			}
+		}
 		for (Entity e : entities) {
 			e.beginStep();
 		}
@@ -196,7 +208,11 @@ public class ClientOverworldStage extends OverworldStage {
 	
 	@Override
 	protected void doEndTurn(int playerID) {
-		super.doEndTurn(playerID);
+		for(Player p : players) {
+			for(Unit u : p.getParty()) {
+				u.setMoved(false);
+			}
+		}
 		context.cleanUp();
 		// reset assists
 		for(Player p : players) {

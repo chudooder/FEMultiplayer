@@ -26,7 +26,6 @@ public class HitEffect extends Entity {
 			HashMap<Integer, String> soundMap = data.soundMap;
 			{
 				if(soundMap.get(0) != null) {
-					System.out.println(soundMap.get(0));
 					AudioPlayer.playAudio(soundMap.get(0), 1, 1);
 				}
 			}
@@ -44,7 +43,6 @@ public class HitEffect extends Entity {
 				destroy();
 			}
 		};
-		System.out.println(name + " " + anim.getLength() + " " + anim.getSpeed());
 		sprite.addAnimation("default", anim);
 		renderDepth = FightStage.EFFECT_DEPTH;
 	}

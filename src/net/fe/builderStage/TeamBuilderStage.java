@@ -412,10 +412,10 @@ class Cursor extends Entity{
 	
 	public void render(){
 		if(on){
-		if(max == 0)
-			Renderer.drawString("default_med", "Press X to select units", 200, 154, renderDepth);
-		else
-			Renderer.drawRectangle(x, y, x+width, y+height, renderDepth, new Color(128,128,213,128));
+			if(max == 0)
+				Renderer.drawString("default_med", "Press X to select units", 200, 154, renderDepth);
+			else
+				Renderer.drawRectangle(x, y, x+width, y+height, renderDepth, new Color(128,128,213,128));
 		}
 	}
 	

@@ -231,21 +231,8 @@ public class ClientLobbyStage extends LobbyStage {
 			} else if(p.getTeam() == Player.TEAM_SPECTATOR) {
 				Renderer.drawString("default_med", p.getName(), 324, 115+(b++)*tightSpacing, 0.8f, t);
 			} else {
-				Renderer.drawString("default_med", p.getName(), 8, 24+c*wideSpacing, 0.8f, t);
-				for(int i=0; i<p.getParty().size(); i++) {
-					Unit u = p.getParty().getUnit(i);
-					final int xspacing = 18;
-					if(FEResources.hasTexture(u.functionalClassName() + "_map_idle")) {
-						u.sprite.render(60+xspacing*i, 24+c*wideSpacing, 0.8f);
-					} else {
-						Renderer.drawRectangle(60+xspacing*i, 24+c*wideSpacing, 
-								75+xspacing*i, 40+c*wideSpacing, 0.8f, Color.red);
-						Renderer.drawString("default_med",
-								u.name.charAt(0) + "" + u.name.charAt(1), 62+xspacing*i, 
-								26+c*wideSpacing, 0.8f);
-					}
-				}
-				c++;
+				Renderer.drawString("default_med", p.getName(), 8, 24+(c++)*tightSpacing, 0.8f, t);
+
 			}
 		}
 		
