@@ -32,10 +32,10 @@ public class LoadStage{
 		        GL_DEPTH_BUFFER_BIT |
 		        GL_STENCIL_BUFFER_BIT);
 		glClearDepth(1.0f);
-		Renderer.drawString("default_med", "FE: Multiplayer is loading...", 22, 263, 0);
+		Renderer.drawString("default_med", "FE: Multiplayer is loading...", 22, 262, 0);
 		String percentText = (int)(percent * 100) + "%";
 		int pwidth = FEResources.getBitmapFont("default_med").getStringWidth(percentText);
-		Renderer.drawString("default_med", percentText, 458 - pwidth, 262, 0);
+		Renderer.drawString("default_med", percentText, 458 - pwidth, 263, 0);
 		Renderer.drawRectangle(20, 280, 460, 300, 0, Color.gray);
 		Renderer.drawRectangle(22, 282, 22+width, 298, 0, Color.blue.darker());
 		Display.update();
