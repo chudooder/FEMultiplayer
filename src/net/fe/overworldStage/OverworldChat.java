@@ -17,7 +17,7 @@ import chu.engine.anim.BitmapFont;
 import chu.engine.anim.Renderer;
 import chu.engine.menu.TextInputBox;
 
-public class OverworldChat extends TextInputBox {
+public class OverworldChat extends TextInputBox implements DoNotDestroy {
 	
 	private Chat chat;
 	private static final Color TEXTBOX = new Color(0.2f, 0.2f, 0.2f, 0.7f);

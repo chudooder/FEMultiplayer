@@ -17,7 +17,7 @@ import chu.engine.Game;
 import chu.engine.anim.BitmapFont;
 import chu.engine.anim.Renderer;
 
-public class UnitInfo extends Entity{
+public class UnitInfo extends Entity implements DoNotDestroy{
 	private Unit unit;
 	public UnitInfo() {
 		super(50, Game.getWindowHeight()-84);

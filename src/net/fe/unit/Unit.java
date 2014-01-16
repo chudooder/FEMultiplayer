@@ -15,6 +15,7 @@ import net.fe.Command;
 import net.fe.FEResources;
 import net.fe.Party;
 import net.fe.fightStage.CombatTrigger;
+import net.fe.overworldStage.DoNotDestroy;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.Node;
 import net.fe.overworldStage.ClientOverworldStage;
@@ -29,7 +30,7 @@ import chu.engine.GriddedEntity;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Transform;
 
-public class Unit extends GriddedEntity implements Serializable {
+public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	
 	private static final long serialVersionUID = -5101031417704315547L;
 	private HashMap<String, Float> stats;

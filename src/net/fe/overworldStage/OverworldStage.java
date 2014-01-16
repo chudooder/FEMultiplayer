@@ -38,6 +38,7 @@ public class OverworldStage extends Stage {
 	private ArrayList<Player> turnOrder;
 	private int currentPlayer;
 	private Objective objective;
+	private int turnCount;
 
 	public OverworldStage(String levelName, ArrayList<Player> players) {
 		super();
@@ -50,6 +51,7 @@ public class OverworldStage extends Stage {
 			if(!p.isSpectator()) turnOrder.add(p);
 		}
 		currentPlayer = 0;
+		turnCount = 1;
 		loadLevel(levelName);
 		processAddStack();
 	}
@@ -170,9 +172,10 @@ public class OverworldStage extends Stage {
 				u.setMoved(false);
 			}
 		}
+		turnCount++;
 		// Objective evaluation
 		int winner = objective.evaluate(this);
-		if(winner > 0) {
+		if(winner > 0 && FEServer.getServer() != null) {
 			FEServer.getServer().broadcastMessage(new EndGame(0, winner));
 			FEServer.resetToLobby();
 		}
@@ -267,6 +270,14 @@ public class OverworldStage extends Stage {
 			if(!p.isSpectator()) ans.add(p);
 		}
 		return ans;
+	}
+	
+	public Objective getObjective(){
+		return objective;
+	}
+	
+	public int getTurnCount(){
+		return turnCount;
 	}
 
 }

@@ -8,7 +8,7 @@ import chu.engine.GriddedEntity;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Tileset;
 
-public class Tile extends GriddedEntity{
+public class Tile extends GriddedEntity implements DoNotDestroy{
 	private Terrain terrain;
 	private int id;
 	private Tileset tileset;

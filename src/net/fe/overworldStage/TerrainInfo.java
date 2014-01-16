@@ -7,7 +7,7 @@ import chu.engine.Game;
 import chu.engine.anim.BitmapFont;
 import chu.engine.anim.Renderer;
 
-public class TerrainInfo extends Entity {
+public class TerrainInfo extends Entity implements DoNotDestroy{
 
 	public TerrainInfo(Cursor c) {
 		super(0, Game.getWindowHeight()-84);

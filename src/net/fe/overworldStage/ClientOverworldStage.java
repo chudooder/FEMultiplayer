@@ -68,6 +68,7 @@ public class ClientOverworldStage extends OverworldStage {
 		addEntity(unitInfo);
 		addEntity(new TerrainInfo(cursor));
 		addEntity(new OverworldChat(this.chat));
+		addEntity(new ObjectiveInfo());
 		setControl(true);
 		if(getCurrentPlayer().equals(FEMultiplayer.getLocalPlayer())) {
 			context = new Idle(this, getCurrentPlayer());
@@ -101,8 +102,7 @@ public class ClientOverworldStage extends OverworldStage {
 	public void removeExtraneousEntities(Entity... keep){
 		List<Entity> keeps = Arrays.asList(keep);
 		for(Entity e: entities){
-			if(!(e instanceof Tile || e instanceof Unit || e instanceof Cursor || e instanceof UnitInfo ||
-					e instanceof TerrainInfo || e instanceof OverworldChat || e instanceof RunesBg ||
+			if(!(e instanceof DoNotDestroy ||
 					keeps.contains(e))){
 				removeEntity(e);
 			}

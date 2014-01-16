@@ -36,7 +36,7 @@ public class RoutTheEnemy implements Objective {
 
 	@Override
 	public String getDescription() {
-		return "KILL EVERYONE";
+		return "Rout";
 	}
 
 }

@@ -4,7 +4,7 @@ import chu.engine.Game;
 import chu.engine.GriddedEntity;
 import chu.engine.anim.Animation;
 
-public class Cursor extends GriddedEntity{
+public class Cursor extends GriddedEntity  implements DoNotDestroy{
 	private float time;
 	private boolean on;
 	private float rx;
