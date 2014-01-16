@@ -1360,6 +1360,17 @@
 			]
 		},
 		{
+			"name":		"hero_sword_dodge",
+			"path":		"res/battle_anim/hero_axe_dodge.png",
+			"width":	42,
+			"height":	40,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	13,
+			"offsetY":	31,
+			"freeze":	0
+		},
+		{
 			"name":		"hero_handaxe_attack",
 			"path":		"res/battle_anim/hero_handaxe_attack.png",
 			"width":	189,
@@ -1414,6 +1425,17 @@
 					"sound":	"catch"
 				},
 			]
+		},
+		{
+			"name":		"hero_handaxe_dodge",
+			"path":		"res/battle_anim/hero_axe_dodge.png",
+			"width":	42,
+			"height":	40,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	13,
+			"offsetY":	31,
+			"freeze":	0
 		},
 		{
 			"name":		"lyn_sword_attack",
