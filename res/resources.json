@@ -171,32 +171,50 @@
 		{
 			"name":		"berserker_handaxe_attack",
 			"path":		"res/battle_anim/berserker_handaxe_attack.png",
-			"width":	69,
-			"height":	45,
-			"frames":	4,
-			"columns":	2,
-			"offsetX":	39,
+			"width":	192,
+			"height":	44,
+			"frames":	24,
+			"columns":	5,
+			"offsetX":	162,
 			"offsetY":	40,
 			"freeze":	0,
 			"speed":	0.06,
-			"hitframes":[2],
+			"hitframes":[4],
 			"soundMap": [
-				
+				{
+					"frame":	1,
+					"sound":	"lance_throw"
+				},
+				{
+					"frame":	22,
+					"sound":	"catch"
+				},
 			]
 		},
 		{
 			"name":		"berserker_handaxe_critical",
 			"path":		"res/battle_anim/berserker_handaxe_critical.png",
-			"width":	70,
-			"height":	45,
-			"frames":	9,
+			"width":	192,
+			"height":	44,
+			"frames":	29,
 			"columns":	3,
-			"offsetX":	40,
+			"offsetX":	162,
 			"offsetY":	40,
 			"freeze":	0,
-			"hitframes":[7],
+			"hitframes":[10],
 			"soundMap": [
-				
+				{
+					"frame":	1,
+					"sound":	"spin_short"
+				},
+				{
+					"frame":	6,
+					"sound":	"lance_throw"
+				},
+				{
+					"frame":	27,
+					"sound":	"catch"
+				},
 			]
 		},
 		{
@@ -1074,6 +1092,56 @@
 			"freeze":	0
 		},
 		{
+			"name":		"hector_handaxe_attack",
+			"path":		"res/battle_anim/hector_handaxe_attack.png",
+			"width":	190,
+			"height":	44,
+			"frames":	24,
+			"columns":	3,
+			"offsetX":	162,
+			"offsetY":	40,
+			"freeze":	0,
+			"hitframes":[4],
+			"soundMap": [
+				{
+					"frame":	1,
+					"sound":	"lance_throw"
+				},
+				{
+					"frame":	22,
+					"sound":	"catch"
+				},
+			]
+		},
+		{
+			"name":		"hector_handaxe_critical",
+			"path":		"res/battle_anim/hector_handaxe_critical.png",
+			"width":	190,
+			"height":	44,
+			"frames":	29,
+			"columns":	3,
+			"offsetX":	162,
+			"offsetY":	40,
+			"freeze":	0,
+			"hitframes":[10],
+			"soundMap": [
+				{
+					"frame":	1,
+					"sound":	"spin_short"
+				},
+				{
+					"frame":	6,
+					"sound":	"lance_throw"
+				},
+				{
+					"frame":	27,
+					"sound":	"catch"
+				},
+			]
+		},
+		
+				
+		{
 			"name":		"hector_sword_attack",
 			"path":		"res/battle_anim/hector_sword_attack.png",
 			"width":	119,
@@ -1290,6 +1358,84 @@
 					"sound":	"cape"
 				},
 			]
+		},
+		{
+			"name":		"hero_sword_dodge",
+			"path":		"res/battle_anim/hero_axe_dodge.png",
+			"width":	42,
+			"height":	40,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	13,
+			"offsetY":	31,
+			"freeze":	0
+		},
+		{
+			"name":		"hero_handaxe_attack",
+			"path":		"res/battle_anim/hero_handaxe_attack.png",
+			"width":	189,
+			"height":	40,
+			"frames":	29,
+			"columns":	3,
+			"offsetX":	162,
+			"offsetY":	36,
+			"freeze":	0,
+			"hitframes":[7],
+			"soundMap": [
+				{
+					"frame":	1,
+					"sound":	"axe_swipe1"
+				},
+				{
+					"frame":	4,
+					"sound":	"lance_throw"
+				},
+				{
+					"frame":	2,
+					"sound":	"catch"
+				},
+			]
+		},
+		{
+			"name":		"hero_handaxe_critical",
+			"path":		"res/battle_anim/hero_handaxe_critical.png",
+			"width":	189,
+			"height":	40,
+			"frames":	32,
+			"columns":	3,
+			"offsetX":	162,
+			"offsetY":	36,
+			"freeze":	0,
+			"hitframes":[10],
+			"soundMap": [
+				{
+					"frame":	1,
+					"sound":	"axe_swipe1"
+				},
+				{
+					"frame":	3,
+					"sound":	"axe_swipe2"
+				},
+				{
+					"frame":	7,
+					"sound":	"lance_throw"
+				},
+				{
+					"frame":	28,
+					"sound":	"catch"
+				},
+			]
+		},
+		{
+			"name":		"hero_handaxe_dodge",
+			"path":		"res/battle_anim/hero_axe_dodge.png",
+			"width":	42,
+			"height":	40,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	13,
+			"offsetY":	31,
+			"freeze":	0
 		},
 		{
 			"name":		"lyn_sword_attack",
@@ -2343,12 +2489,12 @@
 		{
 			"name":		"warrior_handaxe_attack",
 			"path":		"res/battle_anim/warrior_handaxe_attack.png",
-			"width":	76,
-			"height":	43,
-			"frames":	14,
-			"columns":	4,
-			"offsetX":	36,
-			"offsetY":	39,
+			"width":	205,
+			"height":	48,
+			"frames":	33,
+			"columns":	3,
+			"offsetX":	162,
+			"offsetY":	36,
 			"freeze":	0,
 			"hitframes":[9],
 			"soundMap": [
@@ -2361,7 +2507,7 @@
 					"sound":"lance_throw"
 				},
 				{
-					"frame": 12,
+					"frame": 30,
 					"sound":"catch"
 				}
 			]
@@ -2387,7 +2533,7 @@
 					"sound":"lance_throw"
 				},
 				{
-					"frame": 14,
+					"frame": 32,
 					"sound":"catch"
 				}
 			]
