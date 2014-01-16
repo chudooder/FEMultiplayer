@@ -2124,6 +2124,69 @@
 			"freeze":	0
 		},
 		{
+			"name":		"sniper_bow_attack",
+			"path":		"res/battle_anim/sniper_bow_attack.png",
+			"width":	147,
+			"height":	59,
+			"frames":	20,
+			"columns":	5,
+			"offsetX":	120,
+			"offsetY":	55,
+			"freeze": 	0,
+			"hitframes": [18],
+			"soundMap": [
+				{
+					"frame": 4,
+					"sound": "sword_swipe2"
+				},
+				{
+					"frame": 10,
+					"sound": "bow_set"
+				},
+				{
+					"frame": 14,
+					"sound": "bow_shoot"
+				}
+			]
+		},
+		{
+			"name":		"sniper_bow_critical",
+			"path":		"res/battle_anim/sniper_bow_attack.png",
+			"width":	146,
+			"height":	62,
+			"frames":	32,
+			"columns":	6,
+			"offsetX":	120,
+			"offsetY":	55,
+			"freeze": 	0,
+			"hitframes": [29],
+			"soundMap": [
+				{
+					"frame": 4,
+					"sound": "spin_short"
+				},
+				{
+					"frame": 21,
+					"sound": "bow_set"
+				},
+				{
+					"frame": 26,
+					"sound": "bow_shoot"
+				}
+			]
+		},
+		{
+			"name":		"sniper_bow_dodge",
+			"path":		"res/battle_anim/sniper_bow_dodge.png",
+			"width":	43,
+			"height":	49,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	18,
+			"offsetY":	43,
+			"freeze":	0
+		},
+		{
 			"name":		"sorcerer_magic_attack",
 			"path":		"res/battle_anim/sorcerer_magic_attack.png",
 			"width":	68,
