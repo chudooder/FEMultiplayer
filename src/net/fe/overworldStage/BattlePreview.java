@@ -67,7 +67,7 @@ public class BattlePreview extends Entity {
 			aCrit = String.format(
 					"%d",
 					Math.max(0,
-							Math.min(100, attacker.crit() - defender.avoid())));
+							Math.min(100, attacker.crit() - defender.dodge())));
 			if(attacker.get("Spd") >= defender.get("Spd") + 4) aMult*=2;
 			if(attacker.getWeapon().name.contains("Brave")) aMult*=2;
 			
@@ -82,7 +82,7 @@ public class BattlePreview extends Entity {
 			dCrit = String.format(
 					"%d",
 					Math.max(0,
-							Math.min(100, defender.crit() - attacker.avoid())));
+							Math.min(100, defender.crit() - attacker.dodge())));
 			if(defender.get("Spd") >= attacker.get("Spd") + 4) dMult*=2;
 			if(defender.getWeapon().name.contains("Brave")) dMult*=2;
 		}
