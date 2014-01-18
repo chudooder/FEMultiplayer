@@ -1803,8 +1803,8 @@
 			"path":		"res/battle_anim/paladin_lance_dodge.png",
 			"width":	59,
 			"height":	61,
-			"frames":	3,
-			"columns":	3,
+			"frames":	2,
+			"columns":	2,
 			"offsetX":	19,
 			"offsetY":	57,
 			"freeze":	0
@@ -1934,6 +1934,17 @@
 					"sound":	"horse_step"
 				},
 			]
+		},
+		{
+			"name":		"paladin_sword_dodge",
+			"path":		"res/battle_anim/paladin_sword_dodge.png",
+			"width":	54,
+			"height":	55,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	10,
+			"offsetY":	51,
+			"freeze":	0
 		},
 		{
 			"name":		"roy_sword_critical",
