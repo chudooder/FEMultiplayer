@@ -2964,6 +2964,10 @@
 			"path":		"res/gui/connect_button.png"
 		},
 		{
+			"name":		"team_builder_button",
+			"path":		"res/gui/team_builder_button.png"
+		},
+		{
 			"name":		"ready_button",
 			"path":		"res/gui/ready_button.png"
 		},

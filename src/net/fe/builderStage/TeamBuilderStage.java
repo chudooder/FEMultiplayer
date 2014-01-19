@@ -42,7 +42,7 @@ public class TeamBuilderStage extends Stage {
 	private int funds;
 	private int exp;
 	private TeamSelectionStage select;
-	private Button fight, save, load, back;
+	private Button end, save, load, back;
 	private Button[] buttons;
 	private int currButton;
 	private boolean control = true;
@@ -54,7 +54,7 @@ public class TeamBuilderStage extends Stage {
 	
 	
 	
-	public TeamBuilderStage() {
+	public TeamBuilderStage(boolean toMainMenu) {
 		repeatTimers = new float[4];
 		addEntity(new RunesBg(new Color(0xd2b48c)));
 		select = new TeamSelectionStage(this);
@@ -62,18 +62,27 @@ public class TeamBuilderStage extends Stage {
 		
 		buttons = new Button[4];
 		
-		fight = new Button(390, 290, "Fight!", Color.green, 80){
-			@Override
-			public void execute() {
-				// Send the server a PartyMessage
-				FEMultiplayer.setCurrentStage(new ClientWaitStage());
-				PartyMessage pm = new PartyMessage(units);
-				FEMultiplayer.getClient().sendMessage(pm);
-			}
-			
-		};
-		buttons[0] = fight;
-		addEntity(fight);
+		if(!toMainMenu) {
+			end = new Button(390, 290, "Fight!", Color.green, 80){
+				@Override
+				public void execute() {
+					// Send the server a PartyMessage
+					FEMultiplayer.setCurrentStage(new ClientWaitStage());
+					PartyMessage pm = new PartyMessage(units);
+					FEMultiplayer.getClient().sendMessage(pm);
+				}
+			};
+		} else {
+			end = new Button(390, 290, "Exit", Color.red, 80){
+				@Override
+				public void execute() {
+					// Send the server a PartyMessage
+					FEMultiplayer.setCurrentStage(FEMultiplayer.connect);
+				}
+			};
+		}
+		buttons[0] = end;
+		addEntity(end);
 		
 		save = new Button(220, 290, "Save", Color.blue, 80){
 			@Override

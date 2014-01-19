@@ -97,7 +97,7 @@ public class Client {
 			}
 			FEMultiplayer.players.addAll(ans);
 			if(!FEMultiplayer.getLocalPlayer().isSpectator()) {
-				TeamBuilderStage stage = new TeamBuilderStage();
+				TeamBuilderStage stage = new TeamBuilderStage(false);
 				FEMultiplayer.setCurrentStage(stage);
 			} else {
 				ClientWaitStage stage = new ClientWaitStage();

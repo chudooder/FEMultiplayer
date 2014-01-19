@@ -51,6 +51,7 @@ public class FEMultiplayer extends Game{
 	public static Player turn;
 	public static ClientOverworldStage map;
 	public static ClientLobbyStage lobby;
+	public static ConnectStage connect;
 	
 	public static void main(String[] args) {
 		
@@ -73,7 +74,7 @@ public class FEMultiplayer extends Game{
 		glEnable(GL_LINE_SMOOTH);
 		
 		UnitFactory.getUnit("Lyn");
-		
+		connect = new ConnectStage();
 		currentStage = new TitleStage();
 		messages = new ArrayList<Message>();
 		
