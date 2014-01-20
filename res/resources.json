@@ -2900,6 +2900,7 @@
 			"offsetY":	104,
 			"freeze":	-1,
 			"speed":	0.055,
+			"hitframes": [34],
 			"soundMap": [
 				
 			]

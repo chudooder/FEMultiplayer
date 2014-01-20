@@ -21,7 +21,7 @@ public class MagicEffect extends Entity {
 			public void done() {
 				setFrame(0);
 				setSpeed(0);
-				((FightStage) stage).setCurrentEvent(FightStage.ATTACKED);
+				((FightStage) stage).setCurrentEvent(FightStage.HIT_EFFECT);
 				destroy();
 			}
 		};

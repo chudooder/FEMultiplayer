@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import net.fe.FEMultiplayer;
 import net.fe.RNG;
 import net.fe.network.FEServer;
 import net.fe.overworldStage.Grid;
@@ -17,9 +18,14 @@ public class CombatCalculator {
 	private ArrayList<AttackRecord> attackQueue;
 	private int range;
 	private Queue<String> nextAttack;
-	public CombatCalculator(UnitIdentifier u1, UnitIdentifier u2){
-		left = FEServer.getUnit(u1);
-		right = FEServer.getUnit(u2);
+	public CombatCalculator(UnitIdentifier u1, UnitIdentifier u2, boolean local){
+		if(local){
+			left = FEMultiplayer.getUnit(u1);
+			right = FEMultiplayer.getUnit(u2);
+		} else {
+			left = FEServer.getUnit(u1);
+			right = FEServer.getUnit(u2);
+		}
 		range = Grid.getDistance(left, right);
 		attackQueue = new ArrayList<AttackRecord>();
 		nextAttack = new LinkedList<String>();
@@ -40,6 +46,7 @@ public class CombatCalculator {
 				&& shouldAttack(right,left,range)) {
 			attackOrder.add(false);
 		}
+		System.out.println(attackOrder);
 
 		for (Boolean i : attackOrder) {
 			attack(i, "None");

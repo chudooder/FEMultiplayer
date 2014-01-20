@@ -228,7 +228,7 @@ public class OverworldStage extends Stage {
 			}
 			else if(obj.equals("ATTACK")) {
 				//This updates HP so we're ok
-				CombatCalculator calc = new CombatCalculator(cmds.unit, (UnitIdentifier) cmds.commands[++i]);
+				CombatCalculator calc = new CombatCalculator(cmds.unit, (UnitIdentifier) cmds.commands[++i], false);
 				cmds.attackRecords = calc.getAttackQueue();
 			}
 			else if(obj.equals("HEAL")) {

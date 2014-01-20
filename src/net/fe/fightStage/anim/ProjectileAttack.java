@@ -22,7 +22,7 @@ public class ProjectileAttack extends AttackAnimation{
 
 	@Override
 	public void onLastHit() {
-		stage.setCurrentEvent(FightStage.ATTACKED);
+		stage.setCurrentEvent(FightStage.HIT_EFFECT);
 	}
 
 	@Override

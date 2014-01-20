@@ -65,12 +65,14 @@ public class FightStage extends Stage {
 
 	public static final int START = 0;
 	public static final int ATTACKING = 1;
-	public static final int ATTACKED = 2;
-	public static final int HURTING = 3;
-	public static final int HURTED = 4;
-	public static final int DYING = 5;
-	public static final int RETURNING = 6;
-	public static final int DONE = 7;
+	public static final int HIT_EFFECT = 2;
+	public static final int HIT_EFFECTED = 3;
+	public static final int ATTACKED = 4;
+	public static final int HURTING = 5;
+	public static final int HURTED = 6;
+	public static final int DYING = 7;
+	public static final int RETURNING = 8;
+	public static final int DONE = 9;
 
 	public FightStage(UnitIdentifier u1, UnitIdentifier u2,
 			ArrayList<AttackRecord> attackQ) {
@@ -160,21 +162,30 @@ public class FightStage extends Stage {
 			setCurrentEvent(ATTACKING);
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
+		} else if (currentEvent == HIT_EFFECT){
+
+				List<HitEffect> hitEffects = 
+						HitEffect.getEffects(a.getAnimArgs(), rec.animation);
+				for (HitEffect h : hitEffects) {
+					addEntity(h);
+				}
+				currentEvent = HIT_EFFECTED;
+			processAddStack();
+			
+		
+		} else if (currentEvent == HIT_EFFECTED){
+			//Let anim play
 		} else if (currentEvent == ATTACKED) {
+		
 			List<HitEffect> hitEffects = 
 					HitEffect.getEffects(a.getAnimArgs(), rec.animation);
-			for (HitEffect h : hitEffects) {
-				addEntity(h);
-			}
-			processAddStack();
 			if (rec.animation.equals("Miss")) {
 				// System.out.println("Miss! " + rec.defender.name
 				// + " dodged the attack!");
-
+				addEntity(new MissEffect(defender == left));
 				d.sprite.setAnimation("DODGE");
 				d.sprite.setFrame(0);
 				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
-				addEntity(new MissEffect(defender == left));
 				if(attacker.getWeapon().isMagic()){
 					attacker.use(attacker.getWeapon());
 				}
@@ -201,7 +212,7 @@ public class FightStage extends Stage {
 				if(rec.damage > 0) {
 					if(attacker.getWeapon().isMagic()) {
 						Animation anim = hitEffects.get(0).sprite.getCurrentAnimation();
-						startShaking(anim.getLength() * anim.getSpeed(), 3);
+						startShaking(hitEffects.get(0).getShakeLength() * anim.getSpeed(), 3);
 					} else {
 						startShaking(crit ? 1.3f : .5f, 5);
 					}
@@ -314,6 +325,9 @@ public class FightStage extends Stage {
 	// Getters Setters
 
 	public void setCurrentEvent(int event) {
+		if(event == ATTACKED){
+
+		}
 		if (currentEvent == ATTACKING && event == HURTED)
 			return;
 		if (event == HURTED) {
