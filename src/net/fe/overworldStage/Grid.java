@@ -34,7 +34,7 @@ public class Grid{
 	 * @param y
 	 * @return
 	 */
-	boolean addUnit(Unit u, int x, int y) {
+	public boolean addUnit(Unit u, int x, int y) {
 		if (grid[y][x] != null)
 			return false;
 		grid[y][x] = u;
