@@ -1532,14 +1532,14 @@
 		{
 			"name":		"lyn_bow_attack",
 			"path":		"res/battle_anim/lyn_bow_attack.png",
-			"width":	40,
+			"width":	136,
 			"height":	52,
-			"frames":	13,
-			"columns":	4,
-			"offsetX":	24,
+			"frames":	15,
+			"columns":	3,
+			"offsetX":	120,
 			"offsetY":	49,
 			"freeze":	0,
-			"hitframes":[12],
+			"hitframes":[13],
 			"soundMap": [
 				{
 					"frame":	8,
@@ -1565,14 +1565,14 @@
 		{
 			"name":		"lyn_bow_critical",
 			"path":		"res/battle_anim/lyn_bow_critical.png",
-			"width":	47,
+			"width":	143,
 			"height":	52,
-			"frames":	24,
-			"columns":	5,
-			"offsetX":	24,
+			"frames":	26,
+			"columns":	3,
+			"offsetX":	120,
 			"offsetY":	49,
 			"freeze":	0,
-			"hitframes":[23],
+			"hitframes":[24],
 			"soundMap": [
 				{
 					"frame":	5,
@@ -2437,14 +2437,14 @@
 		{
 			"name":		"warrior_bow_attack",
 			"path":		"res/battle_anim/warrior_bow_attack.png",
-			"width":	101,
+			"width":	165,
 			"height":	52,
-			"frames":	12,
-			"columns":	4,
-			"offsetX":	56,
+			"frames":	15,
+			"columns":	3,
+			"offsetX":	120,
 			"offsetY":	48,
 			"freeze":	0,
-			"hitframes":[10],
+			"hitframes":[13],
 			"soundMap": [
 				{
 					"frame":	6,
@@ -2466,7 +2466,7 @@
 			"offsetX":	120,
 			"offsetY":	64,
 			"freeze":	0,
-			"hitframes":[17],
+			"hitframes":[18],
 			"soundMap": [
 				{
 					"frame": 3,
