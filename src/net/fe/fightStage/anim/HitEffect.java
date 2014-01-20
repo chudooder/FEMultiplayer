@@ -24,7 +24,7 @@ public class HitEffect extends Entity {
 		shakeLength = data.frames;
 		Animation anim = new Animation(data.texture, data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
-				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
+				data.offsetY, data.speed==0.0f?0.025f:data.speed) {
 			HashMap<Integer, String> soundMap = data.soundMap;
 			int hitframe;
 			{

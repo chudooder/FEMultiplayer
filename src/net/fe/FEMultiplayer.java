@@ -57,6 +57,7 @@ public class FEMultiplayer extends Game{
 		
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
+		game.testFightStage();
 		game.loop();
 
 	}
@@ -89,7 +90,7 @@ public class FEMultiplayer extends Game{
 		players.add(p2);
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
-		Unit u1 = UnitFactory.getUnit("Lute");
+		Unit u1 = UnitFactory.getUnit("Ewan");
 		u1.addToInventory(WeaponFactory.getWeapon("Fimbulvetr"));
 		grid.addUnit(u1, 0, 0);
 		u1.equip(0);

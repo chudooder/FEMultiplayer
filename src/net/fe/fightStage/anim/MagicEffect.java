@@ -16,7 +16,7 @@ public class MagicEffect extends Entity {
 		AnimationData data = getTexture(args.unit.getWeapon().name.toLowerCase());
 		Animation anim = new Animation(data.texture, data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
-				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
+				data.offsetY, data.speed==0.0f?0.025f:data.speed) {
 			@Override
 			public void done() {
 				setFrame(0);

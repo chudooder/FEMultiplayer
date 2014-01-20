@@ -2839,6 +2839,45 @@
 			]
 		},
 		{
+			"name":		"magic_effect_fire",
+			"path":		"res/battle_anim/magic_effect_elfire.png",
+			"width":	240,
+			"height":	160,
+			"frames":	12,
+			"columns":	4,
+			"offsetX":	160,
+			"offsetY":	104,
+			"freeze":	-1,
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"bg_effect_fire",
+			"path":		"res/battle_anim/bg_effect_elfire.png",
+			"width":	1,
+			"height":	1,
+			"frames":	32,
+			"columns":	16,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"hit_effect_fire",
+			"path":		"res/battle_anim/hit_effect_fire.png",
+			"width":	240,
+			"height":	160,
+			"frames":	12,
+			"columns":	4,
+			"offsetX":	64,
+			"offsetY":	110,
+			"freeze":	-1,
+			"soundMap": [
+				
+			]
+		},
+		{
 			"name":		"magic_effect_elfire",
 			"path":		"res/battle_anim/magic_effect_elfire.png",
 			"width":	240,
@@ -2868,7 +2907,7 @@
 			"path":		"res/battle_anim/hit_effect_elfire.png",
 			"width":	240,
 			"height":	160,
-			"frames":	15,
+			"frames":	16,
 			"columns":	4,
 			"offsetX":	88,
 			"offsetY":	110,
@@ -2877,6 +2916,17 @@
 				
 			]
 		},
+		{
+			"name":		"magic_effect_fimbulvetr",
+			"path":		"res/battle_anim/magic_effect_null.png",
+			"width":	8,
+			"height":	8,
+			"frames":	1,
+			"columns":	1,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		}
 		{
 			"name":		"bg_effect_fimbulvetr",
 			"path":		"res/battle_anim/bg_effect_fimbulvetr.png",
@@ -2896,7 +2946,7 @@
 			"height":	160,
 			"frames":	44,
 			"columns":	4,
-			"offsetX":	80,
+			"offsetX":	78,
 			"offsetY":	104,
 			"freeze":	-1,
 			"speed":	0.055,
