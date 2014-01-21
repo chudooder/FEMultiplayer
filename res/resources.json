@@ -2915,6 +2915,46 @@
 			]
 		},
 		{
+			"name":		"magic_effect_aura",
+			"path":		"res/battle_anim/magic_effect_aura.png",
+			"width":	241,
+			"height":	161,
+			"frames":	23,
+			"columns":	6,
+			"offsetX":	152,
+			"offsetY":	112,
+			"freeze":	-1,
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"bg_effect_aura",
+			"path":		"res/battle_anim/bg_effect_divine.png",
+			"width":	1,
+			"height":	1,
+			"frames":	48,
+			"columns":	16,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"hit_effect_aura",
+			"path":		"res/battle_anim/hit_effect_aura.png",
+			"width":	241,
+			"height":	161,
+			"frames":	54,
+			"columns":	6,
+			"offsetX":	76,
+			"offsetY":	104,
+			"freeze":	-1,
+			"hitframes": [20],
+			"soundMap": [
+				
+			]
+		},
+		{
 			"name":		"magic_effect_fire",
 			"path":		"res/battle_anim/magic_effect_elfire.png",
 			"width":	240,
