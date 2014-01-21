@@ -476,7 +476,7 @@
 			"frames":	11,
 			"columns":	4,
 			"offsetX":	179,
-			"offsetY":	53,
+			"offsetY":	66,
 			"freeze":	0,
 			"hitframes":[8],
 			"soundMap": [
@@ -489,21 +489,21 @@
 		{
 			"name":		"eliwood_javelin_critical",
 			"path":		"res/battle_anim/eliwood_javelin_critical.png",
-			"width":	218,
-			"height":	86,
-			"frames":	16,
+			"width":	220,
+			"height":	80,
+			"frames":	11,
 			"columns":	4,
-			"offsetX":	47,
-			"offsetY":	53,
+			"offsetX":	179,
+			"offsetY":	66,
 			"freeze":	0,
-			"hitframes":[13],
+			"hitframes":[9],
 			"soundMap": [
 				{
-					"frame":	5,
+					"frame":	4,
 					"sound":	"spin_short"
 				},
 				{
-					"frame":	12,
+					"frame":	8,
 					"sound":	"lance_throw"
 				}
 			]
@@ -989,12 +989,12 @@
 		{
 			"name":		"general_javelin_attack",
 			"path":		"res/battle_anim/general_javelin_attack.png",
-			"width":	92,
-			"height":	57,
-			"frames":	11,
-			"columns":	11,
-			"offsetX":	41,
-			"offsetY":	43,
+			"width":	227,
+			"height":	82,
+			"frames":	13,
+			"columns":	4,
+			"offsetX":	178,
+			"offsetY":	75,
 			"freeze":	0,
 			"hitframes":[5],
 			"soundMap": [
@@ -1004,17 +1004,24 @@
 		{
 			"name":		"general_javelin_critical",
 			"path":		"res/battle_anim/general_javelin_critical.png",
-			"width":	107,
+			"width":	227,
 			"height":	82,
-			"frames":	17,
-			"columns":	17,
-			"offsetX":	59,
+			"frames":	19,
+			"columns":	5,
+			"offsetX":	178,
 			"offsetY":	75,
 			"freeze":	0,
 			"speed":	0.035,
 			"hitframes":[11],
 			"soundMap": [
-				
+				{
+					"frame": 3,
+					"sound": "spin_short"
+				},
+				{
+					"frame": 9,
+					"sound": "javelin_throw"
+				}
 			]
 		},
 		{
@@ -1808,6 +1815,58 @@
 			"offsetX":	19,
 			"offsetY":	57,
 			"freeze":	0
+		},
+		{
+			"name":		"paladin_javelin_attack",
+			"path":		"res/battle_anim/paladin_javelin_attack.png",
+			"width":	238,
+			"height":	89,
+			"frames":	16,
+			"columns":	4,
+			"offsetX":	177,
+			"offsetY":	75,
+			"freeze":	0,
+			"hitframes":[13],
+			"soundMap": [
+				{
+					"frame":	1,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	9,
+					"sound":	"javelin_throw"
+				},
+			]
+		},
+		{
+			"name":		"paladin_javelin_critical",
+			"path":		"res/battle_anim/paladin_javelin_critical.png",
+			"width":	238,
+			"height":	89,
+			"frames":	22,
+			"columns":	5,
+			"offsetX":	177,
+			"offsetY":	75,
+			"freeze":	0,
+			"hitframes":[18],
+			"soundMap": [
+				{
+					"frame":	1,
+					"sound":	"horse_step"
+				},
+				{
+					"frame":	5,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	8,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	15,
+					"sound":	"javelin_throw"
+				},
+			]
 		},
 		{
 			"name":		"paladin_sword_attack",
@@ -2839,6 +2898,163 @@
 			]
 		},
 		{
+			"name":		"magic_effect_lightning",
+			"path":		"res/battle_anim/magic_effect_null.png",
+			"width":	8,
+			"height":	8,
+			"frames":	1,
+			"columns":	1,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"bg_effect_lightning",
+			"path":		"res/battle_anim/bg_effect_lightning.png",
+			"width":	1,
+			"height":	1,
+			"frames":	32,
+			"columns":	16,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"hit_effect_lightning",
+			"path":		"res/battle_anim/hit_effect_lightning.png",
+			"width":	241,
+			"height":	161,
+			"frames":	32,
+			"columns":	5,
+			"offsetX":	68,
+			"offsetY":	110,
+			"freeze":	-1,
+			"speed":	0.03,
+			"hitframes": [16],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"magic_effect_divine",
+			"path":		"res/battle_anim/magic_effect_divine.png",
+			"width":	241,
+			"height":	161,
+			"frames":	30,
+			"columns":	5,
+			"offsetX":	152,
+			"offsetY":	112,
+			"freeze":	-1,
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"bg_effect_divine",
+			"path":		"res/battle_anim/bg_effect_divine.png",
+			"width":	1,
+			"height":	1,
+			"frames":	48,
+			"columns":	16,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"hit_effect_divine",
+			"path":		"res/battle_anim/hit_effect_divine.png",
+			"width":	241,
+			"height":	161,
+			"frames":	18,
+			"columns":	5,
+			"offsetX":	88,
+			"offsetY":	100,
+			"speed":	0.03,
+			"freeze":	-1,
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"magic_effect_aura",
+			"path":		"res/battle_anim/magic_effect_aura.png",
+			"width":	241,
+			"height":	161,
+			"frames":	23,
+			"columns":	6,
+			"offsetX":	152,
+			"offsetY":	112,
+			"freeze":	-1,
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"bg_effect_aura",
+			"path":		"res/battle_anim/bg_effect_divine.png",
+			"width":	1,
+			"height":	1,
+			"frames":	48,
+			"columns":	16,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"hit_effect_aura",
+			"path":		"res/battle_anim/hit_effect_aura.png",
+			"width":	241,
+			"height":	161,
+			"frames":	54,
+			"columns":	6,
+			"offsetX":	76,
+			"offsetY":	104,
+			"freeze":	-1,
+			"hitframes": [20],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"magic_effect_fire",
+			"path":		"res/battle_anim/magic_effect_elfire.png",
+			"width":	240,
+			"height":	160,
+			"frames":	12,
+			"columns":	4,
+			"offsetX":	160,
+			"offsetY":	104,
+			"freeze":	-1,
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"bg_effect_fire",
+			"path":		"res/battle_anim/bg_effect_elfire.png",
+			"width":	1,
+			"height":	1,
+			"frames":	32,
+			"columns":	16,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"hit_effect_fire",
+			"path":		"res/battle_anim/hit_effect_fire.png",
+			"width":	240,
+			"height":	160,
+			"frames":	12,
+			"columns":	4,
+			"offsetX":	64,
+			"offsetY":	110,
+			"freeze":	-1,
+			"soundMap": [
+				
+			]
+		},
+		{
 			"name":		"magic_effect_elfire",
 			"path":		"res/battle_anim/magic_effect_elfire.png",
 			"width":	240,
@@ -2868,7 +3084,7 @@
 			"path":		"res/battle_anim/hit_effect_elfire.png",
 			"width":	240,
 			"height":	160,
-			"frames":	15,
+			"frames":	16,
 			"columns":	4,
 			"offsetX":	88,
 			"offsetY":	110,
@@ -2876,6 +3092,17 @@
 			"soundMap": [
 				
 			]
+		},
+		{
+			"name":		"magic_effect_fimbulvetr",
+			"path":		"res/battle_anim/magic_effect_null.png",
+			"width":	8,
+			"height":	8,
+			"frames":	1,
+			"columns":	1,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
 		},
 		{
 			"name":		"bg_effect_fimbulvetr",
@@ -2896,11 +3123,52 @@
 			"height":	160,
 			"frames":	44,
 			"columns":	4,
-			"offsetX":	80,
+			"offsetX":	78,
 			"offsetY":	104,
 			"freeze":	-1,
 			"speed":	0.055,
 			"hitframes": [34],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"magic_effect_flux",
+			"path":		"res/battle_anim/magic_effect_flux.png",
+			"width":	65,
+			"height":	99,
+			"frames":	35,
+			"columns":	5,
+			"offsetX":	34,
+			"offsetY":	90,
+			"freeze":	-1,
+			"soundMap":[
+
+			]
+		},
+		{
+			"name":		"bg_effect_flux",
+			"path":		"res/battle_anim/magic_effect_null.png",
+			"width":	8,
+			"height":	8,
+			"frames":	1,
+			"columns":	1,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"hit_effect_flux",
+			"path":		"res/battle_anim/hit_effect_flux.png",
+			"width":	69,
+			"height":	76,
+			"frames":	26,
+			"columns":	5,
+			"offsetX":	34,
+			"offsetY":	67,
+			"freeze":	-1,
+			"speed":	0.055,
+			"hitframes": [17],
 			"soundMap": [
 				
 			]

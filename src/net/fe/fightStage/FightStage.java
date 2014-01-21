@@ -44,6 +44,7 @@ public class FightStage extends Stage {
 	private float timer;
 	private float shakeX;
 	private float shakeY;
+	private float cameraOffset;
 
 	// Config
 	public static final float SHAKE_INTERVAL = 0.05f;
@@ -86,6 +87,7 @@ public class FightStage extends Stage {
 		right = FEMultiplayer.getUnit(u2);
 
 		range = Grid.getDistance(left, right);
+		cameraOffset = rangeToHeadDistance(range) - rangeToHeadDistance(1);
 		leftFighter = new FightUnit(new AnimationArgs(left, true, range), this);
 		rightFighter = new FightUnit(new AnimationArgs(right, false, range),
 				this);

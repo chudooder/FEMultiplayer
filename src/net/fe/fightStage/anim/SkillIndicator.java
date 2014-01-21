@@ -11,6 +11,7 @@ public class SkillIndicator extends Entity{
 	private boolean extended;
 	private int vx;
 	private int x0;
+	private int xt;
 	private boolean left;
 	
 	public static final int MSG_TIME = 1;
@@ -24,6 +25,7 @@ public class SkillIndicator extends Entity{
 		extended = false;
 		vx = left? 800: -800;
 		x = left? -WIDTH: FightStage.CENTRAL_AXIS*2;
+		xt = left? 0: FightStage.CENTRAL_AXIS*2-WIDTH;
 		x0 = (int) x;
 		this.left = left;
 		
@@ -40,6 +42,7 @@ public class SkillIndicator extends Entity{
 			x += vx * Game.getDeltaSeconds();
 			if(Math.abs(x - x0)+3 >= WIDTH){
 				extended = true;
+				x = xt;
 			}
 		} else {
 			x -= vx * Game.getDeltaSeconds();

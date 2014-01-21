@@ -84,7 +84,7 @@ public class Class implements Serializable {
 		if(name.equals("Sage"))
 			return new Class("Sage", 
 					"A powerful magic user who wields mighty tomes.",
-					0, new Sol(true), Weapon.Type.ANIMA, Weapon.Type.STAFF);
+					0, new Sol(true), Weapon.Type.ANIMA, Weapon.Type.LIGHT, Weapon.Type.STAFF);
 		if(name.equals("General"))
 			return new Class("General", 
 					"Armoured knights who possess overpowering strength and defense.",
