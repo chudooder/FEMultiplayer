@@ -1,6 +1,12 @@
 package net.fe.network;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import net.fe.FEResources;
 import net.fe.Player;
@@ -24,9 +30,23 @@ public class FEServer extends Game {
 	public static ArrayList<Player> players;
 	
 	public static void main(String[] args) {
+		JFrame frame = new JFrame("FEServer");
+		try {
+			frame.add(new JLabel("Server IP: " + InetAddress.getLocalHost().getHostAddress()){{
+				this.setFont(getFont().deriveFont(20f));
+				this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+			}});
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		frame.setVisible(true);
 		FEServer feserver = new FEServer();
 		feserver.init();
 		feserver.loop();
+		
 	}
 	
 	public FEServer() {
