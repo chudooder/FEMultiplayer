@@ -98,7 +98,7 @@ public class FEMultiplayer extends Game{
 		
 		Unit u2 = UnitFactory.getUnit("Natasha");
 		u2.addToInventory(WeaponFactory.getWeapon("Aura"));
-		grid.addUnit(u2, 1, 1);
+		grid.addUnit(u2, 1, 0);
 		u2.equip(0);
 		p2.getParty().addUnit(u2);
 		
