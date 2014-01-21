@@ -50,7 +50,9 @@ public class Party implements Iterable<Unit>, Serializable{
 	
 	public Unit search(String name) {
 		for(Unit u : units) {
-			if(u.name.equals(name)) return u;
+			if(u.name.equals(name)){
+				return u;
+			}
 		}
 		return null;
 	}

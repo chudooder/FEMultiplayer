@@ -19,6 +19,7 @@ public class CombatCalculator {
 	private int range;
 	private Queue<String> nextAttack;
 	public CombatCalculator(UnitIdentifier u1, UnitIdentifier u2, boolean local){
+		
 		if(local){
 			left = FEMultiplayer.getUnit(u1);
 			right = FEMultiplayer.getUnit(u2);
@@ -26,6 +27,8 @@ public class CombatCalculator {
 			left = FEServer.getUnit(u1);
 			right = FEServer.getUnit(u2);
 		}
+//		System.out.println(left);
+//		System.out.println(right);
 		range = Grid.getDistance(left, right);
 		attackQueue = new ArrayList<AttackRecord>();
 		nextAttack = new LinkedList<String>();

@@ -2,11 +2,13 @@ package net.fe.fightStage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import net.fe.FEMultiplayer;
 import net.fe.FEResources;
 import net.fe.fightStage.anim.AnimationArgs;
 import net.fe.fightStage.anim.AttackAnimation;
+import net.fe.fightStage.anim.BackgroundEffect;
 import net.fe.fightStage.anim.DodgeAnimation;
 import net.fe.fightStage.anim.HUD;
 import net.fe.fightStage.anim.HitEffect;
@@ -23,9 +25,11 @@ import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.Entity;
 import chu.engine.Game;
+import chu.engine.SortByRender;
 import chu.engine.Stage;
 import chu.engine.anim.Animation;
 import chu.engine.anim.AudioPlayer;
+import chu.engine.anim.Camera;
 import chu.engine.anim.Renderer;
 
 public class FightStage extends Stage {
@@ -44,6 +48,8 @@ public class FightStage extends Stage {
 	private float timer;
 	private float shakeX;
 	private float shakeY;
+	private float cameraOffsetF;
+	private float cameraOffsetT;
 	private float cameraOffset;
 
 	// Config
@@ -85,9 +91,12 @@ public class FightStage extends Stage {
 		shakeY = 0;
 		left = FEMultiplayer.getUnit(u1);
 		right = FEMultiplayer.getUnit(u2);
+		
+//		System.out.println(left);
+//		System.out.println(right);
 
 		range = Grid.getDistance(left, right);
-		cameraOffset = rangeToHeadDistance(range) - rangeToHeadDistance(1);
+		cameraOffsetF = rangeToHeadDistance(range) - rangeToHeadDistance(1);
 		leftFighter = new FightUnit(new AnimationArgs(left, true, range), this);
 		rightFighter = new FightUnit(new AnimationArgs(right, false, range),
 				this);
@@ -134,6 +143,11 @@ public class FightStage extends Stage {
 		}
 		processAddStack();
 		processRemoveStack();
+		float dx = Math.signum(cameraOffsetT - cameraOffset) * Game.getDeltaSeconds() * 400;
+		cameraOffset += dx;
+		if((cameraOffsetT - cameraOffset) * dx < 0){
+			cameraOffset = cameraOffsetT;
+		}
 	}
 
 	private void processAttackQueue() {
@@ -154,6 +168,11 @@ public class FightStage extends Stage {
 		if (currentEvent == START) {
 			// System.out.println("\n" + rec.attacker.name + "'s turn!");
 			// //Debug
+			if(attacker == right){
+				cameraOffsetT = -cameraOffsetF;
+			} else {
+				cameraOffsetT = cameraOffsetF;
+			}
 			ArrayList<String> messages = analyzeAnimation(rec.animation, "(a)", true);
 			for (int i = 0; i < messages.size(); i++) {
 				addEntity(new SkillIndicator(messages.get(i), attacker == left, i));
@@ -165,13 +184,17 @@ public class FightStage extends Stage {
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
 		} else if (currentEvent == HIT_EFFECT){
-
-				List<HitEffect> hitEffects = 
-						HitEffect.getEffects(a.getAnimArgs(), rec.animation);
-				for (HitEffect h : hitEffects) {
-					addEntity(h);
-				}
-				currentEvent = HIT_EFFECTED;
+			if(defender == right){
+				cameraOffsetT = -cameraOffsetF;
+			} else {
+				cameraOffsetT = cameraOffsetF;
+			}
+			List<HitEffect> hitEffects = 
+					HitEffect.getEffects(a.getAnimArgs(), rec.animation);
+			for (HitEffect h : hitEffects) {
+				addEntity(h);
+			}
+			currentEvent = HIT_EFFECTED;
 			processAddStack();
 			
 		
@@ -296,11 +319,22 @@ public class FightStage extends Stage {
 				shakeY = 0;
 			}
 		}
-
+		
 		// Shake
 		Renderer.translate((int) shakeX, (int) shakeY);
 
-		super.render();
+		SortByRender comparator = new SortByRender();
+		PriorityQueue<Entity> renderQueue = new PriorityQueue<Entity>(entities.size()+1, comparator);
+		renderQueue.addAll(entities);
+		while(!renderQueue.isEmpty()) {
+			Entity e = renderQueue.poll();
+			Renderer.pushMatrix();
+			if(e.renderDepth > HUD_DEPTH && !(e instanceof BackgroundEffect)) {
+				Renderer.translate(cameraOffset, 0);
+			}
+			e.render();
+			Renderer.popMatrix();
+		}
 
 		// Undo shake translation
 		Renderer.popMatrix();

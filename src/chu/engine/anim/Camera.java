@@ -24,7 +24,7 @@ public class Camera {
 		if(center != null) {
 			glTranslatef(-(center.x + offsetX - Game.getWindowWidth()/2), 
 					-(center.y + offsetY - Game.getWindowHeight()/2), 0);
-		}
+		} 
 	}
 	
 	public void lookBack() {
