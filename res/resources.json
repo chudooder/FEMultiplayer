@@ -471,14 +471,14 @@
 		{
 			"name":		"eliwood_javelin_attack",
 			"path":		"res/battle_anim/eliwood_javelin_attack.png",
-			"width":	83,
-			"height":	59,
-			"frames":	9,
-			"columns":	3,
-			"offsetX":	47,
+			"width":	218,
+			"height":	86,
+			"frames":	11,
+			"columns":	4,
+			"offsetX":	179,
 			"offsetY":	53,
 			"freeze":	0,
-			"hitframes":[7],
+			"hitframes":[8],
 			"soundMap": [
 				{
 					"frame":	6,
@@ -489,12 +489,12 @@
 		{
 			"name":		"eliwood_javelin_critical",
 			"path":		"res/battle_anim/eliwood_javelin_critical.png",
-			"width":	85,
-			"height":	74,
-			"frames":	15,
+			"width":	218,
+			"height":	86,
+			"frames":	16,
 			"columns":	4,
 			"offsetX":	47,
-			"offsetY":	68,
+			"offsetY":	53,
 			"freeze":	0,
 			"hitframes":[13],
 			"soundMap": [
@@ -694,17 +694,17 @@
 		{
 			"name":		"ephraim_javelin_attack",
 			"path":		"res/battle_anim/ephraim_javelin_attack.png",
-			"width":	77,
-			"height":	57,
+			"width":	220,
+			"height":	80,
 			"frames":	7,
-			"columns":	3,
-			"offsetX":	46,
-			"offsetY":	53,
+			"columns":	2,
+			"offsetX":	178,
+			"offsetY":	66,
 			"freeze":	0,
-			"hitframes":[5],
+			"hitframes":[4],
 			"soundMap": [
 				{
-					"frame":	4,
+					"frame":	2,
 					"sound":	"lance_throw"
 				}
 			]

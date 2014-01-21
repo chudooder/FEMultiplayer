@@ -78,6 +78,7 @@ public class FEMultiplayer extends Game{
 		UnitFactory.getUnit("Lyn");
 		connect = new ConnectStage();
 		currentStage = new TitleStage();
+		testFightStage();
 		messages = new ArrayList<Message>();
 		
 	}
@@ -90,7 +91,7 @@ public class FEMultiplayer extends Game{
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
 		Unit u1 = UnitFactory.getUnit("Lute");
-		u1.addToInventory(WeaponFactory.getWeapon("Fimbulvetr"));
+		u1.addToInventory(WeaponFactory.getWeapon("Lightning"));
 		grid.addUnit(u1, 0, 0);
 		u1.equip(0);
 		p1.getParty().addUnit(u1);
