@@ -29,7 +29,7 @@ public class TitleStage extends Stage{
 		for(KeyboardEvent ke : keys) {
 			if(ke.state) {
 				if(ke.key == Keyboard.KEY_RETURN){
-					FEMultiplayer.setCurrentStage(new ConnectStage());
+					FEMultiplayer.setCurrentStage(FEMultiplayer.connect);
 				}					
 			}
 		}

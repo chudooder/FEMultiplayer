@@ -34,7 +34,7 @@ public class Grid{
 	 * @param y
 	 * @return
 	 */
-	boolean addUnit(Unit u, int x, int y) {
+	public boolean addUnit(Unit u, int x, int y) {
 		if (grid[y][x] != null)
 			return false;
 		grid[y][x] = u;
@@ -96,7 +96,7 @@ public class Grid{
 		start.g = 0;
 		start.f = heuristic(start, goal);
 		open.add(start);
-
+		System.out.println("-------------");
 		while (!open.isEmpty()) {
 			// get node in open with best f score
 			Node cur = null;
@@ -105,6 +105,8 @@ public class Grid{
 					cur = n;
 				}
 			}
+			System.out.println("Current: ("+cur.x + ","+cur.y+")");
+
 			if (cur.equals(goal)) {
 				return getPath(cur);
 			}
@@ -112,6 +114,9 @@ public class Grid{
 			open.remove(cur);
 			closed.add(cur);
 			for (Node n : cur.getNeighbors(this)) {
+				for(Node o : open) {
+					if(o.equals(n)) n = o;
+				}
 				int g = cur.g
 						+ terrain[n.y][n.x].getMoveCost(unit.getTheClass());
 				if(grid[n.y][n.x] != null && grid[n.y][n.x].getParty() != unit.getParty()) {
@@ -121,9 +126,11 @@ public class Grid{
 				if (closed.contains(n) && f >= n.f) {
 					continue;
 				} else if (!open.contains(n) || f < n.f) {
+//					System.out.println("("+n.x + ","+n.y+"): f="+f+" g="+g+" from ("+cur.x + ","+cur.y+")");
 					if (g > move){
 						continue;
 					}
+					System.out.println("Added ("+n.x + ","+n.y+"): f="+f+" g="+g+" from ("+cur.x + ","+cur.y+")");
 					n.parent = cur;
 					n.g = g;
 					n.f = f;

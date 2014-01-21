@@ -51,14 +51,18 @@ public class FEMultiplayer extends Game{
 	public static Player turn;
 	public static ClientOverworldStage map;
 	public static ClientLobbyStage lobby;
+	public static ConnectStage connect;
 	
 	public static void main(String[] args) {
 		
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
+		game.testFightStage();
 		game.loop();
 
 	}
+	
+	
 	
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
@@ -73,10 +77,36 @@ public class FEMultiplayer extends Game{
 		glEnable(GL_LINE_SMOOTH);
 		
 		UnitFactory.getUnit("Lyn");
-		
+		connect = new ConnectStage();
 		currentStage = new TitleStage();
 		messages = new ArrayList<Message>();
 		
+	}
+	
+	public void testFightStage(){
+		Player p1 = localPlayer;
+		Player p2 = new Player("p2", (byte) 1);
+		p2.getParty().setColor(Party.TEAM_RED);
+		players.add(p2);
+		
+		Grid grid = new Grid(10,10, Terrain.PLAIN);
+		Unit u1 = UnitFactory.getUnit("Ewan");
+		u1.addToInventory(WeaponFactory.getWeapon("Flux"));
+		grid.addUnit(u1, 0, 0);
+		u1.equip(0);
+		p1.getParty().addUnit(u1);
+		
+		Unit u2 = UnitFactory.getUnit("Natasha");
+		u2.addToInventory(WeaponFactory.getWeapon("Aura"));
+		grid.addUnit(u2, 1, 1);
+		u2.equip(0);
+		p2.getParty().addUnit(u2);
+		
+		CombatCalculator calc = new CombatCalculator(new UnitIdentifier(u1), new UnitIdentifier(u2), true);
+		System.out.println(calc.getAttackQueue());
+		u1.fillHp();
+		u2.fillHp();
+		currentStage = new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue());
 	}
 	
 	public static Unit getUnit(UnitIdentifier id){

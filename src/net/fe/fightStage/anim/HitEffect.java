@@ -15,18 +15,26 @@ import chu.engine.anim.Transform;
 
 public class HitEffect extends Entity {
 	private boolean left;
+	private int shakeLength;
 
 	public HitEffect(String name, boolean leftAttacking) {
 		super(0, 0);
 		left = leftAttacking;
 		final AnimationData data = getHitTexture(name);
+		shakeLength = data.frames;
 		Animation anim = new Animation(data.texture, data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
 				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
 			HashMap<Integer, String> soundMap = data.soundMap;
+			int hitframe;
 			{
 				if(soundMap.get(0) != null) {
 					AudioPlayer.playAudio(soundMap.get(0), 1, 1);
+				}
+				if(data.hitframes.length != 0){
+					hitframe = data.hitframes[0];
+				} else {
+					hitframe = 0;
 				}
 			}
 			public void update() {
@@ -36,6 +44,10 @@ public class HitEffect extends Entity {
 					if(soundMap.get(getFrame()) != null) {
 						AudioPlayer.playAudio(soundMap.get(getFrame()), 1, 1);
 					}
+				}
+				if(getFrame()>hitframe && hitframe >= 0){
+					hitframe = -1; //Some big number.
+					((FightStage) stage).setCurrentEvent(FightStage.ATTACKED);
 				}
 			}
 			@Override
@@ -57,6 +69,10 @@ public class HitEffect extends Entity {
 		}
 		sprite.render(FightStage.CENTRAL_AXIS + offset,
 				FightStage.FLOOR, renderDepth, t);
+	}
+	
+	public int getShakeLength(){
+		return shakeLength;
 	}
 
 	public static AnimationData getHitTexture(String name) {
@@ -85,4 +101,6 @@ public class HitEffect extends Entity {
 
 		return effects;
 	}
+	
+	
 }

@@ -2,6 +2,8 @@ package net.fe;
 
 import java.util.List;
 
+import net.fe.builderStage.TeamBuilderStage;
+
 import org.newdawn.slick.Color;
 
 import chu.engine.Entity;
@@ -39,6 +41,23 @@ public class ConnectStage extends Stage {
 		addEntity(name);
 		addEntity(ip);
 		addEntity(new ConnectButton(286,166,47,20));
+		addEntity(new MenuButton(180,196,128,32) {
+			{
+				sprite.addAnimation("default", FEResources.getTexture("team_builder_button"));
+			}
+			@Override
+			public void onClick() {
+				FEMultiplayer.setCurrentStage(new TeamBuilderStage(true));
+			}
+			@Override
+			public void render() {
+				if(hover) {
+					sprite.render(x, y, renderDepth, null, "lighten");
+				} else {
+					sprite.render(x, y, renderDepth);
+				}
+			}
+		});
 		processAddStack();
 	}
 

@@ -599,6 +599,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	}
 
 	public Terrain getTerrain() {
+		if(stage == null) return Terrain.PLAIN;
 		return ((OverworldStage) stage).getTerrain(xcoord, ycoord);
 	}
 	
