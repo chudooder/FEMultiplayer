@@ -19,6 +19,7 @@ class AnimationData {
 	public HashMap<Integer, String> soundMap;
 	public float speed;
 	public int shakeFrames;
+	public int shakeIntensity;
 	
 	public AnimationData(Texture t, int w, int h, int r, int c, int x, int y,
 			int f, int[] frames, HashMap<Integer, String> soundMap) {

@@ -16,11 +16,17 @@ import chu.engine.anim.Transform;
 public class HitEffect extends Entity {
 	private boolean left;
 	private int shakeLength;
+	private int shakeIntensity;
 
 	public HitEffect(String name, boolean leftAttacking) {
 		super(0, 0);
 		left = leftAttacking;
 		final AnimationData data = getHitTexture(name);
+		if(data.shakeIntensity > 0){
+			shakeIntensity = data.shakeIntensity;
+		} else {
+			shakeIntensity = 5;
+		}
 		if(data.shakeFrames > 0){
 			shakeLength = data.shakeFrames;
 		} else if(data.hitframes.length > 0){
@@ -106,6 +112,10 @@ public class HitEffect extends Entity {
 		// TODO Skill Hit Effects
 
 		return effects;
+	}
+
+	public int getShakeIntensity() {
+		return shakeIntensity;
 	}
 	
 	

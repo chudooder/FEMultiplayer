@@ -237,7 +237,7 @@ public class FightStage extends Stage {
 				if(rec.damage > 0) {
 					if(attacker.getWeapon().isMagic()) {
 						Animation anim = hitEffects.get(0).sprite.getCurrentAnimation();
-						startShaking(hitEffects.get(0).getShakeLength() * anim.getSpeed(), 5);
+						startShaking(hitEffects.get(0).getShakeLength() * anim.getSpeed(), hitEffects.get(0).getShakeIntensity());
 					} else {
 						startShaking(crit ? 1.3f : .5f, 5);
 					}

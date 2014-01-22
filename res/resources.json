@@ -3010,6 +3010,7 @@
 			"offsetX":	88,
 			"offsetY":	104,
 			"freeze":	-1,
+			"shakeIntensity": 7,
 			"hitframes": [20],
 			"soundMap": [
 				
@@ -3128,6 +3129,49 @@
 			"freeze":	-1,
 			"speed":	0.055,
 			"hitframes": [34],
+			"shakeIntensity": 7,
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"magic_effect_excalibur",
+			"path":		"res/battle_anim/magic_effect_excalibur.png",
+			"width":	245,
+			"height":	165,
+			"frames":	28,
+			"columns":	6,
+			"offsetX":	152,
+			"offsetY":	104,
+			"freeze":	-1,
+			"soundMap":[
+
+			]
+		},
+		{
+			"name":		"bg_effect_excalibur",
+			"path":		"res/battle_anim/magic_effect_null.png",
+			"width":	8,
+			"height":	8,
+			"frames":	1,
+			"columns":	1,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"hit_effect_excalibur",
+			"path":		"res/battle_anim/hit_effect_excalibur.png",
+			"width":	245,
+			"height":	165,
+			"frames":	20,
+			"columns":	5,
+			"offsetX":	88,
+			"offsetY":	104,
+			"freeze":	-1,
+			"hitframes": [11],
+			"shakeFrames": 16,
+			"shakeIntensity": 10,
 			"soundMap": [
 				
 			]
