@@ -131,6 +131,7 @@ public class FEResources {
 			Number offsetX = (Number)texture.get("offsetX");
 			Number offsetY = (Number)texture.get("offsetY");
 			Number speed = (Number)texture.get("speed");
+			Number shakeFrames = (Number)texture.get("shakeFrames");
 			JSONArray hitArray = (JSONArray) texture.get("hitframes");
 			JSONArray audioArray = (JSONArray) texture.get("soundMap");
 			HashMap<Integer, String> audioMap = new HashMap<Integer, String>();
@@ -175,6 +176,8 @@ public class FEResources {
 				}
 				if(speed != null)
 					data.speed = speed.floatValue();
+				if(shakeFrames != null)
+					data.shakeFrames = shakeFrames.intValue();
 				textures.put(name, data);
 				if((System.nanoTime() - startTime)/1000000.0f > 100){
 					LoadStage.update(textures.size());

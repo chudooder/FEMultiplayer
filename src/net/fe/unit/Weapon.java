@@ -4,6 +4,7 @@ import java.util.*;
 
 import net.fe.fightStage.Brave;
 import net.fe.fightStage.CombatTrigger;
+import net.fe.fightStage.Nosferatu;
 
 public class Weapon extends Item {
 	private static final long serialVersionUID = 6496663141806177211L;
@@ -94,6 +95,8 @@ public class Weapon extends Item {
 		ArrayList<CombatTrigger> triggers = new ArrayList<CombatTrigger>();
 		if(name.contains("Brave")){
 			triggers.add(new Brave());
+		} else if (name.equals("Nosferatu")){
+			triggers.add(new Nosferatu());
 		}
 		return triggers;
 	}

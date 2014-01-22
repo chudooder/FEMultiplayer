@@ -244,13 +244,11 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	}
 
 	Unit getCopy() {
-		System.out.print("Copying " + name + " #" + hashCode() + ": ");
 		Unit copy = new Unit(name, clazz, bases, growths);
 		copy.setLevel(stats.get("Lvl").intValue());
 		for (Item i : inventory) {
 			copy.addToInventory(i);
 		}
-		System.out.println("Got " + name + " #" + copy.hashCode());
 		return copy;
 	}
 

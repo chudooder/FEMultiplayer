@@ -21,7 +21,13 @@ public class HitEffect extends Entity {
 		super(0, 0);
 		left = leftAttacking;
 		final AnimationData data = getHitTexture(name);
-		shakeLength = data.frames;
+		if(data.shakeFrames > 0){
+			shakeLength = data.shakeFrames;
+		} else if(data.hitframes.length > 0){
+			shakeLength = data.frames - data.hitframes[0];
+		} else {
+			shakeLength = data.frames;
+		}
 		Animation anim = new Animation(data.texture, data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
 				data.offsetY, data.speed==0.0f?0.05f:data.speed) {

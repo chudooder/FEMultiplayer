@@ -3007,7 +3007,7 @@
 			"height":	161,
 			"frames":	54,
 			"columns":	6,
-			"offsetX":	76,
+			"offsetX":	88,
 			"offsetY":	104,
 			"freeze":	-1,
 			"hitframes": [20],
@@ -3173,6 +3173,43 @@
 				
 			]
 		},
+		{
+			"name":		"magic_effect_nosferatu",
+			"path":		"res/battle_anim/magic_effect_null.png",
+			"width":	8,
+			"height":	8,
+			"frames":	1,
+			"columns":	1,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"bg_effect_nosferatu",
+			"path":		"res/battle_anim/magic_effect_null.png",
+			"width":	8,
+			"height":	8,
+			"frames":	1,
+			"columns":	1,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"hit_effect_nosferatu",
+			"path":		"res/battle_anim/hit_effect_nosferatu.png",
+			"width":	105,
+			"height":	122,
+			"frames":	27,
+			"columns":	9,
+			"offsetX":	55,
+			"offsetY":	106,
+			"freeze":	-1,
+			"hitframes": [16],
+			"soundMap":[
+
+			]
+		}
 		{
 			"name":		"zone_colors",
 			"path":		"res/gui/zone_colors.png"
