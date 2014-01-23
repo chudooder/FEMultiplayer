@@ -1,10 +1,13 @@
 package net.fe.fightStage.anim;
 
+import org.newdawn.slick.Color;
+
 import net.fe.FEResources;
 import net.fe.fightStage.FightStage;
 import chu.engine.Entity;
 import chu.engine.AnimationData;
 import chu.engine.anim.Animation;
+import chu.engine.anim.Renderer;
 import chu.engine.anim.Transform;
 
 public class BackgroundEffect extends Entity {

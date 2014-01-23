@@ -51,6 +51,8 @@ public class FightStage extends Stage {
 	private float cameraOffsetF;
 	private float cameraOffsetT;
 	private float cameraOffset;
+	
+	private float darknessT, darkness;
 
 	// Config
 	public static final float SHAKE_INTERVAL = 0.05f;
@@ -147,6 +149,11 @@ public class FightStage extends Stage {
 		cameraOffset += dx;
 		if((cameraOffsetT - cameraOffset) * dx < 0){
 			cameraOffset = cameraOffsetT;
+		}
+		float dd = Math.signum(darknessT - darkness);
+		darkness += dd;
+		if((darknessT - darkness) * dd < 0){
+			darkness = darknessT;
 		}
 	}
 
@@ -254,6 +261,7 @@ public class FightStage extends Stage {
 			// Try to go to HURTED
 			setCurrentEvent(HURTED);
 		} else if (currentEvent == HURTED) {
+			darknessT= 0;
 			if (dhp.getHp() == 0) {
 				d.state = FightUnit.FLASHING;
 				// battle stats
@@ -273,6 +281,7 @@ public class FightStage extends Stage {
 			a.sprite.setSpeed(((AttackAnimation)a.sprite.getCurrentAnimation()).getDefaultSpeed());
 			// Let animation play
 		} else if (currentEvent == DONE) {
+			
 			attackQ.remove(0);
 			currentEvent = START;
 		}
@@ -304,6 +313,7 @@ public class FightStage extends Stage {
 		Renderer.pushMatrix();
 		Renderer.scale(2, 2);
 		Renderer.render(bg, 0, 0, 1, 1, 0, 0, 240, 160, 1);
+		Renderer.drawRectangle(0, 0, 240, 160, 1, new Color(0,0,0,darkness));
 		if (shakeTimer > 0) {
 			shakeTimer -= Game.getDeltaSeconds();
 			if (prevShakeTimer - shakeTimer > SHAKE_INTERVAL) {
@@ -379,6 +389,10 @@ public class FightStage extends Stage {
 					+ currentEvent + " to " + event);
 		}
 
+	}
+	
+	public void setDarkness(float dark){
+		darknessT = dark;
 	}
 
 	public int distanceToHead() {
