@@ -201,7 +201,11 @@ public class FightStage extends Stage {
 			for (HitEffect h : hitEffects) {
 				addEntity(h);
 			}
-			currentEvent = HIT_EFFECTED;
+			if(hitEffects.size() == 0){
+				currentEvent = ATTACKED;
+			} else {
+				currentEvent = HIT_EFFECTED;
+			}
 			processAddStack();
 			
 		
@@ -423,9 +427,13 @@ public class FightStage extends Stage {
 		return currentEvent;
 	}
 	
+	public void moveCamera(boolean left){
+		cameraOffsetT = left? cameraOffsetF: -cameraOffsetF;
+	}
+	
 	public boolean hasHitEffects() {
 		for(Entity e : entities) {
-			if (e instanceof HitEffect) {
+			if (e instanceof HitEffect || e instanceof MissEffect) {
 				// We're not ready yet. Wait for the hiteffects to go away.
 //				System.out.println("still have hiteffects "+e.getClass().getCanonicalName());
 				return true;

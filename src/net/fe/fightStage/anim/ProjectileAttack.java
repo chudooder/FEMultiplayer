@@ -5,9 +5,18 @@ import chu.engine.AnimationData;
 import chu.engine.anim.AudioPlayer;
 
 public class ProjectileAttack extends AttackAnimation{
+	private boolean ididit;
 	public ProjectileAttack(AnimationData data, FightStage stage,
 			AnimationArgs animArgs) {
 		super(data, stage, animArgs);
+	}
+	
+	public void update(){
+		super.update();
+		if(getFrame() >= hitframes[0] && !ididit){
+			ididit = true;
+			((FightStage) stage).moveCamera(animationArgs.left);
+		}
 	}
 	
 	public void done(){

@@ -1020,7 +1020,7 @@
 				},
 				{
 					"frame": 9,
-					"sound": "javelin_throw"
+					"sound": "lance_throw"
 				}
 			]
 		},
@@ -1834,7 +1834,7 @@
 				},
 				{
 					"frame":	9,
-					"sound":	"javelin_throw"
+					"sound":	"lance_throw"
 				},
 			]
 		},
@@ -1864,7 +1864,7 @@
 				},
 				{
 					"frame":	15,
-					"sound":	"javelin_throw"
+					"sound":	"lance_throw"
 				},
 			]
 		},
@@ -2221,7 +2221,7 @@
 		},
 		{
 			"name":		"sniper_bow_critical",
-			"path":		"res/battle_anim/sniper_bow_attack.png",
+			"path":		"res/battle_anim/sniper_bow_critical.png",
 			"width":	146,
 			"height":	62,
 			"frames":	32,

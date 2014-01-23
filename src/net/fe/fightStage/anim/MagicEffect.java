@@ -22,6 +22,7 @@ public class MagicEffect extends Entity {
 				setFrame(0);
 				setSpeed(0);
 				((FightStage) stage).setCurrentEvent(FightStage.HIT_EFFECT);
+				((FightStage) stage).moveCamera(args.left);
 				destroy();
 			}
 		};
