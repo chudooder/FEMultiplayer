@@ -3146,13 +3146,12 @@
 		{
 			"name":		"bg_effect_fimbulvetr",
 			"path":		"res/battle_anim/bg_effect_fimbulvetr.png",
-			"width":	1,
-			"height":	1,
+			"width":	241,
+			"height":	161,
 			"frames":	44,
-			"columns":	8,
+			"columns":	4,
 			"offsetX":	0,
 			"offsetY":	0,
-			"speed":	0.055,
 			"freeze":	-1
 		},
 		{
@@ -3162,10 +3161,9 @@
 			"height":	160,
 			"frames":	44,
 			"columns":	4,
-			"offsetX":	78,
+			"offsetX":	90,
 			"offsetY":	104,
 			"freeze":	-1,
-			"speed":	0.055,
 			"hitframes": [34],
 			"shakeIntensity": 7,
 			"soundMap": [
