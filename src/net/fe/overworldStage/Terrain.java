@@ -12,12 +12,14 @@ public enum Terrain {
 	FOREST(2,1,20,0), 
 	FLOOR(1,0,0,0), 
 	PILLAR(2,1,20,0), 
-	MOUNTAIN(4,2,30,0), 
+	MOUNTAIN(4,2,30,0),
+	VILLAGE(1,10,0,0),
 	PEAK(127,2,40,0), 
 	FORT(2,1,15,10), 
 	SEA(127,0,10,0), 
 	DESERT(2,0,5,0),
 	WALL(127,0,0,0), 
+	FENCE(127,0,0,0),
 	NONE(127,0,0,0);
 
 	private int baseMoveCost;
@@ -44,6 +46,8 @@ public enum Terrain {
 			return baseMoveCost;
 		String name = c.name;
 		if(c.equals("Falcon Knight")){
+			if(this == WALL)
+				return 127;
 			return 1;
 		}
 		

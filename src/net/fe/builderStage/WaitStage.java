@@ -78,7 +78,7 @@ public class WaitStage extends Stage {
 					u.initializeEquipment();
 				}
 			}
-			FEServer.setCurrentStage(new OverworldStage("test", FEServer.players));
+			FEServer.setCurrentStage(new OverworldStage("town", FEServer.players));
 			sentStartMessage = true;
 		}
 	}

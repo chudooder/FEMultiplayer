@@ -40,7 +40,7 @@ public class ClientWaitStage extends WaitStage {
 					u.initializeEquipment();
 				}
 			}
-			FEMultiplayer.map = new ClientOverworldStage("test", FEMultiplayer.players);
+			FEMultiplayer.map = new ClientOverworldStage("town", FEMultiplayer.players);
 			FEMultiplayer.setCurrentStage(FEMultiplayer.map);
 		}
 	}

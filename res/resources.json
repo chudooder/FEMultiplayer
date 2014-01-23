@@ -3426,7 +3426,7 @@
 		},
 		{
 			"name":		"terrain_tiles",
-			"path":		"res/terrain_tiles.png"
+			"path":		"res/terrain_tiles_new.png"
 		},
 		{
 			"name":		"runes",

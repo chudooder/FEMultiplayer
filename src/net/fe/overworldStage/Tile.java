@@ -24,38 +24,41 @@ public class Tile extends GriddedEntity implements DoNotDestroy{
 	 * K - peaK
 	 * I - pIllar
 	 * D - Desert
+	 * C - fenCe
+	 * N - None
+	 * V - Village
 	 */
 	private static String terrainMap =
-			" PPPPPPAAAAAAMMFPMFPAAWWW" +
-			"PPPPPAAFSSAMMMMMMMAAAAWWL" +
-			"PPPPWPSSFPPAPPMWWWAAWWWWW" +
-			"WPWWWTTFPWWWPPPWWWAAAAPWW" +
-			"KKWWAWWWWLLLLWWWWWAAWPPWW" +
-			"PMWAAAAAPWWWWWKWWWAAWPAWW" +
-			"KKAWWWWWKKKKSSTWWWAAWWWWW" +
-			"KKAWWWWWTWWW AAAAAPPAAWWW" +
-			"KKTTPMMFFWWWAAAAPAPPAAFWA" +
-			"KPTTPMFFMPPPA WSSPPPAAPPW" +
-			"MPPSFSSSSFFPPFSSPAWWWWWWL" +
-			"WWLLWWWWWWPASSSSSSWLLLWLL" +
-			"IIWLWWWWWWWWWWTWAALWWWPAW" +
-			"LLWWPPPWWWWWWWTWAAAAWPWWK" +
-			"AAWW SSSSSSPSAAAAAKKKKKPK" +
-			"AAAWAAAWPWPSWWWWSAKKTFFFP" +
-			"WWIWWAWWPWPSWWWAAAPPPPSSS" +
-			"                  PTSSSSS" +
-			"                  ASSSPSS" +
-			"                  PPAAAAS" +
-			" F WWWFF          TPPPPFP" +
-			"WAAWWWAIATDDDDDDDDFPPPSSS" +
-			" LLLFMKKKKPWWWWSSDSSSSSSS" +
-			"LLLAPMAAMMMWWWPSSWSSSSWWW" +
-			"FFFFAAAAAAAWWWPPMMSFAAWWW" +
-			"WWLLLLLLLLLLILL PWKKKKWWW" +
-			"PAASAAASPFSSASSFFAAWWWWPP" +
-			"PSASAASSSFSSSSSAWWWWWWWPW" +
-			"WAAAAWWWWWWWWWWWPFWFFWFWP" +
-			"WAAPAWWWWWWWWWWWPFWFFWFFF";
+			"PPPPAAAAAAACCCCSSSS" +
+			"PPPPAAAAAAACCCCSSSS" +
+			"PPPKKPAAAFFWWWWSSSS" +
+			"MKKKAAAANNNWWWWSSSS" +
+			"CCCCAAAANVNWWLSSSWW" +
+			"NNNNNNNNFNFSLLSSS  " +
+			"NVNNNNVNFVFSLLSSS  " +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"" +
+			"";
 
 	public Tile(int x, int y, int id) {
 		super(x,y);

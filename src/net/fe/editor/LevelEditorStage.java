@@ -37,25 +37,27 @@ public class LevelEditorStage extends Stage {
 	private static Tileset tileset;
 	private int selectedID;
 	private int[][] tiles;
+	private String levelName;
 	private Set<SpawnPoint> spawns;
 
 	static {
 		try {
 			palette = TextureLoader
 					.getTexture("PNG", ResourceLoader
-							.getResourceAsStream("res/terrain_tiles.png"));
+							.getResourceAsStream("res/terrain_tiles_new.png"));
 			tileset = new Tileset(palette, 16, 16);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public LevelEditorStage() {
+	public LevelEditorStage(String levelName) {
 		selectedID = 0;
+		this.levelName = levelName;
 		tiles = new int[3][3];
 		spawns = new HashSet<SpawnPoint>();
 		try {
-            FileInputStream in = new FileInputStream(new File("levels/test.lvl"));
+            FileInputStream in = new FileInputStream(new File("levels/"+levelName+".lvl"));
             ObjectInputStream ois = new ObjectInputStream(in);
             Level level = (Level) ois.readObject();
             tiles = level.tiles;
@@ -141,7 +143,7 @@ public class LevelEditorStage extends Stage {
 								null));
 					} else if (ke.key == Keyboard.KEY_F1) { 
 						Level level = new Level(tiles[0].length, tiles.length, tiles, spawns);
-						File file = new File("levels/test.lvl");
+						File file = new File("levels/"+levelName+".lvl");
 		                FileOutputStream fo;
 		                ObjectOutputStream oos;
 		                try {
