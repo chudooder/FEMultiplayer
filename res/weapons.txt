@@ -59,10 +59,10 @@ Excalibur	Anima	1-2	18	90	10	15	30000	Flier	-	Spd 5
 Lightning	Light	1-2	4	95	5	17	630	-	-	-
 Divine		Light	1-2	8	85	10	12	2500	-	-	-
 Aura		Light	1-2	12	85	15	10	8000	-	-	-
-Luce		Light	1-2	16	95	25	12	30000	-	-	Def 5
+Aureola		Light	1-2	15	90	5	10	30000	-	-	Res 5
 Flux		Dark	1-2	7	80	0	22	900	-	-	-
 Nosferatu	Dark	1-2	10	70	0	10	3200	-	-	-
-Fenrir		Dark	1-2	15	70	0	10	9000	-	-	-
+Debug Fenrir	Dark	1-2	15	70	0	10	9000	-	-	-
 Ereshkigal	Dark	1-2	20	95	0	12	30000	-	-	Skl 5
 Heal		Staff	1	10	100	0	15	600	-	-	-
 Mend		Staff	1	20	100	0	10	1000	-	-	-

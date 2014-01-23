@@ -3010,10 +3010,48 @@
 			"offsetX":	88,
 			"offsetY":	104,
 			"freeze":	-1,
-			"shakeIntensity": 7,
+			"shakeIntensity": 5,
 			"hitframes": [20],
 			"soundMap": [
 				
+			]
+		},
+		{
+			"name":		"magic_effect_aureola",
+			"path":		"res/battle_anim/magic_effect_null.png",
+			"width":	8,
+			"height":	8,
+			"frames":	1,
+			"columns":	1,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"bg_effect_aureola",
+			"path":		"res/battle_anim/magic_effect_null.png",
+			"width":	8,
+			"height":	8,
+			"frames":	1,
+			"columns":	1,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
+		},
+		{
+			"name":		"hit_effect_aureola",
+			"path":		"res/battle_anim/hit_effect_aureola.png",
+			"width":	240,
+			"height":	160,
+			"frames":	54,
+			"columns":	6,
+			"offsetX":	88,
+			"offsetY":	104,
+			"freeze":	-1,
+			"shakeIntensity": 7,
+			"hitframes": [29],
+			"soundMap": [
+
 			]
 		},
 		{
@@ -3032,11 +3070,11 @@
 		},
 		{
 			"name":		"bg_effect_fire",
-			"path":		"res/battle_anim/bg_effect_elfire.png",
-			"width":	1,
-			"height":	1,
-			"frames":	32,
-			"columns":	16,
+			"path":		"res/battle_anim/magic_effect_null.png",
+			"width":	8,
+			"height":	8,
+			"frames":	1,
+			"columns":	1,
 			"offsetX":	0,
 			"offsetY":	0,
 			"freeze":	-1
@@ -3171,7 +3209,7 @@
 			"freeze":	-1,
 			"hitframes": [11],
 			"shakeFrames": 16,
-			"shakeIntensity": 10,
+			"shakeIntensity": 12,
 			"soundMap": [
 				
 			]
@@ -3253,7 +3291,44 @@
 			"soundMap":[
 
 			]
+		},
+		{
+			"name":		"magic_effect_ereshkigal",
+			"path":		"res/battle_anim/magic_effect_null.png",
+			"width":	8,
+			"height":	8,
+			"frames":	1,
+			"columns":	1,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze":	-1
 		}
+		{
+			"name":		"bg_effect_ereshkigal",
+			"path":		"res/battle_anim/bg_effect_ereshkigal.png",
+			"width":	240,
+			"height":	128,
+			"frames":	33,
+			"columns":	4,
+			"offsetX":	0,
+			"offsetY":	0,
+			"freeze": 	-1
+		},
+		{
+			"name":		"hit_effect_ereshkigal",
+			"path":		"res/battle_anim/hit_effect_ereshkigal.png",
+			"width":	240,
+			"height":	128,
+			"frames":	56,
+			"columns":	6,
+			"offsetX":	88,
+			"offsetY": 	104,
+			"freeze": 	-1,
+			"hitframes":[36],
+			"soundMap":[
+
+			]
+		},
 		{
 			"name":		"zone_colors",
 			"path":		"res/gui/zone_colors.png"

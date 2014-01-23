@@ -15,7 +15,7 @@ public class BackgroundEffect extends Entity {
 		AnimationData data = FEResources.getTextureData("bg_effect_" + name);
 		sprite.addAnimation("default", new Animation(data.texture, data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
-				data.offsetY, data.speed==0.0f?0.02f:data.speed) {
+				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
 				
 			@Override
 			public void done() {
