@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import net.fe.FEResources;
+import net.fe.fightStage.AttackRecord;
 import net.fe.fightStage.FightStage;
 import net.fe.unit.Weapon;
 import chu.engine.Entity;
@@ -92,7 +93,7 @@ public class HitEffect extends Entity {
 	}
 
 	public static List<HitEffect> getEffects(AnimationArgs animArgs,
-			String animation) {
+			AttackRecord rec) {
 		List<HitEffect> effects = new ArrayList<HitEffect>();
 
 		if (animArgs.unit.getWeapon().isMagic()) {
@@ -102,10 +103,10 @@ public class HitEffect extends Entity {
 		if (animArgs.unit.getWeapon().type == Weapon.Type.STAFF) {
 			effects.add(new HitEffect("heal", animArgs.left));
 		}
-		if (effects.size() == 0 && !animation.equals("Miss")) { // We have
+		if (effects.size() == 0 && rec.damage != 0) { // We have
 																// nothing.
 			effects.add(new HitEffect(
-					animation.contains("Critical") ? "critical" : "attack",
+					rec.animation.contains("Critical") ? "critical" : "attack",
 					animArgs.left));
 		}
 
