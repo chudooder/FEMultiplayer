@@ -1445,6 +1445,40 @@
 			"freeze":	0
 		},
 		{
+			"name":		"ike_sword_critical",
+			"path":		"res/battle_anim/ike_sword_critical.png",
+			"width":	150,
+			"height":	125,
+			"frames":	40,
+			"columns":	9,
+			"offsetX":	120,
+			"offsetY":	121,
+			"freeze":	0,
+			"hitframes":[20],
+			"soundMap": [
+				{
+					"frame":	2,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	11,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	19,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	26,
+					"sound":	"cape"
+				},
+				{
+					"frame":	37,
+					"sound":	"land"
+				},
+			]
+		},
+		{
 			"name":		"lyn_sword_attack",
 			"path":		"res/battle_anim/lyn_sword_attack.png",
 			"width":	118,
