@@ -12,6 +12,7 @@ import net.fe.fightStage.anim.BackgroundEffect;
 import net.fe.fightStage.anim.DodgeAnimation;
 import net.fe.fightStage.anim.HUD;
 import net.fe.fightStage.anim.HitEffect;
+import net.fe.fightStage.anim.NoDamageEffect;
 import net.fe.fightStage.anim.SkillIndicator;
 import net.fe.fightStage.anim.MissEffect;
 import net.fe.fightStage.anim.Platform;
@@ -171,6 +172,8 @@ public class FightStage extends Stage {
 		boolean crit = rec.animation.contains("Critical");
 		a.renderDepth = FightStage.UNIT_DEPTH;
 		d.renderDepth = FightStage.UNIT_DEPTH + 0.01f;
+		
+		List<HitEffect> hitEffects = HitEffect.getEffects(a.getAnimArgs(), rec);
 
 		if (currentEvent == START) {
 			// System.out.println("\n" + rec.attacker.name + "'s turn!");
@@ -196,32 +199,36 @@ public class FightStage extends Stage {
 			} else {
 				cameraOffsetT = cameraOffsetF;
 			}
-			List<HitEffect> hitEffects = 
-					HitEffect.getEffects(a.getAnimArgs(), rec.animation);
+			
 			for (HitEffect h : hitEffects) {
 				addEntity(h);
 			}
-			currentEvent = HIT_EFFECTED;
+			if(hitEffects.size() == 0){
+				currentEvent = ATTACKED;
+			} else {
+				currentEvent = HIT_EFFECTED;
+			}
 			processAddStack();
 			
 		
 		} else if (currentEvent == HIT_EFFECTED){
 			//Let anim play
 		} else if (currentEvent == ATTACKED) {
-		
-			List<HitEffect> hitEffects = 
-					HitEffect.getEffects(a.getAnimArgs(), rec.animation);
-			if (rec.animation.equals("Miss")) {
+			if (rec.damage == 0) {
 				// System.out.println("Miss! " + rec.defender.name
 				// + " dodged the attack!");
-				addEntity(new MissEffect(defender == left));
-				d.sprite.setAnimation("DODGE");
-				d.sprite.setFrame(0);
-				d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
-				if(attacker.getWeapon().isMagic()){
+				if (rec.animation.equals("Miss")){
+					addEntity(new MissEffect(defender == left));
+					d.sprite.setAnimation("DODGE");
+					d.sprite.setFrame(0);
+					d.sprite.setSpeed(DodgeAnimation.NORMAL_SPEED);
+					if(attacker.getWeapon().isMagic()){
+						attacker.use(attacker.getWeapon());
+					}
+				}else{
+					addEntity(new NoDamageEffect(defender == left));
 					attacker.use(attacker.getWeapon());
 				}
-
 				setCurrentEvent(HURTING);
 			} else {
 				// System.out.println(rec.animation + "! " + rec.defender.name
@@ -423,9 +430,13 @@ public class FightStage extends Stage {
 		return currentEvent;
 	}
 	
+	public void moveCamera(boolean left){
+		cameraOffsetT = left? cameraOffsetF: -cameraOffsetF;
+	}
+	
 	public boolean hasHitEffects() {
 		for(Entity e : entities) {
-			if (e instanceof HitEffect) {
+			if (e instanceof HitEffect || e instanceof MissEffect || e instanceof NoDamageEffect) {
 				// We're not ready yet. Wait for the hiteffects to go away.
 //				System.out.println("still have hiteffects "+e.getClass().getCanonicalName());
 				return true;

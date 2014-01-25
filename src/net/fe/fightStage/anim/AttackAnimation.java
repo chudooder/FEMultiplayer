@@ -9,7 +9,7 @@ import chu.engine.anim.AudioPlayer;
 
 public abstract class AttackAnimation extends Animation {
 	
-	private int[] hitframes;
+	protected int[] hitframes;
 	private int headX;
 	private int headY;
 	protected int loopUntil;
