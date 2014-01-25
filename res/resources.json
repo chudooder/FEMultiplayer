@@ -2328,7 +2328,10 @@
 			"freeze":	0,
 			"hitframes":[58],
 			"soundMap": [
-				
+				{
+					"frame":2,
+					"sound":"magic_charge4"
+				},
 			]
 		},
 		{
@@ -2922,7 +2925,14 @@
 			"offsetY":	112,
 			"freeze":	-1,
 			"soundMap": [
-				
+				{
+					"frame":1,
+					"sound":"divine1"
+				},
+				{
+					"frame":15,
+					"sound":"divine2"
+				},
 			]
 		},
 		{
@@ -2948,7 +2958,10 @@
 			"speed":	0.03,
 			"freeze":	-1,
 			"soundMap": [
-				
+				{
+					"frame":0,
+					"sound":"divine3"
+				},
 			]
 		},
 		{
@@ -3105,7 +3118,10 @@
 			"offsetY":	110,
 			"freeze":	-1,
 			"soundMap": [
-				
+				{
+					"frame":0,
+					"sound":"elfire"
+				}
 			]
 		},
 		{
@@ -3143,7 +3159,14 @@
 			"hitframes": [34],
 			"shakeIntensity": 7,
 			"soundMap": [
-				
+				{
+					"frame":0,
+					"sound":"gale"
+				},
+				{
+					"frame":13,
+					"sound":"gale"
+				}
 			]
 		},
 		{
@@ -3199,7 +3222,10 @@
 			"offsetY":	90,
 			"freeze":	-1,
 			"soundMap":[
-
+				{
+					"frame": 1,
+					"sound": "flux1"
+				},
 			]
 		},
 		{
@@ -3226,7 +3252,10 @@
 			"speed":	0.055,
 			"hitframes": [17],
 			"soundMap": [
-				
+				{
+					"frame": 1,
+					"sound": "flux2"
+				},
 			]
 		},
 		{
@@ -3262,8 +3291,16 @@
 			"offsetY":	106,
 			"freeze":	-1,
 			"hitframes": [16],
+			"speed": 	0.08,
 			"soundMap":[
-
+				{
+					"frame":0,
+					"sound":"nosferatu1"
+				},
+				{
+					"frame":17,
+					"sound":"nosferatu2"
+				},
 			]
 		},
 		{
