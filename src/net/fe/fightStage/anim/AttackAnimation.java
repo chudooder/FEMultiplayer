@@ -12,6 +12,7 @@ public abstract class AttackAnimation extends Animation {
 	protected int[] hitframes;
 	private int headX;
 	private int headY;
+	private int prevFrame;
 	protected int loopUntil;
 	
 	protected AnimationArgs animationArgs;
@@ -31,12 +32,10 @@ public abstract class AttackAnimation extends Animation {
 		this.animationArgs = animArgs;
 		this.freeze = data.freeze;
 		this.loopUntil = -1;
+		this.prevFrame = -1;
 		this.soundMap = data.soundMap;
 		if(data.speed != 0) {
 			defaultSpeed = data.speed;
-		}
-		if(soundMap!= null && soundMap.get(0) != null) {
-			AudioPlayer.playAudio(soundMap.get(0), 1, 1);
 		}
 	}
 	
@@ -49,7 +48,7 @@ public abstract class AttackAnimation extends Animation {
 	
 	@Override
 	public void update() {
-		int prevFrame = getFrame();
+		prevFrame = getFrame();
 		super.update();
 		if(prevFrame != getFrame()) {
 			for(int j=0; j<hitframes.length; j++) {

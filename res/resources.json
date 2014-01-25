@@ -2166,8 +2166,8 @@
 			"hitframes":[16],
 			"soundMap": [
 				{
-					"frame":	1,
-					"sound":	"magic_charge"
+					"frame":	3,
+					"sound":	"rune"
 				}
 			]
 		},

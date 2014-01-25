@@ -40,23 +40,20 @@ public class HitEffect extends Entity {
 				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
 			HashMap<Integer, String> soundMap = data.soundMap;
 			int hitframe;
+			int prevFrame;
 			{
-				if(soundMap.get(0) != null) {
-					AudioPlayer.playAudio(soundMap.get(0), 1, 1);
-				}
 				if(data.hitframes.length != 0){
 					hitframe = data.hitframes[0];
 				} else {
 					hitframe = 0;
 				}
+				prevFrame = -1;
 			}
 			public void update() {
-				int prevFrame = getFrame();
 				super.update();
-				if(prevFrame != getFrame()) {
-					if(soundMap.get(getFrame()) != null) {
-						AudioPlayer.playAudio(soundMap.get(getFrame()), 1, 1);
-					}
+				if(soundMap.get(getFrame()) != null && prevFrame != getFrame()) {
+					prevFrame = getFrame();
+					AudioPlayer.playAudio(soundMap.get(getFrame()), 1, 1);
 				}
 				if(getFrame()>hitframe && hitframe >= 0){
 					hitframe = -1; //Some big number.
