@@ -24,6 +24,7 @@ import net.fe.network.Message;
 import net.fe.network.message.CommandMessage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.ClientOverworldStage;
+import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.Terrain;
 import net.fe.transition.OverworldFightTransition;
 import net.fe.unit.HealingItem;
@@ -56,7 +57,7 @@ public class FEMultiplayer extends Game{
 	public static void main(String[] args) {
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
-		game.testFightStage();
+//		game.testFightStage();
 		game.loop();
 	}
 	
@@ -78,6 +79,7 @@ public class FEMultiplayer extends Game{
 		connect = new ConnectStage();
 		currentStage = new TitleStage();
 		messages = new ArrayList<Message>();
+		SoundTrack.loop("main_theme");
 		
 	}
 	
@@ -194,6 +196,15 @@ public class FEMultiplayer extends Game{
 	
 	public static void setCurrentStage(Stage stage) {
 		currentStage = stage;
+		if(stage instanceof FightStage){
+			SoundTrack.loop("fight");
+		} else if (stage instanceof OverworldStage){
+			SoundTrack.loop("overworld");
+		} else if (stage instanceof TeamBuilderStage){
+			SoundTrack.loop("preparations");
+		} else {
+			SoundTrack.loop("main_theme");
+		}
 	}
 
 	public static Stage getOverworldStage() {
