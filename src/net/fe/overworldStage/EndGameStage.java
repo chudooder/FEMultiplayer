@@ -28,6 +28,7 @@ public class EndGameStage extends Stage {
 	private static final int Y_SPACING = 24;
 	
 	public EndGameStage(ArrayList<Player> players) {
+		super("end");
 		this.players = players;
 		addEntity(new RunesBg(new Color(0xd2b48c)));
 		for(int x=0; x<players.size(); x++) {

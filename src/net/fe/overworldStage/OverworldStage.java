@@ -41,7 +41,7 @@ public class OverworldStage extends Stage {
 	private int turnCount;
 
 	public OverworldStage(String levelName, ArrayList<Player> players) {
-		super();
+		super("overworld");
 		this.players = players;
 		objective = new RoutTheEnemy();
 		System.out.println(objective.getDescription());

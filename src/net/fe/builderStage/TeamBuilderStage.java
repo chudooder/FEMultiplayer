@@ -55,6 +55,7 @@ public class TeamBuilderStage extends Stage {
 	
 	
 	public TeamBuilderStage(boolean toMainMenu) {
+		super("preparations");
 		repeatTimers = new float[4];
 		addEntity(new RunesBg(new Color(0xd2b48c)));
 		select = new TeamSelectionStage(this);

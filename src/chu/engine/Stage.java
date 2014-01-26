@@ -9,11 +9,13 @@ public abstract class Stage {
 	protected TreeSet<Entity> entities;
 	protected Stack<Entity> addStack;
 	protected Stack<Entity> removeStack;
+	public final String soundTrack;
 	
-	public Stage() {
+	public Stage(String soundTrack) {
 		entities = new TreeSet<Entity>(new SortByUpdate());
 		addStack = new Stack<Entity>();
 		removeStack = new Stack<Entity>();
+		this.soundTrack = soundTrack;
 	}
 	
 	public TreeSet<Entity> getAllEntities() {

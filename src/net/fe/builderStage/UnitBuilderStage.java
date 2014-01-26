@@ -44,6 +44,7 @@ public class UnitBuilderStage extends Stage {
 	LEVEL_X = 175, LEVEL_Y = 115;
 	
 	public UnitBuilderStage(Unit u, TeamBuilderStage s){
+		super("preparations");
 		addEntity(new RunesBg(new Color(0xd2b48c)));
 		back = s;
 		unit = u;

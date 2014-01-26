@@ -32,6 +32,7 @@ public class LobbyStage extends Stage {
 	protected Chat chat;
 	
 	public LobbyStage() {
+		super("main_theme");
 		players = new HashMap<Integer, Player>();
 		chat = new Chat();
 	}

@@ -36,6 +36,7 @@ public class ConnectStage extends Stage {
 	private ConnectInputBox ip;
 	
 	public ConnectStage() {
+		super("main_theme");
 		name = new ConnectInputBox(180,136,153,20);
 		ip = new ConnectInputBox(180,166,100,20);
 		addEntity(name);

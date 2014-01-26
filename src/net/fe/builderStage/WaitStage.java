@@ -27,6 +27,7 @@ public class WaitStage extends Stage {
 	private boolean sentStartMessage;
 	
 	public WaitStage() {
+		super("preparations");
 		init();
 	}
 	

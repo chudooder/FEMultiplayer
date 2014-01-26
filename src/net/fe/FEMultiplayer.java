@@ -22,6 +22,7 @@ import net.fe.lobbystage.LobbyStage;
 import net.fe.network.Client;
 import net.fe.network.Message;
 import net.fe.network.message.CommandMessage;
+import net.fe.overworldStage.EndGameStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.overworldStage.OverworldStage;
@@ -196,14 +197,8 @@ public class FEMultiplayer extends Game{
 	
 	public static void setCurrentStage(Stage stage) {
 		currentStage = stage;
-		if(stage instanceof FightStage){
-			SoundTrack.loop("fight");
-		} else if (stage instanceof OverworldStage){
-			SoundTrack.loop("overworld");
-		} else if (stage instanceof TeamBuilderStage){
-			SoundTrack.loop("preparations");
-		} else {
-			SoundTrack.loop("main_theme");
+		if(stage.soundTrack != null){
+			SoundTrack.loop(stage.soundTrack);
 		}
 	}
 

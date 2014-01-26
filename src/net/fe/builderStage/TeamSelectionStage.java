@@ -34,6 +34,7 @@ public class TeamSelectionStage extends Stage {
 	
 	
 	public TeamSelectionStage(TeamBuilderStage stage){
+		super("preparations");
 		builderStage = stage;
 		cursor = new Cursor();
 		addEntity(new RunesBg(new Color(0xd2b48c)));

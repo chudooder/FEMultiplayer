@@ -86,6 +86,7 @@ public class FightStage extends Stage {
 
 	public FightStage(UnitIdentifier u1, UnitIdentifier u2,
 			ArrayList<AttackRecord> attackQ) {
+		super("fight");
 		shakeTimer = 0;
 		prevShakeTimer = 0;
 		timer = 0;

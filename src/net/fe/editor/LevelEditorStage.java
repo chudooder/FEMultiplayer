@@ -52,6 +52,7 @@ public class LevelEditorStage extends Stage {
 	}
 
 	public LevelEditorStage(String levelName) {
+		super(null);
 		selectedID = 0;
 		this.levelName = levelName;
 		tiles = new int[3][3];
