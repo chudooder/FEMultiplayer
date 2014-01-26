@@ -24,9 +24,11 @@ public class RoutTheEnemy implements Objective {
 				if(party.getUnit(j).getHp() > 0)
 					ded = false;
 			}
-			System.out.print("|");
 			if(!ded) {
-				if(winner == -1) winner = players.get(i).getID();
+				if(winner == -1) {
+					winner = players.get(i).getID();
+					System.out.println("Player "+winner+" won!");
+				}
 				else return -1;
 			}
 		}
