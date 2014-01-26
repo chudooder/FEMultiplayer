@@ -3375,6 +3375,10 @@
 			"path":		"res/gui/zone_colors.png"
 		},
 		{
+			"name":		"title",
+			"path":		"res/gui/title.png"
+		}
+		{
 			"name":		"gui_selectArrow",
 			"path":		"res/gui/selectArrow.png",
 			"width":	8,
@@ -3472,6 +3476,542 @@
 		{
 			"name":		"runes",
 			"path":		"res/gui/runes.png"
-		}
+		},
+		{
+			"name":		"assassin_map_down",
+			"path":		"res/map_anim/assassin_map_down.png"
+		},
+		{
+			"name":		"assassin_map_idle",
+			"path":		"res/map_anim/assassin_map_idle.png"
+		},
+		{
+			"name":		"assassin_map_selected",
+			"path":		"res/map_anim/assassin_map_selected.png"
+		},
+		{
+			"name":		"assassin_map_side",
+			"path":		"res/map_anim/assassin_map_side.png"
+		},
+		{
+			"name":		"assassin_map_up",
+			"path":		"res/map_anim/assassin_map_up.png"
+		},
+		{
+			"name":		"berserker_map_down",
+			"path":		"res/map_anim/berserker_map_down.png"
+		},
+		{
+			"name":		"berserker_map_idle",
+			"path":		"res/map_anim/berserker_map_idle.png"
+		},
+		{
+			"name":		"berserker_map_selected",
+			"path":		"res/map_anim/berserker_map_selected.png"
+		},
+		{
+			"name":		"berserker_map_side",
+			"path":		"res/map_anim/berserker_map_side.png"
+		},
+		{
+			"name":		"berserker_map_up",
+			"path":		"res/map_anim/berserker_map_up.png"
+		},
+		{
+			"name":		"eirika_map_down",
+			"path":		"res/map_anim/eirika_map_down.png"
+		},
+		{
+			"name":		"eirika_map_idle",
+			"path":		"res/map_anim/eirika_map_idle.png"
+		},
+		{
+			"name":		"eirika_map_selected",
+			"path":		"res/map_anim/eirika_map_selected.png"
+		},
+		{
+			"name":		"eirika_map_side",
+			"path":		"res/map_anim/eirika_map_side.png"
+		},
+		{
+			"name":		"eirika_map_up",
+			"path":		"res/map_anim/eirika_map_up.png"
+		},
+		{
+			"name":		"eliwood_map_down",
+			"path":		"res/map_anim/eliwood_map_down.png"
+		},
+		{
+			"name":		"eliwood_map_idle",
+			"path":		"res/map_anim/eliwood_map_idle.png"
+		},
+		{
+			"name":		"eliwood_map_selected",
+			"path":		"res/map_anim/eliwood_map_selected.png"
+		},
+		{
+			"name":		"eliwood_map_side",
+			"path":		"res/map_anim/eliwood_map_side.png"
+		},
+		{
+			"name":		"eliwood_map_up",
+			"path":		"res/map_anim/eliwood_map_up.png"
+		},
+		{
+			"name":		"ephraim_map_down",
+			"path":		"res/map_anim/ephraim_map_down.png"
+		},
+		{
+			"name":		"ephraim_map_idle",
+			"path":		"res/map_anim/ephraim_map_idle.png"
+		},
+		{
+			"name":		"ephraim_map_selected",
+			"path":		"res/map_anim/ephraim_map_selected.png"
+		},
+		{
+			"name":		"ephraim_map_side",
+			"path":		"res/map_anim/ephraim_map_side.png"
+		},
+		{
+			"name":		"ephraim_map_up",
+			"path":		"res/map_anim/ephraim_map_up.png"
+		},
+		{
+			"name":		"general_map_down",
+			"path":		"res/map_anim/general_map_down.png"
+		},
+		{
+			"name":		"general_map_idle",
+			"path":		"res/map_anim/general_map_idle.png"
+		},
+		{
+			"name":		"general_map_selected",
+			"path":		"res/map_anim/general_map_selected.png"
+		},
+		{
+			"name":		"general_map_side",
+			"path":		"res/map_anim/general_map_side.png"
+		},
+		{
+			"name":		"general_map_up",
+			"path":		"res/map_anim/general_map_up.png"
+		},
+		{
+			"name":		"hector_map_down",
+			"path":		"res/map_anim/hector_map_down.png"
+		},
+		{
+			"name":		"hector_map_idle",
+			"path":		"res/map_anim/hector_map_idle.png"
+		},
+		{
+			"name":		"hector_map_selected",
+			"path":		"res/map_anim/hector_map_selected.png"
+		},
+		{
+			"name":		"hector_map_side",
+			"path":		"res/map_anim/hector_map_side.png"
+		},
+		{
+			"name":		"hector_map_up",
+			"path":		"res/map_anim/hector_map_up.png"
+		},
+		{
+			"name":		"hero_map_down",
+			"path":		"res/map_anim/hero_map_down.png"
+		},
+		{
+			"name":		"hero_map_idle",
+			"path":		"res/map_anim/hero_map_idle.png"
+		},
+		{
+			"name":		"hero_map_selected",
+			"path":		"res/map_anim/hero_map_selected.png"
+		},
+		{
+			"name":		"hero_map_side",
+			"path":		"res/map_anim/hero_map_side.png"
+		},
+		{
+			"name":		"hero_map_up",
+			"path":		"res/map_anim/hero_map_up.png"
+		},
+		{
+			"name":		"lyn_map_down",
+			"path":		"res/map_anim/lyn_map_down.png"
+		},
+		{
+			"name":		"lyn_map_idle",
+			"path":		"res/map_anim/lyn_map_idle.png"
+		},
+		{
+			"name":		"lyn_map_selected",
+			"path":		"res/map_anim/lyn_map_selected.png"
+		},
+		{
+			"name":		"lyn_map_side",
+			"path":		"res/map_anim/lyn_map_side.png"
+		},
+		{
+			"name":		"lyn_map_up",
+			"path":		"res/map_anim/lyn_map_up.png"
+		},
+		{
+			"name":		"marth_map_down",
+			"path":		"res/map_anim/marth_map_down.png"
+		},
+		{
+			"name":		"marth_map_idle",
+			"path":		"res/map_anim/marth_map_idle.png"
+		},
+		{
+			"name":		"marth_map_selected",
+			"path":		"res/map_anim/marth_map_selected.png"
+		},
+		{
+			"name":		"marth_map_side",
+			"path":		"res/map_anim/marth_map_side.png"
+		},
+		{
+			"name":		"marth_map_up",
+			"path":		"res/map_anim/marth_map_up.png"
+		},
+		{
+			"name":		"paladin_map_down",
+			"path":		"res/map_anim/paladin_map_down.png"
+		},
+		{
+			"name":		"paladin_map_idle",
+			"path":		"res/map_anim/paladin_map_idle.png"
+		},
+		{
+			"name":		"paladin_map_selected",
+			"path":		"res/map_anim/paladin_map_selected.png"
+		},
+		{
+			"name":		"paladin_map_side",
+			"path":		"res/map_anim/paladin_map_side.png"
+		},
+		{
+			"name":		"paladin_map_up",
+			"path":		"res/map_anim/paladin_map_up.png"
+		},
+		{
+			"name":		"roy_map_down",
+			"path":		"res/map_anim/roy_map_down.png"
+		},
+		{
+			"name":		"roy_map_idle",
+			"path":		"res/map_anim/roy_map_idle.png"
+		},
+		{
+			"name":		"roy_map_selected",
+			"path":		"res/map_anim/roy_map_selected.png"
+		},
+		{
+			"name":		"roy_map_side",
+			"path":		"res/map_anim/roy_map_side.png"
+		},
+		{
+			"name":		"roy_map_up",
+			"path":		"res/map_anim/roy_map_up.png"
+		},
+		{
+			"name":		"sage_map_down",
+			"path":		"res/map_anim/sage_map_down.png"
+		},
+		{
+			"name":		"sage_map_idle",
+			"path":		"res/map_anim/sage_map_idle.png"
+		},
+		{
+			"name":		"sage_map_selected",
+			"path":		"res/map_anim/sage_map_selected.png"
+		},
+		{
+			"name":		"sage_map_side",
+			"path":		"res/map_anim/sage_map_side.png"
+		},
+		{
+			"name":		"sage_map_up",
+			"path":		"res/map_anim/sage_map_up.png"
+		},
+		{
+			"name":		"sniper_map_down",
+			"path":		"res/map_anim/sniper_map_down.png"
+		},
+		{
+			"name":		"sniper_map_idle",
+			"path":		"res/map_anim/sniper_map_idle.png"
+		},
+		{
+			"name":		"sniper_map_selected",
+			"path":		"res/map_anim/sniper_map_selected.png"
+		},
+		{
+			"name":		"sniper_map_side",
+			"path":		"res/map_anim/sniper_map_side.png"
+		},
+		{
+			"name":		"sniper_map_up",
+			"path":		"res/map_anim/sniper_map_up.png"
+		},
+		{
+			"name":		"sorcerer_map_down",
+			"path":		"res/map_anim/sorcerer_map_down.png"
+		},
+		{
+			"name":		"sorcerer_map_idle",
+			"path":		"res/map_anim/sorcerer_map_idle.png"
+		},
+		{
+			"name":		"sorcerer_map_selected",
+			"path":		"res/map_anim/sorcerer_map_selected.png"
+		},
+		{
+			"name":		"sorcerer_map_side",
+			"path":		"res/map_anim/sorcerer_map_side.png"
+		},
+		{
+			"name":		"sorcerer_map_up",
+			"path":		"res/map_anim/sorcerer_map_up.png"
+		},
+		{
+			"name":		"swordmaster_map_down",
+			"path":		"res/map_anim/swordmaster_map_down.png"
+		},
+		{
+			"name":		"swordmaster_map_idle",
+			"path":		"res/map_anim/swordmaster_map_idle.png"
+		},
+		{
+			"name":		"swordmaster_map_selected",
+			"path":		"res/map_anim/swordmaster_map_selected.png"
+		},
+		{
+			"name":		"swordmaster_map_side",
+			"path":		"res/map_anim/swordmaster_map_side.png"
+		},
+		{
+			"name":		"swordmaster_map_up",
+			"path":		"res/map_anim/swordmaster_map_up.png"
+		},
+		{
+			"name":		"valkyrie_map_down",
+			"path":		"res/map_anim/valkyrie_map_down.png"
+		},
+		{
+			"name":		"valkyrie_map_idle",
+			"path":		"res/map_anim/valkyrie_map_idle.png"
+		},
+		{
+			"name":		"valkyrie_map_selected",
+			"path":		"res/map_anim/valkyrie_map_selected.png"
+		},
+		{
+			"name":		"valkyrie_map_side",
+			"path":		"res/map_anim/valkyrie_map_side.png"
+		},
+		{
+			"name":		"valkyrie_map_up",
+			"path":		"res/map_anim/valkyrie_map_up.png"
+		},
+		{
+			"name":		"warrior_map_down",
+			"path":		"res/map_anim/warrior_map_down.png"
+		},
+		{
+			"name":		"warrior_map_idle",
+			"path":		"res/map_anim/warrior_map_idle.png"
+		},
+		{
+			"name":		"warrior_map_selected",
+			"path":		"res/map_anim/warrior_map_selected.png"
+		},
+		{
+			"name":		"warrior_map_side",
+			"path":		"res/map_anim/warrior_map_side.png"
+		},
+		{
+			"name":		"warrior_map_up",
+			"path":		"res/map_anim/warrior_map_up.png"
+		},
+		{
+			"name":		"amelia_mugshot",
+			"path":		"res/map_mugshots/amelia_mugshot.png"
+		},
+		{
+			"name":		"artur_mugshot",
+			"path":		"res/map_mugshots/artur_mugshot.png"
+		},
+		{
+			"name":		"bartre_mugshot",
+			"path":		"res/map_mugshots/bartre_mugshot.png"
+		},
+		{
+			"name":		"canas_mugshot",
+			"path":		"res/map_mugshots/canas_mugshot.png"
+		},
+		{
+			"name":		"dart_mugshot",
+			"path":		"res/map_mugshots/dart_mugshot.png"
+		},
+		{
+			"name":		"edward_mugshot",
+			"path":		"res/map_mugshots/edward_mugshot.png"
+		},
+		{
+			"name":		"eirika_mugshot",
+			"path":		"res/map_mugshots/eirika_mugshot.png"
+		},
+		{
+			"name":		"eliwood_mugshot",
+			"path":		"res/map_mugshots/eliwood_mugshot.png"
+		},
+		{
+			"name":		"ephraim_mugshot",
+			"path":		"res/map_mugshots/ephraim_mugshot.png"
+		},
+		{
+			"name":		"erk_mugshot",
+			"path":		"res/map_mugshots/erk_mugshot.png"
+		},
+		{
+			"name":		"ewan_mugshot",
+			"path":		"res/map_mugshots/ewan_mugshot.png"
+		},
+		{
+			"name":		"florina_mugshot",
+			"path":		"res/map_mugshots/florina_mugshot.png"
+		},
+		{
+			"name":		"forde_mugshot",
+			"path":		"res/map_mugshots/forde_mugshot.png"
+		},
+		{
+			"name":		"franz_mugshot",
+			"path":		"res/map_mugshots/franz_mugshot.png"
+		},
+		{
+			"name":		"garcia_mugshot",
+			"path":		"res/map_mugshots/garcia_mugshot.png"
+		},
+		{
+			"name":		"gerik_mugshot",
+			"path":		"res/map_mugshots/gerik_mugshot.png"
+		},
+		{
+			"name":		"gilliam_mugshot",
+			"path":		"res/map_mugshots/gilliam_mugshot.png"
+		},
+		{
+			"name":		"guy_mugshot",
+			"path":		"res/map_mugshots/guy_mugshot.png"
+		},
+		{
+			"name":		"hector_mugshot",
+			"path":		"res/map_mugshots/hector_mugshot.png"
+		},
+		{
+			"name":		"joshua_mugshot",
+			"path":		"res/map_mugshots/joshua_mugshot.png"
+		},
+		{
+			"name":		"kent_mugshot",
+			"path":		"res/map_mugshots/kent_mugshot.png"
+		},
+		{
+			"name":		"knoll_mugshot",
+			"path":		"res/map_mugshots/knoll_mugshot.png"
+		},
+		{
+			"name":		"kyle_mugshot",
+			"path":		"res/map_mugshots/kyle_mugshot.png"
+		},
+		{
+			"name":		"l'arachel_mugshot",
+			"path":		"res/map_mugshots/l'arachel_mugshot.png"
+		},
+		{
+			"name":		"lucius_mugshot",
+			"path":		"res/map_mugshots/lucius_mugshot.png"
+		},
+		{
+			"name":		"lute_mugshot",
+			"path":		"res/map_mugshots/lute_mugshot.png"
+		},
+		{
+			"name":		"lyn_mugshot",
+			"path":		"res/map_mugshots/lyn_mugshot.png"
+		},
+		{
+			"name":		"marisa_mugshot",
+			"path":		"res/map_mugshots/marisa_mugshot.png"
+		},
+		{
+			"name":		"marth_mugshot",
+			"path":		"res/map_mugshots/marth_mugshot.png"
+		},
+		{
+			"name":		"matthew_mugshot",
+			"path":		"res/map_mugshots/matthew_mugshot.png"
+		},
+		{
+			"name":		"mia_mugshot",
+			"path":		"res/map_mugshots/mia_mugshot.png"
+		},
+		{
+			"name":		"natasha_mugshot",
+			"path":		"res/map_mugshots/natasha_mugshot.png"
+		},
+		{
+			"name":		"neimi_mugshot",
+			"path":		"res/map_mugshots/neimi_mugshot.png"
+		},
+		{
+			"name":		"oswin_mugshot",
+			"path":		"res/map_mugshots/oswin_mugshot.png"
+		},
+		{
+			"name":		"priscilla_mugshot",
+			"path":		"res/map_mugshots/priscilla_mugshot.png"
+		},
+		{
+			"name":		"raven_mugshot",
+			"path":		"res/map_mugshots/raven_mugshot.png"
+		},
+		{
+			"name":		"rebecca_mugshot",
+			"path":		"res/map_mugshots/rebecca_mugshot.png"
+		},
+		{
+			"name":		"ross_mugshot",
+			"path":		"res/map_mugshots/ross_mugshot.png"
+		},
+		{
+			"name":		"roy_mugshot",
+			"path":		"res/map_mugshots/roy_mugshot.png"
+		},
+		{
+			"name":		"sain_mugshot",
+			"path":		"res/map_mugshots/sain_mugshot.png"
+		},
+		{
+			"name":		"tana_mugshot",
+			"path":		"res/map_mugshots/tana_mugshot.png"
+		},
+		{
+			"name":		"vanessa_mugshot",
+			"path":		"res/map_mugshots/vanessa_mugshot.png"
+		},
+		{
+			"name":		"wallace_mugshot",
+			"path":		"res/map_mugshots/wallace_mugshot.png"
+		},
+		{
+			"name":		"wil_mugshot",
+			"path":		"res/map_mugshots/wil_mugshot.png"
+		},
 	]
 }
