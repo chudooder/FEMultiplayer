@@ -8,6 +8,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.Entity;
 import chu.engine.Game;
+import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Sprite;
 
 public class TurnDisplay extends Entity {
@@ -39,6 +40,7 @@ public class TurnDisplay extends Entity {
 		}
 		text.addAnimation("default", t);
 		flash.addAnimation("default",f);
+		AudioPlayer.playAudio("turn_change", 1, 1);
 	}
 	
 	public void render() {
