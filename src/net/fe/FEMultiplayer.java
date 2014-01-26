@@ -208,7 +208,7 @@ public class FEMultiplayer extends Game{
 	}
 	
 	public static HashMap<Byte, Player> getPlayers() {
-		return client.getSession().getAllPlayers();
+		return client.getSession().getPlayerMap();
 	}
 	
 	public static Session getSession() {

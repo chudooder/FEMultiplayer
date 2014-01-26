@@ -1,6 +1,8 @@
 package net.fe.builderStage;
 
 import net.fe.FEResources;
+import net.fe.Session;
+import net.fe.modifier.Modifier;
 import net.fe.overworldStage.ItemMenu;
 import net.fe.unit.HealingItem;
 import net.fe.unit.Item;
@@ -24,7 +26,7 @@ public class ShopMenu extends Entity {
 	
 	public static final int HEIGHT = 200;
 	public static final int WIDTH = 135;
-	public ShopMenu(float x, float y) {
+	public ShopMenu(float x, float y, Session s) {
 		super(x, y);
 		shops = new ItemMenu[9];
 		shopIcons = new Texture[9];
@@ -55,6 +57,10 @@ public class ShopMenu extends Entity {
 		
 		for(ItemMenu shop: shops){
 			shop.sortItems();
+		}
+		
+		for(Modifier m : s.getModifiers()) {
+			m.modifyShop(this);
 		}
 	}
 	
@@ -130,6 +136,10 @@ public class ShopMenu extends Entity {
 		for(ItemMenu shop: shops){
 			shop.restoreSelection();
 		}
+	}
+	
+	public ItemMenu[] getShops() {
+		return shops;
 	}
 
 }

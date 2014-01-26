@@ -74,6 +74,10 @@ public class Menu<T> extends Entity {
 		return items.size();
 	}
 	
+	public T get(int index) {
+		return items.get(index);
+	}
+	
 	public void setSelection(int index){
 		selection = index;
 		if(selection == marked) down();

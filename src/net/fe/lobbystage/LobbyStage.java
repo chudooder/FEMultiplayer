@@ -43,7 +43,7 @@ public class LobbyStage extends Stage {
 			}
 			else if(message instanceof ClientInit) {		// Only clients will get this
 				ClientInit init = (ClientInit)message;
-				session.getAllPlayers().putAll(init.players);
+				session.getPlayerMap().putAll(init.players);
 			}
 			else if(message instanceof QuitMessage) {
 				QuitMessage quit = (QuitMessage)message;

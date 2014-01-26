@@ -103,7 +103,7 @@ public class FEServer extends Game {
 	}
 	
 	public static HashMap<Byte, Player> getPlayers() {
-		return server.getSession().getAllPlayers();
+		return server.getSession().getPlayerMap();
 	}
 
 	public static void resetToLobby() {

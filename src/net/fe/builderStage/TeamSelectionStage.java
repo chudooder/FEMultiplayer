@@ -5,6 +5,7 @@ import java.util.*;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
+import net.fe.modifier.Modifier;
 import net.fe.unit.*;
 import net.fe.*;
 import chu.engine.Entity;
@@ -33,7 +34,7 @@ public class TeamSelectionStage extends Stage {
 	OK_BUTTON_X = 349, BUTTON_Y = 260, CS_BUTTON_X = 41, NS_BUTTON_X = 145;
 	
 	
-	public TeamSelectionStage(TeamBuilderStage stage){
+	public TeamSelectionStage(TeamBuilderStage stage, Session s){
 		super("preparations");
 		builderStage = stage;
 		cursor = new Cursor();
@@ -49,6 +50,10 @@ public class TeamSelectionStage extends Stage {
 		vassalList.addUnits(vassals);
 		vassalList.sort(new SortByName());
 		addEntity(vassalList);
+		
+		for(Modifier m : s.getModifiers()) {
+			m.modifyUnits(this);
+		}
 		
 		ok = new Button(OK_BUTTON_X, BUTTON_Y, "OK", Color.green, 95) {
 			public void execute() {
@@ -270,6 +275,13 @@ public class TeamSelectionStage extends Stage {
 	
 	public int getMaxUnits(){
 		return maxUnits;
+	}
+	
+	public List<Unit> getAllUnits() {
+		List<Unit> ans = new ArrayList<Unit>();
+		ans.addAll(vassalList.getUnits());
+		ans.addAll(lordList.getUnits());
+		return ans;
 	}
 	
 	private class Cursor extends Entity{

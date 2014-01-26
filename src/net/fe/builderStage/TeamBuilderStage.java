@@ -12,6 +12,7 @@ import net.fe.FEMultiplayer;
 import net.fe.RunesBg;
 import net.fe.Session;
 import net.fe.fightStage.FightStage;
+import net.fe.modifier.Modifier;
 import net.fe.network.message.PartyMessage;
 import net.fe.unit.Item;
 import net.fe.unit.MapAnimation;
@@ -46,7 +47,8 @@ public class TeamBuilderStage extends Stage {
 	//CONFIG
 	private static int name = 30, clazz = 100, lv = 170, hgap = 30; //xvals
 	private static int yStart = 40, vgap = 20, table_ystart = 10;
-	private static int FUNDS = 48000, EXP = 84000;
+	public static int FUNDS = 48000;
+	public static int EXP = 84000;
 	
 	
 	
@@ -54,7 +56,7 @@ public class TeamBuilderStage extends Stage {
 		super("preparations");
 		repeatTimers = new float[4];
 		addEntity(new RunesBg(new Color(0xd2b48c)));
-		select = new TeamSelectionStage(this);
+		select = new TeamSelectionStage(this, s);
 		units = select.getSelectedUnits();
 		session = s;
 		buttons = new Button[4];
@@ -125,6 +127,10 @@ public class TeamBuilderStage extends Stage {
 			addEntity(new UnitIcon(u, 10, y-2, d));
 			y+=vgap;
 			d-=0.001f;
+		}
+		
+		for(Modifier m : getSession().getModifiers()) {
+			m.modifyTeam(this);
 		}
 	}
 	
@@ -250,7 +256,7 @@ public class TeamBuilderStage extends Stage {
 					if(ke.key == Keyboard.KEY_Z) {
 						AudioPlayer.playAudio("select", 1, 1);
 						if(cursor.on){
-							FEMultiplayer.setCurrentStage(new UnitBuilderStage(units.get(cursor.getIndex()), this));
+							FEMultiplayer.setCurrentStage(new UnitBuilderStage(units.get(cursor.getIndex()), this, session));
 						} else {
 							buttons[currButton].setHover(false);
 							buttons[currButton].execute();
@@ -391,6 +397,12 @@ public class TeamBuilderStage extends Stage {
 
 	public void setControl(boolean control) {
 		this.control = control;
+	}
+
+
+
+	public Session getSession() {
+		return session;
 	}
 }
 

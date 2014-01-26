@@ -1,7 +1,11 @@
 package net.fe;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
+import net.fe.modifier.MadeInChina;
+import net.fe.modifier.Modifier;
 import net.fe.overworldStage.objective.Objective;
 import net.fe.overworldStage.objective.RoutTheEnemy;
 
@@ -9,12 +13,16 @@ public class Session {
 	private HashMap<Byte, Player> players;
 	private Objective objective;
 	private String map;
-	//TODO: Modifiers
+	private int maxUnits;
+	private Set<Modifier> modifiers;
 	
 	public Session() {
 		players = new HashMap<Byte, Player>();
 		objective = new RoutTheEnemy();
 		map = "town";
+		maxUnits = 8;
+		modifiers = new HashSet<Modifier>();
+		modifiers.add(new MadeInChina());
 	}
 	
 	public void addPlayer(Player p) {
@@ -42,7 +50,7 @@ public class Session {
 		return players.size();
 	}
 	
-	public HashMap<Byte, Player> getAllPlayers() {
+	public HashMap<Byte, Player> getPlayerMap() {
 		return players;
 	}
 	
@@ -60,6 +68,14 @@ public class Session {
 	
 	public String getMap() {
 		return map;
+	}
+	
+	public int maxUnits() {
+		return maxUnits;
+	}
+
+	public Set<Modifier> getModifiers() {
+		return modifiers;
 	}
 	
 	
