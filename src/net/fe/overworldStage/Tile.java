@@ -29,36 +29,36 @@ public class Tile extends GriddedEntity implements DoNotDestroy{
 	 * V - Village
 	 */
 	private static String terrainMap =
-			"PPPPAAAAAAACCCCSSSS" +
-			"PPPPAAAAAAACCCCSSSS" +
-			"PPPKKPAAAFFWWWWSSSS" +
-			"MKKKAAAANNNWWWWSSSS" +
-			"CCCCAAAANVNWWLSSSWW" +
-			"NNNNNNNNFNFSLLSSS  " +
-			"NVNNNNVNFVFSLLSSS  " +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"" +
-			"";
+			"PPPPAAAAAAACCCCSSSS      " +
+			"PPPPAAAAAAACCCCSSSS      " +
+			"PPPKKPAAAFFWWWWSSSS      " +
+			"MKKKAAAANNNWWWWSSSS      " +
+			"CCCCAAAANVNWWLSSSWW      " +
+			"NNNNNNNNFNFSLLSSS        " +
+			"NVNNNNVNFVFSLLSSS        " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         " +
+			"                         ";
 
 	public Tile(int x, int y, int id) {
 		super(x,y);

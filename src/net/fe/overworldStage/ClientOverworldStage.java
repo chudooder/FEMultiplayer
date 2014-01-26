@@ -19,10 +19,14 @@ import net.fe.RunesBg;
 import net.fe.editor.Level;
 import net.fe.editor.SpawnPoint;
 import net.fe.network.Chat;
+import net.fe.network.Message;
+import net.fe.network.message.ChatMessage;
 import net.fe.network.message.CommandMessage;
+import net.fe.network.message.EndGame;
 import net.fe.network.message.EndTurn;
 import net.fe.overworldStage.context.Idle;
 import net.fe.overworldStage.context.WaitForMessages;
+import net.fe.transition.OverworldEndTransition;
 import net.fe.unit.Item;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
@@ -117,6 +121,12 @@ public class ClientOverworldStage extends OverworldStage {
 	@Override
 	public void beginStep() {
 		super.beginStep();
+		for(Message message : Game.getMessages()) {
+			if(message instanceof EndGame) {
+				String winnerName = getPlayerByID(((EndGame)message).winner).getName();
+				addEntity(new OverworldEndTransition(new EndGameStage(players), winnerName));
+			}
+		}
 		for (Entity e : entities) {
 			e.beginStep();
 		}
