@@ -1,17 +1,19 @@
 package net.fe.overworldStage;
 
-import static net.fe.fightStage.FightStage.*;
+import static net.fe.fightStage.FightStage.BORDER_DARK;
+import static net.fe.fightStage.FightStage.BORDER_LIGHT;
+import static net.fe.fightStage.FightStage.NEUTRAL;
 
 import java.util.Arrays;
 import java.util.Iterator;
-
-import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
 
 import net.fe.FEResources;
 import net.fe.unit.Item;
 import net.fe.unit.ItemDisplay;
 import net.fe.unit.Unit;
+
+import org.newdawn.slick.opengl.Texture;
+
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.anim.BitmapFont;

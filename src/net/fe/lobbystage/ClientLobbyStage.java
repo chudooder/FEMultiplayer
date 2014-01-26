@@ -1,26 +1,21 @@
 package net.fe.lobbystage;
 
-import static net.fe.fightStage.FightStage.NEUTRAL;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import net.fe.FEMultiplayer;
 import net.fe.FEResources;
 import net.fe.Player;
-import net.fe.network.Chat;
+import net.fe.Session;
+import net.fe.builderStage.ClientWaitStage;
+import net.fe.builderStage.TeamBuilderStage;
 import net.fe.network.Message;
-import net.fe.network.message.JoinLobby;
-import net.fe.network.message.QuitMessage;
 import net.fe.network.message.ReadyMessage;
-import net.fe.overworldStage.ClientOverworldStage;
-import net.fe.unit.Unit;
+import net.fe.network.message.StartBuilding;
 
 import org.newdawn.slick.Color;
 
 import chu.engine.Entity;
 import chu.engine.Game;
-import chu.engine.Stage;
 import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Transform;
@@ -40,8 +35,8 @@ public class ClientLobbyStage extends LobbyStage {
 	
 	private LobbyChatBox chatInput;
 	
-	public ClientLobbyStage() {
-		super();
+	public ClientLobbyStage(Session session) {
+		super(session);
 		chatInput = new LobbyChatBox();
 		MenuButton spectateButton = new MenuButton(409, 22, 64, 32) {
 			{
@@ -165,6 +160,24 @@ public class ClientLobbyStage extends LobbyStage {
 		for(Entity e : entities) {
 			e.beginStep();
 		}
+		for(Message message : Game.getMessages()) {
+			if(message instanceof StartBuilding) {
+				// Set up global list of players
+				for(Player p : FEMultiplayer.getPlayers().values()) {
+					if(p.equals(FEMultiplayer.getLocalPlayer()))
+						FEMultiplayer.setLocalPlayer(p);
+					if(p.isSpectator())
+						p.getParty().clear();
+				}
+				if(!FEMultiplayer.getLocalPlayer().isSpectator()) {
+					TeamBuilderStage stage = new TeamBuilderStage(false, session);
+					FEMultiplayer.setCurrentStage(stage);
+				} else {
+					ClientWaitStage stage = new ClientWaitStage(session);
+					FEMultiplayer.setCurrentStage(stage);
+				}
+			}
+		}
 		processAddStack();
 		processRemoveStack();
 	}
@@ -220,8 +233,7 @@ public class ClientLobbyStage extends LobbyStage {
 		int b = 0;
 		int c = 0;
 		final int tightSpacing = 16;
-		final int wideSpacing = 24;
-		for(Player p : players.values()) {
+		for(Player p : session.getPlayers()) {
 			Transform t = new Transform();
 			if(p.getID() == FEMultiplayer.getClient().getID()) {
 				t.setColor(new Color(90,200,90));

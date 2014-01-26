@@ -2,16 +2,13 @@ package chu.engine.menu;
 
 import java.util.List;
 
-import net.fe.FEMultiplayer;
 import net.fe.FEResources;
-import net.fe.network.message.ChatMessage;
 
 import org.lwjgl.input.Keyboard;
 
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
-import chu.engine.MouseEvent;
 import chu.engine.anim.BitmapFont;
 
 public abstract class TextInputBox extends Entity {

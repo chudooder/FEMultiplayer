@@ -4,6 +4,11 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Lethality extends CombatTrigger {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7524008345607446540L;
+
 	public Lethality(){
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE);
 	}

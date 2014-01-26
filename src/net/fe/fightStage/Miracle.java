@@ -5,6 +5,11 @@ import net.fe.unit.Unit;
 
 public class Miracle extends CombatTrigger {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8613896121666026506L;
+
 	public Miracle() {
 		super(APPEND_NAME_AFTER_MOD, ENEMY_TURN_MOD);
 	}

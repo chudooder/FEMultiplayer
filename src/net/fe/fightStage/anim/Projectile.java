@@ -2,7 +2,6 @@ package net.fe.fightStage.anim;
 
 import net.fe.FEResources;
 import net.fe.fightStage.FightStage;
-import net.fe.unit.Weapon;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.anim.Transform;

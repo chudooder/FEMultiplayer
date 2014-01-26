@@ -3,6 +3,11 @@ package net.fe.fightStage;
 import net.fe.unit.Unit;
 
 public class Brave extends CombatTrigger{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2833222257001214176L;
+
 	public Brave(){
 		super(NO_NAME_MOD, YOUR_TURN_POST);
 	}

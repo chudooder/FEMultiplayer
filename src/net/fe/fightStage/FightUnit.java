@@ -4,7 +4,6 @@ import net.fe.FEResources;
 import net.fe.fightStage.anim.AnimationArgs;
 import net.fe.fightStage.anim.AttackAnimation;
 import net.fe.fightStage.anim.DodgeAnimation;
-import net.fe.fightStage.anim.HitEffect;
 
 import org.newdawn.slick.Color;
 

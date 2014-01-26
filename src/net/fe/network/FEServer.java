@@ -3,14 +3,13 @@ package net.fe.network;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import net.fe.FEResources;
 import net.fe.Player;
-import net.fe.lobbystage.ClientLobbyStage;
 import net.fe.lobbystage.LobbyStage;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
@@ -27,12 +26,13 @@ public class FEServer extends Game {
 	private static Server server;
 	private static Stage currentStage;
 	public static LobbyStage lobby;
-	public static ArrayList<Player> players;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("FEServer");
 		try {
-			frame.add(new JLabel("Server IP: " + InetAddress.getLocalHost().getHostAddress()){{
+			frame.add(new JLabel("Server IP: " + InetAddress.getLocalHost().getHostAddress()){
+				private static final long serialVersionUID = 1L;
+			{
 				this.setFont(getFont().deriveFont(20f));
 				this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 			}});
@@ -50,14 +50,13 @@ public class FEServer extends Game {
 	}
 	
 	public FEServer() {
-		players = new ArrayList<Player>();
 		server = new Server();
 		Thread serverThread = new Thread() {
 			public void run() {
 				server.start(21255);
 			}
 		};
-		lobby = new LobbyStage();
+		lobby = new LobbyStage(server.getSession());
 		currentStage = lobby;
 		serverThread.start();
 	}
@@ -67,7 +66,7 @@ public class FEServer extends Game {
 	}
 	
 	public static Unit getUnit(UnitIdentifier id){
-		for(Player p: players){
+		for(Player p: getPlayers().values()){
 			if(!p.isSpectator() && p.getParty().getColor().equals(id.partyColor)){
 				return p.getParty().search(id.name);
 			}
@@ -102,9 +101,13 @@ public class FEServer extends Game {
 	public static Server getServer() {
 		return server;
 	}
+	
+	public static HashMap<Byte, Player> getPlayers() {
+		return server.getSession().getAllPlayers();
+	}
 
 	public static void resetToLobby() {
-		for(Player p : players) {
+		for(Player p : getPlayers().values()) {
 			p.ready = false;
 		}
 		currentStage = lobby;

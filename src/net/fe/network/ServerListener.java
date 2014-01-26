@@ -1,31 +1,14 @@
 package net.fe.network;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.List;
 
-import net.fe.FEMultiplayer;
-import net.fe.Player;
-import net.fe.fightStage.CombatCalculator;
-import net.fe.fightStage.FightStage;
-import net.fe.fightStage.HealCalculator;
-import net.fe.lobbystage.LobbyStage;
 import net.fe.network.message.ClientInit;
 import net.fe.network.message.CommandMessage;
-import net.fe.network.message.JoinLobby;
 import net.fe.network.message.PartyMessage;
 import net.fe.network.message.QuitMessage;
-import net.fe.network.message.ReadyMessage;
-import net.fe.network.message.StartGame;
-import net.fe.overworldStage.ClientOverworldStage;
-import net.fe.overworldStage.OverworldStage;
-import net.fe.transition.OverworldFightTransition;
-import net.fe.unit.UnitIdentifier;
 
 public class ServerListener extends Thread {
 	
@@ -45,7 +28,7 @@ public class ServerListener extends Thread {
 			out.flush();
 			in = new ObjectInputStream(socket.getInputStream());
 			System.out.println("LISTENER: I/O streams initialized");
-			sendMessage(new ClientInit(0, main.getCount(), main.getPlayers()));
+			sendMessage(new ClientInit((byte) 0, main.getCount(), main.getSession().getAllPlayers()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -2,6 +2,10 @@ package net.fe.unit;
 
 
 public class HealingItem extends Item {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6169687038185884864L;
 	public static HealingItem VULNERARY = new HealingItem("Vulnerary", 10, 67, 300);
 	public static HealingItem CONCOCTION = new HealingItem("Concoction", 20, 68, 1300);
 	public static HealingItem ELIXIR = new HealingItem("Elixir", 99, 69, 3000);

@@ -1,11 +1,7 @@
 package net.fe.editor;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Set;
-
-import net.fe.overworldStage.Terrain;
-import net.fe.overworldStage.Tile;
 
 /**
  * Contains a list of entities that are to be added

@@ -6,7 +6,7 @@ import net.fe.network.Message;
 public class JoinLobby extends Message {
 	private static final long serialVersionUID = 2466162881020245626L;
 	public Player player;
-	public JoinLobby(int origin, Player player) {
+	public JoinLobby(byte origin, Player player) {
 		super(origin);
 		this.player = player;
 	}

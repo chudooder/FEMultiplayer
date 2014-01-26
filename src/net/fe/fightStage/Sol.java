@@ -4,6 +4,10 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Sol extends CombatTrigger {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4213665653533259538L;
 	private transient boolean ranged;
 	public Sol(boolean rangeok) {
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE + YOUR_TURN_DRAIN);

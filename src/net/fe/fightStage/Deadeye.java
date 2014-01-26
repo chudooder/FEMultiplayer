@@ -4,6 +4,10 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Deadeye extends CombatTrigger {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5208500314150806972L;
 	public Deadeye(){
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE);
 	}

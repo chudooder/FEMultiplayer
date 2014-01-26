@@ -4,6 +4,11 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Colossus extends CombatTrigger{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -155383449100454663L;
+
 	public Colossus(){
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE);
 	}

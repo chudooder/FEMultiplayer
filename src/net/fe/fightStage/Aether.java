@@ -4,6 +4,11 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Aether extends CombatTrigger {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -618799965651832966L;
+
 	private transient int phase;
 	
 	private static final int SOL = 0;

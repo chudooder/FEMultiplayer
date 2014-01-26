@@ -17,7 +17,6 @@ import org.newdawn.slick.Color;
 
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
-import chu.engine.Stage;
 import chu.engine.anim.BitmapFont;
 import chu.engine.anim.Renderer;
 import chu.engine.menu.TextInputBox;

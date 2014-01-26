@@ -6,8 +6,8 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Set;
 
-import net.fe.FEMultiplayer;
 import net.fe.Player;
+import net.fe.Session;
 import net.fe.editor.Level;
 import net.fe.editor.SpawnPoint;
 import net.fe.fightStage.CombatCalculator;
@@ -20,7 +20,6 @@ import net.fe.network.message.CommandMessage;
 import net.fe.network.message.EndGame;
 import net.fe.network.message.EndTurn;
 import net.fe.overworldStage.objective.Objective;
-import net.fe.overworldStage.objective.RoutTheEnemy;
 import net.fe.unit.Item;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
@@ -34,30 +33,28 @@ import chu.engine.Stage;
 public class OverworldStage extends Stage {
 	public Grid grid;
 	protected Chat chat;
-	protected ArrayList<Player> players;
+	protected Session session;
 	private ArrayList<Player> turnOrder;
 	private int currentPlayer;
-	private Objective objective;
 	private int turnCount;
 
-	public OverworldStage(String levelName, ArrayList<Player> players) {
+	public OverworldStage(Session s) {
 		super("overworld");
-		this.players = players;
-		objective = new RoutTheEnemy();
-		System.out.println(objective.getDescription());
+		this.session = s;
+		System.out.println(session.getObjective().getDescription());
 		chat = new Chat();
 		turnOrder = new ArrayList<Player>();
-		for(Player p : players) {
+		for(Player p : session.getPlayers()) {
 			if(!p.isSpectator()) turnOrder.add(p);
 		}
 		currentPlayer = 0;
 		turnCount = 1;
-		loadLevel(levelName);
+		loadLevel(session.getMap());
 		processAddStack();
 	}
 	
 	public Player getPlayerByID(int id) {
-		for(Player p : players) {
+		for(Player p : session.getPlayers()) {
 			if(p.getID() == id) {
 				return p;
 			}
@@ -119,7 +116,7 @@ public class OverworldStage extends Stage {
             
             // Add units
             Set<SpawnPoint> spawns = level.spawns;
-            for(Player p : players) {
+            for(Player p : session.getPlayers()) {
             	Color team = p.getParty().getColor();
     			for(int i=0; i<p.getParty().size(); i++) {
     				SpawnPoint remove = null;
@@ -151,7 +148,7 @@ public class OverworldStage extends Stage {
 			}
 			else if(message instanceof ChatMessage) {
 				ChatMessage chatMsg = (ChatMessage)message;
-				for(Player p : players)
+				for(Player p : session.getPlayers())
 					if(p.getID() == chatMsg.origin)
 						chat.add(p, chatMsg.text);
 			}
@@ -167,16 +164,16 @@ public class OverworldStage extends Stage {
 	
 	protected void doEndTurn(int playerID) {
 		//TODO: End turn triggers here
-		for(Player p : players) {
+		for(Player p : session.getPlayers()) {
 			for(Unit u : p.getParty()) {
 				u.setMoved(false);
 			}
 		}
 		turnCount++;
 		// Objective evaluation
-		int winner = objective.evaluate(this);
+		int winner = session.getObjective().evaluate(this);
 		if(winner > 0 && FEServer.getServer() != null) {
-			FEServer.getServer().broadcastMessage(new EndGame(0, winner));
+			FEServer.getServer().broadcastMessage(new EndGame((byte) 0, winner));
 			FEServer.resetToLobby();
 		}
 	}
@@ -241,7 +238,7 @@ public class OverworldStage extends Stage {
 	}
 
 	protected Unit getUnit(UnitIdentifier id) {
-		for(Player p: players){
+		for(Player p: session.getPlayers()){
 			if(!p.isSpectator() && p.getParty().getColor().equals(id.partyColor)){
 				return p.getParty().search(id.name);
 			}
@@ -260,20 +257,20 @@ public class OverworldStage extends Stage {
 		
 	}
 
-	public ArrayList<Player> getPlayers() {
-		return players;
+	public Player[] getPlayers() {
+		return session.getPlayers();
 	}
 	
 	public ArrayList<Player> getNonSpectators() {
 		ArrayList<Player> ans = new ArrayList<Player>();
-		for(Player p : players) {
+		for(Player p : session.getPlayers()) {
 			if(!p.isSpectator()) ans.add(p);
 		}
 		return ans;
 	}
 	
 	public Objective getObjective(){
-		return objective;
+		return session.getObjective();
 	}
 	
 	public int getTurnCount(){

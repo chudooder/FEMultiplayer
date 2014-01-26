@@ -48,7 +48,7 @@ public class ConnectStage extends Stage {
 			}
 			@Override
 			public void onClick() {
-				FEMultiplayer.setCurrentStage(new TeamBuilderStage(true));
+				FEMultiplayer.setCurrentStage(new TeamBuilderStage(true, null));
 			}
 			@Override
 			public void render() {

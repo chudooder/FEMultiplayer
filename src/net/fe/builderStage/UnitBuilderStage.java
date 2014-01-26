@@ -1,27 +1,23 @@
 package net.fe.builderStage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import net.fe.Button;
+import net.fe.FEMultiplayer;
+import net.fe.RunesBg;
+import net.fe.fightStage.FightStage;
+import net.fe.overworldStage.InventoryMenu;
+import net.fe.overworldStage.UnitInfo;
+import net.fe.unit.HealingItem;
+import net.fe.unit.Item;
+import net.fe.unit.MapAnimation;
+import net.fe.unit.Unit;
+import net.fe.unit.Weapon;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
-import net.fe.Button;
-import net.fe.FEMultiplayer;
-import net.fe.FEResources;
-import net.fe.RunesBg;
-import net.fe.fightStage.FightStage;
-import net.fe.overworldStage.InventoryMenu;
-import net.fe.overworldStage.ItemMenu;
-import net.fe.overworldStage.UnitInfo;
-import net.fe.unit.HealingItem;
-import net.fe.unit.Item;
-import net.fe.unit.ItemDisplay;
-import net.fe.unit.MapAnimation;
-import net.fe.unit.Unit;
-import net.fe.unit.Weapon;
-import net.fe.unit.WeaponFactory;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;

@@ -3,8 +3,8 @@ package net.fe.transition;
 import net.fe.FEMultiplayer;
 import net.fe.Transition;
 import net.fe.fightStage.FightStage;
-import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.ClientOverworldStage;
+import net.fe.overworldStage.Grid;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 
@@ -15,7 +15,6 @@ import chu.engine.anim.Renderer;
 
 public class FightOverworldTransition extends Transition {
 	ClientOverworldStage to;
-	private int state;
 	private float timer;
 	private float triAlpha;
 	private float fightAlpha;
