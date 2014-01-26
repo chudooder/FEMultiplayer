@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import net.fe.Player;
@@ -12,6 +13,7 @@ import net.fe.editor.Level;
 import net.fe.editor.SpawnPoint;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.HealCalculator;
+import net.fe.modifier.Modifier;
 import net.fe.network.Chat;
 import net.fe.network.FEServer;
 import net.fe.network.Message;
@@ -50,6 +52,9 @@ public class OverworldStage extends Stage {
 		currentPlayer = 0;
 		turnCount = 1;
 		loadLevel(session.getMap());
+		for(Modifier m : session.getModifiers()) {
+			m.initOverworld(this);
+		}
 		processAddStack();
 	}
 	
@@ -275,6 +280,16 @@ public class OverworldStage extends Stage {
 	
 	public int getTurnCount(){
 		return turnCount;
+	}
+
+	public List<Unit> getAllUnits() {
+		List<Unit> units = new ArrayList<Unit>();
+		for(Player p : session.getPlayers()) {
+			for(int i=0; i<p.getParty().size(); i++) {
+				units.add(p.getParty().getUnit(i));
+			}
+		}
+		return units;
 	}
 
 }
