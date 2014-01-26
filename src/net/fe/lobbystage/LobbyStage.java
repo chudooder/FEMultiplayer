@@ -40,10 +40,11 @@ public class LobbyStage extends Stage {
 			else if(message instanceof JoinTeam) {
 				JoinTeam join = (JoinTeam)message;
 				session.getPlayer(join.origin).setTeam(join.team);
+				session.getPlayer(join.origin).ready = false;
 			}
 			else if(message instanceof ClientInit) {		// Only clients will get this
 				ClientInit init = (ClientInit)message;
-				session.getPlayerMap().putAll(init.players);
+				session = init.session;
 			}
 			else if(message instanceof QuitMessage) {
 				QuitMessage quit = (QuitMessage)message;
@@ -54,8 +55,14 @@ public class LobbyStage extends Stage {
 				chat.add(session.getPlayer(chatMsg.origin), chatMsg.text);
 			}
 			else if(message instanceof ReadyMessage) {
-				session.getPlayer(message.origin).ready = !session.getPlayer(message.origin).ready;
-				chat.add(session.getPlayer(message.origin), "Ready!");
+				if(session.getPlayer(message.origin).getTeam() == Player.TEAM_UNASSIGNED)
+					continue;
+				boolean ready = !session.getPlayer(message.origin).ready;
+				session.getPlayer(message.origin).ready = ready;
+				if(ready)
+					chat.add(session.getPlayer(message.origin), "Ready!");
+				else
+					chat.add(session.getPlayer(message.origin), "Not ready!");
 			}
 		}
 	}

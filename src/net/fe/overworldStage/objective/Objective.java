@@ -1,8 +1,10 @@
 package net.fe.overworldStage.objective;
 
+import java.io.Serializable;
+
 import net.fe.overworldStage.OverworldStage;
 
-public interface Objective {
+public interface Objective extends Serializable {
 	/**
 	 * Returns the client ID of the winner, 
 	 * or -1 if there is no winner

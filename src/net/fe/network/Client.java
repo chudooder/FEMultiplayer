@@ -66,7 +66,7 @@ public class Client {
 		if(message instanceof ClientInit) {
 			id = ((ClientInit)message).clientID;
 			FEMultiplayer.getLocalPlayer().setClientID(id);
-			if(id == 2) {
+			if(id >= 2) {
 				FEMultiplayer.getLocalPlayer().getParty().setColor(Party.TEAM_RED);
 			}
 			System.out.println("CLIENT: Recieved ID "+id+" from server");

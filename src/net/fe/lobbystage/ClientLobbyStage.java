@@ -8,6 +8,7 @@ import net.fe.Player;
 import net.fe.Session;
 import net.fe.builderStage.ClientWaitStage;
 import net.fe.builderStage.TeamBuilderStage;
+import net.fe.modifier.Modifier;
 import net.fe.network.Message;
 import net.fe.network.message.ReadyMessage;
 import net.fe.network.message.StartBuilding;
@@ -226,6 +227,14 @@ public class ClientLobbyStage extends LobbyStage {
 		Renderer.drawRectangle(x, y, x+84, y+74, 1.0f, NEUTRAL_DARK);
 		y = y + 75 + 16;
 		Renderer.drawString("default_med", "Game info", x, y-14, 0.9f);
+		Renderer.drawString("default_med", "Map: "+session.getMap(), x+2, y+2, 0.9f);
+		Renderer.drawString("default_med", "Objective: "+session.getObjective().getDescription(), x+2, y+16, 0.9f);
+		Renderer.drawString("default_med", "Modifiers: ", x+2, y+30, 0.9f);
+		int yy = 0;
+		for(Modifier m : session.getModifiers()) {
+			Renderer.drawString("default_med", "* "+m.getName(), x+20, y+44+yy*14, 0.9f);
+			yy++;
+		}
 		Renderer.drawRectangle(x, y, 474, 314, 1.0f, NEUTRAL_DARK);
 		
 		// Draw players in correct locations
@@ -235,7 +244,7 @@ public class ClientLobbyStage extends LobbyStage {
 		final int tightSpacing = 16;
 		for(Player p : session.getPlayers()) {
 			Transform t = new Transform();
-			if(p.getID() == FEMultiplayer.getClient().getID()) {
+			if(p.ready) {
 				t.setColor(new Color(90,200,90));
 			}
 			if(p.getTeam() == Player.TEAM_UNASSIGNED) {

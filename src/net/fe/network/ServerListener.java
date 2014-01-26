@@ -28,7 +28,7 @@ public class ServerListener extends Thread {
 			out.flush();
 			in = new ObjectInputStream(socket.getInputStream());
 			System.out.println("LISTENER: I/O streams initialized");
-			sendMessage(new ClientInit((byte) 0, main.getCount(), main.getSession().getPlayerMap()));
+			sendMessage(new ClientInit((byte) 0, main.getCount(), main.getSession()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

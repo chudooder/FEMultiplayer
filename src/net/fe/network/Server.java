@@ -6,6 +6,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import net.fe.Session;
+import net.fe.modifier.MadeInChina;
+import net.fe.overworldStage.objective.RoutTheEnemy;
 
 public class Server {
 	ServerSocket serverSocket;
@@ -19,6 +21,10 @@ public class Server {
 		messages = new ArrayList<Message>();
 		clients = new ArrayList<ServerListener>();
 		session = new Session();
+		session.setMap("town");
+		session.setMaxUnits(8);
+		session.setObjective(new RoutTheEnemy());
+		session.addModifier(new MadeInChina());
 	}
 	
 	public void start(int port) {

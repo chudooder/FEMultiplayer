@@ -1,15 +1,19 @@
 package net.fe;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.fe.modifier.MadeInChina;
 import net.fe.modifier.Modifier;
 import net.fe.overworldStage.objective.Objective;
 import net.fe.overworldStage.objective.RoutTheEnemy;
 
-public class Session {
+public class Session implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 696432583909698581L;
 	private HashMap<Byte, Player> players;
 	private Objective objective;
 	private String map;
@@ -19,10 +23,7 @@ public class Session {
 	public Session() {
 		players = new HashMap<Byte, Player>();
 		objective = new RoutTheEnemy();
-		map = "town";
-		maxUnits = 8;
 		modifiers = new HashSet<Modifier>();
-		modifiers.add(new MadeInChina());
 	}
 	
 	public void addPlayer(Player p) {
@@ -70,12 +71,24 @@ public class Session {
 		return map;
 	}
 	
-	public int maxUnits() {
+	public void setMap(String map) {
+		this.map = map;
+	}
+	
+	public int getMaxUnits() {
 		return maxUnits;
+	}
+	
+	public void setMaxUnits(int i) {
+		maxUnits = i;
 	}
 
 	public Set<Modifier> getModifiers() {
 		return modifiers;
+	}
+	
+	public void addModifier(Modifier m) {
+		modifiers.add(m);
 	}
 	
 	
