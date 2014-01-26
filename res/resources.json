@@ -183,7 +183,7 @@
 			"soundMap": [
 				{
 					"frame":	1,
-					"sound":	"lance_throw"
+					"sound":	"axe_throw"
 				},
 				{
 					"frame":	22,
@@ -209,7 +209,7 @@
 				},
 				{
 					"frame":	6,
-					"sound":	"lance_throw"
+					"sound":	"axe_throw"
 				},
 				{
 					"frame":	27,
@@ -757,7 +757,7 @@
 			"soundMap": [
 				{
 					"frame":	8,
-					"sound":	"lance_throw"
+					"sound":	"axe_throw"
 				},
 				{
 					"frame":	14,
@@ -816,7 +816,7 @@
 				},
 				{
 					"frame":	59,
-					"sound":	"lance_throw"
+					"sound":	"axe_throw"
 				},
 				{
 					"frame":	64,
@@ -855,7 +855,10 @@
 			"freeze":	-1,
 			"hitframes":[5],
 			"soundMap": [
-				
+				{
+					"frame": 3,
+					"sound": "axe_throw"
+				}
 			]
 		},
 		{
@@ -870,7 +873,14 @@
 			"freeze":	-1,
 			"hitframes":[25],
 			"soundMap": [
-				
+				{
+					"frame": 3,
+					"sound": "spin_short"
+				}
+				{
+					"frame": 9,
+					"sound": "axe_throw"
+				}
 			]
 		},
 		{
@@ -998,7 +1008,10 @@
 			"freeze":	0,
 			"hitframes":[5],
 			"soundMap": [
-				
+				{
+					"frame": 3,
+					"sound": "lance_throw"
+				}
 			]
 		},
 		{
@@ -1112,7 +1125,7 @@
 			"soundMap": [
 				{
 					"frame":	1,
-					"sound":	"lance_throw"
+					"sound":	"axe_throw"
 				},
 				{
 					"frame":	22,
@@ -1138,7 +1151,7 @@
 				},
 				{
 					"frame":	6,
-					"sound":	"lance_throw"
+					"sound":	"axe_throw"
 				},
 				{
 					"frame":	27,
@@ -1395,7 +1408,7 @@
 				},
 				{
 					"frame":	4,
-					"sound":	"lance_throw"
+					"sound":	"axe_throw"
 				},
 				{
 					"frame":	2,
@@ -1425,7 +1438,7 @@
 				},
 				{
 					"frame":	7,
-					"sound":	"lance_throw"
+					"sound":	"axe_throw"
 				},
 				{
 					"frame":	28,
@@ -2183,7 +2196,10 @@
 			"freeze":	8,
 			"hitframes":[38],
 			"soundMap": [
-				
+				{
+					"frame":	2,
+					"sound":	"rune3"
+				}
 			]
 		},
 		{
@@ -2313,7 +2329,11 @@
 			"freeze":	0,
 			"hitframes":[13],
 			"soundMap": [
-				
+				{
+					"frame": 5,
+					"sound":"magic_charge3"
+				}
+
 			]
 		},
 		{
@@ -2622,7 +2642,7 @@
 				},
 				{
 					"frame": 8,
-					"sound":"lance_throw"
+					"sound":"axe_throw"
 				},
 				{
 					"frame": 30,
@@ -2648,7 +2668,7 @@
 				},
 				{
 					"frame": 10,
-					"sound":"lance_throw"
+					"sound":"axe_throw"
 				},
 				{
 					"frame": 32,
@@ -2681,7 +2701,7 @@
 			"soundMap": [
 				{
 					"frame":	3,
-					"sound":	"magic_charge"
+					"sound":	"magic_charge2"
 				}
 			]
 		},
@@ -2699,15 +2719,7 @@
 			"soundMap": [
 				{
 					"frame":	3,
-					"sound":	"magic_charge"
-				}
-				{
-					"frame":	8,
-					"sound":	"magic_charge"
-				}
-				{
-					"frame":	13,
-					"sound":	"magic_charge"
+					"sound":	"magic_charge3"
 				}
 			]
 		},
@@ -2911,7 +2923,10 @@
 			"speed":	0.03,
 			"hitframes": [16],
 			"soundMap": [
-				
+				{
+					"frame":16,
+					"sound":"lightning"
+				}
 			]
 		},
 		{
@@ -3054,7 +3069,10 @@
 			"offsetY":	104,
 			"freeze":	-1,
 			"soundMap": [
-				
+				{
+					"frame": 1,
+					"sound": "fire_charge"
+				}
 			]
 		},
 		{
@@ -3079,7 +3097,10 @@
 			"offsetY":	110,
 			"freeze":	-1,
 			"soundMap": [
-				
+				{
+					"frame": 1,
+					"sound": "fire"
+				}
 			]
 		},
 		{
@@ -3093,7 +3114,10 @@
 			"offsetY":	104,
 			"freeze":	-1,
 			"soundMap": [
-				
+				{
+					"frame": 1,
+					"sound": "fire_charge"
+				}
 			]
 		},
 		{
@@ -3180,7 +3204,10 @@
 			"offsetY":	104,
 			"freeze":	-1,
 			"soundMap":[
-
+				{
+					"frame":0,
+					"sound":"gale"
+				},
 			]
 		},
 		{
@@ -3208,7 +3235,10 @@
 			"shakeFrames": 16,
 			"shakeIntensity": 12,
 			"soundMap": [
-				
+				{
+					"frame":11,
+					"sound":"wind"
+				}
 			]
 		},
 		{
