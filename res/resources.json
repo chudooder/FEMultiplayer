@@ -94,6 +94,52 @@
 			]
 		},
 		{
+			"name":		"assassin_sword_lethality",
+			"path":		"res/battle_anim/assassin_sword_critical.png",
+			"width":	123,
+			"height":	108,
+			"frames":	61,
+			"columns":	8,
+			"offsetX":	101,
+			"offsetY":	96,
+			"freeze":	0,
+			"hitframes":[39],
+			"soundMap": [
+				{
+					"frame":	4,
+					"sound":	"sword_swipe1"
+				},
+				{
+					"frame":	8,
+					"sound":	"spin_short"
+				},
+				{
+					"frame":	13,
+					"sound":	"clink"
+				},
+				{
+					"frame":	28,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	32,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	36,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	44,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	53,
+					"sound":	"cape"
+				},
+			]
+		},
+		{
 			"name":		"assassin_sword_dodge",
 			"path":		"res/battle_anim/assassin_sword_dodge.png",
 			"width":	33,
@@ -2912,7 +2958,28 @@
 					"sound": "colossus"
 				}
 			]
-		}
+		},
+		{
+			"name":		"hit_effect_lethality",
+			"path":		"res/battle_anim/hit_effect_lethality.png",
+			"width":	242,
+			"height":	162,
+			"frames":	9,
+			"columns":	4,
+			"offsetX":	88,
+			"offsetY": 	104,
+			"freeze":	-1,
+			"soundMap": [
+				{
+					"frame": 0,
+					"sound": "hit_crit"
+				},
+				{
+					"frame": 4,
+					"sound": "hit_crit"
+				}
+			]
+		},
 		{
 			"name":		"miss",
 			"path":		"res/battle_anim/miss.png",
