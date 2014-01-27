@@ -71,7 +71,7 @@ public class FEMultiplayer extends Game{
 		
 		UnitFactory.getUnit("Lyn");
 		connect = new ConnectStage();
-		currentStage = new TitleStage();
+		setCurrentStage(new TitleStage());
 		messages = new ArrayList<Message>();
 		SoundTrack.loop("main_theme");
 		
@@ -96,6 +96,7 @@ public class FEMultiplayer extends Game{
 		p1.getParty().addUnit(u1);
 		
 		Unit u2 = UnitFactory.getUnit("Eliwood");
+		System.out.println(u2);
 //		u2.addToInventory(WeaponFactory.getWeapon("Excalibur"));
 		grid.addUnit(u2, 1, 0);
 		u2.equip(0);
@@ -105,7 +106,7 @@ public class FEMultiplayer extends Game{
 		System.out.println(calc.getAttackQueue());
 		u1.fillHp();
 		u2.fillHp();
-		currentStage = new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue());
+		setCurrentStage(new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue()));
 	}
 	
 	public static Unit getUnit(UnitIdentifier id){
