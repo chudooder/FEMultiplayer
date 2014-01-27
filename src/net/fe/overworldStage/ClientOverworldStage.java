@@ -1,13 +1,10 @@
 package net.fe.overworldStage;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -16,11 +13,10 @@ import net.fe.FEMultiplayer;
 import net.fe.Party;
 import net.fe.Player;
 import net.fe.RunesBg;
+import net.fe.Session;
 import net.fe.editor.Level;
 import net.fe.editor.SpawnPoint;
-import net.fe.network.Chat;
 import net.fe.network.Message;
-import net.fe.network.message.ChatMessage;
 import net.fe.network.message.CommandMessage;
 import net.fe.network.message.EndGame;
 import net.fe.network.message.EndTurn;
@@ -59,8 +55,8 @@ public class ClientOverworldStage extends OverworldStage {
 	public static final float MENU_DEPTH = 0.2f;
 	public static final float CURSOR_DEPTH = 0.15f;
 
-	public ClientOverworldStage(String levelName, ArrayList<Player> players) {
-		super(levelName, players);
+	public ClientOverworldStage(Session s) {
+		super(s);
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
 		unitInfo = new UnitInfo();
@@ -124,7 +120,7 @@ public class ClientOverworldStage extends OverworldStage {
 		for(Message message : Game.getMessages()) {
 			if(message instanceof EndGame) {
 				String winnerName = getPlayerByID(((EndGame)message).winner).getName();
-				addEntity(new OverworldEndTransition(new EndGameStage(players), winnerName));
+				addEntity(new OverworldEndTransition(new EndGameStage(session), winnerName));
 			}
 		}
 		for (Entity e : entities) {
@@ -210,7 +206,7 @@ public class ClientOverworldStage extends OverworldStage {
 		super.doEndTurn(playerID);
 		context.cleanUp();
 		// reset assists
-		for(Player p : players) {
+		for(Player p : session.getPlayers()) {
 			for(Unit u : p.getParty()) {
 				u.getAssisters().clear();
 			}
@@ -380,7 +376,7 @@ public class ClientOverworldStage extends OverworldStage {
             
             // Add units
             Set<SpawnPoint> spawns = level.spawns;
-            for(Player p : players) {
+            for(Player p : session.getPlayers()) {
             	Color team = p.getParty().getColor();
     			for(int i=0; i<p.getParty().size(); i++) {
     				SpawnPoint remove = null;

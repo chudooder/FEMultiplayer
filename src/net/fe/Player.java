@@ -53,7 +53,7 @@ public class Player implements Serializable {
 	}
 
 	public void joinTeam(int team) {
-		FEMultiplayer.getClient().sendMessage(new JoinTeam(clientID, team));		
+		FEMultiplayer.getClient().sendMessage(new JoinTeam(clientID, team));
 	}
 	
 	public boolean equals(Player p) {

@@ -1,27 +1,24 @@
 package net.fe.builderStage;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import net.fe.Button;
+import net.fe.FEMultiplayer;
+import net.fe.RunesBg;
+import net.fe.Session;
+import net.fe.fightStage.FightStage;
+import net.fe.overworldStage.InventoryMenu;
+import net.fe.overworldStage.UnitInfo;
+import net.fe.unit.HealingItem;
+import net.fe.unit.Item;
+import net.fe.unit.MapAnimation;
+import net.fe.unit.Unit;
+import net.fe.unit.Weapon;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
-import net.fe.Button;
-import net.fe.FEMultiplayer;
-import net.fe.FEResources;
-import net.fe.RunesBg;
-import net.fe.fightStage.FightStage;
-import net.fe.overworldStage.InventoryMenu;
-import net.fe.overworldStage.ItemMenu;
-import net.fe.overworldStage.UnitInfo;
-import net.fe.unit.HealingItem;
-import net.fe.unit.Item;
-import net.fe.unit.ItemDisplay;
-import net.fe.unit.MapAnimation;
-import net.fe.unit.Unit;
-import net.fe.unit.Weapon;
-import net.fe.unit.WeaponFactory;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
@@ -43,7 +40,7 @@ public class UnitBuilderStage extends Stage {
 	INVENTORY_X = 30, INVENTORY_Y = 115, SHOP_X = 335, SHOP_Y = 20, 
 	LEVEL_X = 175, LEVEL_Y = 115;
 	
-	public UnitBuilderStage(Unit u, TeamBuilderStage s){
+	public UnitBuilderStage(Unit u, TeamBuilderStage s, Session session){
 		super("preparations");
 		addEntity(new RunesBg(new Color(0xd2b48c)));
 		back = s;
@@ -59,7 +56,7 @@ public class UnitBuilderStage extends Stage {
 		ui.setUnit(u);
 		addEntity(ui);
 		
-		shop = new ShopMenu(SHOP_X, SHOP_Y);
+		shop = new ShopMenu(SHOP_X, SHOP_Y, session);
 		shop.clearSelection();
 		
 		addEntity(shop);
@@ -421,6 +418,10 @@ public class UnitBuilderStage extends Stage {
 			renderItem(shop.getItem());
 		}
 		
+	}
+
+	public Session getSession() {
+		return back.getSession();
 	}
 	
 

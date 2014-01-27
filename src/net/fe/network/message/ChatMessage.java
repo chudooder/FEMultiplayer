@@ -6,7 +6,7 @@ public class ChatMessage extends Message {
 
 	private static final long serialVersionUID = -386437094794678483L;
 	public String text;
-	public ChatMessage(int origin, String text) {
+	public ChatMessage(byte origin, String text) {
 		super(origin);
 		this.text = text;
 	}

@@ -96,7 +96,6 @@ public class Grid{
 		start.g = 0;
 		start.f = heuristic(start, goal);
 		open.add(start);
-		System.out.println("-------------");
 		while (!open.isEmpty()) {
 			// get node in open with best f score
 			Node cur = null;
@@ -105,7 +104,6 @@ public class Grid{
 					cur = n;
 				}
 			}
-			System.out.println("Current: ("+cur.x + ","+cur.y+")");
 
 			if (cur.equals(goal)) {
 				return getPath(cur);
@@ -126,11 +124,9 @@ public class Grid{
 				if (closed.contains(n) && f >= n.f) {
 					continue;
 				} else if (!open.contains(n) || f < n.f) {
-//					System.out.println("("+n.x + ","+n.y+"): f="+f+" g="+g+" from ("+cur.x + ","+cur.y+")");
 					if (g > move){
 						continue;
 					}
-					System.out.println("Added ("+n.x + ","+n.y+"): f="+f+" g="+g+" from ("+cur.x + ","+cur.y+")");
 					n.parent = cur;
 					n.g = g;
 					n.f = f;

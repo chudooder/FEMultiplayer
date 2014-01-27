@@ -2,7 +2,6 @@ package net.fe.fightStage.anim;
 
 import net.fe.fightStage.FightStage;
 import chu.engine.AnimationData;
-import chu.engine.anim.AudioPlayer;
 
 public class ProjectileAttack extends AttackAnimation{
 	private boolean ididit;

@@ -2,7 +2,7 @@ package net.fe.builderStage;
 
 import net.fe.FEMultiplayer;
 import net.fe.Player;
-import net.fe.network.FEServer;
+import net.fe.Session;
 import net.fe.network.Message;
 import net.fe.network.message.PartyMessage;
 import net.fe.network.message.StartGame;
@@ -13,16 +13,22 @@ import chu.engine.anim.Renderer;
 
 public class ClientWaitStage extends WaitStage {
 	
+	private boolean start;
+	
+	public ClientWaitStage(Session s) {
+		super(s);
+		start = false;
+	}
+	
 	protected void init() {
 		
 	}
 	
 	public void beginStep() {
-		boolean start = false;
 		for(Message message : Game.getMessages()) {
 			if(message instanceof PartyMessage) {
 				PartyMessage pm = (PartyMessage)message;
-				for(Player p : FEMultiplayer.players){ 
+				for(Player p : session.getPlayers()){ 
 					if(p.getID() == message.origin) {
 						p.getParty().clear();
 						for(Unit u : pm.teamData)
@@ -30,23 +36,22 @@ public class ClientWaitStage extends WaitStage {
 					}
 				}
 			}
-			else if(message instanceof StartGame) {
+			if(message instanceof StartGame) {
 				start = true;
 			}
-		}
-		if(start) {
-			for(Player p : FEMultiplayer.players) {
-				for(Unit u : p.getParty()) {
-					u.initializeEquipment();
-				}
-			}
-			FEMultiplayer.map = new ClientOverworldStage("town", FEMultiplayer.players);
-			FEMultiplayer.setCurrentStage(FEMultiplayer.map);
 		}
 	}
 	
 	public void endStep() {
-		
+		if(start) {
+			for(Player p : session.getPlayers()) {
+				for(Unit u : p.getParty()) {
+					u.initializeEquipment();
+				}
+			}
+			FEMultiplayer.map = new ClientOverworldStage(session);
+			FEMultiplayer.setCurrentStage(FEMultiplayer.map);
+		}
 	}
 
 	public void render() {

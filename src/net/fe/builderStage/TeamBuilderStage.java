@@ -1,32 +1,28 @@
 package net.fe.builderStage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.*;
-
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.Color;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import net.fe.Button;
 import net.fe.FEMultiplayer;
 import net.fe.RunesBg;
+import net.fe.Session;
 import net.fe.fightStage.FightStage;
+import net.fe.modifier.Modifier;
 import net.fe.network.message.PartyMessage;
 import net.fe.unit.Item;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
-import net.fe.unit.UnitFactory;
 import net.fe.unit.UnitIcon;
 import net.fe.unit.Weapon;
+
+import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.Color;
+
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
@@ -45,22 +41,24 @@ public class TeamBuilderStage extends Stage {
 	private Button end, save, load, back;
 	private Button[] buttons;
 	private int currButton;
+	private Session session;
 	private boolean control = true;
 	
 	//CONFIG
 	private static int name = 30, clazz = 100, lv = 170, hgap = 30; //xvals
 	private static int yStart = 40, vgap = 20, table_ystart = 10;
-	private static int FUNDS = 48000, EXP = 84000;
+	public static int FUNDS = 48000;
+	public static int EXP = 84000;
 	
 	
 	
-	public TeamBuilderStage(boolean toMainMenu) {
+	public TeamBuilderStage(boolean toMainMenu, Session s) {
 		super("preparations");
 		repeatTimers = new float[4];
 		addEntity(new RunesBg(new Color(0xd2b48c)));
-		select = new TeamSelectionStage(this);
+		select = new TeamSelectionStage(this, s);
 		units = select.getSelectedUnits();
-		
+		session = s;
 		buttons = new Button[4];
 		
 		if(!toMainMenu) {
@@ -68,7 +66,7 @@ public class TeamBuilderStage extends Stage {
 				@Override
 				public void execute() {
 					// Send the server a PartyMessage
-					FEMultiplayer.setCurrentStage(new ClientWaitStage());
+					FEMultiplayer.setCurrentStage(new ClientWaitStage(session));
 					PartyMessage pm = new PartyMessage(units);
 					FEMultiplayer.getClient().sendMessage(pm);
 				}
@@ -129,6 +127,10 @@ public class TeamBuilderStage extends Stage {
 			addEntity(new UnitIcon(u, 10, y-2, d));
 			y+=vgap;
 			d-=0.001f;
+		}
+		
+		for(Modifier m : getSession().getModifiers()) {
+			m.modifyTeam(this);
 		}
 	}
 	
@@ -254,7 +256,7 @@ public class TeamBuilderStage extends Stage {
 					if(ke.key == Keyboard.KEY_Z) {
 						AudioPlayer.playAudio("select", 1, 1);
 						if(cursor.on){
-							FEMultiplayer.setCurrentStage(new UnitBuilderStage(units.get(cursor.getIndex()), this));
+							FEMultiplayer.setCurrentStage(new UnitBuilderStage(units.get(cursor.getIndex()), this, session));
 						} else {
 							buttons[currButton].setHover(false);
 							buttons[currButton].execute();
@@ -395,6 +397,12 @@ public class TeamBuilderStage extends Stage {
 
 	public void setControl(boolean control) {
 		this.control = control;
+	}
+
+
+
+	public Session getSession() {
+		return session;
 	}
 }
 

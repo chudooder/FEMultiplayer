@@ -1,16 +1,10 @@
 package net.fe.overworldStage;
 import net.fe.FEResources;
-import chu.engine.Game;
 import chu.engine.GriddedEntity;
 import chu.engine.anim.Animation;
 
 public class Cursor extends GriddedEntity  implements DoNotDestroy{
-	private float time;
 	private boolean on;
-	private float rx;
-	private float ry;
-	
-	private static final float SPEED = 1000f;
 	public Cursor(int xx, int yy) {
 		super(xx, yy);
 		sprite.addAnimation("default", new Animation(FEResources.getTexture("cursor"),

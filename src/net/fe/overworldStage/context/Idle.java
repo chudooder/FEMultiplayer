@@ -1,12 +1,11 @@
 package net.fe.overworldStage.context;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-import chu.engine.anim.AudioPlayer;
 import net.fe.Player;
-import net.fe.overworldStage.*;
+import net.fe.overworldStage.ClientOverworldStage;
+import net.fe.overworldStage.CursorContext;
+import net.fe.overworldStage.Zone;
 import net.fe.unit.Unit;
+import chu.engine.anim.AudioPlayer;
 
 public class Idle extends CursorContext {
 	private Player player;

@@ -3,23 +3,15 @@ package net.fe.network;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import net.fe.FEMultiplayer;
 import net.fe.Party;
-import net.fe.Player;
-import net.fe.builderStage.ClientWaitStage;
-import net.fe.builderStage.TeamBuilderStage;
-import net.fe.lobbystage.LobbyStage;
+import net.fe.Session;
 import net.fe.network.message.ClientInit;
 import net.fe.network.message.JoinLobby;
 import net.fe.network.message.QuitMessage;
-import net.fe.network.message.StartBuilding;
-import net.fe.network.message.StartGame;
-import net.fe.overworldStage.ClientOverworldStage;
 
 public class Client {
 	
@@ -27,6 +19,7 @@ public class Client {
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private Thread serverIn;
+	private Session session;
 	private boolean open = true;
 	private boolean closeRequested = false;
 	byte id;
@@ -34,6 +27,7 @@ public class Client {
 	
 	public Client(String ip, int port) {
 		messages = new ArrayList<Message>();
+		session = new Session();
 		try {
 			System.out.println("CLIENT: Connecting to server: "+ip+":"+port);
 			serverSocket = new Socket(ip, port);
@@ -72,7 +66,7 @@ public class Client {
 		if(message instanceof ClientInit) {
 			id = ((ClientInit)message).clientID;
 			FEMultiplayer.getLocalPlayer().setClientID(id);
-			if(id == 2) {
+			if(id >= 2) {
 				FEMultiplayer.getLocalPlayer().getParty().setColor(Party.TEAM_RED);
 			}
 			System.out.println("CLIENT: Recieved ID "+id+" from server");
@@ -81,27 +75,6 @@ public class Client {
 		} else if (message instanceof QuitMessage) {
 			if(message.origin == id && closeRequested) {
 				close();
-			}
-		} else if(message instanceof StartBuilding) {
-			HashMap<Integer, Player> players = 
-					((LobbyStage)FEMultiplayer.getCurrentStage()).players;
-			// Set up global list of players
-			FEMultiplayer.players.clear();
-			ArrayList<Player> ans = new ArrayList<Player>();
-			for(Player p : players.values()) {
-				if(p.equals(FEMultiplayer.getLocalPlayer()))
-					FEMultiplayer.setLocalPlayer(p);
-				if(p.isSpectator())
-					p.getParty().clear();
-				ans.add(p);
-			}
-			FEMultiplayer.players.addAll(ans);
-			if(!FEMultiplayer.getLocalPlayer().isSpectator()) {
-				TeamBuilderStage stage = new TeamBuilderStage(false);
-				FEMultiplayer.setCurrentStage(stage);
-			} else {
-				ClientWaitStage stage = new ClientWaitStage();
-				FEMultiplayer.setCurrentStage(stage);
 			}
 		}
 		messages.add(message);
@@ -144,5 +117,9 @@ public class Client {
 
 	public byte getID() {
 		return id;
+	}
+
+	public Session getSession() {
+		return session;
 	}
 }

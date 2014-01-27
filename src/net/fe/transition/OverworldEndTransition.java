@@ -1,10 +1,9 @@
 package net.fe.transition;
 
-import chu.engine.Game;
-import chu.engine.Stage;
-import chu.engine.anim.Renderer;
 import net.fe.Transition;
 import net.fe.overworldStage.EndGameStage;
+import chu.engine.Game;
+import chu.engine.anim.Renderer;
 
 public class OverworldEndTransition extends Transition{
 	

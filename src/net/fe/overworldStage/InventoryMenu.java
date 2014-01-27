@@ -2,8 +2,9 @@ package net.fe.overworldStage;
 
 import java.util.Iterator;
 
-import chu.engine.anim.Renderer;
-import net.fe.unit.*;
+import net.fe.unit.Item;
+import net.fe.unit.ItemDisplay;
+import net.fe.unit.Unit;
 
 public class InventoryMenu extends ItemMenu {
 	private Unit unit;

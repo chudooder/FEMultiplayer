@@ -12,10 +12,10 @@ import net.fe.fightStage.anim.BackgroundEffect;
 import net.fe.fightStage.anim.DodgeAnimation;
 import net.fe.fightStage.anim.HUD;
 import net.fe.fightStage.anim.HitEffect;
-import net.fe.fightStage.anim.NoDamageEffect;
-import net.fe.fightStage.anim.SkillIndicator;
 import net.fe.fightStage.anim.MissEffect;
+import net.fe.fightStage.anim.NoDamageEffect;
 import net.fe.fightStage.anim.Platform;
+import net.fe.fightStage.anim.SkillIndicator;
 import net.fe.overworldStage.Grid;
 import net.fe.transition.FightOverworldTransition;
 import net.fe.unit.Unit;
@@ -30,7 +30,6 @@ import chu.engine.SortByRender;
 import chu.engine.Stage;
 import chu.engine.anim.Animation;
 import chu.engine.anim.AudioPlayer;
-import chu.engine.anim.Camera;
 import chu.engine.anim.Renderer;
 
 public class FightStage extends Stage {

@@ -1,16 +1,15 @@
 package net.fe.overworldStage;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.Color;
 
 import net.fe.FEMultiplayer;
 import net.fe.FEResources;
 import net.fe.network.Chat;
 import net.fe.network.message.ChatMessage;
-import chu.engine.Entity;
+
+import org.lwjgl.input.Keyboard;
+import org.newdawn.slick.Color;
+
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
 import chu.engine.anim.BitmapFont;

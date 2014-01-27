@@ -1,13 +1,8 @@
 package net.fe;
 
-import java.awt.Font;
-import java.awt.FontFormatException;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 import org.json.simple.JSONArray;
@@ -15,14 +10,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureImpl;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
-import org.newdawn.slick.opengl.renderer.Renderer;
 
 import chu.engine.AnimationData;
 import chu.engine.anim.BitmapFont;
@@ -247,28 +239,6 @@ public class FEResources {
 				}
 			}
 			return textures.get("whoops");
-		}
-	}
-	
-	public static TrueTypeFont createFont(String name, int type, int size) {
-		Font awtfont = new Font(name, type, size);
-		return new TrueTypeFont(awtfont, false);
-	}
-	
-	public static TrueTypeFont createFontFromFile(String name, int size) {
-		try {
-			Font awtfont = Font.createFont(Font.TRUETYPE_FONT, ResourceLoader.getResourceAsStream("res/"+name+".ttf"));
-			awtfont = awtfont.deriveFont(Font.TRUETYPE_FONT, size);
-			TrueTypeFont ttf = new TrueTypeFont(awtfont, false);
-			return ttf;
-		} catch (FontFormatException e) {
-			System.err.println("Font "+name+" could not be created!");
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
-			System.err.println("Font "+name+" could not be found!");
-			e.printStackTrace();
-			return null;
 		}
 	}
 

@@ -4,22 +4,27 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import chu.engine.Stage;
-import net.fe.Player;
-import net.fe.lobbystage.LobbyStage;
+import net.fe.Session;
+import net.fe.modifier.MadeInChina;
+import net.fe.overworldStage.objective.RoutTheEnemy;
 
 public class Server {
 	ServerSocket serverSocket;
 	boolean closeRequested = false;
 	volatile ArrayList<ServerListener> clients;
 	public volatile ArrayList<Message> messages;
+	private Session session;
 	byte counter = 1;
 	
 	public Server() {
 		messages = new ArrayList<Message>();
 		clients = new ArrayList<ServerListener>();
+		session = new Session();
+		session.setMap("town");
+		session.setMaxUnits(8);
+		session.setObjective(new RoutTheEnemy());
+		session.addModifier(new MadeInChina());
 	}
 	
 	public void start(int port) {
@@ -63,12 +68,7 @@ public class Server {
 		return counter;
 	}
 
-	public HashMap<Integer, Player> getPlayers() {
-		Stage stage = FEServer.getCurrentStage();
-		if(stage instanceof LobbyStage) {
-			return ((LobbyStage)stage).players;
-		} else {
-			return null;
-		}
+	public Session getSession() {
+		return session;
 	}
 }

@@ -5,6 +5,11 @@ import net.fe.unit.Unit;
 
 public class Pavise extends CombatTrigger {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5629273200054077795L;
+
 	public Pavise() {
 		super(APPEND_NAME_AFTER_MOD, ENEMY_TURN_MOD);
 	}

@@ -1,17 +1,21 @@
 package net.fe.builderStage;
 
+import net.fe.FEResources;
+import net.fe.Session;
+import net.fe.modifier.Modifier;
+import net.fe.overworldStage.ItemMenu;
+import net.fe.unit.HealingItem;
+import net.fe.unit.Item;
+import net.fe.unit.ItemDisplay;
+import net.fe.unit.Weapon;
+import net.fe.unit.WeaponFactory;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import net.fe.FEResources;
-import net.fe.fightStage.FightStage;
-import net.fe.overworldStage.*;
-import net.fe.unit.*;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.anim.Renderer;
-import chu.engine.anim.Transform;
-import static net.fe.unit.Weapon.Type.*;
 
 public class ShopMenu extends Entity {
 	private ItemMenu[] shops;
@@ -22,7 +26,7 @@ public class ShopMenu extends Entity {
 	
 	public static final int HEIGHT = 200;
 	public static final int WIDTH = 135;
-	public ShopMenu(float x, float y) {
+	public ShopMenu(float x, float y, Session s) {
 		super(x, y);
 		shops = new ItemMenu[9];
 		shopIcons = new Texture[9];
@@ -53,6 +57,10 @@ public class ShopMenu extends Entity {
 		
 		for(ItemMenu shop: shops){
 			shop.sortItems();
+		}
+		
+		for(Modifier m : s.getModifiers()) {
+			m.modifyShop(this);
 		}
 	}
 	
@@ -128,6 +136,10 @@ public class ShopMenu extends Entity {
 		for(ItemMenu shop: shops){
 			shop.restoreSelection();
 		}
+	}
+	
+	public ItemMenu[] getShops() {
+		return shops;
 	}
 
 }

@@ -5,11 +5,11 @@ import java.io.Serializable;
 public abstract class Message implements Serializable {
 	
 	private static final long serialVersionUID = 8838417404744137405L;
-	public int origin;
+	public byte origin;
 	public Message() {
 		
 	}
-	public Message(int origin) {
+	public Message(byte origin) {
 		this.origin = origin;
 	}
 }

@@ -6,7 +6,7 @@ public class StartBuilding extends Message {
 
 	private static final long serialVersionUID = -5415437475972737171L;
 
-	public StartBuilding(int origin) {
+	public StartBuilding(byte origin) {
 		super(origin);
 	}
 

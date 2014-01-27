@@ -1,26 +1,22 @@
 package net.fe.lobbystage;
 
-import static net.fe.fightStage.FightStage.NEUTRAL;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import net.fe.FEMultiplayer;
 import net.fe.FEResources;
 import net.fe.Player;
-import net.fe.network.Chat;
+import net.fe.Session;
+import net.fe.builderStage.ClientWaitStage;
+import net.fe.builderStage.TeamBuilderStage;
+import net.fe.modifier.Modifier;
 import net.fe.network.Message;
-import net.fe.network.message.JoinLobby;
-import net.fe.network.message.QuitMessage;
 import net.fe.network.message.ReadyMessage;
-import net.fe.overworldStage.ClientOverworldStage;
-import net.fe.unit.Unit;
+import net.fe.network.message.StartBuilding;
 
 import org.newdawn.slick.Color;
 
 import chu.engine.Entity;
 import chu.engine.Game;
-import chu.engine.Stage;
 import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Transform;
@@ -40,8 +36,8 @@ public class ClientLobbyStage extends LobbyStage {
 	
 	private LobbyChatBox chatInput;
 	
-	public ClientLobbyStage() {
-		super();
+	public ClientLobbyStage(Session session) {
+		super(session);
 		chatInput = new LobbyChatBox();
 		MenuButton spectateButton = new MenuButton(409, 22, 64, 32) {
 			{
@@ -165,6 +161,24 @@ public class ClientLobbyStage extends LobbyStage {
 		for(Entity e : entities) {
 			e.beginStep();
 		}
+		for(Message message : Game.getMessages()) {
+			if(message instanceof StartBuilding) {
+				// Set up global list of players
+				for(Player p : FEMultiplayer.getPlayers().values()) {
+					if(p.equals(FEMultiplayer.getLocalPlayer()))
+						FEMultiplayer.setLocalPlayer(p);
+					if(p.isSpectator())
+						p.getParty().clear();
+				}
+				if(!FEMultiplayer.getLocalPlayer().isSpectator()) {
+					TeamBuilderStage stage = new TeamBuilderStage(false, session);
+					FEMultiplayer.setCurrentStage(stage);
+				} else {
+					ClientWaitStage stage = new ClientWaitStage(session);
+					FEMultiplayer.setCurrentStage(stage);
+				}
+			}
+		}
 		processAddStack();
 		processRemoveStack();
 	}
@@ -213,6 +227,14 @@ public class ClientLobbyStage extends LobbyStage {
 		Renderer.drawRectangle(x, y, x+84, y+74, 1.0f, NEUTRAL_DARK);
 		y = y + 75 + 16;
 		Renderer.drawString("default_med", "Game info", x, y-14, 0.9f);
+		Renderer.drawString("default_med", "Map: "+session.getMap(), x+2, y+2, 0.9f);
+		Renderer.drawString("default_med", "Objective: "+session.getObjective().getDescription(), x+2, y+16, 0.9f);
+		Renderer.drawString("default_med", "Modifiers: ", x+2, y+30, 0.9f);
+		int yy = 0;
+		for(Modifier m : session.getModifiers()) {
+			Renderer.drawString("default_med", "* "+m.getName(), x+20, y+44+yy*14, 0.9f);
+			yy++;
+		}
 		Renderer.drawRectangle(x, y, 474, 314, 1.0f, NEUTRAL_DARK);
 		
 		// Draw players in correct locations
@@ -220,10 +242,9 @@ public class ClientLobbyStage extends LobbyStage {
 		int b = 0;
 		int c = 0;
 		final int tightSpacing = 16;
-		final int wideSpacing = 24;
-		for(Player p : players.values()) {
+		for(Player p : session.getPlayers()) {
 			Transform t = new Transform();
-			if(p.getID() == FEMultiplayer.getClient().getID()) {
+			if(p.ready) {
 				t.setColor(new Color(90,200,90));
 			}
 			if(p.getTeam() == Player.TEAM_UNASSIGNED) {

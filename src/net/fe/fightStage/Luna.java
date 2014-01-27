@@ -4,6 +4,10 @@ import net.fe.RNG;
 import net.fe.unit.Unit;
 
 public class Luna extends CombatTrigger {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6539654970701395612L;
 	private transient boolean ranged;
 	public Luna(boolean rangeok){
 		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE);
