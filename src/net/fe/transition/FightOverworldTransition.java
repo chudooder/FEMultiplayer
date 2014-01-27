@@ -38,10 +38,10 @@ public class FightOverworldTransition extends Transition {
 		renderDepth = 0.0f;
 		triAlpha = 0f;
 		fightAlpha = 0.0f;
-		float x0 = a.getXCoord();
-		float y0 = a.getYCoord();
-		float x1 = b.getXCoord();
-		float y1 = b.getYCoord();
+		float x0 = a.getXCoord() - to.camX/16;
+		float y0 = a.getYCoord() - to.camY/16;
+		float x1 = b.getXCoord() - to.camX/16;
+		float y1 = b.getYCoord() - to.camY/16;
 		int range = Grid.getDistance(a, b);
 		float[] destX= new float[] {x0, x0+1, x0+1, x0, x1, x1+1, x1+1, x1};
 		float[] destY = new float[] {y0, y0, y0+1, y0+1, y1, y1, y1+1, y1+1};

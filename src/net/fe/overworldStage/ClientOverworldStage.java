@@ -47,6 +47,11 @@ public class ClientOverworldStage extends OverworldStage {
 	private Unit selectedUnit;
 	protected ArrayList<Object> currentCmdString;
 	
+	public int camX;
+	public int camY;
+	public int camMaxX;
+	public int camMaxY;
+	
 	public static final float TILE_DEPTH = 0.95f;
 	public static final float ZONE_DEPTH = 0.9f;
 	public static final float PATH_DEPTH = 0.8f;
@@ -57,6 +62,9 @@ public class ClientOverworldStage extends OverworldStage {
 
 	public ClientOverworldStage(Session s) {
 		super(s);
+		camX = camY = 0;
+		camMaxX = grid.width*16-368;
+		camMaxY = grid.height*16-240;
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
 		unitInfo = new UnitInfo();
@@ -131,19 +139,19 @@ public class ClientOverworldStage extends OverworldStage {
 			List<KeyboardEvent> keys = Game.getKeys();
 			if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {
 				context.onUp();
-				repeatTimers[0] = 0.15f;
+				repeatTimers[0] = 0.12f;
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) && repeatTimers[1] == 0) {
 				context.onDown();
-				repeatTimers[1] = 0.15f;
+				repeatTimers[1] = 0.12f;
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) && repeatTimers[2] == 0) {
 				context.onLeft();
-				repeatTimers[2] = 0.15f;
+				repeatTimers[2] = 0.12f;
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) && repeatTimers[3] == 0) {
 				context.onRight();
-				repeatTimers[3] = 0.15f;
+				repeatTimers[3] = 0.12f;
 			}
 			for(KeyboardEvent ke : keys) {
 				if(ke.state) {

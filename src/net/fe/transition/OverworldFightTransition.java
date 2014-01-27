@@ -37,10 +37,10 @@ public class OverworldFightTransition extends Transition {
 		fightAlpha = 0.0f;
 		Unit a = FEMultiplayer.getUnit(u1);
 		Unit b = FEMultiplayer.getUnit(u2);
-		float x0 = a.getXCoord();
-		float y0 = a.getYCoord();
-		float x1 = b.getXCoord();
-		float y1 = b.getYCoord();
+		float x0 = a.getXCoord() - from.camX/16;
+		float y0 = a.getYCoord() - from.camY/16;
+		float x1 = b.getXCoord() - from.camX/16;
+		float y1 = b.getYCoord() - from.camY/16;
 		int range = Grid.getDistance(a, b);
 		x = new float[] {x0, x0+1, x0+1, x0, x1, x1+1, x1+1, x1};
 		y = new float[] {y0, y0, y0+1, y0+1, y1, y1, y1+1, y1+1};

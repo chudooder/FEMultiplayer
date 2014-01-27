@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import net.fe.FEResources;
 import chu.engine.Entity;
 import chu.engine.Game;
+import chu.engine.anim.Renderer;
 import chu.engine.anim.Tileset;
 
 public class Path extends Entity{
@@ -40,6 +41,10 @@ public class Path extends Entity{
 	}
 	
 	public void render() {
+		ClientOverworldStage cs = (ClientOverworldStage)stage;
+		Renderer.translate(-cs.camX, -cs.camY);
+		Renderer.addClip(0, 0, 368, 240, true);
+		
 		Iterator<Node> it = path.iterator();
 		Node cur = it.next();
 		Node next = it.hasNext() ? it.next() : null;
@@ -94,6 +99,9 @@ public class Path extends Entity{
 			cur = next;
 			next = it.hasNext() ? it.next() : null;
 		}
+		
+		Renderer.removeClip();
+		Renderer.translate(cs.camX, cs.camY);
 	}
 	
 	public Path getCopy(){

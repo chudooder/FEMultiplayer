@@ -38,6 +38,10 @@ public class Zone extends Entity {
 		renderDepth = ClientOverworldStage.ZONE_DEPTH;
 	}
 	public void render(){
+		ClientOverworldStage cs = (ClientOverworldStage)stage;
+		Renderer.translate(-cs.camX, -cs.camY);
+		Renderer.addClip(0, 0, 368, 240, true);
+		
 		for(Node n: zone){
 			int x = n.x*16;
 			int y = n.y*16;
@@ -57,6 +61,9 @@ public class Zone extends Entity {
 				tiles.renderTransformed(x, y, frame, 2, renderDepth, t);
 			}
 		}
+		
+		Renderer.removeClip();
+		Renderer.translate(cs.camX, cs.camY);
 	}
 	
 	public void beginStep() {

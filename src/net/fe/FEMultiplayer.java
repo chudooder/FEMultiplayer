@@ -35,7 +35,6 @@ import org.newdawn.slick.openal.SoundStore;
 
 import chu.engine.Game;
 import chu.engine.Stage;
-import chu.engine.anim.Renderer;
 
 public class FEMultiplayer extends Game{
 	private static Stage currentStage;
@@ -53,7 +52,8 @@ public class FEMultiplayer extends Game{
 	public static void main(String[] args) {
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
-		game.testFightStage();
+//		game.testFightStage();
+//		game.testOverworldStage();
 		game.loop();
 	}
 	
@@ -108,6 +108,19 @@ public class FEMultiplayer extends Game{
 		currentStage = new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue());
 	}
 	
+	public void testOverworldStage() {
+		testSession = new Session();
+		testSession.setMap("plains");
+		testSession.addPlayer(localPlayer);
+		Unit u1 = UnitFactory.getUnit("Lyn");
+		u1.addToInventory(WeaponFactory.getWeapon("Divine"));
+		u1.addToInventory(WeaponFactory.getWeapon("Divine"));
+		u1.addToInventory(WeaponFactory.getWeapon("Divine"));
+		u1.equip(0);
+		localPlayer.getParty().addUnit(u1);
+		currentStage = new ClientOverworldStage(testSession);
+	}
+	
 	public static Unit getUnit(UnitIdentifier id){
 		for(Player p : getPlayers().values()){
 			if(!p.isSpectator() && p.getParty().getColor().equals(id.partyColor)){
@@ -147,7 +160,6 @@ public class FEMultiplayer extends Game{
 				currentStage.onStep();
 				currentStage.processAddStack();
 				currentStage.processRemoveStack();
-				Renderer.getCamera().lookThrough();
 				currentStage.render();
 				FEResources.getBitmapFont("stat_numbers").render(
 						(int)(1.0f/getDeltaSeconds())+"", 440f, 0f, 0f);

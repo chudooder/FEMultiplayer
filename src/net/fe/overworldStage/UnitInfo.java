@@ -22,7 +22,7 @@ import chu.engine.anim.Renderer;
 public class UnitInfo extends Entity implements DoNotDestroy{
 	private Unit unit;
 	public UnitInfo() {
-		super(50, Game.getWindowHeight()-84);
+		super(50, Game.getWindowHeight()-80);
 		renderDepth = 0.8f;
 	}
 	
@@ -45,9 +45,9 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 		if(u.isDying()) return;
 		
 		//Main Box
-		Renderer.drawRectangle(x, y, x+320, y+84, renderDepth, BORDER_DARK);
-		Renderer.drawRectangle(x+1, y+1, x+319, y+83, renderDepth, BORDER_LIGHT);
-		Renderer.drawRectangle(x+2, y+2, x+318, y+82, renderDepth, 
+		Renderer.drawRectangle(x, y, x+320, y+80, renderDepth, BORDER_DARK);
+		Renderer.drawRectangle(x+1, y+1, x+319, y+79, renderDepth, BORDER_LIGHT);
+		Renderer.drawRectangle(x+2, y+2, x+318, y+78, renderDepth, 
 				NEUTRAL);
 		
 		//Ribbon
@@ -61,14 +61,14 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 		Renderer.drawString("default_med", hp, x+316-width, y+4, renderDepth);
 		
 		//Mugshot
-		Renderer.drawRectangle(x+4, y+4, x+88, y+80, renderDepth, BORDER_DARK);
-		Renderer.drawRectangle(x+5, y+5, x+87, y+79, renderDepth, BORDER_LIGHT);
-		Renderer.drawRectangle(x+6, y+6, x+86, y+78, renderDepth, NEUTRAL.darker(0.5f));
+		Renderer.drawRectangle(x+4, y+4, x+88, y+78, renderDepth, BORDER_DARK);
+		Renderer.drawRectangle(x+5, y+5, x+87, y+77, renderDepth, BORDER_LIGHT);
+		Renderer.drawRectangle(x+6, y+6, x+86, y+76, renderDepth, NEUTRAL.darker(0.5f));
 		Texture mugshot = FEResources.getTexture(u.name.toLowerCase()+"_mugshot");
 		Renderer.addClip(x+6, y+6, 80, 72, false);
 		Renderer.render(mugshot, 0, 0, 1, 1, x+46-mugshot.getImageWidth()/2, 
-				y+78-mugshot.getImageHeight(), 
-				x+46+mugshot.getImageWidth()/2, y+78, renderDepth-0.01f);
+				y+76-mugshot.getImageHeight(), 
+				x+46+mugshot.getImageWidth()/2, y+76, renderDepth-0.01f);
 		
 		//Stats
 		
@@ -79,7 +79,7 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 			width = FEResources.getBitmapFont("default_med").getStringWidth(statN+"");
 			Renderer.drawString("default_med", statN, 
 					x+122-(width-1)/2, y+y0, renderDepth);
-			y0+=15;
+			y0+=14;
 		}
 		
 		y0 = 22;
@@ -89,14 +89,14 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 			width = FEResources.getBitmapFont("default_med").getStringWidth(statN+"");
 			Renderer.drawString("default_med", statN, 
 					x+182-(width-1)/2, y+y0, renderDepth);
-			y0+=15;
+			y0+=14;
 		}
 		
 		//Inventory
-		Renderer.drawRectangle(x+208, y+20, x+318, y+82, renderDepth,
+		Renderer.drawRectangle(x+208, y+20, x+318, y+78, renderDepth,
 				NEUTRAL.darker(0.5f));
 		Iterator<Item> inv = u.getInventory().iterator();
-		y0 = 20;
+		y0 = 18;
 		for (int i = 0; i < 4; i++) {
 			if (inv.hasNext()) {
 				Item it = inv.next();
@@ -107,7 +107,7 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 				Renderer.drawString("default_med", uses + "", x + 210 + offX, y
 						+ 2 + y0, renderDepth);
 			}
-			y0 += 15;
+			y0 += 14;
 		}
 
 		// Rescued Unit

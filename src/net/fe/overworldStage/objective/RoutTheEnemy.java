@@ -9,6 +9,11 @@ import net.fe.overworldStage.OverworldStage;
 public class RoutTheEnemy implements Objective {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4499698067587946141L;
+
+	/**
 	 * Returns winner if only one player has remaining units
 	 * @param stage
 	 * @return

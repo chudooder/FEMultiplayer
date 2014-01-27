@@ -5,6 +5,7 @@ import chu.engine.anim.Animation;
 
 public class Cursor extends GriddedEntity  implements DoNotDestroy{
 	private boolean on;
+	private static final int border = 64;
 	public Cursor(int xx, int yy) {
 		super(xx, yy);
 		sprite.addAnimation("default", new Animation(FEResources.getTexture("cursor"),
@@ -20,17 +21,32 @@ public class Cursor extends GriddedEntity  implements DoNotDestroy{
 	}
 	
 	public void render(){
-		if(((ClientOverworldStage) stage).hasControl() && on) {
-			sprite.render(x, y, renderDepth);
+		ClientOverworldStage c = (ClientOverworldStage)stage;
+		if(c.hasControl() && on) {
+			sprite.render(x - c.camX, y - c.camY, renderDepth);
 		}
 	}
 
 	public void setXCoord(int xcoord) {
 		this.xcoord = xcoord;
+		ClientOverworldStage c = (ClientOverworldStage)stage;
+		int rX = xcoord*16 - c.camX;
+		if(rX < border) {
+			c.camX = Math.max(0, xcoord*16 - border);
+		} else if(rX > 368 - border) {
+			c.camX = Math.min(c.camMaxX, xcoord*16 - (368 - border));
+		}
 	}
 
 	public void setYCoord(int ycoord) {
 		this.ycoord = ycoord;
+		ClientOverworldStage c = (ClientOverworldStage)stage;
+		int rY = ycoord*16 - c.camY;
+		if(rY < border) {
+			c.camY = Math.max(0, ycoord*16 - border);
+		} else if(rY > 240 - border) {
+			c.camY = Math.min(c.camMaxY, ycoord*16 - (240 - border));
+		}
 	}
 	
 	public void off(){

@@ -253,6 +253,10 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	}
 
 	public void render() {
+		ClientOverworldStage cs = (ClientOverworldStage)stage;
+		Renderer.translate(-cs.camX, -cs.camY);
+		Renderer.addClip(0, 0, 368, 240, true);
+		
 		if(FEResources.hasTexture(functionalClassName().toLowerCase() + "_map_idle")){
 			Transform t = new Transform();
 			if(sprite.getAnimationName().equals("RIGHT")){
@@ -291,6 +295,9 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 						0, 0, 1, 1, x+9, y+7, x+9+8, y+7+8, renderDepth);
 			}
 		}
+		
+		Renderer.removeClip();
+		Renderer.translate(cs.camX, cs.camY);
 	}
 
 	public void setLevel(int lv) {
