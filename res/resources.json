@@ -2861,6 +2861,32 @@
 			]
 		},
 		{
+			"name":		"hit_effect_sol",
+			"path":		"res/battle_anim/hit_effect_sol.png",
+			"width":	200,
+			"height":	200,
+			"frames":	9,
+			"columns":	3,
+			"offsetX":	100,
+			"offsetY":	120,
+			"freeze":	-1,
+			"speed":	0.02,
+			"soundMap": []
+		},
+		{
+			"name":		"hit_effect_luna",
+			"path":		"res/battle_anim/hit_effect_luna.png",
+			"width":	200,
+			"height":	200,
+			"frames":	9,
+			"columns":	3,
+			"offsetX":	100,
+			"offsetY":	120,
+			"freeze":	-1,
+			"speed":	0.02,
+			"soundMap": []
+		},
+		{
 			"name":		"miss",
 			"path":		"res/battle_anim/miss.png",
 			"width":	38,
@@ -3462,12 +3488,40 @@
 			"path":		"res/gui/cursor.png"
 		},
 		{
-			"name":		"proj_arrow",
-			"path":		"res/battle_anim/proj_arrow.png"
+			"name":		"shop0",
+			"path":		"res/gui/shop0.png"
 		},
 		{
-			"name":		"proj_javelin",
-			"path":		"res/battle_anim/proj_javelin.png"
+			"name":		"shop1",
+			"path":		"res/gui/shop1.png"
+		},
+		{
+			"name":		"shop2",
+			"path":		"res/gui/shop2.png"
+		},
+		{
+			"name":		"shop3",
+			"path":		"res/gui/shop3.png"
+		},
+		{
+			"name":		"shop4",
+			"path":		"res/gui/shop4.png"
+		},
+		{
+			"name":		"shop5",
+			"path":		"res/gui/shop5.png"
+		},
+		{
+			"name":		"shop6",
+			"path":		"res/gui/shop6.png"
+		},
+		{
+			"name":		"shop7",
+			"path":		"res/gui/shop7.png"
+		},
+		{
+			"name":		"shop8",
+			"path":		"res/gui/shop8.png"
 		},
 		{
 			"name":		"terrain_tiles",
