@@ -232,7 +232,7 @@ public class ClientLobbyStage extends LobbyStage {
 		Renderer.drawString("default_med", "Modifiers: ", x+2, y+30, 0.9f);
 		int yy = 0;
 		for(Modifier m : session.getModifiers()) {
-			Renderer.drawString("default_med", "* "+m.getName(), x+20, y+44+yy*14, 0.9f);
+			Renderer.drawString("default_med", "* "+m.toString(), x+20, y+44+yy*14, 0.9f);
 			yy++;
 		}
 		Renderer.drawRectangle(x, y, 474, 314, 1.0f, NEUTRAL_DARK);

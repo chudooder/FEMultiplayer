@@ -174,6 +174,9 @@ public class OverworldStage extends Stage {
 				u.setMoved(false);
 			}
 		}
+		for(Modifier m : session.getModifiers()) {
+			m.endOfTurn(this);;
+		}
 		turnCount++;
 		// Objective evaluation
 		int winner = session.getObjective().evaluate(this);

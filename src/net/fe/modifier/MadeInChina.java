@@ -53,7 +53,7 @@ public class MadeInChina implements Modifier {
 	}
 	
 	@Override
-	public String getName() {
+	public String toString() {
 		return "Made In China";
 	}
 

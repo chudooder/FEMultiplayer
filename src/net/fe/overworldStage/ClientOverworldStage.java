@@ -63,8 +63,8 @@ public class ClientOverworldStage extends OverworldStage {
 	public ClientOverworldStage(Session s) {
 		super(s);
 		camX = camY = 0;
-		camMaxX = grid.width*16-368;
-		camMaxY = grid.height*16-240;
+		camMaxX = Math.max(0,grid.width*16-368);
+		camMaxY = Math.max(0,grid.height*16-240);
 		cursor = new Cursor(2, 2);
 		addEntity(cursor);
 		unitInfo = new UnitInfo();

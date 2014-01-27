@@ -21,10 +21,7 @@ public class Server {
 		messages = new ArrayList<Message>();
 		clients = new ArrayList<ServerListener>();
 		session = new Session();
-		session.setMap("plains");
-		session.setMaxUnits(8);
 		session.setObjective(new RoutTheEnemy());
-		session.addModifier(new MadeInChina());
 	}
 	
 	public void start(int port) {
