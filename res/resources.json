@@ -2827,7 +2827,7 @@
 			]
 		},
 		{
-			"name":		"hit_effect_critical",
+			"name":		"hit_effect_attack_critical",
 			"path":		"res/battle_anim/hit_effect_critical.png",
 			"width":	240,
 			"height":	160,

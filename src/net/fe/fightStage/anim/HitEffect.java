@@ -16,13 +16,13 @@ import chu.engine.anim.Transform;
 
 public class HitEffect extends Entity {
 	private boolean left;
-	private int shakeLength;
+	private float shakeLength;
 	private int shakeIntensity;
 
-	public HitEffect(String name, boolean leftAttacking) {
+	public HitEffect(String name, boolean leftAttacking, boolean crit) {
 		super(0, 0);
 		left = leftAttacking;
-		final AnimationData data = getHitTexture(name);
+		final AnimationData data = getHitTexture(name, crit);
 		if(data.shakeIntensity > 0){
 			shakeIntensity = data.shakeIntensity;
 		} else {
@@ -31,9 +31,9 @@ public class HitEffect extends Entity {
 		if(data.shakeFrames > 0){
 			shakeLength = data.shakeFrames;
 		} else if(data.hitframes.length > 0){
-			shakeLength = data.frames - data.hitframes[0];
+			shakeLength = data.frames - data.hitframes[0] + (crit?0:0.8f);
 		} else {
-			shakeLength = data.frames;
+			shakeLength = data.frames + (crit?0:0.8f);
 		}
 		Animation anim = new Animation(data.texture, data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
@@ -81,47 +81,56 @@ public class HitEffect extends Entity {
 				FightStage.FLOOR, renderDepth, t);
 	}
 	
-	public int getShakeLength(){
+	public float getShakeLength(){
 		return shakeLength;
 	}
-
-	public static AnimationData getHitTexture(String name) {
-		return FEResources.getTextureData("hit_effect_" + name);
+	
+	public int getShakeIntensity() {
+		return shakeIntensity;
+	}
+	
+	public static AnimationData getHitTexture(String name, boolean crit) {
+		String critName = name + "_critical";
+		if(FEResources.hasTexture("hit_effect_" + critName) && crit){
+			return FEResources.getTextureData("hit_effect_" + critName);
+		} else {
+			return FEResources.getTextureData("hit_effect_" + name);
+		}
+		
 	}
 
 	public static List<HitEffect> getEffects(AnimationArgs animArgs,
 			AttackRecord rec) {
+		boolean crit = rec.animation.contains("Critical");
 		List<HitEffect> effects = new ArrayList<HitEffect>();
-
+		
+		if (animArgs.unit.getWeapon().type == Weapon.Type.STAFF) {
+			effects.add(new HitEffect("heal", animArgs.left, crit));
+		}
+		
 		if (animArgs.unit.getWeapon().isMagic()) {
 			effects.add(new HitEffect(animArgs.unit.getWeapon().name
-					.toLowerCase(), animArgs.left));
+					.toLowerCase(), animArgs.left, crit));
 		}
-		if (animArgs.unit.getWeapon().type == Weapon.Type.STAFF) {
-			effects.add(new HitEffect("heal", animArgs.left));
-		}
+		
 		for(String anim: FightStage.analyzeAnimation(rec.animation, "(a)", false)){
 			if(anim.matches(".*\\d")) 
 				anim = anim.substring(0, anim.length() - 1);
 			if(FEResources.hasTexture("hit_effect_" + anim.toLowerCase())){
-				effects.add(new HitEffect(anim.toLowerCase(), animArgs.left));
+				effects.add(new HitEffect(anim.toLowerCase(), animArgs.left, crit));
 			}
 		}
-		if (effects.size() == 0 && rec.damage != 0) { // We have
-																// nothing.
-			effects.add(new HitEffect(
-					rec.animation.contains("Critical") ? "critical" : "attack",
-					animArgs.left));
+		
+		
+		if (effects.size() == 0 && rec.damage != 0) { // We have nothing														// nothing.
+			effects.add(0, new HitEffect("attack", animArgs.left, crit));
 		}
 
-		// TODO Skill Hit Effects
 
 		return effects;
 	}
 
-	public int getShakeIntensity() {
-		return shakeIntensity;
-	}
+
 	
 	
 }
