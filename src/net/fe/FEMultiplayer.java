@@ -71,7 +71,7 @@ public class FEMultiplayer extends Game{
 		
 		UnitFactory.getUnit("Lyn");
 		connect = new ConnectStage();
-		currentStage = new TitleStage();
+		setCurrentStage(new TitleStage());
 		messages = new ArrayList<Message>();
 		SoundTrack.loop("main_theme");
 		
@@ -87,7 +87,7 @@ public class FEMultiplayer extends Game{
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
 		
-		Unit u1 = UnitFactory.getUnit("Lyn");
+		Unit u1 = UnitFactory.getUnit("Hector");
 
 //		u1.addToInventory(WeaponFactory.getWeapon("Divine"));
 
@@ -95,8 +95,9 @@ public class FEMultiplayer extends Game{
 		u1.equip(0);
 		p1.getParty().addUnit(u1);
 		
-		Unit u2 = UnitFactory.getUnit("Eliwood");
-//		u2.addToInventory(WeaponFactory.getWeapon("Excalibur"));
+		Unit u2 = UnitFactory.getUnit("Matthew");
+		System.out.println(u2);
+		u2.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
 		grid.addUnit(u2, 1, 0);
 		u2.equip(0);
 		p2.getParty().addUnit(u2);
@@ -105,7 +106,7 @@ public class FEMultiplayer extends Game{
 		System.out.println(calc.getAttackQueue());
 		u1.fillHp();
 		u2.fillHp();
-		currentStage = new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue());
+		setCurrentStage(new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue()));
 	}
 	
 	public void testOverworldStage() {

@@ -235,6 +235,9 @@ public class FightStage extends Stage {
 				// + " took " + rec.damage + " damage!");
 				defender.setHp(defender.getHp() - rec.damage);
 				attacker.setHp(attacker.getHp() + rec.drain);
+				dhp.setHp(dhp.getHp() - rec.damage);
+				ahp.setHp(ahp.getHp() + rec.drain, false);
+				attacker.use(attacker.getWeapon());
 				// battle stats
 				if(!defender.getPartyColor().equals(attacker.getPartyColor())) {
 					if(rec.damage > 0) {
@@ -245,18 +248,11 @@ public class FightStage extends Stage {
 				} else {
 					attacker.addBattleStat("Healing", -rec.damage);
 				}
-				
-				dhp.setHp(dhp.getHp() - rec.damage);
-				ahp.setHp(ahp.getHp() + rec.drain, false);
 				if(rec.damage > 0) {
-					if(attacker.getWeapon().isMagic()) {
-						Animation anim = hitEffects.get(0).sprite.getCurrentAnimation();
-						startShaking(hitEffects.get(0).getShakeLength() * anim.getSpeed(), hitEffects.get(0).getShakeIntensity());
-					} else {
-						startShaking(crit ? 1.3f : .5f, 5);
-					}
+					Animation anim = hitEffects.get(0).sprite.getCurrentAnimation();
+					startShaking(hitEffects.get(0).getShakeLength() * anim.getSpeed(), hitEffects.get(0).getShakeIntensity());
 				}
-				attacker.use(attacker.getWeapon());
+				
 				setCurrentEvent(HURTING);
 			}
 

@@ -49,6 +49,14 @@ public class FightUnit extends Entity {
 				FEResources.getTextureData(base+"attack"), s, animArgs);
 		sprite.addAnimation("ATTACK", attack);
 		
+		String masterskill = animArgs.unit.getTheClass()
+				.masterSkill.getClass().getSimpleName().toLowerCase();
+		if(FEResources.hasTexture(base + masterskill)){
+			AttackAnimation master = AttackAnimation.createAnimation(
+					FEResources.getTextureData(base+masterskill), s, animArgs);
+			sprite.addAnimation(masterskill.toUpperCase(), master);
+		}
+		
 		
 		renderDepth = FightStage.UNIT_DEPTH;
 	}
@@ -95,6 +103,7 @@ public class FightUnit extends Entity {
 	
 	public void setAnimation(String animation){
 		for(String s: FightStage.analyzeAnimation(animation, "(a)", false)){
+			s = s.toUpperCase();
 			if(sprite.hasAnimation(s)){
 				sprite.setAnimation(s);
 				return;
