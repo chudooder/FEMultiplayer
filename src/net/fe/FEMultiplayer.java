@@ -47,6 +47,9 @@ public class FEMultiplayer extends Game{
 	public static ClientLobbyStage lobby;
 	public static ConnectStage connect;
 	
+	// For testing fightstage
+	private static Session testSession;
+	
 	public static void main(String[] args) {
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
@@ -76,9 +79,11 @@ public class FEMultiplayer extends Game{
 	
 	public void testFightStage(){
 		Player p1 = localPlayer;
+		testSession = new Session();
 		Player p2 = new Player("p2", (byte) 1);
 		p2.getParty().setColor(Party.TEAM_RED);
-		getSession().addPlayer(p2);
+		testSession.addPlayer(p1);
+		testSession.addPlayer(p2);
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
 		
@@ -208,10 +213,12 @@ public class FEMultiplayer extends Game{
 	}
 	
 	public static HashMap<Byte, Player> getPlayers() {
-		return client.getSession().getPlayerMap();
+		return getSession().getPlayerMap();
 	}
 	
 	public static Session getSession() {
+		if(client == null)
+			return testSession;
 		return client.getSession();
 	}
 
