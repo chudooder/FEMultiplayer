@@ -15,6 +15,7 @@ public class Luna extends CombatTrigger {
 	}
 	@Override
 	public boolean attempt(Unit user, int range) {
+
 		return (ranged || range == 1) && RNG.get() < user.get("Skl")/2;
 	}
 

@@ -2871,7 +2871,12 @@
 			"offsetY":	120,
 			"freeze":	-1,
 			"speed":	0.02,
-			"soundMap": []
+			"soundMap": [
+				{
+					"frame": 0,
+					"sound": "sol"
+				}
+			]
 		},
 		{
 			"name":		"hit_effect_luna",
@@ -2884,8 +2889,30 @@
 			"offsetY":	120,
 			"freeze":	-1,
 			"speed":	0.02,
-			"soundMap": []
+			"soundMap": [
+				{
+					"frame": 0,
+					"sound": "luna"
+				}
+			]
 		},
+		{
+			"name":		"hit_effect_colossus",
+			"path":		"res/battle_anim/hit_effect_colossus.png",
+			"width":	242,
+			"height":	162,
+			"frames":	9,
+			"columns":	4,
+			"offsetX":	88,
+			"offsetY": 	104,
+			"freeze":	-1,
+			"soundMap": [
+				{
+					"frame": 0,
+					"sound": "colossus"
+				}
+			]
+		}
 		{
 			"name":		"miss",
 			"path":		"res/battle_anim/miss.png",

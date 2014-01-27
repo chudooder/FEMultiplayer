@@ -64,11 +64,11 @@ public class Class implements Serializable {
 		if(name.equals("Hero"))
 			return new Class("Hero", 
 					"Battle-hardened warriors who possess exceptional skill.",
-					0, new Colossus(), Weapon.Type.SWORD, Weapon.Type.AXE);
+					0, new Luna(false), Weapon.Type.SWORD, Weapon.Type.AXE);
 		if(name.equals("Berserker"))
 			return new Class("Berserker",
 					"A mighty pirate who has mastered the axe and deals devastating attacks.",
-					10, new Luna(false), Weapon.Type.AXE);
+					10, new Colossus(), Weapon.Type.AXE);
 		if(name.equals("Warrior"))
 			return new Class("Warrior", 
 					"An experienced fighter whose might is second to none.",
