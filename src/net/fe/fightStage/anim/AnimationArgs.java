@@ -13,11 +13,7 @@ public class AnimationArgs {
 	public int range;
 	
 	public AnimationArgs(Unit u, boolean left, int range){
-		if(u.getTheClass().name.equals("Lord")){
-			userclass = u.name;
-		} else {
-			userclass = u.getTheClass().name;
-		}
+		userclass = u.functionalClassName();
 		this.left = left;
 		this.range = range;
 		unit = u;

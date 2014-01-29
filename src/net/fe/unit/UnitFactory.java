@@ -36,6 +36,8 @@ public class UnitFactory {
 			int lckGrowth = Integer.parseInt(args[18]);
 			int defGrowth = Integer.parseInt(args[19]);
 			int resGrowth = Integer.parseInt(args[20]);
+			char gender = args[21].charAt(0);
+			
 			for(int i = lv; i < 20; i++){
 				hpBase += hpGrowth/100.0f;
 				strBase += strGrowth/100.0f;
@@ -73,7 +75,7 @@ public class UnitFactory {
 			if(clazz == null){
 				System.err.println(line);
 			}
-			Unit u = new Unit(name, clazz, bases, growths);
+			Unit u = new Unit(name, clazz, gender, bases, growths);
 			if(name.equals("Roy")){
 				u.addToInventory(WeaponFactory.getWeapon("Sealed Sword"));
 			} else if (name.equals("Lyn")){

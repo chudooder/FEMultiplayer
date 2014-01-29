@@ -88,14 +88,14 @@ public class FEMultiplayer extends Game{
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
 		
 		Unit u1 = UnitFactory.getUnit("Ike");
-		u1.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
+		u1.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
 		u1.equip(1);
 		grid.addUnit(u1, 0, 0);
 		p1.getParty().addUnit(u1);
 		
 		Unit u2 = UnitFactory.getUnit("Ike");
 		System.out.println(u2);
-		u2.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
+		u2.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
 		grid.addUnit(u2, 1, 0);
 		u2.equip(1);
 		p2.getParty().addUnit(u2);

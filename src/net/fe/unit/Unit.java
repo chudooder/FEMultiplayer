@@ -37,6 +37,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	private HashMap<String, Integer> bases;
 	private int hp;
 	private Class clazz;
+	private char gender;
 	private HashMap<String, Integer> growths;
 	private Weapon weapon;
 	private ArrayList<Item> inventory;
@@ -60,7 +61,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	public static final float MAP_ANIM_SPEED = 0.2f;
 	public static final int MOVE_SPEED = 250;
 
-	public Unit(String name, Class c, HashMap<String, Integer> bases,
+	public Unit(String name, Class c, char gender, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
 		super(0, 0);
 		this.bases = bases;
@@ -244,7 +245,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	}
 
 	Unit getCopy() {
-		Unit copy = new Unit(name, clazz, bases, growths);
+		Unit copy = new Unit(name, clazz, gender, bases, growths);
 		copy.setLevel(stats.get("Lvl").intValue());
 		for (Item i : inventory) {
 			copy.addToInventory(i);
