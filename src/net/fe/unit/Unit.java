@@ -66,6 +66,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 		super(0, 0);
 		this.bases = bases;
 		this.growths = growths;
+		this.gender = gender;
 		inventory = new ArrayList<Item>();
 		tempMods = new HashMap<String, Integer>();
 		assist = new HashSet<Unit>();
@@ -132,7 +133,10 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 		if(prefix.equals("Lord")){
 			prefix = name;
 		}
-		return prefix;
+		if(gender != '-'){
+			prefix += gender;
+		}
+		return prefix.toLowerCase();
 	}
 
 	public void move(Path p, Command callback) {

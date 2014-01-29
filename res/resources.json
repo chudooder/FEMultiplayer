@@ -2252,10 +2252,9 @@
 			"freeze":	0
 		},
 		
-		
 		{
-			"name":		"sage_magic_attack",
-			"path":		"res/battle_anim/sage_magic_attack.png",
+			"name":		"sagem_magic_attack",
+			"path":		"res/battle_anim/sagem_magic_attack.png",
 			"width":	74,
 			"height":	60,
 			"frames":	38,
@@ -2272,8 +2271,8 @@
 			]
 		},
 		{
-			"name":		"sage_magic_critical",
-			"path":		"res/battle_anim/sage_magic_critical.png",
+			"name":		"sagem_magic_critical",
+			"path":		"res/battle_anim/sagem_magic_critical.png",
 			"width":	74,
 			"height":	60,
 			"frames":	60,
@@ -2290,8 +2289,8 @@
 			]
 		},
 		{
-			"name":		"sage_magic_dodge",
-			"path":		"res/battle_anim/sage_magic_dodge.png",
+			"name":		"sagem_magic_dodge",
+			"path":		"res/battle_anim/sagem_magic_dodge.png",
 			"width":	28,
 			"height":	35,
 			"frames":	2,
@@ -2301,8 +2300,8 @@
 			"freeze":	0
 		},
 		{
-			"name":		"sage_staff_attack",
-			"path":		"res/battle_anim/sage_staff_attack.png",
+			"name":		"sagem_staff_attack",
+			"path":		"res/battle_anim/sagem_staff_attack.png",
 			"width":	34,
 			"height":	41,
 			"frames":	5,
@@ -2316,8 +2315,8 @@
 			]
 		},
 		{
-			"name":		"sage_staff_critical",
-			"path":		"res/battle_anim/sage_staff_attack.png",
+			"name":		"sagem_staff_critical",
+			"path":		"res/battle_anim/sagem_staff_attack.png",
 			"width":	34,
 			"height":	41,
 			"frames":	5,
@@ -2331,8 +2330,8 @@
 			]
 		},
 		{
-			"name":		"sage_staff_dodge",
-			"path":		"res/battle_anim/sage_staff_dodge.png",
+			"name":		"sagem_staff_dodge",
+			"path":		"res/battle_anim/sagem_staff_dodge.png",
 			"width":	36,
 			"height":	35,
 			"frames":	2,
@@ -2342,8 +2341,96 @@
 			"freeze":	0
 		},
 		{
-			"name":		"sniper_bow_attack",
-			"path":		"res/battle_anim/sniper_bow_attack.png",
+			"name":		"sagef_magic_attack",
+			"path":		"res/battle_anim/sagef_magic_attack.png",
+			"width":	74,
+			"height":	60,
+			"frames":	38,
+			"columns":	8,
+			"offsetX":	30,
+			"offsetY":	43,
+			"freeze":	8,
+			"hitframes":[16],
+			"soundMap": [
+				{
+					"frame":	3,
+					"sound":	"rune"
+				}
+			]
+		},
+		{
+			"name":		"sagef_magic_critical",
+			"path":		"res/battle_anim/sagef_magic_critical.png",
+			"width":	74,
+			"height":	60,
+			"frames":	60,
+			"columns":	8,
+			"offsetX":	30,
+			"offsetY":	43,
+			"freeze":	8,
+			"hitframes":[38],
+			"soundMap": [
+				{
+					"frame":	2,
+					"sound":	"rune3"
+				}
+			]
+		},
+		{
+			"name":		"sagef_magic_dodge",
+			"path":		"res/battle_anim/sagef_magic_dodge.png",
+			"width":	28,
+			"height":	35,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	18,
+			"offsetY":	31,
+			"freeze":	0
+		},
+		{
+			"name":		"sagef_staff_attack",
+			"path":		"res/battle_anim/sagef_staff_attack.png",
+			"width":	34,
+			"height":	41,
+			"frames":	5,
+			"columns":	5,
+			"offsetX":	21,
+			"offsetY":	37,
+			"freeze":	0,
+			"hitframes":[2],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"sagef_staff_critical",
+			"path":		"res/battle_anim/sagef_staff_attack.png",
+			"width":	34,
+			"height":	41,
+			"frames":	5,
+			"columns":	5,
+			"offsetX":	21,
+			"offsetY":	37,
+			"freeze":	0,
+			"hitframes":[2],
+			"soundMap": [
+				
+			]
+		},
+		{
+			"name":		"sagef_staff_dodge",
+			"path":		"res/battle_anim/sagef_staff_dodge.png",
+			"width":	36,
+			"height":	35,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	19,
+			"offsetY":	31,
+			"freeze":	0
+		},
+		{
+			"name":		"sniperm_bow_attack",
+			"path":		"res/battle_anim/sniperm_bow_attack.png",
 			"width":	147,
 			"height":	59,
 			"frames":	20,
@@ -2368,8 +2455,8 @@
 			]
 		},
 		{
-			"name":		"sniper_bow_critical",
-			"path":		"res/battle_anim/sniper_bow_critical.png",
+			"name":		"sniperm_bow_critical",
+			"path":		"res/battle_anim/sniperm_bow_critical.png",
 			"width":	146,
 			"height":	62,
 			"frames":	32,
@@ -2394,8 +2481,71 @@
 			]
 		},
 		{
-			"name":		"sniper_bow_dodge",
-			"path":		"res/battle_anim/sniper_bow_dodge.png",
+			"name":		"sniperm_bow_dodge",
+			"path":		"res/battle_anim/sniperm_bow_dodge.png",
+			"width":	43,
+			"height":	49,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	18,
+			"offsetY":	43,
+			"freeze":	0
+		},
+		{
+			"name":		"sniperf_bow_attack",
+			"path":		"res/battle_anim/sniperf_bow_attack.png",
+			"width":	147,
+			"height":	59,
+			"frames":	20,
+			"columns":	5,
+			"offsetX":	120,
+			"offsetY":	55,
+			"freeze": 	0,
+			"hitframes": [18],
+			"soundMap": [
+				{
+					"frame": 4,
+					"sound": "sword_swipe2"
+				},
+				{
+					"frame": 10,
+					"sound": "bow_set"
+				},
+				{
+					"frame": 14,
+					"sound": "bow_shoot"
+				}
+			]
+		},
+		{
+			"name":		"sniperf_bow_critical",
+			"path":		"res/battle_anim/sniperf_bow_critical.png",
+			"width":	146,
+			"height":	62,
+			"frames":	32,
+			"columns":	6,
+			"offsetX":	120,
+			"offsetY":	55,
+			"freeze": 	0,
+			"hitframes": [29],
+			"soundMap": [
+				{
+					"frame": 4,
+					"sound": "spin_short"
+				},
+				{
+					"frame": 21,
+					"sound": "bow_set"
+				},
+				{
+					"frame": 26,
+					"sound": "bow_shoot"
+				}
+			]
+		},
+		{
+			"name":		"sniperf_bow_dodge",
+			"path":		"res/battle_anim/sniperf_bow_dodge.png",
 			"width":	43,
 			"height":	49,
 			"frames":	2,
@@ -2453,8 +2603,8 @@
 			"freeze":	0
 		},
 		{
-			"name":		"swordmaster_sword_attack",
-			"path":		"res/battle_anim/swordmaster_sword_attack.png",
+			"name":		"swordmasterm_sword_attack",
+			"path":		"res/battle_anim/swordmasterm_sword_attack.png",
 			"width":	133,
 			"height":	105,
 			"frames":	40,
@@ -2496,8 +2646,8 @@
 			]
 		},
 		{
-			"name":		"swordmaster_sword_critical",
-			"path":		"res/battle_anim/swordmaster_sword_critical.png",
+			"name":		"swordmasterm_sword_critical",
+			"path":		"res/battle_anim/swordmasterm_sword_critical.png",
 			"width":	201,
 			"height":	141,
 			"frames":	72,
@@ -2547,8 +2697,113 @@
 			]
 		},
 		{
-			"name":		"swordmaster_sword_dodge",
-			"path":		"res/battle_anim/swordmaster_sword_dodge.png",
+			"name":		"swordmasterm_sword_dodge",
+			"path":		"res/battle_anim/swordmasterm_sword_dodge.png",
+			"width":	26,
+			"height":	36,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	8,
+			"offsetY":	33,
+			"freeze":	0
+		},
+		{
+			"name":		"swordmasterf_sword_attack",
+			"path":		"res/battle_anim/swordmasterf_sword_attack.png",
+			"width":	133,
+			"height":	105,
+			"frames":	40,
+			"columns":	7,
+			"offsetX":	73,
+			"offsetY":	101,
+			"freeze":	0,
+			"hitframes":[18],
+			"speed":	0.055,
+			"soundMap": [
+				{
+					"frame":	6,
+					"sound":	"cape"
+				},
+				{
+					"frame":	8,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	13,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	15,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	17,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	19,
+					"sound":	"jump"
+				},
+				{
+					"frame":	34,
+					"sound":	"land"
+				},
+			]
+		},
+		{
+			"name":		"swordmasterf_sword_critical",
+			"path":		"res/battle_anim/swordmasterf_sword_critical.png",
+			"width":	201,
+			"height":	141,
+			"frames":	72,
+			"columns":	9,
+			"offsetX":	107,
+			"offsetY":	101,
+			"freeze":	0,
+			"hitframes":[51],
+			"speed":	0.055,
+			"soundMap": [
+				{
+					"frame":	6,
+					"sound":	"cape"
+				},
+				{
+					"frame":	8,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	37,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	40,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	43,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	46,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	49,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	52,
+					"sound":	"jump"
+				},
+				{
+					"frame":	65,
+					"sound":	"land"
+				},
+			]
+		},
+		{
+			"name":		"swordmasterf_sword_dodge",
+			"path":		"res/battle_anim/swordmasterf_sword_dodge.png",
 			"width":	26,
 			"height":	36,
 			"frames":	2,
@@ -3927,44 +4182,84 @@
 			"path":		"res/map_anim/roy_map_up.png"
 		},
 		{
-			"name":		"sage_map_down",
-			"path":		"res/map_anim/sage_map_down.png"
+			"name":		"sagef_map_down",
+			"path":		"res/map_anim/sagef_map_down.png"
 		},
 		{
-			"name":		"sage_map_idle",
-			"path":		"res/map_anim/sage_map_idle.png"
+			"name":		"sagef_map_idle",
+			"path":		"res/map_anim/sagef_map_idle.png"
 		},
 		{
-			"name":		"sage_map_selected",
-			"path":		"res/map_anim/sage_map_selected.png"
+			"name":		"sagef_map_selected",
+			"path":		"res/map_anim/sagef_map_selected.png"
 		},
 		{
-			"name":		"sage_map_side",
-			"path":		"res/map_anim/sage_map_side.png"
+			"name":		"sagef_map_side",
+			"path":		"res/map_anim/sagef_map_side.png"
 		},
 		{
-			"name":		"sage_map_up",
-			"path":		"res/map_anim/sage_map_up.png"
+			"name":		"sagef_map_up",
+			"path":		"res/map_anim/sagef_map_up.png"
 		},
 		{
-			"name":		"sniper_map_down",
-			"path":		"res/map_anim/sniper_map_down.png"
+			"name":		"sagem_map_down",
+			"path":		"res/map_anim/sagem_map_down.png"
 		},
 		{
-			"name":		"sniper_map_idle",
-			"path":		"res/map_anim/sniper_map_idle.png"
+			"name":		"sagem_map_idle",
+			"path":		"res/map_anim/sagem_map_idle.png"
 		},
 		{
-			"name":		"sniper_map_selected",
-			"path":		"res/map_anim/sniper_map_selected.png"
+			"name":		"sagem_map_selected",
+			"path":		"res/map_anim/sagem_map_selected.png"
 		},
 		{
-			"name":		"sniper_map_side",
-			"path":		"res/map_anim/sniper_map_side.png"
+			"name":		"sagem_map_side",
+			"path":		"res/map_anim/sagem_map_side.png"
 		},
 		{
-			"name":		"sniper_map_up",
-			"path":		"res/map_anim/sniper_map_up.png"
+			"name":		"sagem_map_up",
+			"path":		"res/map_anim/sagem_map_up.png"
+		},
+		{
+			"name":		"sniperf_map_down",
+			"path":		"res/map_anim/sniperf_map_down.png"
+		},
+		{
+			"name":		"sniperf_map_idle",
+			"path":		"res/map_anim/sniperf_map_idle.png"
+		},
+		{
+			"name":		"sniperf_map_selected",
+			"path":		"res/map_anim/sniperf_map_selected.png"
+		},
+		{
+			"name":		"sniperf_map_side",
+			"path":		"res/map_anim/sniperf_map_side.png"
+		},
+		{
+			"name":		"sniperf_map_up",
+			"path":		"res/map_anim/sniperf_map_up.png"
+		},
+		{
+			"name":		"sniperm_map_down",
+			"path":		"res/map_anim/sniperm_map_down.png"
+		},
+		{
+			"name":		"sniperm_map_idle",
+			"path":		"res/map_anim/sniperm_map_idle.png"
+		},
+		{
+			"name":		"sniperm_map_selected",
+			"path":		"res/map_anim/sniperm_map_selected.png"
+		},
+		{
+			"name":		"sniperm_map_side",
+			"path":		"res/map_anim/sniperm_map_side.png"
+		},
+		{
+			"name":		"sniperm_map_up",
+			"path":		"res/map_anim/sniperm_map_up.png"
 		},
 		{
 			"name":		"sorcerer_map_down",
@@ -3987,24 +4282,44 @@
 			"path":		"res/map_anim/sorcerer_map_up.png"
 		},
 		{
-			"name":		"swordmaster_map_down",
-			"path":		"res/map_anim/swordmaster_map_down.png"
+			"name":		"swordmasterf_map_down",
+			"path":		"res/map_anim/swordmasterf_map_down.png"
 		},
 		{
-			"name":		"swordmaster_map_idle",
-			"path":		"res/map_anim/swordmaster_map_idle.png"
+			"name":		"swordmasterf_map_idle",
+			"path":		"res/map_anim/swordmasterf_map_idle.png"
 		},
 		{
-			"name":		"swordmaster_map_selected",
-			"path":		"res/map_anim/swordmaster_map_selected.png"
+			"name":		"swordmasterf_map_selected",
+			"path":		"res/map_anim/swordmasterf_map_selected.png"
 		},
 		{
-			"name":		"swordmaster_map_side",
-			"path":		"res/map_anim/swordmaster_map_side.png"
+			"name":		"swordmasterf_map_side",
+			"path":		"res/map_anim/swordmasterf_map_side.png"
 		},
 		{
-			"name":		"swordmaster_map_up",
-			"path":		"res/map_anim/swordmaster_map_up.png"
+			"name":		"swordmasterf_map_up",
+			"path":		"res/map_anim/swordmasterf_map_up.png"
+		},
+		{
+			"name":		"swordmasterm_map_down",
+			"path":		"res/map_anim/swordmasterm_map_down.png"
+		},
+		{
+			"name":		"swordmasterm_map_idle",
+			"path":		"res/map_anim/swordmasterm_map_idle.png"
+		},
+		{
+			"name":		"swordmasterm_map_selected",
+			"path":		"res/map_anim/swordmasterm_map_selected.png"
+		},
+		{
+			"name":		"swordmasterm_map_side",
+			"path":		"res/map_anim/swordmasterm_map_side.png"
+		},
+		{
+			"name":		"swordmasterm_map_up",
+			"path":		"res/map_anim/swordmasterm_map_up.png"
 		},
 		{
 			"name":		"valkyrie_map_down",
@@ -4046,6 +4361,7 @@
 			"name":		"warrior_map_up",
 			"path":		"res/map_anim/warrior_map_up.png"
 		},
+
 		{
 			"name":		"amelia_mugshot",
 			"path":		"res/map_mugshots/amelia_mugshot.png"
