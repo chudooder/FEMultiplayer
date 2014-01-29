@@ -35,6 +35,7 @@ public class FightOverworldTransition extends Transition {
 		super(to);
 		this.to = to;
 		to.beginStep();
+		to.checkEndGame();
 		renderDepth = 0.0f;
 		triAlpha = 0f;
 		fightAlpha = 0.0f;

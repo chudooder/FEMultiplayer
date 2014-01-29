@@ -16,9 +16,7 @@ import net.fe.RunesBg;
 import net.fe.Session;
 import net.fe.editor.Level;
 import net.fe.editor.SpawnPoint;
-import net.fe.network.Message;
 import net.fe.network.message.CommandMessage;
-import net.fe.network.message.EndGame;
 import net.fe.network.message.EndTurn;
 import net.fe.overworldStage.context.Idle;
 import net.fe.overworldStage.context.WaitForMessages;
@@ -125,12 +123,6 @@ public class ClientOverworldStage extends OverworldStage {
 	@Override
 	public void beginStep() {
 		super.beginStep();
-		for(Message message : Game.getMessages()) {
-			if(message instanceof EndGame) {
-				String winnerName = getPlayerByID(((EndGame)message).winner).getName();
-				addEntity(new OverworldEndTransition(new EndGameStage(session), winnerName));
-			}
-		}
 		for (Entity e : entities) {
 			e.beginStep();
 		}
@@ -261,6 +253,7 @@ public class ClientOverworldStage extends OverworldStage {
 			@Override
 			public void execute() {
 				if(unit != null) unit.setMoved(true);
+				checkEndGame();
 			}
 		};
 		for(int i=0; i<cmds.commands.length; i++) {
@@ -289,6 +282,7 @@ public class ClientOverworldStage extends OverworldStage {
 						public void execute() {
 							unit.use(index);
 							unit.setMoved(true);
+							checkEndGame();
 							//TODO Positioning
 							addEntity(new Healthbar(
 									320, 20 , oHp, 
@@ -308,6 +302,7 @@ public class ClientOverworldStage extends OverworldStage {
 					public void execute() {
 						unit.setMoved(true);
 						unit.rescue(rescuee);
+						checkEndGame();
 					}
 				};
 			}
@@ -325,6 +320,7 @@ public class ClientOverworldStage extends OverworldStage {
 						unit.setMoved(true);
 						unit.rescuedUnit().setMoved(true);
 						unit.drop(dropX, dropY);
+						checkEndGame();
 					}
 				};
 			}
@@ -354,6 +350,14 @@ public class ClientOverworldStage extends OverworldStage {
 	
 	public void setMovY(int y){
 		movY = y;
+	}
+	
+	public void checkEndGame() {
+		if(FEMultiplayer.getClient().winner != -1) {
+			String winnerName = getPlayerByID(FEMultiplayer.getClient().winner).getName();
+			FEMultiplayer.getClient().winner = -1;
+			addEntity(new OverworldEndTransition(new EndGameStage(session), winnerName));
+		}
 	}
 	
 	public void setSelectedUnit(Unit u){

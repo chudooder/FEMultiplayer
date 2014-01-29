@@ -10,6 +10,7 @@ import net.fe.FEMultiplayer;
 import net.fe.Party;
 import net.fe.Session;
 import net.fe.network.message.ClientInit;
+import net.fe.network.message.EndGame;
 import net.fe.network.message.JoinLobby;
 import net.fe.network.message.QuitMessage;
 
@@ -22,6 +23,7 @@ public class Client {
 	private Session session;
 	private boolean open = true;
 	private boolean closeRequested = false;
+	public byte winner = -1;
 	byte id;
 	public volatile ArrayList<Message> messages;
 	
@@ -76,6 +78,8 @@ public class Client {
 			if(message.origin == id && closeRequested) {
 				close();
 			}
+		} else if(message instanceof EndGame) {
+			winner = (byte) ((EndGame)message).winner;
 		}
 		messages.add(message);
 	}
