@@ -1504,12 +1504,42 @@
 			"freeze":	0
 		},
 		{
+			"name":		"ike_sword_attack",
+			"path":		"res/battle_anim/ike_sword_attack.png",
+			"width":	96,
+			"height":	70,
+			"frames":	23,
+			"columns":	5,
+			"offsetX":	71,
+			"offsetY":	66,
+			"freeze":	0,
+			"hitframes":[16],
+			"soundMap": [
+				{
+					"frame":	2,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	5,
+					"sound":	"jump"
+				},
+				{
+					"frame":	15,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	18,
+					"sound":	"cape"
+				}
+			]
+		},
+		{
 			"name":		"ike_sword_critical",
 			"path":		"res/battle_anim/ike_sword_critical.png",
 			"width":	150,
 			"height":	125,
-			"frames":	40,
-			"columns":	9,
+			"frames":	44,
+			"columns":	7,
 			"offsetX":	120,
 			"offsetY":	121,
 			"freeze":	0,
@@ -1532,10 +1562,21 @@
 					"sound":	"cape"
 				},
 				{
-					"frame":	37,
+					"frame":	41,
 					"sound":	"land"
 				},
 			]
+		},
+		{
+			"name":		"ike_sword_dodge",
+			"path":		"res/battle_anim/ike_sword_dodge.png",
+			"width":	43,
+			"height":	47,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	13,
+			"offsetY":	42,
+			"freeze":	0
 		},
 		{
 			"name":		"lyn_sword_attack",
