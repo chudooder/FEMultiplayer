@@ -50,11 +50,11 @@ public class TeamSelectionStage extends Stage {
 		vassalList.addUnits(vassals);
 		vassalList.sort(new SortByName());
 		addEntity(vassalList);
-		
-		for(Modifier m : s.getModifiers()) {
-			m.modifyUnits(this);
+		if(s != null) {
+			for(Modifier m : s.getModifiers()) {
+				m.modifyUnits(this);
+			}
 		}
-		
 		ok = new Button(OK_BUTTON_X, BUTTON_Y, "OK", Color.green, 95) {
 			public void execute() {
 				builderStage.setUnits(getSelectedUnits());

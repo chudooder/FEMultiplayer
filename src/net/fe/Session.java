@@ -7,7 +7,7 @@ import java.util.Set;
 
 import net.fe.modifier.Modifier;
 import net.fe.overworldStage.objective.Objective;
-import net.fe.overworldStage.objective.RoutTheEnemy;
+import net.fe.overworldStage.objective.Rout;
 
 public class Session implements Serializable {
 	/**
@@ -22,7 +22,7 @@ public class Session implements Serializable {
 	
 	public Session() {
 		players = new HashMap<Byte, Player>();
-		objective = new RoutTheEnemy();
+		objective = new Rout();
 		modifiers = new HashSet<Modifier>();
 	}
 	

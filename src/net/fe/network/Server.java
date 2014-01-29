@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 import net.fe.Session;
 import net.fe.modifier.MadeInChina;
-import net.fe.overworldStage.objective.RoutTheEnemy;
+import net.fe.overworldStage.objective.Rout;
+import net.fe.overworldStage.objective.Seize;
 
 public class Server {
 	ServerSocket serverSocket;
@@ -21,7 +22,7 @@ public class Server {
 		messages = new ArrayList<Message>();
 		clients = new ArrayList<ServerListener>();
 		session = new Session();
-		session.setObjective(new RoutTheEnemy());
+		session.setObjective(new Seize());
 	}
 	
 	public void start(int port) {

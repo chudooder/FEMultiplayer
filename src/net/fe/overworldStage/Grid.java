@@ -6,16 +6,25 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.newdawn.slick.Color;
+
+import net.fe.Party;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 
 public class Grid{
 	private Unit[][] grid;
 	private Terrain[][] terrain;
+	private int blueThroneX, blueThroneY;
+	private int redThroneX, redThroneY;
 	public final int width, height;
 
 	public Grid(int width, int height, Terrain defaultTerrain) {
 		grid = new Unit[height][width];
+		blueThroneX = -1;
+		blueThroneY = -1;
+		redThroneX = -1;
+		redThroneY = -1;
 		terrain = new Terrain[height][width];
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
@@ -83,6 +92,33 @@ public class Grid{
 
 	public Unit getUnit(int x, int y) {
 		return grid[y][x];
+	}
+	
+	public void setThronePos(Color c, int x, int y) {
+		if(c.equals(Party.TEAM_BLUE)) {
+			blueThroneX = x;
+			blueThroneY = y;
+		} else {
+			redThroneX = x;
+			redThroneY = y;
+		}
+	}
+	
+	public boolean canSeize(Unit u) {
+		//check if lord
+		if(!u.getTheClass().name.equals("Lord"))
+			return false;
+		Color c = u.getPartyColor();
+		if(c.equals(Party.TEAM_BLUE) 
+				&& u.getXCoord() == redThroneX
+				&& u.getYCoord() == redThroneY) {
+			return true;
+		} else if (c.equals(Party.TEAM_RED)
+				&& u.getXCoord() == blueThroneX
+				&& u.getYCoord() == blueThroneY){
+			return true;
+		}
+		return false;
 	}
 
 	public Path getShortestPath(Unit unit, int x, int y) {

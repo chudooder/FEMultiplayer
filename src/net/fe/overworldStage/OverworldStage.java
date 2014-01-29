@@ -178,12 +178,7 @@ public class OverworldStage extends Stage {
 			m.endOfTurn(this);;
 		}
 		turnCount++;
-		// Objective evaluation
-		int winner = session.getObjective().evaluate(this);
-		if(winner > 0 && FEServer.getServer() != null) {
-			FEServer.getServer().broadcastMessage(new EndGame((byte) 0, winner));
-			FEServer.resetToLobby();
-		}
+		checkEndGame();
 	}
 
 	public void processCommands(CommandMessage message) {
@@ -243,6 +238,16 @@ public class OverworldStage extends Stage {
 			}
 		}
 		FEServer.getServer().broadcastMessage(message);
+		checkEndGame();
+	}
+
+	public void checkEndGame() {
+		// Objective evaluation
+		int winner = session.getObjective().evaluate(this);
+		if(winner > 0 && FEServer.getServer() != null) {
+			FEServer.getServer().broadcastMessage(new EndGame((byte) 0, winner));
+			FEServer.resetToLobby();
+		}
 	}
 
 	protected Unit getUnit(UnitIdentifier id) {

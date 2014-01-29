@@ -52,7 +52,7 @@ public class FEMultiplayer extends Game{
 	public static void main(String[] args) {
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
-		game.testFightStage();
+//		game.testFightStage();
 //		game.testOverworldStage();
 		game.loop();
 	}
@@ -64,6 +64,7 @@ public class FEMultiplayer extends Game{
 		Player p1 = new Player("Player", (byte) 0);
 		localPlayer = p1;
 		FEResources.loadResources();
+		FEResources.loadBitmapFonts();
 		p1.getParty().setColor(Party.TEAM_BLUE);
 		
 		/* OpenGL final setup */

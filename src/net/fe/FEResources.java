@@ -71,6 +71,7 @@ public class FEResources {
 			System.out.println(max);
 			e.printStackTrace();
 		}
+		System.gc();
 	}
 	public static AnimationData getMapTexture(String name){
 		AnimationData t = textures.get(name);
@@ -189,7 +190,7 @@ public class FEResources {
 		return bitmapFonts.get(name);
 	}
 	
-	private static void loadBitmapFonts() {
+	public static void loadBitmapFonts() {
 		Scanner in = new Scanner(ResourceLoader.getResourceAsStream("res/fonts/fonts.txt"));
 		while(in.hasNextLine()) {
 			String line = in.nextLine();

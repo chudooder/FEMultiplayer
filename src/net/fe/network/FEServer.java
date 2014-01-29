@@ -158,6 +158,7 @@ public class FEServer extends Game {
 						}
 						s.setMap((String)mapSelectionBox.getSelectedItem());
 						feserver.init();
+						feserver.loop();
 					}
 				};
 				serverThread.start();

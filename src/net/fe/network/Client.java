@@ -67,6 +67,7 @@ public class Client {
 	private void processInput(Message message) {
 		if(message instanceof ClientInit) {
 			id = ((ClientInit)message).clientID;
+			this.session = ((ClientInit)message).session;
 			FEMultiplayer.getLocalPlayer().setClientID(id);
 			if(id >= 2) {
 				FEMultiplayer.getLocalPlayer().getParty().setColor(Party.TEAM_RED);

@@ -129,8 +129,10 @@ public class TeamBuilderStage extends Stage {
 			d-=0.001f;
 		}
 		
-		for(Modifier m : getSession().getModifiers()) {
-			m.modifyTeam(this);
+		if(getSession() != null) {
+			for(Modifier m : getSession().getModifiers()) {
+				m.modifyTeam(this);
+			}
 		}
 	}
 	

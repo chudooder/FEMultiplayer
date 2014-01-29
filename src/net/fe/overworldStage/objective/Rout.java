@@ -6,7 +6,7 @@ import net.fe.Party;
 import net.fe.Player;
 import net.fe.overworldStage.OverworldStage;
 
-public class RoutTheEnemy implements Objective {
+public class Rout implements Objective {
 
 	/**
 	 * 
@@ -32,7 +32,6 @@ public class RoutTheEnemy implements Objective {
 			if(!ded) {
 				if(winner == -1) {
 					winner = players.get(i).getID();
-					System.out.println("Player "+winner+" won!");
 				}
 				else return -1;
 			}
