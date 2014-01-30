@@ -14,6 +14,7 @@ import net.fe.Party;
 import net.fe.Player;
 import net.fe.RunesBg;
 import net.fe.Session;
+import net.fe.SoundTrack;
 import net.fe.editor.Level;
 import net.fe.editor.SpawnPoint;
 import net.fe.network.message.CommandMessage;
@@ -212,6 +213,7 @@ public class ClientOverworldStage extends OverworldStage {
 			}
 		}
 		send();
+		SoundTrack.restart();
 		if(FEMultiplayer.getLocalPlayer().getID() == getNextPlayer().getID()){
 			context = new Idle(this, FEMultiplayer.getLocalPlayer());
 			addEntity(new TurnDisplay(true, Party.TEAM_BLUE));

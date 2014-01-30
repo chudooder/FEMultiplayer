@@ -19,4 +19,15 @@ public class SoundTrack {
 			e.printStackTrace();
 		}
 	}
+	public static void restart(){
+		try {
+			Audio a = AudioLoader.getStreamingAudio("OGG", 
+					ResourceLoader.getResource("res/music/"+current+".ogg"));
+			a.playAsMusic(1, 1, true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 }

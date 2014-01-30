@@ -10,8 +10,8 @@ public class MapAnimation extends Animation {
 	private static float counter;
 	public MapAnimation(String name, boolean walking){
 		super(FEResources.getTexture(name.toLowerCase()), 48, 
-				name.matches("swordmaster*selected")?60:48,
-						4, 4, 17, name.contains("swordmaster*selected")?29:17, 0);
+				name.matches("swordmaster.*selected")?60:48,
+						4, 4, 17, name.matches("swordmaster.*selected")?29:17, 0);
 //		System.out.println(name);
 //		if(name.equals("swordmaster_map_selected")){
 //			System.out.println(getOffsetY());
