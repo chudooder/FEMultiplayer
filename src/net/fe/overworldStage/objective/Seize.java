@@ -20,8 +20,9 @@ public class Seize implements Objective {
 			boolean hasLord = false;
 			for(int i=0; i<p.getParty().size(); i++) {
 				Unit u = p.getParty().getUnit(i);
-				if(u.getTheClass().name.equals("Lord"))
+				if(u.getTheClass().name.equals("Lord") && u.getHp() > 0) {
 					hasLord = true;
+				}
 				if(stage.grid.canSeize(u)) {
 					return p.getID();
 				}
