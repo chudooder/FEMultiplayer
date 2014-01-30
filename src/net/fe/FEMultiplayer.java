@@ -54,7 +54,7 @@ public class FEMultiplayer extends Game{
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
 //		game.testFightStage();
-		game.testOverworldStage();
+//		game.testOverworldStage();
 		game.loop();
 	}
 	
@@ -196,7 +196,7 @@ public class FEMultiplayer extends Game{
 	public static void goToFightStage(UnitIdentifier u, UnitIdentifier other, 
 			ArrayList<AttackRecord> queue) {
 			FightStage to = new FightStage(u, other, queue);
-			currentStage.addEntity(new OverworldFightTransition(to, u, other));
+			currentStage.addEntity(new OverworldFightTransition((ClientOverworldStage)currentStage, to, u, other));
 	}
 	
 	public static void setCurrentStage(Stage stage) {

@@ -14,7 +14,6 @@ import chu.engine.Game;
 import chu.engine.anim.Renderer;
 
 public class OverworldFightTransition extends Transition {
-	ClientOverworldStage from;
 	FightStage to;
 	private float timer;
 	private float triAlpha;
@@ -28,7 +27,7 @@ public class OverworldFightTransition extends Transition {
 	/**
 	 * x0 ... y1 are the coords for the two tiles to fight over
 	 */
-	public OverworldFightTransition(FightStage to, UnitIdentifier u1, UnitIdentifier u2) {
+	public OverworldFightTransition(ClientOverworldStage from, FightStage to, UnitIdentifier u1, UnitIdentifier u2) {
 		super(to);
 		this.to = to;
 		to.beginStep();
