@@ -378,16 +378,35 @@ public class ClientOverworldStage extends OverworldStage {
             ObjectInputStream ois = new ObjectInputStream(in);
             Level level = (Level) ois.readObject();
             grid = new Grid(level.width, level.height, Terrain.NONE);
+            Set<SpawnPoint> spawns = level.spawns;
             for(int i=0; i<level.tiles.length; i++) {
             	for(int j=0; j<level.tiles[0].length; j++) {
             		Tile tile = new Tile(j, i, level.tiles[i][j]);
             		grid.setTerrain(j, i, tile.getTerrain());
+            		if(Tile.getTerrainFromID(level.tiles[i][j]) == Terrain.THRONE) {
+            			int blue = 0;
+            			int red = 0;
+            			for(SpawnPoint sp : spawns) {
+                    		if(sp.team.equals(Party.TEAM_BLUE)) {
+                				blue += Math.abs(sp.x-j) + Math.abs(sp.y-i);
+                    		} else {
+                    			red += Math.abs(sp.x-j) + Math.abs(sp.y-i);
+                    		}
+                    	}
+            			if(blue < red) {
+            				System.out.println(blue + " "+ red);
+            				grid.setThronePos(Party.TEAM_BLUE, j, i);
+            			} else {
+            				System.out.println(blue + " "+ red);
+            				grid.setThronePos(Party.TEAM_RED, j, i);
+            			}
+            		}
             		addEntity(tile);
             	}
             }
             
             // Add units
-            Set<SpawnPoint> spawns = level.spawns;
+
             for(Player p : session.getPlayers()) {
             	Color team = p.getParty().getColor();
     			for(int i=0; i<p.getParty().size(); i++) {

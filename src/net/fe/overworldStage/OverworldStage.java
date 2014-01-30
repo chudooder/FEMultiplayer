@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import net.fe.Party;
 import net.fe.Player;
 import net.fe.Session;
 import net.fe.editor.Level;
@@ -112,15 +113,33 @@ public class OverworldStage extends Stage {
         	InputStream in = ResourceLoader.getResourceAsStream("levels/"+levelName+".lvl");
             ObjectInputStream ois = new ObjectInputStream(in);
             Level level = (Level) ois.readObject();
+            Set<SpawnPoint> spawns = level.spawns;
             grid = new Grid(level.width, level.height, Terrain.NONE);
             for(int i=0; i<level.tiles.length; i++) {
             	for(int j=0; j<level.tiles[0].length; j++) {
             		grid.setTerrain(j, i, Tile.getTerrainFromID(level.tiles[i][j]));
+            		if(Tile.getTerrainFromID(level.tiles[i][j]) == Terrain.THRONE) {
+            			int blue = 0;
+            			int red = 0;
+            			for(SpawnPoint sp : spawns) {
+                    		if(sp.team.equals(Party.TEAM_BLUE)) {
+                				blue += Math.abs(sp.x-j) + Math.abs(sp.y-i);
+                    		} else {
+                    			red += Math.abs(sp.x-j) + Math.abs(sp.y-i);
+                    		}
+                    	}
+            			if(blue < red) {
+            				System.out.println(blue + " "+ red);
+            				grid.setThronePos(Party.TEAM_BLUE, j, i);
+            			} else {
+            				System.out.println(blue + " "+ red);
+            				grid.setThronePos(Party.TEAM_RED, j, i);
+            			}
+            		}
             	}
             }
             
             // Add units
-            Set<SpawnPoint> spawns = level.spawns;
             for(Player p : session.getPlayers()) {
             	Color team = p.getParty().getColor();
     			for(int i=0; i<p.getParty().size(); i++) {

@@ -23,6 +23,7 @@ import net.fe.network.message.CommandMessage;
 import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.Terrain;
+import net.fe.overworldStage.objective.Seize;
 import net.fe.transition.OverworldFightTransition;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitFactory;
@@ -53,7 +54,7 @@ public class FEMultiplayer extends Game{
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
 //		game.testFightStage();
-//		game.testOverworldStage();
+		game.testOverworldStage();
 		game.loop();
 	}
 	
@@ -89,14 +90,14 @@ public class FEMultiplayer extends Game{
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
 		
 		Unit u1 = UnitFactory.getUnit("Ike");
-		u1.addToInventory(WeaponFactory.getWeapon("Debug Noodle"));
+		u1.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
 		u1.equip(1);
 		grid.addUnit(u1, 0, 0);
 		p1.getParty().addUnit(u1);
 		
 		Unit u2 = UnitFactory.getUnit("Ike");
 		System.out.println(u2);
-		u2.addToInventory(WeaponFactory.getWeapon("Debug Sword"));
+		u2.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
 		grid.addUnit(u2, 1, 0);
 		u2.equip(1);
 		p2.getParty().addUnit(u2);
@@ -111,6 +112,7 @@ public class FEMultiplayer extends Game{
 	public void testOverworldStage() {
 		testSession = new Session();
 		testSession.setMap("plains");
+		testSession.setObjective(new Seize());
 		testSession.addPlayer(localPlayer);
 		Unit u1 = UnitFactory.getUnit("Ike");
 		u1.addToInventory(WeaponFactory.getWeapon("Divine"));

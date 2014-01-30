@@ -56,7 +56,7 @@ public class HitEffect extends Entity {
 					AudioPlayer.playAudio(soundMap.get(getFrame()), 1, 1);
 				}
 				if(getFrame()>hitframe && hitframe >= 0){
-					hitframe = -1; //Some big number.
+					hitframe = -1; 
 					((FightStage) stage).setCurrentEvent(FightStage.ATTACKED);
 				}
 			}

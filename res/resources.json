@@ -3827,6 +3827,26 @@
 			"path":		"res/map_anim/hero_map_up.png"
 		},
 		{
+			"name":		"ike_map_down",
+			"path":		"res/map_anim/ike_map_down.png"
+		},
+		{
+			"name":		"ike_map_idle",
+			"path":		"res/map_anim/ike_map_idle.png"
+		},
+		{
+			"name":		"ike_map_selected",
+			"path":		"res/map_anim/ike_map_selected.png"
+		},
+		{
+			"name":		"ike_map_side",
+			"path":		"res/map_anim/ike_map_side.png"
+		},
+		{
+			"name":		"ike_map_up",
+			"path":		"res/map_anim/ike_map_up.png"
+		},
+		{
 			"name":		"lyn_map_down",
 			"path":		"res/map_anim/lyn_map_down.png"
 		},

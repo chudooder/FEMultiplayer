@@ -98,9 +98,11 @@ public class Grid{
 		if(c.equals(Party.TEAM_BLUE)) {
 			blueThroneX = x;
 			blueThroneY = y;
+			System.out.println("Blue throne: "+x+" "+y);
 		} else {
 			redThroneX = x;
 			redThroneY = y;
+			System.out.println("Red throne: "+x+" "+y);
 		}
 	}
 	
