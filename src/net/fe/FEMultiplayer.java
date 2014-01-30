@@ -90,7 +90,7 @@ public class FEMultiplayer extends Game{
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
 		
 		Unit u1 = UnitFactory.getUnit("Lute");
-		u1.addToInventory(WeaponFactory.getWeapon("Lightning"));
+		u1.addToInventory(WeaponFactory.getWeapon("Heal"));
 		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
 		p1.getParty().addUnit(u1);
