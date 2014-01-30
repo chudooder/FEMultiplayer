@@ -3,6 +3,9 @@ package net.fe.overworldStage;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import chu.engine.Entity;
+import net.fe.Player;
+import net.fe.overworldStage.context.ItemCmd;
 import net.fe.unit.Class;
 import net.fe.unit.Unit;
 
@@ -103,11 +106,28 @@ public enum Terrain {
 	public class Healing extends TerrainTrigger{
 		private int percent;
 		public Healing(int percent){
+			super(true);
 			this.percent = percent;
 		}
-		public void startOfTurn(Grid g, int x, int y){
+		public boolean attempt(OverworldStage g, int x, int y, Player turnPlayer){
 			Unit u = g.getUnit(x, y);
-			u.setHp(u.getHp() + u.get("HP")*percent/100);
+			return u != null && 
+					u.getPartyColor().equals(turnPlayer.getParty().getColor());
+		}
+		public void startOfTurn(OverworldStage g, int x, int y){
+			Unit u = g.getUnit(x, y);
+			if(u != null)
+				u.setHp(u.getHp() + u.get("HP")*percent/100);
+		}
+		public Entity getAnimation(OverworldStage g, int x, int y){
+			Unit u = g.getUnit(x, y);
+			int add = u.get("HP")*percent/100;
+			return new Healthbar(320, 20 , u.getHp(), u.getHp() + add, u.get("HP")){
+				@Override
+				public void done() {
+					destroy();
+				}
+			};
 		}
 	}
 }
