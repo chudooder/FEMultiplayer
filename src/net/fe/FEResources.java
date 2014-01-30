@@ -56,6 +56,8 @@ public class FEResources {
 			loadBitmapFonts();
 			
 			// Textures
+			textures.put("whoops", new AnimationData(TextureLoader.getTexture("PNG", 
+					ResourceLoader.getResourceAsStream("res/whoops.png"))));
 			loadTextures();
 			textures.put("unit_colors", new AnimationData(TextureLoader.getTexture("PNG", 
 					ResourceLoader.getResourceAsStream("res/palette/unit_colors_condensed.png"))));
