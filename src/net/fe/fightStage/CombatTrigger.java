@@ -8,6 +8,7 @@ public abstract class CombatTrigger implements Serializable {
 	private static final long serialVersionUID = 1328411947653920427L;
 	public final int nameModification;
 	public final int turnToRun;
+	public final String[] attackAnims;
 	
 	public static final int NO_NAME_MOD = 0;
 	public static final int REPLACE_NAME_AFTER_PRE = 1;
@@ -22,9 +23,10 @@ public abstract class CombatTrigger implements Serializable {
 	public static final int YOUR_TURN_DRAIN = 0x40;
 	public static final int ENEMY_TURN_DRAIN = 0x80;
 	
-	public CombatTrigger(int mod, int turn){
+	public CombatTrigger(int mod, int turn, String... attacks){
 		nameModification = mod;
 		turnToRun = turn;
+		attackAnims = attacks;
 	}
 	public abstract boolean attempt(Unit user, int range);
 	public boolean runPreAttack(CombatCalculator calc, Unit a, Unit d){

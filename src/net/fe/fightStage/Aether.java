@@ -16,7 +16,8 @@ public class Aether extends CombatTrigger {
 	
 	
 	public Aether(){
-		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE + YOUR_TURN_POST + YOUR_TURN_DRAIN);
+		super(REPLACE_NAME_AFTER_PRE, YOUR_TURN_PRE + YOUR_TURN_POST + YOUR_TURN_DRAIN,
+				"aether1", "aether2");
 	}
 	@Override
 	public boolean attempt(Unit user, int range) {

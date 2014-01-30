@@ -49,6 +49,7 @@ public class FightUnit extends Entity {
 				FEResources.getTextureData(base+"attack"), s, animArgs);
 		sprite.addAnimation("ATTACK", attack);
 		
+		//Think about this
 		String masterskill = animArgs.unit.getTheClass()
 				.masterSkill.getClass().getSimpleName().toLowerCase();
 		if(FEResources.hasTexture(base + masterskill)){
