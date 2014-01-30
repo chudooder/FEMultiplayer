@@ -23,12 +23,22 @@ public class Cursor extends GriddedEntity  implements DoNotDestroy{
 	public void render(){
 		ClientOverworldStage c = (ClientOverworldStage)stage;
 		if(c.hasControl() && on) {
+			if(x - c.camX > 367 || y - c.camY > 239) return; 
 			sprite.render(x - c.camX, y - c.camY, renderDepth);
 		}
 	}
 
 	public void setXCoord(int xcoord) {
 		this.xcoord = xcoord;
+		updateCamera();
+	}
+
+	public void setYCoord(int ycoord) {
+		this.ycoord = ycoord;
+		updateCamera();
+	}
+	
+	public void updateCamera() {
 		ClientOverworldStage c = (ClientOverworldStage)stage;
 		int rX = xcoord*16 - c.camX;
 		if(rX < border) {
@@ -36,11 +46,6 @@ public class Cursor extends GriddedEntity  implements DoNotDestroy{
 		} else if(rX > 368 - border) {
 			c.camX = Math.min(c.camMaxX, xcoord*16 - (368 - border));
 		}
-	}
-
-	public void setYCoord(int ycoord) {
-		this.ycoord = ycoord;
-		ClientOverworldStage c = (ClientOverworldStage)stage;
 		int rY = ycoord*16 - c.camY;
 		if(rY < border) {
 			c.camY = Math.max(0, ycoord*16 - border);
