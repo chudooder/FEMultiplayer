@@ -19,7 +19,7 @@ public class HitEffect extends Entity {
 	private float shakeLength;
 	private int shakeIntensity;
 
-	public HitEffect(String name, boolean leftAttacking, boolean crit) {
+	public HitEffect(String name, boolean leftAttacking, final boolean crit) {
 		super(0, 0);
 		left = leftAttacking;
 		final AnimationData data = getHitTexture(name, crit);
@@ -28,6 +28,7 @@ public class HitEffect extends Entity {
 		} else {
 			shakeIntensity = 5;
 		}
+		
 		if(data.shakeFrames > 0){
 			shakeLength = data.shakeFrames;
 		} else if(data.hitframes.length > 0){
@@ -35,22 +36,26 @@ public class HitEffect extends Entity {
 		} else {
 			shakeLength = data.frames + (crit?0:0.8f);
 		}
+		final int realHit;
+		if(data.hitframes.length != 0){
+			realHit = data.hitframes[0];
+		} else {
+			realHit = 0;
+		}
+		
 		Animation anim = new Animation(data.texture, data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
 				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
 			HashMap<Integer, String> soundMap = data.soundMap;
-			int hitframe;
-			int prevFrame;
-			{
-				if(data.hitframes.length != 0){
-					hitframe = data.hitframes[0];
-				} else {
-					hitframe = 0;
-				}
-				prevFrame = -1;
-			}
+			int hitframe = realHit;
+			int prevFrame = -1;
+			
 			public void update() {
 				super.update();
+				if(soundMap.get(0) != null){
+					AudioPlayer.playAudio(soundMap.get(0), 1, 1);
+					soundMap.remove(0);
+				}
 				if(soundMap.get(getFrame()) != null && prevFrame != getFrame()) {
 					prevFrame = getFrame();
 					AudioPlayer.playAudio(soundMap.get(getFrame()), 1, 1);

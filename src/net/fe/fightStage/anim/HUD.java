@@ -19,7 +19,7 @@ public class HUD extends Entity {
 		sign = stage.isLeft(u1) ? -1 : 1;
 		this.stage = stage;
 		
-		if (u1.getWeapon() == null || !u1.getWeapon().range.contains(stage.getRange())) {
+		if (CombatCalculator.shouldAttack(u2, u1, stage.getRange())) {
 			hit = "  -";
 			crit = "  -";
 			dmg = "  -";

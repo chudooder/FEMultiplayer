@@ -25,7 +25,7 @@ public abstract class Button extends Entity{
 		if(!hover)
 			c = c.darker();
 		Renderer.drawBorderedRectangle(x, y, x+width, y+20, renderDepth, c, FightStage.BORDER_LIGHT, FightStage.BORDER_DARK);
-		Renderer.drawString("default_med", text, x+width/2-stringWidth/2 + 2, y + 4, renderDepth);
+		Renderer.drawString("default_med", text, x+width/2-stringWidth/2, y + 4, renderDepth);
 		
 	}
 	
