@@ -116,6 +116,28 @@ public class ClientOverworldStage extends OverworldStage {
 		}
 	}
 	
+	public void includeInView(Node... coords) {
+		// If all coords are visible in the current view, don't do anything
+		boolean allVisible = true;
+		for(Node n : coords) {		
+			if(n.x < camX/16 || n.x > camX/16+23
+					|| n.y < camY/16 || n.y > camY/16+15) 
+				allVisible = false;
+		}
+		if(allVisible) return;
+		int maxUp, maxLeft, maxRight, maxDown;
+		maxUp = maxLeft = Integer.MAX_VALUE;
+		maxRight = maxDown = Integer.MIN_VALUE;
+		for(Node n : coords) {
+			if(n.x < maxLeft) maxLeft = n.x;
+			if(n.x > maxRight) maxRight = n.x;
+			if(n.y < maxUp) maxUp = n.y;
+			if(n.y > maxDown) maxDown = n.y;
+		}
+		camX = Math.max(((maxLeft + maxRight)/2-11)*16, 0);
+		camY = Math.max(((maxUp + maxDown)/2-7)*16, 0);
+	}
+	
 	public void render(){
 //		Renderer.scale(2, 2);
 		super.render();
@@ -341,6 +363,7 @@ public class ClientOverworldStage extends OverworldStage {
 			Path p = grid.getShortestPath(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY);
 			grid.move(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY, true);
 			unit.move(p, callback);
+			includeInView(p.getAllNodes());
 		} else {
 			callback.execute();
 		}

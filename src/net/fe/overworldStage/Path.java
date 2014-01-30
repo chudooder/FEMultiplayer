@@ -115,4 +115,10 @@ public class Path extends Entity{
 	public String toString(){
 		return path.toString();
 	}
+
+	public Node[] getAllNodes() {
+		Node[] nodes = new Node[path.size()];
+		path.toArray(nodes);
+		return nodes;
+	}
 }
