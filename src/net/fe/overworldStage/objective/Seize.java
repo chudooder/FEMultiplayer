@@ -38,6 +38,11 @@ public class Seize implements Objective {
 ;
 	@Override
 	public String getDescription() {
+		return "Seize the throne";
+	}
+	
+	@Override
+	public String toString() {
 		return "Seize";
 	}
 

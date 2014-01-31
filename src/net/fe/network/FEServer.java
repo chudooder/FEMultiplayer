@@ -10,9 +10,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -33,10 +35,25 @@ import net.fe.modifier.DivineIntervention;
 import net.fe.modifier.MadeInChina;
 import net.fe.modifier.Modifier;
 import net.fe.modifier.Treasury;
+import net.fe.overworldStage.objective.Objective;
+import net.fe.overworldStage.objective.Rout;
+import net.fe.overworldStage.objective.Seize;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 import chu.engine.Game;
 import chu.engine.Stage;
+
+import java.awt.Component;
+
+import javax.swing.Box;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import java.awt.GridLayout;
+import javax.swing.JSeparator;
 
 /**
  * A game that does not render anything. Manages logic only
@@ -48,64 +65,104 @@ public class FEServer extends Game {
 	private static Server server;
 	private static Stage currentStage;
 	public static LobbyStage lobby;
+	private static Map<String, Objective[]> maps;
 	
 	public static void main(String[] args) {
 		final JFrame frame = new JFrame("FEServer");
+		
+		Rout rout = new Rout();
+		Seize seize = new Seize();
+		
+		maps = new HashMap<String, Objective[]>();
+		maps.put("town", new Objective[]{rout});
+		maps.put("plains", new Objective[]{rout, seize});
+		
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		DefaultListModel sModel = new DefaultListModel();
+		// Modifiers
 		DefaultListModel model = new DefaultListModel();
 		model.addElement(new MadeInChina());
 		model.addElement(new Treasury());
 		model.addElement(new DivineIntervention());
 		
-		final JPanel panel_4 = new JPanel();
-		frame.getContentPane().add(panel_4, BorderLayout.CENTER);
-		panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.Y_AXIS));
+		final JPanel mainPanel = new JPanel();
+		frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
+		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		
-		JPanel panel = new JPanel();
-		panel_4.add(panel);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		JPanel mapPanel = new JPanel();
+		mainPanel.add(mapPanel);
+		mapPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel mapNameLabel = new JLabel("Map: ");
-		panel.add(mapNameLabel);
+		mapPanel.add(mapNameLabel);
+		
+		JPanel objectivePanel = new JPanel();
+		mainPanel.add(objectivePanel);
+		
+		JLabel objLabel = new JLabel("Objective");
+		objectivePanel.add(objLabel);
+		
+		final JComboBox objComboBox = new JComboBox();
+		objectivePanel.add(objComboBox);
 		
 		// populate list of maps
 		final JComboBox mapSelectionBox = new JComboBox();
-		panel.add(mapSelectionBox);
-		mapSelectionBox.setModel(new DefaultComboBoxModel(new String[]{"town", "plains"}));
+		mapSelectionBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				objComboBox.setModel(new DefaultComboBoxModel(maps.get(mapSelectionBox.getSelectedItem())));
+			}
+		});
+		mapPanel.add(mapSelectionBox);
+		mapSelectionBox.setModel(new DefaultComboBoxModel(maps.keySet().toArray()));
 		
-		JPanel panel_1 = new JPanel();
-		panel_4.add(panel_1);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		// Objectives
+		ComboBoxModel oModel = new DefaultComboBoxModel(maps.get(mapSelectionBox.getSelectedItem()));
+		objComboBox.setModel(oModel);
+		
+		JPanel maxUnitsPanel = new JPanel();
+		mainPanel.add(maxUnitsPanel);
+		maxUnitsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel label = new JLabel("Max units: ");
-		panel_1.add(label);
+		maxUnitsPanel.add(label);
 		
 		final JSpinner maxUnitsSpinner = new JSpinner();
 		maxUnitsSpinner.setModel(new SpinnerNumberModel(8, 1, 8, 1));
-		panel_1.add(maxUnitsSpinner);
+		maxUnitsPanel.add(maxUnitsSpinner);
 		
-		JPanel panel_2 = new JPanel();
-		panel_4.add(panel_2);
-		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.X_AXIS));
+		JSeparator separator = new JSeparator();
+		mainPanel.add(separator);
 		
-		final JList selectedModifiersList = new JList();
-		selectedModifiersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		panel_2.add(selectedModifiersList);
-		selectedModifiersList.setBorder(new LineBorder(new Color(0, 0, 0)));
-		selectedModifiersList.setModel(sModel);
-		selectedModifiersList.setPreferredSize(new Dimension(100,15));
+		JLabel modifiersLabel = new JLabel("Modifiers");
+		modifiersLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		mainPanel.add(modifiersLabel);
 		
-		JPanel buttonsPanel = new JPanel();
-		panel_2.add(buttonsPanel);
-		buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.Y_AXIS));
+		JPanel modifiersPane = new JPanel();
+		mainPanel.add(modifiersPane);
+		modifiersPane.setLayout(new BoxLayout(modifiersPane, BoxLayout.X_AXIS));
+		
+		JScrollPane selectedModifiersScrollPane = new JScrollPane();
+		selectedModifiersScrollPane.setPreferredSize(new Dimension(120,150));
+		modifiersPane.add(selectedModifiersScrollPane);
+		
+		JScrollPane modifiersScrollPane = new JScrollPane();
+		modifiersScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		modifiersScrollPane.setPreferredSize(new Dimension(120,150));
 		
 		final JList modifiersList = new JList();
 		modifiersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		panel_2.add(modifiersList);
-		modifiersList.setBorder(new LineBorder(new Color(0, 0, 0)));
+		modifiersScrollPane.add(modifiersList);
 		modifiersList.setModel(model);
-		modifiersList.setPreferredSize(new Dimension(100,15));
+		modifiersScrollPane.setViewportView(modifiersList);
+		
+		final JList selectedModifiersList = new JList();
+		selectedModifiersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		selectedModifiersScrollPane.add(selectedModifiersList);
+		selectedModifiersList.setModel(sModel);
+		selectedModifiersScrollPane.setViewportView(selectedModifiersList);
+		
+		JPanel buttonsPanel = new JPanel();
+		modifiersPane.add(buttonsPanel);
 		
 		JButton addModifierBtn = new JButton("<-- Add");
 		addModifierBtn.addActionListener(new ActionListener() {
@@ -118,6 +175,7 @@ public class FEServer extends Game {
 				}
 			}
 		});
+		buttonsPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		buttonsPanel.add(addModifierBtn);
 		
 		JButton removeModifierBtn = new JButton("Remove -->");
@@ -133,6 +191,11 @@ public class FEServer extends Game {
 		});
 		buttonsPanel.add(removeModifierBtn);
 		
+		modifiersPane.add(modifiersScrollPane);
+		
+		Component verticalStrut = Box.createVerticalStrut(20);
+		mainPanel.add(verticalStrut);
+		
 		final JButton startServer = new JButton("Start server");
 		startServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -143,7 +206,7 @@ public class FEServer extends Game {
 						this.setFont(getFont().deriveFont(20f));
 						this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 					}}, BorderLayout.NORTH);
-					frame.remove(panel_4);
+					frame.remove(mainPanel);
 					frame.remove(startServer);
 				} catch (UnknownHostException e1) {
 					// TODO Auto-generated catch block
@@ -160,6 +223,7 @@ public class FEServer extends Game {
 							s.addModifier(m);
 						}
 						s.setMap((String)mapSelectionBox.getSelectedItem());
+						s.setObjective((Objective)objComboBox.getSelectedItem());
 						feserver.init();
 						feserver.loop();
 					}
