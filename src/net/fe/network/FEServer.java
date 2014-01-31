@@ -29,13 +29,14 @@ import javax.swing.border.LineBorder;
 import net.fe.Player;
 import net.fe.Session;
 import net.fe.lobbystage.LobbyStage;
+import net.fe.modifier.DivineIntervention;
 import net.fe.modifier.MadeInChina;
 import net.fe.modifier.Modifier;
+import net.fe.modifier.Treasury;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 import chu.engine.Game;
 import chu.engine.Stage;
-import java.awt.GridLayout;
 
 /**
  * A game that does not render anything. Manages logic only
@@ -54,6 +55,8 @@ public class FEServer extends Game {
 		DefaultListModel sModel = new DefaultListModel();
 		DefaultListModel model = new DefaultListModel();
 		model.addElement(new MadeInChina());
+		model.addElement(new Treasury());
+		model.addElement(new DivineIntervention());
 		
 		final JPanel panel_4 = new JPanel();
 		frame.getContentPane().add(panel_4, BorderLayout.CENTER);
