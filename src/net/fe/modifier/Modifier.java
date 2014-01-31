@@ -14,5 +14,6 @@ public interface Modifier extends Serializable{
 	public void modifyUnits(TeamSelectionStage stage);
 	public void initOverworld(OverworldStage stage);
 	public void endOfTurn(OverworldStage stage);
+	public String getDescription();
 
 }

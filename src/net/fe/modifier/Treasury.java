@@ -38,5 +38,10 @@ public class Treasury implements Modifier {
 	public String toString() {
 		return "Treasury";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "Start with the maximum amount of gold.";
+	}
 
 }

@@ -70,4 +70,9 @@ public class DivineIntervention implements Modifier {
 	public String toString() {
 		return "Divine Intervention";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "All units have a version of Miracle that is guarenteed to activate.";
+	}
 }

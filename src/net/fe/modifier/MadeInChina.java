@@ -56,5 +56,10 @@ public class MadeInChina implements Modifier {
 	public String toString() {
 		return "Made In China";
 	}
+	
+	@Override
+	public String getDescription() {
+		return "All weapons have greatly reduced durability. Start with extra gold.";
+	}
 
 }

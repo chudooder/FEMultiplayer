@@ -1,11 +1,16 @@
 package net.fe.network;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -13,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -23,10 +29,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.border.LineBorder;
 
 import net.fe.Player;
 import net.fe.Session;
@@ -42,18 +50,6 @@ import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 import chu.engine.Game;
 import chu.engine.Stage;
-
-import java.awt.Component;
-
-import javax.swing.Box;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-import java.awt.GridLayout;
-import javax.swing.JSeparator;
 
 /**
  * A game that does not render anything. Manages logic only
@@ -149,13 +145,13 @@ public class FEServer extends Game {
 		modifiersScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		modifiersScrollPane.setPreferredSize(new Dimension(120,150));
 		
-		final JList modifiersList = new JList();
+		final ModifierList modifiersList = new ModifierList();
 		modifiersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		modifiersScrollPane.add(modifiersList);
 		modifiersList.setModel(model);
 		modifiersScrollPane.setViewportView(modifiersList);
 		
-		final JList selectedModifiersList = new JList();
+		final ModifierList selectedModifiersList = new ModifierList();
 		selectedModifiersList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		selectedModifiersScrollPane.add(selectedModifiersList);
 		selectedModifiersList.setModel(sModel);
@@ -306,4 +302,17 @@ public class FEServer extends Game {
 		currentStage = lobby;
 	}
 
+}
+
+class ModifierList extends JList {
+	
+	private static final long serialVersionUID = 561574462354745569L;
+
+	public String getToolTipText(MouseEvent event) {
+		Point p = event.getPoint();
+		int index = locationToIndex(p);
+		String tip = ((Modifier) getModel().getElementAt(index)).getDescription();
+		return tip;
+	}
+	
 }
