@@ -63,7 +63,7 @@ public class Healthbar extends Entity {
 	public void onStep() {
 		if(Math.abs(displayedHealth-currentHealth) >= 1){
 			doneAnimating = false;
-			displayedHealth += Math.signum(currentHealth - displayedHealth)*30*Game.getDeltaSeconds();
+			displayedHealth += Math.signum(currentHealth - displayedHealth)*15*Game.getDeltaSeconds();
 		} else if(displayedHealth != currentHealth){
 			displayedHealth = currentHealth;
 			if(!doNotSet){

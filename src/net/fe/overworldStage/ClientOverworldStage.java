@@ -244,14 +244,21 @@ public class ClientOverworldStage extends OverworldStage {
 		}
 		send();
 		SoundTrack.restart();
-		if(FEMultiplayer.getLocalPlayer().getID() == getNextPlayer().getID()){
+	}
+	
+	protected void doStartTurn(int playerID){
+		super.doStartTurn(playerID);
+		if(FEMultiplayer.getLocalPlayer().getID() == getCurrentPlayer().getID()){
 			context = new Idle(this, FEMultiplayer.getLocalPlayer());
 			addEntity(new TurnDisplay(true, Party.TEAM_BLUE));
 		} else {
 			context = new WaitForMessages(this);
 			addEntity(new TurnDisplay(false, Party.TEAM_RED));
 		}
-
+	}
+	
+	protected void beforeTriggerHook(TerrainTrigger t, int x, int y){
+		addEntity(t.getAnimation(this, x, y));
 	}
 	
 	private void clearCmdString(){

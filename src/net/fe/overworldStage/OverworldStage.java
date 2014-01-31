@@ -182,22 +182,50 @@ public class OverworldStage extends Stage {
 				if(currentPlayer >= turnOrder.size()) {
 					currentPlayer = 0;
 				}
+				doStartTurn(message.origin);
 			}
 		}
 	}
 	
 	protected void doEndTurn(int playerID) {
-		//TODO: End turn triggers here
+		for(int x = 0; x < grid.width; x++){
+			for(int y = 0; y < grid.height; y++){
+				for(TerrainTrigger t: grid.getTerrain(x, y).getTriggers()){
+					if(t.attempt(this, x, y, getCurrentPlayer()) && !t.start){
+						beforeTriggerHook(t, x, y);
+						t.endOfTurn(this, x, y);
+					}
+				}
+			}
+		}
+		
 		for(Player p : session.getPlayers()) {
 			for(Unit u : p.getParty()) {
 				u.setMoved(false);
 			}
 		}
 		for(Modifier m : session.getModifiers()) {
-			m.endOfTurn(this);;
+			m.endOfTurn(this);
 		}
 		turnCount++;
 		checkEndGame();
+	}
+	
+	protected void doStartTurn(int playerID) {
+		for(int x = 0; x < grid.width; x++){
+			for(int y = 0; y < grid.height; y++){
+				for(TerrainTrigger t: grid.getTerrain(x, y).getTriggers()){
+					if(t.attempt(this, x, y, getCurrentPlayer()) && t.start){
+						beforeTriggerHook(t, x, y);
+						t.startOfTurn(this, x, y);
+					}
+				}
+			}
+		}
+	}
+	
+	protected void beforeTriggerHook(TerrainTrigger t, int x, int y){
+		
 	}
 
 	public void processCommands(CommandMessage message) {

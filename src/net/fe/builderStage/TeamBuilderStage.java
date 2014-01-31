@@ -321,6 +321,9 @@ public class TeamBuilderStage extends Stage {
 		cursor.destroy();
 		cursor = new Cursor(9, yStart-4, 462, vgap, units.size());
 		cursor.on = true;
+		for(Button b: buttons){
+			b.setHover(false);
+		}
 		addEntity(cursor);
 	}
 	
@@ -334,6 +337,10 @@ public class TeamBuilderStage extends Stage {
 				teamData[i][2+j] = u.getInventory().get(j).name;
 			}
 		}
+		buttons[currButton].setHover(false);
+		cursor.on = true;
+		cursor.index = 0;
+		cursor.instant = true;
 		try {
 			out.writeObject(teamData);
 			out.close();
@@ -342,6 +349,7 @@ public class TeamBuilderStage extends Stage {
 			e.printStackTrace();
 			return false;
 		}
+		
 	}
 	
 	public boolean loadTeam(ObjectInputStream in){
@@ -389,6 +397,10 @@ public class TeamBuilderStage extends Stage {
 			select.selectUnit(u);
 		}
 		setUnits(select.getSelectedUnits());
+		buttons[currButton].setHover(false);
+		cursor.on = true;
+		cursor.index = 0;
+		cursor.instant = true;
 		
 		return true;
 	}
