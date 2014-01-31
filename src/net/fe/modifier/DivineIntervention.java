@@ -25,6 +25,7 @@ public class DivineIntervention implements Modifier {
 
 		@Override
 		public boolean attempt(Unit user, int range) {
+			if(user.getHp() == 1) return false;
 			return true;
 		}
 		
