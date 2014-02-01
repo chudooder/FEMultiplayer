@@ -9,7 +9,7 @@ import net.fe.fightStage.*;
 public class Class implements Serializable {
 	private static final long serialVersionUID = 9144407404798873761L;
 	public final int crit;
-	public CombatTrigger masterSkill;
+	public final CombatTrigger masterSkill;
 	public final List<Weapon.Type> usableWeapon;
 	public final String name;
 	public final String description;

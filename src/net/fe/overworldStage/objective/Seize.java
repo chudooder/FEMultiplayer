@@ -22,6 +22,7 @@ public class Seize implements Objective {
 				Unit u = p.getParty().getUnit(i);
 				if(u.getTheClass().name.equals("Lord") && u.getHp() > 0) {
 					hasLord = true;
+					System.out.println(p.getName()+" has a Lord!");
 				}
 				if(stage.grid.canSeize(u)) {
 					return p.getID();
@@ -33,7 +34,8 @@ public class Seize implements Objective {
 				winner = -2;
 			}
 		}
-		return -1;
+		if(winner > 0) return winner;
+		else return -1;
 	}
 ;
 	@Override

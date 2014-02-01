@@ -52,14 +52,14 @@ public class DivineIntervention implements Modifier {
 
 	@Override
 	public void modifyUnits(TeamSelectionStage stage) {
-		for(Unit u : stage.getAllUnits()) {
-			u.getTheClass().masterSkill = new Miracle();
-		}
+		
 	}
 
 	@Override
 	public void initOverworld(OverworldStage stage) {
-		
+		for(Unit u : stage.getAllUnits()) {
+			u.addSkill(new Miracle());
+		}
 	}
 
 	@Override
