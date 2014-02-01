@@ -34,7 +34,10 @@ public class Seize implements Objective {
 				winner = -2;
 			}
 		}
-		if(winner > 0) return winner;
+		if(winner > 0) {
+			System.out.println(winner+" has a Lord and wins!");
+			return winner;
+		}
 		else return -1;
 	}
 ;

@@ -17,6 +17,8 @@ import net.fe.fightStage.AttackRecord;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.lobbystage.ClientLobbyStage;
+import net.fe.modifier.Divine;
+import net.fe.modifier.DivineIntervention;
 import net.fe.network.Client;
 import net.fe.network.Message;
 import net.fe.network.message.CommandMessage;
@@ -89,22 +91,23 @@ public class FEMultiplayer extends Game{
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
 		
-		Unit u1 = UnitFactory.getUnit("Lute");
-		u1.addToInventory(WeaponFactory.getWeapon("Heal"));
+		Unit u1 = UnitFactory.getUnit("Ike");
 		u1.equip(0);
+		u1.setHp(2);
+		u1.addSkill(new Divine());
 		grid.addUnit(u1, 0, 0);
 		p1.getParty().addUnit(u1);
 		
-		Unit u2 = UnitFactory.getUnit("Joshua");
+		Unit u2 = UnitFactory.getUnit("Ephraim");
 		System.out.println(u2);
-		u2.addToInventory(WeaponFactory.getWeapon("Brave Sword"));
 		grid.addUnit(u2, 1, 0);
 		u2.equip(0);
+		u2.setLevel(20);
 		p2.getParty().addUnit(u2);
 		
 		CombatCalculator calc = new CombatCalculator(new UnitIdentifier(u1), new UnitIdentifier(u2), true);
 		System.out.println(calc.getAttackQueue());
-		u1.fillHp();
+		u1.setHp(2);
 		u2.fillHp();
 		setCurrentStage(new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue()));
 	}
