@@ -12,7 +12,6 @@ public class Divine extends CombatTrigger {
 
 	@Override
 	public boolean attempt(Unit user, int range) {
-		System.out.println("attempting divine "+user.name+" "+user.getHp());
 		if(user.getHp() == 1) return false;
 		return true;
 	}

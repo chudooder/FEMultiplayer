@@ -28,10 +28,12 @@ public class Seize implements Objective {
 					return p.getID();
 				}
 			}
-			if(hasLord && winner == -1) {
-				winner = p.getID();
-			} else {
-				winner = -2;
+			if(hasLord) {
+				if(winner == -1) {
+					winner = p.getID();
+				} else {
+					winner = -2;
+				}
 			}
 		}
 		if(winner > 0) {
