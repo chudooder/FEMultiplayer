@@ -59,8 +59,10 @@ public class ShopMenu extends Entity {
 			shop.sortItems();
 		}
 		
-		for(Modifier m : s.getModifiers()) {
-			m.modifyShop(this);
+		if(s != null) {
+			for(Modifier m : s.getModifiers()) {
+				m.modifyShop(this);
+			}
 		}
 	}
 	
