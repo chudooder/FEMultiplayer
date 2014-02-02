@@ -30,6 +30,23 @@ $(document).ready(function(){
   sectionHeight();
   
   $('img').load(sectionHeight);
+  
+  // Nav bar scrolling
+  var win = $(window);
+  var nav = $("nav");
+  var navPos = nav.position().top;
+  
+  var doScroll = function() {
+	var pos = win.scrollTop();
+	navPos = nav.position().top;
+	if(pos > 280)
+		nav.css({position: 'fixed', top: 20});
+	else
+		nav.css({position: 'absolute', top: '300px'});
+  }
+  
+  $(window).scroll(doScroll);
+  doScroll();
 });
 
 fixScale = function(doc) {
