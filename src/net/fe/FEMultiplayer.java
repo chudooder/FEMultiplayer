@@ -10,6 +10,7 @@ import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,7 +19,6 @@ import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.lobbystage.ClientLobbyStage;
 import net.fe.modifier.Divine;
-import net.fe.modifier.DivineIntervention;
 import net.fe.network.Client;
 import net.fe.network.Message;
 import net.fe.network.message.CommandMessage;
@@ -66,6 +66,8 @@ public class FEMultiplayer extends Game{
 		super.init(width, height, name);
 		Player p1 = new Player("Player", (byte) 0);
 		localPlayer = p1;
+		ByteBuffer icon16 = ByteBuffer.wrap(FEResources.getTexture("icon16").getTextureData());
+		Display.setIcon(new ByteBuffer[]{icon16});
 		FEResources.loadResources();
 		FEResources.loadBitmapFonts();
 		p1.getParty().setColor(Party.TEAM_BLUE);

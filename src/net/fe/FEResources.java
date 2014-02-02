@@ -35,7 +35,6 @@ public class FEResources {
 
 			@Override
 			public AnimationData put(String string, AnimationData data) {
-				System.out.println(string + "(texture) loaded.");
 				return super.put(string, data);
 			}
 		};

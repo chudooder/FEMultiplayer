@@ -3922,6 +3922,10 @@
 			"path":		"res/gui/runes.png"
 		},
 		{
+			"name":		"icon16",
+			"path":		"res/gui/icon16.png"
+		},
+		{
 			"name":		"assassin_map_down",
 			"path":		"res/map_anim/assassin_map_down.png"
 		},
