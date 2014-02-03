@@ -7,16 +7,20 @@ import net.fe.overworldStage.OverworldStage;
 import net.fe.unit.Unit;
 
 /**
- * All units have Miracle, with 100% chance to proc
+ * All units start with 1 hp
  * @author Shawn
  *
  */
-public class DivineIntervention implements Modifier {
+public class SuddenDeath implements Modifier{
 
-	private static final long serialVersionUID = -7509901063099817137L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4684401842583775643L;
 
 	@Override
 	public void modifyTeam(TeamBuilderStage stage) {
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -33,7 +37,7 @@ public class DivineIntervention implements Modifier {
 	@Override
 	public void initOverworld(OverworldStage stage) {
 		for(Unit u : stage.getAllUnits()) {
-			u.addSkill(new Divine());
+			u.setHp(1);
 		}
 	}
 
@@ -41,14 +45,15 @@ public class DivineIntervention implements Modifier {
 	public void endOfTurn(OverworldStage stage) {
 		
 	}
+
+	@Override
+	public String getDescription() {
+		return "All units start at 1 HP.";
+	}
 	
 	@Override
 	public String toString() {
-		return "Divine Intervention";
+		return "Sudden Death";
 	}
-	
-	@Override
-	public String getDescription() {
-		return "All units have a version of Miracle that is guarenteed to activate.";
-	}
+
 }
