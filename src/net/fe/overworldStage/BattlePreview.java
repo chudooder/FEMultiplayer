@@ -102,7 +102,7 @@ public class BattlePreview extends Entity {
 		// Top item and name
 		Renderer.drawRectangle(x + 1, y + 1, x + 89, y + 34, renderDepth,
 				attacker.getPartyColor());
-		Renderer.drawString("default_med", attacker.name, x + 2, y + 2,
+		Renderer.drawString("default_med", attacker.name, x + 3, y + 3,
 				renderDepth);
 		new ItemDisplay((int) x + 7, (int) y + 16, attacker.getWeapon(), false)
 				.render();
@@ -147,7 +147,7 @@ public class BattlePreview extends Entity {
 		// Bottom item and name
 		Renderer.drawRectangle(x+1, y + 97, x + 89, y + 130, renderDepth,
 				defender.getPartyColor());
-		Renderer.drawString("default_med", defender.name, x + 2, y + 98,
+		Renderer.drawString("default_med", defender.name, x + 3, y + 99,
 				renderDepth);
 		new ItemDisplay((int) x + 7, (int) y + 112, defender.getWeapon(), false)
 				.render();

@@ -12,6 +12,7 @@ import net.fe.fightStage.FightStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.OverworldContext;
 import net.fe.overworldStage.ClientOverworldStage;
+import net.fe.overworldStage.OverworldStage;
 import net.fe.overworldStage.SelectTargetContext;
 import net.fe.overworldStage.Zone;
 import net.fe.unit.ItemDisplay;
@@ -25,8 +26,8 @@ public class HealTarget extends SelectTargetContext {
 	public HealTarget(ClientOverworldStage stage, OverworldContext context, Zone z,
 			Unit u) {
 		super(stage, context, z, u, true);
-		// TODO Positioning
-		selector = new StaffSelector(0, 0, new ArrayList<Weapon>());
+		selector = new StaffSelector(ClientOverworldStage.RIGHT_AXIS - 45, 75,
+				new ArrayList<Weapon>());
 	}
 
 	public boolean validTarget(Unit u){
@@ -58,6 +59,10 @@ public class HealTarget extends SelectTargetContext {
 		super.updateCursor();
 		selector.setStaves(unit.equippableStaves(Grid.getDistance(unit,
 				getCurrentTarget())));
+		selector.x = getCurrentTarget().x + 8 - 45 - stage.camX;
+		if(selector.x < 0) selector.x = 0;
+		if(selector.x + 90 > 384) selector.x = 384-90;
+		selector.y = getCurrentTarget().y - 26 - stage.camY;
 	}
 
 	public void startContext() {

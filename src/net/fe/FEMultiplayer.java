@@ -22,6 +22,7 @@ import net.fe.modifier.Divine;
 import net.fe.network.Client;
 import net.fe.network.Message;
 import net.fe.network.message.CommandMessage;
+import net.fe.overworldStage.BattlePreview;
 import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.Terrain;
@@ -119,13 +120,29 @@ public class FEMultiplayer extends Game{
 		testSession.setMap("plains");
 		testSession.setObjective(new Seize());
 		testSession.addPlayer(localPlayer);
-		Unit u1 = UnitFactory.getUnit("Joshua");
-		u1.addToInventory(WeaponFactory.getWeapon("Divine"));
+		
+		Player p2 = new Player("P2", (byte)1);
+		p2.getParty().setColor(Party.TEAM_RED);
+		testSession.addPlayer(p2);
+		
+		Unit u1 = UnitFactory.getUnit("Franz");
+		u1.addToInventory(WeaponFactory.getWeapon("Iron Lance"));
 		u1.addToInventory(WeaponFactory.getWeapon("Divine"));
 		u1.addToInventory(WeaponFactory.getWeapon("Divine"));
 		u1.equip(0);
+		u1.setHp(1);
 		localPlayer.getParty().addUnit(u1);
+		
+		Unit u3 = UnitFactory.getUnit("Marth");
+		u3.setHp(1);
+		localPlayer.getParty().addUnit(u3);
+		
+		Unit u2 = UnitFactory.getUnit("Lute");
+		u2.addToInventory(WeaponFactory.getWeapon("Physic"));
+		localPlayer.getParty().addUnit(u2);
+		
 		currentStage = new ClientOverworldStage(testSession);
+
 	}
 	
 	public static Unit getUnit(UnitIdentifier id){

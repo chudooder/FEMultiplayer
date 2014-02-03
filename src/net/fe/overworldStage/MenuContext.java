@@ -7,12 +7,8 @@ public abstract class MenuContext<T> extends OverworldContext{
 	public MenuContext(ClientOverworldStage stage, OverworldContext prev, Menu<T> m){
 		super(stage,prev);
 		menu = m;
-		//TODO Position
-		m.x = 225;
-		m.y = 0;
-		if(cursor.getXCoord() > stage.grid.width - 5){
-			m.x = cursor.x - m.getWidth();
-		}
+		m.x = ClientOverworldStage.RIGHT_AXIS - menu.getWidth()/2;
+		m.y = 75;
 		
 	}
 	
