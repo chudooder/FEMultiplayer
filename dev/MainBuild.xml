@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="FEMultiplayer.makejar" default="makejar" basedir="../">
+	<target name="makejar" description="Creates a .jar for FEMultiplayer">
+        <jar destfile="dist/Fire Emblem Multiplayer.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Launcher-Main-Class" value="net.fe.FEMultiplayer"/>
+            	<attribute name="Launcher-VM-Args" value=""/>
+            	<attribute name="Main-Class" value="org.ninjacave.jarsplice.JarSpliceLauncher"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="bin"/>
+        	<fileset dir="lwjgl-2.9.0/native/windows"/>
+        	<fileset dir="lwjgl-2.9.0/native/macosx"/>
+        	<fileset dir="lwjgl-2.9.0/native/linux"/>
+        	<fileset dir="." excludes="**/lwjgl-2.9.0/**" includes="**/levels/**, **/res/**, **/shaders/**"/>
+            <zipfileset excludes="META-INF/*.SF" src="lwjgl-2.9.0/jar/lwjgl.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="lwjgl-2.9.0/jar/slick-util.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="json-simple/json-simple-1.1.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="lwjgl-2.9.0/jar/jogg-0.0.7.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="lwjgl-2.9.0/jar/jorbis-0.0.15.jar"/>
+        	<zipfileset excludes="META-INF/*.SF" src="lwjgl-2.9.0/jar/jarsplice-0.40.jar"/>
+        </jar>
+	</target>
+</project>

@@ -42,6 +42,11 @@ public class Rout implements Objective {
 
 	@Override
 	public String getDescription() {
+		return "Rout the enemy";
+	}
+	
+	@Override
+	public String toString() {
 		return "Rout";
 	}
 

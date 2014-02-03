@@ -94,7 +94,7 @@ public class CombatCalculator {
 			aSuccess.put(t,t.attempt(a, range));
 		}
 		for (CombatTrigger t : d.getTriggers()) {
-			dSuccess.put(t,t.attempt(a, range));
+			dSuccess.put(t,t.attempt(d, range));
 		}
 		
 		

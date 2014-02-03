@@ -35,6 +35,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	private static final long serialVersionUID = -5101031417704315547L;
 	private HashMap<String, Float> stats;
 	private HashMap<String, Integer> bases;
+	private ArrayList<CombatTrigger> skills;
 	private int hp;
 	private Class clazz;
 	private char gender;
@@ -70,6 +71,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 		inventory = new ArrayList<Item>();
 		tempMods = new HashMap<String, Integer>();
 		assist = new HashSet<Unit>();
+		skills = new ArrayList<CombatTrigger>();
 		battleStats = new HashMap<String, Integer>();
         battleStats.put("Kills", 0);
         battleStats.put("Assists", 0);
@@ -105,6 +107,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
         in.defaultReadObject();
         tempMods = new HashMap<String, Integer>();
         assist = new HashSet<Unit>();
+        skills = new ArrayList<CombatTrigger>();
         battleStats = new HashMap<String, Integer>();
         battleStats.put("Kills", 0);
         battleStats.put("Assists", 0);
@@ -319,6 +322,10 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 		}
 		fillHp();
 	}
+	
+	public void addSkill(CombatTrigger t) {
+		skills.add(t);
+	}
 
 	public void fillHp() {
 		setHp(get("HP"));
@@ -483,6 +490,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 
 	public ArrayList<CombatTrigger> getTriggers() {
 		ArrayList<CombatTrigger> triggers = new ArrayList<CombatTrigger>();
+		triggers.addAll(skills);
 		if (clazz.masterSkill != null)
 			triggers.add(clazz.masterSkill);
 		if(weapon!=null)

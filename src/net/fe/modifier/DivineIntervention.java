@@ -3,47 +3,26 @@ package net.fe.modifier;
 import net.fe.builderStage.ShopMenu;
 import net.fe.builderStage.TeamBuilderStage;
 import net.fe.builderStage.TeamSelectionStage;
+import net.fe.fightStage.CombatTrigger;
 import net.fe.overworldStage.OverworldStage;
-import net.fe.unit.Item;
 import net.fe.unit.Unit;
-import net.fe.unit.Weapon;
 
 /**
- * All weapons have 2 durability. Players are given
- * extra gold to compensate.
+ * All units have Miracle, with 100% chance to proc
  * @author Shawn
  *
  */
-public class MadeInChina implements Modifier {
+public class DivineIntervention implements Modifier {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3929819526675171008L;
+	private static final long serialVersionUID = -7509901063099817137L;
 
 	@Override
 	public void modifyTeam(TeamBuilderStage stage) {
 		
 	}
-	
+
 	@Override
 	public void modifyShop(ShopMenu shop) {
-
-	}
-
-	@Override
-	public void initOverworld(OverworldStage stage) {
-		for(Unit u : stage.getAllUnits()) {
-			for(Item item : u.getInventory()) {
-				if(item instanceof Weapon) {
-					item.setUsesDEBUGGING(2);
-				}
-			}
-		}
-	}
-
-	@Override
-	public void endOfTurn(OverworldStage stage) {
 		
 	}
 
@@ -51,15 +30,26 @@ public class MadeInChina implements Modifier {
 	public void modifyUnits(TeamSelectionStage stage) {
 		
 	}
+
+	@Override
+	public void initOverworld(OverworldStage stage) {
+		for(Unit u : stage.getAllUnits()) {
+			u.addSkill(new Divine());
+		}
+	}
+
+	@Override
+	public void endOfTurn(OverworldStage stage) {
+		
+	}
 	
 	@Override
 	public String toString() {
-		return "Made In China";
+		return "Divine Intervention";
 	}
 	
 	@Override
 	public String getDescription() {
-		return "All weapons have greatly reduced durability. Start with extra gold.";
+		return "All units have a version of Miracle that is guarenteed to activate.";
 	}
-
 }

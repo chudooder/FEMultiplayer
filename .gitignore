@@ -2,3 +2,4 @@ $ cat gitignore
 
 bin/**/*
 /bin
+/dist

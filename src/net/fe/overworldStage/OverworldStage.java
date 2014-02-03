@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
@@ -50,6 +52,12 @@ public class OverworldStage extends Stage {
 		for(Player p : session.getPlayers()) {
 			if(!p.isSpectator()) turnOrder.add(p);
 		}
+		Collections.sort(turnOrder, new Comparator<Player>() {
+			@Override
+			public int compare(Player arg0, Player arg1) {
+				return arg0.getID() - arg1.getID();
+			}
+		});
 		currentPlayer = 0;
 		turnCount = 1;
 		loadLevel(session.getMap());
