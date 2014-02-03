@@ -109,11 +109,7 @@ public class ClientOverworldStage extends OverworldStage {
 		for(Unit u: getCurrentPlayer().getParty()){
 			if(!u.hasMoved()) canMove = true;
 		}
-		if(canMove){
-			new Idle(this, getCurrentPlayer()).startContext();
-		} else {
-			end();
-		}
+		new Idle(this, getCurrentPlayer()).startContext();
 	}
 	
 	public void removeExtraneousEntities(Entity... keep){
