@@ -16,8 +16,8 @@ public class AttackPreview extends OverworldContext{
 		super(s, prevContext);
 		attacker = a;
 		defender = d;
-		//TODO Positioning
-		preview = new BattlePreview(225, 0, a, d, Grid.getDistance(a, d));
+		preview = new BattlePreview(ClientOverworldStage.RIGHT_AXIS - 44,
+				76, a, d, Grid.getDistance(a, d));
 		
 	}
 	

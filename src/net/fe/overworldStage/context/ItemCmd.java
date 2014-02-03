@@ -39,9 +39,7 @@ public class ItemCmd extends MenuContext<ItemDisplay>{
 			int oHp = unit.getHp();
 			unit.use(i);
 			//TODO Positioning
-			stage.addEntity(new Healthbar(
-					320, 20 , oHp, 
-					unit.getHp(), unit.get("HP")){
+			stage.addEntity(new Healthbar(unit, oHp, unit.getHp(), stage){
 				@Override
 				public void done() {
 					destroy();

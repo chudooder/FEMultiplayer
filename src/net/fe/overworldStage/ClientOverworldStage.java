@@ -58,6 +58,8 @@ public class ClientOverworldStage extends OverworldStage {
 	public static final float UNIT_MAX_DEPTH = 0.5f;
 	public static final float MENU_DEPTH = 0.2f;
 	public static final float CURSOR_DEPTH = 0.15f;
+	
+	public static final int RIGHT_AXIS = 480 - ObjectiveInfo.WIDTH/2 -2;
 
 	public ClientOverworldStage(Session s) {
 		super(s);
@@ -323,9 +325,8 @@ public class ClientOverworldStage extends OverworldStage {
 							unit.setMoved(true);
 							checkEndGame();
 							//TODO Positioning
-							addEntity(new Healthbar(
-									320, 20 , oHp, 
-									unit.getHp(), unit.get("HP")){
+							addEntity(new Healthbar(unit, oHp, 
+									unit.getHp(), ClientOverworldStage.this){
 								@Override
 								public void done() {
 									destroy();

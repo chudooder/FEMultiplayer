@@ -122,7 +122,7 @@ public enum Terrain {
 		public Entity getAnimation(OverworldStage g, int x, int y){
 			Unit u = g.getUnit(x, y);
 			int add = u.get("HP")*percent/100;
-			return new Healthbar(320, 20 , u.getHp(), u.getHp() + add, u.get("HP")){
+			return new Healthbar(u, u.getHp(), u.getHp() + add, (ClientOverworldStage) g){
 				@Override
 				public void done() {
 					destroy();

@@ -12,8 +12,8 @@ import chu.engine.anim.Transform;
 
 public class ObjectiveInfo extends Entity implements DoNotDestroy{
 	//CONFIG
-	private static final int 
-	WIDTH = 100, HEIGHT = 70;
+	public static final int WIDTH = 96;
+	public static final int HEIGHT = 70;
 	public ObjectiveInfo() {
 		super(480-WIDTH - 2, 2);
 		renderDepth = ClientOverworldStage.MENU_DEPTH;
