@@ -686,10 +686,8 @@ header p {
 
 #banner {
   z-index: 100;
-  width: 80%;
   height: 50px;
   position: relative;
-  margin-right: -382px;
   top: -15px;
   background: #ffcc00;
   border: 1px solid #f0b500;
@@ -751,8 +749,9 @@ header p {
   background-color: #FFE788;
 }
 #banner .downloads {
-  float: right;
-  margin: 0 45px 0 0;
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
 }
 #banner .downloads span {
   float: left;

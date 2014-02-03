@@ -39,10 +39,10 @@ $(document).ready(function(){
   var doScroll = function() {
 	var pos = win.scrollTop();
 	navPos = nav.position().top;
-	if(pos > 280)
+	if(pos > 230)
 		nav.css({position: 'fixed', top: 20});
 	else
-		nav.css({position: 'absolute', top: '300px'});
+		nav.css({position: 'absolute', top: '250px'});
   }
   
   $(window).scroll(doScroll);
