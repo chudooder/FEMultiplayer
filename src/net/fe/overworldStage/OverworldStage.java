@@ -355,4 +355,17 @@ public class OverworldStage extends Stage {
 		return units;
 	}
 
+	/**
+	 *  Returns a list of players in the turn order, 
+	 *  with the first player being the current player
+	 * @return
+	 */
+	public Player[] getTurnOrder() {
+		Player[] t = new Player[turnOrder.size()];
+		for(int i=0; i<t.length; i++) {
+			t[i] = turnOrder.get((currentPlayer+ i) % t.length);
+		}
+		return t;
+	}
+
 }

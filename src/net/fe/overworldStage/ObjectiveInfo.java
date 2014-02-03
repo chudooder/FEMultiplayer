@@ -27,7 +27,7 @@ public class ObjectiveInfo extends Entity implements DoNotDestroy{
 		Renderer.drawString("default_med", objective, x+4, y+4, renderDepth);
 		Renderer.drawString("default_med", turn, x+4, y+20, renderDepth);
 		float ystart = y + 36;
-		for(Player p: s.getPlayers()){
+		for(Player p: s.getTurnOrder()){
 			Transform t = new Transform();
 			Color c = p.getParty().getColor().brighter();
 			c.r = Math.max(c.r, 0.5f);

@@ -97,7 +97,7 @@ public class FEServer extends Game {
 		JPanel objectivePanel = new JPanel();
 		mainPanel.add(objectivePanel);
 		
-		JLabel objLabel = new JLabel("Objective");
+		JLabel objLabel = new JLabel("Objective: ");
 		objectivePanel.add(objLabel);
 		
 		final JComboBox objComboBox = new JComboBox();
