@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.fe.FEMultiplayer;
 import net.fe.FEResources;
+import net.fe.Party;
 import net.fe.Player;
 import net.fe.Session;
 import net.fe.builderStage.ClientWaitStage;
@@ -57,22 +58,27 @@ public class ClientLobbyStage extends LobbyStage {
 				}
 			}
 		};
-		MenuButton playButton = new MenuButton(409, 57, 64, 32) {
-			{
-				sprite.addAnimation("default", FEResources.getTexture("play_button"));
-			}
+		MenuButton blueButton = new MenuButton(411, 59, 26, 28) {
 			@Override
 			public void onClick() {
 				AudioPlayer.playAudio("select", 1, 1);
-				FEMultiplayer.getLocalPlayer().joinTeam(Player.TEAM_PLAYERS);
+				FEMultiplayer.getLocalPlayer().joinTeam(Player.TEAM_BLUE);
+			}
+			@Override
+			
+			public void render() {
+				Renderer.drawBorderedRectangle(x, y, x+26, y+28, renderDepth, Party.TEAM_BLUE, BORDER_LIGHT, BORDER_DARK);
+			}
+		};
+		MenuButton redButton = new MenuButton(445, 59, 26, 28) {
+			@Override
+			public void onClick() {
+				AudioPlayer.playAudio("select", 1, 1);
+				FEMultiplayer.getLocalPlayer().joinTeam(Player.TEAM_RED);
 			}
 			@Override
 			public void render() {
-				if(hover) {
-					sprite.render(x, y, renderDepth, null, "lighten");
-				} else {
-					sprite.render(x, y, renderDepth);
-				}
+				Renderer.drawBorderedRectangle(x, y, x+26, y+28, renderDepth, Party.TEAM_RED, BORDER_LIGHT, BORDER_DARK);
 			}
 		};
 		MenuButton unassignButton = new MenuButton(409, 92, 64, 32) {
@@ -147,7 +153,8 @@ public class ClientLobbyStage extends LobbyStage {
 			}
 		};
 		addEntity(spectateButton);
-		addEntity(playButton);
+		addEntity(blueButton);
+		addEntity(redButton);
 		addEntity(unassignButton);
 		addEntity(exitButton);
 		addEntity(sendButton);
@@ -214,7 +221,8 @@ public class ClientLobbyStage extends LobbyStage {
 		x = 6;
 		y = 22;
 		Renderer.drawString("default_med", "Players", x, y-14, 0.9f);
-		Renderer.drawRectangle(x, y, x+300, y+164, 1.0f, NEUTRAL_DARK);
+		Renderer.drawRectangle(x, y, x+147, y+164, 1.0f, NEUTRAL_DARK);
+		Renderer.drawRectangle(x+152, y, x+300, y+164, 1.0f, NEUTRAL_DARK);
 		y = y + 164 + 16;
 		Renderer.drawString("default_med", "Chat", x, y-14, 0.9f);
 		Renderer.drawRectangle(x, y, x+300, y+89, 1.0f, NEUTRAL_DARK);
@@ -238,9 +246,8 @@ public class ClientLobbyStage extends LobbyStage {
 		Renderer.drawRectangle(x, y, 474, 314, 1.0f, NEUTRAL_DARK);
 		
 		// Draw players in correct locations
-		int a = 0;
-		int b = 0;
-		int c = 0;
+		int a, b, c, d;
+		a = b = c = d = 0;
 		final int tightSpacing = 16;
 		for(Player p : session.getPlayers()) {
 			Transform t = new Transform();
@@ -251,9 +258,10 @@ public class ClientLobbyStage extends LobbyStage {
 				Renderer.drawString("default_med", p.getName(), 324, 27+(a++)*tightSpacing, 0.8f, t);
 			} else if(p.getTeam() == Player.TEAM_SPECTATOR) {
 				Renderer.drawString("default_med", p.getName(), 324, 115+(b++)*tightSpacing, 0.8f, t);
-			} else {
+			} else if(p.getTeam() == Player.TEAM_BLUE)  {
 				Renderer.drawString("default_med", p.getName(), 8, 24+(c++)*tightSpacing, 0.8f, t);
-
+			} else if(p.getTeam() == Player.TEAM_RED)  {
+				Renderer.drawString("default_med", p.getName(), 161, 24+(d++)*tightSpacing, 0.8f, t);
 			}
 		}
 		

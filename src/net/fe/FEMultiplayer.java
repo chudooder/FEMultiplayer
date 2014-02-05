@@ -22,7 +22,6 @@ import net.fe.modifier.Divine;
 import net.fe.network.Client;
 import net.fe.network.Message;
 import net.fe.network.message.CommandMessage;
-import net.fe.overworldStage.BattlePreview;
 import net.fe.overworldStage.ClientOverworldStage;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.Terrain;
