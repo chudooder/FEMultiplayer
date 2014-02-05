@@ -12,7 +12,7 @@ import chu.engine.anim.Transform;
 
 public class ObjectiveInfo extends Entity implements DoNotDestroy{
 	//CONFIG
-	public static final int WIDTH = 96;
+	public static final int WIDTH = 102;
 	public static final int HEIGHT = 70;
 	public ObjectiveInfo() {
 		super(480-WIDTH - 2, 2);
