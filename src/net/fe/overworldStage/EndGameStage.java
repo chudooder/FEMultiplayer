@@ -47,6 +47,9 @@ public class EndGameStage extends Stage {
 		}
 		for(KeyboardEvent key : Game.getKeys()) {
 			if(key.state && key.key == Keyboard.KEY_RETURN) {
+				for(Player p : session.getPlayers()) {
+					p.ready = false;
+				}
 				FEMultiplayer.setCurrentStage(FEMultiplayer.lobby);
 			}
 		}

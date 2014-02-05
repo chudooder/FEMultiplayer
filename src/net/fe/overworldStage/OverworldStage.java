@@ -24,6 +24,7 @@ import net.fe.network.message.ChatMessage;
 import net.fe.network.message.CommandMessage;
 import net.fe.network.message.EndGame;
 import net.fe.network.message.EndTurn;
+import net.fe.network.message.QuitMessage;
 import net.fe.overworldStage.objective.Objective;
 import net.fe.unit.Item;
 import net.fe.unit.Unit;
@@ -191,6 +192,26 @@ public class OverworldStage extends Stage {
 					currentPlayer = 0;
 				}
 				doStartTurn(message.origin);
+			}
+			else if(message instanceof QuitMessage) {
+				Player leaver = null;
+				for(Player p : session.getPlayers()) {
+					if(p.getID() == message.origin) {
+						chat.add(p, p.getName()+" left the game!");
+						leaver = p;
+					}
+				}
+				session.removePlayer(leaver);
+				Player winner = null;
+				for(Player p : session.getPlayers()) {
+					if(!p.getParty().getColor().equals(leaver.getParty().getColor())) {
+						winner = p;
+					}
+				}
+				if(FEServer.getServer() != null) {
+					FEServer.getServer().broadcastMessage(new EndGame((byte) 0, winner.getID()));
+					FEServer.resetToLobby();
+				}
 			}
 		}
 	}

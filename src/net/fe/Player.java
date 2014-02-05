@@ -14,7 +14,8 @@ public class Player implements Serializable {
 	
 	public static final int TEAM_UNASSIGNED = 0;
 	public static final int TEAM_SPECTATOR = 1;
-	public static final int TEAM_PLAYERS = 2;
+	public static final int TEAM_BLUE = 2;
+	public static final int TEAM_RED = 3;
 	
 	public Player(String name, byte id) {
 		party = new Party();

@@ -1,5 +1,6 @@
 package net.fe.lobbystage;
 
+import net.fe.Party;
 import net.fe.Player;
 import net.fe.Session;
 import net.fe.builderStage.WaitStage;
@@ -40,6 +41,11 @@ public class LobbyStage extends Stage {
 			else if(message instanceof JoinTeam) {
 				JoinTeam join = (JoinTeam)message;
 				session.getPlayer(join.origin).setTeam(join.team);
+				if(join.team == Player.TEAM_BLUE) {
+					session.getPlayer(join.origin).getParty().setColor(Party.TEAM_BLUE);
+				} else if(join.team == Player.TEAM_RED) {
+					session.getPlayer(join.origin).getParty().setColor(Party.TEAM_RED);
+				}
 				session.getPlayer(join.origin).ready = false;
 			}
 			else if(message instanceof ClientInit) {		// Only clients will get this
