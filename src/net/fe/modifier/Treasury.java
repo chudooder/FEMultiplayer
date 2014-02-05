@@ -11,7 +11,7 @@ public class Treasury implements Modifier {
 
 	@Override
 	public void modifyTeam(TeamBuilderStage stage) {
-		stage.setFunds(Integer.MAX_VALUE);
+		stage.setFunds(99999900);
 	}
 
 	@Override
