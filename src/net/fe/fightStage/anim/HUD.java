@@ -25,7 +25,7 @@ public class HUD extends Entity {
 			dmg = "  -";
 		} else {
 			hit = String.format("%3d",
-					Math.min(100, Math.max(u1.hit() - u2.avoid(), 0)));
+					Math.min(100, Math.max(CombatCalculator.hitRate(u1, u2), 0)));
 			crit = String.format("%3d",
 					Math.min(100, Math.max(u1.crit() - u2.dodge(), 0)));
 			dmg = String.format("%3d", Math.min(100,

@@ -117,8 +117,7 @@ public class CombatCalculator {
 		}
 		
 		
-		if (!((RNG.get()+RNG.get())/2 < a.hit() - d.avoid()
-				+ a.getWeapon().triMod(d.getWeapon()) * 15)) {
+		if (!((RNG.get()+RNG.get())/2 < hitRate(a, d))) {
 			miss = true;
 			if (a.getWeapon().isMagic())
 				a.use(a.getWeapon(), false); //TODO Remove on server
@@ -219,6 +218,10 @@ public class CombatCalculator {
 					* (effective? 3:1) - d.get("Def");
 		}
 		return Math.max(base, 0);
+	}
+	
+	public static int hitRate(Unit a, Unit d){
+		return a.hit() - d.avoid() + a.getWeapon().triMod(d.getWeapon()) * 15;
 	}
 	
 }
