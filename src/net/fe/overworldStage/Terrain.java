@@ -104,6 +104,7 @@ public enum Terrain {
 	
 	public class Healing extends TerrainTrigger{
 		private int percent;
+		private int amount;
 		public Healing(int percent){
 			super(true);
 			this.percent = percent;
@@ -115,13 +116,13 @@ public enum Terrain {
 		}
 		public void startOfTurn(OverworldStage g, int x, int y){
 			Unit u = g.getUnit(x, y);
+			amount = Math.min(u.get("HP")*percent/100, u.get("HP") - u.getHp());
 			if(u != null)
-				u.setHp(u.getHp() + u.get("HP")*percent/100);
+				u.setHp(u.getHp() + amount);
 		}
 		public Entity getAnimation(OverworldStage g, int x, int y){
 			Unit u = g.getUnit(x, y);
-			int add = u.get("HP")*percent/100;
-			return new Healthbar(u, u.getHp(), u.getHp() + add, (ClientOverworldStage) g){
+			return new Healthbar(u, u.getHp(), u.getHp() + amount, (ClientOverworldStage) g){
 				@Override
 				public void done() {
 					destroy();

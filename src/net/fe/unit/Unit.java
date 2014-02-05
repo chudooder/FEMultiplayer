@@ -562,7 +562,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	public int avoid() {
 		return 2 * get("Spd") + get("Lck") / 2
 				+ (tempMods.get("Avo") != null ? tempMods.get("Avo") : 0)
-				+ getTerrain().avoidBonus;
+				+ (clazz.name.equals("Falconknight")? 0: getTerrain().avoidBonus);
 	}
 
 	public int crit() {
@@ -594,7 +594,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 				+ (weapon != null ? weapon.modifiers.get(stat) : 0)
 				+ (tempMods.get(stat) != null ? tempMods.get(stat) : 0);
 		if (Arrays.asList("Def", "Res").contains(stat)) {
-			ans += getTerrain().defenseBonus;
+			ans += (clazz.name.equals("Falconknight")? 0: getTerrain().defenseBonus);
 		}
 		if((stat.equals("Spd") || stat.equals("Skl")) && rescuedUnit!=null){
 			ans/=2;
