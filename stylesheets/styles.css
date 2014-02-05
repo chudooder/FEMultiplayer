@@ -942,7 +942,7 @@ footer {
 @media print, screen and (max-width: 480px) {
   header {
     position: relative;
-    padding: 5px 0px;
+    padding: 5px 10px;
     min-height: 0px;
   }
   header h1 {
@@ -958,13 +958,14 @@ footer {
     margin-top: 5px;
   }
 
-  #banner {
+  #banner span {
     display: none;
   }
 
   header ul {
     display: none;
   }
+  
 }
 @media print {
   body {
