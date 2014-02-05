@@ -33,11 +33,11 @@ public class TerrainInfo extends Entity implements DoNotDestroy{
 				x+7, y+28, x+45, y+37, renderDepth);
 		//Terrain stats
 		Renderer.drawString("default_med", "AVO", x+5, y+40, renderDepth);
-		Renderer.drawString("default_med", terrain.avoidBonus, 
-				x+46-def.getStringWidth(terrain.avoidBonus+""), y+40, renderDepth);
+		Renderer.drawString("default_med", terrain.getAvoidBonus(null), 
+				x+46-def.getStringWidth(terrain.getAvoidBonus(null)+""), y+40, renderDepth);
 		Renderer.drawString("default_med", "DEF", x+5, y+53, renderDepth);
-		Renderer.drawString("default_med", terrain.defenseBonus, 
-				x+46-def.getStringWidth(terrain.defenseBonus+""), y+53, renderDepth);
+		Renderer.drawString("default_med", terrain.getDefenseBonus(null), 
+				x+46-def.getStringWidth(terrain.getDefenseBonus(null)+""), y+53, renderDepth);
 		Renderer.drawString("default_med", "HP", x+5, y+66, renderDepth);
 		Renderer.drawString("default_med", terrain.healthBonus, 
 				x+46-def.getStringWidth(terrain.healthBonus+""), y+66, renderDepth);

@@ -6,6 +6,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import net.fe.Player;
 import net.fe.unit.Class;
 import net.fe.unit.Unit;
+import net.fe.unit.WeaponFactory;
 import chu.engine.Entity;
 
 public enum Terrain {
@@ -26,8 +27,8 @@ public enum Terrain {
 	THRONE(1,3,30,10);
 
 	private int baseMoveCost;
-	public final int avoidBonus;
-	public final int defenseBonus;
+	private final int avoidBonus;
+	private final int defenseBonus;
 	public final int healthBonus;
 	private CopyOnWriteArrayList<TerrainTrigger> triggers;
 	
@@ -48,7 +49,7 @@ public enum Terrain {
 		if (c == null)
 			return baseMoveCost;
 		String name = c.name;
-		if(name.equals("Falconknight")){
+		if(WeaponFactory.fliers.contains(name)){
 			if(this == WALL)
 				return 127;
 			return 1;
@@ -100,6 +101,18 @@ public enum Terrain {
 	
 	public List<TerrainTrigger> getTriggers(){
 		return triggers;
+	}
+	
+	public int getAvoidBonus(Unit u) {
+		if(u == null) return avoidBonus;
+		if(WeaponFactory.fliers.contains(u.getTheClass().name)) return 0;
+		return avoidBonus;
+	}
+	
+	public int getDefenseBonus(Unit u) {
+		if(u == null) return defenseBonus;
+		if(WeaponFactory.fliers.contains(u.getTheClass().name)) return 0;
+		return defenseBonus;
 	}
 	
 	public class Healing extends TerrainTrigger{

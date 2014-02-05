@@ -14,6 +14,8 @@ public class WeaponFactory {
 					"Ephraim", "Eirika", "Eliwood");
 	private static final List<String> armored =
 			Arrays.asList("Paladin", "General");
+	public static final List<String> fliers =
+			Arrays.asList("Falconknight");
 	private static HashMap<String, Weapon> weapons = new HashMap<String, Weapon>();
 	
 	static{
@@ -58,7 +60,7 @@ public class WeaponFactory {
 			} else if (args[8].equals("Armor")){
 				w.effective.addAll(armored);
 			} else if (args[8].equals("Flier")){
-				w.effective.add("Falconknight");
+				w.effective.addAll(fliers);
 			}
 			
 			if(!args[9].equals("-")){
