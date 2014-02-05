@@ -261,7 +261,7 @@ public class ClientLobbyStage extends LobbyStage {
 			} else if(p.getTeam() == Player.TEAM_BLUE)  {
 				Renderer.drawString("default_med", p.getName(), 8, 24+(c++)*tightSpacing, 0.8f, t);
 			} else if(p.getTeam() == Player.TEAM_RED)  {
-				Renderer.drawString("default_med", p.getName(), 161, 24+(d++)*tightSpacing, 0.8f, t);
+				Renderer.drawString("default_med", p.getName(), 160, 24+(d++)*tightSpacing, 0.8f, t);
 			}
 		}
 		
