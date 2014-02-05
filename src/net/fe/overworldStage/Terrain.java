@@ -3,11 +3,10 @@ package net.fe.overworldStage;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import chu.engine.Entity;
 import net.fe.Player;
-import net.fe.overworldStage.context.ItemCmd;
 import net.fe.unit.Class;
 import net.fe.unit.Unit;
+import chu.engine.Entity;
 
 public enum Terrain {
 	PLAIN(1,0,0,0),
@@ -24,7 +23,7 @@ public enum Terrain {
 	WALL(127,0,0,0), 
 	FENCE(127,0,0,0),
 	NONE(127,0,0,0), 
-	THRONE(1,30,3,10);
+	THRONE(1,3,30,10);
 
 	private int baseMoveCost;
 	public final int avoidBonus;
