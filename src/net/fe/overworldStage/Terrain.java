@@ -49,7 +49,7 @@ public enum Terrain {
 		if (c == null)
 			return baseMoveCost;
 		String name = c.name;
-		if(c.equals("Falconknight")){
+		if(name.equals("Falconknight")){
 			if(this == WALL)
 				return 127;
 			return 1;
