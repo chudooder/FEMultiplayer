@@ -34,10 +34,12 @@ import net.fe.unit.WeaponFactory;
 
 import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.openal.SoundStore;
 
 import chu.engine.Game;
 import chu.engine.Stage;
+import chu.engine.menu.Notification;
 
 public class FEMultiplayer extends Game{
 	private static Stage currentStage;
@@ -155,9 +157,14 @@ public class FEMultiplayer extends Game{
 	public static void connect(String nickname, String ip) {
 		getLocalPlayer().setName(nickname);
 		client = new Client(ip, 21255);
-		lobby = new ClientLobbyStage(client.getSession());
-		setCurrentStage(lobby);
-		client.start();
+		if(client.isOpen()) {
+			lobby = new ClientLobbyStage(client.getSession());
+			setCurrentStage(lobby);
+			client.start();
+		} else {
+			currentStage.addEntity(new Notification(
+					180, 120, "default_med", "ERROR: Could not connect to the server!", 5f, new Color(255, 100, 100), 0f));
+		}
 	}
 
 	@Override

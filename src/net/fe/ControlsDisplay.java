@@ -15,7 +15,6 @@ public class ControlsDisplay extends Entity{
 		renderDepth = 0;
 		keys = new LinkedHashMap<String, String>();
 	}
-	
 	public void render(){
 		Renderer.drawRectangle(x, y, x+480, y+20, renderDepth, new Color(0,0,0,0.5f));
 		StringBuilder str = new StringBuilder();

@@ -21,7 +21,7 @@ public class Client {
 	private ObjectInputStream in;
 	private Thread serverIn;
 	private Session session;
-	private boolean open = true;
+	private boolean open = false;
 	private boolean closeRequested = false;
 	public byte winner = -1;
 	byte id;
@@ -38,6 +38,7 @@ public class Client {
 			out.flush();
 			in = new ObjectInputStream(serverSocket.getInputStream());
 			System.out.println("CLIENT: I/O streams initialized");
+			open = true;
 			serverIn = new Thread() {
 				public void run() {
 					try {
