@@ -17,6 +17,7 @@ public abstract class Button extends Entity{
 		this.text = text;
 		this.color = color;
 		this.width = width;
+		this.renderDepth = 0.05f;
 	}
 		
 	public void render(){

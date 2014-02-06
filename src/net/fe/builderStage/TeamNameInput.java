@@ -36,6 +36,7 @@ public class TeamNameInput extends TextInputBox {
 	}
 	
 	public void render(){
+		Renderer.drawRectangle(0, 0, 480, 320, renderDepth, new Color(0,0,0,0.5f));
 		Renderer.drawBorderedRectangle(x-10, y-20, x+width+10, y+height +5, renderDepth,
 				FightStage.NEUTRAL, FightStage.BORDER_LIGHT, FightStage.BORDER_DARK);
 		Renderer.drawString("default_med", "Team Name:", x, y-15, renderDepth);
@@ -62,6 +63,7 @@ public class TeamNameInput extends TextInputBox {
 					}
 					destroy();
 					((TeamBuilderStage) stage).setControl(true);
+					
 				}
 			}
 		}

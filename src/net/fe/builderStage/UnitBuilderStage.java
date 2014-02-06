@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.fe.Button;
+import net.fe.ControlsDisplay;
 import net.fe.FEMultiplayer;
+import net.fe.FEResources;
 import net.fe.RunesBg;
 import net.fe.Session;
 import net.fe.fightStage.FightStage;
@@ -34,11 +36,13 @@ public class UnitBuilderStage extends Stage {
 	private TeamBuilderStage back;
 	private State state;
 	private Button levelUp, levelDown;
+	private ControlsDisplay controls;
 	
 	//CONFIG
 	public static final int
 	INVENTORY_X = 30, INVENTORY_Y = 115, SHOP_X = 335, SHOP_Y = 20, 
-	LEVEL_X = 175, LEVEL_Y = 115;
+	LEVEL_X = 175, LEVEL_Y = 115,
+	INFO_X = 7, INFO_Y = 236, INFO_W = 316, INFO_H = 56;
 	
 	public UnitBuilderStage(Unit u, TeamBuilderStage s, Session session){
 		super("preparations");
@@ -49,8 +53,12 @@ public class UnitBuilderStage extends Stage {
 			drawCost = true;
 			setWidth(135);
 		}};
-		
 		addEntity(inv);
+		
+		controls = new ControlsDisplay();
+		controls.addControl("Z", "Buy");
+		controls.addControl("X", "Back");
+		addEntity(controls);
 		
 		UnitInfo ui = new UnitInfo(5,5);
 		ui.setUnit(u);
@@ -103,8 +111,12 @@ public class UnitBuilderStage extends Stage {
 	public void render(){
 		super.render();
 		Renderer.drawString("default_med", "Items", INVENTORY_X, INVENTORY_Y - 14, 0);
-		Renderer.drawString("default_med", "Funds: " + back.getFunds(), LEVEL_X, LEVEL_Y + 65, 0);
-		Renderer.drawString("default_med", "EXP: " + back.getExp(), LEVEL_X, LEVEL_Y + 85, 0);
+		String funds = "Funds: " + back.getFunds();
+		int width = FEResources.getBitmapFont("default_med").getStringWidth(funds);
+		Renderer.drawString("default_med", funds, INVENTORY_X+135-width, INVENTORY_Y + 75, 0);
+		String exp = "EXP: " + back.getExp();
+		width = FEResources.getBitmapFont("default_med").getStringWidth(exp);
+		Renderer.drawString("default_med", "EXP: " + back.getExp(), LEVEL_X+135-width, LEVEL_Y + 50, 0);
 		state.render();
 	}
 	
@@ -120,25 +132,31 @@ public class UnitBuilderStage extends Stage {
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {
 			repeatTimers[0] = 0.15f;
 			state.up();
+			state.updateControls();
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) && repeatTimers[1] == 0) {
 			repeatTimers[1] = 0.15f;
 			state.down();
+			state.updateControls();
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) && repeatTimers[2] == 0) {
 			repeatTimers[2] = 0.15f;
 			state.left();
+			state.updateControls();
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) && repeatTimers[3] == 0) {
 			repeatTimers[3] = 0.15f;
 			state.right();
+			state.updateControls();
 		}
 		for(KeyboardEvent ke : keys) {
 			if(ke.state) {
 				if(ke.key == Keyboard.KEY_Z) {
 					state.select();
+					state.updateControls();
 				} else if (ke.key == Keyboard.KEY_X){
 					state.cancel();
+					state.updateControls();
 				}
 					
 			}
@@ -173,15 +191,15 @@ public class UnitBuilderStage extends Stage {
 	}
 	
 	public void renderItem(Item i){
-		Renderer.drawString("default_med", i.name, 4, 268, 1);
+		Renderer.drawString("default_med", i.name, INFO_X + 2, INFO_Y + 4, 1);
 		if(i instanceof HealingItem){
 			HealingItem potion = (HealingItem) i;
-			Renderer.drawString("default_med", "Heals " + potion.amount + " HP", 10, 292, 1);
+			Renderer.drawString("default_med", "Heals " + potion.amount + " HP", INFO_X+8, INFO_Y+28, 1);
 		} else if (shop.getItem() instanceof Weapon){
 			Weapon wep = (Weapon) i;
-			Renderer.drawString("default_med", "Mt " + wep.mt, 10, 284, 1);
-			Renderer.drawString("default_med", "Hit " + wep.hit, 70, 284, 1);
-			Renderer.drawString("default_med", "Crit " + wep.crit, 130, 284, 1);
+			Renderer.drawString("default_med", "Mt " + wep.mt, INFO_X+8, INFO_Y+20, 1);
+			Renderer.drawString("default_med", "Hit " + wep.hit, INFO_X+68, INFO_Y+20, 1);
+			Renderer.drawString("default_med", "Crit " + wep.crit, INFO_X+128, INFO_Y+20, 1);
 			int rngmin = 255;
 			int rngmax = 0;
 			for(int rng: wep.range){
@@ -189,9 +207,9 @@ public class UnitBuilderStage extends Stage {
 				if(rng > rngmax) rngmax = rng;
 			}
 			if(rngmin == rngmax){
-				Renderer.drawString("default_med", "Rng " + rngmin, 190, 284, 1);
+				Renderer.drawString("default_med", "Rng " + rngmin, INFO_X+ 188, INFO_Y+20, 1);
 			} else {
-				Renderer.drawString("default_med", "Rng " + rngmin + "-" + rngmax, 190, 284, 1);
+				Renderer.drawString("default_med", "Rng " + rngmin + "-" + rngmax, INFO_X+ 188, INFO_Y+20, 1);
 			}
 			
 			ArrayList<String> flavor = new ArrayList<String>();
@@ -204,10 +222,10 @@ public class UnitBuilderStage extends Stage {
 			if(wep.name.contains("Kill") || wep.name.equals("Wo Dao")){
 				flavor.add("Has a high critical rate");
 			}
-			if(wep.getCost() == 15000){
+			if(wep.getCost() == 10000){
 				flavor.add("A legendary weapon");
 			}
-			if(wep.getCost() == 30000){
+			if(wep.getCost() == 15000){
 				flavor.add("Ultimate magic");
 			}
 			if(wep.pref != null) flavor.add(wep.pref + " only");
@@ -241,7 +259,7 @@ public class UnitBuilderStage extends Stage {
 				for(String s: flavor){
 					flavorText += s + ". ";
 				}
-				Renderer.drawString("default_med", flavorText, 10, 300, 1);
+				Renderer.drawString("default_med", flavorText, INFO_X+8, INFO_Y+36, 1);
 			}
 		}
 	}
@@ -254,6 +272,7 @@ public class UnitBuilderStage extends Stage {
 		public abstract void select();
 		public abstract void cancel();
 		public abstract void render();
+		public abstract void updateControls();
 	}
 	
 	private class Normal extends State {
@@ -335,20 +354,21 @@ public class UnitBuilderStage extends Stage {
 
 		@Override
 		public void cancel() {
+			AudioPlayer.playAudio("cancel", 1, 1);
 			FEMultiplayer.setCurrentStage(back);
 		}
 		
 		public void render(){
-			Renderer.drawBorderedRectangle(2, 264, 328, 318, 1,
+			Renderer.drawBorderedRectangle(INFO_X, INFO_Y, INFO_X+INFO_W, INFO_Y+INFO_H, 1,
 					FightStage.NEUTRAL, FightStage.BORDER_LIGHT, FightStage.BORDER_DARK);
 			if(inv.getSelectedIndex() < inv.size() && inv.getSelection() != null){
 				renderItem(inv.getSelection().getItem());
 			} else {
-				Renderer.drawString("default_med", unit.getTheClass().name, 4, 268, 1);
+				Renderer.drawString("default_med", unit.getTheClass().name, INFO_X+2, INFO_Y+4, 1);
 				Renderer.drawString("default_med", 
 						"Skill: " + unit.getTriggers().get(0).getClass().getSimpleName(), 
-						190, 268, 1);
-				Renderer.drawString("default_med", unit.getTheClass().description, 10, 284, 1);
+						INFO_X+228, INFO_Y+4, 1);
+				Renderer.drawString("default_med", unit.getTheClass().description, INFO_X+8, INFO_Y+20, 1);
 				ArrayList<String> weps = new ArrayList<String>();
 				for(Weapon.Type type: unit.getTheClass().usableWeapon){
 					if(type.isMagic()){
@@ -363,7 +383,18 @@ public class UnitBuilderStage extends Stage {
 				for(String s: weps){
 					wepText += ", " + Character.toUpperCase(s.charAt(0)) + s.substring(1);
 				}
-				Renderer.drawString("default_med", "Equips: " + wepText.substring(2), 10, 300, 1);
+				Renderer.drawString("default_med", "Equips: " + wepText.substring(2), INFO_X+8, INFO_Y+36, 1);
+			}
+		}
+		
+		public void updateControls(){
+			controls.set("X", "Back");
+			if(levelUp.hovered() || levelDown.hovered()){
+				controls.set("Z", "Select");
+			} else if (inv.getSelection() == null){
+				controls.set("Z", "Buy");
+			} else {
+				controls.set("Z", "Sell");
 			}
 		}
 		
@@ -413,9 +444,14 @@ public class UnitBuilderStage extends Stage {
 		}
 		
 		public void render(){
-			Renderer.drawBorderedRectangle(2, 264, 328, 318, 1,
+			Renderer.drawBorderedRectangle(INFO_X, INFO_Y, INFO_X+INFO_W, INFO_Y+INFO_H, 1,
 					FightStage.NEUTRAL, FightStage.BORDER_LIGHT, FightStage.BORDER_DARK);
 			renderItem(shop.getItem());
+		}
+		
+		public void updateControls(){
+			controls.set("Z", "Buy");
+			controls.set("X", "Cancel");
 		}
 		
 	}

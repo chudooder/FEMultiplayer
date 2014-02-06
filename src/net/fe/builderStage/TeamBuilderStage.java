@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import net.fe.Button;
+import net.fe.ControlsDisplay;
 import net.fe.FEMultiplayer;
 import net.fe.RunesBg;
 import net.fe.Session;
@@ -43,6 +44,7 @@ public class TeamBuilderStage extends Stage {
 	private int currButton;
 	private Session session;
 	private boolean control = true;
+	private ControlsDisplay controls;
 	
 	//CONFIG
 	private static int name = 30, clazz = 100, lv = 170, hgap = 30; //xvals
@@ -61,8 +63,18 @@ public class TeamBuilderStage extends Stage {
 		session = s;
 		buttons = new Button[4];
 		
+		controls = new ControlsDisplay();
+		controls.addControl("Z", "Items/Train");
+		controls.addControl("X", "Back");
+		if(toMainMenu){
+			controls.addControl("Enter", "Main Menu");
+		} else {
+			controls.addControl("Enter", "Fight!");
+		}
+		addEntity(controls);
+		
 		if(!toMainMenu) {
-			end = new Button(390, 290, "Fight!", Color.green, 80){
+			end = new Button(390, 270, "Fight!", Color.green, 80){
 				@Override
 				public void execute() {
 					// Send the server a PartyMessage
@@ -72,7 +84,7 @@ public class TeamBuilderStage extends Stage {
 				}
 			};
 		} else {
-			end = new Button(390, 290, "Exit", Color.red, 80){
+			end = new Button(390, 270, "Exit", Color.red, 80){
 				@Override
 				public void execute() {
 					// Send the server a PartyMessage
@@ -83,7 +95,7 @@ public class TeamBuilderStage extends Stage {
 		buttons[0] = end;
 		addEntity(end);
 		
-		save = new Button(220, 290, "Save", Color.blue, 80){
+		save = new Button(220, 270, "Save", Color.blue, 80){
 			@Override
 			public void execute() {
 				new TeamNameInput(true).setStage(TeamBuilderStage.this);
@@ -93,7 +105,7 @@ public class TeamBuilderStage extends Stage {
 		buttons[2] = save;
 		addEntity(save);
 		
-		load = new Button(305, 290, "Load", Color.blue, 80){
+		load = new Button(305, 270, "Load", Color.blue, 80){
 			@Override
 			public void execute() {
 				new TeamNameInput(false).setStage(TeamBuilderStage.this);
@@ -102,7 +114,7 @@ public class TeamBuilderStage extends Stage {
 		buttons[3] = load;
 		addEntity(load);
 		
-		back = new Button(10,290, "Back to Unit Selection", Color.red, 120){
+		back = new Button(10,270, "Back to Unit Selection", Color.red, 120){
 			public void execute() {
 				AudioPlayer.playAudio("cancel", 1, 1);
 				select.refresh();
@@ -195,6 +207,10 @@ public class TeamBuilderStage extends Stage {
 
 	@Override
 	public void beginStep() {
+		boolean captureEnter = true;
+		for(Entity e: entities){
+			if(e instanceof TeamNameInput) captureEnter = false;
+		}
 		for (Entity e : entities) {
 			e.beginStep();
 		}
@@ -210,8 +226,10 @@ public class TeamBuilderStage extends Stage {
 					cursor.on = true;
 					cursor.index = cursor.max - 1;
 					cursor.instant = true;
+					controls.set("Z", "Items/Train");
 				}else if(cursor.index == 0){
 					cursor.on = false;
+					controls.set("Z", "Select");
 					buttons[currButton].setHover(true);
 				} else {
 					cursor.up();
@@ -225,8 +243,10 @@ public class TeamBuilderStage extends Stage {
 					cursor.on = true;
 					cursor.index = 0;
 					cursor.instant = true;
+					controls.set("Z", "Items/Train");
 				}else if(cursor.index == cursor.max -1){
 					cursor.on = false;
+					controls.set("Z", "Select");
 					buttons[currButton].setHover(true);
 				} else {
 					cursor.down();
@@ -268,6 +288,9 @@ public class TeamBuilderStage extends Stage {
 						AudioPlayer.playAudio("cancel", 1, 1);
 						select.refresh();
 						FEMultiplayer.setCurrentStage(select);
+					} else if (ke.key == Keyboard.KEY_RETURN && captureEnter){
+						AudioPlayer.playAudio("select", 1, 1);
+						buttons[0].execute();
 					}
 						
 				}

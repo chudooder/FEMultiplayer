@@ -67,7 +67,7 @@ public class Class implements Serializable {
 					0, new Luna(false), Weapon.Type.SWORD, Weapon.Type.AXE);
 		if(name.equals("Berserker"))
 			return new Class("Berserker",
-					"A mighty pirate who has mastered the axe and deals devastating attacks.",
+					"A master pirate who deals devastating attacks.",
 					10, new Colossus(), Weapon.Type.AXE);
 		if(name.equals("Warrior"))
 			return new Class("Warrior", 
