@@ -24,6 +24,7 @@ public class TeamSelectionStage extends Stage {
 	private Button ok;
 	private Button classSort;
 	private Button nameSort;
+	private ControlsDisplay controls;
 	
 	private int maxUnits = 8;
 	private float[] repeatTimers = new float[4];
@@ -38,6 +39,11 @@ public class TeamSelectionStage extends Stage {
 		super("preparations");
 		builderStage = stage;
 		cursor = new Cursor();
+		controls = new ControlsDisplay();
+		controls.addControl("Z", "Select");
+		controls.addControl("Enter", "Done");
+		addEntity(controls);
+		
 		addEntity(new RunesBg(new Color(0xd2b48c)));
 		List<Unit> vassals = UnitFactory.getVassals();
 		List<Unit> lords = UnitFactory.getLords();
@@ -162,6 +168,9 @@ public class TeamSelectionStage extends Stage {
 				if(ke.key == Keyboard.KEY_Z) {
 					cursor.select();
 				} 
+				if(ke.key == Keyboard.KEY_RETURN){
+					buttons[0].execute();
+				}
 			}
 		}
 	
@@ -254,8 +263,18 @@ public class TeamSelectionStage extends Stage {
 	}
 	
 	public void render(){
-		Renderer.drawString("default_med", "Select Units", UNIT_LIST_X, 5, 1);
 		super.render();
+		
+		Renderer.drawRectangle(0, 0, 480, 20, 0, new Color(0,0,0,0.5f));
+		
+		int lords = 1- lordList.numberSelected();
+		int vassals = maxUnits - 1 - vassalList.numberSelected();
+		String ls = lords + " more lord" + (lords == 1? "": "s");
+		String vs = vassals + " more vassal" + (vassals == 1? "": "s");
+		String s = "You may select " + ls + " and " + vs;
+		int width = FEResources.getBitmapFont("default_med").getStringWidth(s);
+		Renderer.drawString("default_med", s, 240 - width/2, 5, 0);
+		
 	}
 
 	@Override
