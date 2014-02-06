@@ -29,8 +29,8 @@ public class Sprite {
 	 * @param frames Number of frames in the animation
 	 * @param f Speed of the animation in frames per second
 	 */
-	public void addAnimation(String name, Texture tex, int width, int height, int rows, int columns, float f) {
-		Animation anim = new Animation(tex, width, height, rows, columns, f);
+	public void addAnimation(String name, Texture tex, int width, int height, int length, int columns, float f) {
+		Animation anim = new Animation(tex, width, height, length, columns, f);
 		animations.put(name.toUpperCase(), anim);
 		currentAnimation = anim;
 		curAnimName = name;

@@ -3874,6 +3874,16 @@
 			"path":		"res/gui/player_phase.png"
 		},
 		{
+			"name":		"trianglemod_up",
+			"path":		"res/gui/trianglemod_up.png"
+		
+		},
+		{
+			"name":		"trianglemod_down",
+			"path":		"res/gui/trianglemod_down.png"
+		
+		},
+		{
 			"name":		"cursor",
 			"path":		"res/gui/cursor.png"
 		},

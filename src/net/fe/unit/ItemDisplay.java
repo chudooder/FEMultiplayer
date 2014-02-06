@@ -4,6 +4,7 @@ package net.fe.unit;
 import net.fe.FEResources;
 import chu.engine.Entity;
 import chu.engine.anim.Renderer;
+import chu.engine.anim.Transform;
 
 public class ItemDisplay extends Entity{
 	private Item item;
@@ -15,17 +16,21 @@ public class ItemDisplay extends Entity{
 		this.equip = equip;
 	}
 	public void render(){
+		render(null);
+	}
+	
+	public void render(Transform t) {
 		if(item == null) return;
 		int row = item.id/8;
 		int col = item.id%8;
 		Renderer.render(FEResources.getTexture("gui_weaponIcon"), 
 				col/8.0f, row/9.0f, (col+1)/8.0f, (row+1)/9.0f,
-				x-1, y, x+16, y+17, renderDepth);
-		FEResources.getBitmapFont("default_med").render(item.name, x+16, y+3, renderDepth);
+				x-1, y, x+16, y+17, renderDepth, t);
+		FEResources.getBitmapFont("default_med").render(item.name, x+16, y+3, renderDepth, t);
 		if(equip){
 			Renderer.render(FEResources.getTexture("e"), 
 					0, 0, 1, 1,
-					x+10, y+10, x+16, y+17, renderDepth);
+					x+10, y+10, x+16, y+17, renderDepth, t);
 		}
 	}
 	

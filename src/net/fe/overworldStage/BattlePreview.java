@@ -2,12 +2,15 @@ package net.fe.overworldStage;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
+
 import net.fe.FEResources;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.unit.*;
 import chu.engine.Entity;
 import chu.engine.Game;
+import chu.engine.anim.Animation;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Sprite;
 import chu.engine.anim.Transform;
@@ -15,7 +18,7 @@ import chu.engine.anim.Transform;
 public class BattlePreview extends Entity {
 	private Unit attacker, defender;
 	private ArrayList<Sprite> sprites;
-	private Sprite leftArrow, rightArrow, x2, x4;
+	private Sprite leftArrow, rightArrow, x2, x4, modUp, modDown;
 	private int range;
 
 	public BattlePreview(float x, float y, Unit a, Unit d, int range) {
@@ -34,10 +37,19 @@ public class BattlePreview extends Entity {
 		x2.addAnimation("default", FEResources.getTexture("x2"));
 		x4 = new CirclingSprite(2.2f, 1.2f, true);
 		x4.addAnimation("default", FEResources.getTexture("x4"));
+		
+		modUp = new Sprite();
+		Animation up = new Animation(FEResources.getTexture("trianglemod_up"), 7, 10, 3, 3, 0, 10, 0.15f);
+		modUp.addAnimation("default", up);
+		modDown = new Sprite();
+		Animation down = new Animation(FEResources.getTexture("trianglemod_down"), 7, 10, 3, 3, 0, 10, 0.15f);
+		modDown.addAnimation("default", down);
 		sprites.add(rightArrow);
 		sprites.add(leftArrow);
 		sprites.add(x2);
 		sprites.add(x4);
+		sprites.add(modDown);
+		sprites.add(modUp);
 		this.range = range;
 		this.renderDepth = ClientOverworldStage.MENU_DEPTH;
 	}
@@ -56,7 +68,11 @@ public class BattlePreview extends Entity {
 		String dHp = String.format("%d", defender.getHp());
 		Transform flip = new Transform();
 		flip.flipHorizontal();
-
+		
+		int triMod = attacker.getWeapon().triMod(defender.getWeapon());
+		boolean aEffective = attacker.getWeapon().effective.contains(defender.functionalClassName());
+		boolean dEffective = defender.getWeapon().effective.contains(attacker.functionalClassName());
+		
 		if (attacker.getWeapon().range.contains(range)) {
 			aHit = String.format(
 					"%d",
@@ -108,6 +124,12 @@ public class BattlePreview extends Entity {
 				.render();
 		leftArrow.render(x, y + 21, renderDepth);
 		rightArrow.render(x + 90, y + 21, renderDepth, flip);
+		
+		if(triMod > 0) {
+			modUp.render(x+16, y+32, 0.04f);
+		} else if(triMod < 0) {
+			modDown.render(x+16, y+32, 0.04f);
+		}
 
 		// Attacker stats
 
@@ -151,6 +173,12 @@ public class BattlePreview extends Entity {
 				renderDepth);
 		new ItemDisplay((int) x + 7, (int) y + 112, defender.getWeapon(), false)
 				.render();
+		
+		if(triMod < 0) {
+			modUp.render(x + 16, y + 128, 0.04f);
+		} else if(triMod > 0) {
+			modDown.render(x + 16, y + 128, 0.04f);
+		}
 	}
 	
 	private class CirclingSprite extends Sprite {

@@ -116,7 +116,7 @@ public class FEMultiplayer extends Game{
 	
 	public void testOverworldStage() {
 		testSession = new Session();
-		testSession.setMap("town");
+		testSession.setMap("test");
 		testSession.setObjective(new Seize());
 		testSession.addPlayer(localPlayer);
 		
@@ -124,17 +124,16 @@ public class FEMultiplayer extends Game{
 		p2.getParty().setColor(Party.TEAM_RED);
 		testSession.addPlayer(p2);
 		
-		Unit u1 = UnitFactory.getUnit("Franz");
-		u1.addToInventory(WeaponFactory.getWeapon("Iron Lance"));
-		u1.addToInventory(WeaponFactory.getWeapon("Divine"));
-		u1.addToInventory(WeaponFactory.getWeapon("Divine"));
+		Unit u1 = UnitFactory.getUnit("Hector");
+		u1.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
 		u1.equip(0);
 		u1.setHp(1);
 		localPlayer.getParty().addUnit(u1);
 		
 		Unit u3 = UnitFactory.getUnit("Marth");
+		u3.equip(0);
 		u3.setHp(1);
-		localPlayer.getParty().addUnit(u3);
+		p2.getParty().addUnit(u3);
 		
 		Unit u2 = UnitFactory.getUnit("Lute");
 		u2.addToInventory(WeaponFactory.getWeapon("Physic"));
