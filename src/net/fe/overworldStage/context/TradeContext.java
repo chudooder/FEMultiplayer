@@ -15,16 +15,11 @@ public class TradeContext extends OverworldContext {
 		super(s, prevContext);
 		this.u1 = u1;
 		this.u2 = u2;
-		trader = new InventoryMenu(u1);
-		tradee = new InventoryMenu(u2);
+		trader = new TradeMenu(u1, 72, 130, false);
+		tradee = new TradeMenu(u2, 199, 130, true);
 		curr = trader;
 		tradee.clearSelection();
 		marked = -1;
-		
-		trader.x = 225;
-		trader.y = 0;
-		tradee.x = 341;
-		tradee.y = 0;
 	}
 	
 	public void startContext(){
