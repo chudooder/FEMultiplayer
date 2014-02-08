@@ -118,7 +118,7 @@ public class FEMultiplayer extends Game{
 	
 	public void testOverworldStage() {
 		testSession = new Session();
-		testSession.setMap("test");
+		testSession.setMap("decay");
 		testSession.setObjective(new Seize());
 		testSession.addPlayer(localPlayer);
 		

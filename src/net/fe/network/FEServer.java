@@ -74,6 +74,7 @@ public class FEServer extends Game {
 		maps.put("town", new Objective[]{rout});
 		maps.put("plains", new Objective[]{rout, seize});
 		maps.put("fort", new Objective[]{rout, seize});
+		maps.put("decay", new Objective[]{rout, seize});
 		
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		DefaultListModel sModel = new DefaultListModel();
