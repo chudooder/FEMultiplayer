@@ -165,9 +165,6 @@ public class FEResources {
 							freeze.intValue(),
 							hitframes,
 							audioMap);
-					System.out.println(" - " + name + ": " + path + "\n - "
-							+ width + " " + height + " " + frames + " "
-							+ columns + " " + freeze);
 				}
 				if(speed != null)
 					data.speed = speed.floatValue();
