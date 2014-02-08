@@ -67,7 +67,12 @@ public class ClientLobbyStage extends LobbyStage {
 			@Override
 			
 			public void render() {
-				Renderer.drawBorderedRectangle(x, y, x+26, y+28, renderDepth, Party.TEAM_BLUE, BORDER_LIGHT, BORDER_DARK);
+				if(hover){
+					Renderer.drawBorderedRectangle(x, y, x+26, y+28, renderDepth, Party.TEAM_BLUE.brighter(), BORDER_LIGHT, BORDER_DARK);
+				} else {
+					Renderer.drawBorderedRectangle(x, y, x+26, y+28, renderDepth, Party.TEAM_BLUE, BORDER_LIGHT, BORDER_DARK);
+				}
+				Renderer.drawString("default_med", "Blue", x+5, y+8,  renderDepth);
 			}
 		};
 		MenuButton redButton = new MenuButton(445, 59, 26, 28) {
@@ -78,7 +83,12 @@ public class ClientLobbyStage extends LobbyStage {
 			}
 			@Override
 			public void render() {
-				Renderer.drawBorderedRectangle(x, y, x+26, y+28, renderDepth, Party.TEAM_RED, BORDER_LIGHT, BORDER_DARK);
+				if(hover){
+					Renderer.drawBorderedRectangle(x, y, x+26, y+28, renderDepth, Party.TEAM_RED.brighter(), BORDER_LIGHT, BORDER_DARK);
+				} else {
+					Renderer.drawBorderedRectangle(x, y, x+26, y+28, renderDepth, Party.TEAM_RED, BORDER_LIGHT, BORDER_DARK);
+				}
+				Renderer.drawString("default_med", "Red", x+5, y+8,  renderDepth);
 			}
 		};
 		MenuButton unassignButton = new MenuButton(409, 92, 64, 32) {
@@ -220,7 +230,8 @@ public class ClientLobbyStage extends LobbyStage {
 		int x, y;
 		x = 6;
 		y = 22;
-		Renderer.drawString("default_med", "Players", x, y-14, 0.9f);
+		Renderer.drawString("default_med", "Blue Team", x, y-14, 0.9f);
+		Renderer.drawString("default_med", "Red Team", x+152, y-14, 0.9f);
 		Renderer.drawRectangle(x, y, x+147, y+164, 1.0f, NEUTRAL_DARK);
 		Renderer.drawRectangle(x+152, y, x+300, y+164, 1.0f, NEUTRAL_DARK);
 		y = y + 164 + 16;
