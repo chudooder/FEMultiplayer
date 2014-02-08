@@ -38,7 +38,10 @@ public class TeamSelectionStage extends Stage {
 	public TeamSelectionStage(TeamBuilderStage stage, Session s){
 		super("preparations");
 		builderStage = stage;
-		maxUnits = s.getMaxUnits();
+		if(s == null)
+			maxUnits = 8;
+		else
+			maxUnits = s.getMaxUnits();
 		cursor = new Cursor();
 		controls = new ControlsDisplay();
 		controls.addControl("Z", "Select");

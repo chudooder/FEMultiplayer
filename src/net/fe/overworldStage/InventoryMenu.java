@@ -7,7 +7,7 @@ import net.fe.unit.ItemDisplay;
 import net.fe.unit.Unit;
 
 public class InventoryMenu extends ItemMenu {
-	private Unit unit;
+	protected Unit unit;
 	public InventoryMenu(Unit u, float x, float y) {
 		super(x, y);
 		unit = u;
