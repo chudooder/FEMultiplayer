@@ -38,6 +38,7 @@ public class TeamSelectionStage extends Stage {
 	public TeamSelectionStage(TeamBuilderStage stage, Session s){
 		super("preparations");
 		builderStage = stage;
+		maxUnits = s.getMaxUnits();
 		cursor = new Cursor();
 		controls = new ControlsDisplay();
 		controls.addControl("Z", "Select");
@@ -93,7 +94,7 @@ public class TeamSelectionStage extends Stage {
 		Collections.shuffle(vassals);
 		Collections.shuffle(lords);
 		
-		for(int i = 0; i < 7; i++){
+		for(int i = 0; i < maxUnits-1; i++){
 			selectUnit(vassals.get(i));
 		}
 		selectUnit(lords.get(0));
