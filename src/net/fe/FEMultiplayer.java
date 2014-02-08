@@ -58,7 +58,7 @@ public class FEMultiplayer extends Game{
 		FEMultiplayer game = new FEMultiplayer();
 		game.init(480, 320, "Fire Emblem Multiplayer");
 //		game.testFightStage();
-//		game.testOverworldStage();
+		game.testOverworldStage();
 		game.loop();
 	}
 	
@@ -118,7 +118,7 @@ public class FEMultiplayer extends Game{
 	
 	public void testOverworldStage() {
 		testSession = new Session();
-		testSession.setMap("test");
+		testSession.setMap("decay");
 		testSession.setObjective(new Seize());
 		testSession.addPlayer(localPlayer);
 		

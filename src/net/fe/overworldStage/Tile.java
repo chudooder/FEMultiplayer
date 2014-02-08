@@ -43,11 +43,11 @@ public class Tile extends GriddedEntity implements DoNotDestroy{
 			"KKKKKKKMMMMNNNSSSNNN     " +
 			"KKKKKPKFFFFNPNSSSNVN     " +
 			"KKKKKPKKKKKKKNNN PA      " +
-			"WWWWWWWLLWPW             " +
-			"WWWWWWWLLWPW             " +
-			"LLLWWWWLLLPH             " +
-			"LLLLLILLIILL             " +
-			"LLLLLILLILLL             " +
+			"WWWWWWWLLWPWLLSSSWWWW    " +
+			"WWWWWWWLLWPWLLSSWWWWWW   " +
+			"LLLWWWWLLLPHLLSSWLWIHI   " +
+			"LLLLLILLIILLLLSSSLLLLL   " +
+			"LLLLLILLILLLLLSSSLLL     " +
 			"                         " +
 			"                         " +
 			"                         " +
