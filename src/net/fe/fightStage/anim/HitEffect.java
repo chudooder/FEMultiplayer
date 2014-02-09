@@ -46,19 +46,15 @@ public class HitEffect extends Entity {
 		Animation anim = new Animation(data.texture, data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
 				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
-			HashMap<Integer, String> soundMap = data.soundMap;
+			HashMap<Integer, String> soundMap = new HashMap<Integer, String>(data.soundMap);
 			int hitframe = realHit;
-			int prevFrame = -1;
-			
 			public void update() {
 				super.update();
 				if(soundMap.get(0) != null){
-					AudioPlayer.playAudio(soundMap.get(0), 1, 1);
-					soundMap.remove(0);
+					AudioPlayer.playAudio(soundMap.remove(0), 1, 1);
 				}
-				if(soundMap.get(getFrame()) != null && prevFrame != getFrame()) {
-					prevFrame = getFrame();
-					AudioPlayer.playAudio(soundMap.get(getFrame()), 1, 1);
+				if(soundMap.get(getFrame()) != null) {
+					AudioPlayer.playAudio(soundMap.remove(getFrame()), 1, 1);
 				}
 				if(getFrame()>hitframe && hitframe >= 0){
 					hitframe = -1; 
