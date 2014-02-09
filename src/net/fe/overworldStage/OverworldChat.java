@@ -39,7 +39,7 @@ public class OverworldChat extends TextInputBox implements DoNotDestroy {
 		List<String> chats = chat.getLast(5);
 		for(int i=0; i<5; i++) {
 			Renderer.drawString("default_med", chats.get(i), 
-					Game.getWindowWidth()-2-font.getStringWidth(chats.get(i)), y-82+i*16, 0.8f);
+					Game.getWindowWidth()-2-font.getStringWidth(chats.get(i)), y-82+i*16, renderDepth);
 		}
 	}
 	
