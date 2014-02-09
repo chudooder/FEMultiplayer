@@ -3,3 +3,5 @@ $ cat gitignore
 bin/**/*
 /bin
 /dist
+/temp.json
+/teams
