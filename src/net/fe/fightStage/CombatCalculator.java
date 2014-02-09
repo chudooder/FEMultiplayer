@@ -60,6 +60,7 @@ public class CombatCalculator {
 	}
 	
 	public static boolean shouldAttack(Unit a, Unit d, int range){
+		if(a.getHp() <= 0) return false;
 		if(a.getWeapon() == null) return false;
 		if(a.getWeapon().getUses() == 0) return false;
 		if(!a.getWeapon().range.contains(range)) return false;
@@ -164,12 +165,12 @@ public class CombatCalculator {
 			}
 		}
 		
-		
 		if(miss){
 			damage = 0;
 			animation = "Miss";
 		}
-
+		
+		damage = Math.max(0, Math.min(damage, d.getHp()));
 		addToAttackQueue(a, d, animation, damage, drain);
 		d.setHp(d.getHp() - damage);
 		a.setHp(a.getHp() + drain);
