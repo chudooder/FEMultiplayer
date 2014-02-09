@@ -32,7 +32,6 @@ public class AudioPlayer {
 	}
 	
 	public static void playAudio(String name, float pitch, float gain) {
-		System.out.println("Playing " + name);
 		Audio audio = FEResources.getAudio(name);
 		audio.playAsSoundEffect(pitch, gain + globalGain, false);
 	}
