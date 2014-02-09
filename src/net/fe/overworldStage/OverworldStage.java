@@ -208,7 +208,9 @@ public class OverworldStage extends Stage {
 						winner = p;
 					}
 				}
+				System.out.println(leaver.getName()+" LEFT THE GAME");
 				if(FEServer.getServer() != null) {
+					System.out.println("asdfasdfasdf");
 					FEServer.getServer().broadcastMessage(new EndGame((byte) 0, winner.getID()));
 					FEServer.resetToLobby();
 				}
