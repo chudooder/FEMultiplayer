@@ -30,6 +30,7 @@ import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex3f;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
@@ -46,6 +47,7 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.Game;
@@ -69,42 +71,15 @@ public class Renderer {
 		programs.put("default", createProgram("default", "default"));
 		programs.put("greyscale", createProgram("default", "greyscale"));
 		programs.put("lighten", createProgram("default", "lighten"));
-		programs.put("paletteSwap", createProgram("paletteSwap", "paletteSwap"));
-		
-		// Palette swap 1D texture
-		ByteBuffer bb = ByteBuffer.allocateDirect(3*16);
-		// Blue colors
-		bb.put(0  , (byte)57);	//r
-		bb.put(1  , (byte)57);	//g
-		bb.put(2  , (byte)148);	//b
-		bb.put(3  , (byte)57);
-		bb.put(4  , (byte)82);
-		bb.put(5  , (byte)231);
-		bb.put(6  , (byte)41);
-		bb.put(7  , (byte)165);
-		bb.put(8  , (byte)255);
-		bb.put(9  , (byte)24);
-		bb.put(10 , (byte)247);
-		bb.put(11 , (byte)255);
-		// Red colors
-		bb.put(24, (byte)96);
-		bb.put(25, (byte)40);
-		bb.put(26, (byte)32);
-		bb.put(27, (byte)168);
-		bb.put(28, (byte)48);
-		bb.put(29, (byte)40);
-		bb.put(30, (byte)224);
-		bb.put(31, (byte)16);
-		bb.put(32, (byte)16);
-		bb.put(33, (byte)248);
-		bb.put(34, (byte)80);
-		bb.put(35, (byte)72);
+		programs.put("paletteSwap", createProgram("betterSwap", "betterSwap"));
 		// Load into texture
 		GL13.glActiveTexture(GL13.GL_TEXTURE1);
-		int texID = glGenTextures();
-		GL11.glBindTexture(GL_TEXTURE_1D, texID);
-		GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
-		GL11.glTexImage1D(GL_TEXTURE_1D, 0, GL_RGB, 16, 0, GL_RGB, GL_UNSIGNED_BYTE, bb);
+		try {
+			TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/palette/unit_colors_condensed.png")).bind();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 	}
 
