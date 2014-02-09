@@ -10,6 +10,9 @@ import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,11 +58,25 @@ public class FEMultiplayer extends Game{
 	private static Session testSession;
 	
 	public static void main(String[] args) {
-		FEMultiplayer game = new FEMultiplayer();
-		game.init(480, 320, "Fire Emblem Multiplayer");
-//		game.testFightStage();
-		game.testOverworldStage();
-		game.loop();
+		try{
+			FEMultiplayer game = new FEMultiplayer();
+			game.init(480, 320, "Fire Emblem Multiplayer");
+	//		game.testFightStage();
+			game.testOverworldStage();
+			game.loop();
+		} catch (Exception e){
+			System.err.println("Exception occurred, writing to logs...");
+			e.printStackTrace();
+			try{
+				File errLog = new File("exception" + System.currentTimeMillis()%100000000 + ".log");
+				PrintWriter pw = new PrintWriter(errLog);
+				e.printStackTrace(pw);
+				pw.close();
+			}catch (IOException e2){
+				e2.printStackTrace();
+			}
+			System.exit(0);
+		}
 	}
 	
 	
