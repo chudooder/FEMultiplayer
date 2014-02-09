@@ -25,7 +25,7 @@ public class OverworldChat extends TextInputBox implements DoNotDestroy {
 	public OverworldChat(Chat chat) {
 		super(280,200,200,20,"default_med");
 		this.chat = chat;
-		renderDepth = ClientOverworldStage.MENU_DEPTH;
+		renderDepth = 0;
 	}
 	
 	public void render() {

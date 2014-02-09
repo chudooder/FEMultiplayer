@@ -173,6 +173,7 @@ public class TeamSelectionStage extends Stage {
 					cursor.select();
 				} 
 				if(ke.key == Keyboard.KEY_RETURN){
+					AudioPlayer.playAudio("select", 1, 1);
 					buttons[0].execute();
 				}
 			}
