@@ -202,17 +202,10 @@ public class OverworldStage extends Stage {
 					}
 				}
 				session.removePlayer(leaver);
-				Player winner = null;
-				for(Player p : session.getPlayers()) {
-					if(!p.getParty().getColor().equals(leaver.getParty().getColor())) {
-						winner = p;
-					}
-				}
 				System.out.println(leaver.getName()+" LEFT THE GAME");
 				if(FEServer.getServer() != null) {
 					System.out.println("asdfasdfasdf");
-					FEServer.getServer().broadcastMessage(new EndGame((byte) 0, winner.getID()));
-					FEServer.resetToLobby();
+					checkEndGame();
 				}
 			}
 		}
