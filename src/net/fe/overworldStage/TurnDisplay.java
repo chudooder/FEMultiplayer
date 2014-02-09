@@ -48,7 +48,8 @@ public class TurnDisplay extends Entity {
 		if(xpos < -30 || (xpos > 0 && slowed)){
 			xpos += FLY_IN_SPEED*Game.getDeltaSeconds();
 		}else{
-			xpos = -30;
+			if(!slowed)
+				xpos = -30;
 			slowed = true;
 			xpos += SLOW_SPEED*Game.getDeltaSeconds();
 		}
