@@ -169,7 +169,6 @@ public class FightStage extends Stage {
 		Healthbar dhp = defender == left ? leftHP : rightHP;
 		Healthbar ahp = defender == left ? rightHP : leftHP;
 
-		boolean crit = rec.animation.contains("Critical");
 		a.renderDepth = FightStage.UNIT_DEPTH;
 		d.renderDepth = FightStage.UNIT_DEPTH + 0.01f;
 		

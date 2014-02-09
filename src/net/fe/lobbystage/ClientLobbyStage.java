@@ -20,6 +20,7 @@ import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
+import chu.engine.anim.ShaderArgs;
 import chu.engine.anim.Transform;
 import chu.engine.menu.MenuButton;
 
@@ -52,7 +53,7 @@ public class ClientLobbyStage extends LobbyStage {
 			@Override
 			public void render() {
 				if(hover) {
-					sprite.render(x, y, renderDepth, null, "lighten");
+					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
 				} else {
 					sprite.render(x, y, renderDepth);
 				}
@@ -103,7 +104,7 @@ public class ClientLobbyStage extends LobbyStage {
 			@Override
 			public void render() {
 				if(hover) {
-					sprite.render(x, y, renderDepth, null, "lighten");
+					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
 				} else {
 					sprite.render(x, y, renderDepth);
 				}
@@ -121,7 +122,7 @@ public class ClientLobbyStage extends LobbyStage {
 			@Override
 			public void render() {
 				if(hover) {
-					sprite.render(x, y, renderDepth, null, "lighten");
+					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
 				} else {
 					sprite.render(x, y, renderDepth);
 				}
@@ -138,7 +139,7 @@ public class ClientLobbyStage extends LobbyStage {
 			@Override
 			public void render() {
 				if(hover) {
-					sprite.render(x, y, renderDepth, null, "lighten");
+					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
 				} else {
 					sprite.render(x, y, renderDepth);
 				}
@@ -156,7 +157,7 @@ public class ClientLobbyStage extends LobbyStage {
 			@Override
 			public void render() {
 				if(hover) {
-					sprite.render(x, y, renderDepth, null, "lighten");
+					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
 				} else {
 					sprite.render(x, y, renderDepth);
 				}

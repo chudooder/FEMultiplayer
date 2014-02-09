@@ -28,6 +28,7 @@ import org.newdawn.slick.Color;
 import chu.engine.Game;
 import chu.engine.GriddedEntity;
 import chu.engine.anim.Renderer;
+import chu.engine.anim.ShaderArgs;
 import chu.engine.anim.Transform;
 
 public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
@@ -277,12 +278,12 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 				mod.a = alpha;
 			t.setColor(mod);
 			if(moved) {
-				sprite.render(x+1+rX, y+1+rY, renderDepth, t, "greyscale");
+				sprite.render(x+1+rX, y+1+rY, renderDepth, t, new ShaderArgs("greyscale"));
 			} else {
 				if(team.getColor().equals(Party.TEAM_RED)) {
-					sprite.render(x+1+rX, y+1+rY, renderDepth, t, "paletteSwap");
+					sprite.render(x+1+rX, y+1+rY, renderDepth, t, new ShaderArgs("paletteSwap"));
 				} else {
-					sprite.render(x+1+rX, y+1+rY, renderDepth, t, "default");
+					sprite.render(x+1+rX, y+1+rY, renderDepth, t);
 				}
 			}
 		} else {

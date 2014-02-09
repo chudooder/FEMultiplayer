@@ -9,6 +9,7 @@ import org.newdawn.slick.Color;
 
 import chu.engine.Entity;
 import chu.engine.Game;
+import chu.engine.anim.ShaderArgs;
 import chu.engine.anim.Transform;
 
 public class FightUnit extends Entity {
@@ -91,10 +92,10 @@ public class FightUnit extends Entity {
 		if(left) {
 			t.flipHorizontal();
 			sprite.render(FightStage.CENTRAL_AXIS - distanceFromCenter, 
-					FightStage.FLOOR, renderDepth, t, program);
+					FightStage.FLOOR, renderDepth, t, new ShaderArgs(program));
 		} else {
 			sprite.render(FightStage.CENTRAL_AXIS + distanceFromCenter,
-					FightStage.FLOOR, renderDepth, t, program);
+					FightStage.FLOOR, renderDepth, t, new ShaderArgs(program));
 		}
 	}
 	

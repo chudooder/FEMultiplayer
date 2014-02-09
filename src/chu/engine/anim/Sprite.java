@@ -117,11 +117,11 @@ public class Sprite {
 	 * @param depth
 	 */
 	public void render(float x, float y, float depth) {
-		this.render(x, y, depth, null, "default");
+		this.render(x, y, depth, null, new ShaderArgs());
 	}
 	
 	public void render(float x, float y, float depth, Transform t) {
-		this.render(x, y, depth, t, "default");
+		this.render(x, y, depth, t, new ShaderArgs());
 	}
 
 	/**
@@ -140,7 +140,7 @@ public class Sprite {
 	 * @param transform
 	 * @param shader 
 	 */
-	public void render(float x, float y, float depth, Transform transform, String shader) {
+	public void render(float x, float y, float depth, Transform transform, ShaderArgs shader) {
 		if(currentAnimation == null) return;
 		
 		int width = currentAnimation.getWidth();

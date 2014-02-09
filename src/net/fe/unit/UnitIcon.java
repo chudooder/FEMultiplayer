@@ -7,6 +7,7 @@ import org.newdawn.slick.Color;
 
 import chu.engine.Entity;
 import chu.engine.anim.Renderer;
+import chu.engine.anim.ShaderArgs;
 import chu.engine.anim.Transform;
 
 public class UnitIcon extends Entity {
@@ -31,11 +32,11 @@ public class UnitIcon extends Entity {
 		if(FEResources.hasTexture(u.functionalClassName().toLowerCase() + "_map_idle")){
 			Transform t = new Transform();
 			if(greyscale){
-				sprite.render(x+1, y+1, renderDepth, t, "greyscale");
+				sprite.render(x+1, y+1, renderDepth, t, new ShaderArgs("greyscale"));
 			} else if(c.equals(Party.TEAM_RED)) {
-				sprite.render(x+1, y+1, renderDepth, t, "paletteSwap");
+				sprite.render(x+1, y+1, renderDepth, t, new ShaderArgs("paletteSwap"));
 			} else {
-				sprite.render(x+1, y+1, renderDepth, t, "default");
+				sprite.render(x+1, y+1, renderDepth, t, new ShaderArgs("default"));
 			}
 		}else {
 			Color c = this.c;

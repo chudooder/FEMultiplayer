@@ -4,20 +4,16 @@ import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL11.GL_LINES;
 import static org.lwjgl.opengl.GL11.GL_NEAREST;
 import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_RGB;
 import static org.lwjgl.opengl.GL11.GL_SCISSOR_TEST;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_1D;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
 import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
-import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glColor4f;
 import static org.lwjgl.opengl.GL11.glDisable;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glGenTextures;
 import static org.lwjgl.opengl.GL11.glLineWidth;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
@@ -33,7 +29,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Stack;
 
@@ -107,20 +102,22 @@ public class Renderer {
 	 */
 	public static void render(Texture t, float tx0, float ty0, float tx1,
 			float ty1, float x0, float y0, float x1, float y1, float depth) {
-		render(t, tx0, ty0, tx1, ty1, x0, y0, x1, y1, depth, null, "default");
+		render(t, tx0, ty0, tx1, ty1, x0, y0, x1, y1, depth, null, new ShaderArgs());
 	}
 	
 	public static void render(Texture t, float tx0, float ty0, float tx1,
 			float ty1, float x0, float y0, float x1, float y1, float depth, Transform transform) {
-		render(t, tx0, ty0, tx1, ty1, x0, y0, x1, y1, depth, transform, "default");
+		render(t, tx0, ty0, tx1, ty1, x0, y0, x1, y1, depth, transform, new ShaderArgs());
 	}
 
 	public static void render(Texture t, float tx0, float ty0,
 			float tx1, float ty1, float x0, float y0, float x1, float y1,
-			float depth, Transform transform, String shader) {
+			float depth, Transform transform, ShaderArgs shader) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
-		ARBShaderObjects.glUseProgramObjectARB(programs.get(shader));
+		int program = programs.get(shader.programName);
+		ARBShaderObjects.glUseProgramObjectARB(program);
+		shader.bindArgs(program);
 		t.bind();
 		glPushMatrix();
 		if(transform != null) {

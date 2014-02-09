@@ -13,6 +13,7 @@ import chu.engine.Stage;
 import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.BitmapFont;
 import chu.engine.anim.Renderer;
+import chu.engine.anim.ShaderArgs;
 import chu.engine.menu.MenuButton;
 import chu.engine.menu.TextInputBox;
 
@@ -53,7 +54,7 @@ public class ConnectStage extends Stage {
 			@Override
 			public void render() {
 				if(hover) {
-					sprite.render(x, y, renderDepth, null, "lighten");
+					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
 				} else {
 					sprite.render(x, y, renderDepth);
 				}
@@ -144,7 +145,7 @@ public class ConnectStage extends Stage {
 		@Override
 		public void render() {
 			if(hover) {
-				sprite.render(x, y, renderDepth, null, "lighten");
+				sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
 			} else {
 				sprite.render(x, y, renderDepth);
 			}
