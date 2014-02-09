@@ -83,8 +83,6 @@ public class FEMultiplayer extends Game{
 	
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
-		name = null;
-		name.charAt(0);
 		Player p1 = new Player("Player", (byte) 0);
 		localPlayer = p1;
 		ByteBuffer icon16 = ByteBuffer.wrap(FEResources.getTexture("icon16").getTextureData());
