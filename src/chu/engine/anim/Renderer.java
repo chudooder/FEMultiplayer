@@ -67,15 +67,6 @@ public class Renderer {
 		programs.put("greyscale", createProgram("default", "greyscale"));
 		programs.put("lighten", createProgram("default", "lighten"));
 		programs.put("paletteSwap", createProgram("betterSwap", "betterSwap"));
-		// Load into texture
-		GL13.glActiveTexture(GL13.GL_TEXTURE1);
-		try {
-			TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream("res/palette/unit_colors_condensed.png")).bind();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 	}
 
 	/***

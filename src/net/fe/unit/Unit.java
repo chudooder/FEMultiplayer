@@ -13,6 +13,7 @@ import java.util.Set;
 
 import net.fe.Command;
 import net.fe.FEResources;
+import net.fe.PaletteSwapper;
 import net.fe.Party;
 import net.fe.fightStage.CombatTrigger;
 import net.fe.overworldStage.DoNotDestroy;
@@ -280,11 +281,8 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 			if(moved) {
 				sprite.render(x+1+rX, y+1+rY, renderDepth, t, new ShaderArgs("greyscale"));
 			} else {
-				if(team.getColor().equals(Party.TEAM_RED)) {
-					sprite.render(x+1+rX, y+1+rY, renderDepth, t, new ShaderArgs("paletteSwap"));
-				} else {
-					sprite.render(x+1+rX, y+1+rY, renderDepth, t);
-				}
+				ShaderArgs args = PaletteSwapper.setup(this);
+				sprite.render(x+1+rX, y+1+rY, renderDepth, t, args);
 			}
 		} else {
 			Color c = !moved ? new Color(getPartyColor()) : new Color(128, 128, 128);

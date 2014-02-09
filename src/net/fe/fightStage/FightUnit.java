@@ -4,6 +4,7 @@ import net.fe.FEResources;
 import net.fe.fightStage.anim.AnimationArgs;
 import net.fe.fightStage.anim.AttackAnimation;
 import net.fe.fightStage.anim.DodgeAnimation;
+import net.fe.unit.Unit;
 
 import org.newdawn.slick.Color;
 
@@ -116,6 +117,10 @@ public class FightUnit extends Entity {
 		} else {
 			sprite.setAnimation("ATTACK");
 		}
+	}
+	
+	public Unit getUnit() {
+		return animArgs.unit;
 	}
 
 }
