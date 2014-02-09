@@ -35,7 +35,7 @@ public class PaletteSwapper {
 		int offset = lookup.get(c).indexOf(unit.name);
 		args.programName = "paletteSwap";
 		args.args = new float[] {t.getImageWidth(), t.getImageHeight(), offset};
-		GL13.glActiveTexture(GL13.GL_TEXTURE1);
+		GL13.glActiveTexture(GL13.GL_TEXTURE8);
 		t.bind();
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		return args;
@@ -49,7 +49,7 @@ public class PaletteSwapper {
 		Texture t = FEResources.getTexture("palette_overworld");
 		args.programName = "paletteSwap";
 		args.args = new float[] {t.getImageWidth(), t.getImageHeight(), offset};
-		GL13.glActiveTexture(GL13.GL_TEXTURE1);
+		GL13.glActiveTexture(GL13.GL_TEXTURE8);
 		t.bind();
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
 		return args;

@@ -26,7 +26,6 @@ import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex3f;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -351,7 +350,7 @@ public class Renderer {
 	    int loc = GL20.glGetUniformLocation(prog, "texture1");
         GL20.glUniform1i(loc, 0);
         int loc2 = GL20.glGetUniformLocation(prog, "texture2");
-        GL20.glUniform1i(loc2, 1);
+        GL20.glUniform1i(loc2, 8);
         
 	    // Validate program
 	    ARBShaderObjects.glValidateProgramARB(prog);
@@ -360,6 +359,7 @@ public class Renderer {
 	    	System.out.println("shit");
 	    	return -1;
 	    }
+	    
     	return prog;
     }
 
