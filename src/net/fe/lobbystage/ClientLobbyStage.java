@@ -118,6 +118,7 @@ public class ClientLobbyStage extends LobbyStage {
 			public void onClick() {
 				AudioPlayer.playAudio("select", 1, 1);
 				FEMultiplayer.getClient().quit();
+				FEMultiplayer.setCurrentStage(FEMultiplayer.connect);
 			}
 			@Override
 			public void render() {
