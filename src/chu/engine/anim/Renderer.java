@@ -146,6 +146,7 @@ public class Renderer {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, SCALE_FILTER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, SCALE_FILTER);
 		ARBShaderObjects.glUseProgramObjectARB(programs.get(shader));
+		
 		t.bind();
 		glPushMatrix();
 		if(transform != null) {
