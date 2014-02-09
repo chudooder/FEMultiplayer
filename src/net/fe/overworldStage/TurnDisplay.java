@@ -16,6 +16,7 @@ public class TurnDisplay extends Entity {
 	private Sprite text;
 	private Sprite flash;
 	private float xpos;
+	private boolean slowed;
 	
 	private static final float FLY_IN_SPEED = 2000.0f;
 	private static final float SLOW_SPEED = 25.0f;
@@ -44,10 +45,11 @@ public class TurnDisplay extends Entity {
 	}
 	
 	public void render() {
-		if(xpos < -30 || xpos > 0)
+		if(xpos < -30 || (xpos > 0 && slowed)){
 			xpos += FLY_IN_SPEED*Game.getDeltaSeconds();
-		else{
+		}else{
 			xpos = -30;
+			slowed = true;
 			xpos += SLOW_SPEED*Game.getDeltaSeconds();
 		}
 		flash.render(-30-xpos, 100, renderDepth);
