@@ -3936,6 +3936,10 @@
 			"path":		"res/gui/icon16.png"
 		},
 		{
+			"name":		"icon32",
+			"path":		"res/gui/icon32.png"
+		},
+		{
 			"name":		"assassin_map_down",
 			"path":		"res/map_anim/assassin_map_down.png"
 		},
