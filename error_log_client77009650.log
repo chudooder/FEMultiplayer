@@ -1,5 +1,0 @@
-java.lang.RuntimeException: Resource not found: res/palette/unit_colors_condensed.png
-	at org.newdawn.slick.util.ResourceLoader.getResourceAsStream(ResourceLoader.java:69)
-	at net.fe.FEResources.loadResources(FEResources.java:62)
-	at net.fe.FEMultiplayer.init(FEMultiplayer.java:91)
-	at net.fe.FEMultiplayer.main(FEMultiplayer.java:63)

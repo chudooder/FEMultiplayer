@@ -20,4 +20,5 @@ void main() {
 		}
 	}
 	gl_FragColor = finalColor*vertColor;
+	gl_FragColor = texture2D(texture2, vec2(3.5/arg0, 3.5/arg1));
 }

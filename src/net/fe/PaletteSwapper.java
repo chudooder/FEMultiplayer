@@ -20,14 +20,14 @@ public class PaletteSwapper {
 	static {
 		lookup = new HashMap<String, List<String>>();
 		List<String> general = Arrays.asList(new String[] {"Wallace", "Oswin", "Amelia", "Gilliam"});
-		lookup.put("General", general);
+		lookup.put("general", general);
 	}
 
 	public static ShaderArgs setup(FightUnit u) {
 		Unit unit = u.getUnit();
 		ShaderArgs args = new ShaderArgs();
-		String c = unit.getTheClass().name;
-		if(c.equals("Lord")) return args;
+		String c = unit.getTheClass().name.toLowerCase();
+		if(c.equals("lord")) return args;
 		
 		Texture t = FEResources.getTexture("palette_"+c);
 		if(t == null) return args;

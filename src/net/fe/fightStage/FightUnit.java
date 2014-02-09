@@ -1,6 +1,7 @@
 package net.fe.fightStage;
 
 import net.fe.FEResources;
+import net.fe.PaletteSwapper;
 import net.fe.fightStage.anim.AnimationArgs;
 import net.fe.fightStage.anim.AttackAnimation;
 import net.fe.fightStage.anim.DodgeAnimation;
@@ -89,14 +90,14 @@ public class FightUnit extends Entity {
 		if(state != ALIVE) {
 			t.setColor(new Color(255, 255, 255, alpha));
 		}
-		String program = (state == FADING ? "lighten" : "default");
+		ShaderArgs args = PaletteSwapper.setup(this);
 		if(left) {
 			t.flipHorizontal();
 			sprite.render(FightStage.CENTRAL_AXIS - distanceFromCenter, 
-					FightStage.FLOOR, renderDepth, t, new ShaderArgs(program));
+					FightStage.FLOOR, renderDepth, t, args);
 		} else {
 			sprite.render(FightStage.CENTRAL_AXIS + distanceFromCenter,
-					FightStage.FLOOR, renderDepth, t, new ShaderArgs(program));
+					FightStage.FLOOR, renderDepth, t, args);
 		}
 	}
 	
