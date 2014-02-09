@@ -68,7 +68,7 @@ public class FEMultiplayer extends Game{
 			System.err.println("Exception occurred, writing to logs...");
 			e.printStackTrace();
 			try{
-				File errLog = new File("exception" + System.currentTimeMillis()%100000000 + ".log");
+				File errLog = new File("error_log_client" + System.currentTimeMillis()%100000000 + ".log");
 				PrintWriter pw = new PrintWriter(errLog);
 				e.printStackTrace(pw);
 				pw.close();

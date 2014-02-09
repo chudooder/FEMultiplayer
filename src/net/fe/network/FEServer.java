@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -215,17 +218,31 @@ public class FEServer extends Game {
 				frame.pack();
 				Thread serverThread = new Thread() {
 					public void run() {
-						FEServer feserver = new FEServer();
-						Session s = FEServer.getServer().getSession();
-						s.setMaxUnits((Integer)maxUnitsSpinner.getValue());
-						for(int i=0; i< selectedModifiersList.getModel().getSize(); i++) {
-							Modifier m = (Modifier) selectedModifiersList.getModel().getElementAt(i);
-							s.addModifier(m);
+						try{
+							FEServer feserver = new FEServer();
+							Session s = FEServer.getServer().getSession();
+							s.setMaxUnits((Integer)maxUnitsSpinner.getValue());
+							for(int i=0; i< selectedModifiersList.getModel().getSize(); i++) {
+								Modifier m = (Modifier) selectedModifiersList.getModel().getElementAt(i);
+								s.addModifier(m);
+							}
+							s.setMap((String)mapSelectionBox.getSelectedItem());
+							s.setObjective((Objective)objComboBox.getSelectedItem());
+							feserver.init();
+							feserver.loop();
+						} catch (Exception e){
+							System.err.println("Exception occurred, writing to logs...");
+							e.printStackTrace();
+							try{
+								File errLog = new File("error_log_client" + System.currentTimeMillis()%100000000 + ".log");
+								PrintWriter pw = new PrintWriter(errLog);
+								e.printStackTrace(pw);
+								pw.close();
+							}catch (IOException e2){
+								e2.printStackTrace();
+							}
+							System.exit(0);
 						}
-						s.setMap((String)mapSelectionBox.getSelectedItem());
-						s.setObjective((Objective)objComboBox.getSelectedItem());
-						feserver.init();
-						feserver.loop();
 					}
 				};
 				serverThread.start();
