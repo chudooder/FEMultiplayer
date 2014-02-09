@@ -90,6 +90,8 @@ public class FEMultiplayer extends Game{
 		Display.setIcon(new ByteBuffer[]{icon16, icon32});
 		FEResources.loadResources();
 		FEResources.loadBitmapFonts();
+		WeaponFactory.loadWeapons();
+		UnitFactory.loadUnits();
 		p1.getParty().setColor(Party.TEAM_BLUE);
 		
 		/* OpenGL final setup */

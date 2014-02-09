@@ -2,12 +2,11 @@ package net.fe.overworldStage;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.Color;
-
 import net.fe.FEResources;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
-import net.fe.unit.*;
+import net.fe.unit.ItemDisplay;
+import net.fe.unit.Unit;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.anim.Animation;
@@ -70,10 +69,10 @@ public class BattlePreview extends Entity {
 		flip.flipHorizontal();
 		
 		int triMod = attacker.getWeapon().triMod(defender.getWeapon());
-		boolean aEffective = attacker.getWeapon().effective.contains(defender.functionalClassName());
-		boolean dEffective = defender.getWeapon().effective.contains(attacker.functionalClassName());
+		boolean aEffective = false;
+		boolean dEffective = false;
 		
-		if (attacker.getWeapon().range.contains(range)) {
+		if (CombatCalculator.shouldAttack(attacker, defender, range)) {
 			aHit = String.format(
 					"%d",
 					Math.max(0,
@@ -86,9 +85,9 @@ public class BattlePreview extends Entity {
 							Math.min(100, attacker.crit() - defender.dodge())));
 			if(attacker.get("Spd") >= defender.get("Spd") + 4) aMult*=2;
 			if(attacker.getWeapon().name.contains("Brave")) aMult*=2;
-			
+			aEffective = attacker.getWeapon().effective.contains(defender.functionalClassName());
 		}
-		if (defender.getWeapon() != null && defender.getWeapon().range.contains(range)) {
+		if (CombatCalculator.shouldAttack(defender, attacker, range)) {
 			dHit = String.format(
 					"%d",
 					Math.max(0,
@@ -101,6 +100,7 @@ public class BattlePreview extends Entity {
 							Math.min(100, defender.crit() - attacker.dodge())));
 			if(defender.get("Spd") >= attacker.get("Spd") + 4) dMult*=2;
 			if(defender.getWeapon().name.contains("Brave")) dMult*=2;
+			dEffective = defender.getWeapon().effective.contains(attacker.functionalClassName());
 		}
 
 		// Borders

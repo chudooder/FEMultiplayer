@@ -9,7 +9,7 @@ import org.newdawn.slick.util.ResourceLoader;
 public class UnitFactory {
 	private static HashMap<String, Unit> units = new HashMap<String, Unit>();
 	
-	static{
+	public static void loadUnits() {
 		Scanner in = new Scanner(ResourceLoader.getResourceAsStream("res/stats.txt"));
 		while(in.hasNextLine()){
 			String line = in.nextLine();

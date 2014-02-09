@@ -18,7 +18,7 @@ public class WeaponFactory {
 			Arrays.asList("Falconknight");
 	private static HashMap<String, Weapon> weapons = new HashMap<String, Weapon>();
 	
-	static{
+	public static void loadWeapons() {
 		Scanner in = new Scanner(ResourceLoader.getResourceAsStream("res/weapons.txt"));
 		int id = 0;
 		while(in.hasNextLine()){
