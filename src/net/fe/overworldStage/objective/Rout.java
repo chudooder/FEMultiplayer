@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import net.fe.Party;
 import net.fe.Player;
 import net.fe.overworldStage.OverworldStage;
+import net.fe.unit.Unit;
 
 public class Rout implements Objective {
 
@@ -20,23 +21,20 @@ public class Rout implements Objective {
 	 */
 	@Override
 	public int evaluate(OverworldStage stage) {
-		ArrayList<Player> players = stage.getNonSpectators();
 		int winner = -1;
-		for(int i=0; i<players.size(); i++) {
-			Party party = players.get(i).getParty();
+		for(Player p : stage.getTurnOrder()) {
 			boolean ded = true;
-			for(int j=0; j<party.size(); j++) {
-				if(party.getUnit(j).getHp() > 0)
+			for(Unit u : p.getParty()) {
+				if(u.getHp() > 0)
 					ded = false;
 			}
 			if(!ded) {
 				if(winner == -1) {
-					winner = players.get(i).getID();
+					winner = p.getID();
 				}
 				else return -1;
 			}
 		}
-		
 		return winner;
 	}
 
