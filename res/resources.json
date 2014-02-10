@@ -4581,8 +4581,36 @@
 			"path":		"res/palette/palette_paladin.png"
 		},
 		{
-			"name":		"palette_sage",
-			"path":		"res/palette/palette_sage.png"
+			"name":		"palette_sagem",
+			"path":		"res/palette/palette_sagem.png"
+		},
+		{
+			"name":		"palette_sagef",
+			"path":		"res/palette/palette_sagef.png"
+		},
+		{
+			"name":		"palette_sniperm",
+			"path":		"res/palette/palette_sniperm.png"
+		},
+		{
+			"name":		"palette_sniperf",
+			"path":		"res/palette/palette_sniperf.png"
+		},
+		{
+			"name":		"palette_sorcerer",
+			"path":		"res/palette/palette_sorcerer.png"
+		},
+		{
+			"name":		"palette_swordmasterm",
+			"path":		"res/palette/palette_swordmasterm.png"
+		},
+		{
+			"name":		"palette_swordmasterf",
+			"path":		"res/palette/palette_swordmasterf.png"
+		},
+		{
+			"name":		"palette_valkyrie",
+			"path":		"res/palette/palette_valkyrie.png"
 		},
 		
 	]
