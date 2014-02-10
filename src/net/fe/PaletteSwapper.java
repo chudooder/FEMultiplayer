@@ -30,13 +30,14 @@ public class PaletteSwapper {
 	public static ShaderArgs setup(FightUnit u) {
 		Unit unit = u.getUnit();
 		ShaderArgs args = new ShaderArgs();
-		String c = unit.getTheClass().name.toLowerCase();
+		String c = unit.functionalClassName();
 		if(c.equals("lord")) return args;
 		
 		Texture t = FEResources.getTexture("palette_"+c);
 		if(t == null) return args;
-
+		if(lookup.get(c) == null) return args;
 		int offset = lookup.get(c).indexOf(unit.name);
+		if(offset < 0) return args;
 		args.programName = "paletteSwap";
 		args.args = new float[] {t.getTextureWidth(), t.getTextureHeight(), offset, t.getImageWidth()};
 		GL13.glActiveTexture(GL13.GL_TEXTURE8);
