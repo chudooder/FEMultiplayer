@@ -4564,6 +4564,10 @@
 			"name":		"palette_general",
 			"path":		"res/palette/palette_general.png"
 		},
+		{
+			"name":		"palette_assassin",
+			"path":		"res/palette/palette_assassin.png"
+		},
 		
 	]
 }

@@ -57,6 +57,7 @@ public class Renderer {
 
 	static {
 		System.out.println(GL11.glGetString(GL20.GL_SHADING_LANGUAGE_VERSION));
+		System.out.println(GL11.glGetInteger(GL20.GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS));
 		stateStack = new Stack<RendererState>();
 		programs = new HashMap<String, Integer>();
 		camera = new Camera(null, 0, 0);
@@ -346,11 +347,6 @@ public class Renderer {
 	    
 	    // Use program
 	    ARBShaderObjects.glUseProgramObjectARB(prog);
-	    // Bind texture units to uniforms
-	    int loc = GL20.glGetUniformLocation(prog, "texture1");
-        GL20.glUniform1i(loc, 0);
-        int loc2 = GL20.glGetUniformLocation(prog, "texture2");
-        GL20.glUniform1i(loc2, 8);
         
 	    // Validate program
 	    ARBShaderObjects.glValidateProgramARB(prog);
@@ -359,6 +355,11 @@ public class Renderer {
 	    	System.out.println("shit");
 	    	return -1;
 	    }
+	    // Bind texture units to uniforms
+	    int loc = GL20.glGetUniformLocation(prog, "texture1");
+        GL20.glUniform1i(loc, 0);
+        int loc2 = GL20.glGetUniformLocation(prog, "texture2");
+        GL20.glUniform1i(loc2, 8);
 	    
     	return prog;
     }

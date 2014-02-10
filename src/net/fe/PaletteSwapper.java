@@ -19,8 +19,8 @@ public class PaletteSwapper {
 	
 	static {
 		lookup = new HashMap<String, List<String>>();
-		List<String> general = Arrays.asList(new String[] {"Wallace", "Oswin", "Amelia", "Gilliam"});
-		lookup.put("general", general);
+		lookup.put("general", Arrays.asList(new String[] {"Wallace", "Oswin", "Amelia", "Gilliam"}));
+		lookup.put("assassin", Arrays.asList(new String[] {"Jaffar", "Matthew", "Marisa"}));
 	}
 
 	public static ShaderArgs setup(FightUnit u) {
@@ -34,7 +34,7 @@ public class PaletteSwapper {
 
 		int offset = lookup.get(c).indexOf(unit.name);
 		args.programName = "paletteSwap";
-		args.args = new float[] {t.getImageWidth(), t.getImageHeight(), offset};
+		args.args = new float[] {t.getTextureWidth(), t.getTextureHeight(), offset, t.getImageWidth()};
 		GL13.glActiveTexture(GL13.GL_TEXTURE8);
 		t.bind();
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
@@ -48,7 +48,7 @@ public class PaletteSwapper {
 		
 		Texture t = FEResources.getTexture("palette_overworld");
 		args.programName = "paletteSwap";
-		args.args = new float[] {t.getImageWidth(), t.getImageHeight(), offset};
+		args.args = new float[] {t.getTextureWidth(), t.getTextureHeight(), offset, t.getImageWidth()};
 		GL13.glActiveTexture(GL13.GL_TEXTURE8);
 		t.bind();
 		GL13.glActiveTexture(GL13.GL_TEXTURE0);
