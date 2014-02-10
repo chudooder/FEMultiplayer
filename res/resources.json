@@ -4572,6 +4572,18 @@
 			"name":		"palette_berserker",
 			"path":		"res/palette/palette_berserker.png"
 		},
+		{
+			"name":		"palette_hero",
+			"path":		"res/palette/palette_hero.png"
+		},
+		{
+			"name":		"palette_paladin",
+			"path":		"res/palette/palette_paladin.png"
+		},
+		{
+			"name":		"palette_sage",
+			"path":		"res/palette/palette_sage.png"
+		},
 		
 	]
 }
