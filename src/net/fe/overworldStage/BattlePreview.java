@@ -19,6 +19,7 @@ public class BattlePreview extends Entity {
 	private ArrayList<Sprite> sprites;
 	private Sprite leftArrow, rightArrow, x2, x4, modUp, modDown;
 	private int range;
+	private float timer;
 
 	public BattlePreview(float x, float y, Unit a, Unit d, int range) {
 		super(x, y);
@@ -57,6 +58,8 @@ public class BattlePreview extends Entity {
 		for (Sprite s : sprites) {
 			s.update();
 		}
+		timer += 3*Math.PI/2*Game.getDeltaSeconds();
+		if(timer > 2*Math.PI)timer -= 2*Math.PI;
 	}
 
 	public void render() {
@@ -85,7 +88,7 @@ public class BattlePreview extends Entity {
 							Math.min(100, attacker.crit() - defender.dodge())));
 			if(attacker.get("Spd") >= defender.get("Spd") + 4) aMult*=2;
 			if(attacker.getWeapon().name.contains("Brave")) aMult*=2;
-			aEffective = attacker.getWeapon().effective.contains(defender.functionalClassName());
+			aEffective = attacker.getWeapon().effective.contains(defender.noGenderName());
 		}
 		if (CombatCalculator.shouldAttack(defender, attacker, range)) {
 			dHit = String.format(
@@ -100,7 +103,7 @@ public class BattlePreview extends Entity {
 							Math.min(100, defender.crit() - attacker.dodge())));
 			if(defender.get("Spd") >= attacker.get("Spd") + 4) dMult*=2;
 			if(defender.getWeapon().name.contains("Brave")) dMult*=2;
-			dEffective = defender.getWeapon().effective.contains(attacker.functionalClassName());
+			dEffective = defender.getWeapon().effective.contains(attacker.noGenderName());
 		}
 
 		// Borders
@@ -121,7 +124,7 @@ public class BattlePreview extends Entity {
 		Renderer.drawString("default_med", attacker.name, x + 3, y + 3,
 				renderDepth);
 		new ItemDisplay((int) x + 7, (int) y + 16, attacker.getWeapon(), false)
-				.render();
+				.render(null, aEffective, timer);
 		leftArrow.render(x, y + 21, renderDepth);
 		rightArrow.render(x + 90, y + 21, renderDepth, flip);
 		
@@ -172,7 +175,7 @@ public class BattlePreview extends Entity {
 		Renderer.drawString("default_med", defender.name, x + 3, y + 99,
 				renderDepth);
 		new ItemDisplay((int) x + 7, (int) y + 112, defender.getWeapon(), false)
-				.render();
+				.render(null, dEffective, timer);
 		
 		if(triMod < 0) {
 			modUp.render(x + 16, y + 128, 0.04f);

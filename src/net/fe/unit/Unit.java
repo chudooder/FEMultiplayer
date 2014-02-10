@@ -143,6 +143,14 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 		}
 		return prefix.toLowerCase();
 	}
+	
+	public String noGenderName() {
+		String prefix = clazz.name;
+		if(prefix.equals("Lord")){
+			prefix = name;
+		}
+		return prefix;
+	}
 
 	public void move(Path p, Command callback) {
 		this.path = p.getCopy();

@@ -61,8 +61,8 @@ public class FEMultiplayer extends Game{
 		try{
 			FEMultiplayer game = new FEMultiplayer();
 			game.init(480, 320, "Fire Emblem Multiplayer");
-			game.testFightStage();
-//			game.testOverworldStage();
+//			game.testFightStage();
+			game.testOverworldStage();
 			game.loop();
 		} catch (Exception e){
 			System.err.println("Exception occurred, writing to logs...");
@@ -138,7 +138,7 @@ public class FEMultiplayer extends Game{
 	
 	public void testOverworldStage() {
 		testSession = new Session();
-		testSession.setMap("decay");
+		testSession.setMap("test");
 		testSession.setObjective(new Seize());
 		testSession.addPlayer(localPlayer);
 		
@@ -146,13 +146,14 @@ public class FEMultiplayer extends Game{
 		p2.getParty().setColor(Party.TEAM_RED);
 		testSession.addPlayer(p2);
 		
-		Unit u1 = UnitFactory.getUnit("Hector");
+		Unit u1 = UnitFactory.getUnit("Ephraim");
 		u1.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
 		u1.equip(0);
 		u1.setHp(1);
 		localPlayer.getParty().addUnit(u1);
 		
-		Unit u3 = UnitFactory.getUnit("Marth");
+		Unit u3 = UnitFactory.getUnit("Sain");
+		u3.addToInventory(WeaponFactory.getWeapon("Horseslayer"));
 		u3.equip(0);
 		u3.setHp(1);
 		p2.getParty().addUnit(u3);
