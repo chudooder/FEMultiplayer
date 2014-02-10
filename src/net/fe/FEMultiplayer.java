@@ -115,14 +115,14 @@ public class FEMultiplayer extends Game{
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
 		
-		Unit u1 = UnitFactory.getUnit("Marisa");
-		u1.getInventory().add(WeaponFactory.getWeapon("Wo Dao"));
+		Unit u1 = UnitFactory.getUnit("Lute");
+		u1.getInventory().add(WeaponFactory.getWeapon("Elfire"));
 		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
 		p1.getParty().addUnit(u1);
 		
-		Unit u2 = UnitFactory.getUnit("Wallace");
-		u2.getInventory().add(WeaponFactory.getWeapon("Iron Lance"));
+		Unit u2 = UnitFactory.getUnit("Mia");
+		u2.getInventory().add(WeaponFactory.getWeapon("Debug Sword"));
 		grid.addUnit(u2, 1, 0);
 		u2.equip(0);
 		u2.setLevel(20);
@@ -130,7 +130,7 @@ public class FEMultiplayer extends Game{
 		
 		CombatCalculator calc = new CombatCalculator(new UnitIdentifier(u1), new UnitIdentifier(u2), true);
 		System.out.println(calc.getAttackQueue());
-		u1.setHp(2);
+		u1.fillHp();
 		u2.fillHp();
 		setCurrentStage(new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue()));
 	}

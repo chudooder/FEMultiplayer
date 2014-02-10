@@ -1,3 +1,4 @@
+#Prefix with "Debug" to remove the item from the shop (and presumably, from the game)
 #Name		Type	Range	Mt	Hit	Crit	Uses	Worth	Effect	Pref	Mod	
 Tree Branch	Sword	1	1	100	0	20	1	-	-	-
 Iron Sword	Sword	1	5	90	0	23	460	-	-	-
@@ -49,7 +50,7 @@ Steel Bow	Bow	2	9	70	0	15	720	Flier	-	-
 Silver Bow	Bow	2	13	75	0	10	1600	Flier	-	-
 Killer Bow	Bow	2	9	75	30	10	1400	Flier	-	-
 Brave Bow	Bow	2	10	70	0	15	7500	Flier	-	-
-Short Bow	Bow	1-2	5	85	10	11	1760	Flier	-	-
+Debug Short Bow	Bow	1-2	5	85	10	11	1760	Flier	-	-
 Longbow		Bow	2-3	5	65	0	10	2000	Flier	-	-
 Double Bow	Bow	2-3	18	85	5	12	10000	Flier	-	Str 5
 Fire		Anima	1-2	5	90	0	20	560	-	-	-
