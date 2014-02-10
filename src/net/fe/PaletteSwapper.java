@@ -21,6 +21,8 @@ public class PaletteSwapper {
 		lookup = new HashMap<String, List<String>>();
 		lookup.put("general", Arrays.asList(new String[] {"Wallace", "Oswin", "Amelia", "Gilliam"}));
 		lookup.put("assassin", Arrays.asList(new String[] {"Jaffar", "Matthew", "Marisa"}));
+		lookup.put("berserker", Arrays.asList(new String[] {"Dart", "Ross"}));
+		lookup.put("hero", Arrays.asList(new String[] {"Harken", "Garcia", "Gerik", "Raven"}));
 	}
 
 	public static ShaderArgs setup(FightUnit u) {

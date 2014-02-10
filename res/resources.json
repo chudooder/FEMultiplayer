@@ -4568,6 +4568,10 @@
 			"name":		"palette_assassin",
 			"path":		"res/palette/palette_assassin.png"
 		},
+		{
+			"name":		"palette_berserker",
+			"path":		"res/palette/palette_berserker.png"
+		},
 		
 	]
 }
