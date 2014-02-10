@@ -203,10 +203,7 @@ public class OverworldStage extends Stage {
 				}
 				session.removePlayer(leaver);
 				System.out.println(leaver.getName()+" LEFT THE GAME");
-				if(FEServer.getServer() != null) {
-					System.out.println("asdfasdfasdf");
-					checkEndGame();
-				}
+				checkEndGame();
 			}
 		}
 	}

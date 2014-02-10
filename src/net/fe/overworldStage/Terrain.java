@@ -24,7 +24,10 @@ public enum Terrain {
 	WALL(127,0,0,0), 
 	FENCE(127,0,0,0),
 	NONE(127,0,0,0), 
-	THRONE(1,3,30,10);
+	CLIFF(127,0,0,0),
+	THRONE(1,3,30,10), 
+	HILL(4,2,30,0),
+	HOUSE(127,0,10,0);
 
 	private int baseMoveCost;
 	private final int avoidBonus;
@@ -76,7 +79,7 @@ public enum Terrain {
 			}
 		}
 		
-		else if (this == MOUNTAIN) {
+		else if (this == MOUNTAIN || this == HILL) {
 			if (name.equals("Berserker")
 					|| name.equals("Hero")
 					|| name.equals("Sniper")
