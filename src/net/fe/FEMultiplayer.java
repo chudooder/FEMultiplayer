@@ -119,6 +119,7 @@ public class FEMultiplayer extends Game{
 		u1.getInventory().add(WeaponFactory.getWeapon("Wo Dao"));
 		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
+//		u1.setLevel(20);
 		p1.getParty().addUnit(u1);
 		
 		Unit u2 = UnitFactory.getUnit("Wallace");
@@ -130,7 +131,7 @@ public class FEMultiplayer extends Game{
 		
 		CombatCalculator calc = new CombatCalculator(new UnitIdentifier(u1), new UnitIdentifier(u2), true);
 		System.out.println(calc.getAttackQueue());
-		u1.setHp(2);
+		u1.fillHp();
 		u2.fillHp();
 		setCurrentStage(new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue()));
 	}
