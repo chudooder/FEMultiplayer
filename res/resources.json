@@ -4704,6 +4704,9 @@
 			"name":		"palette_warrior",
 			"path":		"res/palette/palette_warrior.png"
 		},
-
+		{
+			"name":		"terrain_tiles",
+			"path":		"res/terrain_tiles.png"
+		},
 	]
 }
