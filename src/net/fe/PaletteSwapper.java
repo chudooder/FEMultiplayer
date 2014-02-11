@@ -40,7 +40,6 @@ public class PaletteSwapper {
 		lookup.put("valkyrie", Arrays.asList(new String[]{"Priscilla", "L'Arachel", "Natasha"}));
 		
 		for(String s : p) {
-			System.out.println(s);
 			palettes.put(s, FEResources.getTexture("palette_"+s));
 		}
 	}
