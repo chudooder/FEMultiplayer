@@ -19,7 +19,7 @@ public class HitEffect extends Entity {
 	private float shakeLength;
 	private int shakeIntensity;
 
-	public HitEffect(String name, boolean leftAttacking, final boolean crit, boolean loadTxt) {
+	public HitEffect(String name, boolean leftAttacking, final boolean crit, boolean loadTxt, boolean primary) {
 		super(0, 0);
 		left = leftAttacking;
 		final AnimationData data = getHitTexture(name, crit);
@@ -37,7 +37,9 @@ public class HitEffect extends Entity {
 			shakeLength = data.frames + (crit?0:0.8f);
 		}
 		final int realHit;
-		if(data.hitframes.length != 0){
+		if(!primary){
+			realHit = -1;
+		} else if(data.hitframes.length != 0){
 			realHit = data.hitframes[0];
 		} else {
 			realHit = 0;
@@ -112,28 +114,33 @@ public class HitEffect extends Entity {
 	public static List<HitEffect> getEffects(AnimationArgs animArgs,
 			AttackRecord rec, boolean loadTex) {
 		boolean crit = rec.animation.contains("Critical");
+		boolean primary = true;
 		List<HitEffect> effects = new ArrayList<HitEffect>();
 		
 		if (animArgs.unit.getWeapon().type == Weapon.Type.STAFF) {
-			effects.add(new HitEffect("heal", animArgs.left, crit, loadTex));
+			effects.add(new HitEffect("heal", animArgs.left, crit, loadTex, primary));
+			primary = false;
 		}
 		
 		if (animArgs.unit.getWeapon().isMagic()) {
 			effects.add(new HitEffect(animArgs.unit.getWeapon().name
-					.toLowerCase(), animArgs.left, crit, loadTex));
+					.toLowerCase(), animArgs.left, crit, loadTex, primary));
+			primary = false;
 		}
 		
 		for(String anim: FightStage.analyzeAnimation(rec.animation, "(a)", false)){
 			if(anim.matches(".*\\d")) 
 				anim = anim.substring(0, anim.length() - 1);
 			if(FEResources.hasTexture("hit_effect_" + anim.toLowerCase())){
-				effects.add(new HitEffect(anim.toLowerCase(), animArgs.left, crit, loadTex));
+				effects.add(new HitEffect(anim.toLowerCase(), animArgs.left, crit, loadTex, primary));
+				primary = false;
 			}
 		}
 		
 		
 		if (effects.size() == 0 && rec.damage != 0) { // We have nothing														// nothing.
-			effects.add(0, new HitEffect("attack", animArgs.left, crit, loadTex));
+			effects.add(0, new HitEffect("attack", animArgs.left, crit, loadTex, primary));
+			primary = false;
 		}
 
 
