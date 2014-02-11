@@ -45,20 +45,13 @@ public class FightUnit extends Entity {
 		
 		DodgeAnimation dodge = new DodgeAnimation(FEResources.getTextureData(base+"dodge"));
 		sprite.addAnimation("DODGE", dodge);
-		AttackAnimation crit = AttackAnimation.createAnimation(
-				FEResources.getTextureData(base+"critical"), s, animArgs);
-		sprite.addAnimation("CRIT", crit);
-		AttackAnimation attack = AttackAnimation.createAnimation(
-				FEResources.getTextureData(base+"attack"), s, animArgs);
-		sprite.addAnimation("ATTACK", attack);
 		
-		//Think about this
-		String masterskill = animArgs.unit.getTheClass()
-				.masterSkill.getClass().getSimpleName().toLowerCase();
-		if(FEResources.hasTexture(base + masterskill)){
-			AttackAnimation master = AttackAnimation.createAnimation(
-					FEResources.getTextureData(base+masterskill), s, animArgs);
-			sprite.addAnimation(masterskill.toUpperCase(), master);
+		for(String anim: animArgs.unit.getAttackAnims()){
+			if(FEResources.hasTexture(base + anim)){
+				AttackAnimation a = AttackAnimation.createAnimation(
+						FEResources.getTextureData(base+anim), s, animArgs);
+				sprite.addAnimation(anim.toUpperCase(), a);
+			}
 		}
 		
 		
@@ -114,7 +107,7 @@ public class FightUnit extends Entity {
 			}
 		}
 		if(animation.contains("Critical")){
-			sprite.setAnimation("CRIT");
+			sprite.setAnimation("CRITICAL");
 		} else {
 			sprite.setAnimation("ATTACK");
 		}

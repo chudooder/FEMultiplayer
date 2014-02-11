@@ -205,13 +205,12 @@ public class FEResources {
 			//try to get it, in case we forgot
 			System.err.println("Warn: " + string + " not explicitly defined");
 			for(String loc: searchFolders){
-				try{
+				if(ResourceLoader.resourceExists("res/" + loc + "/" + string + ".png")){
 					AnimationData txt = new AnimationData("res/" + loc + "/" + string + ".png");
 					textures.put(string, txt);
 					return txt;
-				} catch (Exception e){
-					
 				}
+				
 			}
 			return textures.get("whoops");
 		}
