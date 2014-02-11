@@ -16,8 +16,14 @@ import chu.engine.anim.ShaderArgs;
 public class PaletteSwapper {
 	
 	public static Map<String, List<String>> lookup;
+	public static Map<String, Texture> palettes;
 	
 	static {
+		String[] p = new String[] {"overworld", "general", "assassin", 
+				"berserker", "hero", "paladin", "sagem", "sagef", "sniperm", 
+				"sniperf", "sorcerer", "swordmasterm", 
+				"swordmasterf", "valkyrie"};
+		palettes = new HashMap<String, Texture>();
 		lookup = new HashMap<String, List<String>>();
 		lookup.put("general", Arrays.asList(new String[] {"Wallace", "Oswin", "Amelia", "Gilliam"}));
 		lookup.put("assassin", Arrays.asList(new String[] {"Jaffar", "Matthew", "Marisa"}));
@@ -32,6 +38,11 @@ public class PaletteSwapper {
 		lookup.put("swordmasterm", Arrays.asList(new String[]{"Karel", "Guy", "Joshua", "Edward"}));
 		lookup.put("swordmasterf", Arrays.asList(new String[]{"Mia"}));
 		lookup.put("valkyrie", Arrays.asList(new String[]{"Priscilla", "L'Arachel", "Natasha"}));
+		
+		for(String s : p) {
+			System.out.println(s);
+			palettes.put(s, FEResources.getTexture("palette_"+s));
+		}
 	}
 
 	public static ShaderArgs setup(FightUnit u) {
@@ -40,7 +51,7 @@ public class PaletteSwapper {
 		if(unit.getTheClass().name.equals("Lord")) return args;
 		String c = unit.functionalClassName();
 		
-		Texture t = FEResources.getTexture("palette_"+c);
+		Texture t = palettes.get(c);
 		if(t == null) return args;
 		if(lookup.get(c) == null) return args;
 		int offset = lookup.get(c).indexOf(unit.name);
@@ -58,7 +69,7 @@ public class PaletteSwapper {
 		int offset = u.getPartyColor().equals(Party.TEAM_BLUE) ? 0 : 1;
 		if(offset == 0) return args;
 		
-		Texture t = FEResources.getTexture("palette_overworld");
+		Texture t = palettes.get("overworld");
 		args.programName = "paletteSwap";
 		args.args = new float[] {t.getTextureWidth(), t.getTextureHeight(), offset, t.getImageWidth()};
 		GL13.glActiveTexture(GL13.GL_TEXTURE8);

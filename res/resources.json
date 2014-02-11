@@ -3815,7 +3815,7 @@
 		},
 		{
 			"name":		"gui_weaponIcon",
-			"path":		"res/gui/weaponIcon.png"
+			"path":		"res/gui/gui_weaponIcon.png"
 		},
 		{
 			"name":		"gui_battleStats",
@@ -4612,6 +4612,9 @@
 			"name":		"palette_valkyrie",
 			"path":		"res/palette/palette_valkyrie.png"
 		},
-		
+		{
+			"name":		"e",
+			"path":		"res/gui/e.png"
+		}
 	]
 }

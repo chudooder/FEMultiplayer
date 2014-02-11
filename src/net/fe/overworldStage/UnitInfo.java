@@ -21,9 +21,12 @@ import chu.engine.anim.Renderer;
 
 public class UnitInfo extends Entity implements DoNotDestroy{
 	private Unit unit;
+	private Texture mugshot;
+	private Texture dragons;
 	public UnitInfo() {
 		super(50, Game.getWindowHeight()-80);
 		renderDepth = 0.8f;
+		dragons = FEResources.getTexture("dragon_separator");
 	}
 	
 	public UnitInfo(float x, float y){
@@ -36,6 +39,8 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 	}
 	
 	public void setUnit(Unit u){
+		if(u != null && unit != u)
+			mugshot = FEResources.getTexture(u.name.toLowerCase()+"_mugshot");
 		unit = u;
 	}
 	
@@ -64,7 +69,6 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 		Renderer.drawRectangle(x+4, y+4, x+88, y+78, renderDepth, BORDER_DARK);
 		Renderer.drawRectangle(x+5, y+5, x+87, y+77, renderDepth, BORDER_LIGHT);
 		Renderer.drawRectangle(x+6, y+6, x+86, y+76, renderDepth, NEUTRAL.darker(0.5f));
-		Texture mugshot = FEResources.getTexture(u.name.toLowerCase()+"_mugshot");
 		Renderer.addClip(x+6, y+6, 80, 72, false);
 		Renderer.render(mugshot, 0, 0, 1, 1, x+46-mugshot.getImageWidth()/2, 
 				y+76-mugshot.getImageHeight(), 
@@ -128,7 +132,7 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 			Renderer.drawString("default_med", "RESCUED", x + 320 + 55 - width / 2,
 					y + 10, renderDepth);
 			// Separator
-			Renderer.render(FEResources.getTexture("dragon_separator"), 0, 0,
+			Renderer.render(dragons, 0, 0,
 					1, 1, x + 37 + 320, y + 32, x + 75 + 320, y + 41, renderDepth);
 
 			// Info
