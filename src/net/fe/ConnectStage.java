@@ -54,7 +54,7 @@ public class ConnectStage extends Stage {
 			@Override
 			public void render() {
 				if(hover) {
-					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
+					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten", 0.5f));
 				} else {
 					sprite.render(x, y, renderDepth);
 				}
@@ -145,7 +145,7 @@ public class ConnectStage extends Stage {
 		@Override
 		public void render() {
 			if(hover) {
-				sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
+				sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten", 0.5f));
 			} else {
 				sprite.render(x, y, renderDepth);
 			}

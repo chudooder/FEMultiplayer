@@ -14,7 +14,7 @@ public class MagicAttack extends AttackAnimation{
 	public void onLastHit() {
 		stage.setDarkness(0.3f);
 		stage.addEntity(new MagicEffect(animationArgs));
-		stage.addEntity(new BackgroundEffect(animationArgs.unit.getWeapon().name.toLowerCase(), 
+		stage.addEntity(new BackgroundEffect(getBgEffectName(animationArgs), 
 				animationArgs.left));
 		loopNextFrames(freeze);
 		onHit();
@@ -25,5 +25,9 @@ public class MagicAttack extends AttackAnimation{
 	public void onHit() {
 		//TODO: Magic sounds
 	}
-
+	
+	
+	public static String getBgEffectName(AnimationArgs args){
+		return "bg_effect_" + args.unit.getWeapon().name.toLowerCase();
+	}
 }

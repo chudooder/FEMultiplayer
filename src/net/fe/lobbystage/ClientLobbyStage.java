@@ -53,7 +53,7 @@ public class ClientLobbyStage extends LobbyStage {
 			@Override
 			public void render() {
 				if(hover) {
-					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
+					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten", 0.5f));
 				} else {
 					sprite.render(x, y, renderDepth);
 				}
@@ -104,7 +104,7 @@ public class ClientLobbyStage extends LobbyStage {
 			@Override
 			public void render() {
 				if(hover) {
-					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
+					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten", 0.5f));
 				} else {
 					sprite.render(x, y, renderDepth);
 				}
@@ -123,7 +123,7 @@ public class ClientLobbyStage extends LobbyStage {
 			@Override
 			public void render() {
 				if(hover) {
-					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
+					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten", 0.5f));
 				} else {
 					sprite.render(x, y, renderDepth);
 				}
@@ -140,7 +140,7 @@ public class ClientLobbyStage extends LobbyStage {
 			@Override
 			public void render() {
 				if(hover) {
-					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
+					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten", 0.5f));
 				} else {
 					sprite.render(x, y, renderDepth);
 				}
@@ -158,7 +158,7 @@ public class ClientLobbyStage extends LobbyStage {
 			@Override
 			public void render() {
 				if(hover) {
-					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten"));
+					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten", 0.5f));
 				} else {
 					sprite.render(x, y, renderDepth);
 				}

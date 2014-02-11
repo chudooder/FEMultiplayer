@@ -21,7 +21,6 @@ import net.fe.fightStage.AttackRecord;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.lobbystage.ClientLobbyStage;
-import net.fe.modifier.Divine;
 import net.fe.network.Client;
 import net.fe.network.Message;
 import net.fe.network.message.CommandMessage;
@@ -64,19 +63,19 @@ public class FEMultiplayer extends Game{
 			FEMultiplayer game = new FEMultiplayer();
 			game.init(480, 320, "Fire Emblem Multiplayer");
 //			game.testFightStage();
-			game.testOverworldStage();
+//			game.testOverworldStage();
 			game.loop();
 		} catch (Exception e){
 			System.err.println("Exception occurred, writing to logs...");
 			e.printStackTrace();
-//			try{
-//				File errLog = new File("error_log_client" + System.currentTimeMillis()%100000000 + ".log");
-//				PrintWriter pw = new PrintWriter(errLog);
-//				e.printStackTrace(pw);
-//				pw.close();
-//			}catch (IOException e2){
-//				e2.printStackTrace();
-//			}
+			try{
+				File errLog = new File("error_log_client" + System.currentTimeMillis()%100000000 + ".log");
+				PrintWriter pw = new PrintWriter(errLog);
+				e.printStackTrace(pw);
+				pw.close();
+			}catch (IOException e2){
+				e2.printStackTrace();
+			}
 			System.exit(0);
 		}
 	}

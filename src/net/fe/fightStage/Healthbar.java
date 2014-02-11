@@ -15,6 +15,8 @@ public class Healthbar extends Entity {
 	private float displayedHealth;
 	public boolean doneAnimating;
 	private boolean doNotSet;
+	
+	private static Texture filled, empty;
 
 	public Healthbar(Unit u, boolean left) {
 		super(0, 0);
@@ -33,6 +35,10 @@ public class Healthbar extends Entity {
 		currentHealth = u.getHp();
 		displayedHealth = u.getHp();
 		renderDepth = FightStage.HP_DEPTH;
+		if(filled == null){
+			filled = FEResources.getTexture("gui_tickFilled");
+			empty = FEResources.getTexture("gui_tickEmpty");
+		}
 	}
 
 	public void render() {
@@ -45,9 +51,7 @@ public class Healthbar extends Entity {
 			Renderer.drawString("stat_numbers", (int)displayedHealth + "", x-5-width, y+2, renderDepth);
 		}
 		for (int hp = 1; hp <= totalHealth; hp++) {
-			Texture t = FEResources
-					.getTexture(hp <= displayedHealth ? "gui_tickFilled"
-							: "gui_tickEmpty");
+			Texture t = hp <= displayedHealth? filled: empty;
 			Renderer.render(t, 0, 0, 1, 1, x + offX, y + offY, x + offX + 2, y
 					+ offY + 6, renderDepth);
 			

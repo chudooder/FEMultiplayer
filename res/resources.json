@@ -789,6 +789,36 @@
 			"freeze":	0
 		},
 		{
+			"name":		"falconknight_sword_attack",
+			"path":		"res/battle_anim/falconknight_sword_attack.png",
+			"width":	196,
+			"height":	116,
+			"frames":	50,
+			"columns":	7,
+			"offsetX":	130,
+			"offsetY":	102,
+			"freeze":	0,
+			"hitframes":[24],
+			"soundMap": [
+				{
+					"frame":	8,
+					"sound":	"axe_throw"
+				},
+				{
+					"frame":	14,
+					"sound":	"clink"
+				},
+				{
+					"frame":	18,
+					"sound":	"clink"
+				},
+				{
+					"frame":	29,
+					"sound":	"catch"
+				},
+			]
+		},
+		{
 			"name":		"general_axe_attack",
 			"path":		"res/battle_anim/general_axe_attack.png",
 			"width":	115,
@@ -3857,9 +3887,9 @@
 			"offsetY":	0,
 			"freeze":	-1
 		},
-				{
-			"name":		"battleStats",
-			"path":		"res/gui/battleStats.png"
+		{
+			"name":		"gui_battleStats",
+			"path":		"res/gui/gui_battleStats.png"
 		},
 		{
 			"name":		"blue_flash",
@@ -4653,6 +4683,10 @@
 			"path":		"res/palette/palette_berserker.png"
 		},
 		{
+			"name":		"palette_falconknight",
+			"path":		"res/palette/palette_falconknight.png"
+		},
+		{
 			"name":		"palette_general",
 			"path":		"res/palette/palette_general.png"
 		},
@@ -4707,6 +4741,186 @@
 		{
 			"name":		"terrain_tiles",
 			"path":		"res/terrain_tiles.png"
+		},
+				{
+			"name":		"cliff_bg",
+			"path":		"res/battle_anim/static/cliff_bg.png"
+		},
+		{
+			"name":		"desert_bg",
+			"path":		"res/battle_anim/static/desert_bg.png"
+		},
+		{
+			"name":		"floor_bg",
+			"path":		"res/battle_anim/static/floor_bg.png"
+		},
+		{
+			"name":		"forest_bg",
+			"path":		"res/battle_anim/static/forest_bg.png"
+		},
+		{
+			"name":		"fort_bg",
+			"path":		"res/battle_anim/static/fort_bg.png"
+		},
+		{
+			"name":		"hill_bg",
+			"path":		"res/battle_anim/static/hill_bg.png"
+		},
+		{
+			"name":		"house_bg",
+			"path":		"res/battle_anim/static/house_bg.png"
+		},
+		{
+			"name":		"mountain_bg",
+			"path":		"res/battle_anim/static/mountain_bg.png"
+		},
+		{
+			"name":		"path_bg",
+			"path":		"res/battle_anim/static/path_bg.png"
+		},
+		{
+			"name":		"peak_bg",
+			"path":		"res/battle_anim/static/peak_bg.png"
+		},
+		{
+			"name":		"pillar_bg",
+			"path":		"res/battle_anim/static/pillar_bg.png"
+		},
+		{
+			"name":		"plain_bg",
+			"path":		"res/battle_anim/static/plain_bg.png"
+		},
+		{
+			"name":		"platform_cliff",
+			"path":		"res/battle_anim/static/platform_cliff.png"
+		},
+		{
+			"name":		"platform_cliff_far",
+			"path":		"res/battle_anim/static/platform_cliff_far.png"
+		},
+		{
+			"name":		"platform_desert",
+			"path":		"res/battle_anim/static/platform_desert.png"
+		},
+		{
+			"name":		"platform_desert_far",
+			"path":		"res/battle_anim/static/platform_desert_far.png"
+		},
+		{
+			"name":		"platform_floor",
+			"path":		"res/battle_anim/static/platform_floor.png"
+		},
+		{
+			"name":		"platform_floor_far",
+			"path":		"res/battle_anim/static/platform_floor_far.png"
+		},
+		{
+			"name":		"platform_forest",
+			"path":		"res/battle_anim/static/platform_forest.png"
+		},
+		{
+			"name":		"platform_forest_far",
+			"path":		"res/battle_anim/static/platform_forest_far.png"
+		},
+		{
+			"name":		"platform_fort",
+			"path":		"res/battle_anim/static/platform_fort.png"
+		},
+		{
+			"name":		"platform_fort_far",
+			"path":		"res/battle_anim/static/platform_fort_far.png"
+		},
+		{
+			"name":		"platform_hill",
+			"path":		"res/battle_anim/static/platform_hill.png"
+		},
+		{
+			"name":		"platform_hill_far",
+			"path":		"res/battle_anim/static/platform_hill_far.png"
+		},
+		{
+			"name":		"platform_house",
+			"path":		"res/battle_anim/static/platform_house.png"
+		},
+		{
+			"name":		"platform_house_far",
+			"path":		"res/battle_anim/static/platform_house_far.png"
+		},
+		{
+			"name":		"platform_mountain",
+			"path":		"res/battle_anim/static/platform_mountain.png"
+		},
+		{
+			"name":		"platform_mountain_far",
+			"path":		"res/battle_anim/static/platform_mountain_far.png"
+		},
+		{
+			"name":		"platform_path",
+			"path":		"res/battle_anim/static/platform_path.png"
+		},
+		{
+			"name":		"platform_path_far",
+			"path":		"res/battle_anim/static/platform_path_far.png"
+		},
+		{
+			"name":		"platform_peak",
+			"path":		"res/battle_anim/static/platform_peak.png"
+		},
+		{
+			"name":		"platform_peak_far",
+			"path":		"res/battle_anim/static/platform_peak_far.png"
+		},
+		{
+			"name":		"platform_pillar",
+			"path":		"res/battle_anim/static/platform_pillar.png"
+		},
+		{
+			"name":		"platform_pillar_far",
+			"path":		"res/battle_anim/static/platform_pillar_far.png"
+		},
+		{
+			"name":		"platform_plain",
+			"path":		"res/battle_anim/static/platform_plain.png"
+		},
+		{
+			"name":		"platform_plain_far",
+			"path":		"res/battle_anim/static/platform_plain_far.png"
+		},
+		{
+			"name":		"platform_sea",
+			"path":		"res/battle_anim/static/platform_sea.png"
+		},
+		{
+			"name":		"platform_sea_far",
+			"path":		"res/battle_anim/static/platform_sea_far.png"
+		},
+		{
+			"name":		"platform_throne",
+			"path":		"res/battle_anim/static/platform_throne.png"
+		},
+		{
+			"name":		"platform_throne_far",
+			"path":		"res/battle_anim/static/platform_throne_far.png"
+		},
+		{
+			"name":		"platform_village",
+			"path":		"res/battle_anim/static/platform_village.png"
+		},
+		{
+			"name":		"platform_village_far",
+			"path":		"res/battle_anim/static/platform_village_far.png"
+		},
+		{
+			"name":		"sea_bg",
+			"path":		"res/battle_anim/static/sea_bg.png"
+		},
+		{
+			"name":		"throne_bg",
+			"path":		"res/battle_anim/static/throne_bg.png"
+		},
+		{
+			"name":		"village_bg",
+			"path":		"res/battle_anim/static/village_bg.png"
 		},
 	]
 }

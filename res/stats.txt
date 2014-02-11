@@ -19,6 +19,9 @@ Oswin       General         9   28  13  2   9   5   3   13  3   15  5       90  
 Gilliam		General			4	25	9	1	6	3	3	9	3	15	5		90	45	0	35	30	30	55	20		-
 Amelia		General			-10	16	4	0	3	4	6	2	3	14	5		60	35	20	40	40	50	30	15		-
 
+Florina		Falconknight	1	17	5	5	7	9	7	4	4	5	8		60	40	20	50	55	50	15	35		-
+Vanessa		Falconknight	1	17	5	5	7	11	4	6	5	6	8		50	35	20	55	60	50	20	30		-
+Tana		Falconknight	4	20	7	3	9	13	8	6	7	6	8		65	45	20	40	65	60	20	25		-
 
 Guy			Swordmaster		3	21	6	2	11	11	5	5	0	6	6		75	30	10	50	70	45	15	25		m
 Joshua		Swordmaster		5	24	8	3	13	14	7	5	2	9	6		80	35	10	55	55	30	20	20		m

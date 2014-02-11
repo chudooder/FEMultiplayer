@@ -1,6 +1,7 @@
 package net.fe.fightStage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -12,6 +13,8 @@ import net.fe.fightStage.anim.BackgroundEffect;
 import net.fe.fightStage.anim.DodgeAnimation;
 import net.fe.fightStage.anim.HUD;
 import net.fe.fightStage.anim.HitEffect;
+import net.fe.fightStage.anim.MagicAttack;
+import net.fe.fightStage.anim.MagicEffect;
 import net.fe.fightStage.anim.MissEffect;
 import net.fe.fightStage.anim.NoDamageEffect;
 import net.fe.fightStage.anim.Platform;
@@ -24,6 +27,7 @@ import net.fe.unit.UnitIdentifier;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
+import chu.engine.AnimationData;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.SortByRender;
@@ -53,6 +57,8 @@ public class FightStage extends Stage {
 	private float cameraOffset;
 	
 	private float darknessT, darkness;
+	
+	public static final HashMap<String, Texture> PRELOADED_EFFECTS = new HashMap<String, Texture>();
 
 	// Config
 	public static final float SHAKE_INTERVAL = 0.05f;
@@ -117,6 +123,41 @@ public class FightStage extends Stage {
 				+ "_bg");
 
 		this.attackQ = attackQ;
+		preload();
+	}
+	
+	public void preload(){
+		preload(leftFighter);
+		preload(rightFighter);
+	}
+	
+	public void preload(FightUnit f){
+		AnimationArgs args = f.getAnimArgs();
+		if(args.classification.equals("magic")){
+			String name = MagicEffect.getTextureName(args);
+			if(!PRELOADED_EFFECTS.containsKey(name)){
+				System.out.print("PRE");
+				PRELOADED_EFFECTS.put(name, FEResources.getTexture(name));
+				name = MagicAttack.getBgEffectName(args);
+				System.out.print("PRE");
+				PRELOADED_EFFECTS.put(name, FEResources.getTexture(name));
+			}
+		}
+		
+		for(AttackRecord rec : attackQ){
+			boolean crit = rec.animation.contains("Critical");
+			for(String effectName : HitEffect.getEffectNames(args, rec)){
+				String name = HitEffect.getHitTextureName(effectName, crit);
+				if(!PRELOADED_EFFECTS.containsKey(name)){
+					System.out.print("PRE");
+					PRELOADED_EFFECTS.put(name, FEResources.getTexture(name));
+				}
+			}
+		}
+	}
+	
+	public static Texture getPreload(String name){
+		return PRELOADED_EFFECTS.get(name);
 	}
 
 	@Override
@@ -130,6 +171,7 @@ public class FightStage extends Stage {
 		} else if (!done && timer > MIN_TIME) {
 			System.out.println(left.name + " HP:" + left.getHp() + " | "
 					+ right.name + " HP:" + right.getHp());
+			PRELOADED_EFFECTS.clear();
 			FEMultiplayer.reportFightResults(this);
 			addEntity(new FightOverworldTransition(FEMultiplayer.map, left,
 					right));
@@ -172,7 +214,7 @@ public class FightStage extends Stage {
 		a.renderDepth = FightStage.UNIT_DEPTH;
 		d.renderDepth = FightStage.UNIT_DEPTH + 0.01f;
 		
-		List<HitEffect> hitEffects = HitEffect.getEffects(a.getAnimArgs(), rec);
+		List<HitEffect> hitEffects = HitEffect.getEffects(a.getAnimArgs(), rec, false);
 
 		if (currentEvent == START) {
 			// System.out.println("\n" + rec.attacker.name + "'s turn!");
@@ -199,7 +241,7 @@ public class FightStage extends Stage {
 				cameraOffsetT = cameraOffsetF;
 			}
 			
-			for (HitEffect h : hitEffects) {
+			for (HitEffect h : HitEffect.getEffects(a.getAnimArgs(), rec, true)) {
 				addEntity(h);
 			}
 			if(hitEffects.size() == 0){
@@ -248,8 +290,7 @@ public class FightStage extends Stage {
 					attacker.addBattleStat("Healing", -rec.damage);
 				}
 				if(rec.damage > 0) {
-					Animation anim = hitEffects.get(0).sprite.getCurrentAnimation();
-					startShaking(hitEffects.get(0).getShakeLength() * anim.getSpeed(), hitEffects.get(0).getShakeIntensity());
+					startShaking(hitEffects.get(0).getShakeLength() * 0.05f, hitEffects.get(0).getShakeIntensity());
 				}
 				
 				setCurrentEvent(HURTING);
