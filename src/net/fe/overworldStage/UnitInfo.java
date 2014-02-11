@@ -6,6 +6,7 @@ import static net.fe.fightStage.FightStage.NEUTRAL;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 import net.fe.FEResources;
 import net.fe.unit.Item;
@@ -23,6 +24,7 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 	private Unit unit;
 	private Texture mugshot;
 	private Texture dragons;
+	private ItemDisplay[] items;
 	public UnitInfo() {
 		super(50, Game.getWindowHeight()-80);
 		renderDepth = 0.8f;
@@ -39,8 +41,19 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 	}
 	
 	public void setUnit(Unit u){
-		if(u != null && unit != u)
+		if(u != null && unit != u) {
 			mugshot = FEResources.getTexture(u.name.toLowerCase()+"_mugshot");
+			Iterator<Item> inv = u.getInventory().iterator();
+			items = new ItemDisplay[4];
+			int y0 = 18;
+			for (int i = 0; i < 4; i++) {
+				if (inv.hasNext()) {
+					Item it = inv.next();
+					items[i] = new ItemDisplay(x + 210, y + y0, it, u.getWeapon() == it);
+				}
+				y0 += 14;
+			}
+		}
 		unit = u;
 	}
 	
@@ -99,19 +112,9 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 		//Inventory
 		Renderer.drawRectangle(x+208, y+20, x+318, y+78, renderDepth,
 				NEUTRAL.darker(0.5f));
-		Iterator<Item> inv = u.getInventory().iterator();
 		y0 = 18;
 		for (int i = 0; i < 4; i++) {
-			if (inv.hasNext()) {
-				Item it = inv.next();
-				new ItemDisplay(x + 210, y + y0, it, u.getWeapon() == it).render();
-				int uses = it.getUses();
-				int offX = uses < 10 ? 7 : 0;
-				offX += 90;
-				Renderer.drawString("default_med", uses + "", x + 210 + offX, y
-						+ 2 + y0, renderDepth);
-			}
-			y0 += 14;
+			if(items[i] != null) items[i].render();
 		}
 
 		// Rescued Unit
