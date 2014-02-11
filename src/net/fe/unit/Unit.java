@@ -315,28 +315,27 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 		Renderer.translate(cs.camX, cs.camY);
 	}
 
-	public void setLevel(int lv) {
-		if (lv > 20 || lv < 1) {
-			return;
-		}
-		stats.put("Lvl", (float) lv);
-		lv--;
-		for (String stat : growths.keySet()) {
-			float newStat = bases.get(stat)
-					+ (float) (lv * growths.get(stat) / 100.0);
-			float max = stat.equals("HP") ? 60 : 35;
-			stats.put(stat, Math.min(newStat, max));
-		}
-		fillHp();
-	}
+	
+	
+	//Skills
 	
 	public void addSkill(CombatTrigger t) {
 		skills.add(t);
 	}
-
-	public void fillHp() {
-		setHp(get("HP"));
+	
+	public List<String> getAttackAnims(){
+		ArrayList<String> ans = new ArrayList<String>();
+		ans.add("attack");
+		ans.add("critical");
+		for(CombatTrigger skill: getTriggers()){
+			for(String a: skill.attackAnims){
+				ans.add(a);
+			}
+		}
+		return ans;
 	}
+
+	
 
 	//Inventory
 	public List<Item> getInventory() {
@@ -506,6 +505,25 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	}
 	
 	//Development
+	public void setLevel(int lv) {
+		if (lv > 20 || lv < 1) {
+			return;
+		}
+		stats.put("Lvl", (float) lv);
+		lv--;
+		for (String stat : growths.keySet()) {
+			float newStat = bases.get(stat)
+					+ (float) (lv * growths.get(stat) / 100.0);
+			float max = stat.equals("HP") ? 60 : 35;
+			stats.put(stat, Math.min(newStat, max));
+		}
+		fillHp();
+	}
+	
+	public void fillHp() {
+		setHp(get("HP"));
+	}
+	
 	public static int getExpCost(int level){
 		return level * 50 + 500;
 	}
