@@ -149,6 +149,7 @@ public class HitEffect extends Entity {
 	
 	public static List<String> getEffectNames(AnimationArgs animArgs, AttackRecord rec){
 		List<String> effects = new ArrayList<String>();
+		if(animArgs.unit.getWeapon() == null) return effects;
 		if (animArgs.unit.getWeapon().type == Weapon.Type.STAFF) {
 			effects.add("heal");
 		}
