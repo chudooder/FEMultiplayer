@@ -21,13 +21,24 @@ public class PaletteSwapper {
 		lookup = new HashMap<String, List<String>>();
 		lookup.put("general", Arrays.asList(new String[] {"Wallace", "Oswin", "Amelia", "Gilliam"}));
 		lookup.put("assassin", Arrays.asList(new String[] {"Jaffar", "Matthew", "Marisa"}));
+		lookup.put("berserker", Arrays.asList(new String[] {"Dart", "Ross"}));
+		lookup.put("hero", Arrays.asList(new String[] {"Harken", "Garcia", "Gerik", "Raven"}));
+		lookup.put("paladin", Arrays.asList(new String[] {"Cameron", "Sain", "Franz", "Forde", "Kyle", "Kent", "Lowen", "Marcus"}));
+		lookup.put("sagem", Arrays.asList(new String[] {"Erk", "Lucius", "Artur"}));
+		lookup.put("sagef", Arrays.asList(new String[]{"Lute"}));
+		lookup.put("sniperm", Arrays.asList(new String[] {"Wil"}));
+		lookup.put("sniperf", Arrays.asList(new String[]{"Neimi", "Rebecca"}));
+		lookup.put("sorcerer", Arrays.asList(new String[]{"Knoll", "Ewan", "Canas"}));
+		lookup.put("swordmasterm", Arrays.asList(new String[]{"Karel", "Guy", "Joshua", "Edward"}));
+		lookup.put("swordmasterf", Arrays.asList(new String[]{"Mia"}));
+		lookup.put("valkyrie", Arrays.asList(new String[]{"Priscilla", "L'Arachel", "Natasha"}));
 	}
 
 	public static ShaderArgs setup(FightUnit u) {
 		Unit unit = u.getUnit();
 		ShaderArgs args = new ShaderArgs();
+		if(unit.getTheClass().name.equals("Lord")) return args;
 		String c = unit.functionalClassName();
-		if(c.equals("lord")) return args;
 		
 		Texture t = FEResources.getTexture("palette_"+c);
 		if(t == null) return args;
