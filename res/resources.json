@@ -2492,6 +2492,32 @@
 			"freeze":	0
 		},
 		{
+			"name":		"sniperm_bow_deadeye",
+			"path":		"res/battle_anim/sniperm_bow_deadeye.png",
+			"width":	176,
+			"height":	62,
+			"frames":	32,
+			"columns":	6,
+			"offsetX":	150,
+			"offsetY":	55,
+			"freeze": 	0,
+			"hitframes": [29],
+			"soundMap": [
+				{
+					"frame": 4,
+					"sound": "spin_short"
+				},
+				{
+					"frame": 21,
+					"sound": "bow_set"
+				},
+				{
+					"frame": 26,
+					"sound": "bow_shoot"
+				}
+			]
+		},
+		{
 			"name":		"sniperf_bow_attack",
 			"path":		"res/battle_anim/sniperf_bow_attack.png",
 			"width":	146,
@@ -2553,6 +2579,32 @@
 			"offsetX":	18,
 			"offsetY":	43,
 			"freeze":	0
+		},
+		{
+			"name":		"sniperf_bow_deadeye",
+			"path":		"res/battle_anim/sniperf_bow_deadeye.png",
+			"width":	176,
+			"height":	62,
+			"frames":	32,
+			"columns":	6,
+			"offsetX":	150,
+			"offsetY":	55,
+			"freeze": 	0,
+			"hitframes": [29],
+			"soundMap": [
+				{
+					"frame": 4,
+					"sound": "spin_short"
+				},
+				{
+					"frame": 21,
+					"sound": "bow_set"
+				},
+				{
+					"frame": 26,
+					"sound": "bow_shoot"
+				}
+			]
 		},
 		{
 			"name":		"sorcerer_magic_attack",
