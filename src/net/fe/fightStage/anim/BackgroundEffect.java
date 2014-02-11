@@ -12,9 +12,9 @@ public class BackgroundEffect extends Entity {
 	public BackgroundEffect(String name, boolean left){
 		super(0,0);
 		renderDepth = FightStage.BG_DEPTH;
-		AnimationData data = FEResources.getTextureData("bg_effect_" + name);
+		AnimationData data = FEResources.getTextureData(name);
 		this.left = left;
-		sprite.addAnimation("default", new Animation(data.getTexture(), data.frameWidth,
+		sprite.addAnimation("default", new Animation(FightStage.getPreload(name), data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
 				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
 				

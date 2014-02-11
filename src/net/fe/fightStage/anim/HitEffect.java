@@ -19,7 +19,7 @@ public class HitEffect extends Entity {
 	private float shakeLength;
 	private int shakeIntensity;
 
-	public HitEffect(String name, boolean leftAttacking, final boolean crit) {
+	public HitEffect(String name, boolean leftAttacking, final boolean crit, boolean loadTxt) {
 		super(0, 0);
 		left = leftAttacking;
 		final AnimationData data = getHitTexture(name, crit);
@@ -42,31 +42,32 @@ public class HitEffect extends Entity {
 		} else {
 			realHit = 0;
 		}
-		
-		Animation anim = new Animation(data.getTexture(), data.frameWidth,
-				data.frameHeight, data.frames, data.columns, data.offsetX,
-				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
-			HashMap<Integer, String> soundMap = new HashMap<Integer, String>(data.soundMap);
-			int hitframe = realHit;
-			public void update() {
-				super.update();
-				if(soundMap.get(0) != null){
-					AudioPlayer.playAudio(soundMap.remove(0), 1, 1);
+		if(loadTxt){
+			Animation anim = new Animation(FightStage.getPreload(getHitTextureName(name, crit)), data.frameWidth,
+					data.frameHeight, data.frames, data.columns, data.offsetX,
+					data.offsetY, data.speed==0.0f?0.05f:data.speed) {
+				HashMap<Integer, String> soundMap = new HashMap<Integer, String>(data.soundMap);
+				int hitframe = realHit;
+				public void update() {
+					super.update();
+					if(soundMap.get(0) != null){
+						AudioPlayer.playAudio(soundMap.remove(0), 1, 1);
+					}
+					if(soundMap.get(getFrame()) != null) {
+						AudioPlayer.playAudio(soundMap.remove(getFrame()), 1, 1);
+					}
+					if(getFrame()>hitframe && hitframe >= 0){
+						hitframe = -1; 
+						((FightStage) stage).setCurrentEvent(FightStage.ATTACKED);
+					}
 				}
-				if(soundMap.get(getFrame()) != null) {
-					AudioPlayer.playAudio(soundMap.remove(getFrame()), 1, 1);
+				@Override
+				public void done() {
+					destroy();
 				}
-				if(getFrame()>hitframe && hitframe >= 0){
-					hitframe = -1; 
-					((FightStage) stage).setCurrentEvent(FightStage.ATTACKED);
-				}
-			}
-			@Override
-			public void done() {
-				destroy();
-			}
-		};
-		sprite.addAnimation("default", anim);
+			};
+			sprite.addAnimation("default", anim);
+		}
 		renderDepth = FightStage.EFFECT_DEPTH;
 	}
 
@@ -90,6 +91,15 @@ public class HitEffect extends Entity {
 		return shakeIntensity;
 	}
 	
+	public static String getHitTextureName(String name, boolean crit){
+		String critName = name + "_critical";
+		if(FEResources.hasTexture("hit_effect_" + critName) && crit){
+			return "hit_effect_" + critName;
+		} else {
+			return "hit_effect_" + name;
+		}
+	}
+	
 	public static AnimationData getHitTexture(String name, boolean crit) {
 		String critName = name + "_critical";
 		if(FEResources.hasTexture("hit_effect_" + critName) && crit){
@@ -97,34 +107,60 @@ public class HitEffect extends Entity {
 		} else {
 			return FEResources.getTextureData("hit_effect_" + name);
 		}
-		
 	}
 
 	public static List<HitEffect> getEffects(AnimationArgs animArgs,
-			AttackRecord rec) {
+			AttackRecord rec, boolean loadTex) {
 		boolean crit = rec.animation.contains("Critical");
 		List<HitEffect> effects = new ArrayList<HitEffect>();
 		
 		if (animArgs.unit.getWeapon().type == Weapon.Type.STAFF) {
-			effects.add(new HitEffect("heal", animArgs.left, crit));
+			effects.add(new HitEffect("heal", animArgs.left, crit, loadTex));
 		}
 		
 		if (animArgs.unit.getWeapon().isMagic()) {
 			effects.add(new HitEffect(animArgs.unit.getWeapon().name
-					.toLowerCase(), animArgs.left, crit));
+					.toLowerCase(), animArgs.left, crit, loadTex));
 		}
 		
 		for(String anim: FightStage.analyzeAnimation(rec.animation, "(a)", false)){
 			if(anim.matches(".*\\d")) 
 				anim = anim.substring(0, anim.length() - 1);
 			if(FEResources.hasTexture("hit_effect_" + anim.toLowerCase())){
-				effects.add(new HitEffect(anim.toLowerCase(), animArgs.left, crit));
+				effects.add(new HitEffect(anim.toLowerCase(), animArgs.left, crit, loadTex));
 			}
 		}
 		
 		
 		if (effects.size() == 0 && rec.damage != 0) { // We have nothing														// nothing.
-			effects.add(0, new HitEffect("attack", animArgs.left, crit));
+			effects.add(0, new HitEffect("attack", animArgs.left, crit, loadTex));
+		}
+
+
+		return effects;
+	}
+	
+	public static List<String> getEffectNames(AnimationArgs animArgs, AttackRecord rec){
+		List<String> effects = new ArrayList<String>();
+		if (animArgs.unit.getWeapon().type == Weapon.Type.STAFF) {
+			effects.add("heal");
+		}
+		
+		if (animArgs.unit.getWeapon().isMagic()) {
+			effects.add(animArgs.unit.getWeapon().name.toLowerCase());
+		}
+		
+		for(String anim: FightStage.analyzeAnimation(rec.animation, "(a)", false)){
+			if(anim.matches(".*\\d")) 
+				anim = anim.substring(0, anim.length() - 1);
+			if(FEResources.hasTexture("hit_effect_" + anim.toLowerCase())){
+				effects.add(anim.toLowerCase());
+			}
+		}
+		
+		
+		if (effects.size() == 0 && rec.damage != 0) { // We have nothing														// nothing.
+			effects.add("attack");
 		}
 
 

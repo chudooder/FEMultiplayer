@@ -10,9 +10,7 @@ import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glPopMatrix;
 import static org.lwjgl.opengl.GL11.glPushMatrix;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +19,6 @@ import net.fe.fightStage.AttackRecord;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
 import net.fe.lobbystage.ClientLobbyStage;
-import net.fe.modifier.Divine;
 import net.fe.network.Client;
 import net.fe.network.Message;
 import net.fe.network.message.CommandMessage;

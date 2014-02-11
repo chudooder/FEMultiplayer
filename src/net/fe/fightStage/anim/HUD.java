@@ -1,5 +1,7 @@
 package net.fe.fightStage.anim;
 
+import org.newdawn.slick.opengl.Texture;
+
 import net.fe.FEResources;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
@@ -12,12 +14,15 @@ public class HUD extends Entity {
 	private Unit unit;
 	private int sign;
 	private String hit,crit,dmg;
-
+	private static Texture battleStats;
+	
 	public HUD(Unit u1, Unit u2, FightStage stage) {
 		super(0, 0);
 		this.unit = u1;
 		sign = stage.isLeft(u1) ? -1 : 1;
 		this.stage = stage;
+		if(battleStats == null)
+			battleStats = FEResources.getTexture("gui_battleStats");
 		
 		if (!CombatCalculator.shouldAttack(u1, u2, stage.getRange())) {
 			hit = "  -";
@@ -69,7 +74,7 @@ public class HUD extends Entity {
 				FightStage.FLOOR + 4, FightStage.CENTRAL_AXIS + sign * 78,
 				FightStage.FLOOR + 30, renderDepth, unit.getPartyColor());
 		
-		Renderer.render(FEResources.getTexture("gui_battleStats"), 0, 0, 1, 1, FightStage.CENTRAL_AXIS
+		Renderer.render(battleStats, 0, 0, 1, 1, FightStage.CENTRAL_AXIS
 				+ sign * 98 - 18, FightStage.FLOOR+5, FightStage.CENTRAL_AXIS
 				+ sign * 98 - 3, FightStage.FLOOR+29, renderDepth);
 

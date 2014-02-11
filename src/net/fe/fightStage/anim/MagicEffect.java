@@ -16,8 +16,8 @@ public class MagicEffect extends Entity {
 	public MagicEffect(final AnimationArgs args) {
 		super(0, 0);
 		this.args = args;
-		final AnimationData data = getTexture(args.unit.getWeapon().name.toLowerCase());
-		Animation anim = new Animation(data.getTexture(), data.frameWidth,
+		final AnimationData data = getTexture(args);
+		Animation anim = new Animation(FightStage.getPreload(getTextureName(args)), data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
 				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
 			HashMap<Integer, String> soundMap = data.soundMap;
@@ -56,7 +56,15 @@ public class MagicEffect extends Entity {
 	}
 
 	public static AnimationData getTexture(String name) {
-		return FEResources.getTextureData("magic_effect_" + name);
+		return FEResources.getTextureData(name);
+	}
+	
+	public static AnimationData getTexture(AnimationArgs args) {
+		return getTexture(getTextureName(args));
+	}
+	
+	public static String getTextureName(AnimationArgs args){
+		return "magic_effect_" + args.unit.getWeapon().name.toLowerCase();
 	}
 
 }
