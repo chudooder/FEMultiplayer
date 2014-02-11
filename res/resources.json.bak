@@ -3857,38 +3857,6 @@
 			"offsetY":	0,
 			"freeze":	-1
 		},
-				{
-			"name":		"battleStats",
-			"path":		"res/gui/battleStats.png"
-		},
-		{
-			"name":		"blue_flash",
-			"path":		"res/gui/blue_flash.png"
-		},
-		{
-			"name":		"connect_button",
-			"path":		"res/gui/connect_button.png"
-		},
-		{
-			"name":		"cursor",
-			"path":		"res/gui/cursor.png"
-		},
-		{
-			"name":		"dragon_separator",
-			"path":		"res/gui/dragon_separator.png"
-		},
-		{
-			"name":		"e",
-			"path":		"res/gui/e.png"
-		},
-		{
-			"name":		"enemy_phase",
-			"path":		"res/gui/enemy_phase.png"
-		},
-		{
-			"name":		"exit_button",
-			"path":		"res/gui/exit_button.png"
-		},
 		{
 			"name":		"gui_tickEmpty",
 			"path":		"res/gui/gui_tickEmpty.png"
@@ -3902,52 +3870,74 @@
 			"path":		"res/gui/gui_weaponIcon.png"
 		},
 		{
-			"name":		"icon16",
-			"path":		"res/gui/icon16.png"
+			"name":		"gui_battleStats",
+			"path":		"res/gui/battleStats.png"
 		},
 		{
-			"name":		"icon32",
-			"path":		"res/gui/icon32.png"
+			"name":		"dragon_separator",
+			"path":		"res/gui/dragon_separator.png"
 		},
 		{
-			"name":		"move_arrows",
-			"path":		"res/gui/move_arrows.png"
-		},
-		{
-			"name":		"player_phase",
-			"path":		"res/gui/player_phase.png"
+			"name":		"spectate_button",
+			"path":		"res/gui/spectate_button.png"
 		},
 		{
 			"name":		"play_button",
 			"path":		"res/gui/play_button.png"
 		},
 		{
+			"name":		"exit_button",
+			"path":		"res/gui/exit_button.png"
+		},
+		{
+			"name":		"unassign_button",
+			"path":		"res/gui/unassign_button.png"
+		},
+		{
+			"name":		"send_button",
+			"path":		"res/gui/send_button.png"
+		},
+		{
+			"name":		"connect_button",
+			"path":		"res/gui/connect_button.png"
+		},
+		{
+			"name":		"team_builder_button",
+			"path":		"res/gui/team_builder_button.png"
+		},
+		{
 			"name":		"ready_button",
 			"path":		"res/gui/ready_button.png"
+		},
+		{
+			"name":		"blue_flash",
+			"path":		"res/gui/blue_flash.png"
 		},
 		{
 			"name":		"red_flash",
 			"path":		"res/gui/red_flash.png"
 		},
 		{
-			"name":		"rescue",
-			"path":		"res/gui/rescue.png"
+			"name":		"enemy_phase",
+			"path":		"res/gui/enemy_phase.png"
 		},
 		{
-			"name":		"runes",
-			"path":		"res/gui/runes.png"
+			"name":		"player_phase",
+			"path":		"res/gui/player_phase.png"
 		},
 		{
-			"name":		"runes_orig",
-			"path":		"res/gui/runes_orig.png"
+			"name":		"trianglemod_up",
+			"path":		"res/gui/trianglemod_up.png"
+		
 		},
 		{
-			"name":		"selectArrow",
-			"path":		"res/gui/selectArrow.png"
+			"name":		"trianglemod_down",
+			"path":		"res/gui/trianglemod_down.png"
+		
 		},
 		{
-			"name":		"send_button",
-			"path":		"res/gui/send_button.png"
+			"name":		"cursor",
+			"path":		"res/gui/cursor.png"
 		},
 		{
 			"name":		"shop0",
@@ -3986,42 +3976,22 @@
 			"path":		"res/gui/shop8.png"
 		},
 		{
-			"name":		"spectate_button",
-			"path":		"res/gui/spectate_button.png"
+			"name":		"terrain_tiles",
+			"path":		"res/terrain_tiles_new.png"
 		},
 		{
-			"name":		"team_builder_button",
-			"path":		"res/gui/team_builder_button.png"
+			"name":		"runes",
+			"path":		"res/gui/runes.png"
 		},
 		{
-			"name":		"title",
-			"path":		"res/gui/title.png"
+			"name":		"icon16",
+			"path":		"res/gui/icon16.png"
 		},
 		{
-			"name":		"trianglemod_down",
-			"path":		"res/gui/trianglemod_down.png"
+			"name":		"icon32",
+			"path":		"res/gui/icon32.png"
 		},
 		{
-			"name":		"trianglemod_up",
-			"path":		"res/gui/trianglemod_up.png"
-		},
-		{
-			"name":		"unassign_button",
-			"path":		"res/gui/unassign_button.png"
-		},
-		{
-			"name":		"x2",
-			"path":		"res/gui/x2.png"
-		},
-		{
-			"name":		"x4",
-			"path":		"res/gui/x4.png"
-		},
-		{
-			"name":		"zone_colors",
-			"path":		"res/gui/zone_colors.png"
-		},
-				{
 			"name":		"assassin_map_down",
 			"path":		"res/map_anim/assassin_map_down.png"
 		},
@@ -4462,7 +4432,6 @@
 			"path":		"res/map_anim/warrior_map_up.png"
 		},
 
-
 		{
 			"name":		"amelia_mugshot",
 			"path":		"res/map_mugshots/amelia_mugshot.png"
@@ -4538,10 +4507,6 @@
 		{
 			"name":		"hector_mugshot",
 			"path":		"res/map_mugshots/hector_mugshot.png"
-		},
-		{
-			"name":		"ike_mugshot",
-			"path":		"res/map_mugshots/ike_mugshot.png"
 		},
 		{
 			"name":		"joshua_mugshot",
@@ -4643,7 +4608,14 @@
 			"name":		"wil_mugshot",
 			"path":		"res/map_mugshots/wil_mugshot.png"
 		},
-
+		{
+			"name":		"palette_overworld",
+			"path":		"res/palette/palette_overworld.png"
+		},
+		{
+			"name":		"palette_general",
+			"path":		"res/palette/palette_general.png"
+		},
 		{
 			"name":		"palette_assassin",
 			"path":		"res/palette/palette_assassin.png"
@@ -4653,57 +4625,48 @@
 			"path":		"res/palette/palette_berserker.png"
 		},
 		{
-			"name":		"palette_general",
-			"path":		"res/palette/palette_general.png"
-		},
-		{
 			"name":		"palette_hero",
 			"path":		"res/palette/palette_hero.png"
-		},
-		{
-			"name":		"palette_overworld",
-			"path":		"res/palette/palette_overworld.png"
 		},
 		{
 			"name":		"palette_paladin",
 			"path":		"res/palette/palette_paladin.png"
 		},
 		{
-			"name":		"palette_sagef",
-			"path":		"res/palette/palette_sagef.png"
-		},
-		{
 			"name":		"palette_sagem",
 			"path":		"res/palette/palette_sagem.png"
 		},
 		{
-			"name":		"palette_sniperf",
-			"path":		"res/palette/palette_sniperf.png"
+			"name":		"palette_sagef",
+			"path":		"res/palette/palette_sagef.png"
 		},
 		{
 			"name":		"palette_sniperm",
 			"path":		"res/palette/palette_sniperm.png"
 		},
 		{
-			"name":		"palette_sorcerer",
-			"path":		"res/palette/palette_sorcerer.png"
+			"name":		"palette_sniperf",
+			"path":		"res/palette/palette_sniperf.png"
 		},
 		{
-			"name":		"palette_swordmasterf",
-			"path":		"res/palette/palette_swordmasterf.png"
+			"name":		"palette_sorcerer",
+			"path":		"res/palette/palette_sorcerer.png"
 		},
 		{
 			"name":		"palette_swordmasterm",
 			"path":		"res/palette/palette_swordmasterm.png"
 		},
 		{
+			"name":		"palette_swordmasterf",
+			"path":		"res/palette/palette_swordmasterf.png"
+		},
+		{
 			"name":		"palette_valkyrie",
 			"path":		"res/palette/palette_valkyrie.png"
 		},
 		{
-			"name":		"palette_warrior",
-			"path":		"res/palette/palette_warrior.png"
-		},
-
+			"name":		"e",
+			"path":		"res/gui/e.png"
+		}
 	]
 }
