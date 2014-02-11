@@ -88,19 +88,6 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 			stats.put(s, bases.get(s).floatValue());
 		}
 		fillHp();
-		sprite.addAnimation("IDLE", new MapAnimation(functionalClassName() + 
-				"_map_idle", false));
-		sprite.addAnimation("SELECTED", new MapAnimation(functionalClassName() + 
-				"_map_selected", false));
-		sprite.addAnimation("LEFT", new MapAnimation(functionalClassName() + 
-				"_map_side", true));
-		sprite.addAnimation("RIGHT", new MapAnimation(functionalClassName() + 
-				"_map_side", true));
-		sprite.addAnimation("UP", new MapAnimation(functionalClassName() + 
-				"_map_up", true));
-		sprite.addAnimation("DOWN", new MapAnimation(functionalClassName() + 
-				"_map_down", true));
-		sprite.setAnimation("IDLE");
 
 		renderDepth = ClientOverworldStage.UNIT_DEPTH;
 	}
@@ -115,21 +102,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
         battleStats.put("Assists", 0);
         battleStats.put("Damage", 0);
         battleStats.put("Healing", 0);
-        if(Game.glContextExists()) {
-    		sprite.addAnimation("IDLE", new MapAnimation(functionalClassName() + 
-    				"_map_idle", false));
-    		sprite.addAnimation("SELECTED", new MapAnimation(functionalClassName() + 
-    				"_map_selected", false));
-    		sprite.addAnimation("LEFT", new MapAnimation(functionalClassName() + 
-    				"_map_side", true));
-    		sprite.addAnimation("RIGHT", new MapAnimation(functionalClassName() + 
-    				"_map_side", true));
-    		sprite.addAnimation("UP", new MapAnimation(functionalClassName() + 
-    				"_map_up", true));
-    		sprite.addAnimation("DOWN", new MapAnimation(functionalClassName() + 
-    				"_map_down", true));
-    		sprite.setAnimation("IDLE");
-        }
+        
         alpha = 1.0f;
     }
 	
@@ -196,6 +169,21 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	
 	public void beginStep(){
 		super.beginStep();
+		if(Game.glContextExists() && !sprite.hasAnimation("IDLE")) {
+    		sprite.addAnimation("IDLE", new MapAnimation(functionalClassName() + 
+    				"_map_idle", false));
+    		sprite.addAnimation("SELECTED", new MapAnimation(functionalClassName() + 
+    				"_map_selected", false));
+    		sprite.addAnimation("LEFT", new MapAnimation(functionalClassName() + 
+    				"_map_side", true));
+    		sprite.addAnimation("RIGHT", new MapAnimation(functionalClassName() + 
+    				"_map_side", true));
+    		sprite.addAnimation("UP", new MapAnimation(functionalClassName() + 
+    				"_map_up", true));
+    		sprite.addAnimation("DOWN", new MapAnimation(functionalClassName() + 
+    				"_map_down", true));
+    		sprite.setAnimation("IDLE");
+        }
 		if(path != null){
 			String name;
 			if(rX > 0) 		name = "left";

@@ -84,6 +84,7 @@ public class Sprite {
 	 * @param name Name of the animation
 	 */
 	public void setAnimation(String name) {
+		if(!hasAnimation(name)) return;
 		currentAnimation = animations.get(name.toUpperCase());
 		curAnimName = name.toUpperCase();
 	}
