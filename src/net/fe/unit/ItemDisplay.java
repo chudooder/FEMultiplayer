@@ -13,13 +13,13 @@ import chu.engine.anim.Transform;
 public class ItemDisplay extends Entity{
 	private Item item;
 	private boolean equip;
-	private Texture weaponIcon;
+	private static Texture weaponIcon = FEResources.getTexture("gui_weaponIcon");
+	private static Texture e = FEResources.getTexture("e");
 	public ItemDisplay(float f, float g, Item i, boolean equip){
 		super(f,g);
 		renderDepth = 0.05f;
 		item = i;
 		this.equip = equip;
-		weaponIcon = FEResources.getTexture("gui_weaponIcon");
 	}
 	
 	public void render(){
@@ -42,7 +42,7 @@ public class ItemDisplay extends Entity{
 				x-1, y, x+16, y+17, renderDepth, t, args);
 		FEResources.getBitmapFont("default_med").render(item.name, x+16, y+3, renderDepth, t);
 		if(equip){
-			Renderer.render(FEResources.getTexture("e"), 
+			Renderer.render(e, 
 					0, 0, 1, 1,
 					x+10, y+10, x+16, y+17, renderDepth, t);
 		}

@@ -27,14 +27,13 @@ public class Zone extends Entity {
 	
 	private static int frame;
 	private static float timer;
-	private static Tileset tiles;
+	private static Tileset tiles = new Tileset(FEResources.getTexture("zone_colors"), 15, 15);
 	
 	public Zone(Set<Node> zone, Color c) {
 		super(0,0);
 		this.zone = zone;
 		this.color = c;
 		frame = 0;
-		tiles = new Tileset(FEResources.getTexture("zone_colors"), 15, 15);
 		renderDepth = ClientOverworldStage.ZONE_DEPTH;
 	}
 	public void render(){

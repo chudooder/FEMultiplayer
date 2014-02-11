@@ -11,13 +11,18 @@ import chu.engine.anim.Tileset;
 
 public class Path extends Entity{
 	private LinkedList<Node> path;
-	private Tileset arrows;
+	private static Tileset arrows;
+	
+	static {
+		if(Game.glContextExists())
+			arrows = new Tileset(FEResources.getTexture("move_arrows"), 16, 16);
+	}
+	
 	public Path() {
 		super(0,0);
 		path = new LinkedList<Node>();
 		renderDepth = ClientOverworldStage.PATH_DEPTH;
-		if(Game.glContextExists())
-			arrows = new Tileset(FEResources.getTexture("move_arrows"), 16, 16);
+
 	}
 	
 	public void add(Node n) {
