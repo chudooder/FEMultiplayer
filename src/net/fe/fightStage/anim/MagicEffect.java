@@ -17,7 +17,7 @@ public class MagicEffect extends Entity {
 		super(0, 0);
 		this.args = args;
 		final AnimationData data = getTexture(args.unit.getWeapon().name.toLowerCase());
-		Animation anim = new Animation(data.texture, data.frameWidth,
+		Animation anim = new Animation(data.getTexture(), data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
 				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
 			HashMap<Integer, String> soundMap = data.soundMap;

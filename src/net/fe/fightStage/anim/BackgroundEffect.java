@@ -14,7 +14,7 @@ public class BackgroundEffect extends Entity {
 		renderDepth = FightStage.BG_DEPTH;
 		AnimationData data = FEResources.getTextureData("bg_effect_" + name);
 		this.left = left;
-		sprite.addAnimation("default", new Animation(data.texture, data.frameWidth,
+		sprite.addAnimation("default", new Animation(data.getTexture(), data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
 				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
 				

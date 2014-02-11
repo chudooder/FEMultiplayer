@@ -30,19 +30,12 @@ public class FEResources {
 	
 	static {
 		audio = new HashMap<String, Audio>();
-		textures = new HashMap<String, AnimationData>() {
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public AnimationData put(String string, AnimationData data) {
-				return super.put(string, data);
-			}
-		};
+		textures = new HashMap<String, AnimationData>();
 		bitmapFonts = new HashMap<String, BitmapFont>();
 	}
 
 	public static Texture getTexture(String string) {
-		return getTextureData(string).texture;
+		return getTextureData(string).getTexture();
 	}
 	
 	public static boolean hasTexture(String string){
@@ -55,8 +48,7 @@ public class FEResources {
 			loadBitmapFonts();
 			
 			// Textures
-			textures.put("whoops", new AnimationData(TextureLoader.getTexture("PNG", 
-					ResourceLoader.getResourceAsStream("res/whoops.png"))));
+			textures.put("whoops", new AnimationData("res/whoops.png"));
 			loadTextures();	
 			//load audio
 			audio.put("miss", AudioLoader.getAudio("WAV",
@@ -75,10 +67,8 @@ public class FEResources {
 		System.out.println("Warn:" + name + " not explicitly defined");
 		for(String loc: searchFolders){
 			try{
-				AnimationData txt = new AnimationData(TextureLoader.getTexture("PNG",
-						ResourceLoader.getResourceAsStream(
-							"res/" + loc + "/" + name + ".png"
-						)), 96, 24, 4, 4, 4, 4, 0, null, null);
+				AnimationData txt = new AnimationData("res/" + loc + "/" + name + ".png", 
+						96, 24, 4, 4, 4, 4, 0, null, null);
 				textures.put(name, txt);
 				return txt;
 			} catch (Exception e){
@@ -143,37 +133,31 @@ public class FEResources {
 							(String)audio.get("sound"));
 				}
 			}
-			try {
-				AnimationData data;
-				if(width == null) {
-					data = new AnimationData(TextureLoader.getTexture("PNG",
-							ResourceLoader.getResourceAsStream(path)));
-				} else {
-					data = new AnimationData(TextureLoader.getTexture("PNG",
-							ResourceLoader.getResourceAsStream(path)),
-							width.intValue(),
-							height.intValue(),
-							frames.intValue(),
-							columns.intValue(),
-							offsetX.intValue(),
-							offsetY.intValue(),
-							freeze.intValue(),
-							hitframes,
-							audioMap);
-				}
-				if(speed != null)
-					data.speed = speed.floatValue();
-				if(shakeFrames != null)
-					data.shakeFrames = shakeFrames.intValue();
-				if(shakeIntensity != null)
-					data.shakeIntensity = shakeIntensity.intValue();
-				textures.put(name, data);
-				if((System.nanoTime() - startTime)/1000000.0f > 100){
-					LoadStage.update(textures.size());
-					LoadStage.render();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
+			AnimationData data;
+			if(width == null) {
+				data = new AnimationData(path);
+			} else {
+				data = new AnimationData(path,
+						width.intValue(),
+						height.intValue(),
+						frames.intValue(),
+						columns.intValue(),
+						offsetX.intValue(),
+						offsetY.intValue(),
+						freeze.intValue(),
+						hitframes,
+						audioMap);
+			}
+			if(speed != null)
+				data.speed = speed.floatValue();
+			if(shakeFrames != null)
+				data.shakeFrames = shakeFrames.intValue();
+			if(shakeIntensity != null)
+				data.shakeIntensity = shakeIntensity.intValue();
+			textures.put(name, data);
+			if((System.nanoTime() - startTime)/1000000.0f > 100){
+				LoadStage.update(textures.size());
+				LoadStage.render();
 			}
 		}
 		in.close();
@@ -222,10 +206,7 @@ public class FEResources {
 			System.err.println("Warn: " + string + " not explicitly defined");
 			for(String loc: searchFolders){
 				try{
-					AnimationData txt = new AnimationData(TextureLoader.getTexture("PNG",
-							ResourceLoader.getResourceAsStream(
-								"res/" + loc + "/" + string + ".png"
-							)));
+					AnimationData txt = new AnimationData("res/" + loc + "/" + string + ".png");
 					textures.put(string, txt);
 					return txt;
 				} catch (Exception e){

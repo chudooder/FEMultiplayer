@@ -3807,11 +3807,11 @@
 		},
 		{
 			"name":		"gui_tickEmpty",
-			"path":		"res/gui/tickEmpty.png"
+			"path":		"res/gui/gui_tickEmpty.png"
 		},
 		{
 			"name":		"gui_tickFilled",
-			"path":		"res/gui/tickFilled.png"
+			"path":		"res/gui/gui_tickFilled.png"
 		},
 		{
 			"name":		"gui_weaponIcon",
@@ -3823,7 +3823,7 @@
 		},
 		{
 			"name":		"dragon_separator",
-			"path":		"res/gui/dragons.png"
+			"path":		"res/gui/dragon_separator.png"
 		},
 		{
 			"name":		"spectate_button",

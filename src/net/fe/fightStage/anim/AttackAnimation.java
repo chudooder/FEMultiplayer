@@ -25,7 +25,7 @@ public abstract class AttackAnimation extends Animation {
 	
 	//TODO You can't have a hit frame on the very last frame
 	public AttackAnimation(AnimationData data, FightStage stage, AnimationArgs animArgs) {
-		super(data.texture, data.frameWidth, data.frameHeight, data.frames,
+		super(data.getTexture(), data.frameWidth, data.frameHeight, data.frames,
                 data.columns, data.offsetX, data.offsetY, 0);
 		this.hitframes = data.hitframes;
 		this.stage = stage;

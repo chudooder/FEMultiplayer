@@ -13,7 +13,7 @@ public class DodgeAnimation extends Animation {
 	private boolean dodging;
 
 	public DodgeAnimation(AnimationData data) {
-		super(data.texture, data.frameWidth, data.frameHeight, data.frames,
+		super(data.getTexture(), data.frameWidth, data.frameHeight, data.frames,
 				data.columns, data.offsetX, data.offsetY,
 				DodgeAnimation.NORMAL_SPEED);
 		dodgeTimer = 0;

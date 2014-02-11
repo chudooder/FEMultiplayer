@@ -1,12 +1,15 @@
 package chu.engine;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
+import org.newdawn.slick.util.ResourceLoader;
 
 public 
 class AnimationData {
-	public Texture texture;
+	public String path;
 	public int frames;
 	public int columns;
 	public int frameWidth;
@@ -20,9 +23,9 @@ class AnimationData {
 	public int shakeFrames;
 	public int shakeIntensity;
 	
-	public AnimationData(Texture t, int w, int h, int r, int c, int x, int y,
+	public AnimationData(String path, int w, int h, int r, int c, int x, int y,
 			int f, int[] frames, HashMap<Integer, String> soundMap) {
-		texture = t;
+		this.path = path;
 		this.frames = r;
 		columns = c;
 		offsetX = x;
@@ -34,14 +37,24 @@ class AnimationData {
 		this.soundMap = soundMap;
 	}
 	
-	public AnimationData(Texture t) {
-		texture = t;
+	public AnimationData(String path) {
+		this.path = path;
 		frames = 1;
 		columns = 1;
 		offsetX = 0;
 		offsetY = 0;
 		freeze = -1;
-		frameWidth = t.getImageWidth();
-		frameHeight = t.getImageHeight();
+	}
+	
+	public Texture getTexture() {
+		try {
+			Texture t = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(path));
+//			System.out.println("Loaded "+path);
+			return t;
+		} catch (IOException e) {
+			System.err.println("Texture not found: "+path);
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

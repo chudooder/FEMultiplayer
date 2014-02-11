@@ -43,7 +43,7 @@ public class HitEffect extends Entity {
 			realHit = 0;
 		}
 		
-		Animation anim = new Animation(data.texture, data.frameWidth,
+		Animation anim = new Animation(data.getTexture(), data.frameWidth,
 				data.frameHeight, data.frames, data.columns, data.offsetX,
 				data.offsetY, data.speed==0.0f?0.05f:data.speed) {
 			HashMap<Integer, String> soundMap = new HashMap<Integer, String>(data.soundMap);
