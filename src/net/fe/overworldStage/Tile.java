@@ -1,6 +1,7 @@
 package net.fe.overworldStage;
 
 import net.fe.FEResources;
+import chu.engine.Game;
 import chu.engine.GriddedEntity;
 import chu.engine.anim.Renderer;
 import chu.engine.anim.Tileset;
@@ -8,7 +9,14 @@ import chu.engine.anim.Tileset;
 public class Tile extends GriddedEntity implements DoNotDestroy{
 	private Terrain terrain;
 	private int id;
-	private Tileset tileset;
+	private static Tileset tileset;
+	
+	static {
+		if(Game.glContextExists()) {
+			tileset = new Tileset(FEResources.getTexture("terrain_tiles"), 16, 16);
+		}
+	}
+	
 	/**
 	 * P - Plain
 	 * A - pAth
@@ -65,7 +73,6 @@ public class Tile extends GriddedEntity implements DoNotDestroy{
 		super(x,y);
 		renderDepth = ClientOverworldStage.TILE_DEPTH;
 		this.id = id;
-		tileset = new Tileset(FEResources.getTexture("terrain_tiles"), 16, 16);
 		setTerrain(getTerrainFromID(id));
 	}
 	
