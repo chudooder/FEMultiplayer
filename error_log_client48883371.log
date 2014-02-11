@@ -1,0 +1,6 @@
+java.lang.NullPointerException
+	at net.fe.unit.Unit.setDying(Unit.java:689)
+	at net.fe.FEMultiplayer.reportFightResults(FEMultiplayer.java:238)
+	at net.fe.fightStage.FightStage.beginStep(FightStage.java:175)
+	at net.fe.FEMultiplayer.loop(FEMultiplayer.java:216)
+	at net.fe.FEMultiplayer.main(FEMultiplayer.java:67)

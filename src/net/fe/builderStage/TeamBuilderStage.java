@@ -389,7 +389,7 @@ public class TeamBuilderStage extends Stage {
 		}
 		select.deselectAll();
 		setUnits(new ArrayList<Unit>());
-		for(int i = 0; i < select.getMaxUnits(); i++){
+		for(int i = 0; i < select.getMaxUnits() && i < teamData.length; i++){
 			Unit u = select.getUnit(teamData[i][0]);
 			int lv = Integer.parseInt(teamData[i][1]);
 			while(u.get("Lvl") != lv){
