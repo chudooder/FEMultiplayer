@@ -1,6 +1,9 @@
 package net.fe.overworldStage;
 
 import static net.fe.fightStage.FightStage.*;
+
+import org.newdawn.slick.opengl.Texture;
+
 import net.fe.FEResources;
 import chu.engine.Entity;
 import chu.engine.Game;
@@ -8,6 +11,8 @@ import chu.engine.anim.BitmapFont;
 import chu.engine.anim.Renderer;
 
 public class TerrainInfo extends Entity implements DoNotDestroy{
+	
+	private static Texture dragons = FEResources.getTexture("dragon_separator");
 
 	public TerrainInfo(Cursor c) {
 		super(0, Game.getWindowHeight()-80);
@@ -29,7 +34,7 @@ public class TerrainInfo extends Entity implements DoNotDestroy{
 		int width = def.getStringWidth(terrain.toString());
 		Renderer.drawString("default_med", terrain.toString(), x+25-width/2, y+8, renderDepth);
 		//Separator
-		Renderer.render(FEResources.getTexture("dragon_separator"), 0, 0, 1, 1,
+		Renderer.render(dragons, 0, 0, 1, 1,
 				x+7, y+28, x+45, y+37, renderDepth);
 		//Terrain stats
 		Renderer.drawString("default_med", "AVO", x+5, y+40, renderDepth);

@@ -49,7 +49,7 @@ class AnimationData {
 	public Texture getTexture() {
 		try {
 			Texture t = TextureLoader.getTexture("PNG", ResourceLoader.getResourceAsStream(path));
-//			System.out.println("Loaded "+path);
+			System.out.println("Loaded "+path);
 			return t;
 		} catch (IOException e) {
 			System.err.println("Texture not found: "+path);
