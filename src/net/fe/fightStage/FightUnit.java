@@ -53,6 +53,7 @@ public class FightUnit extends Entity {
 		
 		DodgeAnimation dodge = new DodgeAnimation(FEResources.getTextureData(base+"dodge"));
 		sprite.addAnimation("DODGE", dodge);
+		sprite.setAnimation("ATTACK");
 		
 		
 		renderDepth = FightStage.UNIT_DEPTH;
