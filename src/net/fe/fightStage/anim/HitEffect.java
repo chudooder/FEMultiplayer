@@ -117,32 +117,10 @@ public class HitEffect extends Entity {
 		boolean primary = true;
 		List<HitEffect> effects = new ArrayList<HitEffect>();
 		
-		if (animArgs.unit.getWeapon().type == Weapon.Type.STAFF) {
-			effects.add(new HitEffect("heal", animArgs.left, crit, loadTex, primary));
+		for(String effectName: getEffectNames(animArgs, rec)){
+			effects.add(new HitEffect(effectName, animArgs.left, crit, loadTex, primary));
 			primary = false;
 		}
-		
-		if (animArgs.unit.getWeapon().isMagic()) {
-			effects.add(new HitEffect(animArgs.unit.getWeapon().name
-					.toLowerCase(), animArgs.left, crit, loadTex, primary));
-			primary = false;
-		}
-		
-		for(String anim: FightStage.analyzeAnimation(rec.animation, "(a)", false)){
-			if(anim.matches(".*\\d")) 
-				anim = anim.substring(0, anim.length() - 1);
-			if(FEResources.hasTexture("hit_effect_" + anim.toLowerCase())){
-				effects.add(new HitEffect(anim.toLowerCase(), animArgs.left, crit, loadTex, primary));
-				primary = false;
-			}
-		}
-		
-		
-		if (effects.size() == 0 && rec.damage != 0) { // We have nothing														// nothing.
-			effects.add(0, new HitEffect("attack", animArgs.left, crit, loadTex, primary));
-			primary = false;
-		}
-
 
 		return effects;
 	}
@@ -155,7 +133,11 @@ public class HitEffect extends Entity {
 		}
 		
 		if (animArgs.unit.getWeapon().isMagic()) {
-			effects.add(animArgs.unit.getWeapon().name.toLowerCase());
+			effects.add(animArgs.unit.getWeapon().name.replaceAll(" ", "-").toLowerCase());
+		}
+		
+		if(animArgs.wepAnimName.equals("rangedsword")) {
+			effects.add(animArgs.unit.getWeapon().name.replaceAll(" ", "-").toLowerCase());
 		}
 		
 		for(String anim: FightStage.analyzeAnimation(rec.animation, "(a)", false)){

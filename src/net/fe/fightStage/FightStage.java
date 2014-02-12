@@ -258,7 +258,7 @@ public class FightStage extends Stage {
 			if (rec.damage == 0) {
 				// System.out.println("Miss! " + rec.defender.name
 				// + " dodged the attack!");
-				if (rec.animation.equals("Miss")){
+				if (rec.animation.contains("Miss")){
 					addEntity(new MissEffect(defender == left));
 					d.sprite.setAnimation("DODGE");
 					d.sprite.setFrame(0);

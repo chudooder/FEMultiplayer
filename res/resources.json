@@ -2316,6 +2316,18 @@
 			"freeze":	0
 		},
 		
+		
+		{
+			"name":		"roy_rangedsword_dodge",
+			"path":		"res/battle_anim/roy_sword_dodge.png",
+			"width":	38,
+			"height":	33,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	16,
+			"offsetY":	29,
+			"freeze":	0
+		},
 		{
 			"name":		"sagem_magic_attack",
 			"path":		"res/battle_anim/sagem_magic_attack.png",

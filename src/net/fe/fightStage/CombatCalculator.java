@@ -125,7 +125,7 @@ public class CombatCalculator {
 		} else {
 			a.use(a.getWeapon(), false); //TODO Remove on server
 		}
-		if (RNG.get() < a.crit() - d.dodge()) {
+		if (RNG.get() < a.crit() - d.dodge() && !miss) {
 			crit = 3;
 			animation += " Critical(a)";
 		}
@@ -137,7 +137,7 @@ public class CombatCalculator {
 				int oldDamage = damage;
 				damage = t.runDamageMod(a,d,damage);
 				if (t.nameModification == CombatTrigger.APPEND_NAME_AFTER_MOD 
-						&& damage!=oldDamage) {
+						&& damage!=oldDamage && !miss) {
 					animation += " " + t.getName() + "(a)";
 				}
 			}
@@ -147,7 +147,7 @@ public class CombatCalculator {
 				int oldDamage = damage;
 				damage = t.runDamageMod(a,d,damage);
 				if (t.nameModification == CombatTrigger.APPEND_NAME_AFTER_MOD 
-						&& damage!=oldDamage) {
+						&& damage!=oldDamage && !miss) {
 					animation += " " + t.getName() + "(d)";
 				}
 			}
@@ -167,7 +167,7 @@ public class CombatCalculator {
 		
 		if(miss){
 			damage = 0;
-			animation = "Miss";
+			animation += " Miss";
 		}
 		
 		damage = Math.max(0, Math.min(damage, d.getHp()));
