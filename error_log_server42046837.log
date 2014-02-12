@@ -1,6 +1,0 @@
-java.lang.ClassCastException: net.fe.unit.HealingItem cannot be cast to net.fe.unit.Weapon
-	at net.fe.unit.Unit.equip(Unit.java:373)
-	at net.fe.overworldStage.OverworldStage.processCommands(OverworldStage.java:273)
-	at net.fe.overworldStage.OverworldStage.beginStep(OverworldStage.java:180)
-	at net.fe.network.FEServer.loop(FEServer.java:296)
-	at net.fe.network.FEServer$4$2.run(FEServer.java:232)
