@@ -1,7 +1,0 @@
-java.lang.ArrayIndexOutOfBoundsException: 6
-	at net.fe.builderStage.TeamBuilderStage.loadTeam(TeamBuilderStage.java:393)
-	at net.fe.builderStage.TeamNameInput.load(TeamNameInput.java:85)
-	at net.fe.builderStage.TeamNameInput.beginStep(TeamNameInput.java:62)
-	at net.fe.builderStage.TeamBuilderStage.beginStep(TeamBuilderStage.java:215)
-	at net.fe.FEMultiplayer.loop(FEMultiplayer.java:216)
-	at net.fe.FEMultiplayer.main(FEMultiplayer.java:67)

@@ -1,5 +1,0 @@
-java.lang.NullPointerException
-	at net.fe.FEResources.loadTextures(FEResources.java:98)
-	at net.fe.FEResources.loadResources(FEResources.java:51)
-	at net.fe.FEMultiplayer.init(FEMultiplayer.java:98)
-	at net.fe.FEMultiplayer.main(FEMultiplayer.java:64)

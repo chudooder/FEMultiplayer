@@ -1,5 +1,0 @@
-java.lang.NullPointerException
-	at net.fe.overworldStage.InventoryMenu.onStep(InventoryMenu.java:34)
-	at net.fe.builderStage.UnitBuilderStage.onStep(UnitBuilderStage.java:177)
-	at net.fe.FEMultiplayer.loop(FEMultiplayer.java:217)
-	at net.fe.FEMultiplayer.main(FEMultiplayer.java:67)
