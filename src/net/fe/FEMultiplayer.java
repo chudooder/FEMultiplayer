@@ -20,6 +20,7 @@ import java.util.HashMap;
 import net.fe.fightStage.AttackRecord;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
+import net.fe.fightStage.HealCalculator;
 import net.fe.lobbystage.ClientLobbyStage;
 import net.fe.network.Client;
 import net.fe.network.Message;
@@ -122,10 +123,10 @@ public class FEMultiplayer extends Game{
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
 		
-		Unit u1 = UnitFactory.getUnit("Roy");
-		u1.getInventory().add(WeaponFactory.getWeapon("Iron Sword"));
+		Unit u1 = UnitFactory.getUnit("Artur");
+		u1.getInventory().add(WeaponFactory.getWeapon("Heal"));
 		
-		u1.equip(1);
+		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
 		u1.setLevel(20);
 		p1.getParty().addUnit(u1);
@@ -135,16 +136,17 @@ public class FEMultiplayer extends Game{
 		grid.addUnit(u2, 1, 0);
 		u2.equip(0);
 		u2.setLevel(20);
-		p2.getParty().addUnit(u2);
+		u2.setHp(35);
+		p1.getParty().addUnit(u2);
 		
 		int u1Uses = u1.getWeapon().getMaxUses();
 		int u2Uses = u2.getWeapon().getMaxUses();
-		CombatCalculator calc = new CombatCalculator(new UnitIdentifier(u1), new UnitIdentifier(u2), true);
+		HealCalculator calc = new HealCalculator(new UnitIdentifier(u1), new UnitIdentifier(u2), true);
 		System.out.println(calc.getAttackQueue());
 		u1.getWeapon().setUsesDEBUGGING(u1Uses);
 		u2.getWeapon().setUsesDEBUGGING(u2Uses);
 		u1.fillHp();
-		u2.fillHp();
+		u2.setHp(35);
 		setCurrentStage(new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue()));
 	}
 	

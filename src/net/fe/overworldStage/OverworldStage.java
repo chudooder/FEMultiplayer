@@ -186,6 +186,11 @@ public class OverworldStage extends Stage {
 						chat.add(p, chatMsg.text);
 			}
 			else if(message instanceof EndTurn) {
+				if(this instanceof ClientOverworldStage){
+					((EndTurn) message).checkHp(false);
+				} else {
+					((EndTurn) message).checkHp(true);
+				}
 				doEndTurn(message.origin);
 				currentPlayer++;
 				if(currentPlayer >= turnOrder.size()) {
@@ -301,7 +306,7 @@ public class OverworldStage extends Stage {
 			}
 			else if(obj.equals("HEAL")) {
 				//This updates HP so we're ok
-				HealCalculator calc = new HealCalculator(cmds.unit, (UnitIdentifier) cmds.commands[++i]);
+				HealCalculator calc = new HealCalculator(cmds.unit, (UnitIdentifier) cmds.commands[++i], false);
 				cmds.attackRecords = calc.getAttackQueue();
 			}
 		}
