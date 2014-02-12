@@ -1,0 +1,12 @@
+java.lang.ClassCastException: net.fe.overworldStage.OverworldStage cannot be cast to net.fe.overworldStage.ClientOverworldStage
+	at net.fe.unit.Unit.equip(Unit.java:362)
+	at net.fe.unit.Unit.reEquip(Unit.java:453)
+	at net.fe.unit.Unit.use(Unit.java:478)
+	at net.fe.unit.Unit.use(Unit.java:469)
+	at net.fe.fightStage.CombatCalculator.attack(CombatCalculator.java:126)
+	at net.fe.fightStage.CombatCalculator.calculate(CombatCalculator.java:55)
+	at net.fe.fightStage.CombatCalculator.<init>(CombatCalculator.java:35)
+	at net.fe.overworldStage.OverworldStage.processCommands(OverworldStage.java:304)
+	at net.fe.overworldStage.OverworldStage.beginStep(OverworldStage.java:180)
+	at net.fe.network.FEServer.loop(FEServer.java:298)
+	at net.fe.network.FEServer$4$2.run(FEServer.java:234)

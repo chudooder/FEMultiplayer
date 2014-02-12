@@ -9,7 +9,6 @@ import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.Entity;
 import chu.engine.Game;
-import chu.engine.Stage;
 import chu.engine.anim.Renderer;
 
 public abstract class Healthbar extends Entity {
@@ -17,6 +16,8 @@ public abstract class Healthbar extends Entity {
 	private float displayedHealth, totalHealth;
 	private float time;
 	private Color color;
+	private Texture tickFilled = FEResources.getTexture("gui_tickFilled");
+	private Texture tickEmpty = FEResources.getTexture("gui_tickEmpty");
 //	public Healthbar(float x, float y, int hp0, int hp1, int hpT) {
 //		super(x, y);
 ////		System.out.println(hp0 + "->" + hp1);
@@ -65,9 +66,7 @@ public abstract class Healthbar extends Entity {
 			Renderer.drawString("stat_numbers", (int)displayedHealth + "", x-5-width, y+2, renderDepth);
 		}
 		for (int hp = 1; hp <= totalHealth; hp++) {
-			Texture t = FEResources
-					.getTexture(hp <= displayedHealth ? "gui_tickFilled"
-							: "gui_tickEmpty");
+			Texture t = hp <= displayedHealth ? tickFilled : tickEmpty;
 			Renderer.render(t, 0, 0, 1, 1, x + offX, y + offY, x + offX + 2, y
 					+ offY + 6, renderDepth);
 			

@@ -47,6 +47,7 @@ import net.fe.modifier.MadeInChina;
 import net.fe.modifier.Modifier;
 import net.fe.modifier.SuddenDeath;
 import net.fe.modifier.Treasury;
+import net.fe.modifier.Vegas;
 import net.fe.overworldStage.objective.Objective;
 import net.fe.overworldStage.objective.Rout;
 import net.fe.overworldStage.objective.Seize;
@@ -87,6 +88,7 @@ public class FEServer extends Game {
 		model.addElement(new Treasury());
 		model.addElement(new DivineIntervention());
 		model.addElement(new SuddenDeath());
+		model.addElement(new Vegas());
 		
 		final JPanel mainPanel = new JPanel();
 		frame.getContentPane().add(mainPanel, BorderLayout.CENTER);

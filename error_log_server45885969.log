@@ -1,0 +1,9 @@
+java.lang.NullPointerException
+	at net.fe.fightStage.CombatCalculator.calculateBaseDamage(CombatCalculator.java:210)
+	at net.fe.fightStage.CombatCalculator.attack(CombatCalculator.java:134)
+	at net.fe.fightStage.CombatCalculator.calculate(CombatCalculator.java:55)
+	at net.fe.fightStage.CombatCalculator.<init>(CombatCalculator.java:35)
+	at net.fe.overworldStage.OverworldStage.processCommands(OverworldStage.java:304)
+	at net.fe.overworldStage.OverworldStage.beginStep(OverworldStage.java:180)
+	at net.fe.network.FEServer.loop(FEServer.java:298)
+	at net.fe.network.FEServer$4$2.run(FEServer.java:234)

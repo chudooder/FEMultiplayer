@@ -121,10 +121,12 @@ public class CombatCalculator {
 		if (!((RNG.get()+RNG.get())/2 < hitRate(a, d))) {
 			miss = true;
 			if (a.getWeapon().isMagic())
-				a.use(a.getWeapon(), false); //TODO Remove on server
+				a.use(a.getWeapon());
 		} else {
-			a.use(a.getWeapon(), false); //TODO Remove on server
+			a.use(a.getWeapon());
 		}
+		
+		System.out.println(a.getWeapon().name + " " + a.getWeapon().getUses());
 		if (RNG.get() < a.crit() - d.dodge() && !miss) {
 			crit = 3;
 			animation += " Critical(a)";
