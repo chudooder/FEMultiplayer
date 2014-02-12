@@ -43,9 +43,6 @@ public class FightUnit extends Entity {
 		filename.append("_");
 		String base = filename.toString().toLowerCase();
 		
-		DodgeAnimation dodge = new DodgeAnimation(FEResources.getTextureData(base+"dodge"));
-		sprite.addAnimation("DODGE", dodge);
-		
 		for(String anim: animArgs.unit.getAttackAnims()){
 			if(FEResources.hasTexture(base + anim)){
 				AttackAnimation a = AttackAnimation.createAnimation(
@@ -53,6 +50,9 @@ public class FightUnit extends Entity {
 				sprite.addAnimation(anim.toUpperCase(), a);
 			}
 		}
+		
+		DodgeAnimation dodge = new DodgeAnimation(FEResources.getTextureData(base+"dodge"));
+		sprite.addAnimation("DODGE", dodge);
 		
 		
 		renderDepth = FightStage.UNIT_DEPTH;
