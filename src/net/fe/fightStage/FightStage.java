@@ -65,7 +65,7 @@ public class FightStage extends Stage {
 	public static final float MIN_TIME = 1.5f;
 
 	public static final int CENTRAL_AXIS = 120;
-	public static final int FLOOR = 104;
+	public static final int FLOOR = 105;
 
 	public static final Color BORDER_DARK = new Color(0x483828);
 	public static final Color BORDER_LIGHT = new Color(0xf8f0c8);

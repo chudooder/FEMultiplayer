@@ -2271,6 +2271,40 @@
 			]
 		},
 		{
+			"name":		"roy_sword_aether1",
+			"path":		"res/battle_anim/roy_sword_aether1.png",
+			"width":	150,
+			"height":	113,
+			"offsetX":	88,
+			"offsetY":	106,
+			"frames":	51,
+			"columns":	8,
+			"freeze":	0,
+			"speed":	0.045,
+			"hitframes":[50],
+			"stop":		true,
+			"soundMap":[
+
+			]
+		},
+		{
+			"name":		"roy_sword_aether2",
+			"path":		"res/battle_anim/roy_sword_aether2.png",
+			"width":	150,
+			"height":	113,
+			"offsetX":	88,
+			"offsetY":	106,
+			"frames":	21,
+			"columns":	8,
+			"freeze":	0,
+			"speed":	0.045,
+			"hitframes":[3],
+			"stop":		true,
+			"soundMap":[
+
+			]
+		},
+		{
 			"name":		"roy_sword_dodge",
 			"path":		"res/battle_anim/roy_sword_dodge.png",
 			"width":	38,
