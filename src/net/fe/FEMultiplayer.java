@@ -62,20 +62,20 @@ public class FEMultiplayer extends Game{
 		try{
 			FEMultiplayer game = new FEMultiplayer();
 			game.init(480, 320, "Fire Emblem Multiplayer");
-//			game.testFightStage();
+			game.testFightStage();
 //			game.testOverworldStage();
 			game.loop();
 		} catch (Exception e){
 			System.err.println("Exception occurred, writing to logs...");
 			e.printStackTrace();
-			try{
-				File errLog = new File("error_log_client" + System.currentTimeMillis()%100000000 + ".log");
-				PrintWriter pw = new PrintWriter(errLog);
-				e.printStackTrace(pw);
-				pw.close();
-			}catch (IOException e2){
-				e2.printStackTrace();
-			}
+//			try{
+//				File errLog = new File("error_log_client" + System.currentTimeMillis()%100000000 + ".log");
+//				PrintWriter pw = new PrintWriter(errLog);
+//				e.printStackTrace(pw);
+//				pw.close();
+//			}catch (IOException e2){
+//				e2.printStackTrace();
+//			}
 			System.exit(0);
 		}
 	}
@@ -122,8 +122,8 @@ public class FEMultiplayer extends Game{
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
 		
-		Unit u1 = UnitFactory.getUnit("Marisa");
-		u1.getInventory().add(WeaponFactory.getWeapon("Debug Sword"));
+		Unit u1 = UnitFactory.getUnit("Joshua");
+		u1.getInventory().add(WeaponFactory.getWeapon("Iron Sword"));
 		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
 		u1.setLevel(20);

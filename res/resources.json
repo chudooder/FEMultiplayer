@@ -2787,7 +2787,93 @@
 			"columns":	2,
 			"offsetX":	8,
 			"offsetY":	33,
-			"freeze":	0
+			"freeze":	0,
+
+		},
+		{
+			"name":		"swordmasterm_sword_astra1",
+			"path":		"res/battle_anim/swordmasterm_sword_astra1.png",
+			"width":	160,
+			"height":	105,
+			"frames":	22,
+			"columns":	6,
+			"offsetX":	100,
+			"offsetY":	101,
+			"freeze":	0,
+			"hitframes":[20],
+			"speed":	0.055,
+			"stop":		true,
+			"soundMap": [
+
+			]
+		},
+		{
+			"name":		"swordmasterm_sword_astra2",
+			"path":		"res/battle_anim/swordmasterm_sword_astra2.png",
+			"width":	160,
+			"height":	105,
+			"frames":	6,
+			"columns":	6,
+			"offsetX":	100,
+			"offsetY":	101,
+			"freeze":	0,
+			"hitframes":[5],
+			"speed":	0.055,
+			"stop":		true,
+			"soundMap": [
+
+			]
+		},
+		{
+			"name":		"swordmasterm_sword_astra3",
+			"path":		"res/battle_anim/swordmasterm_sword_astra3.png",
+			"width":	160,
+			"height":	105,
+			"frames":	5,
+			"columns":	5,
+			"offsetX":	100,
+			"offsetY":	101,
+			"freeze":	0,
+			"hitframes":[4],
+			"speed":	0.055,
+			"stop":		true,
+			"soundMap": [
+
+			]
+		},
+		{
+			"name":		"swordmasterm_sword_astra4",
+			"path":		"res/battle_anim/swordmasterm_sword_astra4.png",
+			"width":	160,
+			"height":	105,
+			"frames":	6,
+			"columns":	6,
+			"offsetX":	100,
+			"offsetY":	101,
+			"freeze":	0,
+			"hitframes":[5],
+			"speed":	0.055,
+			"stop":		true,
+			"soundMap": [
+
+			]
+		},
+		{
+			"name":		"swordmasterm_sword_astra5",
+			"path":		"res/battle_anim/swordmasterm_sword_astra5.png",
+			"width":	160,
+			"height":	105,
+			"frames":	24,
+			"columns":	6,
+			"offsetX":	100,
+			"offsetY":	101,
+			"freeze":	0,
+			"hitframes":[3],
+			"speed":	0.055,
+			"stop":		true,
+			"soundMap": [
+
+			]
 		},
 		{
 			"name":		"swordmasterf_sword_attack",

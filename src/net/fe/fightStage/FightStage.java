@@ -230,7 +230,7 @@ public class FightStage extends Stage {
 			}
 			a.setAnimation(rec.animation);
 			a.sprite.setSpeed(((AttackAnimation)a.sprite.getCurrentAnimation()).getDefaultSpeed());
-
+			a.sprite.setFrame(0);
 			setCurrentEvent(ATTACKING);
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
@@ -326,7 +326,13 @@ public class FightStage extends Stage {
 		} else if (currentEvent == DONE) {
 			
 			attackQ.remove(0);
-			currentEvent = START;
+			if(attackQ.size() == 0){
+				a.sprite.setAnimation("ATTACK");
+				a.sprite.setFrame(0);
+				a.sprite.setSpeed(0);
+			} else {
+				currentEvent = START;
+			}
 		}
 	}
 

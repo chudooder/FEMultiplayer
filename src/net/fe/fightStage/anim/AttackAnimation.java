@@ -13,6 +13,7 @@ public abstract class AttackAnimation extends Animation {
 	private int headX;
 	private int headY;
 	private int prevFrame;
+	private boolean stop;
 	protected int loopUntil;
 	
 	protected AnimationArgs animationArgs;
@@ -34,6 +35,7 @@ public abstract class AttackAnimation extends Animation {
 		this.loopUntil = -1;
 		this.prevFrame = -1;
 		this.soundMap = data.soundMap;
+		this.stop = data.stop;
 		if(data.speed != 0) {
 			defaultSpeed = data.speed;
 		}
@@ -42,8 +44,11 @@ public abstract class AttackAnimation extends Animation {
 	@Override
 	public void done() {
 		((FightStage)stage).setCurrentEvent(FightStage.DONE);
-		setFrame(0);
 		setSpeed(0);
+		if(stop)
+			setFrame(getFrame()-1);
+		else
+			setFrame(0);
 	}
 	
 	@Override
@@ -90,6 +95,7 @@ public abstract class AttackAnimation extends Animation {
 		super.setSpeed(speed);
 		loopUntil = -1;
 	}
+	
 	
 	public float getDefaultSpeed() {
 		return defaultSpeed;
