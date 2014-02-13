@@ -324,6 +324,10 @@ public class FEServer extends Game {
 		}
 		currentStage = lobby;
 	}
+	
+	public static void log(String s){
+		server.log.log(s);
+	}
 
 }
 

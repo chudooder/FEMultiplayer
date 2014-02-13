@@ -14,7 +14,7 @@ import net.fe.unit.UnitIdentifier;
 import net.fe.unit.Weapon;
 
 public class CombatCalculator {
-	private Unit left, right;
+	protected Unit left, right;
 	private ArrayList<AttackRecord> attackQueue;
 	private int range;
 	private Queue<String> nextAttack;
@@ -26,6 +26,9 @@ public class CombatCalculator {
 		} else {
 			left = FEServer.getUnit(u1);
 			right = FEServer.getUnit(u2);
+			FEServer.log("[BATL]0 BATTLESTART::");
+			FEServer.log("[BATL]0 HP::" + left.name + " HP" + left.getHp() +
+					" " + right.name + " HP" + right.getHp());
 		}
 //		System.out.println(left);
 //		System.out.println(right);
@@ -33,8 +36,16 @@ public class CombatCalculator {
 		attackQueue = new ArrayList<AttackRecord>();
 		nextAttack = new LinkedList<String>();
 		calculate();
+		if(!local){
+			for(AttackRecord atk: attackQueue){
+				FEServer.log("[BATL]0 ATTACKRECORD::" + atk.toString());
+			}
+			FEServer.log("[BATL]0 HP::" + left.name + " HP" + left.getHp() +
+					" " + right.name + " HP" + right.getHp());
+			FEServer.log("[BATL]0 BATTLEEND::");
+		}
 	}
-	private void calculate() {
+	protected void calculate() {
 		// Determine turn order
 		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
 		if (shouldAttack(left,right,range))
@@ -201,8 +212,7 @@ public class CombatCalculator {
 		rec.drain = drain;
 		attackQueue.add(rec);
 
-		System.out.println(animation + ": " + a.name + ", " + d.name + ", "
-				+ damage + ", " + drain + " (drain)");
+		System.out.println(rec);
 	}
 	
 	public ArrayList<AttackRecord> getAttackQueue(){

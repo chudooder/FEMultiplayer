@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import net.fe.RNG;
 
 public class ServerLog {
-	public ArrayList<String> messageLog;
+	private ArrayList<String> messageLog;
 
 	public ServerLog() {
 		File logDir = new File("logs");
@@ -21,7 +21,12 @@ public class ServerLog {
 	}
 
 	public void logMessage(Message m, boolean sent) {
-		messageLog.add((sent?"[SEND]":"[RCVE]") + m.toString());
+		log((sent?"[SEND]":"[RCVE]") + m.toString());
+	}
+	
+	public void log(String s){
+		messageLog.add(s);
+		System.out.println(s);
 	}
 
 	public void spitLog() {
