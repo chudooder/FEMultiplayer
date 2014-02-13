@@ -63,20 +63,20 @@ public class FEMultiplayer extends Game{
 		try{
 			FEMultiplayer game = new FEMultiplayer();
 			game.init(480, 320, "Fire Emblem Multiplayer");
-			game.testFightStage();
+//			game.testFightStage();
 //			game.testOverworldStage();
 			game.loop();
 		} catch (Exception e){
 			System.err.println("Exception occurred, writing to logs...");
 			e.printStackTrace();
-//			try{
-//				File errLog = new File("error_log_client" + System.currentTimeMillis()%100000000 + ".log");
-//				PrintWriter pw = new PrintWriter(errLog);
-//				e.printStackTrace(pw);
-//				pw.close();
-//			}catch (IOException e2){
-//				e2.printStackTrace();
-//			}
+			try{
+				File errLog = new File("error_log_client" + System.currentTimeMillis()%100000000 + ".log");
+				PrintWriter pw = new PrintWriter(errLog);
+				e.printStackTrace(pw);
+				pw.close();
+			}catch (IOException e2){
+				e2.printStackTrace();
+			}
 			System.exit(0);
 		}
 	}

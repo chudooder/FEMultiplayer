@@ -25,7 +25,11 @@ public class CommandMessage extends Message {
 	}
 	
 	public String toString(){
-		return origin + "COMMAND::" + unit.name + " move (" + moveX + ", " + moveY + "):" + Arrays.toString(commands); 
+		if(unit == null){
+			return super.toString() + Arrays.toString(commands);
+		} else {
+			return super.toString() + unit.name + " move (" + moveX + ", " + moveY + "):" + Arrays.toString(commands);
+		}
 	}
 
 }

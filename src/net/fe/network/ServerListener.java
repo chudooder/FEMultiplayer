@@ -1,8 +1,10 @@
 package net.fe.network;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 import net.fe.network.message.ClientInit;
@@ -50,10 +52,17 @@ public class ServerListener extends Thread {
 			in.close();
 			out.close();
 			socket.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
+			System.err.println("Exception occurred, writing to logs...");
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			try{
+				File errLog = new File("error_log_server_listener" + System.currentTimeMillis()%100000000 + ".log");
+				PrintWriter pw = new PrintWriter(errLog);
+				e.printStackTrace(pw);
+				pw.close();
+			}catch (IOException e2){
+				e2.printStackTrace();
+			}
 		} finally {
 			main.clients.remove(this);
 		}
