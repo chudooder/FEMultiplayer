@@ -39,7 +39,7 @@ public class LevelEditorStage extends Stage {
 		try {
 			palette = TextureLoader
 					.getTexture("PNG", ResourceLoader
-							.getResourceAsStream("res/terrain_tiles_new.png"));
+							.getResourceAsStream("res/terrain_tiles.png"));
 			tileset = new Tileset(palette, 16, 16);
 		} catch (IOException e) {
 			e.printStackTrace();
