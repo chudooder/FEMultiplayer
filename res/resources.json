@@ -2446,7 +2446,7 @@
 			"freeze":	0
 		},
 		
-		
+
 		{
 			"name":		"roy_rangedsword_dodge",
 			"path":		"res/battle_anim/roy_sword_dodge.png",
@@ -3617,6 +3617,40 @@
 				{
 					"frame": 4,
 					"sound": "hit_crit"
+				}
+			]
+		},
+		{
+			"name":		"hit_effect_pavise",
+			"path":		"res/battle_anim/hit_effect_pavise.png",
+			"width":	100,
+			"height":	100,
+			"offsetX":	50,
+			"offsetY":	68,
+			"frames":	10,
+			"columns":	5,
+			"freeze":	-1,
+			"soundMap":	[
+				{
+					"frame": 0,
+					"sound": "no_damage"
+				}
+			]
+		},
+		{
+			"name":		"hit_effect_miracle",
+			"path":		"res/battle_anim/hit_effect_miracle.png",
+			"width":	176,
+			"height":	126,
+			"offsetX":	88,
+			"offsetY":	110,
+			"frames":	13,
+			"columns":	5,
+			"freeze":	-1,
+			"soundMap":	[
+				{
+					"frame": 0,
+					"sound": "lightning"
 				}
 			]
 		},

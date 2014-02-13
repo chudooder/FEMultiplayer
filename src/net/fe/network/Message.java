@@ -12,4 +12,9 @@ public abstract class Message implements Serializable {
 	public Message(byte origin) {
 		this.origin = origin;
 	}
+	public String toString(){
+		String classname = getClass().getSimpleName().toUpperCase();
+		classname.replaceAll("MESSAGE", "");
+		return origin + " " + getClass().getSimpleName().toUpperCase() + ":: ";
+	}
 }

@@ -69,14 +69,14 @@ public class FEMultiplayer extends Game{
 		} catch (Exception e){
 			System.err.println("Exception occurred, writing to logs...");
 			e.printStackTrace();
-//			try{
-//				File errLog = new File("error_log_client" + System.currentTimeMillis()%100000000 + ".log");
-//				PrintWriter pw = new PrintWriter(errLog);
-//				e.printStackTrace(pw);
-//				pw.close();
-//			}catch (IOException e2){
-//				e2.printStackTrace();
-//			}
+			try{
+				File errLog = new File("error_log_client" + System.currentTimeMillis()%100000000 + ".log");
+				PrintWriter pw = new PrintWriter(errLog);
+				e.printStackTrace(pw);
+				pw.close();
+			}catch (IOException e2){
+				e2.printStackTrace();
+			}
 			System.exit(0);
 		}
 	}
@@ -122,13 +122,12 @@ public class FEMultiplayer extends Game{
 		testSession.addPlayer(p2);
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
-		
 		Unit u1 = UnitFactory.getUnit("Vanessa");
 		u1.getInventory().add(WeaponFactory.getWeapon("Debug Lance"));
-		
 		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
-		u1.setLevel(20);
+		u1.setLevel(10);
+		u1.setHp(5);
 		p1.getParty().addUnit(u1);
 		
 		Unit u2 = UnitFactory.getUnit("Florina");

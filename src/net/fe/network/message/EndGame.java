@@ -14,5 +14,9 @@ public class EndGame extends Message {
 		super(origin);
 		this.winner = winner;
 	}
+	
+	public String toString(){
+		return "ENDGAME:: winner = " + winner;
+	}
 
 }

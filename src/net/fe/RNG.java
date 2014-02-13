@@ -3,7 +3,7 @@ package net.fe;
 import java.util.Random;
 
 public class RNG {
-	
+	public static long seed;
 	private static Random RNG = new Random();
 	public static void seed(long rng){
 		RNG.setSeed(rng);
@@ -21,6 +21,6 @@ public class RNG {
 //		System.out.println("******WARNING: RNG IS RIGGED******");
 //		System.out.println("**********************************");
 //		RNG.setSeed(-3609682453736580738l);
-		System.out.println("Seed:" + seed);
+//		System.out.println("Seed:" + seed);
 	}
 }

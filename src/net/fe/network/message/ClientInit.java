@@ -12,4 +12,8 @@ public class ClientInit extends Message {
 		this.clientID = clientID;
 		this.session = s;
 	}
+	
+	public String toString(){
+		return super.toString() + "clientID = " + clientID;
+	}
 }

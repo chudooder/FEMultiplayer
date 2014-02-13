@@ -1,6 +1,7 @@
 package net.fe.network.message;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import net.fe.fightStage.AttackRecord;
 import net.fe.network.Message;
@@ -21,6 +22,14 @@ public class CommandMessage extends Message {
 		this.moveX = moveX;
 		this.moveY = moveY;
 		this.attackRecords = atk;
+	}
+	
+	public String toString(){
+		if(unit == null){
+			return super.toString() + Arrays.toString(commands);
+		} else {
+			return super.toString() + unit.name + " move (" + moveX + ", " + moveY + "):" + Arrays.toString(commands);
+		}
 	}
 
 }

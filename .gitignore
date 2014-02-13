@@ -6,3 +6,4 @@ bin/**/*
 /temp.json
 /teams
 error_*
+/logs

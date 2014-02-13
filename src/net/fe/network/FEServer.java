@@ -220,8 +220,8 @@ public class FEServer extends Game {
 				frame.pack();
 				Thread serverThread = new Thread() {
 					public void run() {
+						FEServer feserver = new FEServer();
 						try{
-							FEServer feserver = new FEServer();
 							Session s = FEServer.getServer().getSession();
 							s.setMaxUnits((Integer)maxUnitsSpinner.getValue());
 							for(int i=0; i< selectedModifiersList.getModel().getSize(); i++) {

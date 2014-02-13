@@ -12,7 +12,7 @@ public class ChatMessage extends Message {
 	}
 	
 	public String toString() {
-		return origin + " CHAT " + text;
+		return super.toString() + text;
 	}
 	
 }

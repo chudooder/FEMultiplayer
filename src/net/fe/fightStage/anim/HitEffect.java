@@ -152,6 +152,14 @@ public class HitEffect extends Entity {
 		if (effects.size() == 0 && rec.damage != 0) { // We have nothing														// nothing.
 			effects.add("attack");
 		}
+		
+		for(String anim: FightStage.analyzeAnimation(rec.animation, "(d)", false)){
+			if(anim.matches(".*\\d")) 
+				anim = anim.substring(0, anim.length() - 1);
+			if(FEResources.hasTexture("hit_effect_" + anim.toLowerCase())){
+				effects.add(anim.toLowerCase());
+			}
+		}
 
 
 		return effects;

@@ -112,9 +112,15 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 		//Inventory
 		Renderer.drawRectangle(x+208, y+20, x+318, y+78, renderDepth,
 				NEUTRAL.darker(0.5f));
-		y0 = 18;
+		y0 = 22;
 		for (int i = 0; i < 4; i++) {
-			if(items[i] != null) items[i].render();
+			if(items[i] != null){
+				items[i].render();
+				String uses = items[i].getItem().getUses() + "";
+				width = FEResources.getBitmapFont("default_med").getStringWidth(uses);
+				Renderer.drawString("default_med", uses, x+314-width, y+y0, renderDepth);
+			}
+			y0+=14;
 		}
 
 		// Rescued Unit
