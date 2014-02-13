@@ -28,7 +28,6 @@ public class HealCalculator {
 		healer.use(healer.getWeapon());
 		healee.setHp(healee.getHp() + heal);
 		AttackRecord a = new AttackRecord();
-		healee.setHp(healee.getHp() + heal);
 		a.animation = "Heal";
 		a.attacker = new UnitIdentifier(healer);
 		a.defender = new UnitIdentifier(healee);
