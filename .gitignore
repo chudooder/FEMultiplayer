@@ -5,3 +5,4 @@ bin/**/*
 /dist
 /temp.json
 /teams
+error_*

@@ -450,7 +450,9 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 			if (it instanceof Weapon) {
 				Weapon w = (Weapon) it;
 				if (equippable(w)) {
-					equip(w);
+					weapon = w;
+					inventory.remove(w);
+					inventory.add(0, w);
 					return;
 				}
 			}
