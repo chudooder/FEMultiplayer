@@ -2316,7 +2316,7 @@
 			"freeze":	0
 		},
 		
-		
+
 		{
 			"name":		"roy_rangedsword_dodge",
 			"path":		"res/battle_anim/roy_sword_dodge.png",
@@ -3490,6 +3490,23 @@
 				}
 			]
 		},
+		{
+			"name":		"hit_effect_pavise",
+			"path":		"res/battle_anim/hit_effect_pavise.png",
+			"width":	100,
+			"height":	100,
+			"offsetX":	50,
+			"offsetY":	68,
+			"frames":	10,
+			"columns":	5,
+			"freeze":	-1,
+			"soundMap":	[
+				{
+					"frame": 0,
+					"sound": "no_damage"
+				}
+			]
+		}
 		{
 			"name":		"miss",
 			"path":		"res/battle_anim/miss.png",
