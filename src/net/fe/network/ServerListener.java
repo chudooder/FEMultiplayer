@@ -42,6 +42,7 @@ public class ServerListener extends Thread {
 			while(!clientQuit) {
 				message = (Message) in.readObject();
 				System.out.println("Recieved Message: " + message);
+				main.log.logMessage(message, false);
 				processInput(message);
 			}
 			System.out.println("LISTENER: Exit");

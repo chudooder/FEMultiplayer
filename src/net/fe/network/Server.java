@@ -13,6 +13,7 @@ public class Server {
 	boolean closeRequested = false;
 	volatile ArrayList<ServerListener> clients;
 	public volatile ArrayList<Message> messages;
+	public ServerLog log;
 	private Session session;
 	byte counter = 1;
 	
@@ -21,6 +22,7 @@ public class Server {
 		clients = new ArrayList<ServerListener>();
 		session = new Session();
 		session.setObjective(new Seize());
+		log = new ServerLog();
 	}
 	
 	public void start(int port) {
@@ -47,6 +49,7 @@ public class Server {
 	 */
 	public void broadcastMessage(Message message) {
 		System.out.println("Broadcasting: " + message);
+		log.logMessage(message, true);
 		for(ServerListener out : clients) {
 			out.sendMessage(message);
 		}
@@ -58,6 +61,7 @@ public class Server {
 	 * @param line
 	 */
 	public void sendMessage(ServerListener client, Message message) {
+		log.logMessage(message, true);
 		client.sendMessage(message);
 	}
 	

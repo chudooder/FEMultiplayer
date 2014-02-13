@@ -12,7 +12,7 @@ public class JoinLobby extends Message {
 	}
 	
 	public String toString() {
-		return "JOIN "+origin+" "+player;
+		return super.toString()+player;
 	}
 
 }

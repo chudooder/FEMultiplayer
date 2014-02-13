@@ -14,5 +14,12 @@ public class PartyMessage extends Message {
 		teamData = data;
 	}
 	private static final long serialVersionUID = -6657648098112938492L;
+	public String toString(){
+		String ans = super.toString() + "\n";
+		for(Unit u: teamData){
+			ans += "\t" + u.name + " Lv" + u.get("Lvl") + "\n";
+		}
+		return ans;
+	}
 	
 }

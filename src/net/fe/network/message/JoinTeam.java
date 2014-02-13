@@ -11,6 +11,6 @@ public class JoinTeam extends Message {
 	}
 	
 	public String toString() {
-		return origin+" JOINTEAM "+team;
+		return super.toString()+team;
 	}
 }
