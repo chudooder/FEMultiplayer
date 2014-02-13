@@ -38,9 +38,13 @@ public abstract class Healthbar extends Entity {
 	}
 	
 	public void onStep(){
+		int oldH = (int) displayedHealth;
 		if(Math.abs(displayedHealth-hp1) >= 1){
 			displayedHealth += Math.signum(hp1 - displayedHealth)
 					*6*Game.getDeltaSeconds();
+			if(oldH != (int) displayedHealth){
+				//TODO play a song
+			}
 		} else if(displayedHealth != hp1){
 			displayedHealth = hp1;
 			
