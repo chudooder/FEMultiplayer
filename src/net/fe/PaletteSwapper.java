@@ -22,7 +22,7 @@ public class PaletteSwapper {
 		String[] p = new String[] {"overworld", "general", "assassin", 
 				"berserker", "hero", "paladin", "sagem", "sagef", "sniperm", 
 				"sniperf", "sorcerer", "swordmasterm", 
-				"swordmasterf", "valkyrie"};
+				"swordmasterf", "valkyrie", "falconknight"};
 		palettes = new HashMap<String, Texture>();
 		lookup = new HashMap<String, List<String>>();
 		lookup.put("general", Arrays.asList(new String[] {"Wallace", "Oswin", "Amelia", "Gilliam"}));
@@ -38,6 +38,7 @@ public class PaletteSwapper {
 		lookup.put("swordmasterm", Arrays.asList(new String[]{"Karel", "Guy", "Joshua", "Edward"}));
 		lookup.put("swordmasterf", Arrays.asList(new String[]{"Mia"}));
 		lookup.put("valkyrie", Arrays.asList(new String[]{"Priscilla", "L'Arachel", "Natasha"}));
+		lookup.put("falconknight", Arrays.asList(new String[]{"???", "Vanessa", "Tana", "Florina"}));
 		
 		for(String s : p) {
 			palettes.put(s, FEResources.getTexture("palette_"+s));

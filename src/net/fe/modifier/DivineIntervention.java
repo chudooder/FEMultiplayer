@@ -33,7 +33,7 @@ public class DivineIntervention implements Modifier {
 	@Override
 	public void initOverworld(OverworldStage stage) {
 		for(Unit u : stage.getAllUnits()) {
-			u.addSkill(new Divine());
+			u.addSkill(new Intervention());
 		}
 	}
 

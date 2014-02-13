@@ -794,27 +794,157 @@
 			"width":	196,
 			"height":	116,
 			"frames":	50,
-			"columns":	7,
+			"columns":	5,
 			"offsetX":	130,
 			"offsetY":	102,
 			"freeze":	0,
-			"hitframes":[24],
+			"hitframes":[16],
 			"soundMap": [
 				{
-					"frame":	8,
-					"sound":	"axe_throw"
+					"frame":	4,
+					"sound":	"flap1"
 				},
 				{
-					"frame":	14,
-					"sound":	"clink"
+					"frame":	7,
+					"sound":	"flap1"
 				},
 				{
-					"frame":	18,
-					"sound":	"clink"
+					"frame":	10,
+					"sound":	"flap1"
+				},
+				{
+					"frame":	15,
+					"sound":	"sword_swipe1"
+				},
+				{
+					"frame":	19,
+					"sound":	"sword_swipe2"
+				},
+				{
+					"frame":	38,
+					"sound":	"cape"
+				},
+			]
+		},
+		{
+			"name":		"falconknight_sword_critical",
+			"path":		"res/battle_anim/falconknight_sword_critical.png",
+			"width":	196,
+			"height":	116,
+			"frames":	68,
+			"columns":	5,
+			"offsetX":	130,
+			"offsetY":	102,
+			"freeze":	0,
+			"hitframes":[34],
+			"soundMap": [
+				{
+					"frame":	2,
+					"sound":	"spin_long"
+				},
+				{
+					"frame":	23,
+					"sound":	"flap1"
+				},
+				{
+					"frame":	26,
+					"sound":	"flap1"
 				},
 				{
 					"frame":	29,
-					"sound":	"catch"
+					"sound":	"flap1"
+				},
+				{
+					"frame":	34,
+					"sound":	"sword_swipe1"
+				},
+				{
+					"frame":	38,
+					"sound":	"sword_swipe2"
+				},
+				{
+					"frame":	57,
+					"sound":	"cape"
+				},
+			]
+		},
+		{
+			"name":		"falconknight_lance_attack",
+			"path":		"res/battle_anim/falconknight_lance_attack.png",
+			"width":	195,
+			"height":	116,
+			"frames":	50,
+			"columns":	5,
+			"offsetX":	130,
+			"offsetY":	102,
+			"freeze":	0,
+			"hitframes":[16],
+			"soundMap": [
+				{
+					"frame":	4,
+					"sound":	"flap1"
+				},
+				{
+					"frame":	7,
+					"sound":	"flap1"
+				},
+				{
+					"frame":	10,
+					"sound":	"flap1"
+				},
+				{
+					"frame":	15,
+					"sound":	"sword_swipe1"
+				},
+				{
+					"frame":	19,
+					"sound":	"sword_swipe2"
+				},
+				{
+					"frame":	38,
+					"sound":	"cape"
+				},
+			]
+		},
+		{
+			"name":		"falconknight_lance_critical",
+			"path":		"res/battle_anim/falconknight_lance_critical.png",
+			"width":	196,
+			"height":	116,
+			"frames":	68,
+			"columns":	9,
+			"offsetX":	130,
+			"offsetY":	102,
+			"freeze":	0,
+			"hitframes":[34],
+			"soundMap": [
+				{
+					"frame":	2,
+					"sound":	"spin_long"
+				},
+				{
+					"frame":	23,
+					"sound":	"flap1"
+				},
+				{
+					"frame":	26,
+					"sound":	"flap1"
+				},
+				{
+					"frame":	29,
+					"sound":	"flap1"
+				},
+				{
+					"frame":	34,
+					"sound":	"sword_swipe1"
+				},
+				{
+					"frame":	38,
+					"sound":	"sword_swipe2"
+				},
+				{
+					"frame":	57,
+					"sound":	"cape"
 				},
 			]
 		},

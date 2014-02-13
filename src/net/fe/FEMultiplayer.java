@@ -122,21 +122,20 @@ public class FEMultiplayer extends Game{
 		testSession.addPlayer(p2);
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
-		
-		Unit u1 = UnitFactory.getUnit("Natasha");
-		u1.getInventory().add(WeaponFactory.getWeapon("Lightning"));
+		Unit u1 = UnitFactory.getUnit("Vanessa");
+		u1.getInventory().add(WeaponFactory.getWeapon("Debug Lance"));
 		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
 		u1.setLevel(10);
 		u1.setHp(5);
 		p1.getParty().addUnit(u1);
 		
-		Unit u2 = UnitFactory.getUnit("Joshua");
-		u2.getInventory().add(WeaponFactory.getWeapon("Steel Sword"));
+		Unit u2 = UnitFactory.getUnit("Florina");
+		u2.getInventory().add(WeaponFactory.getWeapon("Iron Lance"));
 		grid.addUnit(u2, 1, 0);
 		u2.equip(0);
 		u2.setLevel(20);
-		p1.getParty().addUnit(u2);
+		p2.getParty().addUnit(u2);
 		
 		int u1Uses = u1.getWeapon().getMaxUses();
 		int u2Uses = u2.getWeapon().getMaxUses();
@@ -144,7 +143,7 @@ public class FEMultiplayer extends Game{
 		System.out.println(calc.getAttackQueue());
 		u1.getWeapon().setUsesDEBUGGING(u1Uses);
 		u2.getWeapon().setUsesDEBUGGING(u2Uses);
-		u1.setHp(5);
+		u1.fillHp();
 		u2.fillHp();
 		setCurrentStage(new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue()));
 	}
