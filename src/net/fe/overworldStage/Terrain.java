@@ -128,7 +128,8 @@ public enum Terrain {
 		public boolean attempt(OverworldStage g, int x, int y, Player turnPlayer){
 			Unit u = g.getUnit(x, y);
 			return u != null && 
-					u.getPartyColor().equals(turnPlayer.getParty().getColor());
+					u.getPartyColor().equals(turnPlayer.getParty().getColor()) &&
+					u.get("HP") > u.getHp();
 		}
 		public void startOfTurn(OverworldStage g, int x, int y){
 			Unit u = g.getUnit(x, y);
