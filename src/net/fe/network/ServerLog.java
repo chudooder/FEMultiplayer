@@ -3,6 +3,8 @@ package net.fe.network;
 import java.io.*;
 import java.util.ArrayList;
 
+import net.fe.RNG;
+
 public class ServerLog {
 	public ArrayList<String> messageLog;
 
@@ -10,6 +12,7 @@ public class ServerLog {
 		File logDir = new File("logs");
 		if(!logDir.isDirectory()) logDir.mkdir();
 		messageLog = new ArrayList<String>();
+		messageLog.add("[SEED] " + RNG.seed);
 		Runtime.getRuntime().addShutdownHook(new Thread(){
 			public void run(){
 				spitLog();
