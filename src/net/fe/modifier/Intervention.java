@@ -3,10 +3,10 @@ package net.fe.modifier;
 import net.fe.fightStage.CombatTrigger;
 import net.fe.unit.Unit;
 
-public class Divine extends CombatTrigger {
+public class Intervention extends CombatTrigger {
 	private static final long serialVersionUID = -8613896121666026506L;
 
-	public Divine() {
+	public Intervention() {
 		super(APPEND_NAME_AFTER_MOD, ENEMY_TURN_MOD);
 	}
 

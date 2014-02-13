@@ -15,7 +15,7 @@ public class RNG {
 	static{
 		RNG = new Random();
 		long seed = RNG.nextLong();
-		RNG.setSeed(4820426393665352053L);
+		RNG.setSeed(seed);
 		// Temporarily rig the RNG
 //		System.out.println("**********************************");
 //		System.out.println("******WARNING: RNG IS RIGGED******");
