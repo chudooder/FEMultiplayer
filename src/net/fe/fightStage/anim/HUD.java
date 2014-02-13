@@ -98,6 +98,6 @@ public class HUD extends Entity {
 				FightStage.FLOOR - 97, FightStage.CENTRAL_AXIS + sign * 65,
 				FightStage.FLOOR - 79, renderDepth, unit.getPartyColor());
 		Renderer.drawString("default_med", unit.name, FightStage.CENTRAL_AXIS + sign
-				* 94 - 16, 10, 0.0f);
+				* 94 - 16, 11, 0.0f);
 	}
 }
