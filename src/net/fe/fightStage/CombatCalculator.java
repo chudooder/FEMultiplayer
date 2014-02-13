@@ -169,6 +169,7 @@ public class CombatCalculator {
 		
 		if(miss){
 			damage = 0;
+			drain = 0;
 			animation += " Miss";
 		}
 		

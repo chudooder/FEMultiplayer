@@ -25,8 +25,8 @@ public class HealCalculator {
 		final int heal = Math.min(healer.get("Mag") / 2 + healer.getWeapon().mt, 
 				healee.get("HP") - healee.getHp());
 		System.out.println("Heal: "+heal+" (Max:"+healee.get("HP")+" Curr:"+healee.getHp()+")");
-//		healer.use(healer.getWeapon());
-//		healee.setHp(healee.getHp() + heal);
+		healer.use(healer.getWeapon());
+		healee.setHp(healee.getHp() + heal);
 		AttackRecord a = new AttackRecord();
 		a.animation = "Heal";
 		a.attacker = new UnitIdentifier(healer);

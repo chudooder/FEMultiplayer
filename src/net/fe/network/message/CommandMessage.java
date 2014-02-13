@@ -33,3 +33,4 @@ public class CommandMessage extends Message {
 	}
 
 }
+
