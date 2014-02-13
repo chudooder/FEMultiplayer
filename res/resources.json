@@ -3506,7 +3506,24 @@
 					"sound": "no_damage"
 				}
 			]
-		}
+		},
+		{
+			"name":		"hit_effect_miracle",
+			"path":		"res/battle_anim/hit_effect_miracle.png",
+			"width":	176,
+			"height":	126,
+			"offsetX":	88,
+			"offsetY":	110,
+			"frames":	13,
+			"columns":	5,
+			"freeze":	-1,
+			"soundMap":	[
+				{
+					"frame": 0,
+					"sound": "lightning"
+				}
+			]
+		},
 		{
 			"name":		"miss",
 			"path":		"res/battle_anim/miss.png",
