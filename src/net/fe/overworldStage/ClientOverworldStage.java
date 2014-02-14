@@ -141,8 +141,17 @@ public class ClientOverworldStage extends OverworldStage {
 			if(n.y < maxUp) maxUp = n.y;
 			if(n.y > maxDown) maxDown = n.y;
 		}
-		camX = Math.max(((maxLeft + maxRight)/2-11)*16, 0);
-		camY = Math.max(((maxUp + maxDown)/2-7)*16, 0);
+		if(camX/16+23 < maxRight) {
+			camX = (maxRight-23)*16;
+		} else if(camX/16 > maxLeft) {
+			camX = maxLeft*16;
+		}
+		
+		if(camY/16+15 < maxDown) {
+			camY = (maxDown-15)*16;
+		} else if(camY/16 > maxUp) {
+			camY = maxUp*16;
+		}
 	}
 	
 	public void render(){

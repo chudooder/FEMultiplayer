@@ -28,7 +28,7 @@ public class LevelEditor extends Game {
 	@Override
 	public void init(int width, int height, String name) {
 		super.init(width, height, name);
-		currentStage = new LevelEditorStage("decay");
+		currentStage = new LevelEditorStage("plains");
 	}
 	
 	@Override
