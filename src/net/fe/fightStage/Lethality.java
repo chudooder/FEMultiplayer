@@ -24,5 +24,9 @@ public class Lethality extends CombatTrigger {
 		a.setTempMod("Hit", 9000);
 		return true;
 	}
+	
+	public CombatTrigger getCopy(){
+		return new Lethality();
+	}
 
 }

@@ -20,4 +20,8 @@ public class Nosferatu extends CombatTrigger{
 			return 0;
 		return Math.min(damage / 2, a.get("HP") - a.getHp());
 	}
+	
+	public CombatTrigger getCopy(){
+		return new Nosferatu();
+	}
 }

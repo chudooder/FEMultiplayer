@@ -20,6 +20,8 @@ public class Crisis extends CombatTrigger{
 		return true;
 	}
 	
-	
+	public CombatTrigger getCopy(){
+		return new Crisis();
+	}
 
 }

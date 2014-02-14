@@ -70,25 +70,11 @@ public class TeamNameInput extends TextInputBox {
 	}
 	
 	public void save(){
-		try {
-			((TeamBuilderStage) stage).saveTeam(new ObjectOutputStream(
-					new FileOutputStream(convertPath("teams/" + input.toString()))));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		((TeamBuilderStage) stage).saveTeam(input.toString());
 	}
 	
 	public void load(){
-		try {
-			((TeamBuilderStage) stage).loadTeam(new ObjectInputStream(
-					new FileInputStream(convertPath("teams/" + input.toString()))));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		((TeamBuilderStage) stage).loadTeam(input.toString());
 	}
 	
 	public static String convertPath(String path){

@@ -3,6 +3,7 @@ package net.fe.fightStage;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import net.fe.FEMultiplayer;
@@ -14,10 +15,12 @@ import net.fe.unit.UnitIdentifier;
 import net.fe.unit.Weapon;
 
 public class CombatCalculator {
-	private Unit left, right;
+	protected Unit left, right;
 	private ArrayList<AttackRecord> attackQueue;
 	private int range;
 	private Queue<String> nextAttack;
+	
+	private ArrayList<CombatTrigger> leftTriggers, rightTriggers;
 	public CombatCalculator(UnitIdentifier u1, UnitIdentifier u2, boolean local){
 		
 		if(local){
@@ -26,6 +29,9 @@ public class CombatCalculator {
 		} else {
 			left = FEServer.getUnit(u1);
 			right = FEServer.getUnit(u2);
+			FEServer.log("[BATL]0 BATTLESTART::");
+			FEServer.log("[BATL]0 HP::" + left.name + " HP" + left.getHp() +
+					" " + right.name + " HP" + right.getHp());
 		}
 //		System.out.println(left);
 //		System.out.println(right);
@@ -33,8 +39,16 @@ public class CombatCalculator {
 		attackQueue = new ArrayList<AttackRecord>();
 		nextAttack = new LinkedList<String>();
 		calculate();
+		if(!local){
+			for(AttackRecord atk: attackQueue){
+				FEServer.log("[BATL]0 ATTACKRECORD::" + atk.toString());
+			}
+			FEServer.log("[BATL]0 HP::" + left.name + " HP" + left.getHp() +
+					" " + right.name + " HP" + right.getHp());
+			FEServer.log("[BATL]0 BATTLEEND::");
+		}
 	}
-	private void calculate() {
+	protected void calculate() {
 		// Determine turn order
 		ArrayList<Boolean> attackOrder = new ArrayList<Boolean>();
 		if (shouldAttack(left,right,range))
@@ -49,8 +63,17 @@ public class CombatCalculator {
 				&& shouldAttack(right,left,range)) {
 			attackOrder.add(false);
 		}
-		System.out.println(attackOrder);
-
+		//System.out.println(attackOrder);
+		leftTriggers = new ArrayList<CombatTrigger>();
+		for(CombatTrigger t: left.getTriggers()){
+			leftTriggers.add(t.getCopy());
+		}
+		
+		rightTriggers = new ArrayList<CombatTrigger>();
+		for(CombatTrigger t: right.getTriggers()){
+			rightTriggers.add(t.getCopy());
+		}
+		
 		for (Boolean i : attackOrder) {
 			attack(i, "None");
 			while(!nextAttack.isEmpty()){
@@ -75,6 +98,8 @@ public class CombatCalculator {
 	private void attack(boolean leftAttacking, String currentEffect) {
 		Unit a = leftAttacking?left: right;
 		Unit d = leftAttacking?right: left;
+		List<CombatTrigger> aTriggers = leftAttacking?leftTriggers: rightTriggers;
+		List<CombatTrigger> dTriggers = leftAttacking?rightTriggers: leftTriggers;
 		if(!shouldAttack(a, d, range)) return;
 		int damage = 0;
 		int drain = 0;
@@ -91,10 +116,10 @@ public class CombatCalculator {
 		LinkedHashMap<CombatTrigger, Boolean> dSuccess = 
 				new LinkedHashMap<CombatTrigger, Boolean>();
 		
-		for (CombatTrigger t : a.getTriggers()) {
+		for (CombatTrigger t : aTriggers) {
 			aSuccess.put(t,t.attempt(a, range));
 		}
-		for (CombatTrigger t : d.getTriggers()) {
+		for (CombatTrigger t : dTriggers) {
 			dSuccess.put(t,t.attempt(d, range));
 		}
 		
@@ -169,6 +194,7 @@ public class CombatCalculator {
 		
 		if(miss){
 			damage = 0;
+			drain = 0;
 			animation += " Miss";
 		}
 		
@@ -200,8 +226,7 @@ public class CombatCalculator {
 		rec.drain = drain;
 		attackQueue.add(rec);
 
-		System.out.println(animation + ": " + a.name + ", " + d.name + ", "
-				+ damage + ", " + drain + " (drain)");
+		System.out.println(rec);
 	}
 	
 	public ArrayList<AttackRecord> getAttackQueue(){

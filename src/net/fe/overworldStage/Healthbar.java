@@ -9,6 +9,7 @@ import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.Entity;
 import chu.engine.Game;
+import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
 
 public abstract class Healthbar extends Entity {
@@ -18,14 +19,6 @@ public abstract class Healthbar extends Entity {
 	private Color color;
 	private Texture tickFilled = FEResources.getTexture("gui_tickFilled");
 	private Texture tickEmpty = FEResources.getTexture("gui_tickEmpty");
-//	public Healthbar(float x, float y, int hp0, int hp1, int hpT) {
-//		super(x, y);
-////		System.out.println(hp0 + "->" + hp1);
-//		this.hp1 = hp1;
-//		this.displayedHealth = hp0;
-//		this.totalHealth = hpT;
-//		color = FightStage.NEUTRAL;
-//	}
 	
 	public Healthbar(Unit u, int hp0, int hp1, ClientOverworldStage stage){
 		super(0,0);
@@ -38,9 +31,13 @@ public abstract class Healthbar extends Entity {
 	}
 	
 	public void onStep(){
+		int oldH = (int) displayedHealth;
 		if(Math.abs(displayedHealth-hp1) >= 1){
 			displayedHealth += Math.signum(hp1 - displayedHealth)
 					*6*Game.getDeltaSeconds();
+			if(oldH != (int) displayedHealth){
+				AudioPlayer.playAudio("hp_recovery", 1, 1);
+			}
 		} else if(displayedHealth != hp1){
 			displayedHealth = hp1;
 			

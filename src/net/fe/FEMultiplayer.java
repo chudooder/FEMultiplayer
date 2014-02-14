@@ -122,25 +122,25 @@ public class FEMultiplayer extends Game{
 		testSession.addPlayer(p2);
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
-		Unit u1 = UnitFactory.getUnit("Vanessa");
-		u1.getInventory().add(WeaponFactory.getWeapon("Debug Lance"));
+		Unit u1 = UnitFactory.getUnit("Joshua");
+		u1.getInventory().add(WeaponFactory.getWeapon("Iron Sword"));
 		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
 		u1.setLevel(10);
-		u1.setHp(5);
 		p1.getParty().addUnit(u1);
 		
 		Unit u2 = UnitFactory.getUnit("Florina");
 		u2.getInventory().add(WeaponFactory.getWeapon("Iron Lance"));
 		grid.addUnit(u2, 1, 0);
 		u2.equip(0);
-		u2.setLevel(20);
+		u2.setLevel(1);
 		p2.getParty().addUnit(u2);
 		
 		int u1Uses = u1.getWeapon().getMaxUses();
 		int u2Uses = u2.getWeapon().getMaxUses();
 		CombatCalculator calc = new CombatCalculator(new UnitIdentifier(u1), new UnitIdentifier(u2), true);
 		System.out.println(calc.getAttackQueue());
+		
 		u1.getWeapon().setUsesDEBUGGING(u1Uses);
 		u2.getWeapon().setUsesDEBUGGING(u2Uses);
 		u1.fillHp();

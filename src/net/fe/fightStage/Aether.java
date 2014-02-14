@@ -56,4 +56,8 @@ public class Aether extends CombatTrigger {
 	public String getName(){
 		return "Aether" + (phase + 1);
 	}
+	
+	public CombatTrigger getCopy(){
+		return new Aether();
+	}
 }

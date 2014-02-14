@@ -10,4 +10,9 @@ public class AttackRecord implements Serializable {
 	public UnitIdentifier attacker, defender;
 	public int damage;
 	public int drain;
+	
+	public String toString(){
+		return animation + ": " + attacker.name + ", " + defender.name + ", "
+				+ damage + ", " + drain + " (drain)";
+	}
 }

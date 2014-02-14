@@ -94,7 +94,7 @@ public class BattlePreview extends Entity {
 			dHit = String.format(
 					"%d",
 					Math.max(0,
-							Math.min(100, CombatCalculator.hitRate(attacker, defender))));
+							Math.min(100, CombatCalculator.hitRate(defender, attacker))));
 			dAtk = String.format("%d",
 					CombatCalculator.calculateBaseDamage(defender, attacker));
 			dCrit = String.format(

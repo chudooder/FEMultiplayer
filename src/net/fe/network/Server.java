@@ -48,7 +48,6 @@ public class Server {
 	 * @param line
 	 */
 	public void broadcastMessage(Message message) {
-		System.out.println("Broadcasting: " + message);
 		log.logMessage(message, true);
 		for(ServerListener out : clients) {
 			out.sendMessage(message);
