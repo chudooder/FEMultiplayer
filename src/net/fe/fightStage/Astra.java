@@ -15,8 +15,8 @@ public class Astra extends CombatTrigger {
 	}
 	@Override
 	public boolean attempt(Unit user, int range) {
-		return true;
-		//return range == 1 && (RNG.get() < user.get("Skl")/2 || counter!=0);
+		//return true;
+		return range == 1 && (RNG.get() < user.get("Skl")/2 || counter!=0);
 	}
 	
 	@Override

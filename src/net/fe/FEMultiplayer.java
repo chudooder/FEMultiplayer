@@ -122,7 +122,7 @@ public class FEMultiplayer extends Game{
 		testSession.addPlayer(p2);
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
-		Unit u1 = UnitFactory.getUnit("Joshua");
+		Unit u1 = UnitFactory.getUnit("Mia");
 		u1.getInventory().add(WeaponFactory.getWeapon("Iron Sword"));
 		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
@@ -133,7 +133,7 @@ public class FEMultiplayer extends Game{
 		u2.getInventory().add(WeaponFactory.getWeapon("Iron Lance"));
 		grid.addUnit(u2, 1, 0);
 		u2.equip(0);
-		u2.setLevel(1);
+		u2.setLevel(20);
 		p2.getParty().addUnit(u2);
 		
 		int u1Uses = u1.getWeapon().getMaxUses();
