@@ -46,5 +46,5 @@ public abstract class CombatTrigger implements Serializable {
 		return getClass().getSimpleName();
 	}
 	
-	
+	public abstract CombatTrigger getCopy();
 }

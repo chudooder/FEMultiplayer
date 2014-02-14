@@ -25,5 +25,7 @@ public class Brave extends CombatTrigger{
 		}
 	}
 	
-
+	public CombatTrigger getCopy(){
+		return new Brave();
+	}
 }

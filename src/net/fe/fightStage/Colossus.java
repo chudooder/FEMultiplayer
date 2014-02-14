@@ -22,5 +22,7 @@ public class Colossus extends CombatTrigger{
 		a.setTempMod("Str", a.get("Str"));
 		return true;
 	}
-
+	public CombatTrigger getCopy(){
+		return new Colossus();
+	}
 }

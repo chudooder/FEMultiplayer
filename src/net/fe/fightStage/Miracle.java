@@ -28,5 +28,9 @@ public class Miracle extends CombatTrigger {
 			return damage;
 		}
 	}
+	
+	public CombatTrigger getCopy(){
+		return new Miracle();
+	}
 
 }

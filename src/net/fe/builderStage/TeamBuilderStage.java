@@ -1,5 +1,7 @@
 package net.fe.builderStage;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -350,7 +352,7 @@ public class TeamBuilderStage extends Stage {
 		addEntity(cursor);
 	}
 	
-	public boolean saveTeam(ObjectOutputStream out){
+	public boolean saveTeam(String teamName){
 		String[][] teamData = new String[units.size()][6];
 		for(int i = 0; i < units.size(); i++){
 			Unit u = units.get(i);
@@ -360,35 +362,43 @@ public class TeamBuilderStage extends Stage {
 				teamData[i][2+j] = u.getInventory().get(j).name;
 			}
 		}
-		buttons[currButton].setHover(false);
-		cursor.on = true;
-		cursor.index = 0;
-		cursor.instant = true;
+		refresh();
 		try {
+			ObjectOutputStream out = new ObjectOutputStream(
+					new FileOutputStream(TeamNameInput.convertPath("teams/" + teamName)));
 			out.writeObject(teamData);
 			out.close();
+			controls.setTempMessage("Team [" + teamName + "] saved.", 3.2f);
 			return true;
 		} catch (IOException e) {
 			e.printStackTrace();
+			controls.setTempMessage("Could not save team [" + teamName + "].", 3.2f);
 			return false;
 		}
 		
+		
 	}
 	
-	public boolean loadTeam(ObjectInputStream in){
+	public boolean loadTeam(String teamName){
 		String[][] teamData;
 		try{
+			ObjectInputStream in = new ObjectInputStream(
+					new FileInputStream(TeamNameInput.convertPath("teams/" + teamName)));
 			teamData = (String[][]) in.readObject();
 			in.close();
 		} catch (IOException e){
 			e.printStackTrace();
+			refresh();
+			controls.setTempMessage("Could not find team [" + teamName + "].", 3.2f);
 			return false;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			refresh();
 			return false;
 		}
 		select.deselectAll();
 		setUnits(new ArrayList<Unit>());
+		boolean cashout = false, expout = false;
 		for(int i = 0; i < select.getMaxUnits() && i < teamData.length; i++){
 			Unit u = select.getUnit(teamData[i][0]);
 			int lv = Integer.parseInt(teamData[i][1]);
@@ -398,6 +408,7 @@ public class TeamBuilderStage extends Stage {
 					exp -= expCost;
 					u.setLevel(u.get("Lvl")+1);
 				} else {
+					expout = true;
 					break;
 				}
 			}
@@ -412,18 +423,25 @@ public class TeamBuilderStage extends Stage {
 					if(goldCost <= funds){
 						funds -= goldCost;
 						u.addToInventory(item);
-					} 
-				} else {
-					break;
-				}
+					} else {
+						cashout=true;
+						break;
+					}
+				} 
+			}
+			if(cashout && expout){
+				controls.setTempMessage("Team [" + teamName + "] loaded. Ran out of gold and exp.", 3.2f);
+			} else if (cashout){
+				controls.setTempMessage("Team [" + teamName + "] loaded. Ran out of gold.", 3.2f);
+			} else if (expout) {
+				controls.setTempMessage("Team [" + teamName + "] loaded. Ran out of exp.", 3.2f);
+			} else {
+				controls.setTempMessage("Team [" + teamName + "] loaded.", 3.2f);
 			}
 			select.selectUnit(u);
 		}
 		setUnits(select.getSelectedUnits());
-		buttons[currButton].setHover(false);
-		cursor.on = true;
-		cursor.index = 0;
-		cursor.instant = true;
+		refresh();
 		
 		return true;
 	}

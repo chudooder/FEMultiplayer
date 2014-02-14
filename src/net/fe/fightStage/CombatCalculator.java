@@ -3,6 +3,7 @@ package net.fe.fightStage;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import net.fe.FEMultiplayer;
@@ -18,6 +19,8 @@ public class CombatCalculator {
 	private ArrayList<AttackRecord> attackQueue;
 	private int range;
 	private Queue<String> nextAttack;
+	
+	private ArrayList<CombatTrigger> leftTriggers, rightTriggers;
 	public CombatCalculator(UnitIdentifier u1, UnitIdentifier u2, boolean local){
 		
 		if(local){
@@ -60,8 +63,17 @@ public class CombatCalculator {
 				&& shouldAttack(right,left,range)) {
 			attackOrder.add(false);
 		}
-		System.out.println(attackOrder);
-
+		//System.out.println(attackOrder);
+		leftTriggers = new ArrayList<CombatTrigger>();
+		for(CombatTrigger t: left.getTriggers()){
+			leftTriggers.add(t.getCopy());
+		}
+		
+		rightTriggers = new ArrayList<CombatTrigger>();
+		for(CombatTrigger t: right.getTriggers()){
+			rightTriggers.add(t.getCopy());
+		}
+		
 		for (Boolean i : attackOrder) {
 			attack(i, "None");
 			while(!nextAttack.isEmpty()){
@@ -86,6 +98,8 @@ public class CombatCalculator {
 	private void attack(boolean leftAttacking, String currentEffect) {
 		Unit a = leftAttacking?left: right;
 		Unit d = leftAttacking?right: left;
+		List<CombatTrigger> aTriggers = leftAttacking?leftTriggers: rightTriggers;
+		List<CombatTrigger> dTriggers = leftAttacking?rightTriggers: leftTriggers;
 		if(!shouldAttack(a, d, range)) return;
 		int damage = 0;
 		int drain = 0;
@@ -102,10 +116,10 @@ public class CombatCalculator {
 		LinkedHashMap<CombatTrigger, Boolean> dSuccess = 
 				new LinkedHashMap<CombatTrigger, Boolean>();
 		
-		for (CombatTrigger t : a.getTriggers()) {
+		for (CombatTrigger t : aTriggers) {
 			aSuccess.put(t,t.attempt(a, range));
 		}
-		for (CombatTrigger t : d.getTriggers()) {
+		for (CombatTrigger t : dTriggers) {
 			dSuccess.put(t,t.attempt(d, range));
 		}
 		

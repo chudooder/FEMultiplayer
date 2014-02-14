@@ -22,4 +22,7 @@ public class Deadeye extends CombatTrigger {
 		return RNG.get() < user.get("Skl");
 	}
 
+	public CombatTrigger getCopy(){
+		return new Deadeye();
+	}
 }

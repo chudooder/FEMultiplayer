@@ -25,5 +25,9 @@ public class Luna extends CombatTrigger {
 		d.setTempMod("Res", -d.get("Res")/2);
 		return true;
 	}
+	
+	public CombatTrigger getCopy(){
+		return new Luna(ranged);
+	}
 
 }

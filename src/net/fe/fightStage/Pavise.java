@@ -24,5 +24,9 @@ public class Pavise extends CombatTrigger {
 	public int runDamageMod(Unit a, Unit d, int dmg){
 		return dmg/2;
 	}
+	
+	public CombatTrigger getCopy(){
+		return new Pavise();
+	}
 
 }

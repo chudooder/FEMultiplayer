@@ -24,5 +24,9 @@ public class Intervention extends CombatTrigger {
 			return damage;
 		}
 	}
+	
+	public CombatTrigger getCopy(){
+		return new Intervention();
+	}
 
 }

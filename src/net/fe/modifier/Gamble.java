@@ -22,5 +22,9 @@ public class Gamble extends CombatTrigger {
 	public boolean attempt(Unit user, int range) {
 		return true;
 	}
+	
+	public CombatTrigger getCopy(){
+		return new Gamble();
+	}
 
 }
