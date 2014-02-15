@@ -33,15 +33,14 @@ import chu.engine.anim.ShaderArgs;
 import chu.engine.anim.Transform;
 
 public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
-	
+	public HashMap<String, Integer> bases;
+	public HashMap<String, Integer> growths;
 	private static final long serialVersionUID = -5101031417704315547L;
 	private HashMap<String, Float> stats;
-	private HashMap<String, Integer> bases;
 	private ArrayList<CombatTrigger> skills;
 	private int hp;
 	private Class clazz;
-	private char gender;
-	private HashMap<String, Integer> growths;
+	public final char gender;
 	private Weapon weapon;
 	private ArrayList<Item> inventory;
 	public final String name;
