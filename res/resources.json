@@ -949,6 +949,46 @@
 			]
 		},
 		{
+			"name":		"falconknight_javelin_attack",
+			"path":		"res/battle_anim/falconknight_javelin_attack.png",
+			"width":	238,
+			"height":	86,
+			"frames":	15,
+			"columns":	2,
+			"offsetX":	185,
+			"offsetY":	83,
+			"freeze":	0,
+			"hitframes":[10],
+			"soundMap": [
+				{
+					"frame":	8,
+					"sound":	"lance_throw"
+				},
+			]
+		},
+		{
+			"name":		"falconknight_javelin_critical",
+			"path":		"res/battle_anim/falconknight_javelin_critical.png",
+			"width":	238,
+			"height":	86,
+			"frames":	21,
+			"columns":	3,
+			"offsetX":	185,
+			"offsetY":	83,
+			"freeze":	0,
+			"hitframes":[16],
+			"soundMap": [
+				{
+					"frame":	3,
+					"sound":	"spin_short"
+				},
+				{
+					"frame":	14,
+					"sound":	"lance_throw"
+				},
+			]
+		},
+		{
 			"name":		"general_axe_attack",
 			"path":		"res/battle_anim/general_axe_attack.png",
 			"width":	115,
