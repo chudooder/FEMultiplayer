@@ -64,7 +64,12 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	public static final float MAP_ANIM_SPEED = 0.2f;
 	public static final int MOVE_SPEED = 250;
 	
-	public static Texture rescue = FEResources.getTexture("rescue");
+	public static Texture rescue;
+	
+	static {
+		if(Game.glContextExists())
+			rescue = FEResources.getTexture("rescue");
+	}
 
 	public Unit(String name, Class c, char gender, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {

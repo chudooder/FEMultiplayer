@@ -223,8 +223,8 @@ public class FEMultiplayer extends Game{
 				currentStage.processAddStack();
 				currentStage.processRemoveStack();
 				currentStage.render();
-				FEResources.getBitmapFont("stat_numbers").render(
-						(int)(1.0f/getDeltaSeconds())+"", 440f, 0f, 0f);
+//				FEResources.getBitmapFont("stat_numbers").render(
+//						(int)(1.0f/getDeltaSeconds())+"", 440f, 0f, 0f);
 				currentStage.endStep();
 			}
 			glPopMatrix();

@@ -14,7 +14,7 @@ public class SoundTrack {
 			current = name;
 			Audio a = AudioLoader.getStreamingAudio("OGG", 
 					ResourceLoader.getResource("res/music/"+name+".ogg"));
-			a.playAsMusic(1, 1, true);
+//			a.playAsMusic(1, 1, true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -23,7 +23,7 @@ public class SoundTrack {
 		try {
 			Audio a = AudioLoader.getStreamingAudio("OGG", 
 					ResourceLoader.getResource("res/music/"+current+".ogg"));
-			a.playAsMusic(1, 1, true);
+//			a.playAsMusic(1, 1, true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
