@@ -63,6 +63,16 @@ public class StatBalancer extends JFrame {
 	private void export(File f){
 		try {
 			PrintWriter pw = new PrintWriter(f);
+			String head = "#Name\t\tClass\t\t\tLv\t";
+			for(String stat: BalanceData.ORDER){
+				head += stat + "\t";
+			}
+			head += "Con\tMov\t\t";
+			for(String stat: BalanceData.ORDER){
+				head += stat + "\t";
+			}
+			head += "\tGender";
+			pw.println(head);
 			for(String clazz: classTabs.keySet()){
 				pw.println(classTabs.get(clazz).exportString());
 			}
