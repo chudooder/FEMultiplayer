@@ -869,6 +869,17 @@
 			]
 		},
 		{
+			"name":		"falconknight_sword_dodge",
+			"path":		"res/battle_anim/falconknight_sword_dodge.png",
+			"width":	60,
+			"height":	86,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	33,
+			"offsetY":	84,
+			"freeze":	0
+		},
+		{
 			"name":		"falconknight_lance_attack",
 			"path":		"res/battle_anim/falconknight_lance_attack.png",
 			"width":	195,
@@ -949,6 +960,17 @@
 			]
 		},
 		{
+			"name":		"falconknight_lance_dodge",
+			"path":		"res/battle_anim/falconknight_lance_dodge.png",
+			"width":	73,
+			"height":	86,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	46,
+			"offsetY":	83,
+			"freeze":	0
+		},
+		{
 			"name":		"falconknight_javelin_attack",
 			"path":		"res/battle_anim/falconknight_javelin_attack.png",
 			"width":	238,
@@ -987,6 +1009,17 @@
 					"sound":	"lance_throw"
 				},
 			]
+		},
+		{
+			"name":		"falconknight_javelin_dodge",
+			"path":		"res/battle_anim/falconknight_lance_dodge.png",
+			"width":	73,
+			"height":	86,
+			"frames":	2,
+			"columns":	2,
+			"offsetX":	46,
+			"offsetY":	84,
+			"freeze":	0
 		},
 		{
 			"name":		"general_axe_attack",
