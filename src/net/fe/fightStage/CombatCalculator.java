@@ -234,7 +234,7 @@ public class CombatCalculator {
 	}
 	
 	public static int calculateBaseDamage(Unit a, Unit d){
-		boolean effective = a.getWeapon().effective.contains(d.functionalClassName());
+		boolean effective = a.getWeapon().effective.contains(d.noGenderName());
 		int base;
 		if (a.getWeapon().isMagic()) {
 			base = a.get("Mag")

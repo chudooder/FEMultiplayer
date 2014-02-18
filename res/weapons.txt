@@ -12,9 +12,9 @@ Brave Sword	Sword	1	9	75	0	15	8000	-	-	-
 Audhulma	Sword	1	18	85	0	15	10000	-	-	Res 5
 Wo Dao		Sword	1	8	75	35	10	1200	-	-	-
 Durandal	Sword	1	17	90	0	10	-	-	Eliwood	Str 5	
-Sol Katti	Sword	1	12	95	25	15	-	Armor	Lyn	Res 5
-Sieglinde	Sword	1	16	90	0	15	-	Armor	Eirika	Str 5
-Falchion	Sword	1	14	90	20	15	-	Mount	Marth	Skl 5
+Sol Katti	Sword	1	12	95	25	15	-	-	Lyn	Res 5
+Sieglinde	Sword	1	16	90	0	15	-	-	Eirika	Str 5
+Falchion	Sword	1	14	90	20	15	-	-	Marth	Skl 5
 Ragnell		Sword	1	20	85	0	10	-	-	Ike	Def 5
 Sealed Sword	Sword	1-2	16	95	10	10	-	-	Roy	Res 5
 Log		Lance	1	1	100	0	20	1	-	-	-
@@ -29,7 +29,7 @@ Horseslayer	Lance	1	7	70	0	8	1040	Mount	-	-
 Axereaver	Lance	1	10	70	5	7	1950	-	-	-
 Brave Lance	Lance	1	10	70	0	15	7500	-	-	-
 Gradivus	Lance	1-2	15	85	0	15	10000	-	-	Def 5
-Siegmund	Lance	1	17	80	0	15	-	Mount	Ephraim	Str 5
+Siegmund	Lance	1	17	80	0	15	-	-	Ephraim	Str 5
 #
 #Name		Type	Range	Mt	Hit	Crit	Uses	Worth	Effect	Pref	Mod
 Ladle		Axe	1	1	100	0	20	1	-	-	-
@@ -44,7 +44,7 @@ Halberd		Axe	1	10	60	0	8	810	Mount	-	-
 Swordreaver	Axe	1	11	65	5	7	2100	-	-	-
 Brave Axe	Axe	1	10	65	0	15	7500	-	-	-
 Garm		Axe	1	20	75	0	15	10000	-	-	Spd 5
-Armads		Axe	1	18	85	0	12	-	Armor	Hector	Def 5
+Armads		Axe	1	18	85	0	12	-	-	Hector	Def 5
 Iron Bow	Bow	2	6	85	0	22	540	Flier	-	-
 Steel Bow	Bow	2	9	70	0	15	720	Flier	-	-
 Silver Bow	Bow	2	13	75	0	10	1600	Flier	-	-

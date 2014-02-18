@@ -64,7 +64,7 @@ public class FEMultiplayer extends Game{
 			FEMultiplayer game = new FEMultiplayer();
 			game.init(480, 320, "Fire Emblem Multiplayer");
 //			game.testFightStage();
-			game.testOverworldStage();
+//			game.testOverworldStage();
 			game.loop();
 		} catch (Exception e){
 			System.err.println("Exception occurred, writing to logs...");
@@ -122,19 +122,21 @@ public class FEMultiplayer extends Game{
 		testSession.addPlayer(p2);
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
-		Unit u1 = UnitFactory.getUnit("Vanessa");
-		u1.getInventory().add(WeaponFactory.getWeapon("Javelin"));
+		Unit u1 = UnitFactory.getUnit("Gerik");
+		u1.getInventory().add(WeaponFactory.getWeapon("Longsword"));
 		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
-		u1.setLevel(10);
+		u1.setLevel(20);
 		p1.getParty().addUnit(u1);
 		
-		Unit u2 = UnitFactory.getUnit("Florina");
-		u2.getInventory().add(WeaponFactory.getWeapon("Debug Javelin"));
-		grid.addUnit(u2, 1, 1);
+		
+		Unit u2 = UnitFactory.getUnit("Kent");
+		u2.getInventory().add(WeaponFactory.getWeapon("Iron Lance"));
+		grid.addUnit(u2, 1, 0);
 		u2.equip(0);
 		u2.setLevel(20);
 		p2.getParty().addUnit(u2);
+		
 		
 		int u1Uses = u1.getWeapon().getMaxUses();
 		int u2Uses = u2.getWeapon().getMaxUses();

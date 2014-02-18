@@ -32,7 +32,7 @@ public class PaletteSwapper {
 		lookup.put("paladin", Arrays.asList(new String[] {"Cameron", "Sain", "Franz", "Forde", "Kyle", "Kent", "Lowen", "Marcus"}));
 		lookup.put("sagem", Arrays.asList(new String[] {"Erk", "Lucius", "Artur"}));
 		lookup.put("sagef", Arrays.asList(new String[]{"Lute"}));
-		lookup.put("sniperm", Arrays.asList(new String[] {"Wil"}));
+		lookup.put("sniperm", Arrays.asList(new String[] {"Innes", "Wil"}));
 		lookup.put("sniperf", Arrays.asList(new String[]{"Neimi", "Rebecca"}));
 		lookup.put("sorcerer", Arrays.asList(new String[]{"Knoll", "Ewan", "Canas"}));
 		lookup.put("swordmasterm", Arrays.asList(new String[]{"Karel", "Guy", "Joshua", "Edward"}));
