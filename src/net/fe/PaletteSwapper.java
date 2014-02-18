@@ -36,7 +36,7 @@ public class PaletteSwapper {
 		lookup.put("sniperf", Arrays.asList(new String[]{"Neimi", "Rebecca"}));
 		lookup.put("sorcerer", Arrays.asList(new String[]{"Knoll", "Ewan", "Canas"}));
 		lookup.put("swordmasterm", Arrays.asList(new String[]{"Karel", "Guy", "Joshua", "Edward"}));
-		lookup.put("swordmasterf", Arrays.asList(new String[]{"Mia"}));
+		lookup.put("swordmasterf", Arrays.asList(new String[]{"NOTMIA", "Mia"}));
 		lookup.put("valkyrie", Arrays.asList(new String[]{"Priscilla", "L'Arachel", "Natasha"}));
 		lookup.put("falconknight", Arrays.asList(new String[]{"???", "Vanessa", "Tana", "Florina"}));
 		

@@ -63,7 +63,7 @@ public class FEMultiplayer extends Game{
 		try{
 			FEMultiplayer game = new FEMultiplayer();
 			game.init(480, 320, "Fire Emblem Multiplayer");
-//			game.testFightStage();
+			game.testFightStage();
 //			game.testOverworldStage();
 			game.loop();
 		} catch (Exception e){
@@ -122,8 +122,8 @@ public class FEMultiplayer extends Game{
 		testSession.addPlayer(p2);
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
-		Unit u1 = UnitFactory.getUnit("Marth");
-//		u1.getInventory().add(WeaponFactory.getWeapon("Fachion"));
+		Unit u1 = UnitFactory.getUnit("Mia");
+		u1.getInventory().add(WeaponFactory.getWeapon("Iron Sword"));
 		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
 		u1.setLevel(10);
