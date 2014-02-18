@@ -16,6 +16,7 @@ import net.fe.FEResources;
 import net.fe.PaletteSwapper;
 import net.fe.Party;
 import net.fe.fightStage.CombatTrigger;
+import net.fe.overworldStage.Corpse;
 import net.fe.overworldStage.DoNotDestroy;
 import net.fe.overworldStage.Grid;
 import net.fe.overworldStage.Node;
@@ -49,8 +50,6 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	private transient HashMap<String, Integer> tempMods;
 	private transient HashMap<String, Integer> battleStats;
 	private transient Set<Unit> assist;
-	private transient boolean dying;
-	private transient float alpha;
 	private transient Unit rescuedUnit;
 	private transient boolean moved;
 	private transient Path path;
@@ -87,7 +86,6 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
         battleStats.put("Damage", 0);
         battleStats.put("Healing", 0);
 		this.name = name;
-		alpha = 1.0f;
 		clazz = c;
 
 		stats = new HashMap<String, Float>();
@@ -109,8 +107,6 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
         battleStats.put("Assists", 0);
         battleStats.put("Damage", 0);
         battleStats.put("Healing", 0);
-        
-        alpha = 1.0f;
     }
 	
 	public String functionalClassName(){
@@ -159,6 +155,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	public void drop(int x, int y){
 		if(rescuedUnit == null) return;
 		rescuedUnit.rescued = false;
+		rescuedUnit.setMoved(true);
 		final OverworldStage grid = (OverworldStage) stage;
 		grid.addUnit(rescuedUnit, x, y);
 		rescuedUnit.rX = this.x - x * 16;
@@ -246,16 +243,6 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 		}		
 	}
 
-	public void endStep() {
-		if (dying)
-			alpha -= Game.getDeltaSeconds();
-		if (alpha < 0) {
-			((ClientOverworldStage) stage).setControl(true);
-			((ClientOverworldStage) stage).removeUnit(this);
-			dying = false;
-		}
-	}
-
 	Unit getCopy() {
 		Unit copy = new Unit(name, clazz, gender, bases, growths);
 		copy.setLevel(stats.get("Lvl").intValue());
@@ -276,10 +263,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 				t.flipHorizontal();
 				t.setTranslation(14, 0); //Why do we have to do this?
 			}
-			//TODO Colors
 			Color mod = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-			if(dying)
-				mod.a = alpha;
 			t.setColor(mod);
 			if(moved) {
 				sprite.render(x+1+rX, y+1+rY, renderDepth, t, new ShaderArgs("greyscale"));
@@ -289,7 +273,6 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 			}
 		} else {
 			Color c = !moved ? new Color(getPartyColor()) : new Color(128, 128, 128);
-			c.a = alpha;
 			Renderer.drawRectangle(x + 1 + rX, y + 1 + rY, x + 14 + rX,
 					y + 14 + rY, ClientOverworldStage.UNIT_DEPTH, c);
 			Renderer.drawString("default_med",
@@ -609,6 +592,16 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 
 	public void setHp(int hp) {
 		this.hp = Math.max(hp, 0);
+		if(hp == 0) {
+			((OverworldStage) stage).removeUnit(xcoord, ycoord);
+			if(rescuedUnit != null) {
+				drop(xcoord, ycoord);
+			}
+			if(Game.glContextExists()) {
+				((ClientOverworldStage) stage).setControl(false);
+				stage.addEntity(new Corpse(this));
+			}
+		}
 	}
 
 	public int get(String stat) {
@@ -690,16 +683,6 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 
 	public int getOrigY() {
 		return origY;
-	}
-
-	public void setDying(boolean b) {
-		dying = b;
-		if (dying)
-			((ClientOverworldStage) stage).setControl(false);
-	}
-	
-	public boolean isDying(){
-		return dying;
 	}
 	
 	public Unit rescuedUnit(){

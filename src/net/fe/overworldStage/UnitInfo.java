@@ -60,7 +60,6 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 	public void render(){
 		Unit u = unit;
 		if(u == null) return;
-		if(u.isDying()) return;
 		
 		//Main Box
 		Renderer.drawRectangle(x, y, x+320, y+80, renderDepth, BORDER_DARK);
@@ -127,14 +126,14 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 		Unit rescued = u.rescuedUnit();
 		if (rescued != null) {
 			// Main box
-			Renderer.drawRectangle(x + 320, y, x + 110 + 320, y + 84,
+			Renderer.drawRectangle(x + 320, y, x + 110 + 320, y + 80,
 					renderDepth, BORDER_DARK);
-			Renderer.drawRectangle(x + 321, y + 1, x + 109 + 320, y + 83,
+			Renderer.drawRectangle(x + 321, y + 1, x + 109 + 320, y + 79,
 					renderDepth, BORDER_LIGHT);
-			Renderer.drawRectangle(x + 322, y + 2, x + 108 + 320, y + 82,
+			Renderer.drawRectangle(x + 322, y + 2, x + 108 + 320, y + 78,
 					renderDepth, NEUTRAL);
 			// Terrain name ribbon
-			Renderer.drawRectangle(x + 323, y + 3, x + 107 + 320, y + 30,
+			Renderer.drawRectangle(x + 323, y + 3, x + 107 + 320, y + 77,
 					renderDepth, NEUTRAL.darker(0.5f));
 			BitmapFont def = FEResources.getBitmapFont("default_med");
 			width = def.getStringWidth("Rescued");

@@ -105,6 +105,7 @@ public class CombatCalculator {
 		int drain = 0;
 		String animation = "Attack";
 		boolean miss = false;
+		boolean use = false;
 		int crit = 1;
 
 		if (a.getHp() == 0 || d.getHp() == 0) {
@@ -146,12 +147,11 @@ public class CombatCalculator {
 		if (!((RNG.get()+RNG.get())/2 < hitRate(a, d))) {
 			miss = true;
 			if (a.getWeapon().isMagic())
-				a.use(a.getWeapon());
+				use = true;
 		} else {
-			a.use(a.getWeapon());
+			use = true;
 		}
 		
-		System.out.println(a.getWeapon().name + " " + a.getWeapon().getUses());
 		if (RNG.get() < a.crit() - d.dodge() && !miss) {
 			crit = 3;
 			animation += " Critical(a)";
@@ -202,6 +202,8 @@ public class CombatCalculator {
 		addToAttackQueue(a, d, animation, damage, drain);
 		d.setHp(d.getHp() - damage);
 		a.setHp(a.getHp() + drain);
+		if(use)
+			a.use(a.getWeapon());
 		a.clearTempMods();
 		d.clearTempMods();
 		for (CombatTrigger t : aSuccess.keySet()) {
