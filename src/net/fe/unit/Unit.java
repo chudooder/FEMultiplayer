@@ -609,6 +609,8 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 
 	public void setHp(int hp) {
 		this.hp = Math.max(hp, 0);
+		if(hp == 0 && rescuedUnit != null)
+			rescuedUnit.setHp(0);
 	}
 
 	public int get(String stat) {
