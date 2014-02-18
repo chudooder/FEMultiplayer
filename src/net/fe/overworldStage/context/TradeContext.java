@@ -153,6 +153,7 @@ public class TradeContext extends OverworldContext {
 		List<Item> to = i2 < 4? inv1:inv2;
 		int fromIndex = i1%4;
 		int toIndex = i2%4;
+		if(toIndex >= to.size() && fromIndex >= from.size()) return false;
 		
 		stage.addCmd("TRADE");
 		
@@ -170,7 +171,7 @@ public class TradeContext extends OverworldContext {
 		
 		//BEGIN Crazy list ops
 		//Check for meaningless trade
-		if(toIndex >= to.size() && fromIndex >= from.size()) return false;
+		
 		
 		if(toIndex >= to.size()){
 			to.add(from.remove(fromIndex));
