@@ -123,7 +123,7 @@ public class FEMultiplayer extends Game{
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
 		Unit u1 = UnitFactory.getUnit("Mia");
-		u1.getInventory().add(WeaponFactory.getWeapon("Iron Sword"));
+		u1.getInventory().add(WeaponFactory.getWeapon("Debug Noodle"));
 		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
 		u1.setLevel(20);
@@ -139,14 +139,15 @@ public class FEMultiplayer extends Game{
 		
 		int u1Uses = u1.getWeapon().getMaxUses();
 		int u2Uses = u2.getWeapon().getMaxUses();
-		CombatCalculator calc = new CombatCalculator(new UnitIdentifier(u2), new UnitIdentifier(u1), true);
+		CombatCalculator calc = new CombatCalculator(new UnitIdentifier(u1), new UnitIdentifier(u2), true);
 		System.out.println(calc.getAttackQueue());
 		
-		u1.getWeapon().setUsesDEBUGGING(u1Uses);
+		u1.getInventory().add(WeaponFactory.getWeapon("Debug Noodle"));
+		u1.equip(0);
 		u2.getWeapon().setUsesDEBUGGING(u2Uses);
 		u1.fillHp();
 		u2.fillHp();
-		setCurrentStage(new FightStage(new UnitIdentifier(u2), new UnitIdentifier(u1), calc.getAttackQueue()));
+		setCurrentStage(new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue()));
 	}
 	
 	public void testOverworldStage() {

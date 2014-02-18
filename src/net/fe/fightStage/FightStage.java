@@ -231,6 +231,11 @@ public class FightStage extends Stage {
 			a.setAnimation(rec.animation);
 			a.sprite.setSpeed(((AttackAnimation)a.sprite.getCurrentAnimation()).getDefaultSpeed());
 			a.sprite.setFrame(0);
+			
+			d.sprite.setAnimation("ATTACK");
+			d.sprite.setFrame(0);
+			d.sprite.setSpeed(0);
+			
 			setCurrentEvent(ATTACKING);
 		} else if (currentEvent == ATTACKING) {
 			// Let the animation play
