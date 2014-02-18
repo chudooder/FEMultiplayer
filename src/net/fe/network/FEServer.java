@@ -48,6 +48,7 @@ import net.fe.modifier.Modifier;
 import net.fe.modifier.SuddenDeath;
 import net.fe.modifier.Treasury;
 import net.fe.modifier.Vegas;
+import net.fe.modifier.Veterans;
 import net.fe.overworldStage.objective.Objective;
 import net.fe.overworldStage.objective.Rout;
 import net.fe.overworldStage.objective.Seize;
@@ -86,6 +87,7 @@ public class FEServer extends Game {
 		DefaultListModel model = new DefaultListModel();
 		model.addElement(new MadeInChina());
 		model.addElement(new Treasury());
+		model.addElement(new Veterans());
 		model.addElement(new DivineIntervention());
 		model.addElement(new SuddenDeath());
 		model.addElement(new Vegas());

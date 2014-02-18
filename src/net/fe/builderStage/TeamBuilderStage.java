@@ -61,7 +61,6 @@ public class TeamBuilderStage extends Stage {
 		repeatTimers = new float[4];
 		addEntity(new RunesBg(new Color(0xd2b48c)));
 		select = new TeamSelectionStage(this, s);
-		units = select.getSelectedUnits();
 		session = s;
 		buttons = new Button[4];
 		
@@ -126,14 +125,21 @@ public class TeamBuilderStage extends Stage {
 		buttons[1] = back;
 		addEntity(back);
 		
+		setFunds(FUNDS);
+		setExp(EXP);
 		
+		if(getSession() != null) {
+			for(Modifier m : getSession().getModifiers()) {
+				m.modifyTeam(this);
+			}
+		}
+		
+		units = new ArrayList<Unit>();
+		setUnits(select.getSelectedUnits());
 		
 		cursor = new Cursor(9, yStart-4, 462, vgap, units.size());
 		cursor.on = true;
 		addEntity(cursor);
-		
-		setFunds(FUNDS);
-		setExp(EXP);
 		
 		int y = yStart;
 		float d = 0.1f;
@@ -141,12 +147,6 @@ public class TeamBuilderStage extends Stage {
 			addEntity(new UnitIcon(u, 10, y-2, d));
 			y+=vgap;
 			d-=0.001f;
-		}
-		
-		if(getSession() != null) {
-			for(Modifier m : getSession().getModifiers()) {
-				m.modifyTeam(this);
-			}
 		}
 	}
 	

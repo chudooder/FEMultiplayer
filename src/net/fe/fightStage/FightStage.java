@@ -27,12 +27,10 @@ import net.fe.unit.UnitIdentifier;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
 
-import chu.engine.AnimationData;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.SortByRender;
 import chu.engine.Stage;
-import chu.engine.anim.Animation;
 import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
 
@@ -91,7 +89,9 @@ public class FightStage extends Stage {
 
 	public FightStage(UnitIdentifier u1, UnitIdentifier u2,
 			ArrayList<AttackRecord> attackQ) {
-		super("fight");
+		super(u1.partyColor.equals(u2.partyColor) ? "curing" :
+				u1.partyColor.equals(FEMultiplayer.getLocalPlayer().getParty().getColor()) ?
+						"fight" : "defense");
 		shakeTimer = 0;
 		prevShakeTimer = 0;
 		timer = 0;

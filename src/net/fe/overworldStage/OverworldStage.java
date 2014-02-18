@@ -45,7 +45,7 @@ public class OverworldStage extends Stage {
 	private int turnCount;
 
 	public OverworldStage(Session s) {
-		super("overworld");
+		super(null);
 		this.session = s;
 		System.out.println(session.getObjective().getDescription());
 		chat = new Chat();
