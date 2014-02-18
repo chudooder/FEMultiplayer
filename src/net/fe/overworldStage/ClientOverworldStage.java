@@ -20,6 +20,7 @@ import net.fe.editor.SpawnPoint;
 import net.fe.network.message.CommandMessage;
 import net.fe.network.message.EndTurn;
 import net.fe.overworldStage.context.Idle;
+import net.fe.overworldStage.context.TradeContext;
 import net.fe.overworldStage.context.WaitForMessages;
 import net.fe.transition.OverworldEndTransition;
 import net.fe.unit.Item;
@@ -319,9 +320,7 @@ public class ClientOverworldStage extends OverworldStage {
 				int i2 = (Integer)cmds.commands[++i];
 				//Swap the two items
 				if(execute) {
-					Item temp = u1.getInventory().get(i1);
-					u1.getInventory().set(i1, u2.getInventory().get(i2));
-					u2.getInventory().set(i2, temp);
+					TradeContext.doTrade(u1.getInventory(), u2.getInventory(), i1, i2);
 				}
 			}
 			else if(obj.equals("USE")) {

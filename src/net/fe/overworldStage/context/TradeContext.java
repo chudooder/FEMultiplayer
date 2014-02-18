@@ -153,8 +153,11 @@ public class TradeContext extends OverworldContext {
 		List<Item> to = i2 < 4? inv1:inv2;
 		int fromIndex = i1%4;
 		int toIndex = i2%4;
-		if(toIndex >= to.size() && fromIndex >= from.size()) return false;
 		
+		boolean result = doTrade(from, to, fromIndex, toIndex);
+		if(!result) return false;
+		
+		//Add the message
 		stage.addCmd("TRADE");
 		
 		if(from == inv1)
@@ -169,10 +172,11 @@ public class TradeContext extends OverworldContext {
 			stage.addCmd(new UnitIdentifier(u2));
 		stage.addCmd(toIndex);
 		
-		//BEGIN Crazy list ops
-		//Check for meaningless trade
-		
-		
+		return true;
+	}
+	
+	public static boolean doTrade(List<Item> from, List<Item> to, int fromIndex, int toIndex){
+		if(toIndex >= to.size() && fromIndex >= from.size()) return false;
 		if(toIndex >= to.size()){
 			to.add(from.remove(fromIndex));
 		} else if (fromIndex >= from.size()){
@@ -185,5 +189,4 @@ public class TradeContext extends OverworldContext {
 
 		return true;
 	}
-
 }
