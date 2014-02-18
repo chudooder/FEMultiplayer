@@ -122,32 +122,31 @@ public class FEMultiplayer extends Game{
 		testSession.addPlayer(p2);
 		
 		Grid grid = new Grid(10,10, Terrain.PLAIN);
-		Unit u1 = UnitFactory.getUnit("Gerik");
-		u1.getInventory().add(WeaponFactory.getWeapon("Longsword"));
+		Unit u1 = UnitFactory.getUnit("Mia");
+		u1.getInventory().add(WeaponFactory.getWeapon("Iron Sword"));
 		u1.equip(0);
 		grid.addUnit(u1, 0, 0);
 		u1.setLevel(20);
 		p1.getParty().addUnit(u1);
 		
-		
-		Unit u2 = UnitFactory.getUnit("Kent");
-		u2.getInventory().add(WeaponFactory.getWeapon("Iron Lance"));
+		Unit u2 = UnitFactory.getUnit("Bartre");
+		u2.getInventory().add(WeaponFactory.getWeapon("Iron Axe"));
 		grid.addUnit(u2, 1, 0);
 		u2.equip(0);
-		u2.setLevel(20);
+		u2.setLevel(5);
 		p2.getParty().addUnit(u2);
 		
 		
 		int u1Uses = u1.getWeapon().getMaxUses();
 		int u2Uses = u2.getWeapon().getMaxUses();
-		CombatCalculator calc = new CombatCalculator(new UnitIdentifier(u1), new UnitIdentifier(u2), true);
+		CombatCalculator calc = new CombatCalculator(new UnitIdentifier(u2), new UnitIdentifier(u1), true);
 		System.out.println(calc.getAttackQueue());
 		
 		u1.getWeapon().setUsesDEBUGGING(u1Uses);
 		u2.getWeapon().setUsesDEBUGGING(u2Uses);
 		u1.fillHp();
 		u2.fillHp();
-		setCurrentStage(new FightStage(new UnitIdentifier(u1), new UnitIdentifier(u2), calc.getAttackQueue()));
+		setCurrentStage(new FightStage(new UnitIdentifier(u2), new UnitIdentifier(u1), calc.getAttackQueue()));
 	}
 	
 	public void testOverworldStage() {
@@ -225,8 +224,8 @@ public class FEMultiplayer extends Game{
 				currentStage.processAddStack();
 				currentStage.processRemoveStack();
 				currentStage.render();
-				FEResources.getBitmapFont("stat_numbers").render(
-						(int)(1.0f/getDeltaSeconds())+"", 440f, 0f, 0f);
+//				FEResources.getBitmapFont("stat_numbers").render(
+//						(int)(1.0f/getDeltaSeconds())+"", 440f, 0f, 0f);
 				currentStage.endStep();
 			}
 			glPopMatrix();

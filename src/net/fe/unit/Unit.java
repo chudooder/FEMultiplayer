@@ -25,6 +25,7 @@ import net.fe.overworldStage.Path;
 import net.fe.overworldStage.Terrain;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
 
 import chu.engine.Game;
 import chu.engine.GriddedEntity;
@@ -62,6 +63,13 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 	
 	public static final float MAP_ANIM_SPEED = 0.2f;
 	public static final int MOVE_SPEED = 250;
+	
+	public static Texture rescue;
+	
+	static {
+		if(Game.glContextExists())
+			rescue = FEResources.getTexture("rescue");
+	}
 
 	public Unit(String name, Class c, char gender, HashMap<String, Integer> bases,
 			HashMap<String, Integer> growths) {
@@ -293,7 +301,7 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 			counter+=Game.getDeltaSeconds();
 			counter%=1;
 			if(counter > 0.5){
-				Renderer.render(FEResources.getTexture("rescue"), 
+				Renderer.render(rescue, 
 						0, 0, 1, 1, x+9, y+7, x+9+8, y+7+8, renderDepth);
 			}
 		}

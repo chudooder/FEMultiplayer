@@ -318,12 +318,28 @@ public class UnitBuilderStage extends Stage {
 
 		@Override
 		public void left() {
-			// TODO Auto-generated method stub	
+			AudioPlayer.playAudio("cursor2", 1, 1);
+			if(inv.hasSelection()){
+				inv.clearSelection();
+				if(inv.getSelectedIndex() == 0){
+					levelUp.setHover(true);
+				} else {
+					levelDown.setHover(true);
+				}
+			} else if (levelDown.hovered()){
+				inv.restoreSelection();
+				inv.setSelection(1);
+				levelDown.setHover(false);
+			} else {
+				inv.restoreSelection();
+				inv.setSelection(0);
+				levelUp.setHover(false);
+			}
 		}
 
 		@Override
 		public void right() {
-			// TODO Auto-generated method stub
+			left();
 		}
 
 		@Override

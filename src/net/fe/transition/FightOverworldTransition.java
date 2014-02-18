@@ -107,6 +107,7 @@ public class FightOverworldTransition extends Transition {
 	@Override
 	public void done() {
 		super.done();
+		to.playSoundTrack();
 		to.checkEndGame();
 	}
 	

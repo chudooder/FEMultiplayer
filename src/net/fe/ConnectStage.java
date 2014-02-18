@@ -42,6 +42,7 @@ public class ConnectStage extends Stage {
 		ip = new ConnectInputBox(180,166,100,20);
 		addEntity(name);
 		addEntity(ip);
+		addEntity(new RunesBg(Color.gray));
 		addEntity(new ConnectButton(286,166,47,20));
 		addEntity(new MenuButton(180,196,128,32) {
 			{
@@ -86,10 +87,10 @@ public class ConnectStage extends Stage {
 	
 	public void render() {
 		// Draw and label boxes
-		Renderer.drawRectangle(0, 0, 480, 320, 1.0f, NEUTRAL);
-		Renderer.drawRectangle(1, 1, 479, 319, 1.0f, BORDER_DARK);
-		Renderer.drawRectangle(2, 2, 478, 318, 1.0f, BORDER_LIGHT);
-		Renderer.drawRectangle(3, 3, 477, 317, 1.0f, NEUTRAL);
+//		Renderer.drawRectangle(60, 110, 430, 240, 0.5f, NEUTRAL);
+//		Renderer.drawRectangle(61, 111, 429, 239, 0.5f, BORDER_DARK);
+//		Renderer.drawRectangle(62, 112, 428, 238, 0.5f, BORDER_LIGHT);
+//		Renderer.drawRectangle(63, 113, 427, 237, 0.5f, NEUTRAL);
 		
 		Renderer.drawString("default_med", "Name:", 150, 140, 0.0f);
 		Renderer.drawString("default_med", "Server IP:", 133, 170, 0.0f);
@@ -119,6 +120,7 @@ public class ConnectStage extends Stage {
 		
 		public void render() {
 			BitmapFont font = FEResources.getBitmapFont("default_med");
+			Renderer.drawRectangle(x-1, y-1, x+width+1, y+height+1, renderDepth, Color.black);
 			if(hasFocus) {
 				Renderer.drawRectangle(x, y, x+width, y+height, renderDepth, FOCUSED);
 				float linepos = x + font.getStringWidth(input.substring(0, cursorPos)) + 2;

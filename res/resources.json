@@ -814,7 +814,7 @@
 				},
 				{
 					"frame":	15,
-					"sound":	"sword_swipe1"
+					"sound":	"sword_swipe2"
 				},
 				{
 					"frame":	19,
@@ -832,7 +832,7 @@
 			"width":	196,
 			"height":	116,
 			"frames":	68,
-			"columns":	5,
+			"columns":	6,
 			"offsetX":	130,
 			"offsetY":	102,
 			"freeze":	0,
@@ -856,7 +856,7 @@
 				},
 				{
 					"frame":	34,
-					"sound":	"sword_swipe1"
+					"sound":	"sword_swipe2"
 				},
 				{
 					"frame":	38,
@@ -905,7 +905,7 @@
 				},
 				{
 					"frame":	15,
-					"sound":	"sword_swipe1"
+					"sound":	"sword_swipe2"
 				},
 				{
 					"frame":	19,
@@ -947,7 +947,7 @@
 				},
 				{
 					"frame":	34,
-					"sound":	"sword_swipe1"
+					"sound":	"sword_swipe2"
 				},
 				{
 					"frame":	38,
@@ -966,7 +966,7 @@
 			"height":	86,
 			"frames":	2,
 			"columns":	2,
-			"offsetX":	46,
+			"offsetX":	45,
 			"offsetY":	83,
 			"freeze":	0
 		},
@@ -1017,8 +1017,8 @@
 			"height":	86,
 			"frames":	2,
 			"columns":	2,
-			"offsetX":	46,
-			"offsetY":	84,
+			"offsetX":	44,
+			"offsetY":	83,
 			"freeze":	0
 		},
 		{

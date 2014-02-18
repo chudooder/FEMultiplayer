@@ -4,20 +4,17 @@ import net.fe.builderStage.ShopMenu;
 import net.fe.builderStage.TeamBuilderStage;
 import net.fe.builderStage.TeamSelectionStage;
 import net.fe.overworldStage.OverworldStage;
-import net.fe.unit.Unit;
 
-/**
- * All units have Miracle, with 100% chance to proc
- * @author Shawn
- *
- */
-public class DivineIntervention implements Modifier {
+public class Veterans implements Modifier {
 
-	private static final long serialVersionUID = -7509901063099817137L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8924524348358477808L;
 
 	@Override
 	public void modifyTeam(TeamBuilderStage stage) {
-		
+		stage.setExp(999999999);
 	}
 
 	@Override
@@ -32,23 +29,21 @@ public class DivineIntervention implements Modifier {
 
 	@Override
 	public void initOverworld(OverworldStage stage) {
-		for(Unit u : stage.getAllUnits()) {
-			u.addSkill(new Miracle());
-		}
+		
 	}
 
 	@Override
 	public void endOfTurn(OverworldStage stage) {
 		
 	}
-	
-	@Override
-	public String toString() {
-		return "Divine Intervention";
-	}
-	
+
 	@Override
 	public String getDescription() {
-		return "All units have a version of Miracle that is guarenteed to activate.";
+		return "Unlimited starting EXP.";
 	}
+	
+	public String toString() {
+		return "Veterans";
+	}
+	
 }

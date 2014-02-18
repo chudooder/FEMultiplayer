@@ -34,6 +34,7 @@ import org.newdawn.slick.util.ResourceLoader;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
+import chu.engine.anim.AudioPlayer;
 
 public class ClientOverworldStage extends OverworldStage {
 	private OverworldContext context;
@@ -83,9 +84,11 @@ public class ClientOverworldStage extends OverworldStage {
 		if(getCurrentPlayer().equals(FEMultiplayer.getLocalPlayer())) {
 			context = new Idle(this, getCurrentPlayer());
 			addEntity(new TurnDisplay(true, Party.TEAM_BLUE));
+			SoundTrack.loop("overworld");
 		} else {
 			context = new WaitForMessages(this);
 			addEntity(new TurnDisplay(false, Party.TEAM_RED));
+			SoundTrack.loop("enemy");
 		}
 		repeatTimers = new float[4];
 		currentCmdString = new ArrayList<Object>();
@@ -106,10 +109,6 @@ public class ClientOverworldStage extends OverworldStage {
 	public void reset(){
 		context.cleanUp();
 		removeExtraneousEntities();
-		boolean canMove = false;
-		for(Unit u: getCurrentPlayer().getParty()){
-			if(!u.hasMoved()) canMove = true;
-		}
 		new Idle(this, getCurrentPlayer()).startContext();
 	}
 	
@@ -251,7 +250,11 @@ public class ClientOverworldStage extends OverworldStage {
 			}
 		}
 		send();
-		SoundTrack.restart();
+		if(FEMultiplayer.getLocalPlayer().getID() != getCurrentPlayer().getID()){
+			SoundTrack.loop("overworld");
+		} else {
+			SoundTrack.loop("enemy");
+		}
 	}
 	
 	protected void doStartTurn(int playerID){
@@ -382,6 +385,7 @@ public class ClientOverworldStage extends OverworldStage {
 			}
 		}
 		if(execute && unit != null) {
+			AudioPlayer.playAudio("select", 1, 1);
 			Path p = grid.getShortestPath(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY);
 			grid.move(unit, unit.getXCoord()+cmds.moveX, unit.getYCoord()+cmds.moveY, true);
 			unit.move(p, callback);
@@ -488,5 +492,13 @@ public class ClientOverworldStage extends OverworldStage {
 
 	public Unit getSelectedUnit() {
 		return selectedUnit;
+	}
+
+	public void playSoundTrack() {
+		if(getCurrentPlayer().equals(FEMultiplayer.getLocalPlayer())) {
+			SoundTrack.loop("overworld");
+		} else {
+			SoundTrack.loop("enemy");
+		}
 	}
 }
