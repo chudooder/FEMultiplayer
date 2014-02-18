@@ -239,12 +239,7 @@ public class FEMultiplayer extends Game{
 	}
 	
 	public static void reportFightResults(FightStage stage){ 
-		//TODO report weapon usage, stun trigger
-		for(int i=0; i<2; i++) {
-			if(stage.getUnit(i).getHp() <= 0) {
-				stage.getUnit(i).setDying(true);
-			}
-		}
+		
 	}
 	
 	public static void send(UnitIdentifier u, int moveX, int moveY, Object... cmds){

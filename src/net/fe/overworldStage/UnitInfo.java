@@ -60,7 +60,6 @@ public class UnitInfo extends Entity implements DoNotDestroy{
 	public void render(){
 		Unit u = unit;
 		if(u == null) return;
-		if(u.isDying()) return;
 		
 		//Main Box
 		Renderer.drawRectangle(x, y, x+320, y+80, renderDepth, BORDER_DARK);
