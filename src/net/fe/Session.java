@@ -98,6 +98,10 @@ public class Session implements Serializable {
 	public PickMode getPickMode() {
 		return pickMode;
 	}
+
+	public void setPickMode(PickMode selectedItem) {
+		pickMode = selectedItem;
+	}
 	
 	
 }

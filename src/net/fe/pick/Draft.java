@@ -29,5 +29,9 @@ public class Draft implements PickMode {
 	public void setUpServer(Session session) {
 		FEServer.setCurrentStage(new WaitStage(session));
 	}
+	
+	public String toString() {
+		return "Draft";
+	}
 
 }

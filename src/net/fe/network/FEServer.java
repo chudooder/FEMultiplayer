@@ -52,6 +52,9 @@ import net.fe.modifier.Veterans;
 import net.fe.overworldStage.objective.Objective;
 import net.fe.overworldStage.objective.Rout;
 import net.fe.overworldStage.objective.Seize;
+import net.fe.pick.AllPick;
+import net.fe.pick.Draft;
+import net.fe.pick.PickMode;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitIdentifier;
 import chu.engine.Game;
@@ -125,6 +128,15 @@ public class FEServer extends Game {
 		// Objectives
 		ComboBoxModel oModel = new DefaultComboBoxModel(maps.get(mapSelectionBox.getSelectedItem()));
 		objComboBox.setModel(oModel);
+		
+		JLabel lblPickMode = new JLabel("Pick mode: ");
+		objectivePanel.add(lblPickMode);
+		
+		// Pick modes
+		ComboBoxModel pModel = new DefaultComboBoxModel(new PickMode[] {new Draft(), new AllPick()});
+		final JComboBox pickModeBox = new JComboBox();
+		pickModeBox.setModel(pModel);
+		objectivePanel.add(pickModeBox);
 		
 		JPanel maxUnitsPanel = new JPanel();
 		mainPanel.add(maxUnitsPanel);
@@ -232,6 +244,7 @@ public class FEServer extends Game {
 							}
 							s.setMap((String)mapSelectionBox.getSelectedItem());
 							s.setObjective((Objective)objComboBox.getSelectedItem());
+							s.setPickMode((PickMode)pickModeBox.getSelectedItem());
 							feserver.init();
 							feserver.loop();
 						} catch (Exception e){

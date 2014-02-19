@@ -242,10 +242,11 @@ public class ClientLobbyStage extends LobbyStage {
 		Renderer.drawString("default_med", "Game info", x, y-14, 0.9f);
 		Renderer.drawString("default_med", "Map: "+session.getMap(), x+2, y+2, 0.9f);
 		Renderer.drawString("default_med", "Objective: "+session.getObjective().getDescription(), x+2, y+16, 0.9f);
-		Renderer.drawString("default_med", "Modifiers: ", x+2, y+30, 0.9f);
+		Renderer.drawString("default_med", "Pick mode: "+session.getPickMode(), x+2, y+30, 0.9f);
+		Renderer.drawString("default_med", "Modifiers: ", x+2, y+44, 0.9f);
 		int yy = 0;
 		for(Modifier m : session.getModifiers()) {
-			Renderer.drawString("default_med", "* "+m.toString(), x+20, y+44+yy*14, 0.9f);
+			Renderer.drawString("default_med", "* "+m.toString(), x+20, y+58+yy*14, 0.9f);
 			yy++;
 		}
 		Renderer.drawRectangle(x, y, 474, 314, 1.0f, NEUTRAL_DARK);
