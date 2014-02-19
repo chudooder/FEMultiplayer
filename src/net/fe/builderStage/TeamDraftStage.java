@@ -49,6 +49,7 @@ public class TeamDraftStage extends Stage {
 	private String[] draftOrder;
 	private static String[][] draftOrders = new String[8][0];
 	private int draftTurn;
+	private String lastAction;
 	
 	private static Color
 		BLUE_TURN = Party.TEAM_BLUE,
@@ -92,7 +93,7 @@ public class TeamDraftStage extends Stage {
 		super("preparations");
 		cursor = new Cursor();
 		this.session = s;
-		
+		lastAction = "";
 		controls = new ControlsDisplay();
 		controls.addControl("Z", "Select");
 		controls.addControl("Enter", "Done");
@@ -268,17 +269,41 @@ public class TeamDraftStage extends Stage {
 				DraftMessage dm = (DraftMessage)message;
 				Player p = session.getPlayer(dm.origin);
 				String round = getRoundID();
+				StringBuilder action = new StringBuilder();
+				if(message.origin == FEMultiplayer.getLocalPlayer().getID()) {
+					action.append("You ");
+				} else {
+					action.append("The enemy ");
+				}
+				boolean verbed = false;
 				for(String name : dm.unitNames) {
 					if(round.charAt(1) == 'L') {
 						p.getParty().addUnit(lordList.getUnit(name));
 						lordList.draft(name);
+						action.append("picked "+name+". ");
 					} else if(round.charAt(1) == 'B') {
 						vassalList.ban(name);
+						if(verbed) {
+							action.append(" and "+name+". ");
+						} else {
+							action.append("banned "+name);
+							verbed = true;
+						}
 					} else if(round.charAt(1) == 'P') {
 						p.getParty().addUnit(vassalList.getUnit(name));
 						vassalList.draft(name);
+						if(verbed) {
+							action.append(" and "+name+". ");
+						} else {
+							action.append("picked "+name);
+							verbed = true;
+						}
 					}
 				}
+				if(action.charAt(action.length() - 2) != '.') {
+					action.append(". ");
+				}
+				lastAction = action.toString();
 				resetDraft();
 			}
 		}
@@ -424,6 +449,7 @@ public class TeamDraftStage extends Stage {
 		// Top banner
 		Renderer.drawRectangle(0, 8, 480, 28, 0.1f, new Color(0,0,0,0.5f));
 		StringBuilder s = new StringBuilder();
+		s.append(lastAction);
 		if(round.equals("???")) {
 			s.append("Picking phase is over. Equip your units!");
 		} else {
