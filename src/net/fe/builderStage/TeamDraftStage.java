@@ -137,6 +137,7 @@ public class TeamDraftStage extends Stage {
 		} else {
 			hasControl = false;
 		}
+		deselectAll();
 		if(draftTurn >= draftOrder.length) {
 			//TODO: Go to TeamBuilderStage, without ability to return
 		}
