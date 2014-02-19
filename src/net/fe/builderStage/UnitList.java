@@ -1,13 +1,19 @@
 package net.fe.builderStage;
 
-import java.util.*;
-
-import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
 
 import net.fe.FEResources;
 import net.fe.fightStage.FightStage;
-import net.fe.unit.*;
+import net.fe.unit.Unit;
+import net.fe.unit.UnitIcon;
+
+import org.newdawn.slick.Color;
+
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.anim.Renderer;
@@ -20,7 +26,7 @@ public class UnitList extends Entity {
 	private int height;
 	private int scrollPos;
 	private float scrollOffset;
-	private Sprite banned;
+	private Sprite banned, drafted;
 	
 	//CONFIG
 	public static final int WIDTH = 80;
@@ -37,6 +43,8 @@ public class UnitList extends Entity {
 		renderDepth = 0.6f;
 		banned = new Sprite();
 		banned.addAnimation("DEFAULT", FEResources.getTexture("banned"));
+		drafted = new Sprite();
+		drafted.addAnimation("DEFAULT", FEResources.getTexture("drafted"));
 	}
 	
 	public void onStep(){
@@ -78,6 +86,8 @@ public class UnitList extends Entity {
 			set.icon.render();
 			if(set.banned) { 
 				banned.render(x-1, y-3, 0.0f);
+			} else if(set.drafted) { 
+				drafted.render(x-1, y-3, 0.0f);
 			}
 			if(!selectedUnits.contains(set.unit))
 				Renderer.setColor(new Color(0.5f,0.5f,0.5f));
@@ -137,6 +147,8 @@ public class UnitList extends Entity {
 	}
 	
 	public void selectUnit(Unit u){
+		if(lookup.get(u).banned || lookup.get(u).drafted) 
+			return;
 		selectedUnits.add(u);
 		lookup.get(u).icon.setGreyscale(false);
 	}
@@ -163,6 +175,14 @@ public class UnitList extends Entity {
 		for(UnitSet set: units){
 			if(set.unit.name.equals(name)){
 				set.banned = true;
+			}
+		}
+	}
+	
+	public void draft(String name) {
+		for(UnitSet set: units){
+			if(set.unit.name.equals(name)){
+				set.drafted = true;
 			}
 		}
 	}
@@ -204,11 +224,14 @@ class UnitSet{
 	public UnitIcon icon;
 	public int row;
 	public boolean banned;
+	public boolean drafted;
 	
 	public UnitSet(Unit u){
 		unit = u;
 		icon = new UnitIcon(u, 0, 0, 0);
 		icon.setGreyscale(true);
+		banned = false;
+		drafted = false;
 	}
 	
 	public String toString(){

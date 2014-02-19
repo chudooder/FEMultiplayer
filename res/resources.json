@@ -4510,6 +4510,10 @@
 			"path":		"res/gui/banned.png"
 		},
 		{
+			"name":		"drafted",
+			"path":		"res/gui/drafted.png"
+		},
+		{
 			"name":		"assassin_map_down",
 			"path":		"res/map_anim/assassin_map_down.png"
 		},
