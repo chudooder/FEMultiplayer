@@ -105,6 +105,9 @@ public class TeamDraftStage extends Stage {
 				for(Unit u : vassalList.getSelectedUnits()) {
 					units.add(u.name);
 				}
+				if(units.size() < maxLords + maxVassals) {
+					return;
+				}
 				DraftMessage msg = new DraftMessage(units.toArray(new String[units.size()]));
 				FEMultiplayer.getClient().sendMessage(msg);
 				hasControl = false;
