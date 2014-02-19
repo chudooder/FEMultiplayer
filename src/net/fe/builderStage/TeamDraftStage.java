@@ -18,6 +18,7 @@ import net.fe.network.message.DraftMessage;
 import net.fe.unit.MapAnimation;
 import net.fe.unit.Unit;
 import net.fe.unit.UnitFactory;
+import net.fe.unit.UnitIcon;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
@@ -278,7 +279,14 @@ public class TeamDraftStage extends Stage {
 				boolean verbed = false;
 				for(String name : dm.unitNames) {
 					if(round.charAt(1) == 'L') {
+						Unit u = lordList.getUnit(name);
 						p.getParty().addUnit(lordList.getUnit(name));
+						UnitIcon icon = new UnitIcon(
+								lordList.getUnit(name),
+								round.charAt(0) == 'B' ? 2 : 456,
+								6+p.getParty().size()*24,
+								0.0f);
+						addEntity(icon);
 						lordList.draft(name);
 						action.append("picked "+name+". ");
 					} else if(round.charAt(1) == 'B') {
@@ -291,6 +299,12 @@ public class TeamDraftStage extends Stage {
 						}
 					} else if(round.charAt(1) == 'P') {
 						p.getParty().addUnit(vassalList.getUnit(name));
+						UnitIcon icon = new UnitIcon(
+								vassalList.getUnit(name),
+								round.charAt(0) == 'B' ? 2 : 456,
+								6+p.getParty().size()*24,
+								0.0f);
+						addEntity(icon);
 						vassalList.draft(name);
 						if(verbed) {
 							action.append(" and "+name+". ");
@@ -480,11 +494,13 @@ public class TeamDraftStage extends Stage {
 		// Player lists
 		for(Player p : session.getPlayers()) {
 			if(p.isSpectator()) continue;
-			int x = p.getParty().getColor().equals(Party.TEAM_BLUE) 
-					? 5 : 405;
 			int y = 30;
 			for(Unit u : p.getParty()) {
-				Renderer.drawString("default_med", u.name, x, y += 16, 0);
+				int nameWidth = FEResources.getBitmapFont("default_med").getStringWidth(u.name);
+				int x = p.getParty().getColor().equals(Party.TEAM_BLUE) 
+						? 28 : 452 - nameWidth;
+				Renderer.drawString("default_med", u.name, x, y, 0);
+				y += 24;
 			}
 		}
 	}
