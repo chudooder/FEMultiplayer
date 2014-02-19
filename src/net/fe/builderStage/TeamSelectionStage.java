@@ -1,13 +1,27 @@
 package net.fe.builderStage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import net.fe.Button;
+import net.fe.ControlsDisplay;
+import net.fe.FEMultiplayer;
+import net.fe.FEResources;
+import net.fe.Player;
+import net.fe.RunesBg;
+import net.fe.Session;
+import net.fe.modifier.Modifier;
+import net.fe.network.Message;
+import net.fe.network.message.DraftMessage;
+import net.fe.unit.MapAnimation;
+import net.fe.unit.Unit;
+import net.fe.unit.UnitFactory;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
-import net.fe.modifier.Modifier;
-import net.fe.unit.*;
-import net.fe.*;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
@@ -149,6 +163,9 @@ public class TeamSelectionStage extends Stage {
 		for(Entity e: entities){
 			e.beginStep();
 		}
+
+		
+		
 		MapAnimation.updateAll();
 		List<KeyboardEvent> keys = Game.getKeys();
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {

@@ -67,7 +67,7 @@ public class FEMultiplayer extends Game{
 			game.init(480, 320, "Fire Emblem Multiplayer");
 //			game.testFightStage();
 //			game.testOverworldStage();
-			game.testDraftStage();
+//			game.testDraftStage();
 			game.loop();
 		} catch (Exception e){
 			System.err.println("Exception occurred, writing to logs...");

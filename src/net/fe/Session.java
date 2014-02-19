@@ -8,6 +8,8 @@ import java.util.Set;
 import net.fe.modifier.Modifier;
 import net.fe.overworldStage.objective.Objective;
 import net.fe.overworldStage.objective.Rout;
+import net.fe.pick.AllPick;
+import net.fe.pick.PickMode;
 
 public class Session implements Serializable {
 	/**
@@ -19,11 +21,13 @@ public class Session implements Serializable {
 	private String map;
 	private int maxUnits;
 	private Set<Modifier> modifiers;
+	private PickMode pickMode;
 	
 	public Session() {
 		players = new HashMap<Byte, Player>();
 		objective = new Rout();
 		modifiers = new HashSet<Modifier>();
+		pickMode = new AllPick();
 	}
 	
 	public void addPlayer(Player p) {
@@ -89,6 +93,10 @@ public class Session implements Serializable {
 	
 	public void addModifier(Modifier m) {
 		modifiers.add(m);
+	}
+
+	public PickMode getPickMode() {
+		return pickMode;
 	}
 	
 	
