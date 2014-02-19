@@ -7,8 +7,6 @@ import net.fe.FEResources;
 import net.fe.Party;
 import net.fe.Player;
 import net.fe.Session;
-import net.fe.builderStage.ClientWaitStage;
-import net.fe.builderStage.TeamBuilderStage;
 import net.fe.modifier.Modifier;
 import net.fe.network.Message;
 import net.fe.network.message.ReadyMessage;

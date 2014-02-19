@@ -1,5 +1,7 @@
 package net.fe.pick;
 
+import java.io.Serializable;
+
 import net.fe.Session;
 
 /**
@@ -8,7 +10,7 @@ import net.fe.Session;
  * @author Shawn
  *
  */
-public interface PickMode {
+public interface PickMode extends Serializable {
 	public void setUpClient(Session session);
 	public void setUpServer(Session session);
 }
