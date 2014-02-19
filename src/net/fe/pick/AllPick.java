@@ -17,7 +17,7 @@ public class AllPick implements PickMode {
 	@Override
 	public void setUpClient(Session session) {
 		if(!FEMultiplayer.getLocalPlayer().isSpectator()) {
-			TeamBuilderStage stage = new TeamBuilderStage(false, session);
+			TeamBuilderStage stage = new TeamBuilderStage(false, null, session);
 			FEMultiplayer.setCurrentStage(stage);
 		} else {
 			ClientWaitStage stage = new ClientWaitStage(session);

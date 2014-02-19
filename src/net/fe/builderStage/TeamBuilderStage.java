@@ -47,6 +47,7 @@ public class TeamBuilderStage extends Stage {
 	private Session session;
 	private boolean control = true;
 	private ControlsDisplay controls;
+	private boolean canEditUnits;
 	
 	//CONFIG
 	private static int name = 30, clazz = 100, lv = 170, hgap = 30; //xvals
@@ -56,13 +57,13 @@ public class TeamBuilderStage extends Stage {
 	
 	
 	
-	public TeamBuilderStage(boolean toMainMenu, Session s) {
+	public TeamBuilderStage(boolean toMainMenu, List<Unit> presetUnits, Session s) {
 		super("preparations");
 		repeatTimers = new float[4];
 		addEntity(new RunesBg(new Color(0xd2b48c)));
-		select = new TeamSelectionStage(this, s);
 		session = s;
 		buttons = new Button[4];
+		canEditUnits = (presetUnits == null);
 		
 		controls = new ControlsDisplay();
 		controls.addControl("Z", "Items/Train");
@@ -96,34 +97,42 @@ public class TeamBuilderStage extends Stage {
 		buttons[0] = end;
 		addEntity(end);
 		
-		save = new Button(220, 270, "Save", Color.blue, 80){
-			@Override
-			public void execute() {
-				new TeamNameInput(true).setStage(TeamBuilderStage.this);
-			}
+		if(canEditUnits) {
+			select = new TeamSelectionStage(this, s);
+			units = new ArrayList<Unit>();
+			setUnits(select.getSelectedUnits());
 			
-		};
-		buttons[2] = save;
-		addEntity(save);
-		
-		load = new Button(305, 270, "Load", Color.blue, 80){
-			@Override
-			public void execute() {
-				new TeamNameInput(false).setStage(TeamBuilderStage.this);
-			}
-		};
-		buttons[3] = load;
-		addEntity(load);
-		
-		back = new Button(10,270, "Back to Unit Selection", Color.red, 120){
-			public void execute() {
-				AudioPlayer.playAudio("cancel", 1, 1);
-				select.refresh();
-				FEMultiplayer.setCurrentStage(select);
-			}
-		};
-		buttons[1] = back;
-		addEntity(back);
+			save = new Button(220, 270, "Save", Color.blue, 80){
+				@Override
+				public void execute() {
+					new TeamNameInput(true).setStage(TeamBuilderStage.this);
+				}
+				
+			};
+			buttons[2] = save;
+			addEntity(save);
+			
+			load = new Button(305, 270, "Load", Color.blue, 80){
+				@Override
+				public void execute() {
+					new TeamNameInput(false).setStage(TeamBuilderStage.this);
+				}
+			};
+			buttons[3] = load;
+			addEntity(load);
+			
+			back = new Button(10,270, "Back to Unit Selection", Color.red, 120){
+				public void execute() {
+					AudioPlayer.playAudio("cancel", 1, 1);
+					select.refresh();
+					FEMultiplayer.setCurrentStage(select);
+				}
+			};
+			buttons[1] = back;
+			addEntity(back);
+		} else {
+			units = presetUnits;
+		}
 		
 		setFunds(FUNDS);
 		setExp(EXP);
@@ -133,9 +142,6 @@ public class TeamBuilderStage extends Stage {
 				m.modifyTeam(this);
 			}
 		}
-		
-		units = new ArrayList<Unit>();
-		setUnits(select.getSelectedUnits());
 		
 		cursor = new Cursor(9, yStart-4, 462, vgap, units.size());
 		cursor.on = true;
@@ -287,9 +293,11 @@ public class TeamBuilderStage extends Stage {
 						}
 						
 					} else if (ke.key == Keyboard.KEY_X){
-						AudioPlayer.playAudio("cancel", 1, 1);
-						select.refresh();
-						FEMultiplayer.setCurrentStage(select);
+						if(canEditUnits) {
+							AudioPlayer.playAudio("cancel", 1, 1);
+							select.refresh();
+							FEMultiplayer.setCurrentStage(select);
+						}
 					} else if (ke.key == Keyboard.KEY_RETURN && captureEnter){
 						AudioPlayer.playAudio("select", 1, 1);
 						buttons[0].execute();

@@ -46,13 +46,46 @@ public class TeamDraftStage extends Stage {
 	private int maxLords;
 	private float[] repeatTimers = new float[4];
 	
+	private String[] draftOrder;
+	private static String[][] draftOrders = new String[8][0];
+	private int draftTurn;
+	
+	private static Color
+		BLUE_TURN = Party.TEAM_BLUE,
+		RED_TURN = Party.TEAM_RED,
+		BAN_COLOR = new Color(0xf57272),
+		PICK_COLOR = new Color(0x36e34b),
+		BLUE_GRAY = new Color(0.3f, 0.3f, 0.3f),
+		RED_GRAY = new Color(0.6f, 0.6f, 0.6f);
+	
+	static {
+		draftOrders[0] = new String[] {"BL1", "RL1"};
+		draftOrders[1] = new String[] {"BL1", "RL1", "BP1", "RP1"};
+		draftOrders[2] = new String[] {"BL1", "RL1", "BB1", "RB1", 
+				"BP1", "RP1", "BP1", "RP1"};
+		draftOrders[3] = new String[] {"BL1", "RL1", "BB1", "RB1", 
+				"BP1", "RP2", "BP2", "RP1"};
+		draftOrders[4] = new String[] {"BL1", "RL1", "BB1", "RB1", 
+				"BP1", "RP2", "BP1", "RB1", "BB1", "RP1", 
+				"BP2", "RP1"};
+		draftOrders[5] = new String[] {"BL1", "RL1", "BB1", "RB1", 
+				"BP1", "RP2", "BP1", "RB1", "BB1", "RP1", 
+				"BP2", "RP1", "BP1", "RB1"};
+		draftOrders[6] = new String[] {"BL1", "RL1", "BB1", "RB1", 
+				"BP1", "RP2", "BP1", "RB1", "BB1", "RP1", 
+				"BP2", "RP2", "BP1", "RB1", 
+				"BB1", "BP1", "RP1"};
+		draftOrders[7] = new String[] {"BL1", "RL1", "BB1", "RB1", 
+				"BP1", "RP2", "BP1", "RB1", "BB1", "RP1", 
+				"BP2", "RP2", "BP2", "RP1", 
+				"BB1", "RB1", "BP1", "RP1"};
+	}
+	
+	
 	//CONFIG
 	public static final int 
 	UNIT_LIST_X = 78, UNIT_LIST_Y = 100, LORD_LIST_X = 78, LORD_LIST_Y = 40,
 	BUTTON_Y = 260, SB_BUTTON_X = 300, CS_BUTTON_X = 78, NS_BUTTON_X = 188;
-	
-	private String[] draftOrder;
-	private int draftTurn;
 	
 	
 	public TeamDraftStage(Session s){
@@ -128,25 +161,20 @@ public class TeamDraftStage extends Stage {
 		
 		// Draft order initialization
 		// [Blue/Red] [Lord, Ban, Pick]
-		draftOrder = new String[] {"BL1", "RL1", "BB1", "RB1", 
-				"BP1", "RP2", "BP1", "RB1", "BB1", "RP1", 
-				"BP2", "RP2", "BP2", "RP1", 
-				"BB1", "RB1", "BP1", "RP1"};
+		draftOrder = draftOrders[session.getMaxUnits()-1];
 		draftTurn = -1;
 		resetDraft();
 		refresh();
 	}
 	
+	private String getRoundID() {
+		if(draftTurn >= draftOrder.length)
+			return "???";
+		return draftOrder[draftTurn];
+	}
+	
 	private void resetDraft() {
 		draftTurn++;
-		String round = draftOrder[draftTurn];
-		if(round.charAt(1) == 'L') {
-			maxLords = 1;
-			maxVassals = 0;
-		} else {
-			maxLords = 0;
-			maxVassals = Integer.parseInt(round.charAt(2)+"");
-		}
 		submit.setHover(false);
 		if(isMyTurn()) {
 			hasControl = true;
@@ -158,12 +186,34 @@ public class TeamDraftStage extends Stage {
 		}
 		deselectAll();
 		if(draftTurn >= draftOrder.length) {
-			//TODO: Go to TeamBuilderStage, without ability to return
+			hasControl = true;
+			maxLords = 0;
+			maxVassals = 0;
+			removeEntity(submit);
+			Button go = new Button(SB_BUTTON_X, BUTTON_Y, "Go!", Color.green, 95) {
+				@Override
+				public void execute() {
+					TeamBuilderStage stage = new TeamBuilderStage(false, FEMultiplayer.getLocalPlayer().getParty().getUnits(), session);
+					FEMultiplayer.setCurrentStage(stage);
+				}
+			};
+			buttons[0] = go;
+			addEntity(go);
+			return;
+		}
+		String round = getRoundID();
+		if(round.charAt(1) == 'L') {
+			maxLords = 1;
+			maxVassals = 0;
+		} else {
+			maxLords = 0;
+			maxVassals = Integer.parseInt(round.charAt(2)+"");
 		}
 	}
 	
 	private boolean isMyTurn() {
-		String round = draftOrder[draftTurn];
+		if(draftTurn >= draftOrder.length) return false;
+		String round = getRoundID();
 		Color c = FEMultiplayer.getLocalPlayer().getParty().getColor();
 		return c.equals(Party.TEAM_BLUE) == (round.charAt(0) == 'B');
 	}
@@ -216,7 +266,7 @@ public class TeamDraftStage extends Stage {
 			if(message instanceof DraftMessage) {
 				DraftMessage dm = (DraftMessage)message;
 				Player p = session.getPlayer(dm.origin);
-				String round = draftOrder[draftTurn];
+				String round = getRoundID();
 				for(String name : dm.unitNames) {
 					if(round.charAt(1) == 'L') {
 						p.getParty().addUnit(lordList.getUnit(name));
@@ -353,28 +403,54 @@ public class TeamDraftStage extends Stage {
 	
 	public void render(){
 		super.render();
+		// Draft turns
+		for(int i=0; i<draftTurn; i++) {
+			// greyscale already past turns
+			String round = draftOrder[i];
+			int x0 = i*480/draftOrder.length;
+			int x1 = (i+1)*480/draftOrder.length;
+			Renderer.drawRectangle(x0, 0, x1, 8, 0.0f, round.charAt(0) == 'B' ? BLUE_GRAY : RED_GRAY);
+		}
+		for(int i=draftTurn; i<draftOrder.length; i++) {
+			String round = draftOrder[i];
+			int x0 = i*480/draftOrder.length;
+			int x1 = (i+1)*480/draftOrder.length;
+			Renderer.drawRectangle(x0, 4, x1, 8, 0.0f, round.charAt(0) == 'B' ? BLUE_TURN : RED_TURN);
+			Renderer.drawRectangle(x0, 0, x1, 4, 0.0f, round.charAt(1) == 'B' ? BAN_COLOR : PICK_COLOR);
+		}
+		String round = getRoundID();
 		
-		Renderer.drawRectangle(0, 5, 480, 25, 0, new Color(0,0,0,0.5f));
+		// Top banner
+		Renderer.drawRectangle(0, 8, 480, 28, 0.1f, new Color(0,0,0,0.5f));
 		StringBuilder s = new StringBuilder();
-		String round = draftOrder[draftTurn];
-		if(isMyTurn()) {
-			s.append("Your turn to ");
+		if(round.equals("???")) {
+			s.append("Picking phase is over. Equip your units!");
 		} else {
-			s.append("Enemy's turn to ");
-		}
-		if(round.charAt(1) == 'L') {
-			s.append("pick a Lord");
-		}
-		else if(round.charAt(1) == 'B') {
-			int i = Integer.parseInt(round.charAt(2)+"");
-			s.append("ban "+i+" vassal"+(i>1?"s":""));
-		}
-		else {
-			int i = Integer.parseInt(round.charAt(2)+"");
-			s.append("pick "+i+" vassal"+(i>1?"s":""));
+			if(isMyTurn()) {
+				s.append("Your turn to ");
+			} else {
+				s.append("Enemy's turn to ");
+			}
+			if(round.charAt(1) == 'L') {
+				s.append("pick a Lord");
+			}
+			else if(round.charAt(1) == 'B') {
+				int i = Integer.parseInt(round.charAt(2)+"");
+				s.append("ban "+i+" vassal"+(i>1?"s":""));
+			}
+			else {
+				int i = Integer.parseInt(round.charAt(2)+"");
+				s.append("pick "+i+" vassal"+(i>1?"s":""));
+			}
 		}
 		int width = FEResources.getBitmapFont("default_med").getStringWidth(s.toString());
-		Renderer.drawString("default_med", s.toString(), 240 - width/2, 10, 0);
+		Renderer.drawString("default_med", s.toString(), 240 - width/2, 13, 0);
+		
+		// Triangle under current turn
+		int cX = (2*draftTurn + 1)*240/draftOrder.length;
+		Renderer.drawTriangle(cX-4, 8, cX, 12, cX+4, 8, 0.0f, round.charAt(0) == 'B' ? BLUE_TURN : RED_TURN);
+		
+		// Player lists
 		for(Player p : session.getPlayers()) {
 			if(p.isSpectator()) continue;
 			int x = p.getParty().getColor().equals(Party.TEAM_BLUE) 
