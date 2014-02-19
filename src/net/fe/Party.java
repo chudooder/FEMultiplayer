@@ -3,6 +3,7 @@ package net.fe;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.newdawn.slick.Color;
 
@@ -46,6 +47,10 @@ public class Party implements Iterable<Unit>, Serializable{
 	
 	public Unit getUnit(int index) {
 		return units.get(index);
+	}
+
+	public List<Unit> getUnits() {
+		return units;
 	}
 	
 	public Unit search(String name) {

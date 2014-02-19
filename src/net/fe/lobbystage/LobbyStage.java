@@ -13,7 +13,7 @@ import net.fe.network.message.JoinLobby;
 import net.fe.network.message.JoinTeam;
 import net.fe.network.message.QuitMessage;
 import net.fe.network.message.ReadyMessage;
-import net.fe.network.message.StartBuilding;
+import net.fe.network.message.StartPicking;
 import chu.engine.Game;
 import chu.engine.Stage;
 
@@ -86,8 +86,8 @@ public class LobbyStage extends Stage {
 				return;
 			}
 		}
-		FEServer.getServer().broadcastMessage(new StartBuilding((byte)0));
-		FEServer.setCurrentStage(new WaitStage(session));
+		FEServer.getServer().broadcastMessage(new StartPicking((byte)0));
+		session.getPickMode().setUpServer(session);
 	}
 
 }

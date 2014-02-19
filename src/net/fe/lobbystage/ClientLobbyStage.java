@@ -7,12 +7,10 @@ import net.fe.FEResources;
 import net.fe.Party;
 import net.fe.Player;
 import net.fe.Session;
-import net.fe.builderStage.ClientWaitStage;
-import net.fe.builderStage.TeamBuilderStage;
 import net.fe.modifier.Modifier;
 import net.fe.network.Message;
 import net.fe.network.message.ReadyMessage;
-import net.fe.network.message.StartBuilding;
+import net.fe.network.message.StartPicking;
 
 import org.newdawn.slick.Color;
 
@@ -181,7 +179,7 @@ public class ClientLobbyStage extends LobbyStage {
 			e.beginStep();
 		}
 		for(Message message : Game.getMessages()) {
-			if(message instanceof StartBuilding) {
+			if(message instanceof StartPicking) {
 				// Set up global list of players
 				for(Player p : FEMultiplayer.getPlayers().values()) {
 					if(p.equals(FEMultiplayer.getLocalPlayer()))
@@ -189,13 +187,7 @@ public class ClientLobbyStage extends LobbyStage {
 					if(p.isSpectator())
 						p.getParty().clear();
 				}
-				if(!FEMultiplayer.getLocalPlayer().isSpectator()) {
-					TeamBuilderStage stage = new TeamBuilderStage(false, session);
-					FEMultiplayer.setCurrentStage(stage);
-				} else {
-					ClientWaitStage stage = new ClientWaitStage(session);
-					FEMultiplayer.setCurrentStage(stage);
-				}
+				session.getPickMode().setUpClient(session);
 			}
 		}
 		processAddStack();

@@ -1,13 +1,27 @@
 package net.fe.builderStage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import net.fe.Button;
+import net.fe.ControlsDisplay;
+import net.fe.FEMultiplayer;
+import net.fe.FEResources;
+import net.fe.Player;
+import net.fe.RunesBg;
+import net.fe.Session;
+import net.fe.modifier.Modifier;
+import net.fe.network.Message;
+import net.fe.network.message.DraftMessage;
+import net.fe.unit.MapAnimation;
+import net.fe.unit.Unit;
+import net.fe.unit.UnitFactory;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
-import net.fe.modifier.Modifier;
-import net.fe.unit.*;
-import net.fe.*;
 import chu.engine.Entity;
 import chu.engine.Game;
 import chu.engine.KeyboardEvent;
@@ -52,11 +66,11 @@ public class TeamSelectionStage extends Stage {
 		List<Unit> vassals = UnitFactory.getVassals();
 		List<Unit> lords = UnitFactory.getLords();
 		
-		lordList = new UnitList(LORD_LIST_X, LORD_LIST_Y, 2);
+		lordList = new UnitList(LORD_LIST_X, LORD_LIST_Y, 2, 5);
 		lordList.addUnits(lords);
 		addEntity(lordList);
 		
-		vassalList = new UnitList(UNIT_LIST_X, UNIT_LIST_Y, 5);
+		vassalList = new UnitList(UNIT_LIST_X, UNIT_LIST_Y, 5, 5);
 		vassalList.addUnits(vassals);
 		vassalList.sort(new SortByName());
 		addEntity(vassalList);
@@ -149,6 +163,9 @@ public class TeamSelectionStage extends Stage {
 		for(Entity e: entities){
 			e.beginStep();
 		}
+
+		
+		
 		MapAnimation.updateAll();
 		List<KeyboardEvent> keys = Game.getKeys();
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {
@@ -193,7 +210,7 @@ public class TeamSelectionStage extends Stage {
 		AudioPlayer.playAudio("cursor", 1, 1);
 		if(cursor.on){
 			boolean below = cursor.index >= lordList.size();
-			cursor.index -= UnitList.UNITS_PER_ROW;
+			cursor.index -= lordList.unitsPerRow;
 			if(cursor.index < -1) cursor.index = -1;
 			if(cursor.index < lordList.size() && below){
 				cursor.index = lordList.size() - 1;
@@ -214,7 +231,7 @@ public class TeamSelectionStage extends Stage {
 		AudioPlayer.playAudio("cursor", 1, 1);
 		if(cursor.on){
 			boolean above = cursor.index < lordList.size();
-			cursor.index += UnitList.UNITS_PER_ROW;
+			cursor.index += lordList.unitsPerRow;
 			if(cursor.index >= lordList.size() && above){
 				cursor.index = lordList.size();
 			}
@@ -323,12 +340,12 @@ public class TeamSelectionStage extends Stage {
 			}
 			int supposedX, supposedY;
 			if(index < lordList.size()){
-				supposedX = LORD_LIST_X + (index% UnitList.UNITS_PER_ROW) * UnitList.WIDTH;
-				supposedY = LORD_LIST_Y + (index/ UnitList.UNITS_PER_ROW) * UnitList.HEIGHT - lordList.getScrollPos() * UnitList.HEIGHT;
+				supposedX = LORD_LIST_X + (index% lordList.unitsPerRow) * UnitList.WIDTH;
+				supposedY = LORD_LIST_Y + (index/ lordList.unitsPerRow) * UnitList.HEIGHT - lordList.getScrollPos() * UnitList.HEIGHT;
 			} else {
 				int index = this.index - lordList.size();
-				supposedX = UNIT_LIST_X + (index% UnitList.UNITS_PER_ROW) * UnitList.WIDTH;
-				supposedY = UNIT_LIST_Y + (index/ UnitList.UNITS_PER_ROW) * UnitList.HEIGHT - vassalList.getScrollPos() * UnitList.HEIGHT;
+				supposedX = UNIT_LIST_X + (index% lordList.unitsPerRow) * UnitList.WIDTH;
+				supposedY = UNIT_LIST_Y + (index/ lordList.unitsPerRow) * UnitList.HEIGHT - vassalList.getScrollPos() * UnitList.HEIGHT;
 			}
 			if(Math.abs(supposedX - x) > UnitList.WIDTH || 
 					Math.abs(supposedY-y) > UnitList.HEIGHT || instant){

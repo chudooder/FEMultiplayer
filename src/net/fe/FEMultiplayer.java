@@ -17,10 +17,10 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.fe.builderStage.TeamDraftStage;
 import net.fe.fightStage.AttackRecord;
 import net.fe.fightStage.CombatCalculator;
 import net.fe.fightStage.FightStage;
-import net.fe.fightStage.HealCalculator;
 import net.fe.lobbystage.ClientLobbyStage;
 import net.fe.network.Client;
 import net.fe.network.Message;
@@ -65,6 +65,7 @@ public class FEMultiplayer extends Game{
 			game.init(480, 320, "Fire Emblem Multiplayer");
 //			game.testFightStage();
 //			game.testOverworldStage();
+//			game.testDraftStage();
 			game.loop();
 		} catch (Exception e){
 			System.err.println("Exception occurred, writing to logs...");
@@ -111,6 +112,19 @@ public class FEMultiplayer extends Game{
 		messages = new ArrayList<Message>();
 		SoundTrack.loop("main_theme");
 		
+	}
+	
+	public void testDraftStage() {
+		Player p1 = localPlayer;
+		testSession = new Session();
+		testSession.setMaxUnits(8);
+		Player p2 = new Player("p2", (byte) 1);
+		p2.getParty().setColor(Party.TEAM_RED);
+		p2.getParty().addUnit(UnitFactory.getUnit("Mia"));
+		p2.getParty().addUnit(UnitFactory.getUnit("L'Arachel"));
+		testSession.addPlayer(p1);
+		testSession.addPlayer(p2);
+		currentStage = new TeamDraftStage(testSession);
 	}
 	
 	public void testFightStage(){
