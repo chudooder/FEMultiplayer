@@ -125,6 +125,13 @@ public class FEServer extends Game {
 		mapPanel.add(mapSelectionBox);
 		mapSelectionBox.setModel(new DefaultComboBoxModel(maps.keySet().toArray()));
 		
+		JLabel label = new JLabel("Max units: ");
+		mapPanel.add(label);
+		
+		final JSpinner maxUnitsSpinner = new JSpinner();
+		mapPanel.add(maxUnitsSpinner);
+		maxUnitsSpinner.setModel(new SpinnerNumberModel(8, 1, 8, 1));
+		
 		// Objectives
 		ComboBoxModel oModel = new DefaultComboBoxModel(maps.get(mapSelectionBox.getSelectedItem()));
 		objComboBox.setModel(oModel);
@@ -137,17 +144,6 @@ public class FEServer extends Game {
 		final JComboBox pickModeBox = new JComboBox();
 		pickModeBox.setModel(pModel);
 		objectivePanel.add(pickModeBox);
-		
-		JPanel maxUnitsPanel = new JPanel();
-		mainPanel.add(maxUnitsPanel);
-		maxUnitsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JLabel label = new JLabel("Max units: ");
-		maxUnitsPanel.add(label);
-		
-		final JSpinner maxUnitsSpinner = new JSpinner();
-		maxUnitsSpinner.setModel(new SpinnerNumberModel(8, 1, 8, 1));
-		maxUnitsPanel.add(maxUnitsSpinner);
 		
 		JSeparator separator = new JSeparator();
 		mainPanel.add(separator);
