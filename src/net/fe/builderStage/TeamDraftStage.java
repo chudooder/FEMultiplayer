@@ -59,14 +59,6 @@ public class TeamDraftStage extends Stage {
 		super("preparations");
 		cursor = new Cursor();
 		this.session = s;
-		// Draft order initialization
-		// [Blue/Red] [Lord, Ban, Pick]
-		draftOrder = new String[] {"BL1", "RL1", "BB1", "RB1", 
-				"BP1", "RP2", "BP1", "RB1", "BB1", "RP1", 
-				"BP2", "RP2", "BP2", "RP1", 
-				"BB1", "RB1", "BP1", "RP1"};
-		draftTurn = -1;
-		resetDraft();
 		
 		controls = new ControlsDisplay();
 		controls.addControl("Z", "Select");
@@ -131,6 +123,14 @@ public class TeamDraftStage extends Stage {
 		Collections.shuffle(vassals);
 		Collections.shuffle(lords);
 		
+		// Draft order initialization
+		// [Blue/Red] [Lord, Ban, Pick]
+		draftOrder = new String[] {"BL1", "RL1", "BB1", "RB1", 
+				"BP1", "RP2", "BP1", "RB1", "BB1", "RP1", 
+				"BP2", "RP2", "BP2", "RP1", 
+				"BB1", "RB1", "BP1", "RP1"};
+		draftTurn = -1;
+		resetDraft();
 		refresh();
 	}
 	
@@ -144,10 +144,14 @@ public class TeamDraftStage extends Stage {
 			maxLords = 0;
 			maxVassals = Integer.parseInt(round.charAt(2)+"");
 		}
+		submit.setHover(false);
 		if(isMyTurn()) {
 			hasControl = true;
+			cursor.on = true;
+			cursor.index = 0;
 		} else {
 			hasControl = false;
+			cursor.on = false;
 		}
 		deselectAll();
 		if(draftTurn >= draftOrder.length) {
