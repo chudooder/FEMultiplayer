@@ -179,7 +179,6 @@ public class TeamDraftStage extends Stage {
 		if(isMyTurn()) {
 			hasControl = true;
 			cursor.on = true;
-			cursor.index = 0;
 		} else {
 			hasControl = false;
 			cursor.on = false;
@@ -197,8 +196,10 @@ public class TeamDraftStage extends Stage {
 					FEMultiplayer.setCurrentStage(stage);
 				}
 			};
+			cursor.index = -1;
 			buttons[0] = go;
 			addEntity(go);
+			checkFlow();
 			return;
 		}
 		String round = getRoundID();
