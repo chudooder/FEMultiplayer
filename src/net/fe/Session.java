@@ -11,6 +11,11 @@ import net.fe.overworldStage.objective.Rout;
 import net.fe.pick.Draft;
 import net.fe.pick.PickMode;
 
+/**
+ * Contains data on game setup and players.
+ * @author Shawn
+ *
+ */
 public class Session implements Serializable {
 	/**
 	 * 

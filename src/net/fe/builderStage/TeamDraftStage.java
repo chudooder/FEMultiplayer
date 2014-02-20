@@ -185,6 +185,7 @@ public class TeamDraftStage extends Stage {
 			hasControl = false;
 			cursor.on = false;
 		}
+		if(cursor.index < 0) cursor.index = 0;
 		deselectAll();
 		if(draftTurn >= draftOrder.length) {
 			hasControl = true;
