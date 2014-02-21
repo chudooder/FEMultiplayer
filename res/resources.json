@@ -2572,8 +2572,130 @@
 			"offsetY":	29,
 			"freeze":	0
 		},
-		
+		{
+			"name":		"roy_rangedsword_critical",
+			"path":		"res/battle_anim/roy_sword_critical.png",
+			"width":	142,
+			"height":	102,
+			"frames":	96,
+			"columns":	12,
+			"offsetX":	75,
+			"offsetY":	99,
+			"freeze":	0,
+			"speed":	0.045,
+			"hitframes":[47],
+			"soundMap": [
+				{
+					"frame":	1,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	21,
+					"sound":	"fire"
+				},
+				{
+					"frame":	34,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	43,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	51,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	70,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	77,
+					"sound":	"jump"
+				},
+				{
+					"frame":	91,
+					"sound":	"land"
+				}
+			]
+		},
+		{
+			"name":		"roy_rangedsword_attack",
+			"path":		"res/battle_anim/roy_sword_attack.png",
+			"width":	124,
+			"height":	102,
+			"frames":	82,
+			"columns":	11,
+			"offsetX":	76,
+			"offsetY":	100,
+			"freeze":	0,
+			"speed":	0.045,
+			"hitframes":[34],
+			"soundMap": [
+				{
+					"frame":	1,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	28,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	31,
+					"sound":	"sword_swipe3"
+				},
+				{
+					"frame":	40,
+					"sound":	"sword_swipe4"
+				},
+				{
+					"frame":	54,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	63,
+					"sound":	"jump"
+				}
+				{
+					"frame":	76,
+					"sound":	"land"
+				}
+			]
+		},
+		{
+			"name":		"roy_rangedsword_aether1",
+			"path":		"res/battle_anim/roy_sword_aether1.png",
+			"width":	150,
+			"height":	113,
+			"offsetX":	88,
+			"offsetY":	106,
+			"frames":	51,
+			"columns":	8,
+			"freeze":	0,
+			"speed":	0.045,
+			"hitframes":[50],
+			"stop":		true,
+			"soundMap":[
 
+			]
+		},
+		{
+			"name":		"roy_rangedsword_aether2",
+			"path":		"res/battle_anim/roy_sword_aether2.png",
+			"width":	150,
+			"height":	113,
+			"offsetX":	88,
+			"offsetY":	106,
+			"frames":	21,
+			"columns":	8,
+			"freeze":	0,
+			"speed":	0.045,
+			"hitframes":[3],
+			"stop":		true,
+			"soundMap":[
+
+			]
+		},
 		{
 			"name":		"roy_rangedsword_dodge",
 			"path":		"res/battle_anim/roy_sword_dodge.png",
@@ -3899,6 +4021,23 @@
 				{
 					"frame": 0,
 					"sound": "lightning"
+				}
+			]
+		},
+		{
+			"name":		"hit_effect_sealed-sword",
+			"path":		"res/battle_anim/hit_effect_sealed-sword.png",
+			"width":	113,
+			"height":	112,
+			"offsetX":	59,
+			"offsetY":	91,
+			"frames":	16,
+			"columns":	4,
+			"freeze":	-1,
+			"soundMap":	[
+				{
+					"frame": 0,
+					"sound": "fire"
 				}
 			]
 		},
