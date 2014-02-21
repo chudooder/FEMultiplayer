@@ -63,7 +63,7 @@ public class FEMultiplayer extends Game{
 		try{
 			FEMultiplayer game = new FEMultiplayer();
 			game.init(480, 320, "Fire Emblem Multiplayer");
-//			game.testFightStage();
+			game.testFightStage();
 //			game.testOverworldStage();
 //			game.testDraftStage();
 			game.loop();
@@ -138,26 +138,22 @@ public class FEMultiplayer extends Game{
 		testSession.addPlayer(p2);
 		
 		map = new ClientOverworldStage(testSession);
-		Unit u1 = UnitFactory.getUnit("Marth");
-		u1.getInventory().add(WeaponFactory.getWeapon("Debug Noodle"));
-		u1.equip(0);
+		Unit u1 = UnitFactory.getUnit("Roy");
 		map.addUnit(u1, 0, 0);
+		u1.equip(0);
 		u1.setLevel(20);
 		u1.loadMapSprites();
 		p1.getParty().addUnit(u1);
 		
-		Unit u2 = UnitFactory.getUnit("Marth");
+		Unit u2 = UnitFactory.getUnit("Garcia");
 		u2.getInventory().add(WeaponFactory.getWeapon("Iron Axe"));
-		map.addUnit(u2, 1, 0);
+		map.addUnit(u2, 1, 1);
 		u2.equip(0);
 		u2.setLevel(20);
 		u2.loadMapSprites();
 		p2.getParty().addUnit(u2);
 		
 		map.processAddStack();
-		
-		
-		int u1Uses = u1.getWeapon().getMaxUses();
 		int u2Uses = u2.getWeapon().getMaxUses();
 		CombatCalculator calc = new CombatCalculator(new UnitIdentifier(u1), new UnitIdentifier(u2), true);
 		System.out.println(calc.getAttackQueue());

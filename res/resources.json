@@ -3903,6 +3903,23 @@
 			]
 		},
 		{
+			"name":		"hit_effect_sealed-sword",
+			"path":		"res/battle_anim/hit_effect_sealed-sword.png",
+			"width":	113,
+			"height":	112,
+			"offsetX":	59,
+			"offsetY":	91,
+			"frames":	16,
+			"columns":	4,
+			"freeze":	-1,
+			"soundMap":	[
+				{
+					"frame": 0,
+					"sound": "fire"
+				}
+			]
+		},
+		{
 			"name":		"miss",
 			"path":		"res/battle_anim/miss.png",
 			"width":	38,
