@@ -2035,6 +2035,60 @@
 			]
 		},
 		{
+			"name":		"marth_sword_aether1",
+			"path":		"res/battle_anim/marth_sword_aether1.png",
+			"width":	240,
+			"height":	57,
+			"offsetX":	150,
+			"offsetY":	54,
+			"frames":	18,
+			"columns":	3,
+			"freeze":	0,
+			"hitframes":[16],
+			"stop":		true,
+			"soundMap":[
+				{
+					"frame": 7,
+					"sound": "sheath"
+				},
+				{
+					"frame": 10,
+					"sound": "sword_swipe3",
+				},
+				{
+					"frame": 14,
+					"sound": "sword_swipe5"
+				}
+			]
+		},
+		{
+			"name":		"marth_sword_aether2",
+			"path":		"res/battle_anim/marth_sword_aether2.png",
+			"width":	240,
+			"height":	57,
+			"offsetX":	150,
+			"offsetY":	54,
+			"frames":	21,
+			"columns":	3,
+			"freeze":	0,
+			"hitframes":[16],
+			"stop":		true,
+			"soundMap":[
+				{
+					"frame": 1,
+					"sound": "sheath"
+				},
+				{
+					"frame": 12,
+					"sound": "sword_swipe2",
+				},
+				{
+					"frame": 17,
+					"sound": "cape"
+				}
+			]
+		},
+		{
 			"name":		"marth_sword_dodge",
 			"path":		"res/battle_anim/marth_sword_dodge.png",
 			"width":	56,
@@ -3723,7 +3777,43 @@
 			]
 		},
 		{
+			"name":		"hit_effect_aether1",
+			"path":		"res/battle_anim/hit_effect_sol.png",
+			"width":	200,
+			"height":	200,
+			"frames":	9,
+			"columns":	3,
+			"offsetX":	100,
+			"offsetY":	120,
+			"freeze":	-1,
+			"speed":	0.02,
+			"soundMap": [
+				{
+					"frame": 0,
+					"sound": "sol"
+				}
+			]
+		},
+		{
 			"name":		"hit_effect_luna",
+			"path":		"res/battle_anim/hit_effect_luna.png",
+			"width":	200,
+			"height":	200,
+			"frames":	9,
+			"columns":	3,
+			"offsetX":	100,
+			"offsetY":	120,
+			"freeze":	-1,
+			"speed":	0.02,
+			"soundMap": [
+				{
+					"frame": 0,
+					"sound": "luna"
+				}
+			]
+		},
+		{
+			"name":		"hit_effect_aether2",
 			"path":		"res/battle_anim/hit_effect_luna.png",
 			"width":	200,
 			"height":	200,

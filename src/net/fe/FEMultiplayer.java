@@ -63,7 +63,7 @@ public class FEMultiplayer extends Game{
 		try{
 			FEMultiplayer game = new FEMultiplayer();
 			game.init(480, 320, "Fire Emblem Multiplayer");
-//			game.testFightStage();
+			game.testFightStage();
 //			game.testOverworldStage();
 //			game.testDraftStage();
 			game.loop();
@@ -130,25 +130,31 @@ public class FEMultiplayer extends Game{
 	public void testFightStage(){
 		Player p1 = localPlayer;
 		testSession = new Session();
+		testSession.setMap("test");
+		testSession.setObjective(new Seize());
 		Player p2 = new Player("p2", (byte) 1);
 		p2.getParty().setColor(Party.TEAM_RED);
 		testSession.addPlayer(p1);
 		testSession.addPlayer(p2);
 		
-		Grid grid = new Grid(10,10, Terrain.PLAIN);
-		Unit u1 = UnitFactory.getUnit("Mia");
+		map = new ClientOverworldStage(testSession);
+		Unit u1 = UnitFactory.getUnit("Marth");
 		u1.getInventory().add(WeaponFactory.getWeapon("Debug Noodle"));
 		u1.equip(0);
-		grid.addUnit(u1, 0, 0);
+		map.addUnit(u1, 0, 0);
 		u1.setLevel(20);
+		u1.loadMapSprites();
 		p1.getParty().addUnit(u1);
 		
-		Unit u2 = UnitFactory.getUnit("Bartre");
+		Unit u2 = UnitFactory.getUnit("Marth");
 		u2.getInventory().add(WeaponFactory.getWeapon("Iron Axe"));
-		grid.addUnit(u2, 1, 0);
+		map.addUnit(u2, 1, 0);
 		u2.equip(0);
-		u2.setLevel(5);
+		u2.setLevel(20);
+		u2.loadMapSprites();
 		p2.getParty().addUnit(u2);
+		
+		map.processAddStack();
 		
 		
 		int u1Uses = u1.getWeapon().getMaxUses();
