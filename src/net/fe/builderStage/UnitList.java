@@ -217,6 +217,23 @@ public class UnitList extends Entity {
 		Collections.sort(units, sort);
 	}
 
+	/**
+	 * Selects i number of random units in the list
+	 * @param i
+	 */
+	public void selectRandom(int i) {
+		for(int j = 0; j < i; j++) {
+			boolean done = false;
+			while(!done) {
+				int index = (int)(Math.random()*units.size());
+				if(!selectedUnits.contains(unitAt(index))) {
+					selectUnit(unitAt(index));
+					done = true;
+				}
+			}
+		}
+	}
+
 }
 
 class UnitSet{

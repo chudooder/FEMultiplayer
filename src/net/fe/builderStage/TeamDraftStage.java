@@ -29,6 +29,7 @@ import chu.engine.KeyboardEvent;
 import chu.engine.Stage;
 import chu.engine.anim.AudioPlayer;
 import chu.engine.anim.Renderer;
+import chu.engine.anim.Transform;
 
 public class TeamDraftStage extends Stage {
 	private UnitList vassalList;
@@ -40,6 +41,7 @@ public class TeamDraftStage extends Stage {
 	private Button submit;
 	private ControlsDisplay controls;
 	private Session session;
+	private List<DraftTimer> timers;
 	
 	private boolean hasControl;
 	
@@ -88,6 +90,9 @@ public class TeamDraftStage extends Stage {
 	public static final int 
 	UNIT_LIST_X = 78, UNIT_LIST_Y = 100, LORD_LIST_X = 78, LORD_LIST_Y = 40,
 	BUTTON_Y = 260, SB_BUTTON_X = 300, CS_BUTTON_X = 78, NS_BUTTON_X = 188;
+	
+	public static final float TIME_PER_TURN = 6f;
+	public static final float BASE_TIME = 15f;
 	
 	
 	public TeamDraftStage(Session s){
@@ -165,6 +170,17 @@ public class TeamDraftStage extends Stage {
 		// [Blue/Red] [Lord, Ban, Pick]
 		draftOrder = draftOrders[session.getMaxUnits()-1];
 		draftTurn = -1;
+		
+		// Timers
+		timers = new ArrayList<DraftTimer>();
+		for(Player p : session.getPlayers()) {
+			int x = p.getParty().getColor().equals(Party.TEAM_BLUE) ? 5 : 410;
+			float totalTime = Math.round(TIME_PER_TURN * draftOrder.length / 5.0f) * 5 + BASE_TIME;
+			DraftTimer dt = new DraftTimer(x, 277, totalTime, Math.round(totalTime/12), p);
+			addEntity(dt);
+			timers.add(dt);
+		}
+		
 		resetDraft();
 		refresh();
 	}
@@ -181,9 +197,21 @@ public class TeamDraftStage extends Stage {
 		if(isMyTurn()) {
 			hasControl = true;
 			cursor.on = true;
+			for(DraftTimer t : timers) {
+				if(t.player == FEMultiplayer.getLocalPlayer())
+					t.start();
+				else
+					t.stop();
+			}
 		} else {
 			hasControl = false;
 			cursor.on = false;
+			for(DraftTimer t : timers) {
+				if(t.player == FEMultiplayer.getLocalPlayer())
+					t.stop();
+				else
+					t.start();
+			}
 		}
 		if(cursor.index < 0) cursor.index = 0;
 		deselectAll();
@@ -199,6 +227,10 @@ public class TeamDraftStage extends Stage {
 					FEMultiplayer.setCurrentStage(stage);
 				}
 			};
+			for(DraftTimer t : timers) {
+				t.stop();
+				removeEntity(t);
+			}
 			cursor.index = -1;
 			buttons[0] = go;
 			addEntity(go);
@@ -281,9 +313,9 @@ public class TeamDraftStage extends Stage {
 				for(String name : dm.unitNames) {
 					if(round.charAt(1) == 'L') {
 						Unit u = lordList.getUnit(name);
-						p.getParty().addUnit(lordList.getUnit(name));
+						p.getParty().addUnit(u);
 						UnitIcon icon = new UnitIcon(
-								lordList.getUnit(name),
+								u,
 								round.charAt(0) == 'B' ? 2 : 456,
 								6+p.getParty().size()*24,
 								0.0f);
@@ -621,5 +653,57 @@ public class TeamDraftStage extends Stage {
 		public int compare(UnitSet arg0, UnitSet arg1) {
 			return arg0.unit.name.compareTo(arg1.unit.name);
 		}
+	}
+	
+	private class DraftTimer extends Entity {
+		
+		private boolean active;
+		private float timer;
+		private float lastStopTime;
+		private float bonus;
+		public Player player;
+
+		public DraftTimer(float x, float y, float initTime, float bonus, Player p) {
+			super(x, y);
+			timer = initTime;
+			lastStopTime = timer;
+			active = false;
+			this.bonus = bonus;
+			renderDepth = 0.0f;
+			this.player = p;
+		}
+		
+		public void beginStep() {
+			if(active)
+				timer -= Game.getDeltaSeconds();
+			if(timer < 0 && player == FEMultiplayer.getLocalPlayer()) {
+				timer += bonus;
+				lastStopTime = timer;
+				lordList.selectRandom(maxLords);
+				vassalList.selectRandom(maxVassals);
+				submit.execute();
+			}
+		}
+		
+		public void start() {
+			active = true;
+			lastStopTime = timer;
+		}
+		
+		public void stop() {
+			active = false;
+			timer = Math.min(timer + bonus, lastStopTime);
+			lastStopTime = timer;
+		}
+		
+		public void render() {
+			Transform t = new Transform();
+			if(active) t.color = new Color(0f, 0.8f, 0f, 1f);
+			t.scaleX = 2;
+			t.scaleY = 2;
+			String time = String.format("%2d:%02d", (int)timer/60, (int)timer%60);
+			Renderer.drawString("default_med", time, x, y, renderDepth, t);
+		}
+		
 	}
 }

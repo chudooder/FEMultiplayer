@@ -117,7 +117,7 @@ public class FEMultiplayer extends Game{
 	public void testDraftStage() {
 		Player p1 = localPlayer;
 		testSession = new Session();
-		testSession.setMaxUnits(8);
+		testSession.setMaxUnits(6);
 		Player p2 = new Player("p2", (byte) 1);
 		p2.getParty().setColor(Party.TEAM_RED);
 		p2.getParty().addUnit(UnitFactory.getUnit("Mia"));
