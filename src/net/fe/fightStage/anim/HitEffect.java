@@ -141,10 +141,14 @@ public class HitEffect extends Entity {
 		}
 		
 		for(String anim: FightStage.analyzeAnimation(rec.animation, "(a)", false)){
-			if(anim.matches(".*\\d")) 
+			if(!FEResources.hasTexture("hit_effect_" + anim.toLowerCase()) && 
+					anim.matches(".*\\d")){ 
 				anim = anim.substring(0, anim.length() - 1);
+			}
 			if(FEResources.hasTexture("hit_effect_" + anim.toLowerCase())){
 				effects.add(anim.toLowerCase());
+			} else {
+				
 			}
 		}
 		

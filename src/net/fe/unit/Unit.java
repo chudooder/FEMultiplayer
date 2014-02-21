@@ -97,6 +97,22 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 		renderDepth = ClientOverworldStage.UNIT_DEPTH;
 	}
 	
+	public void loadMapSprites(){
+		sprite.addAnimation("IDLE", new MapAnimation(functionalClassName() + 
+				"_map_idle", false));
+		sprite.addAnimation("SELECTED", new MapAnimation(functionalClassName() + 
+				"_map_selected", false));
+		sprite.addAnimation("LEFT", new MapAnimation(functionalClassName() + 
+				"_map_side", true));
+		sprite.addAnimation("RIGHT", new MapAnimation(functionalClassName() + 
+				"_map_side", true));
+		sprite.addAnimation("UP", new MapAnimation(functionalClassName() + 
+				"_map_up", true));
+		sprite.addAnimation("DOWN", new MapAnimation(functionalClassName() + 
+				"_map_down", true));
+		sprite.setAnimation("IDLE");
+	}
+	
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
         tempMods = new HashMap<String, Integer>();
@@ -171,22 +187,12 @@ public class Unit extends GriddedEntity implements Serializable, DoNotDestroy{
 		rescuedUnit = null;
 	}
 	
+	
+	
 	public void beginStep(){
 		super.beginStep();
 		if(Game.glContextExists() && !sprite.hasAnimation("IDLE")) {
-    		sprite.addAnimation("IDLE", new MapAnimation(functionalClassName() + 
-    				"_map_idle", false));
-    		sprite.addAnimation("SELECTED", new MapAnimation(functionalClassName() + 
-    				"_map_selected", false));
-    		sprite.addAnimation("LEFT", new MapAnimation(functionalClassName() + 
-    				"_map_side", true));
-    		sprite.addAnimation("RIGHT", new MapAnimation(functionalClassName() + 
-    				"_map_side", true));
-    		sprite.addAnimation("UP", new MapAnimation(functionalClassName() + 
-    				"_map_up", true));
-    		sprite.addAnimation("DOWN", new MapAnimation(functionalClassName() + 
-    				"_map_down", true));
-    		sprite.setAnimation("IDLE");
+    		loadMapSprites();
         }
 		if(path != null){
 			String name;
