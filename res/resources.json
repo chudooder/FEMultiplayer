@@ -4037,6 +4037,18 @@
 			"soundMap":	[
 				{
 					"frame": 0,
+					"sound": "elfire"
+				},
+				{
+					"frame": 4,
+					"sound": "fire"
+				},
+				{
+					"frame": 6,
+					"sound": "fire"
+				},
+				{
+					"frame": 10,
 					"sound": "fire"
 				}
 			]
