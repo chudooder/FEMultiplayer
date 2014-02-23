@@ -561,6 +561,7 @@ strong {
 }
 
 .wrapper {
+  clear:both;
   width: 1100px;
   margin: 0 auto;
   text-align: center;
@@ -858,12 +859,13 @@ table.tablesorter {
 	text-align: left;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color: #e6EEEE;
+	background-color: #ffdd66;
 	border: 1px solid #FFF;
 	font-size: 8pt;
 	padding: 4px;
 }
 table.tablesorter thead tr .header {
+	font-size: 11pt;
 	background-image: url(bg.gif);
 	background-repeat: no-repeat;
 	background-position: center right;
