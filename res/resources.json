@@ -2541,7 +2541,30 @@
 			"hitframes":[50],
 			"stop":		true,
 			"soundMap":[
-
+				{
+					"frame":	4,
+					"sound":	"sheath"
+				},
+				{
+					"frame":	18,
+					"sound":	"fire"
+				},
+				{
+					"frame":	28,
+					"sound":	"sword_swipe5"
+				},
+				{
+					"frame":	37,
+					"sound":	"jump"
+				},
+				{
+					"frame":	40,
+					"sound":	"axe_swipe4"
+				},
+				{
+					"frame":	44,
+					"sound":	"axe_swipe4"
+				}
 			]
 		},
 		{
@@ -2549,8 +2572,8 @@
 			"path":		"res/battle_anim/roy_sword_aether2.png",
 			"width":	150,
 			"height":	113,
-			"offsetX":	88,
-			"offsetY":	106,
+			"offsetX":	89,
+			"offsetY":	107,
 			"frames":	21,
 			"columns":	8,
 			"freeze":	0,
@@ -2558,7 +2581,14 @@
 			"hitframes":[3],
 			"stop":		true,
 			"soundMap":[
-
+				{
+					"frame":	10,
+					"sound":	"cape"
+				},
+				{
+					"frame":	14,
+					"sound":	"land"
+				}
 			]
 		},
 		{
@@ -4080,7 +4110,7 @@
 			"offsetX":	0,
 			"offsetY":	0,
 			"freeze":	-1
-		}
+		},
 		{
 			"name":		"magic_effect_lightning",
 			"path":		"res/battle_anim/magic_effect_null.png",
@@ -4183,7 +4213,14 @@
 			"offsetY":	112,
 			"freeze":	-1,
 			"soundMap": [
-				
+				{
+					"frame":0,
+					"sound":"aureola1"
+				},
+				{
+					"frame":17,
+					"sound":"divine2"
+				}
 			]
 		},
 		{
@@ -4210,7 +4247,14 @@
 			"shakeIntensity": 5,
 			"hitframes": [20],
 			"soundMap": [
-				
+				{
+					"frame":0,
+					"sound":"aureola2"
+				},
+				{
+					"frame":18,
+					"sound":"aureola3"
+				},
 			]
 		},
 		{
@@ -4222,7 +4266,7 @@
 			"columns":	1,
 			"offsetX":	0,
 			"offsetY":	0,
-			"freeze":	-1
+			"freeze":	-1,
 		},
 		{
 			"name":		"bg_effect_aureola",
@@ -4248,7 +4292,18 @@
 			"shakeIntensity": 7,
 			"hitframes": [29],
 			"soundMap": [
-
+				{
+					"frame":12,
+					"sound":"aureola1"
+				},
+				{
+					"frame":18,
+					"sound":"aureola2"
+				},
+				{
+					"frame":30,
+					"sound":"aureola3"
+				}
 			]
 		},
 		{
@@ -4381,8 +4436,16 @@
 					"sound":"gale"
 				},
 				{
-					"frame":13,
+					"frame":9,
 					"sound":"gale"
+				},
+				{
+					"frame":18,
+					"sound":"gale"
+				},
+				{
+					"frame":30,
+					"sound":"ice_crash"
 				}
 			]
 		},
@@ -4535,7 +4598,10 @@
 			"columns":	1,
 			"offsetX":	0,
 			"offsetY":	0,
-			"freeze":	-1
+			"freeze":	-1,
+			"soundMap":[
+				
+			]
 		}
 		{
 			"name":		"bg_effect_ereshkigal",
@@ -4560,7 +4626,14 @@
 			"freeze": 	-1,
 			"hitframes":[36],
 			"soundMap":[
-
+				{
+					"frame":0,
+					"sound":"ereshkigal1"
+				},
+				{
+					"frame":36,
+					"sound":"ereshkigal3"
+				},
 			]
 		},
 		{

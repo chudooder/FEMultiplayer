@@ -76,3 +76,4 @@ Debug Bow	Bow	1-3	10	100	0	1	1000	-	-	-
 Debug Lance	Lance	1	10	100	200	20	1000	-	-	-
 Debug Javelin	Lance	1-2	10	100	200	20	1000	-	-	-
 Debug Noodle	Sword	1	1	100	0	2	9999	-	-	-		
+Debug Aether	Sword	1	1	100	-900	20	1000	-	-	Skl 999

@@ -8,7 +8,9 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class SoundTrack {
 	private static String current;
+	public static boolean enabled = true;
 	public static void loop(String name){
+		if(!enabled) return;
 		if(name.equals(current)) return;
 		try {
 			current = name;
@@ -20,6 +22,7 @@ public class SoundTrack {
 		}
 	}
 	public static void restart(){
+		if(!enabled) return;
 		try {
 			Audio a = AudioLoader.getStreamingAudio("OGG", 
 					ResourceLoader.getResource("res/music/"+current+".ogg"));
