@@ -80,7 +80,7 @@ public class Weapon extends Item {
 		if(other == null) return 0;
 		if(this.name.contains("reaver") || other.name.contains("reaver")){
 			if(this.name.contains("reaver") && other.name.contains("reaver")){
-				return -type.triangleModifier(other.type);
+				return type.triangleModifier(other.type);
 			}
 			return -2*type.triangleModifier(other.type);
 		}

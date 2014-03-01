@@ -62,11 +62,11 @@ public class FEMultiplayer extends Game{
 	public static void main(String[] args) {
 		try{
 			FEMultiplayer game = new FEMultiplayer();
-			SoundTrack.enabled = false;
+//			SoundTrack.enabled = false;
 			game.init(480, 320, "Fire Emblem Multiplayer");
 			/* Testing code */
-			game.testFightStage();
-//			game.testOverworldStage();
+//			game.testFightStage();
+			game.testOverworldStage();
 //			game.testDraftStage();
 			game.loop();
 		} catch (Exception e){
@@ -140,8 +140,8 @@ public class FEMultiplayer extends Game{
 		testSession.addPlayer(p2);
 		
 		map = new ClientOverworldStage(testSession);
-		Unit u1 = UnitFactory.getUnit("Ewan");
-		u1.getInventory().add(WeaponFactory.getWeapon("Ereshkigal"));
+		Unit u1 = UnitFactory.getUnit("Garcia");
+		u1.getInventory().add(WeaponFactory.getWeapon("Lancereaver"));
 		map.addUnit(u1, 0, 0);
 		u1.equip(0);
 		u1.setLevel(1);
@@ -149,7 +149,7 @@ public class FEMultiplayer extends Game{
 		p1.getParty().addUnit(u1);
 		
 		Unit u2 = UnitFactory.getUnit("Garcia");
-		u2.getInventory().add(WeaponFactory.getWeapon("Iron Axe"));
+		u2.getInventory().add(WeaponFactory.getWeapon("Swordreaver"));
 		map.addUnit(u2, 1, 0);
 		u2.equip(0);
 		u2.setLevel(20);
@@ -180,13 +180,13 @@ public class FEMultiplayer extends Game{
 		testSession.addPlayer(p2);
 		
 		Unit u1 = UnitFactory.getUnit("Vanessa");
-		u1.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
+		u1.addToInventory(WeaponFactory.getWeapon("Lancereaver"));
 		u1.equip(0);
 		u1.setHp(1);
 		localPlayer.getParty().addUnit(u1);
 		
 		Unit u3 = UnitFactory.getUnit("Sain");
-		u3.addToInventory(WeaponFactory.getWeapon("Horseslayer"));
+		u3.addToInventory(WeaponFactory.getWeapon("Axereaver"));
 		u3.equip(0);
 		u3.setHp(1);
 		p2.getParty().addUnit(u3);
