@@ -9,11 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.fe.Button;
-import net.fe.ControlsDisplay;
-import net.fe.FEMultiplayer;
-import net.fe.RunesBg;
-import net.fe.Session;
+import net.fe.*;
 import net.fe.fightStage.FightStage;
 import net.fe.modifier.Modifier;
 import net.fe.network.message.PartyMessage;
@@ -79,18 +75,37 @@ public class TeamBuilderStage extends Stage {
 			end = new Button(390, 270, "Fight!", Color.green, 80){
 				@Override
 				public void execute() {
-					// Send the server a PartyMessage
-					FEMultiplayer.setCurrentStage(new ClientWaitStage(session));
-					PartyMessage pm = new PartyMessage(units);
-					FEMultiplayer.getClient().sendMessage(pm);
+					control = false;
+					addEntity(new ConfirmationMessage(){
+						@Override
+						public void confirm() {
+							// Send the server a PartyMessage
+							FEMultiplayer.setCurrentStage(new ClientWaitStage(session));
+							PartyMessage pm = new PartyMessage(units);
+							FEMultiplayer.getClient().sendMessage(pm);
+						}
+						public void cancel(){
+							control = true;
+							refresh();
+						}
+					});
 				}
 			};
 		} else {
 			end = new Button(390, 270, "Exit", Color.red, 80){
 				@Override
 				public void execute() {
-					// Send the server a PartyMessage
-					FEMultiplayer.setCurrentStage(FEMultiplayer.connect);
+					control = false;
+					addEntity(new ConfirmationMessage(){
+						@Override
+						public void confirm() {
+							FEMultiplayer.setCurrentStage(FEMultiplayer.connect);
+						}
+						public void cancel(){
+							control = true;
+							refresh();
+						}
+					});
 				}
 			};
 		}
@@ -215,20 +230,18 @@ public class TeamBuilderStage extends Stage {
 
 	@Override
 	public void beginStep() {
-		boolean captureEnter = true;
-		for(Entity e: entities){
-			if(e instanceof TeamNameInput) captureEnter = false;
-		}
+		boolean capture = control;
 		for (Entity e : entities) {
 			e.beginStep();
 		}
 		processAddStack();
 		processRemoveStack();
 		MapAnimation.updateAll();
-		if(control){
+		if(capture){
 			List<KeyboardEvent> keys = Game.getKeys();
 			if (Keyboard.isKeyDown(Keyboard.KEY_UP) && repeatTimers[0] == 0) {
 				repeatTimers[0] = 0.15f;
+				if(control)
 				if(!cursor.on){
 					buttons[currButton].setHover(false);
 					cursor.on = true;
@@ -298,7 +311,7 @@ public class TeamBuilderStage extends Stage {
 							select.refresh();
 							FEMultiplayer.setCurrentStage(select);
 						}
-					} else if (ke.key == Keyboard.KEY_RETURN && captureEnter){
+					} else if (ke.key == Keyboard.KEY_RETURN){
 						AudioPlayer.playAudio("select", 1, 1);
 						buttons[0].execute();
 					}

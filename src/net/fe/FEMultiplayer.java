@@ -62,10 +62,10 @@ public class FEMultiplayer extends Game{
 	public static void main(String[] args) {
 		try{
 			FEMultiplayer game = new FEMultiplayer();
-			SoundTrack.enabled = false;
+//			SoundTrack.enabled = false;
 			game.init(480, 320, "Fire Emblem Multiplayer");
 			/* Testing code */
-			game.testFightStage();
+//			game.testFightStage();
 //			game.testOverworldStage();
 //			game.testDraftStage();
 			game.loop();
