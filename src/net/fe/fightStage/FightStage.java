@@ -133,7 +133,7 @@ public class FightStage extends Stage {
 	
 	public void preload(FightUnit f){
 		AnimationArgs args = f.getAnimArgs();
-		if(args.classification.equals("magic")){
+		if(args.classification.equals("magic") && args.unit.getWeapon() != null){
 			String name = MagicEffect.getTextureName(args);
 			if(!PRELOADED_EFFECTS.containsKey(name)){
 				System.out.print("PRE");

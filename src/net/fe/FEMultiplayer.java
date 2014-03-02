@@ -140,19 +140,19 @@ public class FEMultiplayer extends Game{
 		testSession.addPlayer(p2);
 		
 		map = new ClientOverworldStage(testSession);
-		Unit u1 = UnitFactory.getUnit("Ewan");
-		u1.getInventory().add(WeaponFactory.getWeapon("Ereshkigal"));
+		Unit u1 = UnitFactory.getUnit("Gilliam");
+		u1.getInventory().add(WeaponFactory.getWeapon("Gradivus"));
 		map.addUnit(u1, 0, 0);
 		u1.equip(0);
-		u1.setLevel(1);
+		u1.setLevel(20);
 		u1.loadMapSprites();
 		p1.getParty().addUnit(u1);
 		
-		Unit u2 = UnitFactory.getUnit("Garcia");
-		u2.getInventory().add(WeaponFactory.getWeapon("Iron Axe"));
+		Unit u2 = UnitFactory.getUnit("Joshua");
+		u2.getInventory().add(WeaponFactory.getWeapon("Wo Dao"));
 		map.addUnit(u2, 1, 0);
 		u2.equip(0);
-		u2.setLevel(20);
+		u2.setLevel(15);
 		u2.loadMapSprites();
 		p2.getParty().addUnit(u2);
 		
@@ -179,14 +179,14 @@ public class FEMultiplayer extends Game{
 		p2.getParty().setColor(Party.TEAM_RED);
 		testSession.addPlayer(p2);
 		
-		Unit u1 = UnitFactory.getUnit("Vanessa");
-		u1.addToInventory(WeaponFactory.getWeapon("Iron Sword"));
+		Unit u1 = UnitFactory.getUnit("Gilliam");
+		u1.addToInventory(WeaponFactory.getWeapon("Gradivus"));
 		u1.equip(0);
 		u1.setHp(1);
 		localPlayer.getParty().addUnit(u1);
 		
-		Unit u3 = UnitFactory.getUnit("Sain");
-		u3.addToInventory(WeaponFactory.getWeapon("Horseslayer"));
+		Unit u3 = UnitFactory.getUnit("Joshua");
+		u3.addToInventory(WeaponFactory.getWeapon("Wo Dao"));
 		u3.equip(0);
 		u3.setHp(1);
 		p2.getParty().addUnit(u3);
