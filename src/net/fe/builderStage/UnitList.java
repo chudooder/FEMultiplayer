@@ -222,7 +222,7 @@ public class UnitList extends Entity {
 	 * @param i
 	 */
 	public void selectRandom(int i) {
-		for(int j = 0; j < i; j++) {
+		for(int j = 0; j < i-selectedUnits.size(); j++) {
 			boolean done = false;
 			while(!done) {
 				int index = (int)(Math.random()*units.size());
