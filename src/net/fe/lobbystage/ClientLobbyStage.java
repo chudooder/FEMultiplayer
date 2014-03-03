@@ -90,7 +90,7 @@ public class ClientLobbyStage extends LobbyStage {
 				Renderer.drawString("default_med", "Red", x+5, y+8,  renderDepth);
 			}
 		};
-		MenuButton exitButton = new MenuButton(409, 127, 64, 32) {
+		MenuButton exitButton = new MenuButton(409, 154, 64, 32) {
 			{
 				sprite.addAnimation("default", FEResources.getTexture("exit_button"));
 			}
@@ -126,7 +126,7 @@ public class ClientLobbyStage extends LobbyStage {
 				}
 			}
 		};
-		MenuButton readyButton = new MenuButton(409, 162, 64, 32) {
+		MenuButton readyButton = new MenuButton(409, 92, 64, 32) {
 			{
 				sprite.addAnimation("default", FEResources.getTexture("ready_button"));
 			}
