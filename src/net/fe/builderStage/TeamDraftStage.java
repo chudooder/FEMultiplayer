@@ -174,6 +174,7 @@ public class TeamDraftStage extends Stage {
 		// Timers
 		timers = new ArrayList<DraftTimer>();
 		for(Player p : session.getPlayers()) {
+			if(p.isSpectator()) continue;
 			int x = p.getParty().getColor().equals(Party.TEAM_BLUE) ? 5 : 410;
 			float totalTime = Math.round(TIME_PER_TURN * draftOrder.length / 5.0f) * 5 + BASE_TIME;
 			DraftTimer dt = new DraftTimer(x, 277, totalTime, Math.round(totalTime/12), p);

@@ -333,6 +333,7 @@ public class FEServer extends Game {
 		for(Player p : getPlayers().values()) {
 			p.ready = false;
 		}
+		FEServer.getServer().allowConnections = false;
 		currentStage = lobby;
 	}
 	

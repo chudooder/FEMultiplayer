@@ -12,10 +12,10 @@ public class Player implements Serializable {
 	private int team;
 	public boolean ready;
 	
-	public static final int TEAM_UNASSIGNED = 0;
-	public static final int TEAM_SPECTATOR = 1;
-	public static final int TEAM_BLUE = 2;
-	public static final int TEAM_RED = 3;
+//	public static final int TEAM_UNASSIGNED = 0;
+	public static final int TEAM_SPECTATOR = 0;
+	public static final int TEAM_BLUE = 1;
+	public static final int TEAM_RED = 2;
 	
 	public Player(String name, byte id) {
 		party = new Party();

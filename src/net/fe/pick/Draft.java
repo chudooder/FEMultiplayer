@@ -1,6 +1,7 @@
 package net.fe.pick;
 
 import net.fe.FEMultiplayer;
+import net.fe.Player;
 import net.fe.Session;
 import net.fe.builderStage.ClientWaitStage;
 import net.fe.builderStage.TeamDraftStage;
@@ -16,6 +17,9 @@ public class Draft implements PickMode {
 
 	@Override
 	public void setUpClient(Session session) {
+		for(Player p : session.getPlayers()) {
+			p.getParty().clear();
+		}
 		if(!FEMultiplayer.getLocalPlayer().isSpectator()) {
 			TeamDraftStage stage = new TeamDraftStage(session);
 			FEMultiplayer.setCurrentStage(stage);
@@ -27,6 +31,9 @@ public class Draft implements PickMode {
 
 	@Override
 	public void setUpServer(Session session) {
+		for(Player p : session.getPlayers()) {
+			p.getParty().clear();
+		}
 		FEServer.setCurrentStage(new WaitStage(session));
 	}
 	

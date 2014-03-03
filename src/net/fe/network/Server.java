@@ -15,6 +15,7 @@ public class Server {
 	public volatile ArrayList<Message> messages;
 	public ServerLog log;
 	private Session session;
+	public boolean allowConnections;
 	byte counter = 1;
 	
 	public Server() {
@@ -23,6 +24,7 @@ public class Server {
 		session = new Session();
 		session.setObjective(new Seize());
 		log = new ServerLog();
+		allowConnections = true;
 	}
 	
 	public void start(int port) {
