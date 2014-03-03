@@ -13,6 +13,7 @@ import net.fe.network.message.CommandMessage;
 import net.fe.network.message.JoinTeam;
 import net.fe.network.message.PartyMessage;
 import net.fe.network.message.QuitMessage;
+import net.fe.network.message.ReadyMessage;
 
 public class ServerListener extends Thread {
 	
@@ -73,8 +74,8 @@ public class ServerListener extends Thread {
 		if(message instanceof QuitMessage) {
 			clientQuit = true;
 		}
-		else if(message instanceof JoinTeam) {
-			// Prevent late-joining players from switching teams
+		else if(message instanceof JoinTeam || message instanceof ReadyMessage) {
+			// Prevent late-joining players from switching teams or readying up
 			if(!(FEServer.getCurrentStage() instanceof LobbyStage))
 				return;
 		}
