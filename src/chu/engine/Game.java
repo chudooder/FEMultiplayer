@@ -24,6 +24,7 @@ import static org.lwjgl.opengl.GL11.glViewport;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.fe.network.Message;
 
@@ -41,7 +42,7 @@ public abstract class Game {
 	protected boolean paused = false;
 	protected static List<KeyboardEvent> keys;
 	protected static List<MouseEvent> mouseEvents;
-	protected static ArrayList<Message> messages;
+	protected static CopyOnWriteArrayList<Message> messages;
 	protected long time;
 	protected static long timeDelta;
 	protected static boolean glContextExists;
@@ -121,7 +122,7 @@ public abstract class Game {
 		return mouseEvents;
 	}
 	
-	public static ArrayList<Message> getMessages() {
+	public static List<Message> getMessages() {
 		return messages;
 	}
 

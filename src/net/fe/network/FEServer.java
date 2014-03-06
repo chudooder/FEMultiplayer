@@ -19,6 +19,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -277,7 +278,7 @@ public class FEServer extends Game {
 	}
 	
 	public void init() {
-		messages = new ArrayList<Message>();
+		messages = new CopyOnWriteArrayList<Message>();
 		Thread serverThread = new Thread() {
 			public void run() {
 				server.start(21255);

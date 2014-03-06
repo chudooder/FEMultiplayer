@@ -111,7 +111,7 @@ public class FEMultiplayer extends Game{
 		UnitFactory.getUnit("Lyn");
 		connect = new ConnectStage();
 		setCurrentStage(new TitleStage());
-		messages = new ArrayList<Message>();
+		messages = new CopyOnWriteArrayList<Message>();
 		SoundTrack.loop("main_theme");
 		
 	}
