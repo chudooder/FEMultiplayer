@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.fe.builderStage.TeamDraftStage;
 import net.fe.fightStage.AttackRecord;
