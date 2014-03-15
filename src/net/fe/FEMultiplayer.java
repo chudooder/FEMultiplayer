@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import net.fe.builderStage.TeamDraftStage;
 import net.fe.fightStage.AttackRecord;
@@ -111,7 +112,7 @@ public class FEMultiplayer extends Game{
 		UnitFactory.getUnit("Lyn");
 		connect = new ConnectStage();
 		setCurrentStage(new TitleStage());
-		messages = new ArrayList<Message>();
+		messages = new CopyOnWriteArrayList<Message>();
 		SoundTrack.loop("main_theme");
 		
 	}

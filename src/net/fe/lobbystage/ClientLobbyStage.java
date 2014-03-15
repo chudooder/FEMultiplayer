@@ -90,25 +90,7 @@ public class ClientLobbyStage extends LobbyStage {
 				Renderer.drawString("default_med", "Red", x+5, y+8,  renderDepth);
 			}
 		};
-		MenuButton unassignButton = new MenuButton(409, 92, 64, 32) {
-			{
-				sprite.addAnimation("default", FEResources.getTexture("unassign_button"));
-			}
-			@Override
-			public void onClick() {
-				AudioPlayer.playAudio("select", 1, 1);
-				FEMultiplayer.getLocalPlayer().joinTeam(Player.TEAM_UNASSIGNED);
-			}
-			@Override
-			public void render() {
-				if(hover) {
-					sprite.render(x, y, renderDepth, null, new ShaderArgs("lighten", 0.5f));
-				} else {
-					sprite.render(x, y, renderDepth);
-				}
-			}
-		};
-		MenuButton exitButton = new MenuButton(409, 127, 64, 32) {
+		MenuButton exitButton = new MenuButton(409, 154, 64, 32) {
 			{
 				sprite.addAnimation("default", FEResources.getTexture("exit_button"));
 			}
@@ -144,7 +126,7 @@ public class ClientLobbyStage extends LobbyStage {
 				}
 			}
 		};
-		MenuButton readyButton = new MenuButton(409, 162, 64, 32) {
+		MenuButton readyButton = new MenuButton(409, 92, 64, 32) {
 			{
 				sprite.addAnimation("default", FEResources.getTexture("ready_button"));
 			}
@@ -165,7 +147,6 @@ public class ClientLobbyStage extends LobbyStage {
 		addEntity(spectateButton);
 		addEntity(blueButton);
 		addEntity(redButton);
-		addEntity(unassignButton);
 		addEntity(exitButton);
 		addEntity(sendButton);
 		addEntity(readyButton);
@@ -233,12 +214,9 @@ public class ClientLobbyStage extends LobbyStage {
 		Renderer.drawRectangle(x, y, x+300, y+89, 1.0f, NEUTRAL_DARK);
 		y = 22;
 		x = x + 300 + 16;
-		Renderer.drawString("default_med", "Unassigned Players", x, y-14, 0.9f);
-		Renderer.drawRectangle(x, y, x+84, y+74, 1.0f, NEUTRAL_DARK);
-		y = y + 75 + 16;
 		Renderer.drawString("default_med", "Spectators", x, y-14, 0.9f);
-		Renderer.drawRectangle(x, y, x+84, y+74, 1.0f, NEUTRAL_DARK);
-		y = y + 75 + 16;
+		Renderer.drawRectangle(x, y, x+84, y+164, 1.0f, NEUTRAL_DARK);
+		y = y + 187;
 		Renderer.drawString("default_med", "Game info", x, y-14, 0.9f);
 		Renderer.drawString("default_med", "Map: "+session.getMap(), x+2, y+2, 0.9f);
 		Renderer.drawString("default_med", "Objective: "+session.getObjective().getDescription(), x+2, y+16, 0.9f);
@@ -260,10 +238,8 @@ public class ClientLobbyStage extends LobbyStage {
 			if(p.ready) {
 				t.setColor(new Color(90,200,90));
 			}
-			if(p.getTeam() == Player.TEAM_UNASSIGNED) {
-				Renderer.drawString("default_med", p.getName(), 324, 27+(a++)*tightSpacing, 0.8f, t);
-			} else if(p.getTeam() == Player.TEAM_SPECTATOR) {
-				Renderer.drawString("default_med", p.getName(), 324, 115+(b++)*tightSpacing, 0.8f, t);
+			if(p.getTeam() == Player.TEAM_SPECTATOR) {
+				Renderer.drawString("default_med", p.getName(), 324, 24+(b++)*tightSpacing, 0.8f, t);
 			} else if(p.getTeam() == Player.TEAM_BLUE)  {
 				Renderer.drawString("default_med", p.getName(), 8, 24+(c++)*tightSpacing, 0.8f, t);
 			} else if(p.getTeam() == Player.TEAM_RED)  {

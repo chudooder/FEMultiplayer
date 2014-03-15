@@ -61,8 +61,6 @@ public class LobbyStage extends Stage {
 				chat.add(session.getPlayer(chatMsg.origin), chatMsg.text);
 			}
 			else if(message instanceof ReadyMessage) {
-				if(session.getPlayer(message.origin).getTeam() == Player.TEAM_UNASSIGNED)
-					continue;
 				boolean ready = !session.getPlayer(message.origin).ready;
 				session.getPlayer(message.origin).ready = ready;
 				if(ready)
@@ -87,6 +85,7 @@ public class LobbyStage extends Stage {
 			}
 		}
 		FEServer.getServer().broadcastMessage(new StartPicking((byte)0));
+		FEServer.getServer().allowConnections = false;
 		session.getPickMode().setUpServer(session);
 	}
 

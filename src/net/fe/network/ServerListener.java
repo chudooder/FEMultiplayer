@@ -7,10 +7,13 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import net.fe.lobbystage.LobbyStage;
 import net.fe.network.message.ClientInit;
 import net.fe.network.message.CommandMessage;
+import net.fe.network.message.JoinTeam;
 import net.fe.network.message.PartyMessage;
 import net.fe.network.message.QuitMessage;
+import net.fe.network.message.ReadyMessage;
 
 public class ServerListener extends Thread {
 	
@@ -70,6 +73,11 @@ public class ServerListener extends Thread {
 	public void processInput(Message message) {
 		if(message instanceof QuitMessage) {
 			clientQuit = true;
+		}
+		else if(message instanceof JoinTeam || message instanceof ReadyMessage) {
+			// Prevent late-joining players from switching teams or readying up
+			if(!(FEServer.getCurrentStage() instanceof LobbyStage))
+				return;
 		}
 		else if(message instanceof CommandMessage) {
 			// If the unit attacked, we need to generate battle results
