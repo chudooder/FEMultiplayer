@@ -32,8 +32,8 @@ public abstract class MenuButton extends Entity {
 	public void onExit(){};
 	
 	public void beginStep() {
-		int mX = Mouse.getX();
-		int mY = Game.getWindowHeight() - Mouse.getY();
+		int mX = Mouse.getX() / Game.getScaleX();
+		int mY = (Game.getWindowHeight() - Mouse.getY()) / Game.getScaleY();
 		boolean newHover = (mX >= x && mX < x + width && mY >= y && mY < y + height);
 		if(newHover && !hover) {
 			onEnter();

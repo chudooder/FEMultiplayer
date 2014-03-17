@@ -39,6 +39,8 @@ public abstract class Game {
 	
 	protected static int windowWidth = 640;
 	protected static int windowHeight = 480;
+	protected static int scaleX = 2;
+	protected static int scaleY = 2;
 	protected boolean paused = false;
 	protected static List<KeyboardEvent> keys;
 	protected static List<MouseEvent> mouseEvents;
@@ -50,8 +52,8 @@ public abstract class Game {
 	public void init(int width, int height, String name) {
 		time = System.nanoTime();
 		
-		windowWidth = width;
-		windowHeight = height;
+		windowWidth = width*scaleX;
+		windowHeight = height*scaleY;
 
 		try {
 			Display.setDisplayMode(new DisplayMode(windowWidth, windowHeight));
@@ -80,7 +82,7 @@ public abstract class Game {
 		glViewport(0, 0, windowWidth, windowHeight);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, windowWidth, windowHeight, 0, 1, -1);		//It's basically a camera
+		glOrtho(0, windowWidth/scaleX, windowHeight/scaleY, 0, 1, -1);		//It's basically a camera
 		glMatrixMode(GL_MODELVIEW);
 		
 		keys = new ArrayList<KeyboardEvent>();
@@ -148,5 +150,13 @@ public abstract class Game {
 
 	public static boolean glContextExists() {
 		return glContextExists;
+	}
+	
+	public static int getScaleX() {
+		return scaleX;
+	}
+	
+	public static int getScaleY() {
+		return scaleY;
 	}
 }

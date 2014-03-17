@@ -45,6 +45,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 import chu.engine.Game;
 import chu.engine.Stage;
+import chu.engine.anim.Renderer;
 import chu.engine.menu.Notification;
 
 public class FEMultiplayer extends Game{
@@ -59,6 +60,7 @@ public class FEMultiplayer extends Game{
 	
 	// For testing fightstage
 	private static Session testSession;
+
 	
 	public static void main(String[] args) {
 		try{
@@ -239,6 +241,8 @@ public class FEMultiplayer extends Game{
 			}
 			SoundStore.get().poll(0);
 			glPushMatrix();
+			//Global resolution scale
+//			Renderer.scale(scaleX, scaleY);
 			if(!paused) {
 				currentStage.beginStep();
 				currentStage.onStep();
